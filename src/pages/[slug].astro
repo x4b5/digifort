@@ -10,7 +10,8 @@ export async function getStaticPaths() {
 }
 
 const { h } = Astro.props;
-const { Content } = await render(h);
+const { Content, headings } = await render(h);
+const koppen = headings.filter((k) => k.depth === 2);
 const { vorige, volgende } = buren(h.id);
 ---
 <Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum}>
@@ -21,6 +22,12 @@ const { vorige, volgende } = buren(h.id);
     </div>
     <HoofdstukIcoon slug={h.id} maat={72} />
   </div>
+  {koppen.length >= 3 && (
+    <nav class="inhoud" aria-label="In dit hoofdstuk">
+      <p class="inhoud-kop">In dit hoofdstuk</p>
+      <ol>{koppen.map((k) => <li><a href={`#${k.slug}`}>{k.text}</a></li>)}</ol>
+    </nav>
+  )}
   <Content />
   <nav class="buren" aria-label="Vorige en volgende">
     {vorige && <a class="knop licht" href={`/${vorige.slug}`}>← {vorige.titel}</a>}
@@ -29,6 +36,13 @@ const { vorige, volgende } = buren(h.id);
 </Pagina>
 
 <style>
+  .inhoud { margin: 1.5rem 0 0.5rem; padding: 1rem 1.2rem; border: 2px solid var(--lijn); border-radius: var(--radius); font-size: 0.95rem; }
+  .inhoud-kop { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); margin: 0 0 0.4rem; }
+  .inhoud ol { margin: 0; padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
+  .inhoud li { margin: 0.15rem 0; break-inside: avoid; }
+  .inhoud a { color: var(--inkt); text-decoration: none; }
+  .inhoud a:hover { color: var(--rood); text-decoration: underline; }
+  @media (max-width: 40rem) { .inhoud ol { columns: 1; } }
   .paginakop { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
   .paginakop > :global(.hicoon) { flex: none; margin-top: 0.4rem; }
   @media (max-width: 40rem) { .paginakop > :global(.hicoon) svg { width: 48px; height: 48px; } }

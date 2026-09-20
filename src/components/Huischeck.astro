@@ -29,14 +29,20 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
         <p>{b.tekst} <a href={b.link}>Ga ernaartoe →</a></p>
       </div>
     ))}
-    <p class="open-deuren" data-open-deuren hidden>Elke "nee" of "weet ik niet" is een deur die openstaat. <a href="/">Bekijk ze op de plattegrond →</a></p>
+    <div class="open-deuren" data-open-deuren hidden>
+      <p>Elke "nee" of "weet ik niet" is een deur die openstaat. Dit zijn de jouwe:</p>
+      <ul data-open-lijst></ul>
+      <p><a href="/">Bekijk ze op de plattegrond →</a></p>
+    </div>
     <p class="rest" data-rest>Beantwoord alle vragen voor je uitslag.</p>
   </div>
 </section>
 
 <script>
   import { lees, zetAntwoord } from '../lib/opslag.js';
-  import { band, BANDEN } from '../data/huischeck.js';
+  import { band, BANDEN, VRAGEN } from '../data/huischeck.js';
+  import { kamer } from '../data/kamers.js';
+  import { LIJSTEN } from '../data/lijsten.js';
 
   const sectie = document.querySelector<HTMLElement>('[data-huischeck]');
   if (sectie) {
@@ -75,6 +81,19 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
       const b = band(schaal);
       sectie!.querySelectorAll<HTMLElement>('[data-band]').forEach((el) => { el.hidden = !klaar || BANDEN[Number(el.dataset.band)] !== b; });
       sectie!.querySelector<HTMLElement>('[data-open-deuren]')!.hidden = !klaar || ja === totaal;
+      const lijst = sectie!.querySelector<HTMLElement>('[data-open-lijst]')!;
+      lijst.replaceChildren(...actief.flatMap((v, i) => {
+        if (antwoorden[i] === 'ja') return [];
+        const vraag = VRAGEN.find((x) => x.nr === Number(v.dataset.vraag))!;
+        const k = kamer(vraag.kamer)!;
+        const stap = ['niveau-1', 'niveau-2', 'niveau-3'].flatMap((l) => LIJSTEN[l].items.filter((it) => it.kamer === vraag.kamer).map((it) => ({ l, it }))).at(0);
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = stap ? `/aan-de-slag#${stap.l}` : `/plattegrond#${k.anker}`;
+        a.textContent = k.naam;
+        li.append(a, document.createTextNode(stap ? ` — ${stap.it.stap.toLowerCase()} (${stap.l.replace('-', ' ')})` : ` — ${k.zin}`));
+        return [li];
+      }));
       const rest = sectie!.querySelector<HTMLElement>('[data-rest]')!;
       rest.hidden = klaar;
       rest.textContent = `Nog ${totaal - beantwoord} ${totaal - beantwoord === 1 ? 'vraag' : 'vragen'} te gaan.`;
@@ -116,4 +135,6 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
   .band p:last-child { margin: 0 0 0.5rem; }
   .rest { margin: 0; color: var(--inkt-zacht); }
   .open-deuren { margin: 0.5rem 0 0; }
+  .open-deuren ul { margin: 0.4rem 0 0.75rem; }
+  .open-deuren li { margin-bottom: 0.3rem; }
 </style>

@@ -150,3 +150,18 @@ figure.tekening figcaption { font-size: 0.95rem; color: var(--inkt-zacht); margi
 .ladder-tek .tint { fill: var(--tint); opacity: 1; }
 .ladder-tek .red { fill: var(--rood); opacity: 1; }
 .trede-hebben .ladder-tek { --tint: var(--groen); }
+
+/* ---- printen: de lijsten en het noodpakket op papier ---- */
+@media print {
+  :root { --papier: #fff; --inkt: #000; --inkt-zacht: #333; --lijn: #999; --lijn-sterk: #000; --rood: #b02a18; --groen: #256b42; --papier-2: #f2f2f2; }
+  body { font-size: 11pt; }
+  .kop, .voet, .buren, .inhoud, .overslaan, .knop, .schakel, [data-wis] { display: none !important; }
+  main { padding-top: 0; max-width: none; }
+  a { color: inherit; text-decoration: none; }
+  h2 { break-after: avoid; }
+  figure.tekening, .lijst li, .kort, .noot, .weeg, tr { break-inside: avoid; }
+  .tabel-scroll { overflow: visible; }
+  details { display: block; }
+  details > summary { list-style: none; }
+  details:not([open]) > *:not(summary) { display: block; }
+}
