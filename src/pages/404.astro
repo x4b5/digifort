@@ -1,0 +1,17 @@
+---
+import Pagina from '../layouts/Pagina.astro';
+---
+<Pagina titel="Deze deur bestaat niet" beschrijving="Pagina niet gevonden">
+  <p class="eyebrow">Fout 404</p>
+  <h1>Deze deur bestaat niet.</h1>
+  <p class="intro">Het adres klopt niet, of de pagina is verhuisd. Dat is geen inbraak; je staat gewoon voor een muur.</p>
+  <figure class="tekening" aria-hidden="true">
+    <svg viewBox="0 0 320 160" width="320">
+      <line class="tek" x1="10" y1="140" x2="310" y2="140" />
+      <path class="tek" d="M60 140 V60 H260 V140" />
+      <path class="tek-dun" d="M60 80 H260 M60 100 H260 M60 120 H260 M110 60 V80 M160 80 V100 M110 100 V120 M210 60 V80 M210 100 V120" />
+      <text class="tek-label" x="160" y="45" text-anchor="middle">hier zit geen deur</text>
+    </svg>
+  </figure>
+  <p><a class="knop" href="/">Terug naar de voordeur →</a></p>
+</Pagina>

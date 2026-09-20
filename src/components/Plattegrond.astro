@@ -9,7 +9,7 @@ const k = Object.fromEntries(KAMERS.map((x) => [x.id, x]));
 const href = (id) => `/plattegrond#${k[id].anker}`;
 ---
 <figure class="tekening plattegrond" data-plattegrond>
-  <svg viewBox="0 0 720 400" role="img" aria-labelledby="plattegrond-titel plattegrond-uitleg">
+  <svg viewBox="0 0 720 400" role="group" aria-labelledby="plattegrond-titel plattegrond-uitleg">
     <title id="plattegrond-titel">De plattegrond van je digitale huis</title>
     <desc id="plattegrond-uitleg">Een huis in doorsnede met veertien plekken: voordeur, tweede voordeur, sleutels, sleutelkluis, passkey, tweede slot, ramen, brievenbus, tuinhek en meterkast, kattenluik, overdekte gang, brandkast buiten de deur, onderhoud op het dak en de eigendomsakte aan de muur.</desc>
 

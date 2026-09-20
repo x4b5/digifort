@@ -17,6 +17,14 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
     <meta name="color-scheme" content="light dark" />
     <title>{paginaTitel}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.naam} />
+    <meta property="og:title" content={paginaTitel} />
+    <meta property="og:description" content={beschrijving} />
+    <meta property="og:image" content={new URL('/deelplaatje.png', Astro.site)} />
+    <meta property="og:locale" content="nl_NL" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap" />
@@ -53,6 +61,9 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
         if (t.parentElement?.classList.contains('tabel-scroll')) return;
         const bak = document.createElement('div');
         bak.className = 'tabel-scroll';
+        bak.tabIndex = 0;
+        bak.setAttribute('role', 'region');
+        bak.setAttribute('aria-label', 'Tabel, zijwaarts te scrollen');
         t.replaceWith(bak);
         bak.append(t);
       });
