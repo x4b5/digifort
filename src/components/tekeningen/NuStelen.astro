@@ -1,0 +1,41 @@
+---
+/** Nu stelen, later openbreken: versleutelde post die vandaag wordt bewaard en later wordt geopend. */
+import Tekening from '../Tekening.astro';
+---
+<Tekening onderschrift="Wat nu versleuteld onderweg is, kan iemand bewaren en over tien jaar met een kwantumcomputer openmaken. Daarom vervangen bedrijven de sloten nu al.">
+  <svg viewBox="0 0 640 200" role="img" aria-label="Een tijdlijn van nu naar later. Bij nu worden verzegelde brieven onderweg gekopieerd en in een kist bewaard. Bij later opent een nieuw soort sleutel de kist en de brieven.">
+    <line class="tek" x1="30" y1="150" x2="610" y2="150" />
+    <path class="tek" d="M610 150 m-8 -6 l8 6 l-8 6" />
+    <text class="tek-tekst" x="60" y="178" text-anchor="middle">NU</text>
+    <text class="tek-tekst" x="560" y="178" text-anchor="middle">LATER</text>
+    <path class="tek-dun" d="M60 144 v12 M560 144 v12" />
+    <!-- brieven onderweg -->
+    {[0, 1, 2].map((i) => (
+      <g>
+        <rect class="tek-dun" x={80 + i * 44} y="60" width="32" height="22" />
+        <path class="tek-dun" d={`M${80 + i * 44} 60 l16 12 l16 -12`} />
+        <circle class="tek-vul" cx={96 + i * 44} cy="76" r="3" />
+      </g>
+    ))}
+    <path class="tek-dun" d="M220 71 H300" />
+    <text class="tek-label" x="150" y="50" text-anchor="middle">verzegelde post onderweg</text>
+    <!-- kopie naar kist -->
+    <path class="tek-rood" d="M180 90 C 200 120, 240 120, 260 110" />
+    <path class="tek-rood" d="M260 110 m-7 -1 l7 1 l-4 6" />
+    <g>
+      <rect class="tek-rood" x="270" y="96" width="60" height="36" rx="3" />
+      <path class="tek-rood" d="M270 108 H330" />
+      <text class="tek-label" x="300" y="145" text-anchor="middle">wordt bewaard</text>
+    </g>
+    <!-- de kist reist mee de tijd door -->
+    <path class="tek-dun tek-stippel" d="M330 114 H470" />
+    <!-- later: nieuwe sleutel -->
+    <g>
+      <circle class="tek-rood" cx="500" cy="80" r="12" />
+      <path class="tek-rood" d="M512 80 H548 M536 80 v10 M546 80 v10" />
+      <text class="tek-label" x="520" y="58" text-anchor="middle">kwantumcomputer</text>
+      <rect class="tek-rood" x="490" y="96" width="60" height="36" rx="3" />
+      <path class="tek-rood" d="M490 108 l30 -20 l30 20" />
+    </g>
+  </svg>
+</Tekening>

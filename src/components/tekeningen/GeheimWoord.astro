@@ -1,0 +1,24 @@
+---
+/** De nagemaakte stem aan de telefoon en de vraag die hem ontmaskert. */
+import Tekening from '../Tekening.astro';
+---
+<Tekening onderschrift="Een nagemaakte stem klinkt als je kind. Eén vraag ontmaskert hem: wat is ons geheime woord?">
+  <svg viewBox="0 0 640 200" role="img" aria-label="Links een telefoon met een tekstballon: mam, ik heb nu geld nodig. Rechts een figuur die antwoordt met een tekstballon: wat is ons woord? Daaronder: de beller hangt op.">
+    <g>
+      <rect class="tek" x="60" y="40" width="60" height="110" rx="10" />
+      <path class="tek-dun" d="M80 140 h20" />
+      <path class="tek-rood" d="M130 60 h150 v50 h-120 l-14 12 v-12 h-16 z" />
+      <text class="tek-label" x="205" y="80" text-anchor="middle">"Mam, ik heb een ongeluk gehad,</text>
+      <text class="tek-label" x="205" y="98" text-anchor="middle">ik heb nu geld nodig"</text>
+      <path class="tek-rood tek-stippel" d="M90 30 q0 -14 14 -14 M90 30 q0 -8 -8 -8" />
+      <text class="tek-label" x="90" y="170" text-anchor="middle">nagemaakte stem</text>
+    </g>
+    <g>
+      <circle class="tek" cx="560" cy="60" r="16" />
+      <path class="tek" d="M560 76 V130 M540 100 H580 M560 130 L544 160 M560 130 L576 160" />
+      <path class="tek" d="M510 60 h-150 v50 h120 l14 12 v-12 h16 z" />
+      <text class="tek-tekst" x="435" y="90" text-anchor="middle">"Wat is ons woord?"</text>
+    </g>
+    <text class="tek-label" x="320" y="185" text-anchor="middle">… en de beller hangt op.</text>
+  </svg>
+</Tekening>

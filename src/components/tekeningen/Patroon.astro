@@ -1,0 +1,30 @@
+---
+/** Het patroon van elke oplichting: haast, geheim, iets wat je normaal nooit doet. */
+import Tekening from '../Tekening.astro';
+---
+<Tekening onderschrift="Drie signalen die altijd samen komen. Zie je er twee? Hang op, maak tijd, praat erover.">
+  <svg viewBox="0 0 640 200" role="img" aria-label="Drie tekens naast elkaar: een klok met de tekst haast, een vinger op een mond met de tekst geheim, en een uitroepteken met de tekst iets wat je nooit doet. Daaronder een pijl naar een opgehangen telefoon met de tekst hang op en maak tijd.">
+    <g>
+      <circle class="tek" cx="110" cy="70" r="40" />
+      <path class="tek" d="M110 46 V70 L128 82" />
+      <path class="tek-rood" d="M150 40 l10 -10 M156 50 l14 -4" />
+      <text class="tek-tekst" x="110" y="135" text-anchor="middle">HAAST</text>
+    </g>
+    <g>
+      <circle class="tek" cx="320" cy="70" r="40" />
+      <path class="tek-dun" d="M304 58 a4 4 0 1 0 0.1 0 M336 58 a4 4 0 1 0 0.1 0" />
+      <path class="tek-rood" d="M320 50 V96" />
+      <path class="tek" d="M300 88 Q320 96 340 88" />
+      <text class="tek-tekst" x="320" y="135" text-anchor="middle">GEHEIM</text>
+    </g>
+    <g>
+      <circle class="tek" cx="530" cy="70" r="40" />
+      <path class="tek-rood" d="M530 46 V78" />
+      <circle class="tek-vul" cx="530" cy="90" r="4" />
+      <text class="tek-tekst" x="530" y="135" text-anchor="middle">IETS WAT JE NOOIT DOET</text>
+    </g>
+    <path class="tek-dun" d="M110 148 V170 H530 V148 M320 148 V178" />
+    <path class="tek" d="M320 178 v6 m-5 -5 l5 5 l5 -5" />
+    <text class="tek-label" x="320" y="198" text-anchor="middle">hang op · maak tijd · praat erover</text>
+  </svg>
+</Tekening>

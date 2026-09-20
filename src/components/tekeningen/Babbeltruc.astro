@@ -1,0 +1,51 @@
+---
+/** Twee routes na hetzelfde nepbericht: op de link klikken, of zelf naar de site gaan. */
+import Tekening from '../Tekening.astro';
+---
+<Tekening onderschrift="Hetzelfde nepbericht, twee uitkomsten. Wie op de link klikt, geeft zijn sleutel aan een nagemaakte deur. Wie zelf naar de site gaat, komt bij de echte.">
+  <svg viewBox="0 0 640 300" role="img" aria-label="Links een bericht met een link. De bovenste pijl gaat naar een nagemaakte deur met een masker ervoor; daar wordt de sleutel afgegeven. De onderste pijl gaat langs een adresbalk die je zelf intypt naar de echte deur; de sleutel blijft in je hand.">
+    <!-- het bericht -->
+    <g>
+      <rect class="tek" x="20" y="110" width="120" height="80" rx="6" />
+      <path class="tek-dun" d="M34 130 H126 M34 146 H110" />
+      <path class="tek-rood" d="M34 166 H96" />
+      <text class="tek-label" x="80" y="100" text-anchor="middle">"Vandaag nog!"</text>
+    </g>
+    <!-- route 1: klikken -->
+    <path class="tek-rood" d="M150 135 C 200 135, 220 60, 280 60 H340" />
+    <path class="tek-rood" d="M340 60 m-6 -6 l6 6 l-6 6" />
+    <text class="tek-label" x="230" y="52" text-anchor="middle">klikt op de link</text>
+    <g>
+      <path class="tek" d="M360 110 V40 H420 V110" />
+      <path class="tek-dun" d="M360 110 H420" />
+      <!-- masker -->
+      <path class="tek-rood" d="M372 66 h36 v14 a18 10 0 0 1 -36 0 z" />
+      <circle class="tek-vul" cx="381" cy="72" r="2.5" />
+      <circle class="tek-vul" cx="399" cy="72" r="2.5" />
+    </g>
+    <!-- sleutel wordt afgegeven -->
+    <g>
+      <circle class="tek-rood" cx="470" cy="75" r="9" />
+      <path class="tek-rood" d="M479 75 H520 M508 75 v8 M516 75 v8" />
+      <path class="tek-rood" d="M440 75 h14 m-5 -5 l5 5 l-5 5" />
+      <text class="tek-label" x="480" y="105" text-anchor="middle">sleutel weg</text>
+    </g>
+    <!-- route 2: zelf gaan -->
+    <path class="tek" d="M150 165 C 200 165, 220 240, 280 240 H340" />
+    <path class="tek" d="M340 240 m-6 -6 l6 6 l-6 6" />
+    <text class="tek-label" x="230" y="262" text-anchor="middle">typt zelf het adres</text>
+    <g>
+      <rect class="tek-dun" x="250" y="200" width="90" height="20" rx="3" />
+      <text class="tek-label" x="295" y="214" text-anchor="middle">mijnbank.nl</text>
+    </g>
+    <g>
+      <path class="tek" d="M360 290 V220 H420 V290" />
+      <circle class="tek-vul-inkt" cx="410" cy="258" r="3" />
+    </g>
+    <g>
+      <circle class="tek" cx="470" cy="255" r="9" />
+      <path class="tek" d="M479 255 H520 M508 255 v8 M516 255 v8" />
+      <text class="tek-label" x="480" y="285" text-anchor="middle">sleutel blijft van jou</text>
+    </g>
+  </svg>
+</Tekening>

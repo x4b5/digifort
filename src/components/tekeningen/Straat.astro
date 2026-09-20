@@ -1,0 +1,41 @@
+---
+/** De inbreker loopt de straat door en voelt aan elke deur. Het huis met twee sloten slaat hij over. */
+import Tekening from '../Tekening.astro';
+---
+<Tekening onderschrift="De inbreker voelt aan elke deur. Bij het huis met twee sloten loopt hij door naar het volgende.">
+  <svg viewBox="0 0 640 220" role="img" aria-label="Een rij van vijf huisjes langs een straat. Een figuur met een zak loopt langs en probeert elke deur; bij vier huizen staat de deur op een kier, bij het middelste huis zitten twee sloten op de deur en daar loopt hij voorbij.">
+    <line class="tek" x1="10" y1="170" x2="630" y2="170" />
+    {[0, 1, 2, 3, 4].map((i) => {
+      const x = 40 + i * 120;
+      const veilig = i === 2;
+      return (
+        <g>
+          <path class="tek" d={`M${x} 100 L${x + 40} 64 L${x + 80} 100`} />
+          <path class="tek" d={`M${x + 8} 98 V170 M${x + 72} 98 V170`} />
+          {veilig ? (
+            <g>
+              <path class="tek" d={`M${x + 28} 170 V126 H${x + 52} V170`} />
+              <circle class="tek-vul" cx={x + 46} cy={144} r={3.5} />
+              <circle class="tek-vul" cx={x + 46} cy={156} r={3.5} />
+            </g>
+          ) : (
+            <g>
+              <path class="tek-dun" d={`M${x + 28} 170 V126 H${x + 52} V170`} />
+              <path class="tek-rood" d={`M${x + 28} 126 L${x + 44} 136 V170`} />
+            </g>
+          )}
+        </g>
+      );
+    })}
+    <!-- de inbreker -->
+    <g>
+      <circle class="tek" cx="330" cy="188" r="7" />
+      <path class="tek" d="M330 195 V210 M322 203 H338 M330 210 L322 218 M330 210 L338 218" />
+      <path class="tek" d="M345 205 a10 10 0 0 1 20 0 v12 h-20 z" />
+    </g>
+    <path class="tek-dun tek-stippel" d="M60 200 H300 M360 200 H600" />
+    <path class="tek" d="M600 200 h12 m-5 -5 l5 5 l-5 5" />
+    <text class="tek-label" x="320" y="44" text-anchor="middle">twee sloten → hij loopt door</text>
+    <path class="tek-dun" d="M320 50 v10" />
+  </svg>
+</Tekening>
