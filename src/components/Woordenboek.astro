@@ -7,7 +7,7 @@
     <input type="search" data-zoek placeholder="bijv. passkey, router, phishing" autocomplete="off" />
   </label>
   <p class="stand" data-stand aria-live="polite"></p>
-  <div class="tabel-scroll"><slot /></div>
+  <div class="tabel-scroll" tabindex="0" role="region" aria-label="Woordenlijst, zijwaarts te scrollen"><slot /></div>
 </div>
 
 <script>
