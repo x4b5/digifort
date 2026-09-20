@@ -1,0 +1,245 @@
+---
+nr: null
+titel: "Van geheim woord naar zegelring"
+kort: "De ladder: acht manieren om in te loggen, van zwak naar sterk."
+datum: "2026-09-20"
+---
+import Kort from '../../components/Kort.astro';
+import Noot from '../../components/Noot.astro';
+import Trede from '../../components/Trede.astro';
+import Jargon from '../../components/Jargon.astro';
+import Weegschaal from '../../components/Weegschaal.astro';
+import L01 from '../../components/tekeningen/ladder/L01.astro';
+import L02 from '../../components/tekeningen/ladder/L02.astro';
+import L03 from '../../components/tekeningen/ladder/L03.astro';
+import L04 from '../../components/tekeningen/ladder/L04.astro';
+import L05 from '../../components/tekeningen/ladder/L05.astro';
+import L06 from '../../components/tekeningen/ladder/L06.astro';
+import L07 from '../../components/tekeningen/ladder/L07.astro';
+import L08 from '../../components/tekeningen/ladder/L08.astro';
+import L09 from '../../components/tekeningen/ladder/L09.astro';
+import L10 from '../../components/tekeningen/ladder/L10.astro';
+import L11 from '../../components/tekeningen/ladder/L11.astro';
+import L12 from '../../components/tekeningen/ladder/L12.astro';
+import L13 from '../../components/tekeningen/ladder/L13.astro';
+
+Elke manier om in te loggen is een variatie op twee dingen: iets wat je weet of iets wat je hebt. Een woord kun je navertellen. Een ring moet je in handen houden.
+
+Hieronder staan ze op volgorde. Het begint bij het geheime woord dat iedereen kan herhalen en eindigt bij de ring die niemand kan namaken. Bij elke trede staat wat hij tegenhoudt, en waar hij breekt.
+
+<L01 />
+
+De hele ladder in één beeld. Tot en met trede 5 bescherm je jezelf met iets wat je kunt navertellen; vanaf trede 6 met iets wat je vast moet houden. Dat is het enige punt waar de aard van de beveiliging verandert. De rest zijn verbeteringen binnen dezelfde soort.
+
+<Trede nr={1} titel="Eén wachtwoord voor alles" soort="weten">
+
+<L02 />
+
+<Kort>één geheim woord dat je bij elke deur fluistert, en dat bij elke deur wordt opgeschreven.</Kort>
+
+Wordt een webwinkel gehackt, dan belandt de complete lijst met e-mailadressen en wachtwoorden op een verzamelplaats waar iedereen hem kan kopen. Daarna hoeft niemand meer iets te raden: programma's proberen jouw combinatie automatisch bij honderden andere diensten. Zo kan een lek bij een webshop uit 2014 vandaag nog je mailbox openen.
+
+Je kunt zelf nakijken of je adres in zo'n lijst staat, op haveibeenpwned.com. Dat is de bekendste en betrouwbaarste zoekmachine voor gelekte accounts. Hij vraagt alleen je e-mailadres, nooit een wachtwoord.
+
+<Jargon items={[
+  ['datalek / data breach', 'de gestolen lijst met inloggegevens van een gehackte site'],
+  ['credential stuffing', 'het automatisch uitproberen van die gestolen combinatie bij andere diensten'],
+  ['have i been pwned', 'gratis site om op te zoeken of je adres in een bekend lek voorkomt'],
+]} />
+
+<Weegschaal houdt="De buurman die over je schouder meekijkt." breekt="Eén webshop die gehackt wordt. Het woord past dan ook op je mail, je bank en je foto's." />
+
+</Trede>
+
+<Trede nr={2} titel="Een ander wachtwoord per site" soort="weten">
+
+<L03 />
+
+<Kort>voor elke deur een andere sleutel, maar je moet ze allemaal uit je hoofd kennen.</Kort>
+
+Wie je wachtwoord niet heeft, kan het proberen te raden. Dat gaat niet met de hand: een gewone computer loopt miljarden mogelijkheden per seconde af. En hij begint nooit bij aaaa. Hij begint bij lijsten van echte wachtwoorden die eerder gelekt zijn, en bij woordenboeken met alle gangbare varianten daarop.
+
+Welkom01, Zomer2026!, je achternaam met een uitroepteken: die staan er allemaal al in. Daarom is "voor elke site een ander wachtwoord" alleen sterk als ze ook echt onvoorspelbaar zijn. Wie vijftig unieke wachtwoorden zélf bedenkt, maakt vijftig keer hetzelfde soort patroon.
+
+<Jargon items={[
+  ['brute force', 'botweg alle mogelijkheden aflopen tot er één past'],
+  ['dictionary attack', 'woordenboekaanval: eerst de bekende wachtwoorden en hun varianten proberen'],
+  ['hash', 'de versleutelde vorm waarin een site je wachtwoord bewaart; kraken = raden tot de hash klopt'],
+]} />
+
+<Weegschaal houdt="Het domino-effect: één lek opent nog maar één deur." breekt="Je geheugen. Wie vijftig sleutels moet onthouden, maakt ze kort en voorspelbaar, en daar leven kraakprogramma's van." />
+
+</Trede>
+
+<Trede nr={3} titel="Een wachtwoordkluis" soort="weten">
+
+<L04 />
+
+<Kort>een kluis die de vijftig sleutels voor je bewaart. Jij onthoudt er nog maar één: die van de kluis.</Kort>
+
+Een kluis doet drie dingen tegelijk. Hij verzint wachtwoorden die jij nooit zou bedenken, hij onthoudt ze, en hij vult ze alleen in op de site waar ze bij horen. Dat laatste is een stille bonus: sta je op een nepsite, dan biedt de kluis niets aan. Die stilte is een waarschuwing.
+
+Maar de sterkte van het geheel hangt nu aan die ene wachtzin. Vandaar de tekening hieronder: niet slimmigheid maar lengte zonder patroon is wat een kraker dwarszit. Vakmensen noemen die gok-ruimte entropie; hoe meer mogelijkheden, hoe hopelozer het raden wordt.
+
+<L05 />
+
+Een cijfer voor een letter en een leesteken achteraan voelt slim, maar het is precies wat kraakprogramma's het eerst proberen: ze kennen die trucs beter dan jij. Wat een computer wél dwarszit is lengte zonder patroon. Vijf woorden die je blind uit een lijst trekt hebben dat, en je hoofd maakt er vanzelf een belachelijk plaatje bij. Dat is precies de bedoeling. Een zin uit een liedje of een spreekwoord telt niet: die staan in dezelfde lijsten.
+
+<Jargon items={[
+  ['password manager', 'wachtwoordbeheerder: de kluis zelf, bijvoorbeeld Bitwarden of Proton Pass'],
+  ['master password', 'de ene wachtzin die de kluis opent'],
+  ['passphrase', 'wachtzin: een wachtwoord dat uit meerdere willekeurige woorden bestaat'],
+  ['entropie', 'vakterm voor het aantal mogelijkheden dat een kraker moet aflopen'],
+]} />
+
+<Weegschaal houdt="Slappe wachtwoorden. De kluis verzint er lange, wilde, onraadbare. Dat is het echte winstpunt." breekt="De kluisdeur zelf. Eén wachtwoord staat nu tussen een vreemde en alles wat je hebt." />
+
+<Noot titel="Wat je nog moet onthouden">Nog maar drie wachtzinnen: die van de kluis, je computer en je telefoon. De rest verzint de kluis. Die hoef je nooit te lezen of te typen.</Noot>
+
+</Trede>
+
+<Trede nr={4} titel="Een code per sms" soort="weten">
+
+<L06 />
+
+<Kort>de eerste tweede stap: naast het woord wil de deur ook een briefje zien dat per post is nagestuurd.</Kort>
+
+Inloggen met twee stappen heet tweestapsverificatie: iets wat je weet (het wachtwoord) plus iets wat je hebt (de telefoon). Dat idee is goed. Sms is alleen de zwakste uitvoering ervan, omdat een telefoonnummer niet echt van jou is: het hoort bij een simkaart, en een simkaart kan worden vervangen.
+
+Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over jou om een nieuwe kaart te laten activeren. Vanaf dat moment komt elk sms'je bij hem. Toch geldt: sms is nog altijd stukken beter dan geen tweede stap.
+
+<Jargon items={[
+  ['2FA / MFA', 'two-factor of multi-factor authentication: inloggen met twee of meer stappen'],
+  ['OTP', 'one-time password: een code die maar één keer geldig is'],
+  ['SIM-swap', 'het kapen van je telefoonnummer via de klantenservice van de provider'],
+]} />
+
+<Weegschaal houdt="Iemand ver weg die alleen je wachtwoord heeft. Hij mist het briefje." breekt="De postbode. Met een kopie van je paspoort laat een oplichter je telefoonnummer op zijn eigen simkaart zetten, en de briefjes komen bij hem." />
+
+</Trede>
+
+<Trede nr={5} titel="Een code uit een app" soort="weten">
+
+<L07 />
+
+<Kort>een cijferslot dat elke dertig seconden verspringt, en dat alleen jouw telefoon kan meelezen. Geen post meer onderweg.</Kort>
+
+Bij het instellen scan je een QR-code. Daarmee krijgen de app en de site één gedeeld geheim. Daarna rekenen ze allebei, los van elkaar, elke dertig seconden dezelfde code uit op basis van dat geheim en de klok. Er reist dus niets meer over het netwerk, en wat niet reist, kan niet onderschept worden.
+
+Wat wél werkt is jou vragen de code zelf in te typen. Een moderne phishingsite geeft alles wat jij invult op hetzelfde moment door aan de echte site en logt daar in. Die aanval heet adversary-in-the-middle, en hij is bestand tegen elke code die je met de hand overneemt.
+
+<Jargon items={[
+  ['TOTP', 'time-based one-time password: de code die elke 30 seconden verspringt'],
+  ['authenticator app', 'de app die de codes maakt: Ente Auth, 2FAS, Aegis, Proton Pass'],
+  ['phishing', 'een nagemaakte pagina die je verleidt zelf je gegevens in te vullen'],
+  ['AiTM', 'adversary-in-the-middle: phishingsite die alles direct doorsluist naar de echte site'],
+]} />
+
+<Weegschaal houdt="De simkaarttruc, en iedereen die alleen je wachtwoord buitmaakte." breekt="Jezelf. Op een nagemaakte inlogpagina typ je de code gewoon over, en de oplichter gebruikt hem binnen de dertig seconden." />
+
+</Trede>
+
+<Trede nr={6} titel="Een passkey" soort="hebben">
+
+<L08 />
+
+<Kort>hier houdt het woord op en begint de ring. De site stuurt een willekeurig zinnetje, je kluis drukt er een zegel in, en zegelt het webadres mee.</Kort>
+
+Bij het aanmaken maakt je apparaat twee helften die bij elkaar horen. De geheime helft blijft waar hij is en vertrekt nooit; de publieke helft geef je aan de site. Met die publieke helft kan de site controleren of een zegel echt is, maar er zelf geen maken. Dat is publieke-sleutelcryptografie, dezelfde techniek waarmee het hangslotje in de adresbalk werkt.
+
+Het gevolg is ingrijpender dan het klinkt: de site bewaart nooit meer iets geheims van jou. Er is niets meer dat gelekt kán worden, en niets dat je per ongeluk aan een nepsite kunt doorgeven.
+
+<L09 />
+
+Dezelfde nepsite, twee uitkomsten. Een code is losse informatie: de nepsite geeft hem gewoon door aan de echte site en logt in als jou. Een zegel is dat niet. Het geldt alleen voor het adres dat erom vroeg, en voor pr0ton.me heeft je sleutel er geen. Er verlaat dus niets je hand.
+
+<Jargon items={[
+  ['passkey', 'de publieksnaam voor deze manier van inloggen'],
+  ['FIDO2 / WebAuthn', 'de standaarden erachter; deze woorden zie je in instellingenmenu\'s staan'],
+  ['publieke en private sleutel', 'de twee helften; alleen de publieke helft gaat naar de site'],
+  ['synced passkey', 'een passkey die via een kluis naar al je apparaten wordt gekopieerd'],
+]} />
+
+<Weegschaal houdt="Phishing. Op pr0ton.me vindt de ring geen passend zegel en doet hij eenvoudigweg niets." breekt="De kluis die hem rondstuurt. Wie je Apple- of Google-account overneemt, erft alle ringen in één keer." />
+
+</Trede>
+
+<Trede nr={7} titel="Een sleutel in je hand" soort="hebben">
+
+<L10 />
+
+<Kort>dezelfde ring, maar gegoten in metaal en nergens gekopieerd. Het geheim zit in de chip en kan er fysiek niet uit. Ook niet door jou.</Kort>
+
+De geheime helft woont hier in een chip die zo gebouwd is dat er eenvoudigweg geen opdracht bestaat om hem uit te lezen. Ook jij kunt er niet bij. Zo'n chip heet een secure element en zit ook in je bankpas en in je telefoon.
+
+De aanraking van het metalen vlakje is geen slot maar een bewijs dat er een mens aanwezig is. Software kan van alles, behalve iets aanraken. In de standaard heet dat user presence. Sommige sleutels vragen daarnaast een pincode of vingerafdruk; dan bewijs je niet alleen dát er iemand is, maar ook wie.
+
+<L11 />
+
+Allebei zegelringen, alleen niet op dezelfde plek. Een passkey wordt vanuit een kluis naar al je apparaten gekopieerd. Handig, maar die kluis is zelf een deur waar iemand doorheen kan. De hardwaresleutel heeft die deur niet; de prijs is dat er ook geen reservekopie bestaat.
+
+<Jargon items={[
+  ['security key', 'de officiële naam voor zo\'n los stukje hardware, bijvoorbeeld een YubiKey'],
+  ['device-bound passkey', 'een passkey die het apparaat niet kan verlaten'],
+  ['secure element', 'de chip waarin het geheim onleesbaar opgesloten zit'],
+  ['user presence / verification', 'de aanraking, en de pincode of vingerafdruk erbovenop'],
+]} />
+
+<Weegschaal houdt="Alles van hierboven, plus de kluis als zwakke plek. Er is geen account meer om over te nemen." extra="Het metalen vlakje moet aangeraakt worden. Software kan veel, maar niets aanraken. Dus geen stille inlog terwijl jij koffie haalt." breekt="Verlies. Eén sleutel kwijt is één account kwijt." />
+
+</Trede>
+
+<Trede nr={8} titel="Twee sleutels en een papiertje" soort="hebben">
+
+<L12 />
+
+<Kort>de sleutel aan je sleutelbos, de tweede in de la, de herstelcodes op papier. Niet sterker dan trede 7, maar wel de enige trede waar je niet buitengesloten raakt.</Kort>
+
+Elk systeem heeft een achterdeur voor het geval je jezelf buitensluit. Bij accounts heet dat account recovery, en het is bijna altijd de zwakste schakel van het geheel: wie die achterdeur weet te forceren, hoeft de voordeur niet meer. Daarom bewaar je herstelcodes zorgvuldig, en nooit binnen de dienst die ze moeten redden.
+
+De tweede sleutel dekt het omgekeerde af: dat de voordeur zó goed wordt dat je er zelf niet meer door kunt. Met één sleutel is die sleutel een single point of failure: één onderdeel waar alles van afhangt.
+
+<Jargon items={[
+  ['backup codes / recovery codes', 'de reeks eenmalige codes die de tweede stap kunnen vervangen'],
+  ['account recovery', 'de procedure om weer binnen te komen als je buitengesloten bent'],
+  ['single point of failure', 'één onderdeel waarvan het hele bouwwerk afhangt'],
+]} />
+
+<Weegschaal houdt="Het scenario dat alle andere treden negeren: dat de beveiliging jóu buitensluit." breekt="Kwaadaardige software op je eigen computer, die meekijkt in een sessie die al open is. Daar helpt geen enkele sleutel tegen, want dan heb jij de deur al geopend." />
+
+</Trede>
+
+## En als de echte site zelf gehackt wordt?
+
+Dan helpt geen enkele trede. De inbreker staat al binnen en hoeft de voordeur niet meer. Maar het maakt wél uit wat hij daar aantreft.
+
+Een site die met wachtwoorden werkt, moet iets van je wachtwoord bewaren om het te kunnen herkennen. Wordt die voorraad buitgemaakt, dan gaan kraakprogramma's er dagenlang overheen, en alles wat eruit komt, wordt meteen geprobeerd op je andere accounts.
+
+Een site die met zegels werkt, bewaart je ring niet. Dat kán ook niet: die zit in het metaal. Hij bewaart alleen een afbeelding van hoe je zegel eruitziet, genoeg om het te herkennen. En met een afbeelding van een zegel kun je geen zegel drukken. De buit is letterlijk waardeloos.
+
+<L13 />
+
+Wat een inbreker van de server meeneemt. Van een wachtwoord ligt daar iets bruikbaars; van een sleutel niet, want de ring is er nooit geweest.
+
+Wat hij wél kan is lezen wat er op die server staat. Daar helpt geen sleutel tegen, alleen versleuteling. Dat is precies waarom een versleutelde maildienst iets toevoegt: als de dienst je berichten zelf niet kan lezen, kan een inbreker in hun kelder dat ook niet.
+
+## Waar deze ladder wringt
+
+Een ladder suggereert één rechte lijn, en zo netjes is het niet. Een kluis met een sterk wachtwoord en een app-code erop (treden 3 en 5 samen) is in de praktijk sterker dan een passkey op een slordig beveiligd Apple-account. De volgorde hierboven gaat over de techniek, niet over hoe zorgvuldig iemand is.
+
+En elke trede beschermt alleen de voordeur. Wie eenmaal binnen is omdat jij hem hebt binnengelaten, komt geen slot meer tegen.
+
+## Binnen welk vak valt dit?
+
+Alles hierboven hoort bij informatiebeveiliging, in het dagelijks spraakgebruik cybersecurity. Daarbinnen is er een eigen hoek voor precies deze vraag: identiteits- en toegangsbeheer, afgekort IAM (identity and access management). Dat vak maakt één onderscheid dat de hele ladder verklaart: authenticatie is de vraag wie je bent, autorisatie is de vraag wat je mag. Hierboven ging het uitsluitend over het eerste.
+
+De onderste treden leunen op het menselijke deel van het vak: social engineering (mensen overhalen in plaats van techniek kraken) en usable security, de studie van beveiliging die mensen ook echt volhouden. De bovenste treden leunen op cryptografie, en dan specifiek de asymmetrische variant: twee bij elkaar horende helften waarvan er één geheim blijft.
+
+Wie verder wil lezen: de Amerikaanse standaard NIST SP 800-63B is het document waar de wachtzin-regel vandaan komt. Lengte boven complexiteit, en stop met mensen elk kwartaal een nieuw wachtwoord laten verzinnen. ISO 27001 is de norm waarin organisaties hun beveiliging vastleggen, en de standaarden achter de passkey (FIDO2 en WebAuthn) komen van de FIDO Alliance en het W3C, het consortium dat ook de regels van het web zelf beheert.
+
+## Wat je nu kunt doen
+
+1. Kijk op welke trede je e-mail staat. Dat is je voordeur.
+2. Sta je op trede 1 of 2? Ga naar [niveau 1](/aan-de-slag#niveau-1): een kluis en een tweede slot, in één avond.
+3. Sta je op trede 4? Wissel de sms-code om voor een app. Dat kost vijf minuten per account.
+4. Wil je naar trede 7 of 8? Koop twee sleutels, zet ze in dezelfde sessie allebei aan, en leg de herstelcodes op papier in je [noodpakket](/als-er-is-ingebroken#noodpakket).

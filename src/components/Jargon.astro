@@ -1,0 +1,17 @@
+---
+/** "Zo heet dit in het jargon": de vaktermen bij een trede. */
+const { items } = Astro.props;
+---
+<details class="jargon">
+  <summary>Zo heet dit in het jargon</summary>
+  <dl>
+    {items.map(([term, uitleg]) => (<><dt>{term}</dt><dd>{uitleg}</dd></>))}
+  </dl>
+</details>
+<style>
+  .jargon { border: 2px solid var(--lijn); border-radius: var(--radius); padding: 0.6rem 1rem; margin: 1.25rem 0; }
+  summary { cursor: pointer; font-family: var(--kop); font-weight: 700; }
+  dl { margin: 0.75rem 0 0; }
+  dt { font-family: var(--mono); font-size: 0.9rem; color: var(--rood); margin-top: 0.6rem; }
+  dd { margin: 0.1rem 0 0; color: var(--inkt-zacht); font-size: 0.95em; }
+</style>

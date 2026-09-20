@@ -1,0 +1,16 @@
+---
+/** Wat een trede tegenhoudt en waar hij breekt. */
+const { houdt, breekt, extra } = Astro.props;
+---
+<div class="weeg">
+  <div class="houdt"><p class="kopje">Houdt tegen</p><p>{houdt}</p></div>
+  {extra && <div class="houdt"><p class="kopje">En ook</p><p>{extra}</p></div>}
+  <div class="breekt"><p class="kopje">Breekt bij</p><p>{breekt}</p></div>
+</div>
+<style>
+  .weeg { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin: 1.25rem 0 1.5rem; }
+  .weeg > div { padding: 0.8rem 1rem; border-radius: var(--radius); border-left: 6px solid var(--groen); background: var(--groen-licht); }
+  .weeg > .breekt { border-left-color: var(--rood); background: var(--rood-licht); }
+  .kopje { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.25rem; }
+  .weeg p:last-child { margin: 0; font-size: 0.97em; }
+</style>

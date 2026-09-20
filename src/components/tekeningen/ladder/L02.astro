@@ -1,0 +1,32 @@
+---
+/** Ladder, tekening 2. Overgezet uit de oude pagina; kleur: rood = iets wat je weet, groen = iets wat je hebt. */
+---
+<figure class="tekening ladder-tek">
+<svg class="mini" viewBox="0 0 400 100" role="img" aria-label="Eén sleutel met lijnen naar drie verschillende sloten: mail, bank en webshop.">
+        <circle class="hl" cx="46" cy="50" r="9"></circle>
+        <path class="hl" d="M55,50 H96 M86,50 v8 M92,50 v6"></path>
+        <text class="cap" x="46" y="82" text-anchor="middle">één woord</text>
+        <g class="ln">
+          <line x1="104" y1="50" x2="266" y2="22"></line>
+          <line x1="104" y1="50" x2="266" y2="50"></line>
+          <line x1="104" y1="50" x2="266" y2="78"></line>
+        </g>
+        <g class="obj">
+          <path d="M276,20 v-4 a6,6 0 0 1 12,0 v4"></path>
+          <rect x="272" y="20" width="20" height="14" rx="2"></rect>
+          <path d="M276,48 v-4 a6,6 0 0 1 12,0 v4"></path>
+          <rect x="272" y="48" width="20" height="14" rx="2"></rect>
+          <path d="M276,76 v-4 a6,6 0 0 1 12,0 v4"></path>
+          <rect x="272" y="76" width="20" height="14" rx="2"></rect>
+        </g>
+        <g>
+          <text x="302" y="32">mail</text>
+          <text x="302" y="60">bank</text>
+          <text x="302" y="88">webshop</text>
+        </g>
+      </svg>
+</figure>
+<style>
+  .ladder-tek :global(text) { font-family: var(--tekst); }
+  .ladder-tek :global(svg) { max-width: 40rem; }
+</style>
