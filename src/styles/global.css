@@ -134,3 +134,19 @@ figure.tekening figcaption { font-size: 0.95rem; color: var(--inkt-zacht); margi
 .kaart p { margin: 0; color: var(--inkt-zacht); font-size: 0.95rem; }
 
 .schermlezer { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---- laddertekeningen (overgezet uit de oude pagina) ---- */
+.ladder-tek { --tint: var(--rood); color: var(--inkt-zacht); }
+.ladder-tek svg { display: block; width: 100%; max-width: 40rem; height: auto; }
+.ladder-tek text { font-family: var(--tekst); fill: currentColor; font-size: 11px; }
+.ladder-tek .t-label, .ladder-tek .tek-label { font-family: var(--kop); letter-spacing: 0.08em; font-size: 10.5px; }
+.ladder-tek .obj { fill: none; stroke: var(--lijn-sterk); stroke-width: 2.4; }
+.ladder-tek .ln { fill: none; stroke: currentColor; stroke-width: 1.6; opacity: 0.5; }
+.ladder-tek .hl { fill: none; stroke: var(--tint); stroke-width: 2.6; }
+.ladder-tek .hlf { fill: var(--tint); stroke: none; }
+.ladder-tek .wrn { fill: none; stroke: var(--rood); stroke-width: 2.4; }
+.ladder-tek .arw { fill: currentColor; opacity: 0.7; }
+.ladder-tek .cap { font-family: var(--kop); font-size: 9.5px; letter-spacing: 0.05em; opacity: 0.7; }
+.ladder-tek .tint { fill: var(--tint); opacity: 1; }
+.ladder-tek .red { fill: var(--rood); opacity: 1; }
+.trede-hebben .ladder-tek { --tint: var(--groen); }

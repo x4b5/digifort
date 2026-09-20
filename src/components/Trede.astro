@@ -2,7 +2,7 @@
 /** Eén trede van de ladder: nummer, titel, en de inhoud in de slot. */
 const { nr, titel, soort } = Astro.props;
 ---
-<section class="trede" id={`trede-${nr}`}>
+<section class:list={["trede", `trede-${soort}`]} id={`trede-${nr}`}>
   <p class="trede-nr"><span class:list={['bol', soort]}>{String(nr).padStart(2, '0')}</span> <span class="soort">{soort === 'hebben' ? 'iets wat je hebt' : 'iets wat je weet'}</span></p>
   <h2>{titel}</h2>
   <slot />

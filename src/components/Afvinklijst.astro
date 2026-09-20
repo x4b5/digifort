@@ -14,7 +14,7 @@ const Tag = genummerd ? 'ol' : 'ul';
   {kop && <h3>{data.titel}</h3>}
   <p class="stand" data-stand aria-live="polite">
     <span data-stand-tekst>0 van {data.items.length} gedaan</span>
-    {totaalTijd > 0 && <span class="tijd" data-tijd> · nog {totaalTijd} min</span>}
+    {totaalTijd > 0 && <span class="tijd" data-tijd-rest> · nog {totaalTijd} min</span>}
   </p>
   <Tag class="items">
     {data.items.map((it, i) => (
@@ -45,7 +45,7 @@ const Tag = genummerd ? 'ol' : 'ul';
       const af = vakjes.filter((v) => v.checked).length;
       const rest = vakjes.filter((v) => !v.checked).reduce((n, v) => n + Number(v.dataset.tijd), 0);
       const tekst = sectie.querySelector('[data-stand-tekst]');
-      const tijd = sectie.querySelector('[data-tijd]');
+      const tijd = sectie.querySelector("[data-tijd-rest]");
       if (tekst) tekst.textContent = af === totaal ? `Alles gedaan (${totaal} van ${totaal})` : `${af} van ${totaal} gedaan`;
       if (tijd) tijd.textContent = rest > 0 ? ` · nog ${rest} min` : '';
       sectie.classList.toggle('klaar', af === totaal);
