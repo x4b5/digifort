@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+import Pagina from '../layouts/Pagina.astro';
+import { buren } from '../lib/site.js';
+
+export async function getStaticPaths() {
+  const hoofdstukken = await getCollection('hoofdstukken');
+  return hoofdstukken.map((h) => ({ params: { slug: h.id }, props: { h } }));
+}
+
+const { h } = Astro.props;
+const { Content } = await render(h);
+const { vorige, volgende } = buren(h.id);
+---
+<Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum}>
+  <p class="eyebrow">{h.data.nr === null ? 'Verdieping' : `Hoofdstuk ${h.data.nr}`}</p>
+  <h1>{h.data.titel}</h1>
+  <Content />
+  <nav class="buren" aria-label="Vorige en volgende">
+    {vorige && <a class="knop licht" href={`/${vorige.slug}`}>← {vorige.titel}</a>}
+    {volgende && <a class="knop" href={`/${volgende.slug}`}>{volgende.titel} →</a>}
+  </nav>
+</Pagina>
+
+<style>
+  .buren { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: space-between; margin-top: 3.5rem; padding-top: 1.5rem; border-top: var(--lijndikte) solid var(--lijn-sterk); }
+  .buren a { max-width: 100%; text-align: left; }
+</style>

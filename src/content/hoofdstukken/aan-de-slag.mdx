@@ -1,0 +1,90 @@
+---
+nr: 4
+titel: "Aan de slag: kamer voor kamer"
+kort: "Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis."
+datum: "2026-09-20"
+---
+import Kort from '../../components/Kort.astro';
+import Noot from '../../components/Noot.astro';
+import Afvinklijst from '../../components/Afvinklijst.astro';
+import Huischeck from '../../components/Huischeck.astro';
+import Woordenboek from '../../components/Woordenboek.astro';
+import Contact from '../../components/Contact.astro';
+import Tekening from '../../components/Tekening.astro';
+
+Niveau 1 kost één avond. Daarmee houd je de meeste inbrekers al buiten. Doe de stappen in deze volgorde. Elke stap maakt de volgende makkelijker. Alles hier kan gratis.
+
+## Waarom dit werkt: de inbreker kiest het makkelijkste huis
+
+<Kort>je hoeft geen kasteel te bouwen. Je moet alleen lastiger zijn dan het huis ernaast.</Kort>
+
+De meeste inbrekers op internet zoeken niet naar jou. Ze lopen de hele straat door en voelen aan elke deur. Een computer doet dat voor ze, bij miljoenen huizen tegelijk. Gaat een deur open? Dan gaan ze naar binnen. Zit hij op slot? Dan lopen ze door. Inbrekers plukken het fruit dat laag hangt. Zes dingen zorgen dat jij hoog hangt:
+
+| Wat je doet | Wat de inbreker dan niet meer kan |
+| --- | --- |
+| Overal een ander wachtwoord | Een gestolen wachtwoord op andere sites proberen |
+| Een tweede slot of een passkey | Inloggen met alleen je wachtwoord |
+| Updates op automatisch | Naar binnen door een scheur die allang gerepareerd is |
+| Zelf terugbellen of zelf naar de site gaan | Je voor de gek houden met een nepbericht of nepstem |
+| Weinig over jezelf op internet zetten | Een bericht maken dat precies bij jou past |
+| Een losse reservekopie | Geld vragen voor je eigen bestanden |
+
+Twee dingen moet je eerlijk weten. Dit werkt tegen inbrekers die het bij iedereen proberen. Dat zijn ze bijna allemaal. Zoekt iemand speciaal naar jou, zoals bij een stalker of bij een bekende persoon? Dan heb je meer hulp nodig dan deze site kan geven. En de lat gaat omhoog. Met AI wordt een aanval op maat goedkoper. Wat nu hoog genoeg hangt, hangt over een paar jaar lager. Daarom kijk je je huis twee keer per jaar na. Dat staat in hoofdstuk 5.
+
+## Niveau 1: de basis in één avond
+
+<Afvinklijst lijst="niveau-1" kop={false} genummerd />
+
+**Hoe maak je een sterk hoofdwachtwoord?** Neem vier of vijf gewone woorden die niets met elkaar te maken hebben. Bijvoorbeeld een gek zinnetje dat alleen jij snapt. Lang is sterker dan ingewikkeld. Schrijf het op papier. Bewaar dat papier thuis op een veilige plek.
+
+**Welke wachtwoordmanager?** Bitwarden is gratis. Iedereen mag controleren hoe het programma werkt, en dat maakt het betrouwbaar. De kluis die al in je iPhone of Android-telefoon zit, is ook goed. Het belangrijkste is dat je er één gebruikt.
+
+## Niveau 2: goed op slot in een weekend
+
+<Afvinklijst lijst="niveau-2" kop={false} genummerd />
+
+**Wat zijn noodcodes?** Zet je een tweede slot op een account? Dan krijg je een rijtje codes voor noodgevallen. Ze heten herstelcodes. Elke code werkt één keer. Ben je je telefoon kwijt? Dan kom je er met zo'n code toch in.
+
+**Je laptop onleesbaar maken** heet versleuteling. Op een Mac heet het FileVault. Op Windows heet het BitLocker of Apparaatversleuteling. Je vindt het bij de instellingen.
+
+**De regel voor reservekopieën is 3-2-1.** Je hebt drie kopieën van je bestanden. Ze staan op twee soorten opslag, zoals je computer en een losse schijf. Eén kopie ligt buiten je huis, bijvoorbeeld op internet. Probeer één keer of je een bestand ook echt kunt terugzetten.
+
+## Niveau 3: voor wie verder wil
+
+<Afvinklijst lijst="niveau-3" kop={false} />
+
+## De gereedschapskist: concrete aanraders
+
+<Kort>goed gereedschap is vaak gratis. En het beste slot zit meestal al in je apparaat.</Kort>
+
+Dit is een lijst om in op te zoeken. De keuzes zijn gemaakt op vier punten. Het is gratis of goedkoop. Het heeft bewezen dat het werkt. Iedereen mag controleren hoe het in elkaar zit. En het bedrijf verdient geen geld aan jouw gegevens. Deze site verdient er ook niets aan.
+
+| Waarvoor | Aanrader | Alternatief | Let op |
+| --- | --- | --- | --- |
+| Wachtwoordmanager | Bitwarden (gratis, open source) | Proton Pass, of de ingebouwde van Apple of Google | Kies er één en gebruik hem echt |
+| Codes voor het tweede slot | Ente Auth of 2FAS | Aegis (alleen Android) | Zet de back-up van de app aan, anders ben je bij een nieuwe telefoon alles kwijt |
+| E-mail | Proton Mail (gratis basisversie, Zwitsers, versleuteld) | Tuta | Alleen mail tussen Proton-gebruikers is van begin tot eind versleuteld; een mail naar Gmail niet |
+| E-mailaliassen | SimpleLogin (van Proton) | Verberg mijn e-mail van Apple, DuckDuckGo Email Protection | Gebruik ze voor webwinkels en nieuwsbrieven, niet voor je bank |
+| Virusscanner Windows | De ingebouwde Windows Beveiliging (Defender) | Malwarebytes gratis, voor een losse controle bij twijfel | Zie de uitleg hieronder |
+| Virusscanner Mac en telefoon | Niets extra's |  | Installeer alleen apps uit de officiële winkel en houd updates aan |
+| Browser | Firefox | Brave | De volledige uBlock Origin werkt alleen nog in Firefox; in Chrome bestaat alleen de lichtere versie uBlock Origin Lite |
+| Advertenties en volgers blokkeren | uBlock Origin | De ingebouwde blokkade van Brave | Installeer alleen de echte; er bestaan namaakversies |
+| Berichten | Signal | WhatsApp is ook versleuteld, maar deelt meer gegevens met moederbedrijf Meta | Een app helpt alleen als je contacten hem ook gebruiken |
+| VPN | Proton VPN (gratis versie) | Mullvad (betaald, enkele euro's per maand) | Vermijd andere gratis VPN's: die verdienen vaak aan jouw verkeer |
+| Foute sites tegenhouden | Quad9 als DNS-dienst (gratis) | NextDNS | Eén keer instellen in je router of telefoon; blokkeert bekende kwaadaardige adressen |
+| Back-up | Losse schijf met Tijdmachine (Mac) of Bestandsgeschiedenis (Windows) | Proton Drive, of iCloud met Geavanceerde gegevensbescherming aan | Koppel de schijf los na de back-up |
+| Bestanden versleutelen in de cloud | Cryptomator |  | Werkt bovenop elke clouddienst |
+| Fysieke sleutel | YubiKey | Andere FIDO2-sleutels | Koop er twee. Dit is de enige aanrader die geld kost |
+
+**Over virusscanners.** Twintig jaar geleden moest je een virusscanner kopen. Nu zit er een goede in Windows en in de Mac. Voor bijna iedereen is die genoeg. Een gekochte scanner voegt weinig toe. Sommige gratis scanners verdienen geld aan wat jij op internet doet. En geen enkele scanner houdt een babbeltruc tegen. Je updates, je tweede slot en je eigen oplettendheid doen meer.
+
+**Over Proton.** Proton is een Zwitsers bedrijf. Het maakt e-mail, een wachtwoordmanager, een VPN en opslag. Je betaalt met geld en niet met je gegevens. Dat is handig en betrouwbaar. Er zit één nadeel aan. Heb je alles bij één bedrijf? Dan opent één account al je deuren. Zet daar dus je sterkste slot op. Bewaar de noodcodes in je noodpakket.
+
+**Handige controles, allemaal gratis:**
+
+- **haveibeenpwned.com**: zit je e-mailadres in een bekend datalek?
+- **checkjelinkje.nl**: is deze link te vertrouwen?
+- **veiliginternetten.nl**: uitleg en stappenplannen van de Nederlandse overheid
+- **fraudehelpdesk.nl**: actuele oplichtingstrucs en een meldpunt
+
+*\[Voor publicatie: controleer per dienst of de gratis versie nog bestaat en wat erin zit. Dit verandert regelmatig.\]*

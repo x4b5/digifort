@@ -1,0 +1,69 @@
+---
+import '../styles/global.css';
+import Kop from '../components/Kop.astro';
+import Voet from '../components/Voet.astro';
+import { SITE } from '../lib/site.js';
+
+const { titel, beschrijving = SITE.slogan, datum = SITE.laatstNagelopen, breed = false } = Astro.props;
+const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
+---
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={beschrijving} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="light dark" />
+    <title>{paginaTitel}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap" />
+  </head>
+  <body>
+    <a class="overslaan" href="#inhoud">Naar de inhoud</a>
+    <Kop />
+    <main id="inhoud" class:list={['wrap', { tekst: !breed }]}>
+      <slot />
+    </main>
+    <Voet datum={datum} />
+    <script>
+      import { lees, wisAlles } from '../lib/opslag.js';
+      import { LIJSTEN, SLOT_LIJSTEN, TOTAAL_SLOTEN } from '../data/lijsten.js';
+
+      function telSloten(data) {
+        return SLOT_LIJSTEN.reduce((n, id) => {
+          const items = data.lijsten[id] ?? {};
+          return n + LIJSTEN[id].items.filter((it) => items[it.id]).length;
+        }, 0);
+      }
+
+      function toonTeller(data = lees()) {
+        const el = document.querySelector('[data-sloten]');
+        const tekst = document.querySelector('[data-sloten-tekst]');
+        if (!el || !tekst) return;
+        const dicht = telSloten(data);
+        el.hidden = dicht === 0;
+        tekst.textContent = `${dicht} van ${TOTAAL_SLOTEN} sloten dicht`;
+      }
+
+      toonTeller();
+      window.addEventListener('jdh:gewijzigd', (e) => toonTeller(e.detail));
+
+      document.querySelectorAll('[data-wis]').forEach((knop) => {
+        knop.addEventListener('click', () => {
+          wisAlles();
+          knop.textContent = 'Antwoorden gewist';
+          knop.setAttribute('disabled', '');
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  .overslaan { position: absolute; left: -999px; top: 0; background: var(--rood); color: #fff; padding: 0.5rem 1rem; z-index: 100; }
+  .overslaan:focus { left: 0.5rem; top: 0.5rem; }
+  main { padding-top: 2.5rem; }
+</style>

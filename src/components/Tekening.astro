@@ -1,0 +1,11 @@
+---
+/** Omhulsel voor een tekening: de svg in de slot, het onderschrift als prop. */
+const { onderschrift, breed = false } = Astro.props;
+---
+<figure class:list={['tekening', { breed }]}>
+  <slot />
+  {onderschrift && <figcaption>{onderschrift}</figcaption>}
+</figure>
+<style>
+  .breed { max-width: none; }
+</style>

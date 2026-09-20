@@ -1,0 +1,16 @@
+---
+import { SITE, datumNL } from '../lib/site.js';
+const { datum = SITE.laatstNagelopen } = Astro.props;
+---
+<footer class="voet">
+  <div class="wrap voet-rij">
+    <p>Deze pagina is voor het laatst nagelopen op <time datetime={datum}>{datumNL(datum)}</time>.</p>
+    <p>Gratis, onafhankelijk, zonder reclame en zonder volgers. <a href="/over">Over deze site</a> · <button type="button" class="link" data-wis>Wis mijn antwoorden</button></p>
+  </div>
+</footer>
+
+<style>
+  .voet { border-top: var(--lijndikte) solid var(--lijn-sterk); margin-top: 4rem; padding: 1.75rem 0 2.5rem; color: var(--inkt-zacht); font-size: 0.95rem; }
+  .voet p { margin: 0 0 0.4rem; }
+  .link { background: none; border: 0; padding: 0; font: inherit; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: pointer; }
+</style>

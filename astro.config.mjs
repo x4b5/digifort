@@ -1,5 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
+import { rehypeTabelScroll, rehypeKamerAnkers } from './src/lib/rehype.mjs';
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  site: 'https://je-digitale-huis.vercel.app',
+  integrations: [mdx({ rehypePlugins: [rehypeKamerAnkers, rehypeTabelScroll] })],
+});

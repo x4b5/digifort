@@ -1,0 +1,89 @@
+---
+/**
+ * Een lijst die je kunt afvinken. Wat je aanvinkt blijft in je eigen browser staan.
+ * `lijst` is de sleutel in src/data/lijsten.js.
+ */
+import { LIJSTEN } from '../data/lijsten.js';
+const { lijst, kop = true, genummerd = false } = Astro.props;
+const data = LIJSTEN[lijst];
+if (!data) throw new Error(`Onbekende lijst: ${lijst}`);
+const totaalTijd = data.items.reduce((n, it) => n + (it.tijd ?? 0), 0);
+const Tag = genummerd ? 'ol' : 'ul';
+---
+<section class="lijst" data-lijst={lijst} data-totaal={data.items.length} id={lijst}>
+  {kop && <h3>{data.titel}</h3>}
+  <p class="stand" data-stand aria-live="polite">
+    <span data-stand-tekst>0 van {data.items.length} gedaan</span>
+    {totaalTijd > 0 && <span class="tijd" data-tijd> · nog {totaalTijd} min</span>}
+  </p>
+  <Tag class="items">
+    {data.items.map((it, i) => (
+      <li>
+        <label>
+          <input type="checkbox" data-item={it.id} data-tijd={it.tijd ?? 0} />
+          <span class="vink" aria-hidden="true"></span>
+          <span class="tekst-blok">
+            <span class="stap">{genummerd && <span class="nr">{i + 1}.</span>} {it.stap}</span>
+            {it.waarom && <span class="waarom">{it.waarom}</span>}
+            {it.tijd && <span class="minuten">{it.tijd} min</span>}
+          </span>
+        </label>
+      </li>
+    ))}
+  </Tag>
+</section>
+
+<script>
+  import { lees, zetVinkje } from '../lib/opslag.js';
+
+  document.querySelectorAll<HTMLElement>('[data-lijst]').forEach((sectie) => {
+    const lijst = sectie.dataset.lijst!;
+    const totaal = Number(sectie.dataset.totaal);
+    const vakjes = Array.from(sectie.querySelectorAll<HTMLInputElement>('input[data-item]'));
+
+    function toon() {
+      const af = vakjes.filter((v) => v.checked).length;
+      const rest = vakjes.filter((v) => !v.checked).reduce((n, v) => n + Number(v.dataset.tijd), 0);
+      const tekst = sectie.querySelector('[data-stand-tekst]');
+      const tijd = sectie.querySelector('[data-tijd]');
+      if (tekst) tekst.textContent = af === totaal ? `Alles gedaan (${totaal} van ${totaal})` : `${af} van ${totaal} gedaan`;
+      if (tijd) tijd.textContent = rest > 0 ? ` · nog ${rest} min` : '';
+      sectie.classList.toggle('klaar', af === totaal);
+      vakjes.forEach((v) => v.closest('li')?.classList.toggle('af', v.checked));
+    }
+
+    const bewaard = lees().lijsten[lijst] ?? {};
+    vakjes.forEach((v) => { v.checked = Boolean(bewaard[v.dataset.item!]); });
+    toon();
+
+    vakjes.forEach((v) => v.addEventListener('change', () => { zetVinkje(lijst, v.dataset.item!, v.checked); toon(); }));
+    window.addEventListener('jdh:gewijzigd', (e: Event) => {
+      const data = (e as CustomEvent).detail;
+      const items = data.lijsten?.[lijst] ?? {};
+      vakjes.forEach((v) => { v.checked = Boolean(items[v.dataset.item!]); });
+      toon();
+    });
+  });
+</script>
+
+<style>
+  .lijst { margin: 1.5rem 0 2.5rem; }
+  .lijst h3 { margin-top: 0; }
+  .stand { font-family: var(--kop); font-size: 0.95rem; color: var(--inkt-zacht); margin: 0.25rem 0 0.75rem; }
+  .klaar .stand { color: var(--groen); }
+  .items { list-style: none; padding: 0; margin: 0; border-top: var(--lijndikte) solid var(--lijn-sterk); }
+  .items li { margin: 0; border-bottom: 2px solid var(--lijn); }
+  label { display: grid; grid-template-columns: 2rem 1fr; gap: 0.9rem; padding: 0.9rem 0.25rem; cursor: pointer; align-items: start; }
+  label:hover { background: var(--papier-2); }
+  input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .vink { display: block; width: 2rem; height: 2rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); position: relative; margin-top: 0.1rem; background: var(--papier); }
+  input:checked + .vink { background: var(--groen); border-color: var(--groen); }
+  input:checked + .vink::after { content: ""; position: absolute; left: 0.55rem; top: 0.2rem; width: 0.5rem; height: 1rem; border: solid #fff; border-width: 0 4px 4px 0; transform: rotate(45deg); }
+  input:focus-visible + .vink { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .tekst-blok { display: flex; flex-direction: column; gap: 0.15rem; }
+  .stap { font-weight: 700; }
+  .nr { color: var(--rood); font-family: var(--kop); }
+  .waarom { color: var(--inkt-zacht); font-size: 0.95em; }
+  .minuten { font-family: var(--kop); font-size: 0.8rem; color: var(--rood); letter-spacing: 0.05em; }
+  li.af .stap { text-decoration: line-through; text-decoration-thickness: 2px; color: var(--inkt-zacht); }
+</style>

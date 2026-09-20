@@ -1,0 +1,61 @@
+/* Huisstijl "Voordeur": wit papier, zwarte lijn, één rood. */
+:root {
+  --papier: #ffffff;
+  --papier-2: #f5f3ee;
+  --inkt: #141414;
+  --inkt-zacht: #4a4744;
+  --inkt-flauw: #8a8681;
+  --lijn: #d9d6d0;
+  --lijn-sterk: #141414;
+  --rood: #c8321e;
+  --rood-donker: #a3261a;
+  --rood-licht: #fbe9e5;
+  --groen: #2e7d4f;
+  --groen-licht: #e3f1e8;
+  --focus: #1a5fb4;
+
+  --kop: "Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --tekst: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --maat: 38rem;
+  --breed: 64rem;
+  --lijndikte: 3px;
+  --radius: 4px;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papier: #141414;
+    --papier-2: #1f1e1c;
+    --inkt: #f2f0eb;
+    --inkt-zacht: #b8b4ad;
+    --inkt-flauw: #7d7973;
+    --lijn: #3a3835;
+    --lijn-sterk: #f2f0eb;
+    --rood: #e5533c;
+    --rood-donker: #f07a66;
+    --rood-licht: #3a1d18;
+    --groen: #5db57f;
+    --groen-licht: #1c2f24;
+    --focus: #7cb3ff;
+  }
+}
+
+:root[data-theme="dark"] {
+  --papier: #141414;
+  --papier-2: #1f1e1c;
+  --inkt: #f2f0eb;
+  --inkt-zacht: #b8b4ad;
+  --inkt-flauw: #7d7973;
+  --lijn: #3a3835;
+  --lijn-sterk: #f2f0eb;
+  --rood: #e5533c;
+  --rood-donker: #f07a66;
+  --rood-licht: #3a1d18;
+  --groen: #5db57f;
+  --groen-licht: #1c2f24;
+  --focus: #7cb3ff;
+}

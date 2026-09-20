@@ -1,0 +1,5 @@
+---
+/** Een terzijde, meestal "Waar het beeld niet klopt". */
+const { titel } = Astro.props;
+---
+<aside class="noot">{titel && <p><strong>{titel}</strong></p>}<slot /></aside>

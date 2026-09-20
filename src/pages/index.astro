@@ -1,17 +1,50 @@
 ---
-
+import Pagina from '../layouts/Pagina.astro';
+import Plattegrond from '../components/Plattegrond.astro';
+import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
 ---
+<Pagina breed>
+  <section class="hero">
+    <div class="hero-tekst">
+      <p class="eyebrow">Digitale veiligheid in gewone taal</p>
+      <h1>Je gaat niet naar het internet. Het internet komt bij jou binnen.</h1>
+      <p class="intro">Elke app is een deur. Elk account ook. Elk apparaat ook. En in dat huis ligt alles wat van jou is: je geld, je foto’s, je berichten, je naam. Deze site loopt met je door je huis. Zonder bangmakerij en zonder reclame.</p>
+      <p class="knoppen">
+        <a class="knop" href="/huischeck">Doe de huischeck →</a>
+        <a class="knop licht" href="/plattegrond">Bekijk de plattegrond</a>
+      </p>
+    </div>
+  </section>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <section class="huis">
+    <h2 class="huis-kop">Je huis in één tekening</h2>
+    <p class="tekst">Klik op een plek om te lezen wat het is. Doe je de huischeck of vink je iets af? Dan kleurt het huis mee: <span class="kleur rood">rood</span> is een deur die openstaat, <span class="kleur groen">groen</span> een deur die dicht is.</p>
+    <Plattegrond />
+  </section>
+
+  <section class="hoofdstukken">
+    <h2>De hoofdstukken</h2>
+    <ol class="kaarten">
+      {HOOFDSTUKKEN.filter((h) => !h.extra).map((h) => (
+        <li>
+          <a class="kaart" href={`/${h.slug}`}>
+            <span class="nr">Hoofdstuk {h.nr}</span>
+            <h3>{h.titel}</h3>
+            <p>{h.kort}</p>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+</Pagina>
+
+<style>
+  .hero { max-width: var(--maat); padding-bottom: 1rem; }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
+  .knoppen { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .huis-kop { margin-top: 2rem; }
+  .kleur { font-weight: 700; padding: 0 0.3rem; border-radius: var(--radius); color: #fff; }
+  .kleur.rood { background: var(--rood); }
+  .kleur.groen { background: var(--groen); }
+  .hoofdstukken h2 { margin-top: 3rem; }
+</style>

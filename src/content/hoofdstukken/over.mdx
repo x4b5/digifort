@@ -1,0 +1,100 @@
+---
+nr: 9
+titel: "Over deze site"
+kort: "Waarom, door wie, en waar de bronnen staan."
+datum: "2026-09-20"
+---
+import Kort from '../../components/Kort.astro';
+import Noot from '../../components/Noot.astro';
+import Afvinklijst from '../../components/Afvinklijst.astro';
+import Huischeck from '../../components/Huischeck.astro';
+import Woordenboek from '../../components/Woordenboek.astro';
+import Contact from '../../components/Contact.astro';
+import Tekening from '../../components/Tekening.astro';
+
+Deze site is gratis, onafhankelijk en zonder reclame. Er staan geen affiliate-links op: als hier een product wordt genoemd, verdient niemand daaraan.
+
+## Waarom deze site
+
+Ik begon met een vraag voor mezelf: wat kan ik nog meer doen dan een VPN, een wachtwoordmanager en passkeys? Het antwoord bleek nuttig voor meer mensen. Oplichters krijgen met AI beter gereedschap, en de meeste uitleg over digitale veiligheid is geschreven voor mensen die het al snappen. Deze site is voor iedereen die dat niet is, en daar niets aan hoeft te veranderen om toch veilig te zijn.
+
+Deze site is gemaakt door Xavier, geen beveiligingsexpert maar iemand die het wilde snappen.
+
+## Hoe je deze site leest
+
+Alles hangt op aan één beeld: je digitale leven is een huis. Waar dat beeld niet klopt, staat dat erbij. Een metafoor helpt om iets te begrijpen, niet om het precies te beschrijven.
+
+## Wat deze site niet is
+
+Geen vervanging voor professioneel advies als je een bedrijf runt of met gevoelige gegevens werkt. Geen garantie: honderd procent veilig bestaat niet, thuis niet en online niet. Het doel is dat een inbreker liever doorloopt naar een makkelijker huis.
+
+## Bijgehouden
+
+Techniek verandert snel. Onderaan elke pagina staat wanneer die voor het laatst is nagelopen. Zie je een fout of mis je iets? Laat het weten.
+
+## Bronnen
+
+Elke feitelijke bewering op deze site hoort bij een bron die je zelf kunt nalopen. Status per 20 september 2026: **gecontroleerd** betekent dat de bron is geopend en de bewering ondersteunt; **nog koppelen** betekent dat de bron bestaat maar de precieze pagina nog moet worden opgezocht.
+
+| Hoofdstuk | Bewering | Bron | Status |
+| --- | --- | --- | --- |
+| 0, 2 | Ongeveer 2,5 miljoen Nederlanders van 15 jaar en ouder (bijna 17 procent) waren in 2025 slachtoffer van online criminaliteit; de stijging komt vooral door online oplichting | [CBS, Veiligheidsmonitor 2025, hoofdstuk 6](https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit) | Gecontroleerd |
+| 2 | Bijna een kwart van de slachtoffers houdt er emotionele, psychische of financiële problemen aan over | [CBS, Online Veiligheid en Criminaliteit 2024](https://www.cbs.nl/nl-nl/longread/rapportages/2025/online-veiligheid-en-criminaliteit-2024?onepage=true) | Gecontroleerd |
+| 3 | Criminelen gebruiken AI om de schaal en efficiëntie van hun werk te vergroten, met op maat gemaakte oplichting en deepfakes | [Europol, IOCTA 2025: Steal, deal and repeat](https://www.europol.europa.eu/publication-events/main-reports/steal-deal-and-repeat-how-cybercriminals-trade-and-exploit-your-data) | Gecontroleerd |
+| 3 | Een stem klonen kan met enkele seconden geluid, goedkoop en zonder technische kennis | [Group-IB, The Voice of Fraud](https://www.group-ib.com/resources/research-hub/voice-of-fraud/) | Gecontroleerd. Commerciële bron; liefst aanvullen met politie of Fraudehelpdesk |
+| 3 | Sinds augustus 2024 bestaan er officiële standaarden voor kwantumbestendige versleuteling (FIPS 203, 204 en 205) | [NIST, persbericht 13 augustus 2024](https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards) | Gecontroleerd |
+| 3 | Experts verwachten dat kwantumcomputers tussen 2030 en 2040 veel gangbare versleuteling kunnen breken; de kans dat het in 2030 al zover is, is klein maar reëel | [AIVD en NCSC, handreiking Maak je organisatie quantumveilig](https://www.aivd.nl/actueel/nieuws/2023/09/18/handreiking-maak-je-organisatie-quantumveilig-gepubliceerd); [AIVD, lancering PQC-migratiehandboek](https://www.aivd.nl/actueel/nieuws/2023/04/04/lancering-handboek-voor-overstap-naar-quantumveilige-communicatie) | Gecontroleerd |
+| 3 | Versleutelde gegevens kunnen nu worden onderschept en later met een kwantumcomputer ontcijferd; dit raakt gegevens die lang gevoelig blijven | Zelfde AIVD-bericht over het handboek; [AIVD, Bereid je voor op de dreiging van quantumcomputers](https://www.aivd.nl/documenten/publicaties/2021/09/23/bereid-je-voor-op-de-dreiging-van-quantumcomputers) | Gecontroleerd |
+| 4 | De volledige uBlock Origin werkt niet meer in Chrome; Firefox blijft hem ondersteunen | [Heise, uBlock Origin discontinues Chrome version](https://www.heise.de/en/news/uBlock-Origin-discontinues-Chrome-version-and-recommends-Firefox-9824754.html?view=print); [PCWorld, 13 augustus 2026](https://www.pcworld.com/article/3212428/) | Gecontroleerd |
+| 4 | Lengte maakt een wachtwoord sterker dan ingewikkelde tekens | NIST SP 800-63B, Digital Identity Guidelines | Nog koppelen |
+| 4 | Passkeys zijn bestand tegen phishing omdat ze aan het echte webadres gebonden zijn | FIDO Alliance, uitleg over passkeys | Nog koppelen |
+| 4 | De 3-2-1-regel voor back-ups | NCSC of veiliginternetten.nl | Nog koppelen |
+| 5, 6 | Een datalek met risico voor betrokkenen moet binnen 72 uur na ontdekking bij de Autoriteit Persoonsgegevens worden gemeld | AVG artikel 33; Autoriteit Persoonsgegevens, meldplicht datalekken | Termijn gecontroleerd via meerdere bronnen; pagina van de AP zelf nog koppelen |
+| 5 | Politie: 112 bij spoed, 0900-8844 zonder spoed; aangifte van internetoplichting kan online | [politie.nl, internetoplichting](https://www.politie.nl/onderwerpen/internetoplichting.html) | Gecontroleerd |
+| 5 | Fraudehelpdesk: 088-786 73 72, alleen op werkdagen en beperkte uren; melden kan altijd via het formulier | [Rijksoverheid, contactgids Fraudehelpdesk](https://www.rijksoverheid.nl/contact/contactgids/f/fraudehelpdesk); [fraudehelpdesk.nl, contact](https://www.fraudehelpdesk.nl/contact/) | Gecontroleerd |
+| 5 | Het Centraal Meldpunt Identiteitsfraude is onderdeel van de Rijksdienst voor Identiteitsgegevens | Zelfde pagina van Rijksoverheid | Gecontroleerd |
+| 5 | Noodnummers van alle banken op één plek | [Fraudehelpdesk, contactgegevens van de banken](https://www.fraudehelpdesk.nl/bank/) | Gecontroleerd dat de pagina bestaat; nummers zelf niet nagelopen |
+| 5 | Stappen bij een verloren toestel: zoeken, vergrendelen, wissen, Beveiliging van gestolen apparaten | Ondersteuningspagina's van Apple, Google en Microsoft | Nog koppelen |
+| 5 | Slachtofferhulp Nederland als hulpadres | slachtofferhulp.nl | Nog koppelen |
+
+**Bronnen bij "De oplichter die je zelf laat betalen" (hoofdstuk 2)**
+
+| Bewering | Bron | Status |
+| --- | --- | --- |
+| Ruim 100.000 meldingen in 2025 tegen 63.000 in 2024; gemelde schade bijna 69 miljoen euro; beleggingsfraude grootste schadepost | [Fraudehelpdesk, Terugblik 2025](https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Terugblik-2025.pdf) en [persbericht jaarcijfers 2025](https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Persbericht-jaarcijfers-2025-final.pdf) | Gecontroleerd. Totaalcijfers via [Security.NL](https://www.security.nl/posting/925610/Nederlanders+vorig+jaar+voor+zeker+68+miljoen+euro+opgelicht:+'nieuwe+mentaliteit+nodig'); nalopen in het persbericht zelf |
+| Schade beleggingsfraude vermoedelijk honderden miljoenen per jaar, mogelijk tot 750 miljoen; lage meldingsbereidheid | [AFM, persbericht december 2025](https://www.afm.nl/nl-nl/persbericht/2025/dec/pb-beleggingsfraude) | Gecontroleerd |
+| Bankhelpdeskfraude 25,8 miljoen euro in 2025, iets minder dan 5.900 slachtoffers, ruim 45 procent vergoed, 70 procent van online fraude begint op sociale media | [NVB, fraudecijfers 2025](https://www.nvb.nl/nieuws-en-verhalen/banken-roepen-socialmediaplatforms-op-meer-te-doen-aan-online-fraudebestrijding/) | Gecontroleerd |
+| De bank vraagt nooit om geld over te maken naar een veilige rekening; de bankapp toont of je echt met de bank belt | [veiliginternetten.nl, bankhelpdeskfraude](https://veiliginternetten.nl/bankhelpdeskfraude-kost-slachtoffer-steeds-meer-geld/) | Gecontroleerd |
+| Kifid: fraude soms zo persoonlijk dat herkennen bijna onmogelijk is | Zelfde pagina van veiliginternetten.nl | Gecontroleerd via tweede hand; uitspraak van Kifid zelf nog koppelen |
+| Druk herkennen is belangrijker dan losse signalen | Fraudehelpdesk, jaarcijfers 2025 | Gecontroleerd via vakpers; nalopen in het persbericht |
+| Webwinkel controleren bij de politie; aanbieder controleren in het AFM-register; QR-fraude met stickers | politie.nl, afm.nl, Fraudehelpdesk | Nog koppelen |
+
+**Bronnen bij "De eigendomsakte: je identiteit" (hoofdstuk 1) en de fraudetabel (hoofdstuk 2)**
+
+| Bewering | Bron | Status |
+| --- | --- | --- |
+| Met naam, geboortedatum en BSN kan iemand een lening of telefoonabonnement afsluiten; BSN onleesbaar maken, ook in de cijferreeks onderaan; op de kopie zetten dat het een kopie is, voor wie en de datum; vaak volstaat soort document en documentnummer | [Rijksoverheid, fraude voorkomen met kopie ID-bewijs](https://www.rijksoverheid.nl/onderwerpen/identiteitsfraude/vraag-en-antwoord/fraude-voorkomen-met-kopie-id-bewijs) | Gecontroleerd |
+| De KopieID-app streept gegevens door en zet een watermerk met ontvanger en doel | [Rijksoverheid, KopieID-app](https://www.rijksoverheid.nl/onderwerpen/identiteitsfraude/vraag-en-antwoord/veilige-kopie-identiteitsbewijs) | Gecontroleerd |
+| Werkgevers en banken mogen een kopie maken; verhuurders, hotels en webwinkels meestal niet | Rijksoverheid (eerste deel); Autoriteit Persoonsgegevens voor de uitzonderingen | Eerste deel gecontroleerd; tweede deel nog koppelen |
+| DigiD-app veiliger dan sms; DigiD stuurt nooit inloglinks; DigiD Machtigen; inloggeschiedenis in Mijn DigiD | digid.nl | Nog koppelen |
+| Bij de politie kun je een verkoper of webwinkel controleren op rekeningnummer, e-mailadres, telefoonnummer of webadres; geen meldingen is geen garantie | [politie.nl, check de (ver)koper](https://www.politie.nl/aangifte-of-melding-doen/controleer-handelspartij.html) | Gecontroleerd |
+
+**Bronnen bij de korte blokken (hoofdstuk 3, 4 en 5)**
+
+| Bewering | Bron | Status |
+| --- | --- | --- |
+| Ondersteuning Windows 10 gestopt op 14 oktober 2025; pc blijft werken maar krijgt geen beveiligingsupdates meer | [Microsoft Support, einde ondersteuning Windows 10](https://support.microsoft.com/nl-nl/windows/windows-10-ondersteuning-is-be%C3%ABindigd-op-14-oktober-2025-2ca8b313-1946-43d3-b55c-2b95b107f281) | Gecontroleerd |
+| Verlengde beveiligingsupdates voor particulieren tot 12 oktober 2027; Microsoft-account vereist | [Microsoft, Extended Security Updates](https://www.microsoft.com/nl-nl/windows/extended-security-updates) | Gecontroleerd |
+| Apple-erfeniscontact: toegangssleutel plus overlijdensakte; contact hoeft geen Apple-apparaat te hebben | [SeniorWeb, erfeniscontact toevoegen](https://www.seniorweb.nl/artikel/erfeniscontact-toevoegen-aan-iphone-of-ipad) | Gecontroleerd via tweede hand; pagina van Apple zelf nog koppelen |
+| Google Inactief accountbeheer: periode kiezen, contactpersonen, selectie van gegevens, optioneel verwijderen | [KPN, digitale erfenis](https://www.kpn.com/beleef/blog/digitale-erfenis) | Gecontroleerd via tweede hand; pagina van Google zelf nog koppelen |
+| Microsoft heeft geen regeling voor digitale nalatenschap; telefoonabonnement van overledene niet direct opzeggen | Zelfde pagina van KPN; [Data na de dood](https://www.datanadedood.nu/digitale-erfenis) | Gecontroleerd via tweede hand |
+| Verborgen opdrachten in webpagina's of e-mails kunnen AI-assistenten misleiden (prompt injection) | OWASP Top 10 for LLM Applications, of NCSC | Nog koppelen |
+| Apparaten wissen: stappen per systeem; activeringsslot bij niet uitloggen | Ondersteuningspagina's van Apple, Google en Microsoft | Nog koppelen |
+| Updatetermijnen Android en iPhone; vuistregel van een half jaar | Geen bron; eigen vuistregel | Als vuistregel benoemen of onderbouwen |
+| Recht op verwijdering van gegevens | AVG artikel 17; Autoriteit Persoonsgegevens | Nog koppelen |
+
+**Aangepast op basis van de bronnen.** De zin over datalekken in hoofdstuk 6 was te stellig en is gecorrigeerd: de meldplicht geldt alleen als het lek waarschijnlijk een risico oplevert voor de betrokkenen.
+
+**Hoe de bronnen zijn gekozen.** Eerst overheid en onafhankelijke instanties (CBS, NCSC, AIVD, Autoriteit Persoonsgegevens, politie, NIST, Europol), dan de makers van een product over hun eigen product, dan vakpers. Commerciële beveiligingsbedrijven alleen als er niets beters is, en dan met vermelding.
+
+*\[Nog in te vullen: naam, contactadres, datum laatste controle, gebruikte bronnen per hoofdstuk.\]*

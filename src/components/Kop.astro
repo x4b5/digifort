@@ -1,0 +1,51 @@
+---
+import Logo from './Logo.astro';
+import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
+const huidig = Astro.url.pathname.replace(/\/$/, '');
+---
+<header class="kop">
+  <div class="wrap kop-rij">
+    <a class="merk" href="/"><Logo maat={34} /><span>{SITE.naam}</span></a>
+    <span class="sloten" data-sloten hidden><span data-sloten-tekst></span></span>
+    <details class="menu">
+      <summary class="knop licht klein">Menu</summary>
+      <nav aria-label="Hoofdstukken">
+        <ol>
+          {HOOFDSTUKKEN.map((h) => (
+            <li class={h.extra ? 'extra' : ''}>
+              <a href={`/${h.slug}`} aria-current={huidig === `/${h.slug}` ? 'page' : undefined}>
+                <span class="nr">{h.nr === null ? '↳' : h.nr}</span> {h.titel}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .kop { border-bottom: var(--lijndikte) solid var(--lijn-sterk); background: var(--papier); position: relative; z-index: 5; }
+  .kop-rij { display: flex; align-items: center; gap: 1rem; min-height: 4.25rem; flex-wrap: wrap; }
+  .merk { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--kop); font-weight: 700; font-size: 1.25rem; color: var(--inkt); text-decoration: none; }
+  .sloten { margin-left: auto; font-size: 0.9rem; color: var(--inkt-zacht); }
+  .sloten[hidden] { display: none; }
+  .sloten + .menu, .sloten[hidden] + .menu { margin-left: 0; }
+  .menu { position: relative; }
+  .sloten[hidden] ~ .menu { margin-left: auto; }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  .menu[open] summary { background: var(--inkt); color: var(--papier); border-color: var(--inkt); }
+  nav {
+    position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 10;
+    background: var(--papier); border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius);
+    min-width: min(22rem, 90vw); padding: 0.5rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  }
+  ol { list-style: none; margin: 0; padding: 0; }
+  li { margin: 0; }
+  li a { display: flex; gap: 0.75rem; padding: 0.55rem 1rem; color: var(--inkt); text-decoration: none; font-size: 1rem; }
+  li a:hover, li a[aria-current="page"] { background: var(--papier-2); }
+  li a[aria-current="page"] { font-weight: 700; }
+  .nr { font-family: var(--kop); color: var(--rood); min-width: 1.2rem; text-align: right; }
+  li.extra a { padding-left: 1.6rem; color: var(--inkt-zacht); }
+</style>

@@ -1,0 +1,229 @@
+---
+/**
+ * Het huis in doorsnede. Elke plek is een link naar hoofdstuk 1 en kleurt mee
+ * met de huischeck en de afvinklijsten: rood = open, groen = dicht, zwart = onbekend.
+ */
+import { KAMERS } from '../data/kamers.js';
+const { legenda = true } = Astro.props;
+const k = Object.fromEntries(KAMERS.map((x) => [x.id, x]));
+const href = (id) => `/plattegrond#${id}`;
+---
+<figure class="tekening plattegrond" data-plattegrond>
+  <svg viewBox="0 0 720 400" role="img" aria-labelledby="plattegrond-titel plattegrond-uitleg">
+    <title id="plattegrond-titel">De plattegrond van je digitale huis</title>
+    <desc id="plattegrond-uitleg">Een huis in doorsnede met veertien plekken: voordeur, tweede voordeur, sleutels, sleutelkluis, passkey, tweede slot, ramen, brievenbus, tuinhek en meterkast, kattenluik, overdekte gang, brandkast buiten de deur, onderhoud op het dak en de eigendomsakte aan de muur.</desc>
+
+    <!-- grond -->
+    <line class="tek" x1="10" y1="340" x2="710" y2="340" />
+
+    <!-- huis -->
+    <path class="tek" d="M170 135 L375 40 L580 135" />
+    <path class="tek" d="M190 135 V340 M560 135 V340" />
+    <line class="tek-dun" x1="190" y1="235" x2="560" y2="235" />
+    <line class="tek-dun" x1="350" y1="235" x2="350" y2="340" />
+
+    <!-- brandkast buiten de deur -->
+    <a href={href('brandkast')} data-kamer="brandkast">
+      <title>{k.brandkast.naam}: {k.brandkast.wat}</title>
+      <g>
+        <rect class="tek" x="22" y="288" width="60" height="52" rx="3" />
+        <circle class="tek" cx="52" cy="314" r="9" />
+        <line class="tek" x1="52" y1="305" x2="52" y2="314" />
+        <line class="tek-dun" x1="30" y1="296" x2="74" y2="296" />
+      </g>
+    </a>
+
+    <!-- tuinhek en meterkast -->
+    <a href={href('tuinhek')} data-kamer="tuinhek">
+      <title>{k.tuinhek.naam}: {k.tuinhek.wat}</title>
+      <g>
+        <path class="tek" d="M100 340 V304 M116 340 V300 M132 340 V304 M148 340 V300" />
+        <line class="tek-dun" x1="94" y1="316" x2="154" y2="316" />
+        <line class="tek-dun" x1="94" y1="330" x2="154" y2="330" />
+        <rect class="tek" x="318" y="296" width="24" height="36" rx="2" />
+        <path class="tek-dun" d="M322 290 a8 8 0 0 1 16 0 M326 290 a4 4 0 0 1 8 0" />
+      </g>
+    </a>
+
+    <!-- brievenbus -->
+    <a href={href('brievenbus')} data-kamer="brievenbus">
+      <title>{k.brievenbus.naam}: {k.brievenbus.wat}</title>
+      <g>
+        <line class="tek" x1="170" y1="340" x2="170" y2="300" />
+        <rect class="tek" x="156" y="282" width="30" height="20" rx="3" />
+        <line class="tek-dun" x1="162" y1="292" x2="180" y2="292" />
+      </g>
+    </a>
+
+    <!-- voordeur -->
+    <a href={href('voordeur')} data-kamer="voordeur">
+      <title>{k.voordeur.naam}: {k.voordeur.wat}</title>
+      <g>
+        <path class="tek" d="M215 340 V275 a25 25 0 0 1 50 0 V340" />
+        <line class="tek-dun" x1="222" y1="332" x2="258" y2="332" />
+        <text class="tek-label" x="240" y="262" text-anchor="middle">@</text>
+      </g>
+    </a>
+
+    <!-- tweede slot -->
+    <a href={href('tweede-slot')} data-kamer="tweede-slot">
+      <title>{k['tweede-slot'].naam}: {k['tweede-slot'].wat}</title>
+      <g>
+        <circle class="tek" cx="254" cy="300" r="4" />
+        <circle class="tek" cx="254" cy="316" r="4" />
+      </g>
+    </a>
+
+    <!-- passkey -->
+    <a href={href('passkey')} data-kamer="passkey">
+      <title>{k.passkey.naam}: {k.passkey.wat}</title>
+      <g>
+        <ellipse class="tek-dun" cx="286" cy="304" rx="9" ry="12" />
+        <ellipse class="tek-dun" cx="286" cy="304" rx="5" ry="7" />
+        <line class="tek-dun" x1="286" y1="301" x2="286" y2="307" />
+      </g>
+    </a>
+
+    <!-- sleutels -->
+    <a href={href('sleutels')} data-kamer="sleutels">
+      <title>{k.sleutels.naam}: {k.sleutels.wat}</title>
+      <g>
+        <line class="tek" x1="286" y1="248" x2="336" y2="248" />
+        <path class="tek-dun" d="M294 248 v6 m0 0 a4 4 0 1 0 0.1 0 M294 258 v14 h4 M310 248 v6 m0 0 a4 4 0 1 0 0.1 0 M310 258 v14 h4 M326 248 v6 m0 0 a4 4 0 1 0 0.1 0 M326 258 v14 h4" />
+      </g>
+    </a>
+
+    <!-- sleutelkluis -->
+    <a href={href('sleutelkluis')} data-kamer="sleutelkluis">
+      <title>{k.sleutelkluis.naam}: {k.sleutelkluis.wat}</title>
+      <g>
+        <rect class="tek" x="380" y="278" width="58" height="62" rx="3" />
+        <circle class="tek" cx="409" cy="306" r="11" />
+        <line class="tek" x1="409" y1="295" x2="409" y2="306" />
+        <line class="tek-dun" x1="388" y1="330" x2="430" y2="330" />
+      </g>
+    </a>
+
+    <!-- tweede voordeur -->
+    <a href={href('tweede-voordeur')} data-kamer="tweede-voordeur">
+      <title>{k['tweede-voordeur'].naam}: {k['tweede-voordeur'].wat}</title>
+      <g>
+        <path class="tek" d="M498 340 V262 H548 V340" />
+        <rect class="tek-dun" x="513" y="276" width="20" height="30" rx="4" />
+        <line class="tek-dun" x1="519" y1="300" x2="527" y2="300" />
+      </g>
+    </a>
+
+    <!-- kattenluik -->
+    <a href={href('kattenluik')} data-kamer="kattenluik">
+      <title>{k.kattenluik.naam}: {k.kattenluik.wat}</title>
+      <g>
+        <path class="tek" d="M513 338 V322 a10 10 0 0 1 20 0 V338" />
+      </g>
+    </a>
+
+    <!-- ramen -->
+    <a href={href('ramen')} data-kamer="ramen">
+      <title>{k.ramen.naam}: {k.ramen.wat}</title>
+      <g>
+        <rect class="tek" x="215" y="160" width="55" height="50" />
+        <path class="tek-dun" d="M242 160 V210 M215 185 H270" />
+        <rect class="tek" x="292" y="160" width="55" height="50" />
+        <path class="tek-dun" d="M319 160 V210 M292 185 H347" />
+      </g>
+    </a>
+
+    <!-- eigendomsakte -->
+    <a href={href('eigendomsakte')} data-kamer="eigendomsakte">
+      <title>{k.eigendomsakte.naam}: {k.eigendomsakte.wat}</title>
+      <g>
+        <rect class="tek" x="420" y="155" width="62" height="56" rx="2" />
+        <path class="tek-dun" d="M432 170 H470 M432 180 H470 M432 190 H456" />
+        <circle class="tek-vul" cx="466" cy="198" r="5" />
+      </g>
+    </a>
+
+    <!-- onderhoud -->
+    <a href={href('onderhoud')} data-kamer="onderhoud">
+      <title>{k.onderhoud.naam}: {k.onderhoud.wat}</title>
+      <g>
+        <path class="tek" d="M470 96 L496 108" />
+        <path class="tek" d="M488 90 L510 100 L504 112 L482 102 Z" />
+        <path class="tek-dun" d="M455 102 l12 -6 M462 112 l12 -6" />
+      </g>
+    </a>
+
+    <!-- overdekte gang -->
+    <a href={href('gang')} data-kamer="gang">
+      <title>{k.gang.naam}: {k.gang.wat}</title>
+      <g>
+        <path class="tek" d="M560 168 H690 M560 206 H690" />
+        <path class="tek-dun" d="M600 168 a20 20 0 0 1 40 0 M640 168 a20 20 0 0 1 40 0 M575 206 a20 20 0 0 1 40 0" />
+        <path class="tek" d="M690 187 h14 m-5 -5 l5 5 l-5 5" />
+      </g>
+    </a>
+  </svg>
+
+  {legenda && (
+    <ol class="legenda" data-legenda>
+      {KAMERS.map((x) => (
+        <li data-kamer-legenda={x.id}>
+          <a href={href(x.id)}><span class="lampje" aria-hidden="true"></span><strong>{x.naam}</strong> <span class="wat">— {x.wat}</span></a>
+        </li>
+      ))}
+    </ol>
+  )}
+</figure>
+
+<script>
+  import { lees } from '../lib/opslag.js';
+  import { toestandPerKamer } from '../lib/toestand.js';
+
+  document.querySelectorAll<HTMLElement>('[data-plattegrond]').forEach((fig) => {
+    function kleur(data = lees()) {
+      const toestand = toestandPerKamer(data);
+      fig.querySelectorAll<SVGElement>('[data-kamer]').forEach((el) => {
+        el.dataset.toestand = toestand[el.dataset.kamer!];
+      });
+      fig.querySelectorAll<HTMLElement>('[data-kamer-legenda]').forEach((el) => {
+        el.dataset.toestand = toestand[el.dataset.kamerLegenda!];
+      });
+    }
+    kleur();
+    window.addEventListener('jdh:gewijzigd', (e: Event) => kleur((e as CustomEvent).detail));
+
+    // legenda en tekening wijzen naar elkaar
+    const koppel = (id: string, aan: boolean) => {
+      fig.querySelector(`[data-kamer="${id}"]`)?.classList.toggle('licht-op', aan);
+      fig.querySelector(`[data-kamer-legenda="${id}"]`)?.classList.toggle('licht-op', aan);
+    };
+    fig.querySelectorAll<HTMLElement>('[data-kamer], [data-kamer-legenda]').forEach((el) => {
+      const id = el.dataset.kamer ?? el.dataset.kamerLegenda!;
+      el.addEventListener('mouseenter', () => koppel(id, true));
+      el.addEventListener('mouseleave', () => koppel(id, false));
+      el.addEventListener('focusin', () => koppel(id, true));
+      el.addEventListener('focusout', () => koppel(id, false));
+    });
+  });
+</script>
+
+<style>
+  .plattegrond svg { overflow: visible; }
+  a[data-kamer] { cursor: pointer; outline: none; }
+  a[data-kamer]:focus-visible g { outline: 3px solid var(--focus); }
+  a[data-kamer] g { transition: transform 0.15s ease; transform-box: fill-box; transform-origin: center; }
+  a[data-kamer].licht-op g, a[data-kamer]:hover g { transform: scale(1.08); }
+  [data-toestand="open"] :global(.tek), [data-toestand="open"] :global(.tek-dun) { stroke: var(--rood); }
+  [data-toestand="open"] :global(.tek-vul) { fill: var(--rood); }
+  [data-toestand="dicht"] :global(.tek), [data-toestand="dicht"] :global(.tek-dun) { stroke: var(--groen); }
+  [data-toestand="dicht"] :global(.tek-vul) { fill: var(--groen); }
+
+  .legenda { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); font-size: 0.95rem; }
+  .legenda li { margin: 0; }
+  .legenda a { display: flex; align-items: baseline; gap: 0.5rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
+  .legenda a:hover, .legenda li.licht-op a { background: var(--papier-2); }
+  .legenda .wat { color: var(--inkt-zacht); }
+  .lampje { flex: none; width: 0.7rem; height: 0.7rem; border-radius: 50%; border: 2px solid var(--lijn-sterk); position: relative; top: -0.05rem; }
+  [data-toestand="open"] .lampje { background: var(--rood); border-color: var(--rood); }
+  [data-toestand="dicht"] .lampje { background: var(--groen); border-color: var(--groen); }
+</style>

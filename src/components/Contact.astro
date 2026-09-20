@@ -1,0 +1,11 @@
+---
+/** Het contactadres van de site. Xavier maakt de alias zelf aan; tot die tijd staat hier een placeholder. */
+import { SITE } from '../lib/site.js';
+const adres = SITE.contact;
+---
+{adres
+  ? <a href={`mailto:${adres}`}>{adres}</a>
+  : <span class="placeholder">(e-mailadres volgt)</span>}
+<style>
+  .placeholder { color: var(--inkt-zacht); }
+</style>

@@ -1,0 +1,119 @@
+---
+/** Tien vragen, twee minuten. Het antwoord blijft in je eigen browser. */
+import { VRAGEN, BANDEN } from '../data/huischeck.js';
+---
+<section class="huischeck" data-huischeck>
+  <div class="schakel">
+    <label><input type="checkbox" data-kind /> Ik doe de check samen met een kind (alleen vraag 1, 3, 6 en 9)</label>
+  </div>
+  <ol class="vragen">
+    {VRAGEN.map((v) => (
+      <li data-vraag={v.nr} data-kind-vraag={v.kind ? '1' : undefined}>
+        <p class="vraag"><span class="nr">{v.nr}</span> {v.vraag}</p>
+        <div class="antwoorden" role="group" aria-label={`Vraag ${v.nr}`}>
+          <label class="antwoord ja"><input type="radio" name={`v${v.nr}`} value="ja" /><span>Ja</span></label>
+          <label class="antwoord nee"><input type="radio" name={`v${v.nr}`} value="nee" /><span>Nee</span></label>
+          <label class="antwoord weet"><input type="radio" name={`v${v.nr}`} value="weet-niet" /><span>Weet ik niet</span></label>
+        </div>
+      </li>
+    ))}
+  </ol>
+
+  <div class="uitslag" data-uitslag aria-live="polite">
+    <p class="eyebrow">Je uitslag</p>
+    <p class="meter" aria-hidden="true"><span data-meter-vul></span></p>
+    <p class="score"><strong data-score>0</strong> <span data-score-tekst>keer ja van de 10</span></p>
+    {BANDEN.map((b, i) => (
+      <div class="band" data-band={i} hidden>
+        <h3>{b.kop}</h3>
+        <p>{b.tekst} <a href={b.link}>Ga ernaartoe →</a></p>
+      </div>
+    ))}
+    <p class="open-deuren" data-open-deuren hidden>Elke "nee" of "weet ik niet" is een deur die openstaat. <a href="/">Bekijk ze op de plattegrond →</a></p>
+    <p class="rest" data-rest>Beantwoord alle vragen voor je uitslag.</p>
+  </div>
+</section>
+
+<script>
+  import { lees, zetAntwoord } from '../lib/opslag.js';
+  import { band, BANDEN } from '../data/huischeck.js';
+
+  const sectie = document.querySelector<HTMLElement>('[data-huischeck]');
+  if (sectie) {
+    const kindSchakel = sectie.querySelector<HTMLInputElement>('[data-kind]')!;
+    const vragen = Array.from(sectie.querySelectorAll<HTMLElement>('[data-vraag]'));
+    const radios = Array.from(sectie.querySelectorAll<HTMLInputElement>('input[type=radio]'));
+
+    function actieveVragen() {
+      return vragen.filter((v) => !kindSchakel.checked || v.dataset.kindVraag === '1');
+    }
+
+    function vulIn(data = lees()) {
+      radios.forEach((r) => {
+        const nr = r.name.slice(1);
+        const a = data.huischeck[nr];
+        r.checked = (a === true && r.value === 'ja') || (a === false && r.value === 'nee') || (a === null && r.value === 'weet-niet');
+      });
+    }
+
+    function toon() {
+      const actief = actieveVragen();
+      vragen.forEach((v) => { v.hidden = !actief.includes(v); });
+      const totaal = actief.length;
+      const antwoorden = actief.map((v) => sectie!.querySelector<HTMLInputElement>(`input[name=v${v.dataset.vraag}]:checked`)?.value);
+      const beantwoord = antwoorden.filter(Boolean).length;
+      const ja = antwoorden.filter((a) => a === 'ja').length;
+      const schaal = totaal === 10 ? ja : Math.round((ja / totaal) * 10);
+
+      sectie!.querySelector('[data-score]')!.textContent = String(ja);
+      sectie!.querySelector('[data-score-tekst]')!.textContent = `keer ja van de ${totaal}`;
+      const vul = sectie!.querySelector<HTMLElement>('[data-meter-vul]')!;
+      vul.style.width = `${(ja / totaal) * 100}%`;
+      vul.style.background = ja / totaal >= 0.8 ? 'var(--groen)' : 'var(--rood)';
+
+      const klaar = beantwoord === totaal;
+      const b = band(schaal);
+      sectie!.querySelectorAll<HTMLElement>('[data-band]').forEach((el) => { el.hidden = !klaar || BANDEN[Number(el.dataset.band)] !== b; });
+      sectie!.querySelector<HTMLElement>('[data-open-deuren]')!.hidden = !klaar || ja === totaal;
+      const rest = sectie!.querySelector<HTMLElement>('[data-rest]')!;
+      rest.hidden = klaar;
+      rest.textContent = `Nog ${totaal - beantwoord} ${totaal - beantwoord === 1 ? 'vraag' : 'vragen'} te gaan.`;
+    }
+
+    vulIn();
+    toon();
+    radios.forEach((r) => r.addEventListener('change', () => {
+      const waarde = r.value === 'ja' ? true : r.value === 'nee' ? false : null;
+      zetAntwoord(r.name.slice(1), waarde);
+      toon();
+    }));
+    kindSchakel.addEventListener('change', toon);
+    window.addEventListener('jdh:gewijzigd', (e: Event) => { vulIn((e as CustomEvent).detail); toon(); });
+  }
+</script>
+
+<style>
+  .huischeck { margin: 1.5rem 0 2rem; }
+  .schakel { margin-bottom: 1.25rem; font-size: 0.95rem; color: var(--inkt-zacht); }
+  .schakel input { width: 1.2rem; height: 1.2rem; accent-color: var(--rood); margin-right: 0.4rem; }
+  .vragen { list-style: none; padding: 0; margin: 0; border-top: var(--lijndikte) solid var(--lijn-sterk); }
+  .vragen li { margin: 0; padding: 1rem 0; border-bottom: 2px solid var(--lijn); }
+  .vraag { margin: 0 0 0.6rem; font-weight: 700; }
+  .nr { display: inline-block; min-width: 1.6rem; font-family: var(--kop); color: var(--rood); }
+  .antwoorden { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .antwoord { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.3rem 1rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); font-family: var(--kop); font-weight: 700; cursor: pointer; background: var(--papier); }
+  .antwoord input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .antwoord:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .ja:has(input:checked) { background: var(--groen); border-color: var(--groen); color: #fff; }
+  .nee:has(input:checked) { background: var(--rood); border-color: var(--rood); color: #fff; }
+  .weet:has(input:checked) { background: var(--inkt); border-color: var(--inkt); color: var(--papier); }
+  .uitslag { margin-top: 2rem; padding: 1.25rem 1.4rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier-2); }
+  .meter { height: 1rem; border: 2px solid var(--lijn-sterk); border-radius: 999px; overflow: hidden; margin: 0 0 0.6rem; background: var(--papier); }
+  .meter span { display: block; height: 100%; width: 0; background: var(--rood); transition: width 0.3s ease; }
+  .score { font-family: var(--kop); font-size: 1.5rem; margin: 0 0 0.75rem; }
+  .score strong { font-size: 2.4rem; color: var(--rood); }
+  .band h3 { margin: 0.5rem 0 0.3rem; }
+  .band p:last-child { margin: 0 0 0.5rem; }
+  .rest { margin: 0; color: var(--inkt-zacht); }
+  .open-deuren { margin: 0.5rem 0 0; }
+</style>
