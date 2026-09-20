@@ -3,7 +3,7 @@ export const SITE = {
   naam: 'Je digitale huis',
   slogan: 'Digitale veiligheid in gewone taal, zonder bangmakerij en zonder reclame.',
   laatstNagelopen: '2026-09-20',
-  contact: '', // e-mailalias; Xavier vult hem in
+  contact: 'x4b5.clause500@8shield.net', // SimpleLogin-alias, stuurt door naar Proton
 };
 
 export const HOOFDSTUKKEN = [
