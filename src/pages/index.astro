@@ -1,6 +1,7 @@
 ---
 import Pagina from '../layouts/Pagina.astro';
 import Plattegrond from '../components/Plattegrond.astro';
+import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
 ---
 <Pagina breed>
@@ -28,7 +29,7 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
       {HOOFDSTUKKEN.filter((h) => !h.extra).map((h) => (
         <li>
           <a class="kaart" href={`/${h.slug}`}>
-            <span class="nr">Hoofdstuk {h.nr}</span>
+            <span class="kaart-kop"><span class="nr">Hoofdstuk {h.nr}</span><HoofdstukIcoon slug={h.slug} maat={40} /></span>
             <h3>{h.titel}</h3>
             <p>{h.kort}</p>
           </a>
@@ -47,4 +48,5 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
   .kleur.rood { background: var(--rood); }
   .kleur.groen { background: var(--groen); }
   .hoofdstukken h2 { margin-top: 3rem; }
+  .kaart-kop { display: flex; justify-content: space-between; align-items: center; }
 </style>

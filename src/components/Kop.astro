@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import HoofdstukIcoon from './HoofdstukIcoon.astro';
 import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
 const huidig = Astro.url.pathname.replace(/\/$/, '');
 ---
@@ -14,7 +15,7 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
           {HOOFDSTUKKEN.map((h) => (
             <li class={h.extra ? 'extra' : ''}>
               <a href={`/${h.slug}`} aria-current={huidig === `/${h.slug}` ? 'page' : undefined}>
-                <span class="nr">{h.nr === null ? '↳' : h.nr}</span> {h.titel}
+                <HoofdstukIcoon slug={h.slug} maat={22} /><span class="nr">{h.nr === null ? '↳' : h.nr}</span> {h.titel}
               </a>
             </li>
           ))}
@@ -43,7 +44,7 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   }
   ol { list-style: none; margin: 0; padding: 0; }
   li { margin: 0; }
-  li a { display: flex; gap: 0.75rem; padding: 0.55rem 1rem; color: var(--inkt); text-decoration: none; font-size: 1rem; }
+  li a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 1rem; color: var(--inkt); text-decoration: none; font-size: 1rem; }
   li a:hover, li a[aria-current="page"] { background: var(--papier-2); }
   li a[aria-current="page"] { font-weight: 700; }
   .nr { font-family: var(--kop); color: var(--rood); min-width: 1.2rem; text-align: right; }

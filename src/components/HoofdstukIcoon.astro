@@ -1,0 +1,23 @@
+---
+/** Eén lijntekening per hoofdstuk, in dezelfde stijl als de kamericonen. */
+const { slug, maat = 48 } = Astro.props;
+---
+<span class="hicoon" aria-hidden="true">
+  <svg viewBox="0 0 64 64" width={maat} height={maat}>
+    {slug === 'huischeck' && <g><rect class="tek" x="14" y="12" width="36" height="44" rx="3" /><rect class="tek-dun" x="24" y="8" width="16" height="8" rx="2" /><path class="tek-rood" d="M21 30 l5 5 l9 -9" /><path class="tek-rood" d="M21 45 l5 5 l9 -9" /><path class="tek-dun" d="M38 29 H44 M38 44 H44" /></g>}
+    {slug === 'plattegrond' && <g><path class="tek" d="M8 30 L32 10 L56 30" /><path class="tek" d="M12 27 V56 H52 V27" /><path class="tek-dun" d="M12 42 H52 M32 42 V56 M32 27 V42" /><rect class="tek-vul" x="20" y="48" width="5" height="8" /></g>}
+    {slug === 'inbrekers-van-nu' && <g><path class="tek" d="M14 26 h36 v12 a18 12 0 0 1 -36 0 z" /><circle class="tek-vul" cx="24" cy="32" r="3" /><circle class="tek-vul" cx="40" cy="32" r="3" /><path class="tek-dun" d="M20 20 a12 8 0 0 1 24 0" /><path class="tek-rood" d="M10 52 h44" /></g>}
+    {slug === 'inbrekers-van-morgen' && <g><path class="tek" d="M14 26 h36 v12 a18 12 0 0 1 -36 0 z" /><rect class="tek-vul" x="20" y="29" width="8" height="5" /><rect class="tek-vul" x="36" y="29" width="8" height="5" /><path class="tek-rood" d="M32 26 V14 M32 14 h8 v-4 M24 52 h4 v-6 h8 v6 h4" /><circle class="tek-rood" cx="42" cy="8" r="2" /></g>}
+    {slug === 'aan-de-slag' && <g><path class="tek" d="M16 50 L36 30" /><path class="tek" d="M30 14 L52 24 L46 36 L24 26 Z" /><path class="tek-rood" d="M12 54 l4 -4" /></g>}
+    {slug === 'van-geheim-woord-naar-zegelring' && <g><path class="tek" d="M20 58 V6 M44 58 V6" /><path class="tek-dun" d="M20 16 H44 M20 28 H44 M20 40 H44" /><path class="tek-rood" d="M20 52 H44" /></g>}
+    {slug === 'onderhoud' && <g><path class="tek" d="M40 10 a12 12 0 0 0 -12 16 L12 42 l10 10 l16 -16 a12 12 0 0 0 16 -12 l-8 6 l-6 -6 z" /></g>}
+    {slug === 'als-er-is-ingebroken' && <g><path class="tek" d="M18 40 V28 a14 14 0 0 1 28 0 v12 l6 6 H12 z" /><path class="tek" d="M26 50 a6 6 0 0 0 12 0" /><path class="tek-rood" d="M32 8 v6 M10 20 l5 3 M54 20 l-5 3" /></g>}
+    {slug === 'voor-de-mensen-om-je-heen' && <g><circle class="tek" cx="32" cy="18" r="7" /><path class="tek" d="M20 46 v-8 a12 12 0 0 1 24 0 v8" /><circle class="tek-dun" cx="12" cy="24" r="5" /><path class="tek-dun" d="M4 46 v-6 a8 8 0 0 1 12 -7" /><circle class="tek-dun" cx="52" cy="24" r="5" /><path class="tek-dun" d="M60 46 v-6 a8 8 0 0 0 -12 -7" /><path class="tek-rood" d="M8 54 H56" /></g>}
+    {slug === 'woordenboek' && <g><path class="tek" d="M32 16 C 26 10, 14 10, 8 14 V50 C 14 46, 26 46, 32 52 C 38 46, 50 46, 56 50 V14 C 50 10, 38 10, 32 16 Z" /><path class="tek" d="M32 16 V52" /><text class="tek-tekst" x="20" y="36" text-anchor="middle" font-size="14" style="fill: var(--rood)">A</text></g>}
+    {slug === 'over' && <g><path class="tek" d="M10 12 h44 v30 h-22 l-12 10 v-10 h-10 z" /><circle class="tek-vul" cx="32" cy="20" r="2.5" /><path class="tek-rood" d="M32 26 V36" /></g>}
+  </svg>
+</span>
+<style>
+  .hicoon { display: inline-block; line-height: 0; }
+  .hicoon svg { display: block; }
+</style>
