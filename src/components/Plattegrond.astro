@@ -6,7 +6,7 @@
 import { KAMERS } from '../data/kamers.js';
 const { legenda = true } = Astro.props;
 const k = Object.fromEntries(KAMERS.map((x) => [x.id, x]));
-const href = (id) => `/plattegrond#${id}`;
+const href = (id) => `/plattegrond#${k[id].anker}`;
 ---
 <figure class="tekening plattegrond" data-plattegrond>
   <svg viewBox="0 0 720 400" role="img" aria-labelledby="plattegrond-titel plattegrond-uitleg">
@@ -168,7 +168,7 @@ const href = (id) => `/plattegrond#${id}`;
     <ol class="legenda" data-legenda>
       {KAMERS.map((x) => (
         <li data-kamer-legenda={x.id}>
-          <a href={href(x.id)}><span class="lampje" aria-hidden="true"></span><strong>{x.naam}</strong> <span class="wat">— {x.wat}</span></a>
+          <a href={href(x.id)}><span class="lampje" aria-hidden="true"></span><span class="naam"><strong>{x.naam}</strong> <span class="wat">— {x.wat}</span></span></a>
         </li>
       ))}
     </ol>
@@ -220,10 +220,10 @@ const href = (id) => `/plattegrond#${id}`;
 
   .legenda { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); font-size: 0.95rem; }
   .legenda li { margin: 0; }
-  .legenda a { display: flex; align-items: baseline; gap: 0.5rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
+  .legenda a { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
   .legenda a:hover, .legenda li.licht-op a { background: var(--papier-2); }
   .legenda .wat { color: var(--inkt-zacht); }
-  .lampje { flex: none; width: 0.7rem; height: 0.7rem; border-radius: 50%; border: 2px solid var(--lijn-sterk); position: relative; top: -0.05rem; }
+  .lampje { flex: none; width: 0.75rem; height: 0.75rem; border-radius: 50%; border: 2px solid var(--lijn-sterk); margin-top: 0.45rem; }
   [data-toestand="open"] .lampje { background: var(--rood); border-color: var(--rood); }
   [data-toestand="dicht"] .lampje { background: var(--groen); border-color: var(--groen); }
 </style>

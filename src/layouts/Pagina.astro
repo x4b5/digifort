@@ -48,6 +48,15 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
         tekst.textContent = `${dicht} van ${TOTAAL_SLOTEN} sloten dicht`;
       }
 
+      // brede tabellen scrollen in hun eigen bak, niet de hele pagina
+      document.querySelectorAll('main table').forEach((t) => {
+        if (t.parentElement?.classList.contains('tabel-scroll')) return;
+        const bak = document.createElement('div');
+        bak.className = 'tabel-scroll';
+        t.replaceWith(bak);
+        bak.append(t);
+      });
+
       toonTeller();
       window.addEventListener('jdh:gewijzigd', (e) => toonTeller(e.detail));
 
