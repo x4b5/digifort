@@ -1,6 +1,5 @@
 ---
 import Pagina from '../layouts/Pagina.astro';
-import Plattegrond from '../components/Plattegrond.astro';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import HuisEnFort from '../components/HuisEnFort.astro';
 import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
@@ -14,6 +13,7 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
       <p class="knoppen">
         <a class="knop" href="/huischeck">Doe de huischeck →</a>
         <a class="knop licht" href="/aan-de-slag">Begin met bouwen</a>
+        <a class="knop licht" href="/de-storm-om-het-huis">Waarom nu?</a>
       </p>
     </div>
   </section>
@@ -22,12 +22,6 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
     <h2 class="fort-kop">Waar we naartoe werken</h2>
     <p class="tekst">Links het huis waar de meeste mensen in wonen. Rechts het fort. Elk deel van het fort hoort bij een stap uit <a href="/aan-de-slag">hoofdstuk 4</a>. Wat je regelt, kleurt <span class="kleur groen">groen</span>; wat openstaat, kleurt <span class="kleur rood">rood</span>.</p>
     <HuisEnFort />
-  </section>
-
-  <section class="huis">
-    <h2 class="huis-kop">Je huis in één tekening</h2>
-    <p class="tekst">Klik op een plek om te lezen wat het is. Doe je de huischeck of vink je iets af? Dan kleurt het huis mee: <span class="kleur rood">rood</span> is een deur die openstaat, <span class="kleur groen">groen</span> een deur die dicht is.</p>
-    <Plattegrond />
   </section>
 
   <section class="hoofdstukken">
@@ -50,7 +44,6 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
   .hero { max-width: var(--maat); padding-bottom: 1rem; }
   .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
   .knoppen { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
-  .huis-kop { margin-top: 2rem; }
   .fort-kop { margin-top: 2rem; }
   .kleur { font-weight: 700; padding: 0 0.3rem; border-radius: var(--radius); color: #fff; }
   .kleur.rood { background: var(--rood); }

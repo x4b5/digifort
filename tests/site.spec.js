@@ -26,7 +26,7 @@ test('het woordenboek filtert terwijl je typt', async ({ page }) => {
 });
 
 test('de plattegrond linkt naar het juiste kopje', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/plattegrond');
   await page.locator('[data-kamer-legenda="ramen"] a').click();
   await expect(page).toHaveURL(/plattegrond#de-ramen-je-browser/);
   await expect(page.locator('#de-ramen-je-browser')).toBeInViewport();
