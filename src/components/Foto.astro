@@ -1,0 +1,26 @@
+---
+/** Een echte foto bij de tekst: het kader van een tekening, met maker en licentie erbij. */
+import { Image } from 'astro:assets';
+import { FOTOS } from '../data/fotos.js';
+
+const { id, onderschrift, breed = false } = Astro.props;
+const foto = FOTOS[id];
+if (!foto) throw new Error(`Onbekende foto: ${id}`);
+
+const bestanden = import.meta.glob('../assets/foto/*.{jpg,jpeg,png,webp}', { eager: true });
+const bron = bestanden[`../assets/foto/${foto.bestand}`];
+if (!bron) throw new Error(`Foto ontbreekt in src/assets/foto: ${foto.bestand}`);
+---
+<figure class:list={['tekening', 'foto', { breed }]}>
+  <Image src={bron.default} alt={foto.alt} widths={[480, 720, 960]} sizes="(max-width: 45rem) 100vw, 40rem" loading="lazy" decoding="async" />
+  <figcaption>
+    {onderschrift && <span>{onderschrift} </span>}
+    <span class="herkomst">
+      Foto: <a href={foto.bron} rel="nofollow noopener">{foto.maker}</a>,{' '}
+      {foto.licentieBron ? <a href={foto.licentieBron} rel="nofollow noopener">{foto.licentie}</a> : foto.licentie}.
+    </span>
+  </figcaption>
+</figure>
+<style>
+  .breed { max-width: none; }
+</style>

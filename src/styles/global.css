@@ -121,6 +121,14 @@ th { font-family: var(--kop); font-size: 0.85rem; letter-spacing: 0.06em; text-t
 figure.tekening { margin: 1.75rem 0 2rem; }
 figure.tekening svg { display: block; width: 100%; height: auto; }
 figure.tekening figcaption { font-size: 0.95rem; color: var(--inkt-zacht); margin-top: 0.6rem; }
+
+/* echte foto's: zelfde kader als een tekening, met een lijn eromheen */
+figure.foto img {
+  display: block; width: 100%; height: auto; border-radius: var(--radius);
+  border: var(--lijndikte) solid var(--lijn-sterk);
+}
+figure.foto .herkomst { color: var(--inkt-zacht); }
+figure.foto .herkomst a { color: inherit; }
 .tek { stroke: var(--lijn-sterk); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .tek-dun { stroke: var(--lijn-sterk); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .tek-rood { stroke: var(--rood); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
