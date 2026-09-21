@@ -1,0 +1,187 @@
+---
+/**
+ * Twee tekeningen naast elkaar: het open huis waar de meeste mensen in wonen,
+ * en het fort waar we naartoe werken. Elk deel van het fort hoort bij plekken
+ * uit het huis en kleurt mee met de huischeck en de afvinklijsten.
+ */
+import { FORTDELEN } from '../data/fort.js';
+import { kamer } from '../data/kamers.js';
+const { legenda = true } = Astro.props;
+const href = (deel) => `/plattegrond#${kamer(deel.kamers[0]).anker}`;
+const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
+---
+<figure class="tekening huis-en-fort" data-huis-en-fort>
+  <svg viewBox="0 0 760 350" role="group" aria-labelledby="hef-titel hef-uitleg">
+    <title id="hef-titel">Van open huis naar fort</title>
+    <desc id="hef-uitleg">Links een huis met de deur op een kier, een open raam, een sleutel onder de mat en een overvolle brievenbus. Rechts een fort met een muur, een gracht, een ophaalbrug, een poort met twee sloten, een torenwacht, luiken, een hek, een schatkamer buiten de muur en een wapenschild. De delen van het fort kleuren groen zodra je ze thuis geregeld hebt.</desc>
+
+    <!-- grond -->
+    <line class="tek" x1="12" y1="300" x2="352" y2="300" />
+    <line class="tek" x1="408" y1="300" x2="748" y2="300" />
+
+    <!-- ===== links: het open huis ===== -->
+    <g class="huis" aria-hidden="true">
+      <path class="tek" d="M62 152 L182 58 L302 152" />
+      <path class="tek" d="M82 152 V300 M282 152 V300" />
+      <!-- scheur in het dak -->
+      <path class="tek-rood" d="M214 92 l7 11 l-6 9 l8 10" />
+      <!-- deur op een kier -->
+      <path class="tek" d="M160 300 V232 h40 V300" />
+      <path class="tek-rood" d="M160 300 V232 L192 214 V282 Z" />
+      <circle class="tek-vul" cx="186" cy="252" r="2.5" />
+      <!-- raam open -->
+      <rect class="tek" x="100" y="176" width="50" height="46" />
+      <path class="tek-dun" d="M125 176 V222 M100 199 H150" />
+      <path class="tek-rood" d="M150 176 L176 164 V210 L150 222" />
+      <!-- briefje op het raam: het wachtwoord -->
+      <rect class="tek-dun" x="222" y="180" width="46" height="30" transform="rotate(-6 245 195)" />
+      <text class="tek-label" x="245" y="199" text-anchor="middle" transform="rotate(-6 245 195)">welkom01</text>
+      <!-- sleutel onder de mat -->
+      <rect class="tek-dun" x="204" y="294" width="42" height="6" />
+      <circle class="tek-rood" cx="214" cy="288" r="4" />
+      <path class="tek-rood" d="M218 288 h14 m-4 0 v4 m-4 -4 v3" />
+      <!-- overvolle brievenbus -->
+      <line class="tek" x1="42" y1="300" x2="42" y2="258" />
+      <rect class="tek" x="26" y="236" width="32" height="22" rx="3" />
+      <path class="tek-rood" d="M30 236 l4 -14 M40 236 l1 -16 M50 236 l6 -13" />
+      <!-- geen hek: alleen stippen waar het had moeten staan -->
+      <path class="tek-dun tek-stippel" d="M20 300 V276 M320 300 V276 M340 300 V276" />
+      <text class="tek-tekst" x="182" y="334" text-anchor="middle">Het open huis</text>
+    </g>
+
+    <!-- pijl: hierheen -->
+    <path class="tek-dun" d="M356 230 H404 m-8 -8 l8 8 l-8 8" />
+
+    <!-- ===== rechts: het fort ===== -->
+    <text class="tek-tekst" x="580" y="334" text-anchor="middle">Het fort</text>
+
+    <a href={href(d.gracht)} data-deel="gracht"><title>{d.gracht.naam}: {d.gracht.wat}</title><g>
+      <path class="tek-dun" d="M440 288 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
+      <path class="tek-dun" d="M450 296 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
+    </g></a>
+
+    <a href={href(d.hek)} data-deel="hek"><title>{d.hek.naam}: {d.hek.wat}</title><g>
+      <path class="tek" d="M418 300 V270 M432 300 V266 M446 300 V270" />
+      <path class="tek-dun" d="M412 280 H452 M412 292 H452" />
+    </g></a>
+
+    <a href={href(d.muur)} data-deel="muur"><title>{d.muur.naam}: {d.muur.wat}</title><g>
+      <path class="tek" d="M470 282 V174 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 V282" />
+      <path class="tek-dun" d="M486 200 h16 M522 200 h16 M594 200 h16 M646 200 h16 M504 226 h16 M558 226 h16 M630 226 h16 M486 252 h16 M540 252 h16 M666 252 h16" />
+    </g></a>
+
+    <a href={href(d.poort)} data-deel="poort"><title>{d.poort.naam}: {d.poort.wat}</title><g>
+      <path class="tek" d="M556 282 V240 a24 24 0 0 1 48 0 V282" />
+      <path class="tek-dun" d="M580 216 V282" />
+    </g></a>
+
+    <a href={href(d.sloten)} data-deel="sloten"><title>{d.sloten.naam}: {d.sloten.wat}</title><g>
+      <circle class="tek" cx="571" cy="254" r="4.5" />
+      <circle class="tek" cx="571" cy="268" r="4.5" />
+      <circle class="tek-vul" cx="571" cy="254" r="1.5" />
+      <circle class="tek-vul" cx="571" cy="268" r="1.5" />
+    </g></a>
+
+    <a href={href(d.brug)} data-deel="brug"><title>{d.brug.naam}: {d.brug.wat}</title><g>
+      <path class="tek" d="M556 282 L512 226" />
+      <path class="tek-dun tek-stippel" d="M512 226 L556 222" />
+      <path class="tek-dun" d="M518 232 l8 -6 M526 242 l8 -6 M534 252 l8 -6" />
+    </g></a>
+
+    <a href={href(d.toren)} data-deel="toren"><title>{d.toren.naam}: {d.toren.wat}</title><g>
+      <path class="tek" d="M640 174 V104 h12 v-12 h12 v12 h12 v-12 h12 v12 h12 V174" />
+      <path class="tek" d="M700 92 V60 M700 62 h26 l-8 8 l8 8 h-26" />
+      <circle class="tek-dun" cx="670" cy="120" r="6" />
+      <path class="tek-dun" d="M662 140 v-6 a8 8 0 0 1 16 0 v6" />
+    </g></a>
+
+    <a href={href(d.luiken)} data-deel="luiken"><title>{d.luiken.naam}: {d.luiken.wat}</title><g>
+      <rect class="tek" x="656" y="146" width="28" height="22" />
+      <path class="tek-dun" d="M670 146 V168 M656 157 H684" />
+    </g></a>
+
+    <a href={href(d.schat)} data-deel="schat"><title>{d.schat.naam}: {d.schat.wat}</title><g>
+      <rect class="tek" x="708" y="252" width="36" height="30" rx="3" />
+      <path class="tek-dun" d="M708 264 H744" />
+      <circle class="tek" cx="726" cy="270" r="4" />
+      <path class="tek-dun" d="M726 266 V270" />
+    </g></a>
+
+    <a href={href(d.schild)} data-deel="schild"><title>{d.schild.naam}: {d.schild.wat}</title><g>
+      <path class="tek" d="M616 214 h28 v18 q0 12 -14 18 q-14 -6 -14 -18 z" />
+      <circle class="tek-vul" cx="630" cy="230" r="4" />
+    </g></a>
+  </svg>
+
+  <p class="stand" data-fort-stand aria-live="polite">Doe de <a href="/huischeck">huischeck</a> of vink iets af in <a href="/aan-de-slag">hoofdstuk 4</a>: dan zie je hier welke delen van je fort al staan.</p>
+
+  {legenda && (
+    <ol class="delen" data-fort-legenda>
+      {FORTDELEN.map((x) => (
+        <li data-deel-legenda={x.id}>
+          <a href={href(x)}><span class="lampje" aria-hidden="true"></span><span><strong>{x.naam}</strong> <span class="wat">— {x.wat}</span></span></a>
+        </li>
+      ))}
+    </ol>
+  )}
+</figure>
+
+<script>
+  import { lees } from '../lib/opslag.js';
+  import { toestandPerKamer } from '../lib/toestand.js';
+  import { FORTDELEN, toestandPerDeel } from '../data/fort.js';
+
+  document.querySelectorAll<HTMLElement>('[data-huis-en-fort]').forEach((fig) => {
+    function kleur(data = lees()) {
+      const toestand = toestandPerDeel(toestandPerKamer(data));
+      fig.querySelectorAll<SVGElement>('[data-deel]').forEach((el) => { el.dataset.toestand = toestand[el.dataset.deel!]; });
+      fig.querySelectorAll<HTMLElement>('[data-deel-legenda]').forEach((el) => { el.dataset.toestand = toestand[el.dataset.deelLegenda!]; });
+      const staat = Object.values(toestand).filter((t) => t === 'dicht').length;
+      const wankelt = Object.values(toestand).filter((t) => t === 'open').length;
+      const stand = fig.querySelector<HTMLElement>('[data-fort-stand]')!;
+      if (staat === 0 && wankelt === 0) return;
+      const totaal = FORTDELEN.length;
+      stand.textContent = staat === totaal
+        ? `Alle ${totaal} delen van je fort staan. Help nu iemand anders met de zijne.`
+        : `${staat} van de ${totaal} delen van je fort staan${wankelt ? `, ${wankelt} ${wankelt === 1 ? 'wankelt' : 'wankelen'} nog` : ''}.`;
+    }
+    kleur();
+    window.addEventListener('jdh:gewijzigd', (e: Event) => kleur((e as CustomEvent).detail));
+
+    const koppel = (id: string, aan: boolean) => {
+      fig.querySelector(`[data-deel="${id}"]`)?.classList.toggle('licht-op', aan);
+      fig.querySelector(`[data-deel-legenda="${id}"]`)?.classList.toggle('licht-op', aan);
+    };
+    fig.querySelectorAll<HTMLElement>('[data-deel], [data-deel-legenda]').forEach((el) => {
+      const id = el.dataset.deel ?? el.dataset.deelLegenda!;
+      el.addEventListener('mouseenter', () => koppel(id, true));
+      el.addEventListener('mouseleave', () => koppel(id, false));
+      el.addEventListener('focusin', () => koppel(id, true));
+      el.addEventListener('focusout', () => koppel(id, false));
+    });
+  });
+</script>
+
+<style>
+  .huis-en-fort { margin: 1.5rem 0 1rem; }
+  .huis-en-fort svg { overflow: visible; }
+  a[data-deel] { cursor: pointer; outline: none; }
+  a[data-deel]:focus-visible g { outline: 3px solid var(--focus); }
+  a[data-deel] g { transition: transform 0.15s ease, opacity 0.2s ease; transform-box: fill-box; transform-origin: center; }
+  a[data-deel].licht-op g, a[data-deel]:hover g { transform: scale(1.08); opacity: 1; }
+  [data-toestand="onbekend"] g { opacity: 0.45; }
+  [data-toestand="open"] :global(.tek), [data-toestand="open"] :global(.tek-dun) { stroke: var(--rood); }
+  [data-toestand="open"] :global(.tek-vul) { fill: var(--rood); }
+  [data-toestand="dicht"] :global(.tek), [data-toestand="dicht"] :global(.tek-dun) { stroke: var(--groen); }
+  [data-toestand="dicht"] :global(.tek-vul) { fill: var(--groen); }
+
+  .stand { font-family: var(--kop); font-size: 1rem; color: var(--inkt-zacht); margin: 0.75rem 0 0; }
+  .delen { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); font-size: 0.95rem; }
+  .delen li { margin: 0; }
+  .delen a { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
+  .delen a:hover, .delen li.licht-op a { background: var(--papier-2); }
+  .delen .wat { color: var(--inkt-zacht); }
+  .lampje { flex: none; width: 0.75rem; height: 0.75rem; border-radius: 50%; border: 2px solid var(--lijn-sterk); margin-top: 0.45rem; }
+  [data-toestand="open"] .lampje { background: var(--rood); border-color: var(--rood); }
+  [data-toestand="dicht"] .lampje { background: var(--groen); border-color: var(--groen); }
+</style>

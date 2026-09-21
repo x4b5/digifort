@@ -2,19 +2,26 @@
 import Pagina from '../layouts/Pagina.astro';
 import Plattegrond from '../components/Plattegrond.astro';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
+import HuisEnFort from '../components/HuisEnFort.astro';
 import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
 ---
 <Pagina breed>
   <section class="hero">
     <div class="hero-tekst">
       <p class="eyebrow">Digitale veiligheid in gewone taal</p>
-      <h1>Je gaat niet naar het internet. Het internet komt bij jou binnen.</h1>
-      <p class="intro">Elke app is een deur. Elk account ook. Elk apparaat ook. En in dat huis ligt alles wat van jou is: je geld, je foto’s, je berichten, je naam. Deze site loopt met je door je huis. Zonder bangmakerij en zonder reclame.</p>
+      <h1>Van open huis naar fort.</h1>
+      <p class="intro">Je gaat niet naar het internet. Het internet komt bij jou binnen. Elke app, elk account en elk apparaat is een deur, en bij de meeste mensen staan die deuren open. Deze site loopt met je mee tot je huis een fort is: een muur, een gracht, een poort met twee sloten. Zonder bangmakerij en zonder reclame.</p>
       <p class="knoppen">
         <a class="knop" href="/huischeck">Doe de huischeck →</a>
-        <a class="knop licht" href="/plattegrond">Bekijk de plattegrond</a>
+        <a class="knop licht" href="/aan-de-slag">Begin met bouwen</a>
       </p>
     </div>
+  </section>
+
+  <section class="fort">
+    <h2 class="fort-kop">Waar we naartoe werken</h2>
+    <p class="tekst">Links het huis waar de meeste mensen in wonen. Rechts het fort. Elk deel van het fort hoort bij een stap uit <a href="/aan-de-slag">hoofdstuk 4</a>. Wat je regelt, kleurt <span class="kleur groen">groen</span>; wat openstaat, kleurt <span class="kleur rood">rood</span>.</p>
+    <HuisEnFort />
   </section>
 
   <section class="huis">
@@ -44,6 +51,7 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
   .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
   .knoppen { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
   .huis-kop { margin-top: 2rem; }
+  .fort-kop { margin-top: 2rem; }
   .kleur { font-weight: 700; padding: 0 0.3rem; border-radius: var(--radius); color: #fff; }
   .kleur.rood { background: var(--rood); }
   .kleur.groen { background: var(--groen); }
