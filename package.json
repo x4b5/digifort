@@ -7,11 +7,12 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/datums.mjs && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "playwright test",
-    "check": "astro check"
+    "check": "astro check",
+    "datums": "node scripts/datums.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.1",
@@ -25,6 +26,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.63.0",
+    "simple-icons": "^16.32.0",
     "unist-util-visit": "^5.1.0"
   }
 }
