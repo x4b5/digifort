@@ -100,6 +100,7 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--papier-2); 
 .knop.licht { background: transparent; color: var(--inkt); border-color: var(--lijn-sterk); }
 .knop.licht:hover { background: var(--papier-2); color: var(--inkt); border-color: var(--lijn-sterk); }
 .knop.klein { min-height: 2.4rem; font-size: 0.95rem; padding: 0.3rem 0.9rem; }
+.knop[hidden] { display: none; }
 
 /* tabellen */
 .tabel-scroll { overflow-x: auto; margin: 0 0 1.25rem; }

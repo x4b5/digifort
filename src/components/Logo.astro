@@ -1,9 +1,9 @@
 ---
-/** Een huisje in drie lijnen, met een rode deur. */
+/** Een fort in drie lijnen: kantelen, muur, en een rode poort. */
 const { maat = 32 } = Astro.props;
 ---
 <svg width={maat} height={maat} viewBox="0 0 40 40" aria-hidden="true" focusable="false">
-  <path class="tek" d="M6 20 L20 7 L34 20" />
-  <path class="tek" d="M10 18 V34 H30 V18" />
-  <rect class="tek-vul" x="17" y="24" width="6" height="10" rx="1" />
+  <path class="tek" d="M6 34 V14 h6 v-5 h5 v5 h6 v-5 h5 v5 h6 V34" />
+  <line class="tek" x1="3" y1="34" x2="37" y2="34" />
+  <path class="tek-vul" d="M16 34 V24 a4 4 0 0 1 8 0 V34 Z" />
 </svg>

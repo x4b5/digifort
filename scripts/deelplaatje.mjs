@@ -13,8 +13,8 @@ const html = `<!doctype html><html lang="nl"><head><meta charset="utf-8">
   svg { width:420px; height:auto; margin-left:40px; }
   .tek { stroke:#141414; stroke-width:5; fill:none; stroke-linecap:round; stroke-linejoin:round; }
 </style></head><body>
-<div class="tekst"><div class="merk">digiFORT.</div><h1>Je gaat niet naar het internet. Het internet komt bij jou binnen.</h1><p>Digitale veiligheid in gewone taal. Zonder bangmakerij, zonder reclame.</p></div>
-<svg viewBox="0 0 200 180"><path class="tek" d="M20 90 L100 20 L180 90"/><path class="tek" d="M36 80 V160 H164 V80"/><path class="tek" d="M82 160 V118 a18 18 0 0 1 36 0 V160"/><rect x="60" y="92" width="26" height="24" class="tek"/><rect x="114" y="92" width="26" height="24" class="tek"/><circle cx="110" cy="138" r="4" fill="#c8321e"/><circle cx="110" cy="150" r="4" fill="#c8321e"/></svg>
+<div class="tekst"><div class="merk">digiFORT.</div><h1>Van open huis naar fort.</h1><p>Digitale veiligheid in gewone taal. Elke app is een deur. Deze site loopt met je mee tot je huis een fort is.</p></div>
+<svg viewBox="0 0 200 180"><path class="tek" d="M20 160 V70 h24 v-18 h20 v18 h24 v-18 h20 v18 h24 v-18 h20 v18 h24 V160"/><path class="tek" d="M8 160 H192"/><path class="tek" d="M80 160 V118 a20 20 0 0 1 40 0 V160"/><path class="tek" d="M56 96 h20 M124 96 h20 M62 122 h14 M124 122 h14"/><circle cx="110" cy="132" r="4" fill="#c8321e"/><circle cx="110" cy="146" r="4" fill="#c8321e"/><path class="tek" d="M154 52 V18 h26 l-8 8 l8 8 h-26" stroke="#c8321e"/></svg>
 </body></html>`;
 writeFileSync('/tmp/deelplaatje.html', html);
 const browser = await chromium.launch();
