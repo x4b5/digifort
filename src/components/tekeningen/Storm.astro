@@ -1,0 +1,32 @@
+---
+import Tekening from '../Tekening.astro';
+---
+<Tekening onderschrift="Het onweer trekt over de hele straat. Het huis met de deur dicht blijft droog.">
+  <svg viewBox="0 0 720 300" role="img" aria-label="Een onweerswolk met bliksem boven een straat met drie huizen. Bij twee huizen staat de deur open en slaat de bliksem in. Het derde huis heeft de deur dicht en een muurtje ervoor.">
+    <!-- wolk -->
+    <path class="tek" d="M160 92 a34 34 0 0 1 60 -24 a40 40 0 0 1 76 8 a30 30 0 0 1 44 24 a24 24 0 0 1 -6 46 H190 a30 30 0 0 1 -30 -54 z" />
+    <path class="tek-dun" d="M420 74 a26 26 0 0 1 48 -14 a30 30 0 0 1 54 12 a20 20 0 0 1 8 36 H436 a22 22 0 0 1 -16 -34 z" />
+    <!-- bliksem -->
+    <path class="tek-rood" d="M232 148 l-18 42 h22 l-16 46" />
+    <path class="tek-rood" d="M470 110 l-14 32 h18 l-12 36" />
+    <!-- regen -->
+    <path class="tek-dun" d="M300 150 l-6 14 M330 150 l-6 14 M360 150 l-6 14 M540 130 l-6 14 M570 130 l-6 14 M600 130 l-6 14 M630 130 l-6 14" />
+    <!-- grond -->
+    <line class="tek" x1="10" y1="270" x2="710" y2="270" />
+    <!-- huis 1: open -->
+    <path class="tek" d="M70 210 L130 166 L190 210 M82 210 V270 M178 210 V270" />
+    <path class="tek-rood" d="M120 270 V232 L146 220 V258 Z" />
+    <!-- huis 2: open -->
+    <path class="tek" d="M280 210 L340 166 L400 210 M292 210 V270 M388 210 V270" />
+    <path class="tek-rood" d="M330 270 V232 L356 220 V258 Z" />
+    <rect class="tek-rood" x="300" y="222" width="20" height="20" />
+    <!-- huis 3: dicht, met muurtje -->
+    <path class="tek" d="M520 210 L580 166 L640 210 M532 210 V270 M628 210 V270" />
+    <path class="tek" d="M570 270 V236 a10 10 0 0 1 20 0 V270" />
+    <circle class="tek-vul-groen" cx="586" cy="254" r="2.5" />
+    <path class="tek" d="M500 270 V246 h160 V270 M520 246 v-8 h12 v8 M552 246 v-8 h12 v8 M584 246 v-8 h12 v8 M616 246 v-8 h12 v8" />
+    <text class="tek-label" x="130" y="292" text-anchor="middle">deur open</text>
+    <text class="tek-label" x="340" y="292" text-anchor="middle">deur open, raam open</text>
+    <text class="tek-label" x="580" y="292" text-anchor="middle">dicht, en een muur</text>
+  </svg>
+</Tekening>

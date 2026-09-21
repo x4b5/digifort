@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const PAGINAS = ['/', '/huischeck', '/plattegrond', '/inbrekers-van-nu', '/inbrekers-van-morgen', '/aan-de-slag', '/van-geheim-woord-naar-zegelring', '/onderhoud', '/als-er-is-ingebroken', '/voor-de-mensen-om-je-heen', '/woordenboek', '/over'];
+const PAGINAS = ['/', '/huischeck', '/plattegrond', '/inbrekers-van-nu', '/inbrekers-van-morgen', '/de-storm-om-het-huis', '/aan-de-slag', '/van-geheim-woord-naar-zegelring', '/onderhoud', '/als-er-is-ingebroken', '/voor-de-mensen-om-je-heen', '/woordenboek', '/over'];
 
 for (const pad of PAGINAS) {
   test(`${pad} laadt, scrolt niet zijwaarts en elke tekening heeft een label`, async ({ page }) => {
@@ -21,8 +21,8 @@ for (const pad of PAGINAS) {
 test('het woordenboek filtert terwijl je typt', async ({ page }) => {
   await page.goto('/woordenboek');
   await page.locator('[data-zoek]').fill('passkey');
-  await expect(page.locator('tbody tr:visible')).toHaveCount(1);
-  await expect(page.locator('[data-stand]')).toHaveText('1 van 25 woorden');
+  await expect(page.locator('tbody tr:visible')).toHaveCount(3);
+  await expect(page.locator('[data-stand]')).toHaveText('3 van 25 woorden');
 });
 
 test('de plattegrond linkt naar het juiste kopje', async ({ page }) => {

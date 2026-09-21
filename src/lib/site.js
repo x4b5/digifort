@@ -11,6 +11,7 @@ export const HOOFDSTUKKEN = [
   { nr: 1, slug: 'plattegrond', titel: 'De plattegrond van je digitale huis', kort: 'Veertien plekken in je huis, van de voordeur tot de brandkast.' },
   { nr: 2, slug: 'inbrekers-van-nu', titel: 'De inbrekers van nu', kort: 'Babbeltrucs, datalekken, gijzeling en gestolen nummers.' },
   { nr: 3, slug: 'inbrekers-van-morgen', titel: 'De inbrekers van morgen', kort: 'AI dat jouw stem kent en computers die oude sloten openen.' },
+  { nr: null, slug: 'de-storm-om-het-huis', titel: 'De storm om het huis', kort: 'Staten, hackers en oorlog op afstand: wat de wereld met jouw voordeur te maken heeft.', extra: true },
   { nr: 4, slug: 'aan-de-slag', titel: 'Aan de slag: kamer voor kamer', kort: 'Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis.' },
   { nr: null, slug: 'van-geheim-woord-naar-zegelring', titel: 'Van geheim woord naar zegelring', kort: 'De ladder: acht manieren om in te loggen, van zwak naar sterk.', extra: true },
   { nr: 5, slug: 'onderhoud', titel: 'Onderhoud en opruimen', kort: 'Oude apparaten, weggooien, en wat er over jou op internet staat.' },

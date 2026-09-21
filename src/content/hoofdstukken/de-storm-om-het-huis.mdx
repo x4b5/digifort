@@ -1,0 +1,85 @@
+---
+nr: null
+titel: "De storm om het huis"
+kort: "Staten, hackers en oorlog op afstand: wat de wereld met jouw voordeur te maken heeft."
+datum: "2026-09-21"
+---
+import Kort from '../../components/Kort.astro';
+import Noot from '../../components/Noot.astro';
+import Cijfers from '../../components/Cijfers.astro';
+import Storm from '../../components/tekeningen/Storm.astro';
+
+Er is oorlog in Europa, en die wordt ook op internet gevoerd. Jouw huis staat niet op het slagveld. Maar het staat wel in de storm. Dit hoofdstuk legt uit wat dat betekent, met cijfers, en waarom het antwoord toch gewoon hetzelfde is: sloten.
+
+## Wat er aan de hand is
+
+<Kort>landen vallen nu ook Nederland aan, en huren daar criminelen en hackers voor in.</Kort>
+
+<Storm />
+
+De AIVD is de geheime dienst van Nederland. In april 2026 schreef de dienst dat de dreiging in tachtig jaar nooit zo groot was als nu. Rusland en China hebben eigen hackersgroepen die het hele jaar door bezig zijn. Rusland stelde zich in 2025 "agressiever, brutaler en provocerender" op tegen Europese landen, zei de baas van de AIVD.
+
+Drie dingen gebeurden vorig jaar in Nederland:
+
+- **Russische hackers vielen de WhatsApp- en Signal-accounts van ambtenaren en militairen aan.** Ze deden zich voor als medewerkers van WhatsApp en vroegen mensen om "opnieuw in te loggen". Dat is precies de babbeltruc uit [hoofdstuk 2](/inbrekers-van-nu), maar dan door een staat.
+- **Een Russische groep, Laundry Bear, stal de werkgegevens van tienduizenden politiemensen.** Namen, e-mailadressen en telefoonnummers.
+- **Chinese hackers, Salt Typhoon, braken in bij Nederlandse telecombedrijven.** Dat is de meterkast van het hele land.
+
+Daarnaast lag het Openbaar Ministerie wekenlang plat door een gat in een programma van Citrix dat nog niet gerepareerd was. Een scheur in het dak, precies zoals in [hoofdstuk 1](/plattegrond#het-onderhoud-updates).
+
+De NCTV, de dienst die over de veiligheid van Nederland gaat, zegt het zo: landen bouwen eigen hackprogramma's en huren daar ook criminelen en actiegroepen voor in. En met AI kunnen ze dat op grotere schaal doen dan ooit.
+
+## De cijfers
+
+<Cijfers items={[
+  { getal: '80 jaar', tekst: 'zo lang bestaat de AIVD, en nooit zag de dienst zoveel dreiging tegelijk als nu', bron: 'AIVD, jaarverslag 2025' },
+  { getal: '4.875', tekst: 'cyberaanvallen in één jaar in de EU; bijna 80% kwam van actiegroepen die websites platleggen', bron: 'ENISA, 2025' },
+  { getal: '60%', tekst: 'van de inbraken begint met een babbeltruc: een nepbericht waar iemand op klikt', bron: 'ENISA, 2025' },
+  { getal: '10 van de 10', tekst: 'landen die het vaakst door Russische hackers worden geraakt, zijn NAVO-landen. Nederland dus ook', bron: 'Microsoft, 2025' },
+  { getal: '97%', tekst: 'van de aanvallen op accounts is gewoon wachtwoorden raden, in het groot', bron: 'Microsoft, 2025' },
+  { getal: '99%', tekst: 'van die aanvallen houdt een tweede slot tegen dat niet te phishen is, zoals een passkey', bron: 'Microsoft, 2025' },
+]} />
+
+En dichter bij huis: in april 2025 en opnieuw rond de NAVO-top in juni lagen de websites van gemeenten en provincies plat. Een pro-Russische groep, NoName057(16), zei dat zij het deden, omdat Nederland Oekraïne helpt. Dat soort aanvallen heet DDoS: duizenden computers tegelijk bellen aan, zodat de deur voor echte bezoekers dicht blijft. Er wordt niets gestolen. Het is een steen door de ruit, geen inbraak.
+
+## Wat een staat met jouw huis wil
+
+<Kort>meestal niets. Maar je staat in de storm, en je huis kan een schuilplaats zijn.</Kort>
+
+Een geheime dienst is niet in jouw vakantiefoto's geïnteresseerd. Toch raakt het jou, op drie manieren.
+
+**1. Je staat in de storm.** Ligt je gemeente plat, dan kun je geen paspoort aanvragen. Wordt je telecombedrijf bespioneerd, dan gaat dat om jouw belgegevens. Valt DigiD uit, dan kom je nergens in. Daar kun jij niets aan doen, behalve zorgen dat je zelf niet stilvalt: noodnummers op papier, een beetje contant geld in huis, een reservekopie op een losse schijf.
+
+**2. Je huis kan een schuilplaats zijn.** Hackers van staten gebruiken gekaapte routers en slimme apparaten van gewone mensen als dekmantel. Ze vallen van daaruit iemand anders aan, en het spoor loopt naar jouw huis. De Amerikaanse overheid haalde in 2024 zo'n netwerk van honderden gekaapte thuisrouters uit de lucht dat Chinese hackers gebruikten. Een router uit de fabriek met het oude wachtwoord is daar een makkelijk onderkomen.
+
+**3. Je werkt ergens.** De aanval op de WhatsApp van ambtenaren ging via hun privételefoon. Werk je bij de overheid, bij Defensie, bij een haven, een ziekenhuis of een bedrijf dat iets maakt wat een ander land wil hebben? Dan is jouw privéhuis de achterdeur van je werk.
+
+## Dezelfde deuren, dezelfde sloten
+
+<Kort>een staat gebruikt de babbeltruc en het geraden wachtwoord, net als de oplichter. Dus helpen dezelfde stappen.</Kort>
+
+Het gereedschap van een staat is beter en het geduld is groter. Maar de deuren waardoor ze binnenkomen, zijn dezelfde als in hoofdstuk 2.
+
+| Wat ze doen | Welke deur | Wat het tegenhoudt |
+| --- | --- | --- |
+| "Log opnieuw in bij WhatsApp" | De brievenbus | Nooit inloggen via een link. Zet een [passkey of tweede slot](/van-geheim-woord-naar-zegelring#trede-6) op je accounts: die werkt op een nepsite gewoon niet |
+| Miljoenen wachtwoorden raden | De sleutels | Een [wachtwoordmanager](/aan-de-slag#niveau-1) die lange, wilde sleutels maakt |
+| Je router kapen | Het tuinhek | Nieuw wachtwoord, updates aan, slimme apparaten op een [gastnetwerk](/aan-de-slag#niveau-3) |
+| Een scheur die niet gerepareerd is | Het dak | [Updates op automatisch](/plattegrond#het-onderhoud-updates) |
+| Nu stelen, later openbreken | De brandkast | Gegevens die lang geheim moeten blijven niet in een gratis dienst zetten; zie [hoofdstuk 3](/inbrekers-van-morgen) |
+| De gemeente platleggen | Niet jouw deur | Geduld. En een [noodpakket](/als-er-is-ingebroken#noodpakket) op papier, zodat je niet stilvalt |
+
+## Wat je níet hoeft
+
+- **Geen bunker.** Je hoeft geen "militaire" VPN, geen speciale telefoon en geen dure software. Wie dat aan gewone mensen verkoopt, verkoopt angst.
+- **Geen paniek.** Het NCSC, de dienst die bedrijven en de overheid helpt met digitale veiligheid, adviseert al jaren hetzelfde: doe de basis goed. Dat is [niveau 1 en 2](/aan-de-slag).
+- **Geen nieuws volgen.** Je hoeft niet te weten welke groep vandaag wie aanvalt. Je hoeft alleen te weten welke deuren jij dicht hebt.
+
+<Noot titel="Waar het beeld niet klopt">Een fort houdt een leger tegen. Jouw sloten niet: een staat die echt jou wil, komt binnen. Maar een staat die tienduizend huizen tegelijk probeert, loopt door naar het huis waar de deur openstaat. Zorg dat dat niet het jouwe is.</Noot>
+
+## Wat je nu kunt doen
+
+1. Doe de [huischeck](/huischeck). Elke "nee" is een deur die ook voor een staat openstaat.
+2. Zet een passkey of tweede slot op je e-mail, WhatsApp en je Apple-, Google- of Microsoft-account. Dat is [trede 6 op de ladder](/van-geheim-woord-naar-zegelring#trede-6).
+3. Geef je router een nieuw wachtwoord en zet updates aan. Vijf minuten, [niveau 2](/aan-de-slag#niveau-2).
+4. Leg bij je [noodpakket](/als-er-is-ingebroken#noodpakket) ook wat contant geld en de telefoonnummers die je nodig hebt als internet of je bank een dag niet werkt.

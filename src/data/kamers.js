@@ -4,7 +4,7 @@ export const KAMERS = [
   { id: 'tweede-voordeur', anker: 'de-tweede-voordeur-het-account-van-je-telefoon-of-computer', naam: 'De tweede voordeur', wat: 'het account van je telefoon of computer', zin: 'Je Apple-, Google- of Microsoft-account is net zo belangrijk als je e-mail.' },
   { id: 'sleutels', anker: 'de-sleutels-wachtwoorden', naam: 'De sleutels', wat: 'wachtwoorden', zin: 'Elke deur hoort een eigen sleutel te hebben.' },
   { id: 'sleutelkluis', anker: 'de-sleutelkluis-de-wachtwoordmanager', naam: 'De sleutelkluis', wat: 'de wachtwoordmanager', zin: 'Een kluis onthoudt al je sleutels, zodat jij dat niet hoeft.' },
-  { id: 'passkey', anker: 'de-sleutel-die-niemand-kan-namaken-de-passkey', naam: 'De sleutel die niemand kan namaken', wat: 'de passkey', zin: 'Met een passkey log je in met je vinger of je gezicht, zonder wachtwoord.' },
+  { id: 'passkey', anker: 'de-sleutel-die-niemand-kan-namaken-de-passkey', naam: 'De sleutel die niemand kan namaken', wat: 'de passkey', zin: 'Een passkey is een tweede slot in één handeling: je toestel plus je vinger, gezicht of pincode.' },
   { id: 'tweede-slot', anker: 'het-tweede-slot-tweestapsverificatie', naam: 'Het tweede slot', wat: 'tweestapsverificatie', zin: 'Twee sloten op je deur zijn beter dan één.' },
   { id: 'ramen', anker: 'de-ramen-je-browser', naam: 'De ramen', wat: 'je browser', zin: 'Door een raam kijk je naar buiten, maar anderen kijken ook naar binnen.' },
   { id: 'brievenbus', anker: 'de-brievenbus-e-mail-sms-en-whatsapp', naam: 'De brievenbus', wat: 'e-mail, sms en WhatsApp', zin: 'Iedereen kan iets in je brievenbus stoppen, ook een oplichter.' },

@@ -2,7 +2,7 @@
 export const VRAGEN = [
   { nr: 1, vraag: 'Heeft je e-mail een eigen wachtwoord, dat je nergens anders gebruikt?', kamer: 'voordeur', kind: true },
   { nr: 2, vraag: 'Gebruik je een wachtwoordmanager? Dat is een kluis voor al je wachtwoorden.', kamer: 'sleutelkluis' },
-  { nr: 3, vraag: 'Zit er een tweede slot op je e-mail en je bank? Dat heet tweestapsverificatie.', kamer: 'tweede-slot', kind: true },
+  { nr: 3, vraag: 'Zit er een tweede slot op je e-mail en je bank? Dat heet tweestapsverificatie: een code uit een app, of een passkey.', kamer: 'tweede-slot', kind: true },
   { nr: 4, vraag: 'Werken je telefoon en computer zichzelf bij?', kamer: 'onderhoud' },
   { nr: 5, vraag: 'Heb je een kopie van je bestanden die los staat van je computer?', kamer: 'brandkast' },
   { nr: 6, vraag: 'Heeft je telefoon een pincode van zes cijfers of meer?', kamer: 'tweede-voordeur', kind: true },

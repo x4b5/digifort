@@ -145,6 +145,8 @@ Wat wél werkt is jou vragen de code zelf in te typen. Een moderne phishingsite 
 
 <Kort>hier houdt het woord op en begint de ring. De site stuurt een willekeurig zinnetje, je kluis drukt er een zegel in, en zegelt het webadres mee.</Kort>
 
+<Noot titel="Dit is óók tweestapsverificatie">Een passkey voelt als één handeling, maar het zijn twee stappen: iets wat je hebt (je toestel, waar de ring in zit) plus iets wat je bent of weet (je vinger, je gezicht of je pincode). Trede 6, 7 en 8 zijn dus geen alternatief voor 2FA. Ze zíjn 2FA, alleen zonder code die je kunt overtypen aan een oplichter.</Noot>
+
 Bij het aanmaken maakt je apparaat twee helften die bij elkaar horen. De geheime helft blijft waar hij is en vertrekt nooit; de publieke helft geef je aan de site. Met die publieke helft kan de site controleren of een zegel echt is, maar er zelf geen maken. Dat is publieke-sleutelcryptografie, dezelfde techniek waarmee het hangslotje in de adresbalk werkt.
 
 Het gevolg is ingrijpender dan het klinkt: de site bewaart nooit meer iets geheims van jou. Er is niets meer dat gelekt kán worden, en niets dat je per ongeluk aan een nepsite kunt doorgeven.
@@ -154,7 +156,7 @@ Het gevolg is ingrijpender dan het klinkt: de site bewaart nooit meer iets gehei
 Dezelfde nepsite, twee uitkomsten. Een code is losse informatie: de nepsite geeft hem gewoon door aan de echte site en logt in als jou. Een zegel is dat niet. Het geldt alleen voor het adres dat erom vroeg, en voor pr0ton.me heeft je sleutel er geen. Er verlaat dus niets je hand.
 
 <Jargon items={[
-  ['passkey', 'de publieksnaam voor deze manier van inloggen'],
+  ['passkey', 'de publieksnaam voor deze manier van inloggen; een vorm van 2FA'],
   ['FIDO2 / WebAuthn', 'de standaarden erachter; deze woorden zie je in instellingenmenu\'s staan'],
   ['publieke en private sleutel', 'de twee helften; alleen de publieke helft gaat naar de site'],
   ['synced passkey', 'een passkey die via een kluis naar al je apparaten wordt gekopieerd'],
@@ -168,7 +170,7 @@ Dezelfde nepsite, twee uitkomsten. Een code is losse informatie: de nepsite geef
 
 <L10 />
 
-<Kort>dezelfde ring, maar gegoten in metaal en nergens gekopieerd. Het geheim zit in de chip en kan er fysiek niet uit. Ook niet door jou.</Kort>
+<Kort>dezelfde ring, maar gegoten in metaal en nergens gekopieerd. Het geheim zit in de chip en kan er fysiek niet uit. Ook niet door jou. Ook dit is tweestapsverificatie: de sleutel is wat je hebt, de aanraking plus pincode is wie je bent.</Kort>
 
 De geheime helft woont hier in een chip die zo gebouwd is dat er eenvoudigweg geen opdracht bestaat om hem uit te lezen. Ook jij kunt er niet bij. Zo'n chip heet een secure element en zit ook in je bankpas en in je telefoon.
 
@@ -179,7 +181,7 @@ De aanraking van het metalen vlakje is geen slot maar een bewijs dat er een mens
 Allebei zegelringen, alleen niet op dezelfde plek. Een passkey wordt vanuit een kluis naar al je apparaten gekopieerd. Handig, maar die kluis is zelf een deur waar iemand doorheen kan. De hardwaresleutel heeft die deur niet; de prijs is dat er ook geen reservekopie bestaat.
 
 <Jargon items={[
-  ['security key', 'de officiële naam voor zo\'n los stukje hardware, bijvoorbeeld een YubiKey'],
+  ['security key', 'de officiële naam voor zo\'n los stukje hardware, bijvoorbeeld een YubiKey; de fysieke passkey'],
   ['device-bound passkey', 'een passkey die het apparaat niet kan verlaten'],
   ['secure element', 'de chip waarin het geheim onleesbaar opgesloten zit'],
   ['user presence / verification', 'de aanraking, en de pincode of vingerafdruk erbovenop'],
