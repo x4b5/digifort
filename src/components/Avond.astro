@@ -6,6 +6,7 @@
 import { LIJSTEN } from '../data/lijsten.js';
 import { AVOND } from '../data/avond.js';
 import HuisEnFort from './HuisEnFort.astro';
+import Merk from './Merk.astro';
 const stappen = LIJSTEN['niveau-1'].items;
 const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
 ---
@@ -22,6 +23,9 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
       <p class="waarom">{it.waarom}.</p>
       <p class="hoe-kop">Zo doe je het</p>
       <ol class="hoe">{AVOND[it.id].hoe.map((h) => <li>{h}</li>)}</ol>
+      {AVOND[it.id].gereedschap?.length > 0 && (
+        <p class="gereedschap"><span class="gereedschap-kop">Gereedschap</span> {AVOND[it.id].gereedschap.map((g) => <Merk id={g} maat={22} link />)}</p>
+      )}
       <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {AVOND[it.id].klaar}</p>
       <p class="knoppen">
         <button type="button" class="knop" data-gedaan>Gedaan, volgende →</button>
@@ -107,6 +111,8 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
   .hoe-kop { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rood); margin: 0 0 0.3rem; }
   .hoe { padding-left: 1.4rem; margin-bottom: 1.25rem; }
   .hoe li { margin-bottom: 0.5rem; }
+  .gereedschap { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin: -0.5rem 0 1.25rem; }
+  .gereedschap-kop { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); }
   .klaar-zin { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.7rem 1rem; }
   .klaar-zin[hidden] { display: none; }
   .knoppen { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin: 0; }

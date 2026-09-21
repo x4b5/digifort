@@ -1,0 +1,24 @@
+---
+/** Alle gereedschap op één rij: logo, naam, één zin, officiële link. */
+import Merk from './Merk.astro';
+import { GEREEDSCHAP } from '../data/gereedschap.js';
+---
+<ul class="kist">
+  {Object.entries(GEREEDSCHAP).map(([id, g]) => (
+    <li>
+      <Merk id={id} maat={30} naam={false} />
+      <div>
+        <p class="kist-naam"><a href={g.url} rel="noopener">{g.naam}</a></p>
+        <p class="kist-wat">{g.wat}</p>
+      </div>
+    </li>
+  ))}
+</ul>
+<style>
+  .kist { list-style: none; padding: 0; margin: 1.25rem 0 2rem; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); }
+  .kist li { margin: 0; display: flex; gap: 0.8rem; align-items: flex-start; padding: 0.8rem 0.9rem; border: 2px solid var(--lijn); border-radius: var(--radius); }
+  .kist-naam { margin: 0 0 0.15rem; font-family: var(--kop); font-weight: 700; }
+  .kist-naam a { color: var(--inkt); text-decoration: none; }
+  .kist-naam a:hover { color: var(--rood); text-decoration: underline; }
+  .kist-wat { margin: 0; font-size: 0.93rem; color: var(--inkt-zacht); }
+</style>

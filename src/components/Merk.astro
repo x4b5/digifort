@@ -1,0 +1,28 @@
+---
+/**
+ * Logo van een stuk gereedschap, in inktkleur zodat het in de huisstijl past.
+ * Het logo komt uit simple-icons en wordt bij het bouwen in de pagina gezet: geen verzoek naar buiten.
+ */
+import * as si from 'simple-icons';
+import { gereedschap } from '../data/gereedschap.js';
+const { id, maat = 28, naam = true, link = false } = Astro.props;
+const g = gereedschap(id);
+const icoon = g.icoon ? si[g.icoon] : null;
+const Tag = link ? 'a' : 'span';
+---
+<Tag class="merk" href={link ? g.url : undefined} rel={link ? 'noopener' : undefined}>
+  <span class="merk-tegel" style={`--maat:${maat}px`} aria-hidden="true">
+    {icoon
+      ? <svg viewBox="0 0 24 24" width={maat} height={maat}><path d={icoon.path} fill="currentColor" /></svg>
+      : <span class="merk-letter">{g.letter}</span>}
+  </span>
+  {naam && <span class="merk-naam">{g.naam}</span>}
+</Tag>
+<style>
+  .merk { display: inline-flex; align-items: center; gap: 0.45rem; color: inherit; text-decoration: none; vertical-align: middle; }
+  a.merk:hover .merk-naam { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; color: var(--rood); }
+  .merk-tegel { display: inline-grid; place-items: center; width: calc(var(--maat) + 12px); height: calc(var(--maat) + 12px); border: 2px solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier); color: var(--inkt); flex: none; }
+  .merk-tegel svg { display: block; width: var(--maat); height: var(--maat); }
+  .merk-letter { font-family: var(--kop); font-weight: 700; font-size: calc(var(--maat) * 0.8); line-height: 1; color: var(--rood); }
+  .merk-naam { font-family: var(--kop); font-weight: 700; font-size: 0.95rem; }
+</style>

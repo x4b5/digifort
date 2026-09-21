@@ -5,8 +5,8 @@ export const LIJSTEN = {
     slot: true,
     items: [
       { id: 'mail-wachtwoord', stap: 'Geef je e-mail een nieuw en lang wachtwoord, dat je nergens anders gebruikt', waarom: 'De voordeur gaat als eerste op slot', tijd: 5, kamer: 'voordeur' },
-      { id: 'mail-tweede-slot', stap: 'Zet een tweede slot op je e-mail', waarom: 'Twee sloten op je belangrijkste deur', tijd: 10, kamer: 'tweede-slot' },
-      { id: 'wachtwoordmanager', stap: 'Installeer een wachtwoordmanager', waarom: 'Vanaf nu maakt en onthoudt de kluis je sleutels', tijd: 20, kamer: 'sleutelkluis' },
+      { id: 'mail-tweede-slot', stap: 'Zet een tweede slot op je e-mail', waarom: 'Twee sloten op je belangrijkste deur', tijd: 10, kamer: 'tweede-slot', gereedschap: ['ente', '2fas', 'aegis'] },
+      { id: 'wachtwoordmanager', stap: 'Installeer een wachtwoordmanager', waarom: 'Vanaf nu maakt en onthoudt de kluis je sleutels', tijd: 20, kamer: 'sleutelkluis', gereedschap: ['bitwarden', 'protonpass'] },
       { id: 'updates', stap: 'Zet updates op automatisch, op je telefoon, je computer en in je browser', waarom: 'Scheuren worden vanzelf gerepareerd', tijd: 10, kamer: 'onderhoud' },
       { id: 'pincode', stap: 'Geef je telefoon een pincode van zes cijfers of meer', waarom: 'Je telefoon is de sleutelbos van je hele huis', tijd: 2, kamer: 'tweede-voordeur' },
       { id: 'geheim-woord', stap: 'Spreek thuis het geheime woord af', waarom: 'Dat helpt tegen een nagemaakte stem', tijd: 5, kamer: 'brievenbus' },
@@ -17,12 +17,12 @@ export const LIJSTEN = {
     slot: true,
     items: [
       { id: 'accounts-wachtwoord', stap: 'Geef je belangrijkste accounts een nieuw wachtwoord: je bank, DigiD, webwinkels en sociale media', waarom: 'Elke deur een eigen sleutel', tijd: 60, kamer: 'sleutels' },
-      { id: 'accounts-tweede-slot', stap: 'Zet op al die accounts een tweede slot of een passkey', waarom: 'Twee sloten overal waar je geld of je naam zit', tijd: 45, kamer: 'passkey' },
+      { id: 'accounts-tweede-slot', stap: 'Zet op al die accounts een tweede slot of een passkey', waarom: 'Twee sloten overal waar je geld of je naam zit', tijd: 45, kamer: 'passkey', gereedschap: ['ente', '2fas'] },
       { id: 'noodcodes', stap: 'Schrijf je noodcodes op papier', waarom: 'Zo kom je binnen als je telefoon weg is', tijd: 15, kamer: 'sleutels' },
       { id: 'backup', stap: 'Maak twee reservekopieën: één op internet en één op een losse schijf', waarom: 'De brandkast buiten de deur', tijd: 60, kamer: 'brandkast' },
       { id: 'router', stap: 'Geef je router een nieuw wachtwoord en werk hem bij', waarom: 'Het tuinhek gaat op slot', tijd: 20, kamer: 'tuinhek' },
       { id: 'versleuteling', stap: 'Zet je laptop zo in dat alles erop onleesbaar is zonder jouw wachtwoord', waarom: 'Een gestolen laptop is dan alleen nog een stuk metaal', tijd: 10, kamer: 'tweede-voordeur' },
-      { id: 'ublock', stap: 'Zet uBlock Origin in je browser en gooi extensies weg die je niet gebruikt', waarom: 'Gordijnen voor de ramen', tijd: 10, kamer: 'ramen' },
+      { id: 'ublock', stap: 'Zet uBlock Origin in je browser en gooi extensies weg die je niet gebruikt', waarom: 'Gordijnen voor de ramen', tijd: 10, kamer: 'ramen', gereedschap: ['ublock', 'firefox'] },
       { id: 'sim-pincode', stap: 'Zet een pincode op je simkaart', waarom: 'Dat helpt tegen diefstal van je nummer', tijd: 5, kamer: 'brievenbus' },
     ],
   },
@@ -30,7 +30,7 @@ export const LIJSTEN = {
     titel: 'Niveau 3: voor wie verder wil',
     slot: true,
     items: [
-      { id: 'hardwaresleutel', stap: 'Een echte sleutel', waarom: 'Een klein sleuteltje dat je in je computer steekt of tegen je telefoon houdt, zoals een YubiKey. Het is het sterkste tweede slot dat er is. Koop er twee: één aan je sleutelbos en één als reserve.', kamer: 'passkey' },
+      { id: 'hardwaresleutel', stap: 'Een echte sleutel', waarom: 'Een klein sleuteltje dat je in je computer steekt of tegen je telefoon houdt, zoals een YubiKey. Het is het sterkste tweede slot dat er is. Koop er twee: één aan je sleutelbos en één als reserve.', kamer: 'passkey', gereedschap: ['yubikey'] },
       { id: 'alias', stap: 'Een apart e-mailadres per dienst', waarom: 'Zo’n adres heet een alias. Het stuurt alles door naar je echte adres. Krijg je ineens rommel op één alias? Dan weet je welk bedrijf je gegevens heeft gelekt. Je zet die alias uit en bent ervan af.', kamer: 'brievenbus' },
       { id: 'gastnetwerk', stap: 'Een gastnetwerk voor slimme apparaten', waarom: 'Zet je camera, je tv en je deurbel op een eigen wifi-netwerk. Los van je laptop en je telefoon.', kamer: 'kattenluik' },
       { id: 'vpn', stap: 'Een VPN op wifi van een ander', waarom: 'Nuttig in de trein, in een hotel en in een café. Thuis heb je er weinig aan.', kamer: 'gang' },
@@ -54,7 +54,7 @@ export const LIJSTEN = {
       { id: 'backup-loopt', stap: 'Loopt je reservekopie nog? Zet één bestand terug om het te testen' },
       { id: 'noodcodes-kloppen', stap: 'Kloppen je noodcodes nog?' },
       { id: 'geen-updates', stap: 'Welke apparaten krijgen geen updates meer?' },
-      { id: 'datalek', stap: 'Staat je e-mailadres in een nieuw datalek? Kijk op haveibeenpwned.com' },
+      { id: 'datalek', stap: 'Staat je e-mailadres in een nieuw datalek? Kijk op haveibeenpwned.com', gereedschap: ['hibp'] },
     ],
   },
   'eerste-uur': {

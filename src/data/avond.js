@@ -9,6 +9,7 @@ export const AVOND = {
       'Kies vier of vijf willekeurige woorden achter elkaar, bijvoorbeeld "lantaarn koffie zebra dakpan". Lengte telt, rare tekens niet.',
       'Gebruik dit wachtwoord nergens anders. Schrijf het voorlopig op een papiertje; straks gaat het in je kluis.',
     ],
+    gereedschap: [],
     klaar: 'De voordeur heeft een eigen sleutel. Wordt een webwinkel gehackt, dan past die sleutel niet meer op je mail.',
   },
   'mail-tweede-slot': {
@@ -18,6 +19,7 @@ export const AVOND = {
       'Kies liever niet "code per sms": een telefoonnummer kan gestolen worden.',
       'Krijg je herstelcodes te zien? Schrijf ze op papier en bewaar ze thuis.',
     ],
+    gereedschap: ['ente', '2fas', 'aegis'],
     klaar: 'Twee sloten op je belangrijkste deur. Wie alleen je wachtwoord heeft, staat nog steeds buiten.',
   },
   'wachtwoordmanager': {
@@ -27,6 +29,7 @@ export const AVOND = {
       'Zet de app ook in je browser (als extensie), zodat hij wachtwoorden voor je invult.',
       'Zet het nieuwe e-mailwachtwoord van stap 1 erin. De rest komt vanzelf, telkens als je ergens inlogt.',
     ],
+    gereedschap: ['bitwarden', 'protonpass'],
     klaar: 'Je hebt een sleutelkluis. Vanaf nu verzint en onthoudt de kluis je sleutels.',
   },
   'updates': {
