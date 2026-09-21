@@ -18,7 +18,7 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
     </div>
   </section>
 
-  <section class="fort">
+  <section class="fort" id="fort">
     <h2 class="fort-kop">Waar we naartoe werken</h2>
     <p class="tekst">Links het huis waar de meeste mensen in wonen. Rechts het fort. Elk deel van het fort hoort bij een stap uit <a href="/aan-de-slag">hoofdstuk 4</a>. Wat je regelt, kleurt <span class="kleur groen">groen</span>; wat openstaat, kleurt <span class="kleur rood">rood</span>.</p>
     <HuisEnFort />
@@ -33,10 +33,10 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
   <section class="hoofdstukken">
     <h2>De hoofdstukken</h2>
     <ol class="kaarten">
-      {HOOFDSTUKKEN.filter((h) => !h.extra).map((h) => (
-        <li>
+      {HOOFDSTUKKEN.map((h) => (
+        <li class:list={{ extra: h.extra }}>
           <a class="kaart" href={`/${h.slug}`}>
-            <span class="kaart-kop"><span class="nr">Hoofdstuk {h.nr}</span><HoofdstukIcoon slug={h.slug} maat={40} /></span>
+            <span class="kaart-kop"><span class="nr">{h.extra ? 'Verdieping' : `Hoofdstuk ${h.nr}`}</span><HoofdstukIcoon slug={h.slug} maat={40} /></span>
             <h3>{h.titel}</h3>
             <p>{h.kort}</p>
           </a>
@@ -57,4 +57,6 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
   .kleur.groen { background: var(--groen); }
   .hoofdstukken h2 { margin-top: 3rem; }
   .kaart-kop { display: flex; justify-content: space-between; align-items: center; }
+  li.extra .kaart { border-style: dashed; border-width: 2px; padding: calc(1.1rem + 1px) calc(1.2rem + 1px); background: var(--papier-2); }
+  li.extra .nr { color: var(--inkt-zacht); }
 </style>

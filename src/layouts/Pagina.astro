@@ -39,6 +39,8 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
     <script>
       import { lees, wisAlles } from '../lib/opslag.js';
       import { LIJSTEN, SLOT_LIJSTEN, TOTAAL_SLOTEN } from '../data/lijsten.js';
+      import { toestandPerKamer } from '../lib/toestand.js';
+      import { toestandPerDeel } from '../data/fort.js';
 
       function telSloten(data) {
         return SLOT_LIJSTEN.reduce((n, id) => {
@@ -52,8 +54,11 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
         const tekst = document.querySelector('[data-sloten-tekst]');
         if (!el || !tekst) return;
         const dicht = telSloten(data);
-        el.hidden = dicht === 0;
+        const delen = toestandPerDeel(toestandPerKamer(data));
+        const staat = Object.values(delen).filter((t) => t !== 'onbekend').length;
+        el.hidden = dicht === 0 && staat === 0;
         tekst.textContent = `${dicht} van ${TOTAAL_SLOTEN} sloten dicht`;
+        el.querySelectorAll('[data-kanteel]').forEach((k) => { k.dataset.toestand = delen[k.dataset.kanteel]; });
       }
 
       // brede tabellen scrollen in hun eigen bak, niet de hele pagina

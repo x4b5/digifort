@@ -1,0 +1,102 @@
+---
+/** Drie vragen, en je weet op welke trede van de ladder je e-mail staat. Niets wordt opgeslagen. */
+const TREDES = {
+  1: 'Eén wachtwoord voor alles', 2: 'Een ander wachtwoord per site', 3: 'Een wachtwoordkluis', 4: 'Een code per sms',
+  5: 'Een code uit een app', 6: 'Een passkey', 7: 'Een sleutel in je hand', 8: 'Twee sleutels en een papiertje',
+};
+const VRAGEN = [
+  { id: 'ww', vraag: 'Hoe log je in op je e-mail?', opties: [
+    ['zelfde', 'Met een wachtwoord dat ik ook ergens anders gebruik'],
+    ['eigen', 'Met een eigen wachtwoord dat ik uit mijn hoofd ken'],
+    ['kluis', 'Met een wachtwoord uit mijn wachtwoordmanager'],
+    ['passkey', 'Zonder wachtwoord: met mijn vinger, gezicht of een sleuteltje'],
+  ] },
+  { id: 'stap', vraag: 'Komt er daarna nog een tweede stap?', opties: [
+    ['geen', 'Nee'],
+    ['sms', 'Ja, een code per sms'],
+    ['app', 'Ja, een code uit een app'],
+    ['passkey', 'Ja, een passkey op mijn telefoon of computer'],
+    ['sleutel', 'Ja, een los sleuteltje zoals een YubiKey'],
+  ] },
+  { id: 'nood', vraag: 'Raak je je telefoon vandaag kwijt: kom je dan nog binnen?', opties: [
+    ['nee', 'Nee, of ik weet het niet'],
+    ['ja', 'Ja, ik heb herstelcodes op papier of een tweede sleutel'],
+  ] },
+];
+---
+<section class="tredecheck" data-tredecheck aria-labelledby="tredecheck-kop">
+  <h3 id="tredecheck-kop">Op welke trede sta jij?</h3>
+  <p class="uitleg">Drie vragen over je e-mail, want dat is je voordeur. Je antwoorden blijven op deze pagina.</p>
+  {VRAGEN.map((v) => (
+    <fieldset>
+      <legend>{v.vraag}</legend>
+      {v.opties.map(([waarde, tekst]) => (
+        <label><input type="radio" name={`tc-${v.id}`} value={waarde} /><span>{tekst}</span></label>
+      ))}
+    </fieldset>
+  ))}
+  <div class="uitslag" data-uitslag hidden aria-live="polite">
+    <p class="eyebrow">Jouw trede</p>
+    <p class="trede"><span class="bol" data-bol>0</span> <strong data-titel></strong></p>
+    <p data-advies></p>
+    <p><a class="knop klein" data-link href="#trede-1">Lees over deze trede →</a> <a class="knop licht klein" data-volgende href="#trede-2">De volgende trede</a></p>
+  </div>
+</section>
+
+<script define:vars={{ TREDES }}>
+  document.querySelectorAll('[data-tredecheck]').forEach((s) => {
+    const kies = (naam) => s.querySelector(`input[name="tc-${naam}"]:checked`)?.value;
+
+    function trede() {
+      const ww = kies('ww'), stap = kies('stap'), nood = kies('nood');
+      if (!ww || !stap || !nood) return null;
+      let t = { zelfde: 1, eigen: 2, kluis: 3, passkey: 6 }[ww];
+      if (stap === 'sms') t = Math.max(t, 4);
+      if (stap === 'app') t = Math.max(t, 5);
+      if (stap === 'passkey') t = Math.max(t, 6);
+      if (stap === 'sleutel') t = Math.max(t, 7);
+      if (t >= 6 && nood === 'ja') t = 8;
+      return { t, ww, stap, nood };
+    }
+
+    function advies({ t, ww, stap, nood }) {
+      if (t <= 2) return 'Begin bij een wachtwoordkluis en een tweede slot op je e-mail: niveau 1 in hoofdstuk 4, in één avond.';
+      if (t === 3) return 'De kluis staat. Zet nu een tweede slot op je e-mail: een code uit een app, of beter een passkey.';
+      if (t === 4) return 'Wissel de sms-code om voor een app of een passkey. Dat kost vijf minuten per account.';
+      if (t === 5) return ww === 'kluis' ? 'Sterk. Een passkey maakt het nog phishing-bestendig: zet hem aan waar je e-mail het aanbiedt.' : 'Zet je wachtwoorden in een kluis en zet daarna een passkey aan.';
+      if (t === 6 || t === 7) return nood === 'nee' ? 'Bijna bovenaan. Alleen: raak je je toestel kwijt, dan sta je buiten. Schrijf je herstelcodes op papier en leg ze in je noodpakket.' : 'Bovenaan.';
+      return 'Bovenaan de ladder. Help nu iemand anders met de zijne: hoofdstuk 7.';
+    }
+
+    function toon() {
+      const r = trede();
+      const uit = s.querySelector('[data-uitslag]');
+      uit.hidden = !r;
+      if (!r) return;
+      s.querySelector('[data-bol]').textContent = String(r.t).padStart(2, '0');
+      s.querySelector('[data-titel]').textContent = TREDES[r.t];
+      s.querySelector('[data-advies]').textContent = advies(r);
+      s.querySelector('[data-link]').setAttribute('href', `#trede-${r.t}`);
+      const volgende = s.querySelector('[data-volgende]');
+      volgende.hidden = r.t >= 8;
+      volgende.setAttribute('href', `#trede-${Math.min(r.t + 1, 8)}`);
+    }
+    s.querySelectorAll('input').forEach((i) => i.addEventListener('change', toon));
+  });
+</script>
+
+<style>
+  .tredecheck { margin: 2rem 0 2.5rem; padding: 1.25rem 1.4rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); }
+  .tredecheck h3 { margin: 0 0 0.25rem; }
+  .uitleg { color: var(--inkt-zacht); font-size: 0.97rem; margin-bottom: 1rem; }
+  fieldset { border: 0; padding: 0; margin: 0 0 1.1rem; }
+  legend { font-weight: 700; margin-bottom: 0.4rem; padding: 0; }
+  label { display: flex; align-items: center; gap: 0.6rem; padding: 0.35rem 0.4rem; border-radius: var(--radius); cursor: pointer; font-size: 1rem; }
+  label:hover { background: var(--papier-2); }
+  input { width: 1.25rem; height: 1.25rem; accent-color: var(--rood); flex: none; margin: 0; }
+  .uitslag { margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--lijn); }
+  .uitslag[hidden] { display: none; }
+  .trede { display: flex; align-items: center; gap: 0.75rem; font-family: var(--kop); font-size: 1.3rem; margin: 0 0 0.5rem; }
+  .bol { display: inline-flex; align-items: center; justify-content: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--rood); color: #fff; font-size: 1.1rem; flex: none; }
+  .uitslag p:last-child { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; }
+</style>

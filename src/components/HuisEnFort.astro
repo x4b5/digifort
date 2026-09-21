@@ -11,13 +11,9 @@ const href = (deel) => `/plattegrond#${kamer(deel.kamers[0]).anker}`;
 const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
 ---
 <figure class="tekening huis-en-fort" data-huis-en-fort>
-  <svg viewBox="0 0 760 350" role="group" aria-labelledby="hef-titel hef-uitleg">
-    <title id="hef-titel">Van open huis naar fort</title>
-    <desc id="hef-uitleg">Links een huis met de deur op een kier, een open raam, een sleutel onder de mat en een overvolle brievenbus. Rechts een fort met een muur, een gracht, een ophaalbrug, een poort met twee sloten, een torenwacht, luiken, een hek, een schatkamer buiten de muur en een wapenschild. De delen van het fort kleuren groen zodra je ze thuis geregeld hebt.</desc>
-
-    <!-- grond -->
+  <div class="paar">
+  <svg class="links" viewBox="0 0 360 350" role="img" aria-label="Het open huis: de deur op een kier, een open raam, een briefje met het wachtwoord op het raam, een sleutel onder de mat en een overvolle brievenbus.">
     <line class="tek" x1="12" y1="300" x2="352" y2="300" />
-    <line class="tek" x1="408" y1="300" x2="748" y2="300" />
 
     <!-- ===== links: het open huis ===== -->
     <g class="huis" aria-hidden="true">
@@ -49,10 +45,12 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
       <text class="tek-tekst" x="182" y="334" text-anchor="middle">Het open huis</text>
     </g>
 
-    <!-- pijl: hierheen -->
-    <path class="tek-dun" d="M356 230 H404 m-8 -8 l8 8 l-8 8" />
-
-    <!-- ===== rechts: het fort ===== -->
+  </svg>
+  <span class="pijl" aria-hidden="true">→</span>
+  <svg class="rechts" viewBox="400 0 360 350" role="group" aria-labelledby="hef-titel hef-uitleg">
+    <title id="hef-titel">Het fort</title>
+    <desc id="hef-uitleg">Een fort met een muur, een gracht, een ophaalbrug, een poort met twee sloten, een torenwacht, luiken, een hek, een schatkamer buiten de muur en een wapenschild. De delen kleuren groen zodra je ze thuis geregeld hebt.</desc>
+    <line class="tek" x1="408" y1="300" x2="748" y2="300" />
     <text class="tek-tekst" x="580" y="334" text-anchor="middle">Het fort</text>
 
     <a href={href(d.gracht)} data-deel="gracht"><title>{d.gracht.naam}: {d.gracht.wat}</title><g>
@@ -112,6 +110,7 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
       <circle class="tek-vul" cx="630" cy="230" r="4" />
     </g></a>
   </svg>
+  </div>
 
   <p class="stand" data-fort-stand aria-live="polite">Doe de <a href="/huischeck">huischeck</a> of vink iets af in <a href="/aan-de-slag">hoofdstuk 4</a>: dan zie je hier welke delen van je fort al staan.</p>
 
@@ -165,6 +164,10 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
 <style>
   .huis-en-fort { margin: 1.5rem 0 1rem; }
   .huis-en-fort svg { overflow: visible; }
+  .paar { display: flex; align-items: center; gap: 0.5rem; }
+  .paar svg { flex: 1 1 0; min-width: 0; }
+  .pijl { font-family: var(--kop); font-size: 2rem; color: var(--inkt-flauw); flex: none; }
+  @media (max-width: 40rem) { .paar { flex-direction: column; gap: 0; } .paar svg { width: 100%; max-width: 24rem; } .pijl { transform: rotate(90deg); line-height: 1; } }
   a[data-deel] { cursor: pointer; outline: none; }
   a[data-deel]:focus-visible g { outline: 3px solid var(--focus); }
   a[data-deel] g { transition: transform 0.15s ease, opacity 0.2s ease; transform-box: fill-box; transform-origin: center; }

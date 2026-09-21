@@ -2,12 +2,13 @@
 import Logo from './Logo.astro';
 import HoofdstukIcoon from './HoofdstukIcoon.astro';
 import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
+import { FORTDELEN } from '../data/fort.js';
 const huidig = Astro.url.pathname.replace(/\/$/, '');
 ---
 <header class="kop">
   <div class="wrap kop-rij">
     <a class="merk" href="/"><Logo maat={34} /><span>{SITE.naam}</span></a>
-    <span class="sloten" data-sloten hidden><span data-sloten-tekst></span></span>
+    <a class="sloten" href="/#fort" data-sloten hidden title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst></span></a>
     <details class="menu">
       <summary class="knop licht klein">Menu</summary>
       <nav aria-label="Hoofdstukken">
@@ -29,7 +30,14 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   .kop { border-bottom: var(--lijndikte) solid var(--lijn-sterk); background: var(--papier); position: relative; z-index: 5; }
   .kop-rij { display: flex; align-items: center; gap: 1rem; min-height: 4.25rem; flex-wrap: wrap; }
   .merk { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--kop); font-weight: 700; font-size: 1.25rem; color: var(--inkt); text-decoration: none; }
-  .sloten { margin-left: auto; font-size: 0.9rem; color: var(--inkt-zacht); }
+  .sloten { margin-left: auto; font-size: 0.9rem; color: var(--inkt-zacht); display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .sloten:hover { color: var(--inkt); }
+  .kantelen { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+  .kantelen span { display: block; width: 7px; height: 9px; border: 2px solid var(--lijn-sterk); border-bottom: 0; opacity: 0.4; }
+  .kantelen span:nth-child(odd) { height: 14px; }
+  .kantelen span[data-toestand="dicht"] { background: var(--groen); border-color: var(--groen); opacity: 1; }
+  .kantelen span[data-toestand="open"] { background: var(--rood); border-color: var(--rood); opacity: 1; }
+  @media (max-width: 30rem) { .sloten [data-sloten-tekst] { display: none; } }
   .sloten[hidden] { display: none; }
   .sloten + .menu, .sloten[hidden] + .menu { margin-left: 0; }
   .menu { position: relative; }
