@@ -61,8 +61,16 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
         el.querySelectorAll('[data-kanteel]').forEach((k) => { k.dataset.toestand = delen[k.dataset.kanteel]; });
       }
 
-      // brede tabellen scrollen in hun eigen bak, niet de hele pagina
+      // brede tabellen scrollen in hun eigen bak, niet de hele pagina;
+      // op een telefoon stapelen ze per rij, met de kolomkop erbij (niet het woordenboek: dat filtert)
       document.querySelectorAll('main table').forEach((t) => {
+        const koppen = Array.from(t.querySelectorAll('thead th')).map((th) => th.textContent?.trim() ?? '');
+        if (koppen.length >= 3 && !t.closest('[data-woordenboek]')) {
+          t.classList.add('tabel-stapel');
+          t.querySelectorAll('tbody tr').forEach((rij) => {
+            rij.querySelectorAll('td').forEach((cel, i) => { cel.dataset.label = koppen[i] ?? ''; });
+          });
+        }
         if (t.parentElement?.classList.contains('tabel-scroll')) return;
         const bak = document.createElement('div');
         bak.className = 'tabel-scroll';

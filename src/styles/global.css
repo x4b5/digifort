@@ -107,6 +107,15 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--papier-2); 
 table { border-collapse: collapse; width: 100%; font-size: 0.95em; }
 th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 2px solid var(--lijn); }
 th { font-family: var(--kop); font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: var(--lijndikte) solid var(--lijn-sterk); }
+@media (max-width: 40rem) {
+  .tabel-stapel, .tabel-stapel tbody, .tabel-stapel tr, .tabel-stapel td { display: block; }
+  .tabel-stapel thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .tabel-stapel tr { padding: 0.75rem 0; border-bottom: var(--lijndikte) solid var(--lijn-sterk); }
+  .tabel-stapel td { border: 0; padding: 0.25rem 0; }
+  .tabel-stapel td::before { content: attr(data-label); display: block; font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); }
+  .tabel-stapel td:first-child { font-weight: 700; }
+  .tabel-stapel td:first-child::before { display: none; }
+}
 
 /* tekeningen */
 figure.tekening { margin: 1.75rem 0 2rem; }
