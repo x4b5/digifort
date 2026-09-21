@@ -30,8 +30,10 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
       </div>
     ))}
     <div class="open-deuren" data-open-deuren hidden>
-      <p>Elke "nee" of "weet ik niet" is een deur die openstaat. Dit zijn de jouwe:</p>
-      <ul data-open-lijst></ul>
+      <h3>Jouw bouwvolgorde</h3>
+      <p>Elke "nee" of "weet ik niet" is een deur die openstaat. Dit zijn de jouwe, in de volgorde waarin je ze het beste dichtdoet. Vink af wat je doet: het telt meteen mee in <a href="/aan-de-slag">hoofdstuk 4</a> en op je <a href="/#fort">fort</a>.</p>
+      <p class="bouw-tijd" data-bouw-tijd></p>
+      <ol data-open-lijst></ol>
       <p><a href="/plattegrond">Bekijk ze op de plattegrond →</a></p>
     </div>
     <p class="rest" data-rest>Beantwoord alle vragen voor je uitslag.</p>
@@ -39,10 +41,14 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
 </section>
 
 <script>
-  import { lees, zetAntwoord } from '../lib/opslag.js';
+  import { lees, zetAntwoord, zetVinkje } from '../lib/opslag.js';
   import { band, BANDEN, VRAGEN } from '../data/huischeck.js';
   import { kamer } from '../data/kamers.js';
   import { LIJSTEN } from '../data/lijsten.js';
+
+  /** Volgorde waarin je deuren dichtdoet: eerst de voordeur, dan de kluis, dan de rest. */
+  const BOUWVOLGORDE = ['voordeur', 'tweede-slot', 'sleutelkluis', 'onderhoud', 'tweede-voordeur', 'brievenbus', 'sleutels', 'tuinhek', 'brandkast', 'eigendomsakte'];
+  const BOUWLIJSTEN = ['niveau-1', 'niveau-2'];
 
   const sectie = document.querySelector<HTMLElement>('[data-huischeck]');
   if (sectie) {
@@ -82,22 +88,54 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
       sectie!.querySelectorAll<HTMLElement>('[data-band]').forEach((el) => { el.hidden = !klaar || BANDEN[Number(el.dataset.band)] !== b; });
       sectie!.querySelector<HTMLElement>('[data-open-deuren]')!.hidden = !klaar || ja === totaal;
       const lijst = sectie!.querySelector<HTMLElement>('[data-open-lijst]')!;
-      lijst.replaceChildren(...actief.flatMap((v, i) => {
-        if (antwoorden[i] === 'ja') return [];
+      const bewaard = lees().lijsten;
+      const open = BOUWVOLGORDE
+        .map((id) => actief.find((v, i) => VRAGEN.find((x) => x.nr === Number(v.dataset.vraag))!.kamer === id && antwoorden[i] !== 'ja'))
+        .filter((v): v is HTMLElement => Boolean(v));
+      let minuten = 0;
+      lijst.replaceChildren(...open.map((v) => {
         const vraag = VRAGEN.find((x) => x.nr === Number(v.dataset.vraag))!;
         const k = kamer(vraag.kamer)!;
-        const stap = ['niveau-1', 'niveau-2', 'niveau-3'].flatMap((l) => LIJSTEN[l].items.filter((it) => it.kamer === vraag.kamer).map((it) => ({ l, it }))).at(0);
+        const stappen = BOUWLIJSTEN.flatMap((l) => LIJSTEN[l].items.filter((it) => it.kamer === vraag.kamer).map((it) => ({ l, it })));
         const li = document.createElement('li');
+        const kop = document.createElement('p');
         const a = document.createElement('a');
-        a.href = stap ? `/aan-de-slag#${stap.l}` : `/plattegrond#${k.anker}`;
+        a.href = stappen[0] ? `/aan-de-slag#${stappen[0].l}` : `/plattegrond#${k.anker}`;
         a.textContent = k.naam;
-        li.append(a, document.createTextNode(stap ? ` — ${stap.it.stap.toLowerCase()} (${stap.l.replace('-', ' ')})` : ` — ${k.zin}`));
-        return [li];
+        kop.className = 'bouw-kamer';
+        kop.append(a, document.createTextNode(` — ${k.wat}`));
+        li.append(kop);
+        if (!stappen.length) li.append(Object.assign(document.createElement('p'), { className: 'bouw-zin', textContent: k.zin }));
+        stappen.forEach(({ l, it }) => {
+          const gedaan = Boolean(bewaard[l]?.[it.id]);
+          if (!gedaan) minuten += it.tijd ?? 0;
+          const label = document.createElement('label');
+          label.className = 'bouwstap';
+          const vak = document.createElement('input');
+          vak.type = 'checkbox';
+          vak.checked = gedaan;
+          vak.dataset.bouw = `${l}:${it.id}`;
+          const tekst = document.createElement('span');
+          tekst.textContent = it.stap;
+          label.append(vak, tekst);
+          if (it.tijd) label.append(Object.assign(document.createElement('span'), { className: 'bouw-min', textContent: `${it.tijd} min` }));
+          li.append(label);
+        });
+        return li;
       }));
+      sectie!.querySelector<HTMLElement>('[data-bouw-tijd]')!.textContent = minuten > 0 ? `Nog ongeveer ${minuten} minuten werk.` : '';
       const rest = sectie!.querySelector<HTMLElement>('[data-rest]')!;
       rest.hidden = klaar;
       rest.textContent = `Nog ${totaal - beantwoord} ${totaal - beantwoord === 1 ? 'vraag' : 'vragen'} te gaan.`;
     }
+
+    // afvinken in de bouwvolgorde is hetzelfde vinkje als in hoofdstuk 4
+    sectie.querySelector('[data-open-lijst]')!.addEventListener('change', (e) => {
+      const vak = e.target as HTMLInputElement;
+      if (!vak.dataset.bouw) return;
+      const [l, id] = vak.dataset.bouw.split(':');
+      zetVinkje(l, id, vak.checked);
+    });
 
     vulIn();
     toon();
@@ -134,7 +172,15 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
   .band h3 { margin: 0.5rem 0 0.3rem; }
   .band p:last-child { margin: 0 0 0.5rem; }
   .rest { margin: 0; color: var(--inkt-zacht); }
-  .open-deuren { margin: 0.5rem 0 0; }
-  .open-deuren ul { margin: 0.4rem 0 0.75rem; }
-  .open-deuren li { margin-bottom: 0.3rem; }
+  .open-deuren { margin: 1rem 0 0; }
+  .open-deuren h3 { margin: 0.5rem 0 0.3rem; }
+  .open-deuren ol { margin: 0.4rem 0 0.75rem; padding-left: 1.4rem; }
+  .open-deuren li { margin-bottom: 0.9rem; }
+  .open-deuren :global(.bouw-kamer) { margin: 0 0 0.2rem; font-weight: 700; }
+  .open-deuren :global(.bouw-zin) { margin: 0; color: var(--inkt-zacht); font-size: 0.95em; }
+  .bouw-tijd { font-family: var(--kop); color: var(--inkt-zacht); margin: 0; }
+  .open-deuren :global(.bouwstap) { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.25rem 0; font-size: 0.97em; cursor: pointer; }
+  .open-deuren :global(.bouwstap input) { width: 1.3rem; height: 1.3rem; accent-color: var(--groen); flex: none; position: static; opacity: 1; margin: 0; align-self: center; }
+  .open-deuren :global(.bouwstap:has(input:checked) span:first-of-type) { text-decoration: line-through; color: var(--inkt-zacht); }
+  .open-deuren :global(.bouw-min) { font-family: var(--kop); font-size: 0.8rem; color: var(--rood); letter-spacing: 0.05em; margin-left: auto; white-space: nowrap; }
 </style>

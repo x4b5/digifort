@@ -1,6 +1,7 @@
 /**
  * Per kamer: staat de deur open, dicht, of weten we het niet?
- * Een "nee" op de huischeck wint van alles; daarna telt elk vinkje of "ja" als dicht.
+ * Een vinkje in een lijst is het nieuwste bewijs en wint van een "nee" op de huischeck:
+ * wie "nee" zei en daarna de stap afvinkt, heeft de deur dichtgedaan.
  */
 import { VRAGEN } from '../data/huischeck.js';
 import { LIJSTEN } from '../data/lijsten.js';
@@ -13,8 +14,9 @@ export function toestandPerKamer(data) {
       const vinkjes = Object.entries(LIJSTEN).flatMap(([lijst, l]) =>
         l.items.filter((it) => it.kamer === k.id).map((it) => Boolean(data.lijsten[lijst]?.[it.id])),
       );
+      if (vinkjes.includes(true)) return [k.id, 'dicht'];
       if (antwoorden.includes(false)) return [k.id, 'open'];
-      if (antwoorden.includes(true) || vinkjes.includes(true)) return [k.id, 'dicht'];
+      if (antwoorden.includes(true)) return [k.id, 'dicht'];
       return [k.id, 'onbekend'];
     }),
   );
