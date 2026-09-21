@@ -218,7 +218,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
   [data-toestand="dicht"] :global(.tek), [data-toestand="dicht"] :global(.tek-dun) { stroke: var(--groen); }
   [data-toestand="dicht"] :global(.tek-vul) { fill: var(--groen); }
 
-  .legenda { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); font-size: 0.95rem; }
+  .legenda { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr)); font-size: 0.95rem; }
   .legenda li { margin: 0; }
   .legenda a { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
   .legenda a:hover, .legenda li.licht-op a { background: var(--papier-2); }

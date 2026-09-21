@@ -1,0 +1,92 @@
+---
+/**
+ * De leesknop in de kop: tekstgrootte en kleuren.
+ * Voor wie browserzoom niet kent, of 's avonds liever donker leest.
+ */
+const MATEN = [
+  { id: 'normaal', label: 'Normaal' },
+  { id: 'groot', label: 'Groter' },
+  { id: 'groter', label: 'Grootst' },
+];
+const THEMAS = [
+  { id: 'light', label: 'Licht' },
+  { id: 'dark', label: 'Donker' },
+  { id: 'auto', label: 'Zoals mijn apparaat' },
+];
+---
+<details class="lezen" data-lezen>
+  <summary class="knop licht klein"><span class="aa" aria-hidden="true">Aa</span> Lezen</summary>
+  <div class="paneel">
+    <fieldset>
+      <legend>Tekstgrootte</legend>
+      <div class="rij">
+        {MATEN.map((m) => (
+          <label class="keuze"><input type="radio" name="jdh-tekst" value={m.id} data-veld="tekst" /><span>{m.label}</span></label>
+        ))}
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Kleuren</legend>
+      <div class="rij">
+        {THEMAS.map((t) => (
+          <label class="keuze"><input type="radio" name="jdh-thema" value={t.id} data-veld="thema" /><span>{t.label}</span></label>
+        ))}
+      </div>
+    </fieldset>
+    <p class="uitleg">Deze keuze blijft op dit apparaat staan.</p>
+  </div>
+</details>
+
+<script>
+  import { leesLezen, pasToe, zetLezen } from '../lib/lezen.js';
+
+  document.querySelectorAll<HTMLElement>('[data-lezen]').forEach((blok) => {
+    const knoppen = Array.from(blok.querySelectorAll<HTMLInputElement>('input[data-veld]'));
+
+    function vulIn(voorkeur = leesLezen()) {
+      knoppen.forEach((k) => { k.checked = voorkeur[k.dataset.veld! as 'tekst' | 'thema'] === k.value; });
+    }
+
+    pasToe(leesLezen());
+    vulIn();
+
+    knoppen.forEach((k) => k.addEventListener('change', () => { zetLezen(k.dataset.veld!, k.value); }));
+    window.addEventListener('jdh:lezen', (e: Event) => vulIn((e as CustomEvent).detail));
+  });
+</script>
+
+<style>
+  .lezen { position: relative; }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  .aa { font-size: 1.1em; }
+  .lezen[open] summary { background: var(--inkt); color: var(--papier); border-color: var(--inkt); }
+  /* Chrome rekent de inhoud van een dichte <details> nog mee in de lay-out;
+     zonder dit steekt het paneel buiten het scherm uit. */
+  .lezen:not([open]) .paneel { display: none; }
+  .paneel {
+    position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 10;
+    background: var(--papier); border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius);
+    min-width: min(20rem, 90vw); padding: 0.9rem 1rem 0.75rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  }
+  fieldset { border: 0; margin: 0 0 0.9rem; padding: 0; }
+  legend { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); padding: 0 0 0.35rem; }
+  .rij { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .keuze {
+    display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.3rem 0.9rem;
+    border: 2px solid var(--lijn-sterk); border-radius: var(--radius);
+    font-family: var(--kop); font-size: 0.95rem; font-weight: 700; cursor: pointer; background: var(--papier); color: var(--inkt);
+  }
+  .keuze input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .keuze:hover { background: var(--papier-2); }
+  .keuze:has(input:checked) { background: var(--inkt); border-color: var(--inkt); color: var(--papier); }
+  .keuze:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .uitleg { margin: 0; font-size: 0.85rem; color: var(--inkt-zacht); }
+
+  /* Op een smal scherm hangt het paneel onder de hele kop, niet over de
+     knoppen heen: anders is de Menu-knop niet meer aan te tikken. */
+  @media (max-width: 40rem) {
+    .lezen { position: static; }
+    .paneel { left: clamp(1rem, 4vw, 2rem); right: clamp(1rem, 4vw, 2rem); min-width: 0; }
+  }
+</style>

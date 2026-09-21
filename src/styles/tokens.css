@@ -45,6 +45,7 @@
 }
 
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --papier: #141414;
   --papier-2: #1f1e1c;
   --inkt: #f2f0eb;
@@ -59,3 +60,5 @@
   --groen-licht: #1c2f24;
   --focus: #7cb3ff;
 }
+
+:root[data-theme="light"] { color-scheme: light; }

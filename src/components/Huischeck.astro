@@ -19,7 +19,8 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
     ))}
   </ol>
 
-  <div class="uitslag" data-uitslag aria-live="polite">
+  <div class="uitslag" data-uitslag>
+    <p class="schermlezer" data-melding aria-live="polite" aria-atomic="true"></p>
     <p class="eyebrow">Je uitslag</p>
     <p class="meter" aria-hidden="true"><span data-meter-vul></span></p>
     <p class="score"><strong data-score>0</strong> <span data-score-tekst>keer ja van de 10</span></p>
@@ -126,7 +127,15 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
       sectie!.querySelector<HTMLElement>('[data-bouw-tijd]')!.textContent = minuten > 0 ? `Nog ongeveer ${minuten} minuten werk.` : '';
       const rest = sectie!.querySelector<HTMLElement>('[data-rest]')!;
       rest.hidden = klaar;
-      rest.textContent = `Nog ${totaal - beantwoord} ${totaal - beantwoord === 1 ? 'vraag' : 'vragen'} te gaan.`;
+      const teGaan = totaal - beantwoord;
+      rest.textContent = `Nog ${teGaan} ${teGaan === 1 ? 'vraag' : 'vragen'} te gaan.`;
+
+      // Eén zin voor de schermlezer. Het hele uitslagblok voorlezen bij elke
+      // klik is te veel; dit is wat je op dat moment wilt weten.
+      const melding = sectie!.querySelector<HTMLElement>('[data-melding]')!;
+      melding.textContent = klaar
+        ? `Uitslag: ${ja} keer ja van de ${totaal}. ${b.kop}.`
+        : `${ja} keer ja. Nog ${teGaan} ${teGaan === 1 ? 'vraag' : 'vragen'} te gaan.`;
     }
 
     // afvinken in de bouwvolgorde is hetzelfde vinkje als in hoofdstuk 4

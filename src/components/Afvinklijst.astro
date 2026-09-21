@@ -4,6 +4,7 @@
  * `lijst` is de sleutel in src/data/lijsten.js.
  */
 import { LIJSTEN } from '../data/lijsten.js';
+import Merk from './Merk.astro';
 const { lijst, kop = true, genummerd = false } = Astro.props;
 const data = LIJSTEN[lijst];
 if (!data) throw new Error(`Onbekende lijst: ${lijst}`);
@@ -26,6 +27,7 @@ const Tag = genummerd ? 'ol' : 'ul';
             <span class="stap">{genummerd && <span class="nr">{i + 1}.</span>} {it.stap}</span>
             {it.waarom && <span class="waarom">{it.waarom}</span>}
             {it.tijd && <span class="minuten">{it.tijd} min</span>}
+            {it.gereedschap?.length > 0 && <span class="gereedschap">{it.gereedschap.map((g) => <Merk id={g} maat={18} />)}</span>}
           </span>
         </label>
       </li>
@@ -73,7 +75,7 @@ const Tag = genummerd ? 'ol' : 'ul';
   .klaar .stand { color: var(--groen); }
   .items { list-style: none; padding: 0; margin: 0; border-top: var(--lijndikte) solid var(--lijn-sterk); }
   .items li { margin: 0; border-bottom: 2px solid var(--lijn); }
-  label { display: grid; grid-template-columns: 2rem 1fr; gap: 0.9rem; padding: 0.9rem 0.25rem; cursor: pointer; align-items: start; }
+  label { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.9rem; padding: 0.9rem 0.25rem; cursor: pointer; align-items: start; }
   label:hover { background: var(--papier-2); }
   input { position: absolute; opacity: 0; width: 1px; height: 1px; }
   .vink { display: block; width: 2rem; height: 2rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); position: relative; margin-top: 0.1rem; background: var(--papier); }
@@ -84,6 +86,7 @@ const Tag = genummerd ? 'ol' : 'ul';
   .stap { font-weight: 700; }
   .nr { color: var(--rood); font-family: var(--kop); }
   .waarom { color: var(--inkt-zacht); font-size: 0.95em; }
+  .gereedschap { display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; margin-top: 0.3rem; }
   .minuten { font-family: var(--kop); font-size: 0.8rem; color: var(--rood); letter-spacing: 0.05em; }
   li.af .stap { text-decoration: line-through; text-decoration-thickness: 2px; color: var(--inkt-zacht); }
 </style>

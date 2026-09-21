@@ -1,6 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import HoofdstukIcoon from './HoofdstukIcoon.astro';
+import Lezen from './Lezen.astro';
 import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
 import { FORTDELEN } from '../data/fort.js';
 const huidig = Astro.url.pathname.replace(/\/$/, '');
@@ -9,6 +10,7 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   <div class="wrap kop-rij">
     <a class="merk" href="/"><Logo maat={34} /><span>{SITE.naam}</span></a>
     <a class="sloten" href="/#fort" data-sloten hidden title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst></span></a>
+    <Lezen />
     <details class="menu">
       <summary class="knop licht klein">Menu</summary>
       <nav aria-label="Hoofdstukken">
@@ -26,8 +28,35 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   </div>
 </header>
 
+<script>
+  // De uitklappers in de kop (Lezen en Menu) sluiten met Escape en
+  // bij een klik ernaast. Zonder dit blijft een open menu hangen.
+  const uitklappers = Array.from(document.querySelectorAll<HTMLDetailsElement>('.kop details'));
+
+  function sluitAndere(open: HTMLDetailsElement | null) {
+    uitklappers.forEach((d) => { if (d !== open) d.open = false; });
+  }
+
+  uitklappers.forEach((d) => {
+    d.addEventListener('toggle', () => { if (d.open) sluitAndere(d); });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const open = uitklappers.find((d) => d.open);
+    if (!open) return;
+    open.open = false;
+    open.querySelector('summary')?.focus();
+  });
+
+  document.addEventListener('click', (e) => {
+    const doel = e.target as Node;
+    uitklappers.forEach((d) => { if (d.open && !d.contains(doel)) d.open = false; });
+  });
+</script>
+
 <style>
-  .kop { border-bottom: var(--lijndikte) solid var(--lijn-sterk); background: var(--papier); position: relative; z-index: 5; }
+  .kop { border-bottom: var(--lijndikte) solid var(--lijn-sterk); background: var(--papier); position: sticky; top: 0; z-index: 5; }
   .kop-rij { display: flex; align-items: center; gap: 1rem; min-height: 4.25rem; flex-wrap: wrap; }
   .merk { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--kop); font-weight: 700; font-size: 1.25rem; color: var(--inkt); text-decoration: none; }
   .sloten { margin-left: auto; font-size: 0.9rem; color: var(--inkt-zacht); display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; }
@@ -39,12 +68,14 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   .kantelen span[data-toestand="open"] { background: var(--rood); border-color: var(--rood); opacity: 1; }
   @media (max-width: 30rem) { .sloten [data-sloten-tekst] { display: none; } }
   .sloten[hidden] { display: none; }
-  .sloten + .menu, .sloten[hidden] + .menu { margin-left: 0; }
+  .sloten + :global(.lezen) { margin-left: 0; }
   .menu { position: relative; }
-  .sloten[hidden] ~ .menu { margin-left: auto; }
+  .sloten[hidden] ~ :global(.lezen) { margin-left: auto; }
   summary { list-style: none; }
   summary::-webkit-details-marker { display: none; }
   .menu[open] summary { background: var(--inkt); color: var(--papier); border-color: var(--inkt); }
+  /* net als bij het leespaneel: een dichte <details> mag geen lay-out maken */
+  .menu:not([open]) nav { display: none; }
   nav {
     position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 10;
     background: var(--papier); border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius);

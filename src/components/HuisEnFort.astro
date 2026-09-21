@@ -179,7 +179,7 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
   [data-toestand="dicht"] :global(.tek-vul) { fill: var(--groen); }
 
   .stand { font-family: var(--kop); font-size: 1rem; color: var(--inkt-zacht); margin: 0.75rem 0 0; }
-  .delen { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); font-size: 0.95rem; }
+  .delen { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr)); font-size: 0.95rem; }
   .delen li { margin: 0; }
   .delen a { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
   .delen a:hover, .delen li.licht-op a { background: var(--papier-2); }

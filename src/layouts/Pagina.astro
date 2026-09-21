@@ -28,6 +28,15 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap" />
+    <!-- leesvoorkeur meteen toepassen, anders flitst de pagina even in de andere stand.
+         Dezelfde sleutel als in src/lib/lezen.js. -->
+    <script is:inline>
+      try {
+        var v = JSON.parse(window.localStorage.getItem('jdh:lezen') || '{}');
+        if (v.tekst && v.tekst !== 'normaal') document.documentElement.dataset.tekst = v.tekst;
+        if (v.thema && v.thema !== 'auto') document.documentElement.dataset.theme = v.thema;
+      } catch (e) { /* opslag geblokkeerd: gewoon de standaardstand */ }
+    </script>
   </head>
   <body>
     <a class="overslaan" href="#inhoud">Naar de inhoud</a>
