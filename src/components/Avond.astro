@@ -1,0 +1,114 @@
+---
+/**
+ * Eén avond, zes stappen, één per scherm. Elke "Gedaan" is hetzelfde vinkje als in hoofdstuk 4,
+ * dus het fort en de teller in de kop groeien mee.
+ */
+import { LIJSTEN } from '../data/lijsten.js';
+import { AVOND } from '../data/avond.js';
+import HuisEnFort from './HuisEnFort.astro';
+const stappen = LIJSTEN['niveau-1'].items;
+const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
+---
+<section class="avond" data-avond data-totaal={stappen.length}>
+  <p class="stand" data-stand aria-live="polite">Stap 1 van {stappen.length} · ongeveer {totaalTijd} minuten in totaal</p>
+  <ol class="bolletjes" aria-hidden="true">
+    {stappen.map((it, i) => <li data-bol={i}>{i + 1}</li>)}
+  </ol>
+
+  {stappen.map((it, i) => (
+    <article class="stap" data-stap={i} data-item={it.id} hidden>
+      <p class="eyebrow">Stap {i + 1}{it.tijd && ` · ${it.tijd} min`}</p>
+      <h2 tabindex="-1">{it.stap}</h2>
+      <p class="waarom">{it.waarom}.</p>
+      <p class="hoe-kop">Zo doe je het</p>
+      <ol class="hoe">{AVOND[it.id].hoe.map((h) => <li>{h}</li>)}</ol>
+      <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {AVOND[it.id].klaar}</p>
+      <p class="knoppen">
+        <button type="button" class="knop" data-gedaan>Gedaan, volgende →</button>
+        <button type="button" class="knop licht" data-over>Sla over</button>
+        {i > 0 && <button type="button" class="knop licht klein" data-terug>← Vorige</button>}
+      </p>
+    </article>
+  ))}
+
+  <article class="stap einde" data-einde hidden>
+    <p class="eyebrow">Klaar voor vanavond</p>
+    <h2 tabindex="-1" data-einde-kop>Je fort staat</h2>
+    <p data-einde-tekst></p>
+    <HuisEnFort legenda={false} uitleg="Elk groen deel heb je vanavond zelf gebouwd." />
+    <p class="knoppen">
+      <a class="knop" href="/aan-de-slag#niveau-2">Volgende keer: niveau 2 →</a>
+      <button type="button" class="knop licht" data-opnieuw>Bekijk de stappen nog eens</button>
+    </p>
+  </article>
+</section>
+
+<script>
+  import { lees, zetVinkje } from '../lib/opslag.js';
+
+  document.querySelectorAll<HTMLElement>('[data-avond]').forEach((s) => {
+    const LIJST = 'niveau-1';
+    const stappen = Array.from(s.querySelectorAll<HTMLElement>('[data-stap]'));
+    const einde = s.querySelector<HTMLElement>('[data-einde]')!;
+    const stand = s.querySelector<HTMLElement>('[data-stand]')!;
+    const totaal = stappen.length;
+    let huidig = 0;
+
+    const gedaan = () => lees().lijsten[LIJST] ?? {};
+    const isGedaan = (i: number) => Boolean(gedaan()[stappen[i].dataset.item!]);
+
+    function toon(i: number, focus = true) {
+      huidig = Math.max(0, Math.min(i, totaal));
+      stappen.forEach((el, n) => { el.hidden = n !== huidig; });
+      einde.hidden = huidig !== totaal;
+      s.querySelectorAll<HTMLElement>('[data-bol]').forEach((b, n) => {
+        b.dataset.toestand = isGedaan(n) ? 'gedaan' : n === huidig ? 'nu' : '';
+      });
+      const klaar = stappen.filter((_, n) => isGedaan(n)).length;
+      if (huidig < totaal) {
+        const rest = stappen.slice(huidig).reduce((n, el) => n + Number(el.querySelector('.eyebrow')?.textContent?.match(/(\d+) min/)?.[1] ?? 0), 0);
+        stand.textContent = `Stap ${huidig + 1} van ${totaal}${rest ? ` · nog ongeveer ${rest} minuten` : ''}`;
+        stappen[huidig].querySelector<HTMLElement>('[data-klaar-zin]')!.hidden = !isGedaan(huidig);
+      } else {
+        stand.textContent = `${klaar} van ${totaal} stappen gedaan`;
+        einde.querySelector<HTMLElement>('[data-einde-kop]')!.textContent = klaar === totaal ? 'Je fort staat' : `${klaar} van de ${totaal} stappen staan`;
+        einde.querySelector<HTMLElement>('[data-einde-tekst]')!.textContent = klaar === totaal
+          ? 'Alle zes de stappen van niveau 1 zijn gedaan. Daarmee houd je de meeste inbrekers al buiten.'
+          : 'De overgeslagen stappen staan in hoofdstuk 4 klaar om later af te maken.';
+      }
+      if (focus) (huidig < totaal ? stappen[huidig] : einde).querySelector<HTMLElement>('h2')?.focus();
+    }
+
+    stappen.forEach((el, i) => {
+      el.querySelector('[data-gedaan]')?.addEventListener('click', () => { zetVinkje(LIJST, el.dataset.item!, true); toon(i + 1); });
+      el.querySelector('[data-over]')?.addEventListener('click', () => toon(i + 1));
+      el.querySelector('[data-terug]')?.addEventListener('click', () => toon(i - 1));
+    });
+    einde.querySelector('[data-opnieuw]')?.addEventListener('click', () => toon(0));
+
+    // begin bij de eerste stap die nog niet gedaan is
+    const eerste = stappen.findIndex((_, n) => !isGedaan(n));
+    toon(eerste === -1 ? totaal : eerste, false);
+  });
+</script>
+
+<style>
+  .avond { margin: 1.5rem 0 2rem; }
+  .stand { font-family: var(--kop); color: var(--inkt-zacht); margin: 0 0 0.75rem; }
+  .bolletjes { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; gap: 0.4rem; }
+  .bolletjes li { width: 2.2rem; height: 2.2rem; border-radius: 50%; border: var(--lijndikte) solid var(--lijn-sterk); display: grid; place-items: center; font-family: var(--kop); font-weight: 700; color: var(--inkt-zacht); background: var(--papier); }
+  .bolletjes li[data-toestand="nu"] { border-color: var(--rood); color: var(--rood); }
+  .bolletjes li[data-toestand="gedaan"] { background: var(--groen); border-color: var(--groen); color: #fff; }
+  .stap { padding: 1.5rem 1.6rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); }
+  .stap[hidden] { display: none; }
+  .stap h2 { border-top: 0; padding-top: 0; margin: 0 0 0.5rem; font-size: clamp(1.5rem, 4vw, 2rem); }
+  .stap h2:focus { outline: none; }
+  .waarom { color: var(--inkt-zacht); margin-bottom: 1rem; }
+  .hoe-kop { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rood); margin: 0 0 0.3rem; }
+  .hoe { padding-left: 1.4rem; margin-bottom: 1.25rem; }
+  .hoe li { margin-bottom: 0.5rem; }
+  .klaar-zin { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.7rem 1rem; }
+  .klaar-zin[hidden] { display: none; }
+  .knoppen { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin: 0; }
+  .einde { background: var(--papier-2); }
+</style>

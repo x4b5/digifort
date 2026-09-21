@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const PAGINAS = ['/', '/huischeck', '/plattegrond', '/inbrekers-van-nu', '/inbrekers-van-morgen', '/de-storm-om-het-huis', '/aan-de-slag', '/van-geheim-woord-naar-zegelring', '/onderhoud', '/als-er-is-ingebroken', '/voor-de-mensen-om-je-heen', '/woordenboek', '/over'];
+const PAGINAS = ['/', '/huischeck', '/plattegrond', '/inbrekers-van-nu', '/inbrekers-van-morgen', '/de-storm-om-het-huis', '/een-avond', '/aan-de-slag', '/van-geheim-woord-naar-zegelring', '/onderhoud', '/als-er-is-ingebroken', '/voor-de-mensen-om-je-heen', '/woordenboek', '/over'];
 
 for (const pad of PAGINAS) {
   test(`${pad} laadt, scrolt niet zijwaarts en elke tekening heeft een label`, async ({ page }) => {

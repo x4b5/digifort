@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const PAGINAS = ['/', '/huischeck', '/plattegrond', '/de-storm-om-het-huis', '/aan-de-slag', '/van-geheim-woord-naar-zegelring', '/als-er-is-ingebroken', '/woordenboek', '/over'];
+const PAGINAS = ['/', '/huischeck', '/plattegrond', '/de-storm-om-het-huis', '/een-avond', '/aan-de-slag', '/van-geheim-woord-naar-zegelring', '/als-er-is-ingebroken', '/woordenboek', '/over'];
 
 for (const pad of PAGINAS) {
   test(`${pad} heeft geen toegankelijkheidsfouten (axe)`, async ({ page }) => {
