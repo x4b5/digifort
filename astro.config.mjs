@@ -5,6 +5,6 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://je-digitale-huis.vercel.app',
+  site: 'https://digifort.vercel.app',
   integrations: [mdx(), sitemap()],
 });

@@ -1,6 +1,6 @@
 /** De sitekaart: één bron voor menu, kaartjes en volgende/vorige. */
 export const SITE = {
-  naam: 'Je digitale huis',
+  naam: 'digiFORT.',
   slogan: 'Digitale veiligheid in gewone taal, zonder bangmakerij en zonder reclame.',
   laatstNagelopen: '2026-09-20',
   contact: 'x4b5.clause500@8shield.net', // SimpleLogin-alias, stuurt door naar Proton
