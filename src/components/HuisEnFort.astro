@@ -6,7 +6,7 @@
  */
 import { FORTDELEN } from '../data/fort.js';
 import { kamer } from '../data/kamers.js';
-const { legenda = true } = Astro.props;
+const { legenda = true, uitleg } = Astro.props;
 const href = (deel) => `/plattegrond#${kamer(deel.kamers[0]).anker}`;
 const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
 ---
@@ -112,7 +112,7 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
   </svg>
   </div>
 
-  <p class="stand" data-fort-stand aria-live="polite">Doe de <a href="/huischeck">huischeck</a> of vink iets af in <a href="/aan-de-slag">hoofdstuk 4</a>: dan zie je hier welke delen van je fort al staan.</p>
+  <p class="stand" data-fort-stand aria-live="polite">{uitleg ?? <>Doe de <a href="/huischeck">huischeck</a> of vink iets af in <a href="/aan-de-slag">hoofdstuk 4</a>: dan zie je hier welke delen van je fort al staan.</>}</p>
 
   {legenda && (
     <ol class="delen" data-fort-legenda>
