@@ -115,7 +115,9 @@ th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-
 th { font-family: var(--kop); font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: var(--lijndikte) solid var(--lijn-sterk); }
 @media (max-width: 40rem) {
   .tabel-stapel, .tabel-stapel tbody, .tabel-stapel tr, .tabel-stapel td { display: block; }
-  .tabel-stapel thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  /* display:block, anders negeert een table-header-group de overflow:hidden
+     en steken de verstopte kolomkoppen buiten het scherm uit */
+  .tabel-stapel thead { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .tabel-stapel tr { padding: 0.75rem 0; border-bottom: var(--lijndikte) solid var(--lijn-sterk); }
   .tabel-stapel td { border: 0; padding: 0.25rem 0; }
   .tabel-stapel td::before { content: attr(data-label); display: block; font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); }
