@@ -2,7 +2,7 @@
 export const SITE = {
   naam: 'digiFORT.',
   slogan: 'Digitale veiligheid in gewone taal, zonder bangmakerij en zonder reclame.',
-  laatstNagelopen: '2026-09-20',
+  laatstNagelopen: '2026-09-21',
   contact: 'x4b5.clause500@8shield.net', // SimpleLogin-alias, stuurt door naar Proton
 };
 
