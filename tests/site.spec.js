@@ -22,7 +22,7 @@ test('het woordenboek filtert terwijl je typt', async ({ page }) => {
   await page.goto('/woordenboek');
   await page.locator('[data-zoek]').fill('passkey');
   await expect(page.locator('tbody tr:visible')).toHaveCount(3);
-  await expect(page.locator('[data-stand]')).toHaveText('3 van 25 woorden');
+  await expect(page.locator('[data-stand]')).toHaveText('3 van 29 woorden');
 });
 
 test('de plattegrond linkt naar het juiste kopje', async ({ page }) => {
