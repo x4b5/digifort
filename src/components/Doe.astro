@@ -1,0 +1,13 @@
+---
+/**
+ * "Wat je doet" op een groen vlak: tussen de uitleg over een truc springt de handeling
+ * eruit. Groen, want dit is wat je regelt (zie de kleurregel).
+ */
+---
+<div class="doe"><slot /></div>
+
+<style>
+  .doe { margin: 1.25rem 0; padding: 0.9rem 1.1rem; border-left: 6px solid var(--groen); border-radius: var(--radius); background: var(--groen-licht); }
+  .doe :global(p) { margin: 0; }
+  .doe :global(p + p) { margin-top: 0.6rem; }
+</style>
