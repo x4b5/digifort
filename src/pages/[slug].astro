@@ -37,6 +37,7 @@ const koppen = [
 ];
 ---
 <Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum}>
+  {leestijd && <div class="leesbalk" aria-hidden="true" />}
   <div class="paginakop">
     <div>
       <p class="eyebrow">{h.data.nr === null ? 'Verdieping' : `Hoofdstuk ${h.data.nr}`}</p>
@@ -71,6 +72,20 @@ const koppen = [
 </Pagina>
 
 <style>
+  /* Een dunne lijn bovenin die meegroeit terwijl je leest. De browser koppelt hem zelf
+     aan het scrollen, zonder JavaScript; een browser die dat niet kan, toont hem niet.
+     Inkt en geen rood: hoe ver je bent is geen gevaar en ook nog niets geregelds. */
+  .leesbalk {
+    position: fixed; inset: 0 0 auto; height: 3px; z-index: 6;
+    background: var(--inkt); transform-origin: left center; transform: scaleX(0);
+    pointer-events: none;
+  }
+  @supports (animation-timeline: scroll()) {
+    .leesbalk { animation: lees linear both; animation-duration: auto !important; animation-timeline: scroll(root); }
+  }
+  /* 'from' uitgeschreven: zonder rekent WebKit de lijn kwadratisch (bij de helft pas een kwart) */
+  @keyframes lees { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @media print { .leesbalk { display: none; } }
   .inhoud { margin: 1.5rem 0 0.5rem; padding: 1rem 1.2rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); font-size: 0.95rem; }
   .inhoud-kop { margin-bottom: 0.4rem; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.4rem; }
   .inhoud-kop::-webkit-details-marker { display: none; }
