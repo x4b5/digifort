@@ -3,6 +3,7 @@
  * Twee tekeningen naast elkaar: het open huis waar de meeste mensen in wonen,
  * en het fort waar we naartoe werken. Elk deel van het fort hoort bij plekken
  * uit het huis en kleurt mee met de huischeck en de afvinklijsten.
+ * Elke kant staat op een eigen vlak: rood is hoe het nu is, groen waar je heen wilt.
  */
 import { FORTDELEN } from '../data/fort.js';
 import { kamer } from '../data/kamers.js';
@@ -12,36 +13,48 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
 ---
 <figure class="tekening huis-en-fort" data-huis-en-fort>
   <div class="paar">
-  <svg class="links" viewBox="0 0 360 350" role="img" aria-label="Het open huis: de deur op een kier, een open raam, een briefje met het wachtwoord op het raam, een sleutel onder de mat en een overvolle brievenbus.">
-    <line class="tek" x1="12" y1="300" x2="352" y2="300" />
+  <svg class="links" viewBox="0 0 360 350" role="img" aria-label="Het open huis: een scheur in het dak, de deur op een kier, een open raam, een briefje met het wachtwoord op de gevel, een sleutel onder de mat en een overvolle brievenbus.">
+    <rect class="vlak-nu" x="4" y="4" width="352" height="320" rx="14" />
+    <path class="grond-nu" d="M4 300 H356 V310 a14 14 0 0 1 -14 14 H18 a14 14 0 0 1 -14 -14 Z" />
+    <line class="tek" x1="18" y1="300" x2="342" y2="300" />
 
     <!-- ===== links: het open huis ===== -->
     <g class="huis" aria-hidden="true">
-      <path class="tek" d="M62 152 L182 58 L302 152" />
+      <!-- gevel en dak als gesloten vlakken: het dak rust op de muren -->
+      <rect class="tek-vul-papier" x="82" y="152" width="200" height="148" />
+      <path class="tek-vul-papier" d="M58 152 L182 54 L306 152 Z" />
+      <path class="tek" d="M58 152 L182 54 L306 152 Z" />
       <path class="tek" d="M82 152 V300 M282 152 V300" />
       <!-- scheur in het dak -->
-      <path class="tek-rood" d="M214 92 l7 11 l-6 9 l8 10" />
-      <!-- deur op een kier -->
-      <path class="tek" d="M160 300 V232 h40 V300" />
-      <path class="tek-rood" d="M160 300 V232 L192 214 V282 Z" />
-      <circle class="tek-vul" cx="186" cy="252" r="2.5" />
-      <!-- raam open -->
+      <path class="tek-rood" d="M214 94 l7 11 l-6 9 l8 10" />
+      <!-- raam: één vaste ruit, één vleugel wagenwijd open -->
       <rect class="tek" x="100" y="176" width="50" height="46" />
       <path class="tek-dun" d="M125 176 V222 M100 199 H150" />
       <path class="tek-rood" d="M150 176 L176 164 V210 L150 222" />
-      <!-- briefje op het raam: het wachtwoord -->
-      <rect class="tek-dun" x="222" y="180" width="46" height="30" transform="rotate(-6 245 195)" />
-      <text class="tek-label" x="245" y="199" text-anchor="middle" transform="rotate(-6 245 195)">welkom01</text>
+      <!-- deur op een kier: het gat blijft zichtbaar, het paneel slaat naar buiten -->
+      <path class="gat" d="M160 300 V232 h40 V300 Z" />
+      <path class="tek" d="M160 300 V232 h40 V300" />
+      <path class="tek-vul-papier" d="M200 300 V232 L232 214 V282 Z" />
+      <path class="tek-rood" d="M200 300 V232 L232 214 V282 Z" />
+      <circle class="tek-vul" cx="225" cy="256" r="2.5" />
+      <!-- briefje op de gevel: het wachtwoord -->
+      <g transform="rotate(-6 231 181)">
+        <rect class="tek-vul-papier" x="200" y="166" width="62" height="30" />
+        <rect class="tek-dun" x="200" y="166" width="62" height="30" />
+        <text class="tek-label" x="231" y="185" text-anchor="middle">welkom01</text>
+      </g>
       <!-- sleutel onder de mat -->
-      <rect class="tek-dun" x="204" y="294" width="42" height="6" />
-      <circle class="tek-rood" cx="214" cy="288" r="4" />
-      <path class="tek-rood" d="M218 288 h14 m-4 0 v4 m-4 -4 v3" />
+      <rect class="tek-vul-papier" x="104" y="294" width="42" height="6" />
+      <rect class="tek-dun" x="104" y="294" width="42" height="6" />
+      <circle class="tek-rood" cx="114" cy="288" r="4" />
+      <path class="tek-rood" d="M118 288 h14 m-4 0 v4 m-4 -4 v3" />
       <!-- overvolle brievenbus -->
       <line class="tek" x1="42" y1="300" x2="42" y2="258" />
+      <rect class="tek-vul-papier" x="26" y="236" width="32" height="22" rx="3" />
       <rect class="tek" x="26" y="236" width="32" height="22" rx="3" />
       <path class="tek-rood" d="M30 236 l4 -14 M40 236 l1 -16 M50 236 l6 -13" />
       <!-- geen hek: alleen stippen waar het had moeten staan -->
-      <path class="tek-dun tek-stippel" d="M20 300 V276 M320 300 V276 M340 300 V276" />
+      <path class="tek-dun tek-stippel" d="M20 300 V276 M322 300 V276 M342 300 V276" />
       <text class="tek-tekst" x="182" y="334" text-anchor="middle">Het open huis</text>
     </g>
 
@@ -50,10 +63,13 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
   <svg class="rechts" viewBox="400 0 360 350" role="group" aria-labelledby="hef-titel hef-uitleg">
     <title id="hef-titel">Het fort</title>
     <desc id="hef-uitleg">Een fort met een muur, een gracht, een ophaalbrug, een poort met twee sloten, een torenwacht, luiken, een hek, een schatkamer buiten de muur en een wapenschild. De delen kleuren groen zodra je ze thuis geregeld hebt.</desc>
-    <line class="tek" x1="408" y1="300" x2="748" y2="300" />
+    <rect class="vlak-doel" x="404" y="4" width="352" height="320" rx="14" />
+    <path class="grond-doel" d="M404 300 H756 V310 a14 14 0 0 1 -14 14 H418 a14 14 0 0 1 -14 -14 Z" />
+    <line class="tek" x1="418" y1="300" x2="742" y2="300" />
     <text class="tek-tekst" x="580" y="334" text-anchor="middle">Het fort</text>
 
     <a href={href(d.gracht)} data-deel="gracht" aria-label={`${d.gracht.naam}: ${d.gracht.wat}`}><title>{d.gracht.naam}: {d.gracht.wat}</title><g>
+      <rect class="water" x="436" y="284" width="268" height="22" rx="4" />
       <path class="tek-dun" d="M440 288 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
       <path class="tek-dun" d="M450 296 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
     </g></a>
@@ -64,11 +80,13 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
     </g></a>
 
     <a href={href(d.muur)} data-deel="muur" aria-label={`${d.muur.naam}: ${d.muur.wat}`}><title>{d.muur.naam}: {d.muur.wat}</title><g>
+      <path class="muur-vul" d="M470 282 V174 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 V282 Z" />
       <path class="tek" d="M470 282 V174 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 V282" />
       <path class="tek-dun" d="M486 200 h16 M522 200 h16 M594 200 h16 M646 200 h16 M504 226 h16 M558 226 h16 M630 226 h16 M486 252 h16 M540 252 h16 M666 252 h16" />
     </g></a>
 
     <a href={href(d.poort)} data-deel="poort" aria-label={`${d.poort.naam}: ${d.poort.wat}`}><title>{d.poort.naam}: {d.poort.wat}</title><g>
+      <path class="gat" d="M556 282 V240 a24 24 0 0 1 48 0 V282 Z" />
       <path class="tek" d="M556 282 V240 a24 24 0 0 1 48 0 V282" />
       <path class="tek-dun" d="M580 216 V282" />
     </g></a>
@@ -87,6 +105,7 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
     </g></a>
 
     <a href={href(d.toren)} data-deel="toren" aria-label={`${d.toren.naam}: ${d.toren.wat}`}><title>{d.toren.naam}: {d.toren.wat}</title><g>
+      <path class="muur-vul" d="M640 174 V104 h12 v-12 h12 v12 h12 v-12 h12 v12 h12 V174 Z" />
       <path class="tek" d="M640 174 V104 h12 v-12 h12 v12 h12 v-12 h12 v12 h12 V174" />
       <path class="tek" d="M700 92 V60 M700 62 h26 l-8 8 l8 8 h-26" />
       <circle class="tek-dun" cx="670" cy="120" r="6" />
@@ -94,11 +113,13 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
     </g></a>
 
     <a href={href(d.luiken)} data-deel="luiken" aria-label={`${d.luiken.naam}: ${d.luiken.wat}`}><title>{d.luiken.naam}: {d.luiken.wat}</title><g>
+      <rect class="tek-vul-papier" x="656" y="146" width="28" height="22" />
       <rect class="tek" x="656" y="146" width="28" height="22" />
       <path class="tek-dun" d="M670 146 V168 M656 157 H684" />
     </g></a>
 
     <a href={href(d.schat)} data-deel="schat" aria-label={`${d.schat.naam}: ${d.schat.wat}`}><title>{d.schat.naam}: {d.schat.wat}</title><g>
+      <rect class="tek-vul-papier" x="708" y="252" width="36" height="30" rx="3" />
       <rect class="tek" x="708" y="252" width="36" height="30" rx="3" />
       <path class="tek-dun" d="M708 264 H744" />
       <circle class="tek" cx="726" cy="270" r="4" />
@@ -106,6 +127,7 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
     </g></a>
 
     <a href={href(d.schild)} data-deel="schild" aria-label={`${d.schild.naam}: ${d.schild.wat}`}><title>{d.schild.naam}: {d.schild.wat}</title><g>
+      <path class="tek-vul-papier" d="M616 214 h28 v18 q0 12 -14 18 q-14 -6 -14 -18 z" />
       <path class="tek" d="M616 214 h28 v18 q0 12 -14 18 q-14 -6 -14 -18 z" />
       <circle class="tek-vul" cx="630" cy="230" r="4" />
     </g></a>
@@ -164,11 +186,28 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
   .paar svg { flex: 1 1 0; min-width: 0; }
   .pijl { font-family: var(--kop); font-size: 2rem; color: var(--inkt-flauw); flex: none; }
   @media (max-width: 40rem) { .paar { flex-direction: column; gap: 0; } .paar svg { width: 100%; max-width: 24rem; } .pijl { transform: rotate(90deg); line-height: 1; } }
+
+  /* de twee vlakken: rood is hoe het nu staat, groen waar je heen werkt */
+  .vlak-nu { fill: var(--rood-licht); }
+  .vlak-doel { fill: var(--groen-licht); }
+  .grond-nu { fill: var(--rood); opacity: 0.12; }
+  .grond-doel { fill: var(--groen); opacity: 0.14; }
+  /* een opening waar je doorheen kunt kijken: deurgat, poort */
+  .gat { fill: var(--inkt); opacity: 0.12; }
+  /* massa: muur en toren zijn steen, geen holle lijn */
+  .muur-vul { fill: var(--papier); }
+  .water { fill: var(--groen); opacity: 0.18; }
+
   a[data-deel] { cursor: pointer; }
   a[data-deel]:focus-visible g { outline: 3px solid var(--focus); outline-offset: 2px; }
   a[data-deel] g { transition: transform 0.15s ease, opacity 0.2s ease; transform-box: fill-box; transform-origin: center; }
   a[data-deel].licht-op g, a[data-deel]:hover g { transform: scale(1.08); opacity: 1; }
-  [data-toestand="onbekend"] g { opacity: 0.45; }
+  /* nog niet geregeld: een volle grijze lijn, even dik als het huis.
+     Niet half doorzichtig: dan oogt het fort zwak in plaats van "nog te bouwen". */
+  [data-toestand="onbekend"] .tek,
+  [data-toestand="onbekend"] .tek-dun { stroke: var(--inkt-zacht); }
+  [data-toestand="onbekend"] .tek-vul { fill: var(--inkt-zacht); }
+  [data-toestand="onbekend"] .water { opacity: 0.12; }
 
   /* kleuren, legenda en lampje staan in global.css: de plattegrond gebruikt ze ook */
   .stand { font-size: 1rem; margin: 0.75rem 0 0; }
