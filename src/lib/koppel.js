@@ -9,6 +9,9 @@ export function koppelLegenda(fig, attribuut) {
   const licht = (id, aan) => {
     kies(attribuut, id)?.classList.toggle('licht-op', aan);
     kies(legendaAttribuut, id)?.classList.toggle('licht-op', aan);
+    // merkteken op de hele tekening: daarmee kan de css al het andere laten wegzakken,
+    // zodat de plek waar je op wijst er echt uitspringt
+    fig.classList.toggle('iets-licht-op', aan);
   };
 
   fig.querySelectorAll(`[data-${attribuut}], [data-${legendaAttribuut}]`).forEach((el) => {

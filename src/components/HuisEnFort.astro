@@ -201,12 +201,21 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
 
   a[data-deel] { cursor: pointer; }
   a[data-deel]:focus-visible g { outline: 3px solid var(--focus); outline-offset: 2px; }
-  a[data-deel] g { transition: transform 0.15s ease, opacity 0.2s ease; transform-box: fill-box; transform-origin: center; }
-  a[data-deel].licht-op g, a[data-deel]:hover g { transform: scale(1.08); opacity: 1; }
+  a[data-deel] g { transition: transform 0.15s ease, opacity 0.15s ease; transform-box: fill-box; transform-origin: center; }
+  a[data-deel] .tek, a[data-deel] .tek-dun { transition: stroke-width 0.15s ease, stroke 0.15s ease; }
+
+  /* het deel waar je op wijst: groter en met een dikkere lijn */
+  a[data-deel].licht-op g, a[data-deel]:hover g { transform: scale(1.12); }
+  a[data-deel].licht-op .tek, a[data-deel]:hover .tek { stroke-width: 5; }
+  a[data-deel].licht-op .tek-dun, a[data-deel]:hover .tek-dun { stroke-width: 2.6; }
+  /* al het andere zakt weg, zodat er maar één ding is om naar te kijken */
+  .iets-licht-op a[data-deel]:not(.licht-op) g { opacity: 0.25; }
   /* nog niet geregeld: een volle grijze lijn, even dik als het huis.
      Niet half doorzichtig: dan oogt het fort zwak in plaats van "nog te bouwen". */
   [data-toestand="onbekend"] .tek,
   [data-toestand="onbekend"] .tek-dun { stroke: var(--inkt-zacht); }
+  [data-toestand="onbekend"].licht-op .tek, [data-toestand="onbekend"]:hover .tek,
+  [data-toestand="onbekend"].licht-op .tek-dun, [data-toestand="onbekend"]:hover .tek-dun { stroke: var(--lijn-sterk); }
   [data-toestand="onbekend"] .tek-vul { fill: var(--inkt-zacht); }
   [data-toestand="onbekend"] .water { opacity: 0.12; }
 

@@ -14,10 +14,14 @@ const href = (id: string) => `/plattegrond#${k[id].anker}`;
     <title id="plattegrond-titel">De plattegrond van je digitale huis</title>
     <desc id="plattegrond-uitleg">Een huis in doorsnede met veertien plekken: voordeur, tweede voordeur, sleutels, sleutelkluis, passkey, tweede slot, ramen, brievenbus, tuinhek en meterkast, kattenluik, overdekte gang, brandkast buiten de deur, onderhoud op het dak en de eigendomsakte aan de muur.</desc>
 
-    <!-- grond -->
-    <line class="tek" x1="10" y1="340" x2="710" y2="340" />
+    <!-- het vel waar alles op staat, en de grond eronder -->
+    <rect class="vlak" x="4" y="4" width="712" height="372" rx="14" />
+    <path class="grond" d="M4 340 H716 V362 a14 14 0 0 1 -14 14 H18 a14 14 0 0 1 -14 -14 Z" />
+    <line class="tek" x1="18" y1="340" x2="702" y2="340" />
 
-    <!-- huis -->
+    <!-- huis: het binnen is wit, zo zie je wat buiten de deur staat -->
+    <path class="binnen" d="M170 135 L375 40 L580 135 Z" />
+    <rect class="binnen" x="190" y="135" width="370" height="205" />
     <path class="tek" d="M170 135 L375 40 L580 135" />
     <path class="tek" d="M190 135 V340 M560 135 V340" />
     <line class="tek-dun" x1="190" y1="235" x2="560" y2="235" />
@@ -200,10 +204,27 @@ const href = (id: string) => `/plattegrond#${k[id].anker}`;
 
 <style>
   .plattegrond svg { overflow: visible; }
+  /* het vel: neutraal, want de kamers dragen hier de kleur */
+  /* buiten = papier met een scheutje inkt: in licht donkerder dan het huis,
+     in donker juist lichter. Zo verschilt binnen en buiten in beide standen. */
+  .vlak { fill: color-mix(in srgb, var(--inkt) 8%, var(--papier)); stroke: var(--lijn); stroke-width: 2; }
+  .binnen { fill: var(--papier); stroke: none; }
+  .grond { fill: var(--inkt); opacity: 0.07; }
   a[data-kamer] { cursor: pointer; }
   a[data-kamer]:focus-visible g { outline: 3px solid var(--focus); outline-offset: 2px; }
-  a[data-kamer] g { transition: transform 0.15s ease; transform-box: fill-box; transform-origin: center; }
-  a[data-kamer].licht-op g, a[data-kamer]:hover g { transform: scale(1.08); }
+  a[data-kamer] g { transition: transform 0.15s ease, opacity 0.15s ease; transform-box: fill-box; transform-origin: center; }
+  a[data-kamer] .tek, a[data-kamer] .tek-dun { transition: stroke-width 0.15s ease; }
+
+  /* de plek waar je op wijst: groter en met een dikkere lijn */
+  a[data-kamer].licht-op g, a[data-kamer]:hover g { transform: scale(1.12); }
+  a[data-kamer].licht-op .tek, a[data-kamer]:hover .tek { stroke-width: 5; }
+  a[data-kamer].licht-op .tek-dun, a[data-kamer]:hover .tek-dun { stroke-width: 2.6; }
+  /* een plek waar de site nog niets van weet, wordt bij het aanwijzen wel zwart */
+  a[data-kamer].licht-op .tek, a[data-kamer]:hover .tek { stroke: var(--lijn-sterk); }
+  a[data-kamer][data-toestand="open"].licht-op .tek, a[data-kamer][data-toestand="open"]:hover .tek { stroke: var(--rood); }
+  a[data-kamer][data-toestand="dicht"].licht-op .tek, a[data-kamer][data-toestand="dicht"]:hover .tek { stroke: var(--groen); }
+  /* al het andere zakt weg, zodat er maar één ding is om naar te kijken */
+  .iets-licht-op a[data-kamer]:not(.licht-op) g { opacity: 0.25; }
   /* kleuren, legenda en lampje staan in global.css: het fort gebruikt ze ook */
 
 </style>
