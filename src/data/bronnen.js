@@ -23,13 +23,13 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['huischeck'],
-    bewering: 'Bij de meeste mensen staat minstens één deur open: 62 procent gebruikt niet voor elk account een eigen wachtwoord, 73 procent heeft niet overal een tweede slot, 42 procent doet updates niet meteen, 57 procent maakt hooguit soms een reservekopie. Daartegenover: 81 procent heeft een code op alle apparaten',
+    bewering: 'Bij de meeste mensen staat minstens één deur open: 62 procent gebruikt niet voor elk account een eigen wachtwoord, 73 procent heeft niet overal een tweede slot, 42 procent doet updates niet meteen, 57 procent maakt hooguit soms een reservekopie en 15 procent nooit. Daartegenover: 81 procent heeft een code op alle apparaten',
     bron: [{ tekst: 'CBS, Online Veiligheid en Criminaliteit 2024, tabel 3.4.1', href: 'https://www.cbs.nl/nl-nl/longread/rapportages/2025/online-veiligheid-en-criminaliteit-2024?onepage=true' }],
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'Enquête augustus–oktober 2024, ruim 33.000 personen van 15 jaar en ouder. CBS meet wie het wél doet; de percentages op deze site zijn daarvan het spiegelbeeld' }],
   },
   {
-    hoofdstuk: ['huischeck'],
+    hoofdstuk: ['huischeck', 'aan-de-slag'],
     bewering: 'Driekwart van de gebruikers zet geen tweestapsverificatie op e-mail (65-plus: 88 procent); 51 procent denkt dat een wachtwoord alleen genoeg is; bij ruim driekwart van de online criminaliteit wordt een gestolen wachtwoord misbruikt',
     bron: [{ tekst: 'Rijksoverheid, 12 november 2025', href: 'https://www.rijksoverheid.nl/actueel/nieuws/2025/11/12/nederlanders-zetten-online-de-deur-open-voor-criminelen-driekwart-gebruikers-stelt-geen-tweestapsverificatie-in-voor-e-mail' }],
     status: 'gecontroleerd',
@@ -59,10 +59,13 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['inbrekers-van-morgen'],
-    bewering: 'Een stem klonen kan met enkele seconden geluid, goedkoop en zonder technische kennis',
-    bron: [{ tekst: 'Group-IB, The Voice of Fraud', href: 'https://www.group-ib.com/resources/research-hub/voice-of-fraud/' }],
+    bewering: 'Een stem klonen kan met een kort geluidsfragment, en de programma\'s kosten weinig of niets',
+    bron: [
+      { tekst: 'Consumer Reports, AI Voice Cloning, 10 maart 2025 (pdf)', href: 'https://innovation.consumerreports.org/AI-Voice-Cloning-Report-.pdf' },
+      { tekst: 'Federal Trade Commission, consumentenwaarschuwing, 20 maart 2023', href: 'https://consumer.ftc.gov/consumer-alerts/2023/03/scammers-use-ai-enhance-their-family-emergency-schemes' },
+    ],
     status: 'gecontroleerd',
-    toelichting: [{ tekst: 'Commerciële bron; liefst aanvullen met politie of Fraudehelpdesk' }],
+    toelichting: [{ tekst: 'Consumer Reports (een Amerikaanse consumentenorganisatie zonder winstoogmerk) probeerde tussen september 2024 en januari 2025 bij zes aanbieders een stem te klonen met openbaar geluid: vier kostten niets, de andere 1 en 5 dollar. Eerder stond hier "enkele seconden", op gezag van beveiligingsbedrijf Group-IB; geen neutrale bron noemt een aantal seconden, dus de tekst zegt nu "een kort stukje"' }],
   },
   {
     hoofdstuk: ['inbrekers-van-morgen'],
@@ -215,9 +218,9 @@ export const BRONNEN = [
   {
     hoofdstuk: ['inbrekers-van-nu'],
     bewering: 'Druk herkennen is belangrijker dan losse signalen',
-    bron: [{ tekst: 'Fraudehelpdesk, jaarcijfers 2025' }],
+    bron: [{ tekst: 'Fraudehelpdesk, persbericht jaarcijfers 2025, februari 2026 (pdf)', href: 'https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Persbericht-jaarcijfers-2025-final.pdf' }],
     status: 'gecontroleerd',
-    toelichting: [{ tekst: 'Gecontroleerd via vakpers; nalopen in het persbericht' }],
+    toelichting: [{ tekst: 'Letterlijk: "Nog belangrijker dan het herkennen van signalen van oplichting is het creëren van tijd om na te denken, te controleren, te overleggen met een vertrouwd persoon."' }],
   },
   {
     hoofdstuk: ['inbrekers-van-nu'],
@@ -317,20 +320,20 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['de-storm-om-het-huis'],
-    bewering: '4.875 incidenten in de EU (juli 2024 tot juni 2025); bijna 80% hacktivisme, vooral DDoS met weinig effect; phishing bij 60% de toegangsweg; overheden het vaakst getroffen (38%)',
+    bewering: '4.875 incidenten in de EU (juli 2024 tot juni 2025); bijna 80% hacktivisme, vooral DDoS met weinig effect; phishing bij 60% de toegangsweg; overheden het vaakst getroffen (38% van de incidenten waarvan de sector bekend is)',
     bron: [{ tekst: 'ENISA Threat Landscape 2025', href: 'https://www.enisa.europa.eu/sites/default/files/2026-01/ENISA%20Threat%20Landscape%202025_v1.2.pdf' }],
     status: 'gecontroleerd',
-    toelichting: [
-      { tekst: 'Gecontroleerd via vakpers (' },
-      { tekst: 'Security Affairs', href: 'https://securityaffairs.com/182978/security/reading-the-enisa-threat-landscape-2025-report.html' },
-      { tekst: '); nalopen in het rapport zelf' },
-    ],
+    toelichting: [{ tekst: 'Nagelopen in het rapport zelf (pagina 6, 7 en 16). ENISA telt vooral incidenten uit openbare bronnen en zegt zelf dat de lijst niet volledig is. Bij 28,5 procent van de incidenten was de sector niet bekend' }],
   },
   {
     hoofdstuk: ['de-storm-om-het-huis'],
-    bewering: 'De tien landen die het vaakst door Russische cyberactiviteit worden geraakt zijn allemaal NAVO-landen (+25%); 97% van de aanvallen op accounts is wachtwoorden raden; aanvallen op accounts +32% in de eerste helft van 2025; phishing-bestendige MFA blokkeert meer dan 99%',
-    bron: [{ tekst: 'Microsoft, Digital Defense Report 2025, 16 oktober 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' }],
+    bewering: 'Buiten Oekraïne zijn de tien landen die het vaakst door Russische cyberactiviteit worden geraakt allemaal NAVO-landen; meer dan 97% van de aanvallen op accounts die Microsoft zag, is wachtwoorden raden; aanvallen op accounts +32% in de eerste helft van 2025; een tweede slot (MFA) houdt meer dan 99% van de inbraakpogingen tegen, phishing-bestendige MFA is nog sterker',
+    bron: [
+      { tekst: 'Microsoft, Digital Defense Report 2025 (pdf)', href: 'https://aka.ms/mddrdownload' },
+      { tekst: 'Microsoft, aankondiging, 16 oktober 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' },
+    ],
     status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Nagelopen in het rapport zelf (pagina 9, 16, 17 en 47). De 97 procent komt uit meldingen van Microsofts eigen beveiligingsproducten in april tot en met juni 2025: het gaat om wat Microsoft ziet, niet om alle aanvallen' }],
   },
   {
     hoofdstuk: ['de-storm-om-het-huis'],
@@ -541,6 +544,107 @@ export const BRONNEN = [
     ],
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'De verklaring van Twitter zelf stond in een bericht van @TwitterComms; dat account is inmiddels afgeschermd, dus de tekst is via deze twee media nagelopen. Een eerder genoemd aantal van zeventien berichten staat in geen van de bronnen en is geschrapt' }],
+  },
+  {
+    hoofdstuk: ['inbrekers-van-nu'],
+    bewering: 'Online worden mensen vaker opgelicht dan gehackt: in 2025 werd 10 procent van de Nederlanders van 15 jaar en ouder slachtoffer van online oplichting en fraude, 6 procent van hacken',
+    bron: [{ tekst: 'CBS, Veiligheidsmonitor 2025, hoofdstuk 6', href: 'https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'CBS telt slachtoffers, niet wat daders doen. Dat "de meeste inbrekers aanbellen" is de lezing van deze site: oplichting komt vaker voor dan hacken' }],
+  },
+  {
+    hoofdstuk: ['inbrekers-van-nu', 'als-er-is-ingebroken'],
+    bewering: 'Bij simswapping doet een oplichter zich bij je telefoonbedrijf voor als jou. Codes uit een app zijn veiliger dan codes per sms, en een pincode op je simkaart maakt simswapping moeilijker',
+    bron: [
+      { tekst: 'Consumentenbond, oplichters nemen simkaartjes over', href: 'https://www.consumentenbond.nl/digitaalgids/digitaalgids-uitgelicht/oplichters-nemen-simkaartjes-over' },
+      { tekst: 'Politie, voorkom sim-swapping', href: 'https://www.politie.nl/informatie/voorkom-sim-swapping.html' },
+      { tekst: 'NCSC, welke soorten digitale fraude zijn er', href: 'https://www.ncsc.nl/phishing/online-fraude-uitgelegd' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Een pincode beschermt de simkaart in je telefoon; bij simswapping maakt de provider een nieuwe kaart aan. Het NCSC raadt de pincode toch aan ("waar mogelijk") en deze site volgt dat. Het eerdere advies "vraag je provider om extra controle" staat bij geen van deze bronnen en is geschrapt' }],
+  },
+  {
+    hoofdstuk: ['inbrekers-van-nu'],
+    bewering: 'Tegen ransomware: houd alles bijgewerkt, open geen bijlagen die je niet verwacht, en maak reservekopieën die niet met je computer verbonden blijven; dan kun je je bestanden terugzetten. Het advies is geen losgeld te betalen',
+    bron: [{ tekst: 'NCSC, ransomware uitgelegd', href: 'https://www.ncsc.nl/ransomware/ransomware-uitgelegd' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Het NCSC zegt er ook bij dat geen enkel middel volledige bescherming biedt' }],
+  },
+  {
+    hoofdstuk: ['als-er-is-ingebroken'],
+    bewering: 'Apple meldt nooit zelf dat een gestolen toestel is gevonden; berichten die dat zeggen zijn phishing. Haal een gestolen toestel niet uit Zoek mijn, want dan verdwijnt het activeringsslot en kan de dief het makkelijker wissen en doorverkopen',
+    bron: [{ tekst: 'Apple Support, als je iPhone of iPad is gestolen', href: 'https://support.apple.com/nl-nl/120837' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Hoe vaak zulke berichten na een diefstal komen, meldt Apple niet; de tekst zegt daarom "soms"' }],
+  },
+  {
+    hoofdstuk: ['voor-de-mensen-om-je-heen'],
+    bewering: 'Bij bankhelpdeskfraude is bijna 80 procent van de slachtoffers ouder dan 60 en ruim 80 procent van de verdachten jonger dan 40; bij hulpvraagoplichting ("hoi mam") zijn de meeste slachtoffers ouder dan 50',
+    bron: [
+      { tekst: 'Politie, minder bankhelpdeskfraude in 2023, 11 maart 2024', href: 'https://www.politie.nl/nieuws/2024/maart/11/00-minder-bankhelpdeskfraude-in-2023.html' },
+      { tekst: 'Betaalvereniging, 10 juni 2020', href: 'https://www.betaalvereniging.nl/actueel/betaalvereniging-politie-en-fraudehelpdesk-slaan-handen-ineen-tegen-hulpvraagoplichting/' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Het cijfer over hoi mam is van 2020. Over alle vormen van online oplichting samen worden 65-plussers juist minder vaak slachtoffer dan 25- tot 45-jarigen (CBS 2024); ouderen zijn vooral het doelwit van deze twee trucs' }],
+  },
+  {
+    hoofdstuk: ['van-geheim-woord-naar-zegelring'],
+    bewering: 'Gestolen e-mailadressen en wachtwoorden worden doorverkocht op criminele marktplaatsen en daarna met programma\'s automatisch bij veel andere diensten geprobeerd (credential stuffing)',
+    bron: [
+      { tekst: 'Europol, IOCTA 2025: Steal, deal and repeat, juni 2025 (pdf)', href: 'https://www.europol.europa.eu/cms/sites/default/files/documents/Steal-deal-repeat-IOCTA_2025.pdf' },
+      { tekst: 'OWASP, credential stuffing', href: 'https://community.owasp.org/attacks/Credential_stuffing' },
+    ],
+    status: 'gecontroleerd',
+  },
+  {
+    hoofdstuk: ['van-geheim-woord-naar-zegelring'],
+    bewering: 'Zelfbedachte wachtwoorden volgen voorspelbare patronen die kraakprogramma\'s kennen; wachtwoorden moeten worden vergeleken met lijsten van veelgebruikte en gelekte wachtwoorden',
+    bron: [
+      { tekst: 'NIST SP 800-63B-4, paragraaf 3.1.1.2', href: 'https://pages.nist.gov/800-63-4/sp800-63b.html' },
+      { tekst: 'NCSC (VK), three random words, 27 oktober 2016', href: 'https://www.ncsc.gov.uk/blog-post/three-random-words-or-thinkrandom-0' },
+      { tekst: 'Ur e.a., "I Added \'!\' at the End to Make It Secure", SOUPS 2015 (pdf)', href: 'https://www.usenix.org/system/files/conference/soups2015/soups15-paper-ur.pdf' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Ur e.a. is een laboratoriumstudie met 49 deelnemers. De voorbeelden op de site (Welkom01, Zomer2026!) zijn ter illustratie en staan niet letterlijk in deze bronnen' }],
+  },
+  {
+    hoofdstuk: ['van-geheim-woord-naar-zegelring'],
+    bewering: 'Een nepsite die alles direct doorgeeft aan de echte site (adversary-in-the-middle) werkt tegen elke code die je overtypt, ook uit een app; passkeys en beveiligingssleutels (FIDO2) zijn daar niet gevoelig voor',
+    bron: [
+      { tekst: 'NCSC (VK), traditional user credentials and FIDO2 credentials, 23 april 2026', href: 'https://www.ncsc.gov.uk/paper/traditional-user-and-fido2-credentials-personal-use' },
+      { tekst: 'CISA, Implementing Phishing-Resistant MFA, oktober 2022 (pdf)', href: 'https://www.cisa.gov/sites/default/files/publications/fact-sheet-implementing-phishing-resistant-mfa-508c.pdf' },
+    ],
+    status: 'gecontroleerd',
+  },
+  {
+    hoofdstuk: ['aan-de-slag'],
+    bewering: 'Veel gratis VPN-apps verdienen aan advertenties of aan het delen van je gegevens of verkeer',
+    bron: [
+      { tekst: 'Federal Trade Commission, Shopping for a VPN app? Read this, 22 februari 2018 (archiefkopie)', href: 'http://web.archive.org/web/20220119100848/https://www.consumer.ftc.gov/blog/2018/02/shopping-vpn-app-read' },
+      { tekst: 'Ikram e.a., Android VPN permission-enabled apps, IMC 2016', href: 'https://doi.org/10.1145/2987443.2987471' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Ikram e.a. onderzochten 283 Android-apps met VPN-rechten: 72 procent van de gratis apps had volgcode aan boord, tegen 35 procent van de betaalde; twee apps voegden reclame- en volgcode toe aan het verkeer van hun gebruikers' }],
+  },
+  {
+    hoofdstuk: ['aan-de-slag'],
+    bewering: 'De ingebouwde virusscanner van Windows vangt de meeste gewone kwaadaardige programma\'s af, maar houdt geen nepwebsites tegen',
+    bron: [
+      { tekst: 'Consumentenbond, gratis virusscanner, 7 september 2026', href: 'https://www.consumentenbond.nl/virusscanner/gratis-virusscanner' },
+      { tekst: 'NCSC (VK), device security guidance', href: 'https://www.ncsc.gov.uk/collection/device-security-guidance' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De Consumentenbond vindt Defender op sommige punten minder goed dan andere gratis en betaalde scanners, vooral omdat het geen phishingwebsites tegenhoudt. De site zei eerder dat de ingebouwde scanner "voor bijna iedereen genoeg" is; dat is afgezwakt. De NCSC-richtlijn is geschreven voor organisaties' }],
+  },
+  {
+    hoofdstuk: ['plattegrond'],
+    bewering: 'Veel thuisrouters krijgen lang geen beveiligingsupdate, en sommige hebben een wachtwoord dat bekend of makkelijk te kraken is. Sinds 1 augustus 2025 gelden strengere Europese cybereisen voor nieuwe draadloze apparaten, ook modems',
+    bron: [
+      { tekst: 'Fraunhofer FKIE, Home Router Security Report 2020, 26 juni 2020', href: 'https://www.fkie.fraunhofer.de/en/press-releases/Home-Router.html' },
+      { tekst: 'Rijksinspectie Digitale Infrastructuur, 1 augustus 2025', href: 'https://www.rdi.nl/actueel/nieuws/2025/08/01/strengere-veiligheidseisen-draadloze-apparaten' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Fraunhofer onderzocht 127 thuisrouters van zeven merken: 46 hadden in het jaar ervoor geen beveiligingsupdate gekregen. Hoeveel routers in Nederland nog het fabriekswachtwoord hebben, is niet gemeten; de tekst zegt daarom "sommige"' }],
   },
 ];
 

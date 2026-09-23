@@ -14,7 +14,7 @@ export const QUIZZEN = {
       { tekst: 'Bijna iedereen', uitleg: 'Zo somber is het niet. Het is 62 procent — een meerderheid, maar geen iedereen.' },
     ] },
     { vraag: 'Wat doen de meeste Nederlanders wél goed?', opties: [
-      { tekst: 'Een reservekopie maken van hun bestanden', uitleg: 'Juist niet: 57 procent maakt er hooguit soms een, en één op de zeven nooit.' },
+      { tekst: 'Een reservekopie maken van hun bestanden', uitleg: 'Juist niet: 57 procent maakt er hooguit soms een, en ruim één op de zeven nooit.' },
       { tekst: 'Een code of vingerafdruk op al hun apparaten', goed: true, uitleg: 'Vier op de vijf hebben dat, en bijna drie op de vijf doen updates meteen. "Open huis" betekent niet dat er geen enkel slot op zit.' },
       { tekst: 'Overal een tweede slot op hun accounts', uitleg: 'Dat is juist het grootste gat: 73 procent heeft niet overal een tweede slot, en bij e-mail alleen is het driekwart.' },
     ] },
@@ -63,8 +63,8 @@ export const QUIZZEN = {
 
   'inbrekers-van-morgen': [
     { vraag: 'Hoeveel geluid heeft een oplichter nodig om je stem na te maken?', opties: [
-      { tekst: 'Een paar seconden uit een filmpje', goed: true, uitleg: 'Meer is het niet. Daarom staat in hoofdstuk 5 ook: wees zuinig met openbare filmpjes waarin je praat.' },
-      { tekst: 'Een gesprek van een paar minuten', uitleg: 'Zoveel is allang niet meer nodig. Een paar seconden is genoeg.' },
+      { tekst: 'Een kort stukje uit een filmpje', goed: true, uitleg: 'Meer is het niet. Daarom staat in hoofdstuk 5 ook: wees zuinig met openbare filmpjes waarin je praat.' },
+      { tekst: 'Een gesprek van een half uur', uitleg: 'Zoveel is allang niet meer nodig. Een kort fragment is genoeg.' },
       { tekst: 'Een uur aan opnames', uitleg: 'Dat was vroeger zo. Met AI kan het met een fragment uit een filmpje.' },
     ] },
     { vraag: 'Wat zet je niet in een chatbot zoals ChatGPT of Claude?', opties: [
@@ -157,9 +157,9 @@ export const QUIZZEN = {
       { tekst: 'Meestal niets, maar je huis kan een schuilplaats zijn', goed: true, uitleg: 'Hackers van staten gebruiken gekaapte routers van gewone mensen als dekmantel. De Amerikaanse overheid haalde in 2024 zo’n netwerk uit de lucht: bijna allemaal oude routers zonder updates.' },
       { tekst: 'Je bankrekening leeghalen', uitleg: 'Dat is het werk van criminelen, niet van een staat. Al huren staten die criminelen soms wél in.' },
     ] },
-    { vraag: '97 procent van de aanvallen op accounts is gewoon wachtwoorden raden. Wat houdt daarvan 99 procent tegen?', opties: [
+    { vraag: 'Van de aanvallen op accounts die Microsoft ziet, is 97 procent gewoon wachtwoorden raden. Wat houdt meer dan 99 procent daarvan tegen?', opties: [
       { tekst: 'Een langer wachtwoord', uitleg: 'Dat helpt, maar het is niet het cijfer dat Microsoft noemt.' },
-      { tekst: 'Een tweede slot dat niet te phishen is, zoals een passkey', goed: true, uitleg: 'Dat is het hele punt van de ladder: vanaf trede 6 is er niets meer dat je kunt overtypen aan een oplichter.' },
+      { tekst: 'Een tweede slot, zoals een code uit een app of een passkey', goed: true, uitleg: 'Een geraden wachtwoord alleen is dan niet genoeg. Een passkey is nog sterker: vanaf trede 6 is er niets meer dat je aan een oplichter kunt overtypen.' },
       { tekst: 'Een virusscanner', uitleg: 'Die kijkt naar wat er op je computer draait, niet naar wie er bij een dienst probeert in te loggen.' },
     ] },
     { vraag: 'Wat heb je níet nodig tegen de dreiging van staten?', opties: [
