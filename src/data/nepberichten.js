@@ -76,6 +76,27 @@ export const NEPBERICHTEN = [
     },
     les: 'Bel het oude nummer. Neemt je kind op, dan is het nieuwe nummer nep. Of vraag naar het geheime woord van je familie.',
   },
+  {
+    id: 'pakket',
+    kanaal: 'sms',
+    afzender: 'PostNL',
+    tijd: '12:41',
+    bubbels: [[
+      'Uw pakket kan niet worden bezorgd. Er staat nog ',
+      { tekst: '€1,99 aan verzendkosten open', vlag: 'bedrag' },
+      '. Betaal ',
+      { tekst: 'binnen 24 uur', vlag: 'haast' },
+      ' via ',
+      { tekst: 'postnl-bezorging.com/betalen', vlag: 'link' },
+      ', anders gaat het pakket terug naar de afzender.',
+    ]],
+    vlaggen: {
+      bedrag: 'Een klein bedrag voelt onschuldig. Maar wie op de link betaalt, vult zijn gegevens in op een site die niet van PostNL is. PostNL vraagt nooit per sms of e-mail om te betalen via een betaallink.',
+      haast: 'Haast. Volgens PostNL zelf hebben afzenders van nepberichten bijna altijd haast. Een echt pakket ligt morgen ook nog klaar.',
+      link: 'Het adres klopt niet. Echte websites van PostNL eindigen bijna altijd op postnl.nl, niet op iets wat erop lijkt.',
+    },
+    les: 'Wacht je een pakket? Open de app van de bezorger of zoek je pakket op via de track & trace die je van de winkel kreeg. Betaal nooit via een link in een sms.',
+  },
 ];
 
 /** Het bericht met dit id; gooit een fout bij het bouwen als het niet bestaat. */

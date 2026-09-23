@@ -776,6 +776,16 @@ export const BRONNEN = [
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'DNS4EU wordt gebouwd door een consortium van bedrijven, onderzoeksinstellingen en nationale CERT\'s, met EU-geld uit het programma CEF Digital. De adressen en varianten komen van de dienst zelf. Dat een filter alleen bekende nepsites tegenhoudt, volgt uit hoe zo\'n filter werkt: hij blokkeert domeinen die op een lijst staan' }],
   },
+  {
+    hoofdstuk: ['plattegrond'],
+    bewering: 'PostNL vraagt nooit per e-mail of sms om te betalen via een betaallink en vraagt nooit per e-mail of sms naar persoonlijke gegevens; afzenders van nepberichten hebben bijna altijd haast; echte websites van PostNL eindigen bijna altijd op postnl.nl',
+    bron: [
+      { tekst: 'PostNL, berichten van PostNL', href: 'https://www.postnl.nl/phishing-internetfraude-herkennen/berichten-van-postnl/' },
+      { tekst: 'PostNL, phishing herkennen', href: 'https://www.postnl.nl/phishing/phishing-herkennen/' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Het bericht op de plattegrond is nagemaakt als oefening; het webadres erin is verzonnen. PostNL is hier de bron voor wat PostNL zelf wel en niet doet' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */
