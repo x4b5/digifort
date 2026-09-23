@@ -28,6 +28,7 @@ export const HOOFDSTUKKEN = [
   { nr: 4, slug: 'aan-de-slag', titel: 'Aan de slag: deur voor deur', kort: 'Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis.' },
   { nr: null, slug: 'een-avond', titel: 'Ik heb één avond', kort: 'Zes stappen, één per scherm, ongeveer een uur. Dezelfde lijst als niveau 1.', extra: true },
   { nr: null, slug: 'van-geheim-woord-naar-zegelring', titel: 'Van geheim woord naar zegelring', kort: 'De ladder: acht manieren om in te loggen, van zwak naar sterk.', extra: true },
+  { nr: null, slug: 'het-fort-afbouwen', titel: 'Het fort afbouwen', kort: 'Voor wie niveau 3 al heeft: eerst een bouwtekening, dan de zwaarste sloten die er zijn.', extra: true },
   { nr: 5, slug: 'onderhoud', titel: 'Onderhoud en opruimen', kort: 'Oude apparaten, weggooien, en wat er over jou op internet staat.' },
   { nr: 6, slug: 'als-er-is-ingebroken', titel: 'Als er toch is ingebroken', kort: 'Het eerste uur, je telefoon kwijt, en het noodpakket.' },
   { nr: 7, slug: 'voor-de-mensen-om-je-heen', titel: 'Voor de mensen om je heen', kort: 'Ouders, kinderen en collega’s: zij hebben ook een sleutel.' },

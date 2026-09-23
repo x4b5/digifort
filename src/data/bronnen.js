@@ -696,6 +696,86 @@ export const BRONNEN = [
     ],
     status: 'gecontroleerd',
   },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'Een beveiligingsplan begint met zes vragen: wat wil je beschermen, tegen wie, hoe erg is het als het misgaat, hoe waarschijnlijk is het, hoeveel moeite wil je doen, en wie kan je helpen',
+    bron: [{ tekst: 'EFF, Surveillance Self-Defense, your security plan', href: 'https://ssd.eff.org/module/your-security-plan' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De Electronic Frontier Foundation is een Amerikaanse organisatie voor burgerrechten op internet. Ze legt de vragen zelf uit aan de hand van een huis dat je wilt beveiligen' }],
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'Met Geavanceerde gegevensbescherming voor iCloud zijn de meeste iCloud-gegevens, waaronder de back-up, foto\'s en notities, end-to-end versleuteld, zodat zelfs Apple er niet bij kan; Apple kan dan ook niet helpen bij herstel, dus je stelt eerst een herstelcontact of herstelsleutel in',
+    bron: [{ tekst: 'Apple Support, Geavanceerde gegevensbescherming voor iCloud inschakelen', href: 'https://support.apple.com/nl-nl/108756' }],
+    status: 'gecontroleerd',
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'Geavanceerde beveiliging voor Android zet de sterkste beveiligingsfuncties samen aan, voorkomt dat ze worden uitgezet, blokkeert apps van onbekende bronnen en verbindingen met 2G-netwerken; te vinden bij Instellingen, Beveiliging en privacy',
+    bron: [{ tekst: 'Google, de apparaatbeveiliging verbeteren met Geavanceerde beveiliging voor Android', href: 'https://support.google.com/android/answer/16339980?hl=nl' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De 2G-blokkade werkt alleen op ondersteunde apparaten; waar alleen 2G-dekking is, heb je dan geen mobiel netwerk' }],
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'De isolatiemodus van Apple is bedoeld voor mensen die om wie ze zijn of wat ze doen persoonlijk doelwit kunnen zijn van zeer geavanceerde digitale dreigingen; het apparaat werkt dan niet zoals gebruikelijk en de meeste berichtbijlagen worden geblokkeerd',
+    bron: [{ tekst: 'Apple Support, over de isolatiemodus', href: 'https://support.apple.com/nl-nl/105120' }],
+    status: 'gecontroleerd',
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'Het Advanced Protection-programma van Google is bedoeld voor gebruikers met veel zichtbaarheid en gevoelige informatie; inloggen kan alleen met een passkey of beveiligingssleutel en downloads worden strenger gecontroleerd',
+    bron: [{ tekst: 'Google, Advanced Protection Program', href: 'https://landing.google.com/advancedprotection/' }],
+    status: 'gecontroleerd',
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'Aanvallers richten zich op de herstelroute van accounts, omdat die vaak zwakker is dan het inloggen zelf, ook bij passkeys. Het account waarlangs je passkeys synchroniseren moet zelf phishing-bestendig beveiligd zijn met een veilige herstelroute, en wie een passkey op maar één apparaat heeft, meldt beter een reserve aan',
+    bron: [{ tekst: 'NCSC (VK), traditional user credentials and FIDO2 credentials, 23 april 2026', href: 'https://www.ncsc.gov.uk/paper/traditional-user-and-fido2-credentials-personal-use' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Letterlijk: "Attackers are seen to target account recovery for both tMFA and FIDO2 protected accounts, as the recovery process can often be weaker than the authentication to the account." Het advies om zwakkere inlogwegen weg te halen is de conclusie van deze site uit die zin' }],
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'De 3-2-1-regel: drie kopieën van elk belangrijk bestand (het origineel en twee reservekopieën), op twee soorten opslag, waarvan één buiten je huis',
+    bron: [
+      { tekst: 'CISA (US-CERT), Data Backup Options (pdf)', href: 'https://www.cisa.gov/sites/default/files/publications/data_backup_options.pdf' },
+      { tekst: 'NCSC, all about good backups', href: 'https://www.ncsc.nl/en/backup/all-about-good-backups' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De pagina van het Nederlandse NCSC is Engelstalig en richt zich op bedrijven; de regel is dezelfde' }],
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'Gijzelsoftware versleutelt vaak ook de reservekopieën op schijven die nog aan de computer hangen, en soms die in gekoppelde opslag op internet. Of een reservekopie werkt, weet je pas als je het terugzetten hebt getest',
+    bron: [
+      { tekst: 'NCSC (VK), offline backups in an online world', href: 'https://www.ncsc.gov.uk/blog-post/offline-backups-in-an-online-world' },
+      { tekst: 'NCSC, all about good backups', href: 'https://www.ncsc.nl/en/backup/all-about-good-backups' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Letterlijk bij het NCSC: "You do not know if a backup can save your company until you have tested it." Hoe vaak je test, zegt het NCSC niet; "af en toe" is de keuze van deze site' }],
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'Wie als beheerder is ingelogd, geeft een aanvaller die binnenkomt toegang tot alle gegevens en functies; gebruik daarom voor dagelijks werk een standaardaccount en een apart beheerdersaccount voor installeren en instellingen',
+    bron: [
+      { tekst: 'CISA, implement User Account Control to protect your personal computer', href: 'https://www.cisa.gov/resources-tools/training/implement-user-account-control-protect-your-personal-computer' },
+      { tekst: 'Microsoft Support, gebruikersaccounts beheren in Windows', href: 'https://support.microsoft.com/nl-nl/windows/security/identity-signin/manage-user-accounts-in-windows' },
+      { tekst: 'Apple Support, instellingen voor Gebruikers en groepen wijzigen op de Mac', href: 'https://support.apple.com/nl-nl/guide/mac-help/mtusr001/mac' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Letterlijk bij Microsoft: "Het is veiliger om minder beheerders te hebben en standaardgebruikersaccounts te gebruiken voor dagelijkse activiteiten." CISA: "Use a standard user account for day-to-day tasks on your computer."' }],
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'DNS4EU is een door de EU gefinancierde DNS-dienst die kwaadaardige websites en domeinen filtert; de beschermende variant voor particulieren is gratis, draait in de EU onder Europese privacyregels en heeft de adressen 86.54.11.1 en 86.54.11.201. Er is ook een variant die daarnaast content weert die niet geschikt is voor kinderen',
+    bron: [
+      { tekst: 'HaDEA (Europese Commissie), DNS4EU, 18 december 2024', href: 'https://hadea.ec.europa.eu/news/cef-highlight-month-ensuring-protection-and-privacy-critical-services-and-infrastructure-dns4eu-2024-12-18_en' },
+      { tekst: 'DNS4EU, free public DNS resolver for Europe', href: 'https://joindns4.eu/for-public' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'DNS4EU wordt gebouwd door een consortium van bedrijven, onderzoeksinstellingen en nationale CERT\'s, met EU-geld uit het programma CEF Digital. De adressen en varianten komen van de dienst zelf. Dat een filter alleen bekende nepsites tegenhoudt, volgt uit hoe zo\'n filter werkt: hij blokkeert domeinen die op een lijst staan' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */

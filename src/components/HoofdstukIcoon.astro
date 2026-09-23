@@ -12,6 +12,7 @@ const SOORT: Record<string, string> = {
   'een-avond': 'doen',
   'van-geheim-woord-naar-zegelring': 'doen',
   onderhoud: 'doen',
+  'het-fort-afbouwen': 'doen',
   'voor-de-mensen-om-je-heen': 'doen',
 };
 const { slug, maat = 48 } = Astro.props;
@@ -28,6 +29,7 @@ const soort = SOORT[slug] ?? 'naslag';
     {slug === 'aan-de-slag' && <g><rect class="tek" x="10" y="12" width="20" height="42" rx="2" /><circle class="tek-dun" cx="26" cy="34" r="1.6" /><path class="tek-groen" d="M14 30 l4 4 l8 -9" /><rect class="tek" x="36" y="12" width="20" height="42" rx="2" /><circle class="tek-dun" cx="40" cy="34" r="1.6" /><path class="tek-rood" d="M47 24 V42" /><path class="tek" d="M8 54 H56" /></g>}
     {slug === 'een-avond' && <g><circle class="tek" cx="32" cy="34" r="22" /><path class="tek" d="M32 34 V20" /><path class="tek" d="M32 34 l12 6" /><path class="tek-dun" d="M24 8 h16" /></g>}
     {slug === 'van-geheim-woord-naar-zegelring' && <g><path class="tek" d="M16 56 V8 M48 56 V8" /><path class="tek-groen" d="M16 17 H48" /><path class="tek-dun" d="M16 28 H48 M16 39 H48" /><path class="tek-rood" d="M16 50 H48" /></g>}
+    {slug === 'het-fort-afbouwen' && <g><path class="tek" d="M10 56 V22 H18 V28 H26 V22 H38 V28 H46 V22 H54 V56 Z" /><path class="tek-dun" d="M10 36 H54" /><path class="tek-groen" d="M26 56 V46 a6 6 0 0 1 12 0 V56" /></g>}
     {slug === 'onderhoud' && <g><path class="tek" d="M12 18 H52" /><path class="tek" d="M26 18 V13 H38 V18" /><path class="tek" d="M17 22 L20 52 H44 L47 22" /><path class="tek-dun" d="M26 28 V46 M38 28 V46" /></g>}
     {slug === 'als-er-is-ingebroken' && <g><path class="tek" d="M18 40 V28 a14 14 0 0 1 28 0 v12 l6 6 H12 z" /><path class="tek" d="M26 50 a6 6 0 0 0 12 0" /><path class="tek-rood" d="M32 8 v6 M10 20 l5 3 M54 20 l-5 3" /></g>}
     {slug === 'voor-de-mensen-om-je-heen' && <g><circle class="tek" cx="32" cy="18" r="7" /><path class="tek" d="M20 46 v-8 a12 12 0 0 1 24 0 v8" /><circle class="tek-dun" cx="16" cy="24" r="5" /><path class="tek-dun" d="M8 46 v-6 a8 8 0 0 1 12 -7" /><circle class="tek-dun" cx="48" cy="24" r="5" /><path class="tek-dun" d="M56 46 v-6 a8 8 0 0 0 -12 -7" /><path class="tek" d="M10 54 H54" /></g>}
