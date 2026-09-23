@@ -495,6 +495,37 @@ export const BRONNEN = [
     status: 'nog-koppelen',
     toelichting: [{ tekst: 'Interviewonderzoek onder thuisgebruikers; acht verklaringsmodellen, vier voor virussen en vier voor hackers. Alleen de samenvatting en secundaire besprekingen zijn geraadpleegd, niet de volledige tekst achter de ACM-betaalmuur' }],
   },
+  {
+    hoofdstuk: ['inbrekers-van-morgen'],
+    bewering: 'Een medewerker van ingenieursbureau Arup in Hongkong maakte in januari 2024 omgerekend zo\'n 25 miljoen dollar over in vijftien overboekingen, nadat hij had deelgenomen aan een videogesprek waarin de financieel directeur en de andere collega\'s allemaal met AI nagemaakt waren',
+    bron: [{ tekst: 'CNN, 16 mei 2024', href: 'https://www.cnn.com/2024/05/16/tech/arup-deepfake-scam-loss-hong-kong-intl-hnk' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De Hongkongse politie meldde de zaak in februari 2024 zonder de naam van het bedrijf; Arup maakte in mei 2024 zelf bekend het slachtoffer te zijn. Het bedrag van 200 miljoen Hongkongse dollar is omgerekend ongeveer 25,6 miljoen Amerikaanse dollar' }],
+  },
+  {
+    hoofdstuk: ['de-storm-om-het-huis'],
+    bewering: 'Bij de NotPetya-aanval van juni 2017 werden bij rederij Maersk 45.000 computers en 4.000 servers onbruikbaar; het hele netwerk is in tien dagen opnieuw opgebouwd, werk waar normaal maanden voor staat. Alle domeincontrollers gingen verloren op één na, die in Ghana door een stroomstoring los van het netwerk stond; met die kopie kon het herstel beginnen',
+    bron: [
+      { tekst: 'IT Pro, over de toelichting van Maersk-voorzitter Jim Hagemann Snabe in Davos', href: 'https://www.itpro.com/cyber-attacks/30393/maersk-rebuilt-hefty-it-infrastructure-a-mere-10-days-after-notpetya-attack' },
+      { tekst: 'Wired, The Untold Story of NotPetya, augustus 2018', href: 'https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/' },
+    ],
+    status: 'nog-koppelen',
+    toelichting: [{ tekst: 'De aantallen (45.000 pc\'s, 4.000 servers, tien dagen) komen uit wat Snabe er zelf over zei op het World Economic Forum en zijn via meerdere media bevestigd. Het verhaal van de domeincontroller in Ghana komt uit de reportage van Wired; die pagina kon bij deze controle niet zelf worden geopend en staat daarom nog op nog koppelen' }],
+  },
+  {
+    hoofdstuk: ['voor-de-mensen-om-je-heen'],
+    bewering: 'Twee mannen van 21 en 24 haalden via WhatsApp mensen op met de foto van een bekende en een verhaal over spoed; het geld ging naar rekeningen van geldezels. Geëist werd twee jaar cel tegen de één en een jaar tegen de ander; de jongste verdiende er ongeveer 24.000 euro mee',
+    bron: [{ tekst: 'Openbaar Ministerie, 7 april 2021', href: 'https://www.om.nl/actueel/nieuws/2021/04/07/tot-twee-jaar-cel-geeist-voor-vriend-in-nood-fraude-via-whatsapp' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Dit is de eis van het Openbaar Ministerie, niet het vonnis van de rechter. De 21-jarige werd verdacht van acht gevallen van oplichting en witwassen, de 24-jarige van vijf gevallen plus het ronselen van geldezels' }],
+  },
+  {
+    hoofdstuk: ['als-er-is-ingebroken'],
+    bewering: 'Het Twitter-account van Jack Dorsey, destijds de baas van Twitter, werd in augustus 2019 overgenomen via simswapping: het telefoonnummer werd bij de provider naar een nieuwe simkaart verplaatst, waarna de inlogcodes per sms bij de aanvallers binnenkwamen. Er verschenen zeventien berichten, waaronder een bommelding',
+    bron: [{ tekst: 'Axios, 24 november 2019', href: 'https://www.axios.com/2019/11/24/jack-dorsey-twitter-account-hacker-arrested' }],
+    status: 'nog-koppelen',
+    toelichting: [{ tekst: 'Dat het om simswapping ging en dat er een minderjarige voor is aangehouden, staat in meerdere media; het aantal van zeventien berichten komt uit de berichtgeving van destijds en is niet bij een primaire bron nagelopen' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */
