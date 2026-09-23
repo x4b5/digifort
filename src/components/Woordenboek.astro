@@ -16,7 +16,7 @@ const NIVEAUNAAM: Record<number, string> = { 1: 'makkelijk', 2: 'gemiddeld', 3: 
     <input type="search" data-zoek placeholder="bijv. passkey, router, phishing" autocomplete="off" />
   </label>
   <p class="stand" data-stand aria-live="polite"></p>
-  <div class="tabel-scroll" tabindex="0" role="region" aria-label="Woordenlijst, zijwaarts te scrollen">
+  <div class="tabel-scroll" tabindex="0" role="region" aria-label="Woordenlijst">
     <table>
       <thead><tr><th>Term</th><th>In gewone taal</th><th>In het huis</th></tr></thead>
       <tbody>
@@ -83,4 +83,18 @@ const NIVEAUNAAM: Record<number, string> = { 1: 'makkelijk', 2: 'gemiddeld', 3: 
   .voluit { font-weight: 400; color: var(--inkt-zacht); }
   .niveau { display: none; font-family: var(--mono); font-size: 0.75em; color: var(--inkt-zacht); white-space: nowrap; }
   .op-niveau .niveau { display: inline; }
+
+  /* Op een telefoon is een tabel van drie kolommen te breed: elk woord wordt een eigen blok.
+     Niet via .tabel-stapel uit global.css: daar krijgt elke rij display:block, en dat wint
+     van het hidden-attribuut waarmee het zoekveld rijen verbergt. */
+  @media (max-width: 40rem) {
+    table, tbody, tr, td { display: block; }
+    tr[hidden] { display: none; }
+    thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    tr { padding: 0.9rem 0; border-bottom: var(--lijndikte-dun) solid var(--lijn); }
+    td { border: 0; padding: 0; }
+    td:first-child { font-weight: 700; font-size: 1.05em; margin-bottom: 0.2rem; }
+    td:nth-child(3) { margin-top: 0.4rem; font-size: 0.9em; color: var(--inkt-zacht); }
+    td:nth-child(3)::before { content: 'In het huis: '; }
+  }
 </style>

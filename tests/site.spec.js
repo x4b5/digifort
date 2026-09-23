@@ -102,3 +102,14 @@ test('het woordenboek filtert niet via de stapelweergave', async ({ page }) => {
   await page.goto('/woordenboek');
   await expect(page.locator('[data-woordenboek] table')).not.toHaveClass(/tabel-stapel/);
 });
+
+test('het woordenboek past op een telefoon zonder zijwaarts schuiven, en zoeken blijft werken', async ({ page }, info) => {
+  test.skip(info.project.name !== 'telefoon', 'alleen op een telefoon worden de woorden blokken');
+  await page.goto('/woordenboek');
+  const bak = page.locator('[data-woordenboek] .tabel-scroll');
+  const [breed, zicht] = await bak.evaluate((b) => [b.scrollWidth, b.clientWidth]);
+  expect(breed).toBeLessThanOrEqual(zicht);
+  // een blok met display:block mag het hidden-attribuut van het zoekveld niet overstemmen
+  await page.locator('[data-zoek]').fill('passkey');
+  await expect(page.locator('tbody tr:visible')).toHaveCount(7);
+});
