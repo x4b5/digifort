@@ -51,7 +51,7 @@ const html = `<!doctype html><html lang="nl"><head><meta charset="utf-8">
   @keyframes puls    { 0%,100% { opacity:1; } 50% { opacity:0.12; } }
   @keyframes deel    { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
 </style></head><body>
-  <div class="merk" style="animation:opkomen .5s ease 0s both">digiFORT.</div>
+  <div class="merk" style="animation:opkomen .5s ease 0s both">digi-fort.</div>
   <div class="woorden">
     <div class="blok" style="animation:opkomen .6s ease .25s both, weg .5s ease 5.2s both">
       <h1>Staat jouw deur open?</h1>
@@ -66,7 +66,7 @@ const html = `<!doctype html><html lang="nl"><head><meta charset="utf-8">
     <div id="huis-wrap" style="position:absolute;inset:0;animation:weg .6s ease 5.2s both">${huis}</div>
     ${fort}
   </div>
-  <div class="voet"><span style="animation:opkomen .5s ease .1s both">Digitale veiligheid in gewone taal.</span><span class="url" style="animation:opkomen .5s ease .1s both">digifort-blue.vercel.app</span></div>
+  <div class="voet"><span style="animation:opkomen .5s ease .1s both">Digitale veiligheid in gewone taal.</span><span class="url" style="animation:opkomen .5s ease .1s both">digi-fort.nl</span></div>
 <script>
   // het huis tekent zichzelf, lijn voor lijn
   document.querySelectorAll('#huis path, #huis line, #huis rect, #huis circle, #huis text').forEach((el, i) => {

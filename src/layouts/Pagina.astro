@@ -74,7 +74,7 @@ const hier = new URL(Astro.url.pathname, Astro.site);
         bak.append(t);
       });
 
-      // een link naar een andere site opent in een nieuw tabblad, zodat digiFORT open blijft;
+      // een link naar een andere site opent in een nieuw tabblad, zodat digi-fort open blijft;
       // eigen links blijven in hetzelfde venster, anders stapelen de tabbladen zich op
       document.querySelectorAll<HTMLAnchorElement>('a[href^="http"]').forEach((a) => {
         if (a.host === location.host) return;
