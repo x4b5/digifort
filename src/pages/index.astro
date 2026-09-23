@@ -5,13 +5,15 @@ import HuisEnFort from '../components/HuisEnFort.astro';
 import Verder from '../components/Verder.astro';
 import Snelcheck from '../components/Snelcheck.astro';
 import { HOOFDSTUKKEN } from '../lib/site.js';
+/** De twee plekken waar je begint: groter en groen, zodat het raster een begin heeft. */
+const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 'Dan dit' };
 ---
 <Pagina breed beschrijving="Je gaat niet naar het internet, het internet komt bij jou binnen. Elke app is een deur. Deze site loopt met je mee tot je huis een fort is. Gratis, in gewone taal, zonder reclame.">
   <section class="hero">
     <div class="hero-tekst">
       <p class="eyebrow">Digitale veiligheid in gewone taal</p>
       <h1>Van open huis naar fort.</h1>
-      <p class="intro">Je gaat niet naar het internet. Het internet komt bij jou binnen. Elke app, elk account en elk apparaat is een deur, en bij de meeste mensen <a href="/huischeck#hoe-weten-we-dat">staan die deuren open</a>. Deze site loopt met je mee tot je huis een fort is: een muur, een gracht, een poort met twee sloten. Zonder bangmakerij en zonder reclame.</p>
+      <p class="intro">Je gaat niet naar het internet. Het internet komt bij jou binnen. Elke app, elk account en elk apparaat is een deur, en bij de meeste mensen <a href="/huischeck#hoe-weten-we-dat">staan die deuren open</a>. Deze site helpt je ze dicht te doen, stap voor stap, tot je huis een fort is. Zonder bangmakerij en zonder reclame.</p>
       <p class="knoppen">
         <a class="knop" href="/huischeck#doe-de-huischeck">Doe de huischeck →</a>
         <a class="knop licht" href="/een-avond">Ik heb één avond</a>
@@ -38,11 +40,12 @@ import { HOOFDSTUKKEN } from '../lib/site.js';
     <h2>De hoofdstukken</h2>
     <ol class="kaarten">
       {HOOFDSTUKKEN.map((h) => (
-        <li class:list={{ extra: h.extra }}>
+        <li class:list={{ extra: h.extra, start: START[h.slug] }}>
           <a class="kaart" href={`/${h.slug}`}>
-            <span class="kaart-kop"><span class="nr">{h.extra ? 'Verdieping' : `Hoofdstuk ${h.nr}`}</span><HoofdstukIcoon slug={h.slug} maat={40} /></span>
+            <span class="kaart-kop"><span class="nr">{h.extra ? 'Verdieping' : `Hoofdstuk ${h.nr}`}</span><HoofdstukIcoon slug={h.slug} maat={START[h.slug] ? 56 : 40} /></span>
             <h3>{h.titel}</h3>
             <p>{h.kort}</p>
+            {START[h.slug] && <span class="start-label">{START[h.slug]} →</span>}
           </a>
         </li>
       ))}
@@ -71,4 +74,12 @@ import { HOOFDSTUKKEN } from '../lib/site.js';
   .kaart-kop { display: flex; justify-content: space-between; align-items: center; }
   li.extra .kaart { border-style: dashed; border-width: 2px; padding: calc(1.1rem + 1px) calc(1.2rem + 1px); background: var(--papier-2); }
   li.extra .nr { color: var(--inkt-zacht); }
+  li.start .kaart { background: var(--groen-licht); height: 100%; display: flex; flex-direction: column; }
+  li.start .kaart:hover { background: var(--papier-2); }
+  li.start h3 { font-size: 1.6rem; }
+  li.start p { font-size: 1.05rem; color: var(--inkt); }
+  .start-label { margin-top: auto; padding-top: 0.9rem; font-family: var(--kop); font-weight: 700; color: var(--groen); }
+  @media (min-width: 40rem) { li.start { grid-column: span 2; } }
+  /* op een telefoon moeten de knoppen in het eerste scherm passen */
+  @media (max-width: 40rem) { .hero .intro { font-size: 1.12rem; } }
 </style>
