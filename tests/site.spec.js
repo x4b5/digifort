@@ -103,6 +103,14 @@ test('het woordenboek filtert niet via de stapelweergave', async ({ page }) => {
   await expect(page.locator('[data-woordenboek] table')).not.toHaveClass(/tabel-stapel/);
 });
 
+test('een link naar een andere site opent in een nieuw tabblad, een eigen link niet', async ({ page }) => {
+  await page.goto('/bronnen');
+  const extern = page.locator('main a[href^="https://"]').first();
+  await expect(extern).toHaveAttribute('target', '_blank');
+  await expect(extern).toHaveAttribute('rel', /noopener/);
+  await expect(page.locator('main a[href^="/"]').first()).not.toHaveAttribute('target', '_blank');
+});
+
 test('het woordenboek past op een telefoon zonder zijwaarts schuiven, en zoeken blijft werken', async ({ page }, info) => {
   test.skip(info.project.name !== 'telefoon', 'alleen op een telefoon worden de woorden blokken');
   await page.goto('/woordenboek');

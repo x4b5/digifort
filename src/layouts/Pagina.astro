@@ -72,6 +72,14 @@ const hier = new URL(Astro.url.pathname, Astro.site);
         bak.append(t);
       });
 
+      // een link naar een andere site opent in een nieuw tabblad, zodat digiFORT open blijft;
+      // eigen links blijven in hetzelfde venster, anders stapelen de tabbladen zich op
+      document.querySelectorAll<HTMLAnchorElement>('a[href^="http"]').forEach((a) => {
+        if (a.host === location.host) return;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      });
+
       // een tekening krimpt op een telefoon als geheel, en de tekst erin krimpt mee tot
       // een pixel of zes. --krimp zegt hoeveel kleiner de tekening getekend wordt dan hij
       // bedoeld is; global.css zet de tekst daarmee terug op een leesbare maat.
