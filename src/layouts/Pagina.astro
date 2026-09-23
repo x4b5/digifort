@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Kop from '../components/Kop.astro';
 import Voet from '../components/Voet.astro';
+import NaarBoven from '../components/NaarBoven.astro';
 import { SITE } from '../lib/site.js';
 
 const { titel, beschrijving = SITE.slogan, datum = SITE.laatstNagelopen, breed = false } = Astro.props;
@@ -49,6 +50,7 @@ const hier = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <Voet datum={datum} />
+    <NaarBoven />
     <script>
       import { wisAlles } from '../lib/opslag.js';
 

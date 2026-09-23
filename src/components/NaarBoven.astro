@@ -1,0 +1,39 @@
+---
+// Rond knopje rechtsonder dat je terugbrengt naar het begin van de pagina.
+// Een gewone link naar #top: zonder JavaScript werkt hij ook, hij staat dan alleen altijd in beeld.
+---
+<a class="naar-boven" href="#top" aria-label="Naar boven" data-naar-boven>
+  <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 19 V5 M5 12 L12 5 L19 12" /></svg>
+</a>
+
+<!-- inline en direct na de knop: dan staat hij al verstopt voordat de pagina getekend wordt,
+     anders flitst hij bij het laden even op -->
+<script is:inline>
+  // pas na anderhalf scherm scrollen: bovenaan is er niets om naar terug te gaan
+  (function () {
+    var knop = document.querySelector('[data-naar-boven]');
+    if (!knop) return;
+    var bijwerken = function () { knop.classList.toggle('weg', window.scrollY < window.innerHeight * 1.5); };
+    bijwerken();
+    window.addEventListener('scroll', bijwerken, { passive: true });
+    window.addEventListener('resize', bijwerken, { passive: true });
+  })();
+</script>
+
+<style>
+  .naar-boven {
+    position: fixed; z-index: 4;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 3rem; height: 3rem; border-radius: 50%;
+    background: var(--papier); color: var(--inkt);
+    border: var(--lijndikte) solid var(--lijn-sterk);
+    box-shadow: var(--schaduw);
+  }
+  .naar-boven:hover { background: var(--inkt); color: var(--papier); }
+  .naar-boven svg { fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  /* visibility haalt hem ook uit de tabvolgorde zolang hij niet te zien is */
+  .naar-boven.weg { visibility: hidden; }
+  @media print { .naar-boven { display: none; } }
+</style>
