@@ -77,6 +77,8 @@ const NIVEAUNAAM: Record<number, string> = { 1: 'makkelijk', 2: 'gemiddeld', 3: 
   .sorteer-kop { font-weight: 700; margin-right: 0.15rem; }
   .sorteer button { font: inherit; font-size: var(--tekst-m); padding: 0.35rem 0.8rem; border: var(--lijndikte-dun) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier); color: var(--inkt-zacht); cursor: pointer; }
   .sorteer button[aria-pressed='true'] { background: var(--inkt); color: var(--papier); border-color: var(--inkt); font-weight: 700; }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { .sorteer button { min-block-size: 44px; } }
   .zoek { display: flex; flex-direction: column; gap: 0.35rem; margin: 1rem 0 0.5rem; font-weight: 700; }
   .zoek input { font: inherit; font-size: 1.1rem; padding: 0.6rem 0.9rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier); color: var(--inkt); max-width: 28rem; }
   .stand { margin: 0 0 0.75rem; }

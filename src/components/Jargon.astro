@@ -13,6 +13,8 @@ const { items } = Astro.props;
 <style>
   .jargon { border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); padding: 0.6rem 1rem; margin: 1.25rem 0; }
   summary { cursor: pointer; font-family: var(--kop); font-weight: 700; }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { summary { padding-block: 0.6rem; } }
   dl { margin: 0.75rem 0 0; }
   dt { font-family: var(--mono); font-size: 0.9rem; color: var(--rood); margin-top: 0.6rem; }
   dd { margin: 0.1rem 0 0; color: var(--inkt-zacht); font-size: 0.95em; }

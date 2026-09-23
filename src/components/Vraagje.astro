@@ -49,6 +49,8 @@ const id = 'vraagje-' + [...vraag].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >
   fieldset { border: 0; padding: 0; margin: 0; }
   legend { font-weight: 700; padding: 0; margin-bottom: 0.5rem; }
   .optie { display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0.5rem; border-radius: var(--radius); cursor: pointer; transition: background-color 0.15s ease; }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { .optie { min-block-size: 44px; } }
   .optie:hover { background: var(--papier); }
   .optie input { width: 1.25rem; height: 1.25rem; accent-color: var(--rood); flex: none; margin: 0; }
   .optie input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }

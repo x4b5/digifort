@@ -107,6 +107,8 @@ const VRAGEN = [
   fieldset { border: 0; padding: 0; margin: 0 0 1.1rem; }
   legend { font-weight: 700; margin-bottom: 0.4rem; padding: 0; }
   label { display: flex; align-items: center; gap: 0.6rem; padding: 0.35rem 0.4rem; border-radius: var(--radius); cursor: pointer; font-size: 1rem; }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { label { min-block-size: 44px; } }
   label:hover { background: var(--papier-2); }
   input { width: 1.25rem; height: 1.25rem; accent-color: var(--rood); flex: none; margin: 0; }
   .uitslag { margin-top: 1rem; padding-top: 1rem; border-top: var(--lijndikte-dun) solid var(--lijn); }

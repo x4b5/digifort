@@ -117,6 +117,8 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
   .zoek input { min-width: min(22rem, 100%); }
   .open { display: flex; align-items: center; gap: 0.45rem; padding-bottom: 0.6rem; }
   .open input { width: 1.1rem; height: 1.1rem; accent-color: var(--rood); }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { .open { min-block-size: 44px; padding-bottom: 0; } .open input { width: 1.4rem; height: 1.4rem; } }
   .stand { margin: 0 0 1.5rem; color: var(--inkt-zacht); }
 
   .groep { margin: 2.25rem 0; }

@@ -121,6 +121,8 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
   .klaar-zin { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.7rem 1rem; }
   .klaar-zin[hidden] { display: none; }
   .link { background: none; border: 0; padding: 0; font: inherit; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: pointer; }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { .link { min-block-size: 44px; } }
   .knoppen { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin: 0; }
   .einde { background: var(--papier-2); }
 </style>

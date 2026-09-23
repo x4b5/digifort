@@ -97,6 +97,8 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   .kantelen span[data-toestand="open"] { background: var(--rood); border-color: var(--rood); opacity: 1; }
   @media (max-width: 30rem) { .sloten [data-sloten-tekst] { display: none; } }
   .sloten[hidden] { display: none; }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { .merk, .sloten { min-block-size: 44px; } }
   .sloten + :global(.lezen) { margin-left: 0; }
   .menu { position: relative; }
   .sloten[hidden] ~ :global(.lezen) { margin-left: auto; }

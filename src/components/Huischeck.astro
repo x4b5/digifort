@@ -207,6 +207,8 @@ const CIJFERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   .huischeck { margin: 1.5rem 0 2rem; }
   .schakel { margin-bottom: 1.25rem; font-size: 0.95rem; color: var(--inkt-zacht); }
   .schakel input { width: 1.2rem; height: 1.2rem; accent-color: var(--rood); margin-right: 0.4rem; }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { .schakel label { display: flex; align-items: center; min-block-size: 44px; } .schakel input { flex: none; } }
   .vragen { list-style: none; padding: 0; margin: 0; border-top: var(--lijndikte) solid var(--lijn-sterk); }
   .vragen li { margin: 0; padding: 1rem 0; border-bottom: var(--lijndikte-dun) solid var(--lijn); }
   .vraag { margin: 0 0 0.6rem; font-weight: 700; }

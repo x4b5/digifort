@@ -222,6 +222,13 @@ figure.foto .herkomst a { color: inherit; }
 .legenda li { margin: 0; }
 .legenda a { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
 .legenda a:hover, .legenda li.licht-op a { background: var(--papier-2); }
+/* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+@media (pointer: coarse) { .legenda a { min-block-size: 44px; align-items: center; } }
+/* Een losse link (een bron onder een verhaal, een app in de gereedschapskist) is op een
+   aanraakscherm minstens 24px hoog (WCAG 2.5.8). Padding op een inline link vergroot het
+   raakvlak zonder de regels te verschuiven; :where() houdt de specificiteit op nul,
+   zodat een component met eigen padding altijd wint. */
+@media (pointer: coarse) { :where(main, footer) a { padding-block: 0.15em; } }
 .legenda .wat { color: var(--inkt-zacht); }
 .lampje { flex: none; width: 0.75rem; height: 0.75rem; border-radius: 50%; border: var(--lijndikte-dun) solid var(--lijn-sterk); margin-top: 0.45rem; }
 [data-toestand="open"] .lampje { background: var(--rood); border-color: var(--rood); }

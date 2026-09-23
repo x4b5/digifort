@@ -31,7 +31,7 @@ const top = max ?? (Math.max(...items.map((i) => i.waarde), 0) || 1);
   {Astro.slots.has('default') && <figcaption><slot /></figcaption>}
 </figure>
 <style>
-  .grafiek { margin: 1.5rem 0 2rem; }
+  .grafiek { margin: 1.5rem 0 2rem; container-type: inline-size; }
   .grafiek ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
   .grafiek li {
     margin: 0;
@@ -63,6 +63,12 @@ const top = max ?? (Math.max(...items.map((i) => i.waarde), 0) || 1);
     color: var(--inkt-zacht);
   }
   .grafiek figcaption :global(p) { margin: 0; }
+  /* Smal (een telefoon, of grote letters): het label krijgt een eigen regel boven de balk.
+     Naast elkaar duwt een lang label de balk anders weg tot een streepje van nul pixels. */
+  @container (max-width: 34rem) {
+    .grafiek li { grid-template-columns: 1fr auto; row-gap: 0.25rem; }
+    .g-label { grid-column: 1 / -1; }
+  }
   @keyframes groei { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   @media (prefers-reduced-motion: reduce) { .g-balk { animation: none; } }
 </style>

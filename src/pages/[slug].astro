@@ -68,6 +68,8 @@ const koppen = [
   .inhoud li { margin: 0.15rem 0; break-inside: avoid; }
   .inhoud a { color: var(--inkt); text-decoration: none; }
   .inhoud a:hover { color: var(--rood); text-decoration: underline; }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { .inhoud li { margin: 0; } .inhoud a { display: flex; align-items: center; min-block-size: 44px; } }
   @media (max-width: 40rem) { .inhoud ol { columns: 1; } }
   .leestijd { display: flex; align-items: center; gap: 0.4rem; margin: -0.4rem 0 0; color: var(--inkt-zacht); font-size: 0.95rem; }
   .leestijd svg { flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
