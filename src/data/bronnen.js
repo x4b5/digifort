@@ -646,6 +646,17 @@ export const BRONNEN = [
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'Fraunhofer onderzocht 127 thuisrouters van zeven merken: 46 hadden in het jaar ervoor geen beveiligingsupdate gekregen. Hoeveel routers in Nederland nog het fabriekswachtwoord hebben, is niet gemeten; de tekst zegt daarom "sommige"' }],
   },
+  {
+    hoofdstuk: ['inbrekers-van-nu', 'krijg-je-je-geld-terug'],
+    bewering: 'Oplichters die zich voordoen als de bank of een helpdesk laten je een programma als AnyDesk of TeamViewer installeren om mee te kijken of je computer over te nemen; een bank vraagt daar nooit om. Ben je erin getrapt: neem contact op met je bank en verander je wachtwoorden. Fraude waarbij zo\'n programma is gebruikt, valt niet onder de coulanceregeling van de banken',
+    bron: [
+      { tekst: 'Veilig Bankieren (Nederlandse Vereniging van Banken), wat is bankhelpdeskfraude', href: 'https://www.veiligbankieren.nl/fraude/bankhelpdeskfraude/' },
+      { tekst: 'Politie, helpdeskfraude', href: 'https://www.politie.nl/campagnes/helpdeskfraude.html' },
+      { tekst: 'Consumentenbond, bank spoofing', href: 'https://www.consumentenbond.nl/veilig-internetten/bank-spoofing-oplichting-door-nepmedewerkers' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Dat meekijkfraude buiten de coulanceregeling valt, schrijft de Consumentenbond: de banken houden vast aan de oude omschrijving van bankhelpdeskfraude. De Consumentenbond vindt dat oneerlijk en meldt dat de banken het niet willen aanpassen' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */
