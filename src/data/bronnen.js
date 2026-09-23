@@ -667,6 +667,13 @@ export const BRONNEN = [
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'WhatsApp zelf: "Enable two-step verification. Set up a secret pin and never share it with anyone to prevent someone from stealing your account." Veiliginternetten beschrijft de truc met de doorgestuurde code en de voicemail' }],
   },
+  {
+    hoofdstuk: ['inbrekers-van-nu'],
+    bewering: 'Bij Tikkiefraude (betaalverzoekfraude) vraagt iemand je tijdens een online aankoop of verkoop om 1 cent over te maken, zogenaamd ter controle; de link leidt naar een nagemaakte bankpagina. Tikkie heeft maar één webadres: tikkie.me',
+    bron: [{ tekst: 'Veiliginternetten.nl (ministerie van Economische Zaken, NCSC en ECP), wat is Tikkiefraude', href: 'https://veiliginternetten.nl/wat-is-tikkiefraude-betaalverzoekfraude/' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De fraudepagina van Tikkie zelf (tikkie.me/fraude) laadt alleen met JavaScript en kon daarom niet als tekst worden nagelopen' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */
