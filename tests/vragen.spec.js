@@ -42,6 +42,8 @@ test('de quiz toont pas een score als alle drie de vragen beantwoord zijn', asyn
 
 test('de inhoudsopgave van een hoofdstuk wijst naar de quiz', async ({ page }) => {
   await page.goto('/plattegrond');
+  // op een telefoon staat de opgave ingeklapt
+  if (await page.locator('details.inhoud:not([open])').count()) await page.locator('.inhoud summary').click();
   await page.locator('.inhoud a', { hasText: 'Wat blijft er hangen?' }).click();
   await expect(page).toHaveURL(/plattegrond#quiz/);
   await expect(page.locator('#quiz')).toBeInViewport();

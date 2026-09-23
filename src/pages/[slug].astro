@@ -51,11 +51,20 @@ const koppen = [
     <HoofdstukIcoon slug={h.id} maat={72} />
   </div>
   {koppen.length >= 3 && (
-    <nav class="inhoud" aria-label="In dit hoofdstuk">
-      <p class="eyebrow zacht klein inhoud-kop">In dit hoofdstuk</p>
-      <ol>{koppen.map((k) => <li><a href={`#${k.slug}`}>{k.text}</a></li>)}</ol>
+    <nav aria-label="In dit hoofdstuk">
+      <details class="inhoud" open data-inhoud>
+        <summary class="eyebrow zacht klein inhoud-kop">In dit hoofdstuk <span class="aantal">· {koppen.length} onderdelen</span></summary>
+        <ol>{koppen.map((k) => <li><a href={`#${k.slug}`}>{k.text}</a></li>)}</ol>
+      </details>
     </nav>
   )}
+  <script>
+    // op een smal scherm vult de opgave anders het hele eerste scherm, en staat de
+    // openingsscène pas onder de vouw; zonder JavaScript blijft hij gewoon open
+    if (window.matchMedia('(max-width: 40rem)').matches) {
+      document.querySelector<HTMLDetailsElement>('[data-inhoud]')?.removeAttribute('open');
+    }
+  </script>
   <Content />
   <Quiz slug={h.id} />
   <Buren slug={h.id} />
@@ -63,13 +72,19 @@ const koppen = [
 
 <style>
   .inhoud { margin: 1.5rem 0 0.5rem; padding: 1rem 1.2rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); font-size: 0.95rem; }
-  .inhoud-kop { margin-bottom: 0.4rem; }
+  .inhoud-kop { margin-bottom: 0.4rem; cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.4rem; }
+  .inhoud-kop::-webkit-details-marker { display: none; }
+  .inhoud-kop::after { content: "▸"; font-size: 1rem; transition: transform 0.15s ease; }
+  .inhoud[open] .inhoud-kop::after { transform: rotate(90deg); }
+  .inhoud:not([open]) .inhoud-kop { margin-bottom: 0; }
+  .aantal { text-transform: none; letter-spacing: 0; }
+  @media (min-width: 40.01rem) { .aantal { display: none; } }
   .inhoud ol { margin: 0; padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
   .inhoud li { margin: 0.15rem 0; break-inside: avoid; }
   .inhoud a { color: var(--inkt); text-decoration: none; }
   .inhoud a:hover { color: var(--rood); text-decoration: underline; }
   /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
-  @media (pointer: coarse) { .inhoud li { margin: 0; } .inhoud a { display: flex; align-items: center; min-block-size: 44px; } }
+  @media (pointer: coarse) { .inhoud-kop { min-block-size: 44px; } .inhoud li { margin: 0; } .inhoud a { display: flex; align-items: center; min-block-size: 44px; } }
   @media (max-width: 40rem) { .inhoud ol { columns: 1; } }
   .leestijd { display: flex; align-items: center; gap: 0.4rem; margin: -0.4rem 0 0; color: var(--inkt-zacht); font-size: 0.95rem; }
   .leestijd svg { flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }

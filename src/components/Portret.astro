@@ -1,0 +1,35 @@
+---
+/**
+ * Een lijnportret van een bewoner, zodat je ze door de site heen herkent:
+ * Ria aan haar bril, Sanne aan haar staart, Milan aan zijn koptelefoon.
+ * Alleen inkt: er is niets aan hen dat gevaar of geregeld betekent (zie de icoonregel).
+ */
+interface Props { wie: 'ria' | 'sanne' | 'milan'; maat?: number }
+const { wie, maat = 44 } = Astro.props;
+---
+<svg class="portret" viewBox="0 0 48 48" width={maat} height={maat} aria-hidden="true">
+  <circle class="rondje" cx="24" cy="24" r="23" />
+  <path class="tek-dun" d="M9 44 q2 -12 15 -12 q13 0 15 12" />
+  <circle class="tek-vul-papier" cx="24" cy="20" r="8.5" />
+  <circle class="tek-dun" cx="24" cy="20" r="8.5" />
+  {wie === 'ria' && <>
+    <path class="tek-dun" d="M15.5 18 q8.5 -11 17 0" />
+    <circle class="tek-dun" cx="20.5" cy="20.5" r="2.6" />
+    <circle class="tek-dun" cx="27.5" cy="20.5" r="2.6" />
+    <path class="tek-dun" d="M23.1 20.5 h1.8" />
+  </>}
+  {wie === 'sanne' && <>
+    <path class="tek-dun" d="M15.5 19 q1 -9.5 8.5 -9.5 q7.5 0 8.5 8" />
+    <path class="tek-dun" d="M32 14 q6 2 4.5 11" />
+  </>}
+  {wie === 'milan' && <>
+    <path class="tek-dun" d="M14 20 a10 10 0 0 1 20 0" />
+    <rect class="tek-vul-inkt" x="12.5" y="18" width="3.5" height="6" rx="1.5" />
+    <rect class="tek-vul-inkt" x="32" y="18" width="3.5" height="6" rx="1.5" />
+  </>}
+</svg>
+
+<style>
+  .portret { flex: none; overflow: visible; }
+  .rondje { fill: var(--papier-2); stroke: var(--lijn-sterk); stroke-width: 1.5; }
+</style>

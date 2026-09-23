@@ -1,0 +1,32 @@
+---
+/**
+ * Een korte scène bovenaan een hoofdstuk: iemand uit het gezin, één moment.
+ * De mensen zijn bedacht, en dat staat er ook. Wat er gebeurt heeft een bron (`bron`,
+ * `href`), tenzij de scène alleen laat zien hoe het advies eruitziet: dan heet hij
+ * "bedacht voorbeeld". Net als bij Verhaal: de scène eindigt niet bij de schade.
+ */
+import { bewoner } from '../data/bewoners.js';
+import Portret from './Portret.astro';
+interface Props { wie: 'ria' | 'sanne' | 'milan'; bron?: string; href?: string }
+const { wie, bron, href } = Astro.props;
+const b = bewoner(wie);
+---
+<aside class="scene" data-scene={wie}>
+  <p class="wie"><Portret wie={wie} /><span><strong>{b.naam}, {b.leeftijd}</strong> <span class="rol">{b.wie}</span></span></p>
+  <div class="tekst"><slot /></div>
+  <p class="herkomst">
+    {bron && href
+      ? <>Bedacht, maar dit gebeurt echt: <a href={href}>{bron}</a></>
+      : <>Bedacht voorbeeld</>}
+  </p>
+</aside>
+
+<style>
+  .scene { margin: 0.5rem 0 2.25rem; padding: 0 0 1.25rem; border-bottom: 1px solid var(--lijn); }
+  .wie { display: flex; align-items: center; gap: 0.7rem; margin: 0 0 0.6rem; line-height: 1.25; font-size: 0.95rem; }
+  .rol { display: block; color: var(--inkt-zacht); font-size: 0.85rem; }
+  .tekst { font-size: 1.15rem; line-height: 1.6; font-style: italic; }
+  .tekst :global(p) { margin: 0 0 0.7rem; }
+  .herkomst { margin: 0.25rem 0 0; font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); }
+  .herkomst a { color: inherit; text-decoration-thickness: 1px; display: inline-block; padding: 0.2rem 0; }
+</style>
