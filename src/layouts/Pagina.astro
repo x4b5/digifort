@@ -37,7 +37,7 @@ const hier = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Astro.si
     <meta property="og:image:alt" content="Links een open huis met een scheur en een sleutel onder de mat, rechts hetzelfde huis als fort met een muur en een gracht." />
     <meta property="og:locale" content="nl_NL" />
     <meta name="twitter:card" content="summary_large_image" />
-    {gegevens && <script type="application/ld+json" set:html={alsScript(gegevens)} />}
+    {[gegevens].flat().filter(Boolean).map((g) => <script type="application/ld+json" set:html={alsScript(g)} />)}
     <!-- leesvoorkeur meteen toepassen, anders flitst de pagina even in de andere stand.
          Dezelfde sleutel als in src/lib/lezen.js. -->
     <script is:inline>

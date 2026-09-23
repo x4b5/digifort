@@ -1,6 +1,6 @@
 ---
 /** Zoekveld, sorteerknoppen en de woordentabel, alle drie uit src/data/woorden.js. */
-import { WOORDEN } from '../data/woorden.js';
+import { WOORDEN, woordAnker } from '../data/woorden.js';
 import { kamer } from '../data/kamers.js';
 
 const NIVEAUNAAM: Record<number, string> = { 1: 'makkelijk', 2: 'gemiddeld', 3: 'vakjargon' };
@@ -23,7 +23,7 @@ const NIVEAUNAAM: Record<number, string> = { 1: 'makkelijk', 2: 'gemiddeld', 3: 
         {WOORDEN.map((w) => {
           const k = w.kamer && kamer(w.kamer);
           return (
-            <tr data-niveau={w.niveau}>
+            <tr id={woordAnker(w.term)} data-niveau={w.niveau}>
               <td>{w.term}{w.voluit && <span class="voluit"> ({w.voluit})</span>} <span class="niveau">{NIVEAUNAAM[w.niveau]}</span></td>
               <td>{w.uitleg}</td>
               <td>{k ? <a href={`/plattegrond#${k.anker}`}>{w.huis}</a> : w.huis}</td>

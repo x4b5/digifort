@@ -8,6 +8,7 @@
  */
 import { SITE } from './site.js';
 import { BRONNEN } from '../data/bronnen.js';
+import { WOORDEN, woordAnker } from '../data/woorden.js';
 
 const TAAL = 'nl-NL';
 const thuis = (pad = '/') => new URL(pad, SITE.url).href;
@@ -58,6 +59,27 @@ export function artikelGegevens({ slug, titel, beschrijving, datum }) {
     isPartOf: WEBSITE,
     isAccessibleForFree: true,
     ...(bronnen.length ? { citation: bronnen } : {}),
+  };
+}
+
+/** Voor /woordenboek: elke term als gedefinieerd begrip, met een link naar zijn eigen rij. */
+export function begrippenGegevens() {
+  const url = thuis('/woordenboek');
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'DefinedTermSet',
+    name: `Woordenboek van ${SITE.naam}`,
+    description: 'Vaktermen over digitale veiligheid, elk in één zin gewone taal uitgelegd.',
+    inLanguage: TAAL,
+    url,
+    hasDefinedTerm: WOORDEN.map((w) => ({
+      '@type': 'DefinedTerm',
+      name: w.term,
+      ...(w.voluit ? { alternateName: w.voluit } : {}),
+      description: w.uitleg,
+      url: `${url}#${woordAnker(w.term)}`,
+      inDefinedTermSet: url,
+    })),
   };
 }
 

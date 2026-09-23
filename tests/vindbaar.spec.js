@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 
 import { HOOFDSTUKKEN, SITE } from '../src/lib/site.js';
 import { BRONNEN } from '../src/data/bronnen.js';
+import { WOORDEN, woordAnker } from '../src/data/woorden.js';
 
 /**
  * Vindbaarheid voor zoekmachines en AI-assistenten: elke pagina zegt in vaste vorm
@@ -48,4 +49,13 @@ test('de 404 hoort niet in een zoekmachine', async ({ page }) => {
   await page.goto('/404');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
   await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+});
+
+test('het woordenboek is een begrippenlijst, en elk begrip heeft een eigen anker', async ({ page }) => {
+  await page.goto('/woordenboek');
+  const [lijst] = (await etiketten(page)).filter((e) => e['@type'] === 'DefinedTermSet');
+  expect(lijst.hasDefinedTerm).toHaveLength(WOORDEN.length);
+  const ankers = WOORDEN.map((w) => woordAnker(w.term));
+  expect(new Set(ankers).size, 'twee woorden met hetzelfde anker').toBe(WOORDEN.length);
+  for (const anker of ankers) await expect(page.locator(`[id="${anker}"]`)).toHaveCount(1);
 });

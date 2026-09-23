@@ -70,3 +70,14 @@ export const WOORDEN = [
   { term: 'Wifi-versleuteling', uitleg: 'Het slot op je wifi-netwerk. WPA3 (Wi-Fi Protected Access 3) is de nieuwste, WPA2 is nog goed. Staat er WEP (wired equivalent privacy) of niets, zet het dan om', huis: 'Het slot op het tuinhek', kamer: 'tuinhek', niveau: 2 },
   { term: 'Zegelring', uitleg: 'Het beeld dat deze site gebruikt voor de passkey: een sleutel die alleen in jouw hand werkt en die niemand kan namaken', huis: 'De ring die je niet uitleent', kamer: 'passkey', niveau: 1 },
 ];
+
+/**
+ * Het anker van een woord op /woordenboek, zodat een link of een zoekmachine rechtstreeks
+ * naar één definitie kan. 'woord-' ervoor, anders kan het botsen met een kopje op de pagina.
+ * @param {string} term
+ */
+export function woordAnker(term) {
+  const kaal = term.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return `woord-${kaal}`;
+}
