@@ -6,9 +6,8 @@ datum: "2026-09-23"
 ---
 import Nepbericht from '../../components/Nepbericht.astro';
 import Vraagje from '../../components/Vraagje.astro';
-import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
-import KamerIcoon from '../../components/KamerIcoon.astro';
+import Kamer from '../../components/Kamer.astro';
 import Plattegrond from '../../components/Plattegrond.astro';
 import Foto from '../../components/Foto.astro';
 
@@ -22,71 +21,53 @@ Dit is je huis zoals het nu is. Vanaf [hoofdstuk 4](/aan-de-slag) maak je er deu
 
 <Foto id="sleutel-in-voordeur" onderschrift="Eén sleutel in het slot, en het hele huis staat open. Op internet werkt het net zo." />
 
-## De voordeur: je e-mail
-
-<KamerIcoon id="voordeur" />
-
-<Kort>je e-mail is de belangrijkste deur van je huis.</Kort>
+<Kamer id="voordeur">
 
 Ben je ergens je wachtwoord vergeten? Dan krijg je een mailtje om een nieuw wachtwoord te maken. Dat is handig. Maar het betekent ook iets anders. Wie in jouw e-mail kan, kan overal een nieuw wachtwoord aanvragen. Hij komt dan in bijna al je accounts. Zet op deze deur daarom je beste slot. Doe dat als eerste.
 
-## De tweede voordeur: het account van je telefoon of computer
+</Kamer>
 
-<KamerIcoon id="tweede-voordeur" />
-
-<Kort>je Apple-, Google- of Microsoft-account is net zo belangrijk als je e-mail.</Kort>
+<Kamer id="tweede-voordeur">
 
 Met dit account heb je je telefoon of computer ingesteld. Er hangt veel aan vast: je foto's, de reservekopie van je toestel en de functie om je toestel terug te vinden. Vaak staan je wachtwoorden er ook in. Wie in dit account komt, kan je toestel leegmaken. Hij kan ook meelezen met wat je bewaart. Geef dit account dus hetzelfde als je e-mail: een eigen wachtwoord en een tweede slot.
 
-## De sleutels: wachtwoorden
+</Kamer>
 
-<KamerIcoon id="sleutels" />
-
-<Kort>elke deur hoort een eigen sleutel te hebben.</Kort>
+<Kamer id="sleutels">
 
 Een wachtwoord is een sleutel. Gebruik je overal hetzelfde wachtwoord? Dan past één sleutel op je voordeur, je kluis en je schuur. Raakt die sleutel ergens kwijt, dan staat alles open. Een goed wachtwoord is vooral lang. Vier gewone woorden achter elkaar zijn sterker dan één kort woord met rare tekens.
 
-## De sleutelkluis: de wachtwoordmanager
+</Kamer>
 
-<KamerIcoon id="sleutelkluis" />
-
-<Kort>een kluis onthoudt al je sleutels, zodat jij dat niet hoeft.</Kort>
+<Kamer id="sleutelkluis">
 
 Niemand kan honderd verschillende wachtwoorden onthouden. Een wachtwoordmanager is een programma dat ze voor je bewaart. Het is een kluis. Jij onthoudt alleen de code van de kluis. Dat is één lang wachtwoord: je hoofdwachtwoord. De kluis maakt zelf sterke wachtwoorden. Hij vult ze ook voor je in.
 
-## De sleutel die niemand kan namaken: de passkey
+</Kamer>
 
-<KamerIcoon id="passkey" />
-
-<Kort>met een passkey log je in met je toestel én je vinger of gezicht. Dat zijn twee sloten in één handeling.</Kort>
+<Kamer id="passkey">
 
 Een passkey is een nieuw soort sleutel. Hij zit in je telefoon of computer en komt daar nooit uit. Je gebruikt hem met je vingerafdruk, je gezicht of de pincode van je toestel. Niemand kan hem afkijken. Niemand kan hem stelen bij een bedrijf. En hij past alleen op de echte deur. Op een nagemaakte site doet hij niets. Een nepbericht met een neplink heeft dan geen zin meer.
 
 Een passkey ís tweestapsverificatie, alleen merk je de twee stappen niet. Stap één is iets wat je hebt: je toestel, waar de sleutel in zit. Stap twee is iets wat je bent of weet: je vinger, je gezicht of je pincode. Je hoeft dus geen aparte code meer over te typen. Er bestaat ook een passkey die je in de hand houdt: een klein sleuteltje voor in je computer of tegen je telefoon, zoals een YubiKey. Dat is dezelfde techniek, gegoten in metaal, en het sterkste tweede slot dat er is.
 
-## Het tweede slot: tweestapsverificatie
+</Kamer>
 
-<KamerIcoon id="tweede-slot" />
-
-<Kort>twee sloten op je deur zijn beter dan één.</Kort>
+<Kamer id="tweede-slot">
 
 Een wachtwoord is één slot. Een tweede slot vraagt om nog iets: een code die je telefoon maakt. Die code is elke halve minuut anders. Steelt iemand je wachtwoord? Dan staat hij nog steeds buiten, want jouw telefoon heeft hij niet. Dit heet tweestapsverificatie, in het Engels 2FA. Er zijn drie smaken, van zwak naar sterk: een code per sms, een code uit een app, en een passkey. Laat de code in elk geval door een app maken en niet per sms sturen, want een telefoonnummer kan gestolen worden. En kies een passkey waar het kan: die werkt op een nepsite gewoon niet.
 
 <Noot titel="Verder lezen">Hoe deze drie — wachtwoord, tweede slot en passkey — zich tot elkaar verhouden, staat op één ladder: [Van geheim woord naar zegelring](/van-geheim-woord-naar-zegelring).</Noot>
 
-## De ramen: je browser
+</Kamer>
 
-<KamerIcoon id="ramen" />
-
-<Kort>door een raam kijk je naar buiten, maar anderen kijken ook naar binnen.</Kort>
+<Kamer id="ramen">
 
 Een browser is het programma waarmee je sites bekijkt, zoals Chrome, Safari of Firefox. Terwijl jij kijkt, kijken bedrijven mee. Ze houden bij wat je bekijkt en wat je koopt. Je kunt je browser uitbreiden met kleine hulpprogramma's. Die heten extensies. Dat is handig, maar elke extensie is iemand die in je woonkamer meekijkt. Houd er een paar die je vertrouwt en gooi de rest weg.
 
-## De brievenbus: e-mail, sms en WhatsApp
+</Kamer>
 
-<KamerIcoon id="brievenbus" />
-
-<Kort>iedereen kan iets in je brievenbus stoppen, ook een oplichter.</Kort>
+<Kamer id="brievenbus">
 
 Op een bericht kan elke naam staan. Staat erboven dat het van je bank komt? Dat zegt niets. Iedereen kan dat erboven zetten. De meeste inbraken beginnen hier. Niet met geweld, maar met een brief die echt lijkt.
 
@@ -94,27 +75,21 @@ Op een bericht kan elke naam staan. Staat erboven dat het van je bank komt? Dat 
 
 **Stuur nooit een code door.** Een bekende appt: "ik heb per ongeluk een code naar jouw nummer gestuurd, wil je hem doorsturen?" Dat is een oplichter, vaak op het overgenomen account van die bekende. Met die code neemt hij jouw WhatsApp over, en vraagt hij jouw familie om geld. Zet daarom in WhatsApp **verificatie in twee stappen** aan: een geheime pincode die alleen jij weet. En geef je voicemail een eigen pincode, want oplichters laten de code soms inspreken en luisteren je voicemail af met de standaardcode.
 
-## Tuinhek en meterkast: router en wifi
+</Kamer>
 
-<KamerIcoon id="tuinhek" />
-
-<Kort>alles wat je huis in en uit gaat, loopt door één kastje.</Kort>
+<Kamer id="tuinhek">
 
 Dat kastje is je router. Het regelt je wifi. Veel routers krijgen jarenlang geen beveiligingsupdate. Sommige hebben een wachtwoord uit de fabriek dat makkelijk te raden is. Sinds augustus 2025 gelden in de EU strengere eisen voor nieuwe draadloze apparaten; voor de router die al in je meterkast hangt verandert dat niets. Dat is een tuinhek dat nooit op slot heeft gezeten.
 
-## De kattenluikjes: slimme apparaten
+</Kamer>
 
-<KamerIcoon id="kattenluik" />
-
-<Kort>elk apparaat met internet is een klein gat in je muur.</Kort>
+<Kamer id="kattenluik">
 
 Denk aan een slimme deurbel, een camera, een tv of een thermostaat. Ze zijn gemaakt om goedkoop te zijn, niet om veilig te zijn. Ze worden zelden bijgewerkt. Geef ze daarom een eigen wifi-netwerk: een gastnetwerk. Kruipt er dan iemand door het luikje? Dan staat hij in de schuur en niet in je woonkamer.
 
-## De overdekte gang: de VPN
+</Kamer>
 
-<KamerIcoon id="gang" />
-
-<Kort>een VPN zorgt dat niemand onderweg kan meekijken. Meer doet hij niet.</Kort>
+<Kamer id="gang">
 
 Een VPN is een afgesloten gang van je huis naar buiten. Dat is nuttig op wifi van een ander, zoals in de trein of een hotel. Niemand op dat netwerk ziet dan wat je doet. Maar een VPN houdt geen oplichters tegen. Ook geen virussen. En een site waar je inlogt, weet nog steeds wie je bent. Het is een nuttig slot, maar het minst belangrijke van je huis.
 
@@ -124,27 +99,21 @@ Een VPN is een afgesloten gang van je huis naar buiten. Dat is nuttig op wifi va
   { tekst: 'Tegen een virus in een bijlage', uitleg: 'Ook niet. Een VPN kijkt niet naar wat je binnenhaalt, alleen naar wie er onderweg kan meekijken.' },
 ]} />
 
-## De brandkast buiten de deur: back-ups
+</Kamer>
 
-<KamerIcoon id="brandkast" />
-
-<Kort>bewaar een kopie van je spullen op een andere plek.</Kort>
+<Kamer id="brandkast">
 
 Een back-up is een reservekopie van je bestanden. Wordt je laptop gestolen? Gaat hij kapot? Zet iemand je bestanden op slot en vraagt hij geld? Dan heb je alles nog. Let op één ding. Een kopie die aan je computer vastzit, brandt mee als het huis afbrandt. Bewaar er dus altijd één los van je computer.
 
-## Het onderhoud: updates
+</Kamer>
 
-<KamerIcoon id="onderhoud" />
-
-<Kort>een update is de timmerman die scheuren dichtmaakt.</Kort>
+<Kamer id="onderhoud">
 
 In elk huis komen scheurtjes. In programma's ook. Een update repareert ze, voordat iemand erdoor naar binnen kruipt. De meeste inbrekers gebruiken scheuren die allang gerepareerd hadden kunnen zijn. Zet je updates op automatisch. Dan hoef je er nooit meer aan te denken.
 
-## De eigendomsakte: je identiteit
+</Kamer>
 
-<KamerIcoon id="eigendomsakte" />
-
-<Kort>wie jouw papieren heeft, kan doen alsof hij jou is.</Kort>
+<Kamer id="eigendomsakte">
 
 Je paspoort, je burgerservicenummer en je DigiD zijn de papieren van je huis. Je burgerservicenummer is het nummer waaraan de overheid jou herkent. Het wordt afgekort tot BSN. Wie deze gegevens heeft, hoeft niet in te breken. Hij doet zich voor als de eigenaar. Met je naam, je geboortedatum en je BSN kan iemand geld lenen of een telefoonabonnement afsluiten. Jij krijgt dan de rekening.
 
@@ -167,6 +136,8 @@ Een wachtwoord verander je in een minuut. Je BSN en je geboortedatum verander je
 **Gaat het toch mis?** Krijg je rekeningen voor iets wat je niet hebt gekocht? Doe aangifte bij de politie. Meld het ook bij het Centraal Meldpunt Identiteitsfraude van de overheid. Meer staat in [hoofdstuk 6](/als-er-is-ingebroken).
 
 <Noot titel="Waar het beeld niet klopt">Gestolen papieren van een huis kun je laten vervangen. Een gelekt BSN niet. Wat eenmaal op straat ligt, blijft daar liggen. Daarom moet je er zo zuinig op zijn.</Noot>
+
+</Kamer>
 
 ## Wat je nu kunt doen
 

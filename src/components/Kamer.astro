@@ -1,0 +1,78 @@
+---
+/**
+ * Eén kamer uit hoofdstuk 1 als uitklapper: dicht zie je het icoon, de naam, één zin en
+ * een lampje (rood open, groen dicht); open staat de hele uitleg. Zo leest de plattegrond
+ * als een landkaart in plaats van als veertien gelijke secties onder elkaar.
+ *
+ * Het anker (`kamer.anker`) blijft de id, zodat links als /plattegrond#de-voordeur-je-e-mail
+ * vanuit het fort en het woordenboek blijven werken: het script klapt die kamer dan open.
+ */
+import { kamer } from '../data/kamers.js';
+import KamerIcoon from './KamerIcoon.astro';
+interface Props { id: string }
+const k = kamer(Astro.props.id);
+if (!k) throw new Error(`Onbekende kamer: ${Astro.props.id}`);
+---
+<details class="kamer" id={k.anker} data-kamer-uitleg={k.id}>
+  <summary>
+    <KamerIcoon id={k.id} />
+    <span class="kop-tekst">
+      <h2>{k.naam}: {k.wat}</h2>
+      <span class="zin">{k.zin}</span>
+    </span>
+    <span class="lampje" aria-hidden="true"></span>
+  </summary>
+  <div class="uitleg"><slot /></div>
+</details>
+
+<script>
+  import { lees } from '../lib/opslag.js';
+  import { toestandPerKamer } from '../lib/toestand.js';
+
+  const kamers = Array.from(document.querySelectorAll<HTMLDetailsElement>('details[data-kamer-uitleg]'));
+
+  /** Een link naar een kamer (van het fort, het woordenboek of de kaart) klapt hem open. */
+  function openVanuitAdres() {
+    const doel = kamers.find((d) => `#${d.id}` === decodeURIComponent(location.hash));
+    if (!doel) return;
+    doel.open = true;
+    doel.scrollIntoView({ block: 'start' });
+  }
+
+  function kleur(data = lees()) {
+    const toestand = toestandPerKamer(data);
+    kamers.forEach((d) => { d.dataset.toestand = toestand[d.dataset.kamerUitleg!]; });
+  }
+
+  if (kamers.length) {
+    openVanuitAdres();
+    window.addEventListener('hashchange', openVanuitAdres);
+    kleur();
+    window.addEventListener('jdh:gewijzigd', (e: Event) => kleur((e as CustomEvent).detail));
+    // op papier bestaat geen uitklapper: alles open, en daarna terug zoals het was
+    let waren: boolean[] = [];
+    window.addEventListener('beforeprint', () => { waren = kamers.map((d) => d.open); kamers.forEach((d) => { d.open = true; }); });
+    window.addEventListener('afterprint', () => { kamers.forEach((d, i) => { d.open = waren[i] ?? false; }); });
+  }
+</script>
+
+<style>
+  .kamer { border-top: var(--lijndikte) solid var(--lijn-sterk); scroll-margin-top: 5rem; }
+  .kamer:last-of-type { border-bottom: var(--lijndikte) solid var(--lijn-sterk); }
+  summary { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 0.25rem; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: var(--papier-2); }
+  summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  summary :global(.kamer-icoon) { flex: none; }
+  summary :global(.kamer-icoon svg) { width: 48px; height: 48px; display: block; }
+  .kop-tekst { flex: 1; min-width: 0; }
+  /* de kop in een uitklapper: geen lijn erboven, die zit al op de kamer zelf */
+  h2 { margin: 0; padding: 0; border: 0; font-size: 1.3rem; line-height: 1.25; }
+  .zin { display: block; margin-top: 0.2rem; font-size: 0.97rem; color: var(--inkt-zacht); }
+  .lampje { margin-top: 0; }
+  summary::after { content: "▸"; flex: none; font-size: 1.1rem; color: var(--inkt-zacht); transition: transform 0.15s ease; }
+  .kamer[open] summary::after { transform: rotate(90deg); }
+  .uitleg { padding: 0.25rem 0 1.25rem 4rem; }
+  @media (max-width: 40rem) { .uitleg { padding-left: 0; } summary { gap: 0.75rem; } summary :global(.kamer-icoon svg) { width: 40px; height: 40px; } }
+  @media (prefers-reduced-motion: reduce) { summary::after { transition: none; } }
+</style>
