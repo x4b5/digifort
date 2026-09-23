@@ -6,6 +6,7 @@ import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import Buren from '../components/Buren.astro';
 import Quiz from '../components/Quiz.astro';
 import { quiz } from '../data/quiz.js';
+import { artikelGegevens } from '../lib/gegevens.js';
 
 export async function getStaticPaths() {
   const hoofdstukken = await getCollection('hoofdstukken');
@@ -36,7 +37,8 @@ const koppen = [
   ...(quiz(h.id).length ? [{ slug: 'quiz', text: 'Wat blijft er hangen?', depth: 2 }] : []),
 ];
 ---
-<Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum}>
+<Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum} soort="article"
+  gegevens={artikelGegevens({ slug: h.id, titel: h.data.titel, beschrijving: h.data.kort, datum: h.data.datum })}>
   {leestijd && <div class="leesbalk" aria-hidden="true" />}
   <div class="paginakop">
     <div>

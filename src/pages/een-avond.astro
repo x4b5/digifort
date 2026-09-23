@@ -3,8 +3,13 @@ import Pagina from '../layouts/Pagina.astro';
 import Avond from '../components/Avond.astro';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import Buren from '../components/Buren.astro';
+import { artikelGegevens } from '../lib/gegevens.js';
+import { SITE } from '../lib/site.js';
+
+const BESCHRIJVING = 'Zes stappen, één per scherm, ongeveer een uur. Daarna zitten je belangrijkste deuren op slot.';
 ---
-<Pagina titel="Ik heb één avond" beschrijving="Zes stappen, één per scherm, ongeveer een uur. Daarna houd je de meeste inbrekers buiten.">
+<Pagina titel="Ik heb één avond" beschrijving={BESCHRIJVING} soort="article"
+  gegevens={artikelGegevens({ slug: 'een-avond', titel: 'Ik heb één avond', beschrijving: BESCHRIJVING, datum: SITE.laatstNagelopen })}>
   <div class="paginakop">
     <div>
       <p class="eyebrow">Stap voor stap</p>

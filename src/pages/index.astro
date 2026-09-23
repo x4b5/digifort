@@ -1,4 +1,5 @@
 ---
+import { websiteGegevens } from '../lib/gegevens.js';
 import Pagina from '../layouts/Pagina.astro';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import HuisEnFort from '../components/HuisEnFort.astro';
@@ -8,7 +9,7 @@ import { HOOFDSTUKKEN } from '../lib/site.js';
 /** De twee plekken waar je begint: groter en groen, zodat het raster een begin heeft. */
 const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 'Dan dit' };
 ---
-<Pagina breed beschrijving="Je gaat niet naar het internet, het internet komt bij jou binnen. Elke app is een deur. Deze site loopt met je mee tot je huis een fort is. Gratis, in gewone taal, zonder reclame.">
+<Pagina breed gegevens={websiteGegevens()} beschrijving="Je gaat niet naar het internet, het internet komt bij jou binnen. Elke app is een deur. Deze site loopt met je mee tot je huis een fort is. Gratis, in gewone taal, zonder reclame.">
   <section class="hero">
     <div class="hero-tekst">
       <p class="eyebrow">Digitale veiligheid in gewone taal</p>
