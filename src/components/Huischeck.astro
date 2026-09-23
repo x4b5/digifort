@@ -170,12 +170,17 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
   .vraag { margin: 0 0 0.6rem; font-weight: 700; }
   .nr { display: inline-block; min-width: 1.6rem; font-family: var(--kop); color: var(--rood); }
   .antwoorden { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .antwoord { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.3rem 1rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); font-family: var(--kop); font-weight: 700; cursor: pointer; background: var(--papier); }
+  .antwoord { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.3rem 1rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); font-family: var(--kop); font-weight: 700; cursor: pointer; background: var(--papier); transition: background-color 0.15s ease; }
   .antwoord input { position: absolute; opacity: 0; width: 1px; height: 1px; }
   .antwoord:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
   .ja:has(input:checked) { background: var(--groen); border-color: var(--groen); color: var(--op-kleur); }
   .nee:has(input:checked) { background: var(--rood); border-color: var(--rood); color: var(--op-kleur); }
   .weet:has(input:checked) { background: var(--inkt); border-color: var(--inkt); color: var(--papier); }
+  /* voorproefje van je antwoord: groen is dicht, rood is open, oranje is onbekend */
+  .ja:not(:has(input:checked)):hover { background: var(--groen-licht); }
+  .nee:not(:has(input:checked)):hover { background: var(--rood-licht); }
+  .weet:not(:has(input:checked)):hover { background: var(--oranje-licht); }
+  @media (prefers-reduced-motion: reduce) { .antwoord { transition: none; } }
   .uitslag { margin-top: 2rem; padding: 1.25rem 1.4rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier-2); }
   .meter { height: 1rem; border: 2px solid var(--lijn-sterk); border-radius: 999px; overflow: hidden; margin: 0 0 0.6rem; background: var(--papier); }
   .meter span { display: block; height: 100%; width: 0; background: var(--rood); transition: width 0.3s ease; }

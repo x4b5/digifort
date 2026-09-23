@@ -4,6 +4,7 @@
  * `href` wijst naar de bron zelf; zonder href gaat de lezer naar de bronnenlijst,
  * want een cijfer zonder narekenbare bron hoort hier niet.
  */
+interface Props { items: { getal: string; tekst: string; bron?: string; href?: string }[] }
 const { items } = Astro.props;
 ---
 <ul class="cijfers">
@@ -17,7 +18,9 @@ const { items } = Astro.props;
 </ul>
 <style>
   .cijfers { list-style: none; padding: 0; margin: 1.5rem 0 2rem; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); }
-  .cijfers li { margin: 0; padding: 1rem 1.1rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); display: flex; flex-direction: column; gap: 0.3rem; background: var(--papier); }
+  .cijfers li { margin: 0; padding: 1rem 1.1rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); display: flex; flex-direction: column; gap: 0.3rem; background: var(--papier); transition: background-color 0.15s ease; }
+  .cijfers li:hover { background: var(--rood-licht); }
+  @media (prefers-reduced-motion: reduce) { .cijfers li { transition: none; } }
   .getal { font-family: var(--kop); font-size: clamp(1.9rem, 4vw, 2.4rem); line-height: 1; color: var(--rood); letter-spacing: -0.02em; }
   .tekst { font-size: 0.97rem; line-height: 1.4; }
   .bron { font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); margin-top: auto; padding-top: 0.3rem; text-decoration-thickness: 1px; }
