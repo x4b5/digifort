@@ -183,6 +183,7 @@ figure.foto .herkomst a { color: inherit; }
 .tek { stroke: var(--lijn-sterk); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .tek-dun { stroke: var(--lijn-sterk); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .tek-rood { stroke: var(--rood); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.tek-groen { stroke: var(--groen); stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .tek-vul { fill: var(--rood); stroke: none; }
 .tek-vul-inkt { fill: var(--lijn-sterk); stroke: none; }
 .tek-vul-papier { fill: var(--papier); stroke: none; }
@@ -190,6 +191,12 @@ figure.foto .herkomst a { color: inherit; }
 .tek-tekst { font-family: var(--kop); font-size: 13px; font-weight: 700; fill: var(--inkt); }
 .tek-label { font-family: var(--tekst); font-size: 12px; fill: var(--inkt-zacht); }
 .tek-stippel { stroke-dasharray: 2 7; }
+/* Staat een label op een plek waar een lijn doorheen loopt, dan geeft .tek-halo het
+   een randje in papierkleur: de lijn valt achter de letters weg in plaats van erdoorheen. */
+.tek-halo { paint-order: stroke; stroke: var(--papier); stroke-width: 4.5; stroke-linejoin: round; }
+/* In een icoon is 1,5 te dun: op 22px rendert dat op een halve pixel en wordt het waas.
+   De grote tekeningen schalen wel mee met de viewport en houden hun dunne lijn. */
+.hicoon .tek-dun, .kamer-icoon .tek-dun { stroke-width: 2.25; }
 
 /* ---- tekening met legenda (plattegrond en fort) ----
    De kleur zit op een data-toestand, zodat javascript alleen een woord hoeft te zetten:

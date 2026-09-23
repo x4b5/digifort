@@ -7,20 +7,20 @@ if (!k) throw new Error(`Onbekende kamer: ${id}`);
 ---
 <span class="kamer-icoon" aria-hidden="true">
   <svg viewBox="0 0 64 64" width="64" height="64">
-    {id === 'voordeur' && <g><path class="tek" d="M18 58 V26 a14 14 0 0 1 28 0 V58" /><text class="tek-tekst" x="32" y="42" text-anchor="middle" font-size="14">@</text><line class="tek" x1="12" y1="58" x2="52" y2="58" /></g>}
-    {id === 'tweede-voordeur' && <g><path class="tek" d="M16 58 V14 H48 V58" /><rect class="tek-dun" x="25" y="26" width="14" height="22" rx="3" /><line class="tek-dun" x1="29" y1="44" x2="35" y2="44" /><line class="tek" x1="10" y1="58" x2="54" y2="58" /></g>}
-    {id === 'sleutels' && <g><circle class="tek" cx="20" cy="26" r="9" /><path class="tek" d="M29 26 H54 M44 26 v8 M52 26 v8" /><circle class="tek-dun" cx="20" cy="46" r="6" /><path class="tek-dun" d="M26 46 H46 M40 46 v5" /></g>}
-    {id === 'sleutelkluis' && <g><rect class="tek" x="12" y="10" width="40" height="44" rx="3" /><circle class="tek" cx="32" cy="32" r="9" /><line class="tek" x1="32" y1="23" x2="32" y2="32" /><line class="tek-dun" x1="18" y1="48" x2="46" y2="48" /></g>}
-    {id === 'passkey' && <g><ellipse class="tek" cx="32" cy="32" rx="14" ry="20" /><ellipse class="tek-dun" cx="32" cy="32" rx="8" ry="12" /><line class="tek-dun" x1="32" y1="26" x2="32" y2="38" /></g>}
-    {id === 'tweede-slot' && <g><rect class="tek" x="14" y="30" width="36" height="26" rx="3" /><path class="tek" d="M22 30 V20 a10 10 0 0 1 20 0 v10" /><circle class="tek-vul" cx="32" cy="43" r="3.5" /><circle class="tek-vul" cx="32" cy="51" r="2" /></g>}
+    {id === 'voordeur' && <g><path class="tek" d="M14 54 V26 a18 18 0 0 1 36 0 V54" /><rect class="tek" x="22" y="30" width="20" height="14" rx="2" /><path class="tek-dun" d="M22 31 l10 7 l10 -7" /><line class="tek" x1="8" y1="54" x2="56" y2="54" /></g>}
+    {id === 'tweede-voordeur' && <g><path class="tek" d="M16 54 V10 H48 V54" /><rect class="tek-dun" x="25" y="22" width="14" height="22" rx="3" /><line class="tek-dun" x1="29" y1="40" x2="35" y2="40" /><line class="tek" x1="10" y1="54" x2="54" y2="54" /></g>}
+    {id === 'sleutels' && <g><circle class="tek" cx="20" cy="24" r="9" /><path class="tek" d="M29 24 H54 M44 24 v8 M52 24 v8" /><circle class="tek-dun" cx="20" cy="44" r="6" /><path class="tek-dun" d="M26 44 H46 M40 44 v5" /></g>}
+    {id === 'sleutelkluis' && <g><rect class="tek" x="14" y="10" width="36" height="44" rx="3" /><circle class="tek" cx="26" cy="24" r="5" /><path class="tek" d="M26 29 v13 M22 37 h4" /><circle class="tek" cx="40" cy="24" r="5" /><path class="tek" d="M40 29 v13 M36 37 h4" /></g>}
+    {id === 'passkey' && <g><circle class="tek" cx="22" cy="32" r="13" /><path class="tek-dun" d="M15 37 a8 8 0 0 1 14 0" /><path class="tek-dun" d="M19 38 a3.5 3.5 0 0 1 6 0" /><path class="tek" d="M35 32 H56" /><path class="tek" d="M46 32 v7 M54 32 v7" /></g>}
+    {id === 'tweede-slot' && <g><rect class="tek" x="14" y="30" width="36" height="26" rx="3" /><path class="tek" d="M22 30 V20 a10 10 0 0 1 20 0 v10" /><circle class="tek-vul-groen" cx="32" cy="43" r="3.5" /><circle class="tek-vul-groen" cx="32" cy="51" r="2" /></g>}
     {id === 'ramen' && <g><rect class="tek" x="12" y="12" width="40" height="40" /><path class="tek-dun" d="M32 12 V52 M12 32 H52" /></g>}
-    {id === 'brievenbus' && <g><line class="tek" x1="32" y1="58" x2="32" y2="34" /><rect class="tek" x="14" y="14" width="36" height="22" rx="4" /><line class="tek-dun" x1="22" y1="25" x2="42" y2="25" /></g>}
-    {id === 'tuinhek' && <g><path class="tek" d="M14 56 V26 M26 56 V22 M38 56 V26 M50 56 V22" /><path class="tek-dun" d="M8 36 H56 M8 48 H56" /></g>}
-    {id === 'kattenluik' && <g><path class="tek" d="M10 58 V10 H54 V58" /><path class="tek" d="M22 58 V44 a10 10 0 0 1 20 0 V58" /><line class="tek" x1="6" y1="58" x2="58" y2="58" /></g>}
-    {id === 'gang' && <g><path class="tek" d="M6 22 H58 M6 44 H58" /><path class="tek-dun" d="M14 22 a10 10 0 0 1 20 0 M34 22 a10 10 0 0 1 20 0" /><path class="tek" d="M44 33 h12 m-5 -5 l5 5 l-5 5" /></g>}
-    {id === 'brandkast' && <g><rect class="tek" x="10" y="14" width="44" height="40" rx="3" /><circle class="tek" cx="32" cy="34" r="8" /><line class="tek" x1="32" y1="26" x2="32" y2="34" /><path class="tek-dun" d="M14 10 v4 M50 10 v4" /></g>}
-    {id === 'onderhoud' && <g><path class="tek" d="M20 50 L40 30" /><path class="tek" d="M34 16 L50 20 L46 34 L30 30 Z" /><path class="tek-dun" d="M12 22 l10 -6 M16 34 l10 -6" /></g>}
-    {id === 'eigendomsakte' && <g><rect class="tek" x="12" y="10" width="40" height="44" rx="2" /><path class="tek-dun" d="M20 22 H44 M20 30 H44 M20 38 H34" /><circle class="tek-vul" cx="42" cy="44" r="4" /></g>}
+    {id === 'brievenbus' && <g><path class="tek" d="M12 44 V28 a16 13 0 0 1 32 0 v16 Z" /><rect class="tek-vul-inkt" x="20" y="30" width="16" height="4" rx="2" /><path class="tek" d="M28 44 V52" /><path class="tek" d="M50 38 V20" /><path class="tek-vul-inkt" d="M50 20 h6 v7 h-6 z" /></g>}
+    {id === 'tuinhek' && <g><rect class="tek" x="10" y="36" width="44" height="16" rx="3" /><path class="tek" d="M20 36 V26 M44 36 V26" /><circle class="tek-vul-inkt" cx="18" cy="44" r="2.5" /><path class="tek" d="M25 22 a11 11 0 0 1 14 0" /><path class="tek" d="M29 15 a6 6 0 0 1 6 0" /></g>}
+    {id === 'kattenluik' && <g><rect class="tek" x="10" y="12" width="44" height="42" rx="2" /><path class="tek" d="M23 54 V40 h18 v14" /><path class="tek-dun" d="M23 45 H41" /><path class="tek" d="M8 54 H56" /></g>}
+    {id === 'gang' && <g><path class="tek" d="M8 52 V36 a24 24 0 0 1 48 0 v16" /><path class="tek" d="M20 52 V40 a12 12 0 0 1 24 0 v12" /><path class="tek" d="M8 52 H56" /><path class="tek" d="M26 46 h12 m-5 -5 l5 5 l-5 5" /></g>}
+    {id === 'brandkast' && <g><rect class="tek" x="10" y="12" width="44" height="38" rx="3" /><circle class="tek" cx="32" cy="31" r="8" /><path class="tek" d="M32 23 V39 M24 31 H40" /><path class="tek" d="M16 50 v6 M48 50 v6" /><path class="tek-dun" d="M10 20 h6 M10 42 h6" /></g>}
+    {id === 'onderhoud' && <g><path class="tek" d="M18 53 L42 29" /><path class="tek" d="M35 13 L54 17 L49 34 L30 29 Z" /><path class="tek-dun" d="M8 20 l12 -7 M13 34 l12 -7" /></g>}
+    {id === 'eigendomsakte' && <g><rect class="tek" x="12" y="10" width="40" height="44" rx="2" /><path class="tek-dun" d="M20 22 H44 M20 30 H44 M20 38 H34" /><circle class="tek-vul-inkt" cx="42" cy="44" r="4" /></g>}
   </svg>
 </span>
 <style>
