@@ -152,6 +152,16 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
   /* net als bij het weergavepaneel: een dichte <details> mag geen lay-out maken */
   .menu:not([open]) nav { display: none; }
   nav { min-width: min(22rem, 90vw); padding: 0.5rem 0; }
+  /* de kop blijft staan als je scrolt, dus een menu dat langer is dan het scherm
+     scrolt zelf; anders zijn de laatste hoofdstukken onbereikbaar */
+  .menu nav { max-height: calc(100dvh - 9rem); overflow-y: auto; overscroll-behavior: contain; }
+  /* op een telefoon staat de knop links op een eigen regel: het menu hangt dan
+     aan de hele kopregel, zodat het niet links buiten beeld uitklapt */
+  @media (max-width: 40rem) {
+    .kop-rij { position: relative; }
+    .menu { position: static; }
+    .menu nav { left: clamp(1rem, 4vw, 2rem); right: clamp(1rem, 4vw, 2rem); min-width: 0; }
+  }
   ol { list-style: none; margin: 0; padding: 0; }
   li { margin: 0; }
   li a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 1rem; color: var(--inkt); text-decoration: none; font-size: 1rem; }

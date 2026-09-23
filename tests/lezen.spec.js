@@ -64,3 +64,22 @@ test('het open leespaneel past op een telefoon', async ({ page }) => {
   });
   expect(past).toBe(true);
 });
+
+for (const tekst of ['normaal', 'groter']) {
+  test(`het open menu past op het scherm en elk hoofdstuk is te bereiken (tekst ${tekst})`, async ({ page }) => {
+    await page.addInitScript((t) => window.localStorage.setItem('jdh:lezen', JSON.stringify({ tekst: t, thema: 'auto' })), tekst);
+    await page.goto('/huischeck');
+    await page.locator('.kop details.menu summary').click();
+    const paneel = page.locator('.kop details.menu .paneel');
+    await expect(paneel).toBeVisible();
+    const past = await paneel.evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      return r.left >= -1 && r.right <= document.documentElement.clientWidth + 1 && r.bottom <= window.innerHeight + 1;
+    });
+    expect(past).toBe(true);
+    // het laatste hoofdstuk kun je in beeld scrollen en aantikken
+    const laatste = paneel.locator('li').last().locator('a');
+    await laatste.scrollIntoViewIfNeeded();
+    await expect(laatste).toBeInViewport();
+  });
+}
