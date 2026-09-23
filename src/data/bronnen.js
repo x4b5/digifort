@@ -786,6 +786,17 @@ export const BRONNEN = [
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'Het bericht op de plattegrond is nagemaakt als oefening; het webadres erin is verzonnen. PostNL is hier de bron voor wat PostNL zelf wel en niet doet' }],
   },
+  {
+    hoofdstuk: ['inbrekers-van-nu', 'aan-de-slag'],
+    bewering: 'Welke apps bij je camera, microfoon en locatie mogen, zie en wijzig je op een iPhone bij Instellingen, Privacy en beveiliging, en op Android bij Instellingen, Beveiliging en privacy, Privacy, Rechtenbeheer. Android kan de rechten van apps die je niet gebruikt vanzelf intrekken. Een groen of oranje lampje bovenin betekent dat een app de camera of microfoon gebruikt',
+    bron: [
+      { tekst: 'Apple Support, de toegang tot hardwarevoorzieningen beheren op de iPhone', href: 'https://support.apple.com/nl-nl/guide/iphone/iph168c4bbd5/ios' },
+      { tekst: 'Google, app-rechten wijzigen op je Android-telefoon', href: 'https://support.google.com/android/answer/9431959?hl=nl' },
+      { tekst: 'Google, checken of je Android-camera of -microfoon aan- of uitstaat', href: 'https://support.google.com/android/answer/13532937?hl=nl' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De menunamen op Android verschillen soms per merk; dit zijn de namen die Google zelf gebruikt' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */

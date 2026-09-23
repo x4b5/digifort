@@ -28,6 +28,7 @@ export const LIJSTEN = {
       { id: 'backup', stap: 'Maak twee reservekopieën: één op internet en één op een losse schijf', waarom: 'De brandkast buiten de deur', tijd: 60, kamer: 'brandkast' },
       { id: 'router', stap: 'Geef je router een nieuw wachtwoord en werk hem bij', waarom: 'Het tuinhek gaat op slot', tijd: 20, kamer: 'tuinhek' },
       { id: 'versleuteling', stap: 'Zet je laptop zo in dat alles erop onleesbaar is zonder jouw wachtwoord', waarom: 'Een gestolen laptop is dan alleen nog een stuk metaal', tijd: 10, kamer: 'tweede-voordeur' },
+      { id: 'app-rechten', stap: 'Kijk welke apps bij je locatie, camera, microfoon en contacten mogen, en zet uit wat niet nodig is', waarom: 'Niet elke app hoeft door je ramen naar binnen te kijken', tijd: 10, kamer: 'ramen' },
       { id: 'ublock', stap: 'Zet uBlock Origin in je browser en gooi extensies weg die je niet gebruikt', waarom: 'Gordijnen voor de ramen', tijd: 10, kamer: 'ramen', gereedschap: ['ublock', 'firefox'] },
       { id: 'sim-pincode', stap: 'Zet een pincode op je simkaart', waarom: 'Dat helpt tegen diefstal van je nummer', tijd: 5, kamer: 'brievenbus' },
     ],
