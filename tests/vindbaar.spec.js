@@ -59,3 +59,18 @@ test('het woordenboek is een begrippenlijst, en elk begrip heeft een eigen anker
   expect(new Set(ankers).size, 'twee woorden met hetzelfde anker').toBe(WOORDEN.length);
   for (const anker of ankers) await expect(page.locator(`[id="${anker}"]`)).toHaveCount(1);
 });
+
+test('llms.txt noemt elk hoofdstuk, met een volledig adres', async ({ request }) => {
+  const tekst = await (await request.get('/llms.txt')).text();
+  expect(tekst.startsWith(`# ${SITE.naam}`)).toBe(true);
+  for (const h of HOOFDSTUKKEN) expect(tekst, h.slug).toContain(`](${SITE.url}/${h.slug})`);
+});
+
+test('llms-full.txt heeft elk hoofdstuk als platte tekst, zonder opmaakcode', async ({ request }) => {
+  const tekst = await (await request.get('/llms-full.txt')).text();
+  for (const h of HOOFDSTUKKEN) expect(tekst, h.slug).toContain(`# ${h.titel}\n`);
+  // geen component, geen HTML-tag, geen quizgegevens: een assistent moet het kunnen lezen als tekst
+  expect(tekst).not.toMatch(/<[A-Za-z/][^>]*>/);
+  expect(tekst).not.toMatch(/^import /m);
+  expect(tekst).not.toMatch(/goed: true|opties=/);
+});
