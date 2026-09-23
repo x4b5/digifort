@@ -23,8 +23,8 @@ for (const pad of PAGINAS) {
 test('het woordenboek filtert terwijl je typt', async ({ page }) => {
   await page.goto('/woordenboek');
   await page.locator('[data-zoek]').fill('passkey');
-  await expect(page.locator('tbody tr:visible')).toHaveCount(4);
-  await expect(page.locator('[data-stand]')).toHaveText('4 van 38 woorden');
+  await expect(page.locator('tbody tr:visible')).toHaveCount(7);
+  await expect(page.locator('[data-stand]')).toHaveText('7 van 60 woorden');
 
   await page.locator('[data-zoek]').fill('zeppelin');
   await expect(page.locator('tbody tr:visible')).toHaveCount(0);
