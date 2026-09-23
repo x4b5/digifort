@@ -1,3 +1,12 @@
+/* De letters staan in deze site zelf, niet bij Google: elke bezoeker zou daar
+   anders zijn IP-adres achterlaten, en de pagina moest erop wachten.
+   Alleen latin en latin-ext; de unicode-range laadt het tweede bestand
+   pas als er echt zo'n teken op de pagina staat. */
+@import "@fontsource-variable/bricolage-grotesque/wght.css";
+@import "@fontsource/atkinson-hyperlegible-next/latin-400.css";
+@import "@fontsource/atkinson-hyperlegible-next/latin-700.css";
+@import "@fontsource/atkinson-hyperlegible-next/latin-ext-400.css";
+@import "@fontsource/atkinson-hyperlegible-next/latin-ext-700.css";
 @import "./tokens.css";
 
 *, *::before, *::after { box-sizing: border-box; }

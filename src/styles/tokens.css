@@ -17,7 +17,7 @@
      dus dan is donkere tekst juist leesbaar (wit op donkergroen haalt 2,5:1) */
   --op-kleur: #ffffff;
 
-  --kop: "Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --kop: "Bricolage Grotesque Variable", "Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
   --tekst: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 

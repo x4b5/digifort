@@ -5,7 +5,8 @@ import Voet from '../components/Voet.astro';
 import { SITE } from '../lib/site.js';
 
 const { titel, beschrijving = SITE.slogan, datum = SITE.laatstNagelopen, breed = false } = Astro.props;
-const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
+const paginaTitel = titel ? `${titel} · ${SITE.naam}` : `${SITE.naam} Van open huis naar fort`;
+const hier = new URL(Astro.url.pathname, Astro.site);
 ---
 <!doctype html>
 <html lang="nl">
@@ -15,19 +16,22 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
     <meta name="description" content={beschrijving} />
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
     <title>{paginaTitel}</title>
+    <link rel="canonical" href={hier} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.naam} />
     <meta property="og:title" content={paginaTitel} />
     <meta property="og:description" content={beschrijving} />
+    <meta property="og:url" content={hier} />
     <meta property="og:image" content={new URL('/deelplaatje.png', Astro.site)} />
+    <meta property="og:image:alt" content="Links een open huis met een scheur en een sleutel onder de mat, rechts hetzelfde huis als fort met een muur en een gracht." />
     <meta property="og:locale" content="nl_NL" />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700&display=swap" />
     <!-- leesvoorkeur meteen toepassen, anders flitst de pagina even in de andere stand.
          Dezelfde sleutel als in src/lib/lezen.js. -->
     <script is:inline>

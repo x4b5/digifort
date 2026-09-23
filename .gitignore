@@ -24,3 +24,7 @@ pnpm-debug.log*
 .idea/
 .vercel
 scripts/.tmp/
+
+# testuitslagen
+test-results/
+playwright-report/
