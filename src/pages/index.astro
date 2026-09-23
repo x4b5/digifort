@@ -3,6 +3,7 @@ import Pagina from '../layouts/Pagina.astro';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import HuisEnFort from '../components/HuisEnFort.astro';
 import Verder from '../components/Verder.astro';
+import Snelcheck from '../components/Snelcheck.astro';
 import { HOOFDSTUKKEN } from '../lib/site.js';
 ---
 <Pagina breed beschrijving="Je gaat niet naar het internet, het internet komt bij jou binnen. Elke app is een deur. Deze site loopt met je mee tot je huis een fort is. Gratis, in gewone taal, zonder reclame.">
@@ -18,11 +19,18 @@ import { HOOFDSTUKKEN } from '../lib/site.js';
       </p>
       <Verder />
     </div>
+    <aside class="hero-cijfer" aria-label="Eén cijfer">
+      <strong class="getal">1 op 10</strong>
+      <p>Nederlanders van 15 jaar en ouder werd in 2025 online opgelicht. Gehackt worden gebeurde minder vaak: 6 op 100. De meeste inbrekers breken niets open. Ze bellen aan.</p>
+      <a class="bron" href="https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit">CBS, Veiligheidsmonitor 2025</a>
+    </aside>
   </section>
 
   <section class="fort" id="fort">
-    <h2 class="fort-kop">Waar we naartoe werken</h2>
-    <p class="tekst">Links het huis waar de meeste mensen in wonen. Rechts het fort. Elk deel van het fort hoort bij een stap uit <a href="/aan-de-slag">hoofdstuk 4</a>. Wat je regelt, kleurt <span class="kleur groen">groen</span>; wat openstaat, kleurt <span class="kleur rood">rood</span>.</p>
+    <h2 class="fort-kop">Hoe staat jouw fort ervoor?</h2>
+    <p class="tekst">Drie vragen, tien seconden. Wat je regelt, kleurt <span class="kleur groen">groen</span>; wat openstaat, kleurt <span class="kleur rood">rood</span>. Kijk wat er met het fort hieronder gebeurt.</p>
+    <Snelcheck />
+    <p class="tekst fort-uitleg">Links het huis waar de meeste mensen in wonen. Rechts het fort waar we naartoe werken. Elk deel hoort bij een stap uit <a href="/aan-de-slag">hoofdstuk 4</a>.</p>
     <HuisEnFort />
   </section>
 
@@ -45,7 +53,13 @@ import { HOOFDSTUKKEN } from '../lib/site.js';
 <style>
   /* de tekstkolom blijft leesbaar smal, maar de knoppen mogen de volle breedte
      gebruiken: anders valt de derde op een breed scherm alleen op een tweede regel */
-  .hero { padding-bottom: 1rem; }
+  .hero { padding-bottom: 1rem; display: grid; gap: 1.5rem 2.5rem; align-items: end; }
+  @media (min-width: 60rem) { .hero { grid-template-columns: minmax(0, 1fr) 17rem; } }
+  .hero-cijfer { border-left: 6px solid var(--rood); padding: 0.25rem 0 0.25rem 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .hero-cijfer .getal { font-family: var(--kop); font-size: clamp(2.6rem, 6vw, 3.4rem); line-height: 1; color: var(--rood); letter-spacing: -0.02em; }
+  .hero-cijfer p { margin: 0; font-size: 1rem; line-height: 1.45; }
+  .hero-cijfer .bron { align-self: flex-start; padding: 0.3rem 0; font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); text-decoration-thickness: 1px; }
+  .fort-uitleg { margin-top: 2rem; }
   .hero-tekst > :not(.knoppen) { max-width: var(--maat); }
   .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
   .knoppen { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }

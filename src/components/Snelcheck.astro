@@ -1,0 +1,75 @@
+---
+/**
+ * Drie vragen op de voorpagina, zodat een nieuwe bezoeker binnen tien seconden iets doet
+ * en het fort eronder ziet reageren. De antwoorden zijn gewone huischeck-antwoorden:
+ * wie daarna de huischeck opent, vindt ze daar al ingevuld.
+ */
+import { SNELCHECK } from '../data/huischeck.js';
+import { FORTDELEN } from '../data/fort.js';
+const naam = (id: string) => FORTDELEN.find((d) => d.id === id)!.naam;
+---
+<div class="snelcheck" data-snelcheck>
+  <ol class="snel-vragen">
+    {SNELCHECK.map((v) => (
+      <li class="snel-vraag" data-snel={v.nr} data-deel-naam={naam(v.deel)}>
+        <p class="vraag" id={`snel-${v.nr}`}>{v.vraag}</p>
+        <div class="antwoorden" role="group" aria-labelledby={`snel-${v.nr}`}>
+          <label class="antwoord ja"><input type="radio" name={`snel-${v.nr}`} value="ja" /><span>Ja</span></label>
+          <label class="antwoord nee"><input type="radio" name={`snel-${v.nr}`} value="nee" /><span>Nee</span></label>
+        </div>
+        <p class="gevolg" data-gevolg aria-live="polite"></p>
+      </li>
+    ))}
+  </ol>
+  <p class="verder-check" data-snel-klaar hidden>Dat waren er drie van de tien. <a href="/huischeck#doe-de-huischeck">Maak de huischeck af →</a> Je antwoorden staan er al in.</p>
+</div>
+
+<script>
+  import { lees, zetAntwoord } from '../lib/opslag.js';
+
+  document.querySelectorAll<HTMLElement>('[data-snelcheck]').forEach((blok) => {
+    const vragen = Array.from(blok.querySelectorAll<HTMLElement>('[data-snel]'));
+    const klaar = blok.querySelector<HTMLElement>('[data-snel-klaar]')!;
+
+    /** Zet de knoppen en de zin onder elke vraag gelijk aan wat er in het laatje staat. */
+    function toon(data = lees()) {
+      vragen.forEach((li) => {
+        const antwoord = data.huischeck[Number(li.dataset.snel)];
+        li.querySelectorAll<HTMLInputElement>('input').forEach((i) => { i.checked = antwoord !== undefined && i.value === (antwoord ? 'ja' : 'nee'); });
+        const gevolg = li.querySelector<HTMLElement>('[data-gevolg]')!;
+        li.dataset.toestand = antwoord === true ? 'dicht' : antwoord === undefined ? '' : 'open';
+        gevolg.textContent = antwoord === true ? `${li.dataset.deelNaam} staat.` : antwoord === undefined ? '' : `${li.dataset.deelNaam} wankelt nog.`;
+      });
+      klaar.hidden = !vragen.every((li) => data.huischeck[Number(li.dataset.snel)] !== undefined);
+    }
+
+    blok.addEventListener('change', (e) => {
+      const input = e.target as HTMLInputElement;
+      const nr = Number(input.closest<HTMLElement>('[data-snel]')!.dataset.snel);
+      zetAntwoord(nr, input.value === 'ja');
+    });
+    toon();
+    window.addEventListener('jdh:gewijzigd', (e: Event) => toon((e as CustomEvent).detail));
+  });
+</script>
+
+<style>
+  .snel-vragen { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr)); }
+  .snel-vraag { margin: 0; padding: 1rem 1.1rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier); display: flex; flex-direction: column; gap: 0.6rem; transition: background-color 0.2s ease; }
+  .snel-vraag[data-toestand="dicht"] { background: var(--groen-licht); }
+  .snel-vraag[data-toestand="open"] { background: var(--rood-licht); }
+  .vraag { margin: 0; font-weight: 700; line-height: 1.35; }
+  .antwoorden { display: flex; gap: 0.5rem; margin-top: auto; }
+  .antwoord { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.3rem 1.1rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); font-family: var(--kop); font-weight: 700; cursor: pointer; background: var(--papier); transition: background-color 0.15s ease; }
+  .antwoord input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .antwoord:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .ja:has(input:checked) { background: var(--groen); border-color: var(--groen); color: var(--op-kleur); }
+  .nee:has(input:checked) { background: var(--rood); border-color: var(--rood); color: var(--op-kleur); }
+  .ja:not(:has(input:checked)):hover { background: var(--groen-licht); }
+  .nee:not(:has(input:checked)):hover { background: var(--rood-licht); }
+  .gevolg { margin: 0; font-size: 0.95rem; font-family: var(--kop); font-weight: 700; min-height: 1.4em; }
+  [data-toestand="dicht"] .gevolg { color: var(--groen); }
+  [data-toestand="open"] .gevolg { color: var(--rood); }
+  .verder-check { margin: 1rem 0 0; font-size: 1rem; }
+  @media (prefers-reduced-motion: reduce) { .snel-vraag, .antwoord { transition: none; } }
+</style>

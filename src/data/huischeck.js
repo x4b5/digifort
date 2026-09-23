@@ -13,6 +13,17 @@ export const VRAGEN = [
 ];
 
 /**
+ * De snelcheck op de voorpagina: drie huischeck-vragen, korter gezegd.
+ * Gekozen omdat elk precies één fortdeel draagt (gracht, torenwacht, schatkamer):
+ * dan kleurt zowel "ja" als "nee" meteen iets op het fort.
+ */
+export const SNELCHECK = [
+  { nr: 2, vraag: 'Bewaar je je wachtwoorden in een wachtwoordmanager?', deel: 'gracht' },
+  { nr: 4, vraag: 'Werken je telefoon en computer zichzelf bij?', deel: 'toren' },
+  { nr: 5, vraag: 'Staat er een kopie van je foto\'s en bestanden op een andere plek?', deel: 'schat' },
+];
+
+/**
  * Het cijfer dat Nederlanders zichzelf gemiddeld geven voor het omgaan met online
  * risico's. Staat met bron in de bronnenlijst (Alert Online 2025, Ipsos I&O).
  */
