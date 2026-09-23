@@ -20,8 +20,8 @@ const top = max ?? (Math.max(...items.map((i) => i.waarde), 0) || 1);
 ---
 <figure class="grafiek">
   <ul>
-    {items.map((i) => (
-      <li data-kleur={i.kleur ?? 'inkt'}>
+    {items.map((i, n) => (
+      <li data-kleur={i.kleur ?? 'inkt'} style={`--n: ${n}`}>
         <span class="g-label">{i.label}</span>
         <span class="g-baan"><span class="g-balk" style={`--deel: ${(i.waarde / top) * 100}%`} /></span>
         <span class="g-waarde">{i.toon}</span>
@@ -30,6 +30,25 @@ const top = max ?? (Math.max(...items.map((i) => i.waarde), 0) || 1);
   </ul>
   {Astro.slots.has('default') && <figcaption><slot /></figcaption>}
 </figure>
+<script>
+  // De balken vullen pas als de grafiek in beeld komt; bij het laden zou dat
+  // al voorbij zijn voordat de lezer er is. Zonder JavaScript of bij 'minder
+  // beweging' blijft de klasse weg en staan de balken meteen vol.
+  const rustig = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!rustig && 'IntersectionObserver' in window) {
+    const kijker = new IntersectionObserver((treffers) => {
+      for (const t of treffers) {
+        if (!t.isIntersecting) continue;
+        t.target.classList.remove('wacht');
+        kijker.unobserve(t.target);
+      }
+    }, { threshold: 0.4 });
+    for (const g of document.querySelectorAll('.grafiek')) {
+      g.classList.add('wacht');
+      kijker.observe(g);
+    }
+  }
+</script>
 <style>
   .grafiek { margin: 1.5rem 0 2rem; container-type: inline-size; }
   .grafiek ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
@@ -49,8 +68,10 @@ const top = max ?? (Math.max(...items.map((i) => i.waarde), 0) || 1);
     background: var(--inkt-zacht);
     border-radius: 2px;
     transform-origin: left center;
-    animation: groei 0.5s ease-out both;
+    transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--n) * 0.12s);
   }
+  /* Zonder transition bij het inkrimpen: anders zie je de balken bij het laden eerst leeglopen. */
+  .grafiek.wacht .g-balk { transform: scaleX(0); transition: none; }
   [data-kleur='rood'] .g-balk { background: var(--rood); }
   [data-kleur='groen'] .g-balk { background: var(--groen); }
   .g-waarde { font-family: var(--kop); font-size: 1.05rem; color: var(--inkt); text-align: right; }
@@ -69,6 +90,5 @@ const top = max ?? (Math.max(...items.map((i) => i.waarde), 0) || 1);
     .grafiek li { grid-template-columns: 1fr auto; row-gap: 0.25rem; }
     .g-label { grid-column: 1 / -1; }
   }
-  @keyframes groei { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  @media (prefers-reduced-motion: reduce) { .g-balk { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .g-balk { transition: none; } }
 </style>
