@@ -1,0 +1,63 @@
+---
+/**
+ * Eén waargebeurd verhaal, zichtbaar in de tekst.
+ *
+ * Bewust géén uitklapper: het verhaal is het stuk dat blijft hangen, en wat je
+ * dichtklapt leest bijna niemand. De trivia eronder (Jargon) mag wel dicht.
+ *
+ * Twee regels waaraan elk verhaal hier voldoet:
+ * 1. Het eindigt bij wat het had voorkomen, niet bij de schade. Anders is het
+ *    bangmakerij, en dat belooft deze site niet te doen.
+ * 2. Het heeft een bron die de lezer zelf kan nalopen, en die staat in de
+ *    brontabel op /over.
+ */
+const { titel, wanneer, bron, href, voorkomen, naar, naarTekst } = Astro.props;
+---
+<aside class="verhaal">
+  <p class="eyebrow klein">Dit is echt gebeurd{wanneer && ` · ${wanneer}`}</p>
+  <h3>{titel}</h3>
+  <div class="tekst"><slot /></div>
+  {voorkomen && (
+    <p class="voorkomen">
+      <span class="label">Wat dit had voorkomen</span>
+      {voorkomen}
+      {naar && <> <a href={naar}>{naarTekst ?? 'Ga ernaartoe'} →</a></>}
+    </p>
+  )}
+  {bron && <p class="bron"><a href={href}>Bron: {bron}</a></p>}
+</aside>
+
+<style>
+  .verhaal {
+    margin: 1.75rem 0 2rem;
+    padding: 1.1rem 1.3rem 1rem;
+    border: var(--lijndikte) solid var(--lijn-sterk);
+    border-radius: var(--radius);
+    background: var(--papier-2);
+  }
+  .verhaal h3 { margin: 0 0 0.6rem; font-size: clamp(1.15rem, 2.8vw, 1.4rem); }
+  .tekst :global(p) { margin: 0 0 0.7rem; }
+  .tekst :global(p:last-child) { margin-bottom: 0; }
+
+  /* de constructieve kant krijgt groen, net als een dichte deur elders op de site */
+  .voorkomen {
+    margin: 1rem 0 0;
+    padding: 0.7rem 1rem;
+    border-left: 6px solid var(--groen);
+    background: var(--groen-licht);
+  }
+  /* het groen van de site haalt op deze lichte ondergrond 4,3:1 en dus niet de
+     4,5 die kleine tekst nodig heeft; de gewone inktkleur wel (15,8:1) */
+  .label {
+    display: block;
+    font-family: var(--kop);
+    font-size: var(--tekst-s);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--inkt);
+    margin-bottom: 0.15rem;
+  }
+  .bron { margin: 0.7rem 0 0; font-size: var(--tekst-m); color: var(--inkt-zacht); }
+  .bron a { color: inherit; }
+  .bron a:hover { color: var(--rood); }
+</style>
