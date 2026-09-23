@@ -2,6 +2,7 @@
  * Echte foto's bij de tekst. Elke foto is vrijgegeven door de maker (CC0) en staat
  * hier met maker en bron, zodat het onderschrift zichzelf invult.
  */
+/** @type {Record<string, { bestand: string, alt: string, maker: string, licentie: string, bron: string, licentieBron?: string }>} */
 export const FOTOS = {
   'sleutel-in-voordeur': {
     bestand: 'sleutel-in-voordeur.jpg',

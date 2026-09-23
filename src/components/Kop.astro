@@ -37,7 +37,7 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
 
   // de teller telt de vinkjes uit de lijsten met sloten; de kantelen laten per
   // fortdeel zien of hij staat (groen), wankelt (rood) of nog onbekend is
-  function telSloten(data) {
+  function telSloten(data: { lijsten: Record<string, Record<string, boolean>> }) {
     return SLOT_LIJSTEN.reduce((n, id) => {
       const items = data.lijsten[id] ?? {};
       return n + LIJSTEN[id].items.filter((it) => items[it.id]).length;

@@ -81,10 +81,10 @@ const hier = new URL(Astro.url.pathname, Astro.site);
       // wissen kan niet ongedaan gemaakt worden, dus pas op de tweede klik.
       // De knop blijft bruikbaar; de bevestiging gaat naar een aparte melding,
       // want een knop die zichzelf uitschakelt verliest de focus en wordt niet voorgelezen.
-      document.querySelectorAll('[data-wis]').forEach((knop) => {
+      document.querySelectorAll<HTMLElement>('[data-wis]').forEach((knop) => {
         const melding = document.querySelector('[data-wis-melding]');
         const label = knop.textContent;
-        let klok;
+        let klok: ReturnType<typeof setTimeout>;
 
         function herstel() {
           clearTimeout(klok);

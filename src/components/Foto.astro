@@ -7,7 +7,7 @@ const { id, onderschrift, breed = false } = Astro.props;
 const foto = FOTOS[id];
 if (!foto) throw new Error(`Onbekende foto: ${id}`);
 
-const bestanden = import.meta.glob('../assets/foto/*.{jpg,jpeg,png,webp}', { eager: true });
+const bestanden = import.meta.glob<{ default: ImageMetadata }>('../assets/foto/*.{jpg,jpeg,png,webp}', { eager: true });
 const bron = bestanden[`../assets/foto/${foto.bestand}`];
 if (!bron) throw new Error(`Foto ontbreekt in src/assets/foto: ${foto.bestand}`);
 ---

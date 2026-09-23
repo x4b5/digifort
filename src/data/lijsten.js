@@ -1,4 +1,9 @@
-/** Alle afvinklijsten van de site. `tijd` in minuten waar de tekst dat noemt. */
+/**
+ * Alle afvinklijsten van de site. `tijd` in minuten waar de tekst dat noemt.
+ * @typedef {{ id: string, stap: string, waarom: string, kamer: string, tijd?: number, gereedschap?: string[] }} LijstItem
+ * @typedef {{ titel: string, items: LijstItem[], slot?: boolean }} Lijst
+ * @type {Record<string, Lijst>}
+ */
 export const LIJSTEN = {
   'niveau-1': {
     titel: 'Niveau 1: de basis in één avond',

@@ -4,9 +4,10 @@
  * met de huischeck en de afvinklijsten: rood = open, groen = dicht, zwart = onbekend.
  */
 import { KAMERS } from '../data/kamers.js';
+interface Props { legenda?: boolean }
 const { legenda = true } = Astro.props;
 const k = Object.fromEntries(KAMERS.map((x) => [x.id, x]));
-const href = (id) => `/plattegrond#${k[id].anker}`;
+const href = (id: string) => `/plattegrond#${k[id].anker}`;
 ---
 <figure class="tekening plattegrond" data-plattegrond>
   <svg viewBox="0 0 720 400" role="group" aria-labelledby="plattegrond-titel plattegrond-uitleg">

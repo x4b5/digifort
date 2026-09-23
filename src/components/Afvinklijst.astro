@@ -27,7 +27,7 @@ const Tag = genummerd ? 'ol' : 'ul';
             <span class="stap">{genummerd && <span class="nr">{i + 1}.</span>} {it.stap}</span>
             {it.waarom && <span class="waarom">{it.waarom}</span>}
             {it.tijd && <span class="minuten">{it.tijd} min</span>}
-            {it.gereedschap?.length > 0 && <span class="gereedschap">{it.gereedschap.map((g) => <Merk id={g} maat={18} />)}</span>}
+            {it.gereedschap && it.gereedschap.length > 0 && <span class="gereedschap">{it.gereedschap.map((g) => <Merk id={g} maat={18} />)}</span>}
           </span>
         </label>
       </li>

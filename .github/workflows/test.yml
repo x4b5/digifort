@@ -31,6 +31,11 @@ jobs:
       - name: Bouwen
         run: npm run build
 
+      # typecontrole staat na het bouwen, want hij leunt op de gegenereerde
+      # types van de content-collecties; waarschuwingen laten de stap slagen
+      - name: Typecontrole
+        run: npm run check
+
       - name: Testen (desktop in Chromium, telefoon in WebKit)
         run: npx playwright test
 

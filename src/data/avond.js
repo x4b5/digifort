@@ -2,6 +2,7 @@
  * "Ik heb één avond": per stap van niveau 1 (lijsten.js) hoe je het doet, in gewone taal.
  * De sleutel is het id van het item in niveau-1.
  */
+/** @type {Record<string, { hoe: string[], gereedschap: string[], klaar: string }>} */
 export const AVOND = {
   'mail-wachtwoord': {
     hoe: [

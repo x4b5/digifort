@@ -7,7 +7,7 @@ import * as si from 'simple-icons';
 import { gereedschap } from '../data/gereedschap.js';
 const { id, maat = 28, naam = true, link = false } = Astro.props;
 const g = gereedschap(id);
-const icoon = g.icoon ? si[g.icoon] : null;
+const icoon = g.icoon ? si[g.icoon as keyof typeof si] : null;
 const Tag = link ? 'a' : 'span';
 ---
 <Tag class="merk" href={link ? g.url : undefined} rel={link ? 'noopener' : undefined}>

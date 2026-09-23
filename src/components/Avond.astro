@@ -13,7 +13,7 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
 <section class="avond" data-avond data-totaal={stappen.length}>
   <p class="stand" data-stand aria-live="polite">Stap 1 van {stappen.length} · ongeveer {totaalTijd} minuten in totaal</p>
   <ol class="bolletjes" aria-hidden="true">
-    {stappen.map((it, i) => <li data-bol={i}>{i + 1}</li>)}
+    {stappen.map((_, i) => <li data-bol={i}>{i + 1}</li>)}
   </ol>
 
   {stappen.map((it, i) => (

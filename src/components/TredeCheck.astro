@@ -42,13 +42,16 @@ const VRAGEN = [
 <script>
   import { trede as tredeInfo } from '../data/tredes.js';
 
-  document.querySelectorAll('[data-tredecheck]').forEach((s) => {
-    const kies = (naam) => s.querySelector(`input[name="tc-${naam}"]:checked`)?.value;
+  /** de vier antwoorden op vraag 1, elk met de trede die ze waard zijn */
+  const START = { zelfde: 1, eigen: 2, kluis: 3, passkey: 6 };
+
+  document.querySelectorAll<HTMLElement>('[data-tredecheck]').forEach((s) => {
+    const kies = (naam: string) => s.querySelector<HTMLInputElement>(`input[name="tc-${naam}"]:checked`)?.value;
 
     function trede() {
       const ww = kies('ww'), stap = kies('stap'), nood = kies('nood');
       if (!ww || !stap || !nood) return null;
-      let t = { zelfde: 1, eigen: 2, kluis: 3, passkey: 6 }[ww];
+      let t = START[ww as keyof typeof START];
       if (stap === 'sms') t = Math.max(t, 4);
       if (stap === 'app') t = Math.max(t, 5);
       if (stap === 'passkey') t = Math.max(t, 6);
@@ -57,7 +60,7 @@ const VRAGEN = [
       return { t, ww, stap, nood };
     }
 
-    function advies({ t, ww, stap, nood }) {
+    function advies({ t, ww }: { t: number; ww: string }) {
       if (t <= 2) return { tekst: 'Begin bij een wachtwoordmanager en een tweede slot op je e-mail. Dat is niveau 1, in één avond.', naar: '/aan-de-slag#niveau-1', naarTekst: 'Naar niveau 1' };
       if (t === 3) return { tekst: 'De kluis staat. Zet nu een tweede slot op je e-mail: een code uit een app, of beter een passkey.', naar: '/aan-de-slag#niveau-2', naarTekst: 'Naar niveau 2' };
       if (t === 4) return { tekst: 'Wissel de sms-code om voor een app of een passkey. Dat kost vijf minuten per account.', naar: '/aan-de-slag#niveau-2', naarTekst: 'Naar niveau 2' };
@@ -70,7 +73,7 @@ const VRAGEN = [
 
     // wie lager staat en geen herstelcodes heeft, hoort dat ook te horen:
     // anders stel je drie vragen en doe je met de derde niets
-    function noodzin(nood, t) {
+    function noodzin(nood: string, t: number) {
       return nood === 'nee' && t <= 5
         ? ' Let op: raak je vandaag je telefoon kwijt, dan kom je er niet meer in. Schrijf je herstelcodes op papier.'
         : '';
@@ -78,18 +81,18 @@ const VRAGEN = [
 
     function toon() {
       const r = trede();
-      const uit = s.querySelector('[data-uitslag]');
+      const uit = s.querySelector<HTMLElement>('[data-uitslag]')!;
       uit.hidden = !r;
       if (!r) return;
-      s.querySelector('[data-bol]').textContent = String(r.t).padStart(2, '0');
-      s.querySelector('[data-titel]').textContent = tredeInfo(r.t).titel;
+      s.querySelector('[data-bol]')!.textContent = String(r.t).padStart(2, '0');
+      s.querySelector('[data-titel]')!.textContent = tredeInfo(r.t)!.titel;
       const a = advies(r);
-      s.querySelector('[data-advies]').textContent = a.tekst + noodzin(r.nood, r.t);
-      s.querySelector('[data-link]').setAttribute('href', `#trede-${r.t}`);
-      const volgende = s.querySelector('[data-volgende]');
+      s.querySelector('[data-advies]')!.textContent = a.tekst + noodzin(r.nood, r.t);
+      s.querySelector('[data-link]')!.setAttribute('href', `#trede-${r.t}`);
+      const volgende = s.querySelector<HTMLElement>('[data-volgende]')!;
       volgende.hidden = r.t >= 8;
       volgende.setAttribute('href', `#trede-${Math.min(r.t + 1, 8)}`);
-      const stap = s.querySelector('[data-stap]');
+      const stap = s.querySelector<HTMLElement>('[data-stap]')!;
       stap.setAttribute('href', a.naar);
       stap.textContent = a.naarTekst + ' →';
     }

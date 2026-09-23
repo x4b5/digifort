@@ -7,8 +7,9 @@
  */
 import { FORTDELEN } from '../data/fort.js';
 import { kamer } from '../data/kamers.js';
+interface Props { legenda?: boolean; uitleg?: string }
 const { legenda = true, uitleg } = Astro.props;
-const href = (deel) => `/plattegrond#${kamer(deel.kamers[0]).anker}`;
+const href = (deel: { kamers: string[] }) => `/plattegrond#${kamer(deel.kamers[0])!.anker}`;
 const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
 ---
 <figure class="tekening huis-en-fort" data-huis-en-fort>

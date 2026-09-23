@@ -11,6 +11,7 @@ export const SITE = {
  * Met de hand bijwerken als je het echt hebt gedaan: deze datums staan in de tekst
  * en mogen niet meeschuiven met een willekeurige commit.
  */
+/** @type {Record<string, string>} */
 export const NAGELOPEN = {
   gereedschap: '2026-09-20',
   bronnen: '2026-09-21',
