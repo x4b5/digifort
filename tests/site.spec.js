@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 import { PAGINAS } from './paginas.js';
+import { HOOFDSTUKKEN } from '../src/lib/site.js';
 
 for (const pad of PAGINAS) {
   test(`${pad} laadt, scrolt niet zijwaarts en elke tekening heeft een label`, async ({ page }) => {
@@ -19,6 +20,20 @@ for (const pad of PAGINAS) {
     expect(fouten).toEqual([]);
   });
 }
+
+// naslag lees je niet van a tot z, en de avondpagina telt in stappen in plaats van minuten
+const ZONDER_LEESTIJD = ['woordenboek', 'bronnen', 'een-avond'];
+for (const { slug } of HOOFDSTUKKEN.filter((h) => !ZONDER_LEESTIJD.includes(h.slug))) {
+  test(`/${slug} zegt bovenaan hoe lang het lezen duurt`, async ({ page }) => {
+    await page.goto(`/${slug}`);
+    await expect(page.locator('.paginakop .leestijd')).toHaveText(/^ · ongeveer (1 minuut|\d+ minuten) lezen$/);
+  });
+}
+
+test('naslagpagina\'s tonen geen leestijd', async ({ page }) => {
+  await page.goto('/woordenboek');
+  await expect(page.locator('.leestijd')).toHaveCount(0);
+});
 
 test('het woordenboek filtert terwijl je typt', async ({ page }) => {
   await page.goto('/woordenboek');

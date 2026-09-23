@@ -14,12 +14,18 @@ export async function getStaticPaths() {
 
 const { h } = Astro.props;
 const { Content, headings } = await render(h);
-// ruwe leestijd: ongeveer 200 woorden per minuut, naar boven afgerond op vijf.
-// Staat alleen bij de lange hoofdstukken; bij een kort stuk is het geruststelling
-// die niemand nodig heeft.
-const woorden = h.body ? h.body.split(/\s+/).length : 0;
-const minuten = Math.round(woorden / 200);
-const leestijd = minuten >= 8 ? minuten : null;
+// ruwe leestijd: ongeveer 200 woorden per minuut, afgerond op hele minuten.
+// Alleen de lopende tekst telt: import-regels, componenten met hun gegevens en
+// de adressen achter links leest niemand. Naslagpagina's lees je niet van a tot z.
+const NASLAG = ['woordenboek', 'bronnen'];
+const leestekst = (h.body ?? '')
+  .replace(/^(import|export) .*$/gm, '')
+  .replace(/<[^>]*>/g, ' ')
+  .replace(/\{[^}]*\}/g, ' ')
+  .replace(/\]\([^)]*\)/g, ']');
+const woorden = leestekst.split(/\s+/).filter((w) => /\p{L}/u.test(w)).length;
+const minuten = Math.max(1, Math.round(woorden / 200));
+const leestijd = NASLAG.includes(h.id) ? null : `${minuten} ${minuten === 1 ? 'minuut' : 'minuten'}`;
 // de acht treden zijn koppen uit een component, dus die ziet render() niet;
 // zonder deze regel mist juist het skelet waar de ladderpagina om draait
 const koppen = [
@@ -33,7 +39,7 @@ const koppen = [
 <Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum}>
   <div class="paginakop">
     <div>
-      <p class="eyebrow">{h.data.nr === null ? 'Verdieping' : `Hoofdstuk ${h.data.nr}`}{leestijd && <span class="leestijd"> · ongeveer {leestijd} minuten lezen</span>}</p>
+      <p class="eyebrow">{h.data.nr === null ? 'Verdieping' : `Hoofdstuk ${h.data.nr}`}{leestijd && <span class="leestijd"> · ongeveer {leestijd} lezen</span>}</p>
       <h1>{h.data.titel}</h1>
     </div>
     <HoofdstukIcoon slug={h.id} maat={72} />
