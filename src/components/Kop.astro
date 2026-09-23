@@ -5,7 +5,7 @@ import Lezen from './Lezen.astro';
 import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
 import { FORTDELEN } from '../data/fort.js';
 import { TOTAAL_SLOTEN } from '../data/lijsten.js';
-const huidig = Astro.url.pathname.replace(/\/$/, '');
+const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, '');
 ---
 <header class="kop">
   <div class="wrap kop-rij">

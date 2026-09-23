@@ -8,6 +8,7 @@ gedragen zich daar net anders.
 Faalt er iets, dan staat het rapport met screenshots zeven dagen bij de run onder
 "Artifacts".
 
-Nog niet in deze keten: `npm run check` (astro check). Dat geeft nu nog 37
-meldingen over impliciete types in de databestanden; zodra die weg zijn, hoort de
-stap hier tussen bouwen en testen.
+Tussen bouwen en testen staat `npm run check` (astro check). Die stap komt na
+het bouwen, want hij leunt op de types die Astro voor de content-collecties
+genereert. De teller staat op nul fouten en nul waarschuwingen; waarschuwingen
+laten de stap nog wel slagen, fouten niet.

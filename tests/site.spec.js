@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 import { PAGINAS } from './paginas.js';
 import { HOOFDSTUKKEN } from '../src/lib/site.js';
+import { WOORDEN } from '../src/data/woorden.js';
 
 for (const pad of PAGINAS) {
   test(`${pad} laadt, scrolt niet zijwaarts en elke tekening heeft een label`, async ({ page }) => {
@@ -39,7 +40,7 @@ test('het woordenboek filtert terwijl je typt', async ({ page }) => {
   await page.goto('/woordenboek');
   await page.locator('[data-zoek]').fill('passkey');
   await expect(page.locator('tbody tr:visible')).toHaveCount(7);
-  await expect(page.locator('[data-stand]')).toHaveText('7 van 60 woorden');
+  await expect(page.locator('[data-stand]')).toHaveText(`7 van ${WOORDEN.length} woorden`);
 
   // bij een afkorting staat het volledige woord erachter
   await page.locator('[data-zoek]').fill('dns');

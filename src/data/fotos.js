@@ -69,4 +69,11 @@ export const FOTOS = {
     licentieBron: 'https://creativecommons.org/licenses/by/2.0/',
     bron: 'https://commons.wikimedia.org/wiki/File:IBM_Q_System_One_(Fraunhofer)_installation.jpg',
   },
+  'galerij-voordeuren': {
+    bestand: 'galerij-voordeuren.jpg',
+    alt: 'De open galerij van een flat: links een lange rij voordeuren met meterkastjes ernaast, rechts witte pilaren en een balustrade.',
+    maker: 'chuttersnap',
+    licentie: 'CC0',
+    bron: 'https://commons.wikimedia.org/wiki/File:White_Hallway_(Unsplash).jpg',
+  },
 };

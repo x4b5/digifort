@@ -115,6 +115,9 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
   .zoek, .kies { display: flex; flex-direction: column; gap: 0.35rem; font-weight: 700; }
   .zoek input, .kies select { font: inherit; font-size: 1.05rem; padding: 0.55rem 0.8rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier); color: var(--inkt); }
   .zoek input { min-width: min(22rem, 100%); }
+  /* een keuzelijst is zo breed als zijn langste hoofdstuktitel; op een telefoon mag hij niet buiten beeld */
+  .kies { max-width: 100%; }
+  .kies select { max-width: 100%; }
   .open { display: flex; align-items: center; gap: 0.45rem; padding-bottom: 0.6rem; }
   .open input { width: 1.1rem; height: 1.1rem; accent-color: var(--rood); }
   /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */

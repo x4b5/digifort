@@ -7,7 +7,7 @@ import { SITE } from '../lib/site.js';
 
 const { titel, beschrijving = SITE.slogan, datum = SITE.laatstNagelopen, breed = false } = Astro.props;
 const paginaTitel = titel ? `${titel} · ${SITE.naam}` : `${SITE.naam} Van open huis naar fort`;
-const hier = new URL(Astro.url.pathname, Astro.site);
+const hier = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Astro.site);
 ---
 <!doctype html>
 <html lang="nl">

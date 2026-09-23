@@ -350,6 +350,48 @@ export const BRONNEN = [
     toelichting: [{ tekst: 'De pagina noemt contant geld en een lijstje met belangrijke telefoonnummers' }],
   },
   {
+    hoofdstuk: ['wie-bewaart-je-sleutel'],
+    bewering: 'Een Amerikaanse aanbieder moet op bevel gegevens afgeven die hij in handen heeft, ongeacht of die binnen of buiten de Verenigde Staten staan (CLOUD Act, 2018)',
+    bron: [
+      { tekst: '18 U.S.C. § 2713, via Cornell Law School', href: 'https://www.law.cornell.edu/uscode/text/18/2713' },
+      { tekst: 'Amerikaans ministerie van Justitie, CLOUD Act Resources', href: 'https://www.justice.gov/criminal/cloud-act-resources' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Ingevoerd met Public Law 115-141 op 23 maart 2018. De wet gaat over wat het bedrijf "in possession, custody, or control" heeft, niet over de plek van de server' }],
+  },
+  {
+    hoofdstuk: ['wie-bewaart-je-sleutel'],
+    bewering: 'Het Hof van Justitie van de EU verklaarde in 2015 (Schrems I) en in 2020 (Schrems II) de afspraken over gegevens naar de VS ongeldig, omdat de bescherming daar niet gelijkwaardig was aan die in de EU',
+    bron: [{ tekst: 'Hof van Justitie van de EU, persbericht 91/20 over zaak C-311/18, 16 juli 2020', href: 'https://curia.europa.eu/jcms/upload/docs/application/pdf/2020-07/cp200091en.pdf' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Het Hof oordeelde dat de Amerikaanse inlichtingenprogramma\'s niet beperkt waren tot wat strikt noodzakelijk is. Schrems I (2015) staat samengevat in het persbericht over Latombe hieronder' }],
+  },
+  {
+    hoofdstuk: ['wie-bewaart-je-sleutel'],
+    bewering: 'Het EU-VS Data Privacy Framework van 10 juli 2023 bleef op 3 september 2025 overeind bij het Gerecht van de EU (Latombe); tegen die uitspraak loopt een hoger beroep',
+    bron: [
+      { tekst: 'Europese Commissie, EU-US data transfers', href: 'https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/eu-us-data-transfers_en' },
+      { tekst: 'Gerecht van de EU, persbericht 106/25 over zaak T-553/23', href: 'https://curia.europa.eu/site/upload/docs/application/pdf/2025-09/cp250106en.pdf' },
+      { tekst: 'Publicatieblad van de EU, hoger beroep C-703/25 P', href: 'https://eur-lex.europa.eu/eli/C/2025/6610/oj/eng' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Het Gerecht keek alleen naar de situatie op de dag van het besluit in 2023. Het hoger beroep is ingesteld op 31 oktober 2025; in mei 2026 was er nog geen zittingsdatum' }],
+  },
+  {
+    hoofdstuk: ['wie-bewaart-je-sleutel'],
+    bewering: 'Op 18 maart 2025 nam de Tweede Kamer moties aan om de overheid minder afhankelijk te maken van Amerikaanse techbedrijven, waaronder stoppen met onnodige migraties naar Amerikaanse clouddiensten, een exitstrategie en continuïteit zonder rechtstreekse afhankelijkheid van VS-partijen',
+    bron: [{ tekst: 'Tweede Kamer, stemmingsuitslagen 26643', href: 'https://www.tweedekamer.nl/kamerstukken/stemmingsuitslagen/detail?id=2025P04110&did=2025P04110' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Moties 26643-1315 en -1318 (Kathmann), -1320 (Six Dijkstra) en andere; acht aangenomen, één overgenomen' }],
+  },
+  {
+    hoofdstuk: ['wie-bewaart-je-sleutel'],
+    bewering: 'Zwitserland biedt volgens de Europese Commissie een passend beschermingsniveau voor persoonsgegevens; dat werd in januari 2024 bevestigd',
+    bron: [{ tekst: 'Europese Commissie, persbericht IP/24/161, 15 januari 2024', href: 'https://ec.europa.eu/commission/presscorner/detail/en/ip_24_161' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Evaluatie van elf bestaande adequaatheidsbesluiten, waaronder dat voor Zwitserland uit 2000' }],
+  },
+  {
     hoofdstuk: ['plattegrond', 'inbrekers-van-nu'],
     bewering: 'Met naam, geboortedatum en BSN kan iemand een lening of telefoonabonnement afsluiten; BSN onleesbaar maken, ook in de cijferreeks onderaan; op de kopie zetten dat het een kopie is, voor wie en de datum; vaak volstaat soort document en documentnummer',
     bron: [{ tekst: 'Rijksoverheid, fraude voorkomen met kopie ID-bewijs', href: 'https://www.rijksoverheid.nl/onderwerpen/identiteitsfraude/vraag-en-antwoord/fraude-voorkomen-met-kopie-id-bewijs' }],

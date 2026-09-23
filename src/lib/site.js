@@ -25,6 +25,7 @@ export const HOOFDSTUKKEN = [
   { nr: null, slug: 'krijg-je-je-geld-terug', titel: 'Krijg je je geld terug?', kort: 'Eén vraag bepaalt bijna alles: heb jij zelf op akkoord gedrukt, of iemand anders?', extra: true },
   { nr: 3, slug: 'inbrekers-van-morgen', titel: 'De inbrekers van morgen', kort: 'AI dat jouw stem kent en computers die oude sloten openen.' },
   { nr: null, slug: 'de-storm-om-het-huis', titel: 'De storm om het huis', kort: 'Staten, hackers en oorlog op afstand: wat de wereld met jouw voordeur te maken heeft.', extra: true },
+  { nr: null, slug: 'wie-bewaart-je-sleutel', titel: 'Wie bewaart je sleutel?', kort: 'Een Amerikaans bedrijf moet je gegevens afgeven aan Amerika, ook als ze in Europa staan. Daarom kiest deze site Europees waar het kan.', extra: true },
   { nr: 4, slug: 'aan-de-slag', titel: 'Aan de slag: deur voor deur', kort: 'Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis.' },
   { nr: null, slug: 'een-avond', titel: 'Ik heb één avond', kort: 'Zes stappen, één per scherm, ongeveer een uur. Dezelfde lijst als niveau 1.', extra: true },
   { nr: null, slug: 'van-geheim-woord-naar-zegelring', titel: 'Van geheim woord naar zegelring', kort: 'De ladder: acht manieren om in te loggen, van zwak naar sterk.', extra: true },
