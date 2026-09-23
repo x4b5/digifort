@@ -23,6 +23,7 @@ export const HOOFDSTUKKEN = [
   { nr: 3, slug: 'inbrekers-van-morgen', titel: 'De inbrekers van morgen', kort: 'AI dat jouw stem kent en computers die oude sloten openen.' },
   { nr: null, slug: 'de-storm-om-het-huis', titel: 'De storm om het huis', kort: 'Staten, hackers en oorlog op afstand: wat de wereld met jouw voordeur te maken heeft.', extra: true },
   { nr: 4, slug: 'aan-de-slag', titel: 'Aan de slag: kamer voor kamer', kort: 'Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis.' },
+  { nr: null, slug: 'een-avond', titel: 'Ik heb één avond', kort: 'Zes stappen, één per scherm, ongeveer een uur. Dezelfde lijst als niveau 1.', extra: true },
   { nr: null, slug: 'van-geheim-woord-naar-zegelring', titel: 'Van geheim woord naar zegelring', kort: 'De ladder: acht manieren om in te loggen, van zwak naar sterk.', extra: true },
   { nr: 5, slug: 'onderhoud', titel: 'Onderhoud en opruimen', kort: 'Oude apparaten, weggooien, en wat er over jou op internet staat.' },
   { nr: 6, slug: 'als-er-is-ingebroken', titel: 'Als er toch is ingebroken', kort: 'Het eerste uur, je telefoon kwijt, en het noodpakket.' },

@@ -11,7 +11,7 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
       <h1>Van open huis naar fort.</h1>
       <p class="intro">Je gaat niet naar het internet. Het internet komt bij jou binnen. Elke app, elk account en elk apparaat is een deur, en bij de meeste mensen <a href="/huischeck#hoe-weten-we-dat">staan die deuren open</a>. Deze site loopt met je mee tot je huis een fort is: een muur, een gracht, een poort met twee sloten. Zonder bangmakerij en zonder reclame.</p>
       <p class="knoppen">
-        <a class="knop" href="/huischeck">Doe de huischeck →</a>
+        <a class="knop" href="/huischeck#doe-de-huischeck">Doe de huischeck →</a>
         <a class="knop licht" href="/een-avond">Ik heb één avond</a>
         <a class="knop licht" href="/de-storm-om-het-huis">Waarom nu?</a>
       </p>
@@ -41,7 +41,10 @@ import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
 </Pagina>
 
 <style>
-  .hero { max-width: var(--maat); padding-bottom: 1rem; }
+  /* de tekstkolom blijft leesbaar smal, maar de knoppen mogen de volle breedte
+     gebruiken: anders valt de derde op een breed scherm alleen op een tweede regel */
+  .hero { padding-bottom: 1rem; }
+  .hero-tekst > :not(.knoppen) { max-width: var(--maat); }
   .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
   .knoppen { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
   .fort-kop { margin-top: 2rem; }

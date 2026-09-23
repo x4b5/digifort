@@ -69,7 +69,6 @@ const hier = new URL(Astro.url.pathname, Astro.site);
         const dicht = telSloten(data);
         const delen = toestandPerDeel(toestandPerKamer(data));
         const staat = Object.values(delen).filter((t) => t !== 'onbekend').length;
-        el.hidden = dicht === 0 && staat === 0;
         tekst.textContent = `${dicht} van ${TOTAAL_SLOTEN} sloten dicht`;
         el.querySelectorAll('[data-kanteel]').forEach((k) => { k.dataset.toestand = delen[k.dataset.kanteel]; });
       }

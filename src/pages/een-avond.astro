@@ -2,6 +2,7 @@
 import Pagina from '../layouts/Pagina.astro';
 import Avond from '../components/Avond.astro';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
+import Buren from '../components/Buren.astro';
 ---
 <Pagina titel="Ik heb één avond" beschrijving="Zes stappen, één per scherm, ongeveer een uur. Daarna houd je de meeste inbrekers buiten.">
   <div class="paginakop">
@@ -9,10 +10,11 @@ import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
       <p class="eyebrow">Stap voor stap</p>
       <h1>Ik heb één avond</h1>
     </div>
-    <HoofdstukIcoon slug="aan-de-slag" maat={72} />
+    <HoofdstukIcoon slug="een-avond" maat={72} />
   </div>
   <p class="intro">Zes stappen, één per scherm. Pak je telefoon en je computer erbij. Wat je afvinkt, blijft in je eigen browser staan en telt mee in <a href="/aan-de-slag">hoofdstuk 4</a>.</p>
   <Avond />
+  <Buren slug="een-avond" />
 </Pagina>
 <style>
   .paginakop { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }

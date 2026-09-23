@@ -1,8 +1,9 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Pagina from '../layouts/Pagina.astro';
-import { buren } from '../lib/site.js';
+import { tredeKoppen } from '../data/tredes.js';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
+import Buren from '../components/Buren.astro';
 
 export async function getStaticPaths() {
   const hoofdstukken = await getCollection('hoofdstukken');
@@ -11,8 +12,12 @@ export async function getStaticPaths() {
 
 const { h } = Astro.props;
 const { Content, headings } = await render(h);
-const koppen = headings.filter((k) => k.depth === 2);
-const { vorige, volgende } = buren(h.id);
+// de acht treden zijn koppen uit een component, dus die ziet render() niet;
+// zonder deze regel mist juist het skelet waar de ladderpagina om draait
+const koppen = [
+  ...(h.id === 'van-geheim-woord-naar-zegelring' ? tredeKoppen() : []),
+  ...headings.filter((k) => k.depth === 2),
+];
 ---
 <Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum}>
   <div class="paginakop">
@@ -29,10 +34,7 @@ const { vorige, volgende } = buren(h.id);
     </nav>
   )}
   <Content />
-  <nav class="buren" aria-label="Vorige en volgende">
-    {vorige && <a class="knop licht" href={`/${vorige.slug}`}>← {vorige.titel}</a>}
-    {volgende && <a class="knop" href={`/${volgende.slug}`}>{volgende.titel} →</a>}
-  </nav>
+  <Buren slug={h.id} />
 </Pagina>
 
 <style>
@@ -47,6 +49,4 @@ const { vorige, volgende } = buren(h.id);
   .paginakop > div { min-width: 0; }
   .paginakop > :global(.hicoon) { flex: none; margin-top: 0.4rem; }
   @media (max-width: 40rem) { .paginakop > :global(.hicoon) svg { width: 48px; height: 48px; } }
-  .buren { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: space-between; margin-top: 3.5rem; padding-top: 1.5rem; border-top: var(--lijndikte) solid var(--lijn-sterk); }
-  .buren a { max-width: 100%; text-align: left; }
 </style>

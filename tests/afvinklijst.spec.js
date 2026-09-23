@@ -32,7 +32,8 @@ test('wis mijn antwoorden vraagt eerst om bevestiging en maakt daarna alles leeg
 
   await page.reload();
   await expect(page.locator('[data-lijst="niveau-1"] [data-stand-tekst]')).toHaveText('0 van 6 gedaan');
-  await expect(page.locator('[data-sloten]')).toBeHidden();
+  // de teller blijft staan, in nulstand: hij nodigt uit om te beginnen
+  await expect(page.locator('[data-sloten-tekst]')).toHaveText('0 van 20 sloten dicht');
 });
 
 test('het fort zet zijn uitnodigende beginzin terug na wissen', async ({ page }) => {

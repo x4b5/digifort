@@ -4,12 +4,13 @@ import HoofdstukIcoon from './HoofdstukIcoon.astro';
 import Lezen from './Lezen.astro';
 import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
 import { FORTDELEN } from '../data/fort.js';
+import { TOTAAL_SLOTEN } from '../data/lijsten.js';
 const huidig = Astro.url.pathname.replace(/\/$/, '');
 ---
 <header class="kop">
   <div class="wrap kop-rij">
     <a class="merk" href="/"><Logo maat={34} /><span>{SITE.naam}</span></a>
-    <a class="sloten" href="/#fort" data-sloten hidden title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst></span></a>
+    <a class="sloten" href="/#fort" data-sloten title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst>{`0 van ${TOTAAL_SLOTEN} sloten dicht`}</span></a>
     <Lezen />
     <details class="menu">
       <summary class="knop licht klein">Menu</summary>
