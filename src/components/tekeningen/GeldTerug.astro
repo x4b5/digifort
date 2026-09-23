@@ -6,7 +6,8 @@ import Tekening from '../Tekening.astro';
   <svg viewBox="0 0 640 348" role="img" aria-label="Een beslisboom. Bovenaan de vraag: wie drukte op akkoord? De linkertak, iemand anders, leidt naar een niet-toegestane betaling en naar de groene uitkomst dat de bank in beginsel terugbetaalt, tenzij er sprake is van grove nalatigheid. De rechtertak, jij zelf, leidt naar een toegestane betaling en naar de rode uitkomst dat er geen wettelijk recht op teruggave is; bij bankhelpdeskfraude vergoeden banken soms uit coulance.">
     <!-- de vraag -->
     <rect class="tek" x="200" y="12" width="240" height="44" rx="6" />
-    <text class="tek-tekst" x="320" y="40" text-anchor="middle">Wie drukte op akkoord?</text>
+    <text class="tek-tekst alleen-breed" x="320" y="40" text-anchor="middle">Wie drukte op akkoord?</text>
+    <text class="tek-tekst alleen-smal" x="320" y="41" text-anchor="middle">Wie gaf akkoord?</text>
 
     <!-- de twee takken -->
     <path class="tek" d="M280 56 C 220 80, 160 82, 160 108" />
@@ -18,7 +19,8 @@ import Tekening from '../Tekening.astro';
     <text class="tek-label tek-halo" x="464" y="86" text-anchor="start">jij zelf</text>
 
     <!-- links: niet-toegestane betaling -->
-    <rect class="tek-dun" x="34" y="112" width="252" height="34" rx="4" />
+    <rect class="tek-dun alleen-breed" x="34" y="112" width="252" height="34" rx="4" />
+    <rect class="tek-dun alleen-smal" x="14" y="112" width="292" height="34" rx="4" />
     <text class="tek-label" x="160" y="134" text-anchor="middle">niet-toegestane betaling</text>
     <path class="tek-groen" d="M160 146 v26" />
     <path class="tek-groen" d="M160 172 m-6 -8 l6 8 l6 -8" />
@@ -27,11 +29,11 @@ import Tekening from '../Tekening.astro';
     <path class="tek-groen" d="M56 208 l9 9 l17 -19" />
     <text class="tek-tekst" x="172" y="204" text-anchor="middle">De bank betaalt</text>
     <text class="tek-tekst" x="172" y="224" text-anchor="middle">in beginsel terug</text>
-    <text class="tek-label" x="160" y="262" text-anchor="middle">tenzij grove nalatigheid,</text>
-    <text class="tek-label" x="160" y="278" text-anchor="middle">en dat is een hoge lat</text>
+    <text class="tek-label" x="160" y="262" text-anchor="middle">tenzij grove nalatigheid,<tspan x="160" dy="1.3em">en dat is een hoge lat</tspan></text>
 
     <!-- rechts: toegestane betaling -->
-    <rect class="tek-dun" x="354" y="112" width="252" height="34" rx="4" />
+    <rect class="tek-dun alleen-breed" x="354" y="112" width="252" height="34" rx="4" />
+    <rect class="tek-dun alleen-smal" x="334" y="112" width="292" height="34" rx="4" />
     <text class="tek-label" x="480" y="134" text-anchor="middle">toegestane betaling</text>
     <path class="tek-rood" d="M480 146 v26" />
     <path class="tek-rood" d="M480 172 m-6 -8 l6 8 l6 -8" />
@@ -40,12 +42,10 @@ import Tekening from '../Tekening.astro';
     <path class="tek-rood" d="M376 199 l18 18 m0 -18 l-18 18" />
     <text class="tek-tekst" x="492" y="204" text-anchor="middle">Geen wettelijk recht</text>
     <text class="tek-tekst" x="492" y="224" text-anchor="middle">op teruggave</text>
-    <text class="tek-label" x="480" y="262" text-anchor="middle">bij bankhelpdeskfraude soms</text>
-    <text class="tek-label" x="480" y="278" text-anchor="middle">coulance — geen recht</text>
+    <text class="tek-label" x="480" y="262" text-anchor="middle">bij bankhelpdeskfraude soms<tspan x="480" dy="1.3em">coulance — geen recht</tspan></text>
 
     <!-- wat je los hiervan nog kunt terugdraaien -->
     <path class="tek-dun tek-stippel" d="M34 300 H606" />
-    <text class="tek-label" x="320" y="318" text-anchor="middle">Los hiervan terug te draaien: een incasso (8 weken)</text>
-    <text class="tek-label" x="320" y="336" text-anchor="middle">en een creditcardbetaling. Een overboeking of iDEAL niet.</text>
+    <text class="tek-label" x="320" y="314" text-anchor="middle">Los hiervan terug te draaien: een incasso (8 weken)<tspan x="320" dy="1.35em">en een creditcardbetaling. Een overboeking of iDEAL niet.</tspan></text>
   </svg>
 </Tekening>

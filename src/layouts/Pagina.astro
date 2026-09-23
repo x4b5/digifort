@@ -72,6 +72,20 @@ const hier = new URL(Astro.url.pathname, Astro.site);
         bak.append(t);
       });
 
+      // een tekening krimpt op een telefoon als geheel, en de tekst erin krimpt mee tot
+      // een pixel of zes. --krimp zegt hoeveel kleiner de tekening getekend wordt dan hij
+      // bedoeld is; global.css zet de tekst daarmee terug op een leesbare maat.
+      const tekeningen = Array.from(document.querySelectorAll('main svg[viewBox]'))
+        .filter((svg): svg is SVGSVGElement => svg instanceof SVGSVGElement && svg.querySelector('text') !== null);
+      const meetKrimp = new ResizeObserver((regels) => {
+        for (const { target } of regels) {
+          const svg = target as SVGSVGElement;
+          const breedte = svg.getBoundingClientRect().width;
+          if (breedte) svg.style.setProperty('--krimp', String(svg.viewBox.baseVal.width / breedte));
+        }
+      });
+      tekeningen.forEach((svg) => meetKrimp.observe(svg));
+
       // je voortgang staat alleen in deze browser; op papier gaat hij wel mee.
       // De printstijl laat de lijsten en het noodpakket staan en de rest weg.
       document.querySelectorAll('[data-print]').forEach((knop) => {

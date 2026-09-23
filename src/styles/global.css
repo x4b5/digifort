@@ -188,9 +188,17 @@ figure.foto .herkomst a { color: inherit; }
 .tek-vul-inkt { fill: var(--lijn-sterk); stroke: none; }
 .tek-vul-papier { fill: var(--papier); stroke: none; }
 .tek-vul-groen { fill: var(--groen); stroke: none; }
-.tek-tekst { font-family: var(--kop); font-size: 13px; font-weight: 700; fill: var(--inkt); }
-.tek-label { font-family: var(--tekst); font-size: 12px; fill: var(--inkt-zacht); }
+/* Op een telefoon groeit tekst in een tekening mee tot ongeveer 11px op het scherm (--krimp
+   zet Pagina.astro). Het plafond van 21 is de maat waarop alle tekeningen zijn nagelopen:
+   groter en labels gaan botsen. Zie tests/tekeningen.spec.js. */
+.tek-tekst { font-family: var(--kop); font-size: clamp(13px, calc(11px * var(--krimp, 0)), 21px); font-weight: 700; fill: var(--inkt); }
+.tek-label { font-family: var(--tekst); font-size: clamp(12px, calc(11px * var(--krimp, 0)), 21px); fill: var(--inkt-zacht); }
 .tek-stippel { stroke-dasharray: 2 7; }
+/* Op een telefoon groeit de tekst in een tekening mee (zie --krimp); waar hij dan niet
+   meer past, toont de tekening een korter of tweeregelig label. De schermlezer leest
+   het aria-label van de tekening, dus daar verandert niets. */
+@media (max-width: 40rem) { svg .alleen-breed { display: none; } }
+@media (min-width: 40.001rem) { svg .alleen-smal { display: none; } }
 /* Staat een label op een plek waar een lijn doorheen loopt, dan geeft .tek-halo het
    een randje in papierkleur: de lijn valt achter de letters weg in plaats van erdoorheen. */
 .tek-halo { paint-order: stroke; stroke: var(--papier); stroke-width: 4.5; stroke-linejoin: round; }
@@ -234,15 +242,15 @@ figure.foto .herkomst a { color: inherit; }
 /* ---- laddertekeningen (overgezet uit de oude pagina) ---- */
 .ladder-tek { --tint: var(--rood); color: var(--inkt-zacht); }
 .ladder-tek svg { display: block; width: 100%; max-width: 40rem; height: auto; }
-.ladder-tek text { font-family: var(--tekst); fill: currentColor; font-size: 11px; }
-.ladder-tek .t-label, .ladder-tek .tek-label { font-family: var(--kop); letter-spacing: 0.08em; font-size: 10.5px; }
+.ladder-tek text { font-family: var(--tekst); fill: currentColor; font-size: clamp(11px, calc(11px * var(--krimp, 0)), 21px); }
+.ladder-tek .t-label, .ladder-tek .tek-label { font-family: var(--kop); letter-spacing: 0.08em; font-size: clamp(10.5px, calc(11px * var(--krimp, 0)), 21px); }
 .ladder-tek .obj { fill: none; stroke: var(--lijn-sterk); stroke-width: 2.4; }
 .ladder-tek .ln { fill: none; stroke: currentColor; stroke-width: 1.6; opacity: 0.5; }
 .ladder-tek .hl { fill: none; stroke: var(--tint); stroke-width: 2.6; }
 .ladder-tek .hlf { fill: var(--tint); stroke: none; }
 .ladder-tek .wrn { fill: none; stroke: var(--rood); stroke-width: 2.4; }
 .ladder-tek .arw { fill: currentColor; opacity: 0.7; }
-.ladder-tek .cap { font-family: var(--kop); font-size: 9.5px; letter-spacing: 0.05em; opacity: 0.7; }
+.ladder-tek .cap { font-family: var(--kop); font-size: clamp(9.5px, calc(10.5px * var(--krimp, 0)), 21px); letter-spacing: 0.05em; opacity: 0.7; }
 .ladder-tek .tint { fill: var(--tint); opacity: 1; }
 .ladder-tek .red { fill: var(--rood); opacity: 1; }
 .trede-hebben .ladder-tek { --tint: var(--groen); }

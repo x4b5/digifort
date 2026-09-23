@@ -35,8 +35,10 @@ import Tekening from '../Tekening.astro';
     <path class="tek" d="M340 240 m-6 -6 l6 6 l-6 6" />
     <text class="tek-label" x="230" y="262" text-anchor="middle">typt zelf het adres</text>
     <g>
-      <rect class="tek-dun" x="250" y="200" width="90" height="20" rx="3" />
-      <text class="tek-label" x="295" y="214" text-anchor="middle">mijnbank.nl</text>
+      <rect class="tek-dun alleen-breed" x="250" y="200" width="90" height="20" rx="3" />
+      <rect class="tek-dun alleen-smal" x="222" y="186" width="146" height="30" rx="3" />
+      <text class="tek-label alleen-breed" x="295" y="214" text-anchor="middle">mijnbank.nl</text>
+      <text class="tek-label alleen-smal" x="295" y="208" text-anchor="middle">mijnbank.nl</text>
     </g>
     <g>
       <path class="tek" d="M360 290 V220 H420 V290" />
@@ -45,7 +47,8 @@ import Tekening from '../Tekening.astro';
     <g>
       <circle class="tek" cx="470" cy="255" r="9" />
       <path class="tek" d="M479 255 H520 M508 255 v8 M516 255 v8" />
-      <text class="tek-label" x="480" y="285" text-anchor="middle">sleutel blijft van jou</text>
+      <text class="tek-label alleen-breed" x="480" y="285" text-anchor="middle">sleutel blijft van jou</text>
+      <text class="tek-label alleen-smal" x="636" y="226" text-anchor="end">sleutel blijft van jou</text>
     </g>
   </svg>
 </Tekening>

@@ -26,12 +26,15 @@ const meet = (speling) => {
     const regels = [];
     for (const el of svg.querySelectorAll('text')) {
       let vak;
+      if (!el.getBoundingClientRect().width) continue;
       try { vak = el.getBBox(); } catch { continue; }
-      if (vak.width) regels.push({ vak, tekst: el.textContent.trim() });
+      if (vak.width) regels.push({ vak, tekst: el.textContent.trim(), maat: parseFloat(getComputedStyle(el).fontSize) || 0 });
     }
 
     const vormen = [...svg.querySelectorAll('rect, path, polygon, circle, ellipse')]
-      .filter((el) => !el.hasAttribute('data-geen-vak') && typeof el.isPointInFill === 'function');
+      // een vorm die op deze schermbreedte verborgen is (alleen-smal, alleen-breed) is geen vak
+      .filter((el) => !el.hasAttribute('data-geen-vak') && typeof el.isPointInFill === 'function'
+        && el.getBoundingClientRect().width > 0);
 
     const punt = svg.createSVGPoint();
     const raakt = (el, x, y) => { punt.x = x; punt.y = y; try { return el.isPointInFill(punt); } catch { return false; } };
@@ -63,7 +66,10 @@ const meet = (speling) => {
         const a = regels[i].vak; const b = regels[j].vak;
         const x = Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x);
         const y = Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y);
-        if (x > speling && y > speling) {
+        // het kader van een regel telt de witruimte boven en onder de letters mee; twee
+        // regels onder elkaar mogen die delen, zolang de letters zelf elkaar niet raken
+        const wit = 0.25 * Math.min(regels[i].maat, regels[j].maat);
+        if (x > speling && y > speling + wit) {
           fouten.push(`"${regels[i].tekst}" ligt over "${regels[j].tekst}" — ${waar}`);
         }
       }
@@ -72,9 +78,46 @@ const meet = (speling) => {
   return fouten;
 };
 
+// Meet pas als de letters van de site er zijn en elke zichtbare tekening zijn --krimp heeft:
+// daarvoor staat er een breder reserveletter of nog de ongekrompen maat, en dat geeft
+// fouten die er in het echt niet zijn.
+const wachtOpTekeningen = async (page) => {
+  // fonts.ready alleen is niet genoeg: dat is al 'klaar' als het lettertype nog niet is opgevraagd
+  await page.evaluate(() => Promise.all([...document.fonts].map((f) => f.load().catch(() => null))));
+  await expect.poll(() => page.evaluate(() => [...document.querySelectorAll('main svg[viewBox]')]
+    .filter((s) => s.querySelector('text') && s.getBoundingClientRect().width)
+    // niet alleen gezet, maar ook bij de breedte van nu: tijdens het laden verspringt die nog
+    .every((s) => Math.abs(Number(s.style.getPropertyValue('--krimp'))
+      - s.viewBox.baseVal.width / s.getBoundingClientRect().width) < 0.005))).toBe(true);
+};
+
 for (const pad of PAGINAS) {
   test(`${pad}: alle tekst in de tekeningen past in zijn vak`, async ({ page }) => {
     await page.goto(pad);
+    await wachtOpTekeningen(page);
     expect(await page.evaluate(meet, SPELING)).toEqual([]);
   });
 }
+
+// Op een telefoon groeit de tekst in een tekening mee (--krimp in Pagina.astro). Op het
+// smalste gangbare scherm (360px, veel Android-telefoons) groeit hij het hardst: past het
+// daar, dan overal. Het plafond in global.css houdt hem daar op 9,5px of meer.
+test.describe('op het smalste scherm', () => {
+  test.use({ viewport: { width: 360, height: 740 } });
+  for (const pad of PAGINAS) {
+    test(`${pad}: tekst past in zijn vak en is minstens 9,5px`, async ({ page }) => {
+      await page.goto(pad);
+      await wachtOpTekeningen(page);
+      expect(await page.evaluate(meet, SPELING)).toEqual([]);
+      const klein = await page.evaluate(() => [...document.querySelectorAll('main svg text')]
+        .filter((t) => t.getBoundingClientRect().width)
+        .map((t) => {
+          const s = /** @type {SVGSVGElement} */ (t.ownerSVGElement);
+          const px = parseFloat(getComputedStyle(t).fontSize) * s.getBoundingClientRect().width / s.viewBox.baseVal.width;
+          return { tekst: t.textContent.trim().slice(0, 30), px: Math.round(px * 10) / 10 };
+        })
+        .filter((x) => x.px < 9.5));
+      expect(klein).toEqual([]);
+    });
+  }
+});

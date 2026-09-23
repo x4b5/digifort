@@ -9,10 +9,10 @@ import Tekening from '../Tekening.astro';
     <circle class="tek-vul" cx="320" cy="130" r="4" />
     {[
       { a: -90, t: '1. bel je bank' },
-      { a: -30, t: '2. nieuw e-mailwachtwoord' },
+      { a: -30, t: '2. nieuw e-mailwachtwoord', smal: ['2. nieuw', 'e-mailwachtwoord'] },
       { a: 30, t: '3. log overal uit' },
       { a: 90, t: '4. check herstelgegevens' },
-      { a: 150, t: '5. waarschuw je contacten' },
+      { a: 150, t: '5. waarschuw je contacten', smal: ['5. waarschuw', 'je contacten'] },
       { a: 210, t: '6. bewaar bewijs' },
     ].map((s, i) => {
       const r = Math.PI / 180;
@@ -22,7 +22,15 @@ import Tekening from '../Tekening.astro';
       return (
         <g>
           <circle class={i === 0 ? 'tek-vul' : 'tek-vul-inkt'} cx={x} cy={y} r="6" />
-          <text class="tek-label" x={tx} y={ty + 4} text-anchor={anchor}>{s.t}</text>
+          {s.smal ? (
+            <>
+              <text class="tek-label alleen-breed" x={tx} y={ty + 4} text-anchor={anchor}>{s.t}</text>
+              <text class="tek-label alleen-smal" x={tx} y={ty - 6} text-anchor={anchor}>{s.smal[0]}</text>
+              <text class="tek-label alleen-smal" x={tx} y={ty + 18} text-anchor={anchor}>{s.smal[1]}</text>
+            </>
+          ) : (
+            <text class="tek-label" x={tx} y={ty + 4} text-anchor={anchor}>{s.t}</text>
+          )}
         </g>
       );
     })}
