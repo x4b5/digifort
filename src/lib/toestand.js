@@ -5,7 +5,14 @@
  */
 import { VRAGEN } from '../data/huischeck.js';
 import { LIJSTEN } from '../data/lijsten.js';
-import { KAMERS } from '../data/kamers.js';
+import { KAMERS, kamer } from '../data/kamers.js';
+
+/**
+ * De volgorde waarin je deuren dichtdoet: eerst de voordeur, dan het tweede slot,
+ * dan de kluis, dan de rest. Eén lijst, zodat de huischeck en de voorpagina
+ * dezelfde eerstvolgende stap noemen.
+ */
+export const BOUWVOLGORDE = ['voordeur', 'tweede-slot', 'sleutelkluis', 'onderhoud', 'tweede-voordeur', 'brievenbus', 'sleutels', 'tuinhek', 'brandkast', 'eigendomsakte'];
 
 export function toestandPerKamer(data) {
   return Object.fromEntries(
@@ -21,4 +28,28 @@ export function toestandPerKamer(data) {
       return [k.id, 'onbekend'];
     }),
   );
+}
+
+/**
+ * Hoe ver ben je? `gedaan` telt de kamers die dicht zijn, `open` die het niet zijn,
+ * en `volgende` is de eerste open kamer in de bouwvolgorde — met de stap erbij
+ * als er een afvinklijst is die hem dekt. Geeft null terug als er nog niets is ingevuld:
+ * wie net binnenkomt hoort geen voortgang te zien die hij niet heeft.
+ */
+export function hoeVer(data) {
+  const toestand = toestandPerKamer(data);
+  const bekend = BOUWVOLGORDE.filter((id) => toestand[id] !== 'onbekend');
+  if (!bekend.length) return null;
+  const open = BOUWVOLGORDE.filter((id) => toestand[id] === 'open');
+  const volgendeId = open[0];
+  const k = volgendeId ? kamer(volgendeId) : null;
+  const stap = volgendeId
+    ? Object.entries(LIJSTEN).flatMap(([lijst, l]) => l.items.filter((it) => it.kamer === volgendeId).map((it) => ({ lijst, it })))[0]
+    : null;
+  return {
+    gedaan: BOUWVOLGORDE.filter((id) => toestand[id] === 'dicht').length,
+    open: open.length,
+    totaal: BOUWVOLGORDE.length,
+    volgende: k ? { naam: k.naam, wat: k.wat, stap: stap?.it.stap ?? k.zin, href: stap ? `/aan-de-slag#${stap.lijst}` : `/plattegrond#${k.anker}` } : null,
+  };
 }

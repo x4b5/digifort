@@ -1,0 +1,63 @@
+---
+/**
+ * De strook voor wie terugkomt: hoeveel deuren staan er dicht, en wat is de
+ * eerstvolgende stap. Blijft weg zolang er niets is ingevuld — wie hier voor het
+ * eerst komt hoort geen voortgang te zien die hij niet heeft.
+ *
+ * De cijfers komen uit hetzelfde laatje als de huischeck en de afvinklijsten,
+ * dus deze strook loopt nooit uit de pas met het fort eronder.
+ */
+---
+<aside class="verder" data-verder hidden>
+  <p class="stand">
+    <strong data-verder-gedaan>0</strong>
+    <span data-verder-tekst>van de 10 deuren dicht</span>
+  </p>
+  <p class="stap" data-verder-stap hidden>
+    <span class="label">Verder waar je gebleven was</span>
+    <a data-verder-link href="/aan-de-slag"><span data-verder-stap-tekst></span> →</a>
+  </p>
+  <p class="klaar" data-verder-klaar hidden>
+    Alle deuren dicht. <a href="/voor-de-mensen-om-je-heen">Help nu iemand anders met de zijne →</a>
+  </p>
+</aside>
+
+<script>
+  import { lees } from '../lib/opslag.js';
+  import { hoeVer } from '../lib/toestand.js';
+
+  const strook = document.querySelector<HTMLElement>('[data-verder]');
+  if (strook) {
+    function toon(data = lees()) {
+      const ver = hoeVer(data);
+      strook!.hidden = !ver;
+      if (!ver) return;
+      strook!.querySelector('[data-verder-gedaan]')!.textContent = String(ver.gedaan);
+      strook!.querySelector('[data-verder-tekst]')!.textContent = `van de ${ver.totaal} deuren dicht`;
+      const stap = strook!.querySelector<HTMLElement>('[data-verder-stap]')!;
+      stap.hidden = !ver.volgende;
+      strook!.querySelector<HTMLElement>('[data-verder-klaar]')!.hidden = Boolean(ver.volgende);
+      if (ver.volgende) {
+        strook!.querySelector('[data-verder-stap-tekst]')!.textContent = ver.volgende.stap;
+        strook!.querySelector<HTMLAnchorElement>('[data-verder-link]')!.href = ver.volgende.href;
+      }
+    }
+    toon();
+    window.addEventListener('jdh:gewijzigd', (e: Event) => toon((e as CustomEvent).detail));
+  }
+</script>
+
+<style>
+  .verder {
+    margin: 1.5rem 0 0;
+    padding: 0.9rem 1.2rem;
+    border: var(--lijndikte) solid var(--lijn-sterk);
+    border-radius: var(--radius);
+    background: var(--papier-2);
+    max-width: var(--maat);
+  }
+  .stand { margin: 0; font-family: var(--kop); }
+  .stand strong { font-size: 2rem; color: var(--rood); margin-right: 0.3rem; }
+  .stap, .klaar { margin: 0.3rem 0 0; }
+  .label { display: block; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); }
+</style>
