@@ -207,10 +207,10 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['inbrekers-van-nu'],
-    bewering: 'Kifid: fraude soms zo persoonlijk dat herkennen bijna onmogelijk is',
-    bron: [{ tekst: 'Zelfde pagina van veiliginternetten.nl' }],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'Gecontroleerd via tweede hand; uitspraak van Kifid zelf nog koppelen' }],
+    bewering: 'Kifid: bij bankhelpdeskfraude worden consumenten zo gemanipuleerd dat ze denken met een echte bankmedewerker te maken te hebben',
+    bron: [{ tekst: 'Kifid, Commissie van Beroep legt de lat voor grof nalatig hoger, 23 april 2026', href: 'https://www.kifid.nl/nieuws/commissie-van-beroep-legt-de-lat-voor-grof-nalatig-hoger-in-zaak-over-bankhelpdeskfraude/' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Eerder stond hier, via veiliginternetten.nl, dat Kifid de fraude "bijna onmogelijk te herkennen" noemde. Die woorden staan nergens bij Kifid zelf; de tekst volgt nu wat Kifid wel schrijft' }],
   },
   {
     hoofdstuk: ['inbrekers-van-nu'],
@@ -239,10 +239,13 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['krijg-je-je-geld-terug'],
-    bewering: 'Bij een betaling die de klant zelf heeft goedgekeurd bestaat geen wettelijke terugbetaalplicht; het coulancekader gold in deze zaak niet omdat het geld naar een rekening bij een andere bank ging',
-    bron: [{ tekst: 'Security.NL, 9 juni 2026, over de uitspraak van de Commissie van Beroep van Kifid', href: 'https://www.security.nl/posting/939844/Kifid%3A+bank+hoeft+fraude+niet+te+vergoeden+als+klant+zelf+geld+overmaakte' }],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'Gecontroleerd via vakpers; de uitspraak van Kifid zelf nog koppelen' }],
+    bewering: 'Bij een betaling die de klant zelf heeft goedgekeurd rust op de bank in beginsel geen wettelijke plicht om te vergoeden, tenzij ze haar zorgplicht schond. De bank mocht coulance weigeren omdat het geld niet naar een zogenaamde veilige rekening van de bank ging, maar naar een rekening bij een andere bank',
+    bron: [
+      { tekst: 'Kifid, Commissie van Beroep, uitspraak 2026-0026 (19 mei 2026, gepubliceerd 8 juni 2026)', href: 'https://www.kifid.nl/media/rwljktpe/uitspraak-2026-0026.pdf' },
+      { tekst: 'Kifid, nieuwsbericht over deze uitspraak', href: 'https://www.kifid.nl/nieuws/commissie-van-beroep-geen-vergoeding-als-je-betalingen-op-verzoek-van-zogenaamde-bankmedewerker-zelf-hebt-gedaan/' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Kifid besliste niet zelf over coulance: het oordeelde dat de weigering van de bank niet onaanvaardbaar was. De coulanceregeling is een afspraak tussen banken, geen wet' }],
   },
   {
     hoofdstuk: ['krijg-je-je-geld-terug'],
@@ -274,9 +277,12 @@ export const BRONNEN = [
   {
     hoofdstuk: ['krijg-je-je-geld-terug'],
     bewering: 'Kifid behandelt klachten over financiële diensten gratis voor consumenten, nadat je eerst bij de bank zelf hebt geklaagd',
-    bron: [{ tekst: 'Kifid', href: 'https://www.kifid.nl' }],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'Gecontroleerd dat de organisatie en de route bestaan; de exacte procedurevoorwaarden nog koppelen' }],
+    bron: [
+      { tekst: 'Kifid, hoe werkt het', href: 'https://www.kifid.nl/ik-heb-een-klacht/hoe-werkt-het/' },
+      { tekst: 'Kifid, veelgestelde vragen', href: 'https://www.kifid.nl/kifid-kennis-en-uitspraken/veelgestelde-vragen/' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Je kunt naar Kifid als de bank niet binnen 8 weken reageert of met een oplossing komt waar je het niet mee eens bent; dien de klacht in binnen drie maanden na de afwijzing of binnen een jaar na je klacht bij de bank. Gratis in eerste aanleg; in hoger beroep betaal je 500 euro. Je kiest zelf of de uitspraak bindend is' }],
   },
   {
     hoofdstuk: ['de-storm-om-het-huis'],
@@ -354,13 +360,14 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['plattegrond', 'inbrekers-van-nu'],
-    bewering: 'Werkgevers en banken mogen een kopie maken; verhuurders, hotels en webwinkels meestal niet',
+    bewering: 'Werkgevers en banken mogen een kopie van je identiteitsbewijs maken. Een hotel of camping in Nederland mag dat niet en noteert alleen gegevens; een verhuurmakelaar meestal niet (wel bij een huur van 10.000 euro of meer per maand); een winkel waar je een online bestelling ophaalt ook niet',
     bron: [
-      { tekst: 'Rijksoverheid (eerste deel)' },
-      { tekst: 'Autoriteit Persoonsgegevens voor de uitzonderingen' },
+      { tekst: 'Rijksoverheid, ben ik verplicht een kopie van mijn identiteitsbewijs te geven', href: 'https://www.rijksoverheid.nl/onderwerpen/identiteitsfraude/vraag-en-antwoord/ben-ik-verplicht-om-een-kopie-van-mijn-identiteitsbewijs-te-geven-aan-een-bedrijf' },
+      { tekst: 'Autoriteit Persoonsgegevens, identiteitsbewijs op reis', href: 'https://www.autoriteitpersoonsgegevens.nl/themas/identificatie/paspoort-en-identiteitskaart/identiteitsbewijs-op-reis' },
+      { tekst: 'Autoriteit Persoonsgegevens, identiteitsbewijs bij koop, huur of verkoop', href: 'https://www.autoriteitpersoonsgegevens.nl/themas/identificatie/paspoort-en-identiteitskaart/identiteitsbewijs-bij-koop-huur-of-verkoop' },
     ],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'Eerste deel gecontroleerd; tweede deel nog koppelen' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Over een particuliere verhuurder of een webwinkel in het algemeen zeggen deze pagina\'s niets; de tekst noemt daarom alleen de makelaar en het afhalen van een bestelling' }],
   },
   {
     hoofdstuk: ['plattegrond', 'inbrekers-van-nu'],
@@ -392,16 +399,19 @@ export const BRONNEN = [
   {
     hoofdstuk: ['als-er-is-ingebroken'],
     bewering: 'Apple-erfeniscontact: toegangssleutel plus overlijdensakte; contact hoeft geen Apple-apparaat te hebben',
-    bron: [{ tekst: 'SeniorWeb, erfeniscontact toevoegen', href: 'https://www.seniorweb.nl/artikel/erfeniscontact-toevoegen-aan-iphone-of-ipad' }],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'Gecontroleerd via tweede hand; pagina van Apple zelf nog koppelen' }],
+    bron: [{ tekst: 'Apple Support, een erfeniscontact toevoegen voor je Apple Account', href: 'https://support.apple.com/nl-nl/102631' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'In sommige landen vraagt Apple een ander document dan een overlijdensakte, zoals in Japan een familiecertificaat' }],
   },
   {
     hoofdstuk: ['als-er-is-ingebroken'],
-    bewering: 'Google Inactief accountbeheer: periode kiezen, contactpersonen, selectie van gegevens, optioneel verwijderen',
-    bron: [{ tekst: 'KPN, digitale erfenis', href: 'https://www.kpn.com/beleef/blog/digitale-erfenis' }],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'Gecontroleerd via tweede hand; pagina van Google zelf nog koppelen' }],
+    bewering: 'Google Inactiviteitsvoorkeuren (vroeger Inactief accountbeheer): je kiest hoe lang Google wacht, tot maximaal achttien maanden, tot tien contactpersonen, welke gegevens zij krijgen, en of het account daarna wordt verwijderd',
+    bron: [
+      { tekst: 'Google Accounthulp, over Inactiviteitsvoorkeuren', href: 'https://support.google.com/accounts/answer/3036546?hl=nl' },
+      { tekst: 'Google, updating our inactive account policies, 16 mei 2023', href: 'https://blog.google/innovation-and-ai/technology/safety-security/updating-our-inactive-account-policies/' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De helppagina noemt de tien contactpersonen en de keuze van gegevens; de maximale wachttijd van achttien maanden en het verwijderen staan in de aankondiging van Google zelf' }],
   },
   {
     hoofdstuk: ['als-er-is-ingebroken'],
@@ -483,17 +493,20 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['waarom-dit-saai-voelt'],
-    bewering: 'Ruim een derde van de medewerkers vindt beveiligingstraining op het werk saai; bijna twee derde let er niet met volle aandacht bij',
-    bron: [{ tekst: 'Computer Weekly, over onderzoek van Tessian', href: 'https://www.computerweekly.com/news/252523196/Cyber-security-training-boring-and-largely-ignored' }],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'De cijfers (36 procent saai, 64 procent onvoldoende aandacht) komen uit een rapport van beveiligingsbedrijf Tessian. Het oorspronkelijke rapport is niet zelf geopend; de krantenberichtgeving erover wel' }],
+    bewering: 'Ruim een derde van de medewerkers die beveiligingstraining krijgen, vindt die saai (36 procent); ook maar 36 procent zegt er met volle aandacht bij te zijn',
+    bron: [{ tekst: 'Tessian, How Security Cultures Impact Employee Behavior, juli 2022 (pdf)', href: 'https://1670277.fs1.hubspotusercontent-na1.net/hubfs/1670277/%5BCollateral%5D%20Tessian-Research-Reports/%5BTessian%20Research%5D%20How%20Security%20Cultures%20Impact%20Employee%20Behavior.pdf' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Enquête van OnePoll in opdracht van Tessian onder 2.000 werknemers en 500 beveiligingsleiders in de Verenigde Staten en het Verenigd Koninkrijk. Tessian verkoopt zelf beveiligingssoftware, en het gaat om werk, niet om Nederland: lees het als een aanwijzing, niet als een Nederlands cijfer' }],
   },
   {
     hoofdstuk: ['waarom-dit-saai-voelt', 'plattegrond'],
     bewering: 'Gewone computergebruikers verklaren beveiliging met eigen beelden uit een wereld die ze kennen (inbreker, ziekte, oorlog, misdaad). Expertadvies dat niet in zo\'n beeld past, wordt genegeerd',
     bron: [{ tekst: 'Rick Wash, Folk models of home computer security, SOUPS 2010', href: 'https://dl.acm.org/doi/10.1145/1837110.1837125' }],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'Interviewonderzoek onder thuisgebruikers; acht verklaringsmodellen, vier voor virussen en vier voor hackers. Alleen de samenvatting en secundaire besprekingen zijn geraadpleegd, niet de volledige tekst achter de ACM-betaalmuur' }],
+    status: 'gecontroleerd',
+    toelichting: [
+      { tekst: 'Interviews met 33 thuisgebruikers zonder computerkennis in de Verenigde Staten (2007 en 2008); acht verklaringsmodellen, vier voor virussen en vier voor hackers. Volledige tekst vrij te lezen: ' },
+      { tekst: 'SOUPS 2010-proceedings (pdf)', href: 'https://cups.cs.cmu.edu/soups/2010/proceedings/a11_Walsh.pdf' },
+    ],
   },
   {
     hoofdstuk: ['inbrekers-van-morgen'],
@@ -504,13 +517,13 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['de-storm-om-het-huis'],
-    bewering: 'Bij de NotPetya-aanval van juni 2017 werden bij rederij Maersk 45.000 computers en 4.000 servers onbruikbaar; het hele netwerk is in tien dagen opnieuw opgebouwd, werk waar normaal maanden voor staat. Alle domeincontrollers gingen verloren op één na, die in Ghana door een stroomstoring los van het netwerk stond; met die kopie kon het herstel beginnen',
+    bewering: 'Bij de NotPetya-aanval van juni 2017 werden bij rederij Maersk in tien dagen 4.000 servers en 45.000 computers opnieuw geïnstalleerd; volledig hersteld was het na bijna twee maanden. Van de zo\'n 150 domeincontrollers, die elkaar bijhielden als reservekopie, ging alles verloren op één na: die in Ghana stond door een stroomstoring los van het netwerk. Een medewerker vloog de harde schijf via Nigeria naar Londen',
     bron: [
-      { tekst: 'IT Pro, over de toelichting van Maersk-voorzitter Jim Hagemann Snabe in Davos', href: 'https://www.itpro.com/cyber-attacks/30393/maersk-rebuilt-hefty-it-infrastructure-a-mere-10-days-after-notpetya-attack' },
+      { tekst: 'Jim Hagemann Snabe (voorzitter Maersk) op het World Economic Forum, Securing a Common Future in Cyberspace, 24 januari 2018', href: 'https://www.youtube.com/watch?v=Tqe3K3D7TnI' },
       { tekst: 'Wired, The Untold Story of NotPetya, augustus 2018', href: 'https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/' },
     ],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'De aantallen (45.000 pc\'s, 4.000 servers, tien dagen) komen uit wat Snabe er zelf over zei op het World Economic Forum en zijn via meerdere media bevestigd. Het verhaal van de domeincontroller in Ghana komt uit de reportage van Wired; die pagina kon bij deze controle niet zelf worden geopend en staat daarom nog op nog koppelen' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De aantallen en de tien dagen zegt Snabe zelf in de opname van het World Economic Forum (vanaf ongeveer 4 minuten). De domeincontrollers, Ghana, de vlucht en de bijna twee maanden komen uit de reportage van Andy Greenberg in Wired, die op interviews met betrokken medewerkers steunt' }],
   },
   {
     hoofdstuk: ['voor-de-mensen-om-je-heen'],
@@ -521,10 +534,13 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['als-er-is-ingebroken'],
-    bewering: 'Het Twitter-account van Jack Dorsey, destijds de baas van Twitter, werd in augustus 2019 overgenomen via simswapping: het telefoonnummer werd bij de provider naar een nieuwe simkaart verplaatst, waarna de inlogcodes per sms bij de aanvallers binnenkwamen. Er verschenen zeventien berichten, waaronder een bommelding',
-    bron: [{ tekst: 'Axios, 24 november 2019', href: 'https://www.axios.com/2019/11/24/jack-dorsey-twitter-account-hacker-arrested' }],
-    status: 'nog-koppelen',
-    toelichting: [{ tekst: 'Dat het om simswapping ging en dat er een minderjarige voor is aangehouden, staat in meerdere media; het aantal van zeventien berichten komt uit de berichtgeving van destijds en is niet bij een primaire bron nagelopen' }],
+    bewering: 'Het Twitter-account van Jack Dorsey, destijds de baas van Twitter, werd op 30 augustus 2019 overgenomen doordat zijn telefoonnummer bij de provider was overgezet; volgens Twitter door een beveiligingsfout van de provider. Via de functie om per sms te tweeten verschenen ongeveer een halfuur lang berichten, waaronder racisme en een bommelding tegen het hoofdkantoor van Twitter',
+    bron: [
+      { tekst: 'DataBreachToday, 2 september 2019, met de verklaring van Twitter', href: 'https://www.databreachtoday.com/hey-jack-how-was-your-account-hacked-a-13007' },
+      { tekst: 'CBS News, 30 augustus 2019', href: 'https://www.cbsnews.com/news/jack-dorsey-hackers-tweet-racial-slurs-from-twitter-ceo-account-today-2019-08-30/' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De verklaring van Twitter zelf stond in een bericht van @TwitterComms; dat account is inmiddels afgeschermd, dus de tekst is via deze twee media nagelopen. Een eerder genoemd aantal van zeventien berichten staat in geen van de bronnen en is geschrapt' }],
   },
 ];
 

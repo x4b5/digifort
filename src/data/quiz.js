@@ -128,7 +128,7 @@ export const QUIZZEN = {
     ] },
     { vraag: 'Welke van deze drie heeft géén regeling voor als jou iets overkomt?', opties: [
       { tekst: 'Apple', uitleg: 'Apple heeft het erfeniscontact: die persoon krijgt een toegangssleutel en hoeft zelf geen Apple-apparaat te hebben.' },
-      { tekst: 'Google', uitleg: 'Google heeft Inactief accountbeheer: je kiest na hoeveel maanden stilte je contactpersonen worden ingelicht.' },
+      { tekst: 'Google', uitleg: 'Google heeft Inactiviteitsvoorkeuren (vroeger Inactief accountbeheer): je kiest hoe lang Google wacht, tot achttien maanden, voordat je contactpersonen worden ingelicht.' },
       { tekst: 'Microsoft', goed: true, uitleg: 'Microsoft heeft zo’n regeling niet. Daar ben je aangewezen op je noodpakket op papier.' },
     ] },
   ],
