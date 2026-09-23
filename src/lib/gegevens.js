@@ -69,7 +69,7 @@ export function begrippenGegevens() {
     '@context': 'https://schema.org',
     '@type': 'DefinedTermSet',
     name: `Woordenboek van ${SITE.naam}`,
-    description: 'Vaktermen over digitale veiligheid, elk in één zin gewone taal uitgelegd.',
+    description: 'Vaktermen over digitale weerbaarheid, elk in één zin gewone taal uitgelegd.',
     inLanguage: TAAL,
     url,
     hasDefinedTerm: WOORDEN.map((w) => ({
