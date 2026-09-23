@@ -26,6 +26,10 @@ test('het woordenboek filtert terwijl je typt', async ({ page }) => {
   await expect(page.locator('tbody tr:visible')).toHaveCount(7);
   await expect(page.locator('[data-stand]')).toHaveText('7 van 60 woorden');
 
+  // bij een afkorting staat het volledige woord erachter
+  await page.locator('[data-zoek]').fill('dns');
+  await expect(page.locator('tbody tr:visible td').first()).toContainText('DNS (domain name system)');
+
   await page.locator('[data-zoek]').fill('zeppelin');
   await expect(page.locator('tbody tr:visible')).toHaveCount(0);
   await expect(page.locator('[data-stand]')).toHaveText('Niets gevonden. Probeer een ander woord.');

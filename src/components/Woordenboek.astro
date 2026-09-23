@@ -24,7 +24,7 @@ const NIVEAUNAAM: Record<number, string> = { 1: 'makkelijk', 2: 'gemiddeld', 3: 
           const k = w.kamer && kamer(w.kamer);
           return (
             <tr data-niveau={w.niveau}>
-              <td>{w.term} <span class="niveau">{NIVEAUNAAM[w.niveau]}</span></td>
+              <td>{w.term}{w.voluit && <span class="voluit"> ({w.voluit})</span>} <span class="niveau">{NIVEAUNAAM[w.niveau]}</span></td>
               <td>{w.uitleg}</td>
               <td>{k ? <a href={`/plattegrond#${k.anker}`}>{w.huis}</a> : w.huis}</td>
             </tr>
@@ -80,6 +80,7 @@ const NIVEAUNAAM: Record<number, string> = { 1: 'makkelijk', 2: 'gemiddeld', 3: 
   .zoek { display: flex; flex-direction: column; gap: 0.35rem; margin: 1rem 0 0.5rem; font-weight: 700; }
   .zoek input { font: inherit; font-size: 1.1rem; padding: 0.6rem 0.9rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier); color: var(--inkt); max-width: 28rem; }
   .stand { margin: 0 0 0.75rem; }
+  .voluit { font-weight: 400; color: var(--inkt-zacht); }
   .niveau { display: none; font-family: var(--mono); font-size: 0.75em; color: var(--inkt-zacht); white-space: nowrap; }
   .op-niveau .niveau { display: inline; }
 </style>
