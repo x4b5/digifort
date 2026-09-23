@@ -11,6 +11,7 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   <div class="wrap kop-rij">
     <a class="merk" href="/"><Logo maat={34} /><span>{SITE.naam}</span></a>
     <a class="sloten" href="/#fort" data-sloten title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst>{`0 van ${TOTAAL_SLOTEN} sloten dicht`}</span></a>
+    <p class="feestje" data-feestje role="status" aria-live="polite"></p>
     <Lezen />
     <details class="menu">
       <summary class="knop licht klein geen-driehoek">Menu</summary>
@@ -33,7 +34,7 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   import { lees } from '../lib/opslag.js';
   import { LIJSTEN, SLOT_LIJSTEN, TOTAAL_SLOTEN } from '../data/lijsten.js';
   import { toestandPerKamer } from '../lib/toestand.js';
-  import { toestandPerDeel } from '../data/fort.js';
+  import { FORTDELEN, toestandPerDeel } from '../data/fort.js';
 
   // de teller telt de vinkjes uit de lijsten met sloten; de kantelen laten per
   // fortdeel zien of hij staat (groen), wankelt (rood) of nog onbekend is
@@ -47,14 +48,50 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   function toonTeller(data = lees()) {
     const el = document.querySelector<HTMLElement>('[data-sloten]');
     const tekst = document.querySelector<HTMLElement>('[data-sloten-tekst]');
-    if (!el || !tekst) return;
+    if (!el || !tekst) return {};
     const delen = toestandPerDeel(toestandPerKamer(data));
     tekst.textContent = `${telSloten(data)} van ${TOTAAL_SLOTEN} sloten dicht`;
     el.querySelectorAll<HTMLElement>('[data-kanteel]').forEach((k) => { k.dataset.toestand = delen[k.dataset.kanteel!]; });
+    return delen;
   }
 
-  toonTeller();
-  window.addEventListener('jdh:gewijzigd', (e: Event) => toonTeller((e as CustomEvent).detail));
+  // Een deel dat nét dicht gaat, verdient een klein feestje: het kanteel springt op en
+  // de kop zegt het hardop. Alleen bij een verandering, dus nooit bij het laden van een pagina.
+  const FEEST_DUUR = 3500;
+  let wasDicht = new Set(Object.entries(toonTeller()).filter(([, t]) => t === 'dicht').map(([id]) => id));
+  let feestKlok: ReturnType<typeof setTimeout> | undefined;
+
+  function zin(nieuw: string[], allesDicht: boolean) {
+    if (allesDicht) return `Je fort staat. Alle ${FORTDELEN.length} delen.`;
+    const namen = nieuw.map((id, i) => {
+      const naam = FORTDELEN.find((d) => d.id === id)!.naam;
+      return i === 0 ? naam : naam.charAt(0).toLowerCase() + naam.slice(1);
+    });
+    const opsomming = namen.length > 1 ? `${namen.slice(0, -1).join(', ')} en ${namen.at(-1)}` : namen[0];
+    return `${opsomming} ${namen.length > 1 ? 'staan' : 'staat'}.`;
+  }
+
+  function vier(delen: Record<string, string>) {
+    const nuDicht = new Set(Object.entries(delen).filter(([, t]) => t === 'dicht').map(([id]) => id));
+    const nieuw = [...nuDicht].filter((id) => !wasDicht.has(id));
+    wasDicht = nuDicht;
+    if (!nieuw.length) return;
+    nieuw.forEach((id) => {
+      const k = document.querySelector<HTMLElement>(`[data-kanteel="${id}"]`);
+      if (!k) return;
+      k.classList.remove('net-dicht');
+      void k.offsetWidth; // de animatie opnieuw laten beginnen als hij er al op stond
+      k.classList.add('net-dicht');
+    });
+    const feestje = document.querySelector<HTMLElement>('[data-feestje]');
+    if (!feestje) return;
+    feestje.textContent = zin(nieuw, nuDicht.size === FORTDELEN.length);
+    feestje.classList.add('zichtbaar');
+    clearTimeout(feestKlok);
+    feestKlok = setTimeout(() => feestje.classList.remove('zichtbaar'), FEEST_DUUR);
+  }
+
+  window.addEventListener('jdh:gewijzigd', (e: Event) => vier(toonTeller((e as CustomEvent).detail)));
 </script>
 
 <script>
@@ -85,16 +122,26 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
 </script>
 
 <style>
+  /* bij het wisselen van pagina blijft de kop staan en vloeit alleen de inhoud over */
+  .kop { view-transition-name: kop; }
+  @view-transition { navigation: auto; }
   .kop { border-bottom: var(--lijndikte) solid var(--lijn-sterk); background: var(--papier); position: sticky; top: 0; z-index: 5; }
   .kop-rij { display: flex; align-items: center; gap: 1rem; min-height: 4.25rem; flex-wrap: wrap; }
   .merk { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--kop); font-weight: 700; font-size: 1.25rem; color: var(--inkt); text-decoration: none; }
   .sloten { margin-left: auto; font-size: 0.9rem; color: var(--inkt-zacht); display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; }
   .sloten:hover { color: var(--inkt); }
   .kantelen { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
-  .kantelen span { display: block; width: 7px; height: 9px; border: 2px solid var(--lijn-sterk); border-bottom: 0; opacity: 0.4; }
+  .kantelen span { display: block; transform-origin: bottom center; width: 7px; height: 9px; border: 2px solid var(--lijn-sterk); border-bottom: 0; opacity: 0.4; }
   .kantelen span:nth-child(odd) { height: 14px; }
   .kantelen span[data-toestand="dicht"] { background: var(--groen); border-color: var(--groen); opacity: 1; }
   .kantelen span[data-toestand="open"] { background: var(--rood); border-color: var(--rood); opacity: 1; }
+  .kantelen span.net-dicht { animation: springop 0.6s ease-out; }
+  @keyframes springop { 0% { transform: none; } 35% { transform: translateY(-6px) scale(1.25); } 70% { transform: translateY(1px); } 100% { transform: none; } }
+  /* het feestje hangt net onder de kop, rechts; leeg of weggeklapt neemt het geen plek in */
+  .feestje { position: absolute; top: calc(100% + 0.6rem); right: max(1rem, calc((100% - var(--breed)) / 2)); margin: 0; padding: 0.55rem 0.9rem; border-radius: var(--radius); background: var(--groen); color: var(--op-kleur); font-family: var(--kop); font-weight: 700; font-size: 0.95rem; box-shadow: var(--schaduw, 0 10px 30px rgba(0,0,0,.12)); opacity: 0; transform: translateY(-6px); transition: opacity 0.25s ease, transform 0.25s ease; pointer-events: none; }
+  .feestje.zichtbaar { opacity: 1; transform: none; }
+  .feestje:empty { display: none; }
+  @media (prefers-reduced-motion: reduce) { .kantelen span.net-dicht { animation: none; } .feestje { transition: none; transform: none; } }
   @media (max-width: 30rem) { .sloten [data-sloten-tekst] { display: none; } }
   .sloten[hidden] { display: none; }
   /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
