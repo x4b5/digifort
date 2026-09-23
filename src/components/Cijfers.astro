@@ -5,8 +5,10 @@
  * want een cijfer zonder narekenbare bron hoort hier niet.
  * Eindigt `getal` op een procent, dan krijgt het blok een ring die dat deel van
  * het geheel laat zien.
+ * `kleur` volgt de kleurregel van de site: 'rood' (standaard) voor een cijfer over
+ * gevaar, 'groen' voor een cijfer over wat je zelf regelt.
  */
-interface Props { items: { getal: string; tekst: string; bron?: string; href?: string }[] }
+interface Props { items: { getal: string; tekst: string; bron?: string; href?: string; kleur?: 'rood' | 'groen' }[] }
 const { items } = Astro.props;
 const procent = (getal: string) => {
   const m = getal.trim().match(/^(\d+(?:,\d+)?)\s*%$/);
@@ -15,7 +17,7 @@ const procent = (getal: string) => {
 ---
 <ul class="cijfers">
   {items.map((c) => (
-    <li>
+    <li data-kleur={c.kleur ?? 'rood'}>
       <span class="kop">
         <strong class="getal">{c.getal}</strong>
         {procent(c.getal) !== null && (
@@ -101,6 +103,9 @@ const procent = (getal: string) => {
   }
   .wacht .ring-deel { stroke-dashoffset: 100; transition: none; }
   @media (prefers-reduced-motion: reduce) { .ring-deel { transition: none; } }
+  [data-kleur='groen'] .getal { color: var(--groen); }
+  [data-kleur='groen'] .ring-deel { stroke: var(--groen); }
+  .cijfers li[data-kleur='groen']:hover { background: var(--groen-licht); }
   .tekst { font-size: 0.97rem; line-height: 1.4; }
   .bron { font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); margin-top: auto; padding-top: 0.3rem; text-decoration-thickness: 1px; }
   .bron:hover { color: var(--rood); }
