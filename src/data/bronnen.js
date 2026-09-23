@@ -797,6 +797,16 @@ export const BRONNEN = [
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'De menunamen op Android verschillen soms per merk; dit zijn de namen die Google zelf gebruikt' }],
   },
+  {
+    hoofdstuk: ['onderhoud'],
+    bewering: 'Bij TikTok staan de privacy-instellingen voor volwassenen standaard op openbaar; een Instagram-account zet je op privé via je profielfoto, het menu, Instellingen en activiteit, Wie je content kan zien, Accountprivacy. Privé is nooit echt privé: ook mensen uit je eigen kring kunnen iets delen',
+    bron: [
+      { tekst: 'Consumentenbond, TikTok: zo stel je de app in voor meer privacy, bijgewerkt 22 april 2026', href: 'https://www.consumentenbond.nl/internet-privacy/tiktok-privacyinstellingen' },
+      { tekst: 'Consumentenbond, Instagram: tips voor meer privacy', href: 'https://www.consumentenbond.nl/internet-privacy/privacytipsinstagram' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Voor kinderen van 13 tot en met 15 jaar staat een TikTok-account wel standaard op privé. De menunamen in apps veranderen geregeld; dit zijn de namen die de Consumentenbond noemt' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */
