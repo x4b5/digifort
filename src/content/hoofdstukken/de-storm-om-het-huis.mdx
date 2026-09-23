@@ -2,7 +2,7 @@
 nr: null
 titel: "De storm om het huis"
 kort: "Staten, hackers en oorlog op afstand: wat de wereld met jouw voordeur te maken heeft."
-datum: "2026-09-21"
+datum: "2026-09-23"
 ---
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
@@ -18,7 +18,7 @@ Er is oorlog in Europa, en die wordt ook op internet gevoerd. Jouw huis staat ni
 
 <Storm />
 
-De AIVD is de geheime dienst van Nederland. In april 2026 schreef de dienst dat de dreiging in tachtig jaar nooit zo groot was als nu. Rusland en China hebben eigen hackersgroepen die het hele jaar door bezig zijn. Rusland stelde zich in 2025 "agressiever, brutaler en provocerender" op tegen Europese landen, zei de baas van de AIVD.
+De AIVD is de geheime dienst van Nederland. In april 2026 schreef de dienst dat de dreiging in tachtig jaar nooit zo groot was als nu. Rusland en China hebben eigen hackersgroepen die het hele jaar door bezig zijn. Rusland stelde zich in 2025 "agressiever, brutaler en provocerender" op tegen Europese landen, zei de baas van de AIVD. ([bron](https://www.aivd.nl/actueel/nieuws/2026/04/23/aivd-wereld-vol-conflict-en-botsende-belangen))
 
 Drie dingen gebeurden vorig jaar in Nederland:
 
@@ -35,12 +35,12 @@ De NCTV, de dienst die over de veiligheid van Nederland gaat, zegt het zo: lande
 ## De cijfers
 
 <Cijfers items={[
-  { getal: '80 jaar', tekst: 'zo lang bestaat de AIVD, en nooit zag de dienst zoveel dreiging tegelijk als nu', bron: 'AIVD, jaarverslag 2025' },
-  { getal: '4.875', tekst: 'cyberaanvallen in één jaar in de EU; bijna 80% kwam van actiegroepen die websites platleggen', bron: 'ENISA, 2025' },
-  { getal: '60%', tekst: 'van de inbraken begint met een babbeltruc: een nepbericht waar iemand op klikt', bron: 'ENISA, 2025' },
-  { getal: '10 van de 10', tekst: 'landen die het vaakst door Russische hackers worden geraakt, zijn NAVO-landen. Nederland dus ook', bron: 'Microsoft, 2025' },
-  { getal: '97%', tekst: 'van de aanvallen op accounts is gewoon wachtwoorden raden, in het groot', bron: 'Microsoft, 2025' },
-  { getal: '99%', tekst: 'van die aanvallen houdt een tweede slot tegen dat niet te phishen is, zoals een passkey', bron: 'Microsoft, 2025' },
+  { getal: '80 jaar', tekst: 'zo lang bestaat de AIVD, en nooit zag de dienst zoveel dreiging tegelijk als nu', bron: 'AIVD, jaarverslag 2025', href: 'https://www.aivd.nl/actueel/magazines/jaarverslag/2025/2025/cyberdreigingen' },
+  { getal: '4.875', tekst: 'cyberaanvallen in één jaar in de EU; bijna 80% kwam van actiegroepen die websites platleggen', bron: 'ENISA, 2025', href: 'https://www.enisa.europa.eu/sites/default/files/2026-01/ENISA%20Threat%20Landscape%202025_v1.2.pdf' },
+  { getal: '60%', tekst: 'van de inbraken begint met een babbeltruc: een nepbericht waar iemand op klikt', bron: 'ENISA, 2025', href: 'https://www.enisa.europa.eu/sites/default/files/2026-01/ENISA%20Threat%20Landscape%202025_v1.2.pdf' },
+  { getal: '10 van de 10', tekst: 'landen die het vaakst door Russische hackers worden geraakt, zijn NAVO-landen. Nederland dus ook', bron: 'Microsoft, 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' },
+  { getal: '97%', tekst: 'van de aanvallen op accounts is gewoon wachtwoorden raden, in het groot', bron: 'Microsoft, 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' },
+  { getal: '99%', tekst: 'van die aanvallen houdt een tweede slot tegen dat niet te phishen is, zoals een passkey', bron: 'Microsoft, 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' },
 ]} />
 
 En dichter bij huis: in april 2025 en opnieuw rond de NAVO-top in juni lagen de websites van gemeenten en provincies plat. Een pro-Russische groep, NoName057(16), zei dat zij het deden, omdat Nederland Oekraïne helpt. Dat soort aanvallen heet DDoS: duizenden computers tegelijk bellen aan, zodat de deur voor echte bezoekers dicht blijft. Er wordt niets gestolen. Het is een steen door de ruit, geen inbraak.
@@ -53,7 +53,7 @@ Een geheime dienst is niet in jouw vakantiefoto's geïnteresseerd. Toch raakt he
 
 **1. Je staat in de storm.** Ligt je gemeente plat, dan kun je geen paspoort aanvragen. Wordt je telecombedrijf bespioneerd, dan gaat dat om jouw belgegevens. Valt DigiD uit, dan kom je nergens in. Daar kun jij niets aan doen, behalve zorgen dat je zelf niet stilvalt: noodnummers op papier, een beetje contant geld in huis, een reservekopie op een losse schijf.
 
-**2. Je huis kan een schuilplaats zijn.** Hackers van staten gebruiken gekaapte routers en slimme apparaten van gewone mensen als dekmantel. Ze vallen van daaruit iemand anders aan, en het spoor loopt naar jouw huis. De Amerikaanse overheid haalde in 2024 zo'n netwerk van honderden gekaapte thuisrouters uit de lucht dat Chinese hackers gebruikten. Het waren bijna allemaal oude routers die geen updates meer kregen. Een router uit de fabriek, met het oude wachtwoord en zonder updates, is daar een makkelijk onderkomen; wat je daaraan doet staat in [hoofdstuk 5](/onderhoud).
+**2. Je huis kan een schuilplaats zijn.** Hackers van staten gebruiken gekaapte routers en slimme apparaten van gewone mensen als dekmantel. Ze vallen van daaruit iemand anders aan, en het spoor loopt naar jouw huis. De Amerikaanse overheid haalde in 2024 zo'n netwerk van honderden gekaapte thuisrouters uit de lucht dat Chinese hackers gebruikten. Het waren bijna allemaal oude routers die geen updates meer kregen. ([bron](https://www.justice.gov/archives/opa/pr/us-government-disrupts-botnet-peoples-republic-china-used-conceal-hacking-critical)) Een router uit de fabriek, met het oude wachtwoord en zonder updates, is daar een makkelijk onderkomen; wat je daaraan doet staat in [hoofdstuk 5](/onderhoud).
 
 **3. Je werkt ergens.** De aanval op de WhatsApp van ambtenaren ging via hun privételefoon. Werk je bij de overheid, bij Defensie, bij een haven, een ziekenhuis of een bedrijf dat iets maakt wat een ander land wil hebben? Dan is jouw privéhuis de achterdeur van je werk.
 

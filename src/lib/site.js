@@ -6,6 +6,16 @@ export const SITE = {
   contact: 'x4b5.clause500@8shield.net', // SimpleLogin-alias, stuurt door naar Proton
 };
 
+/**
+ * Wanneer welk deel van de site voor het laatst met de bron ernaast is nagelopen.
+ * Met de hand bijwerken als je het echt hebt gedaan: deze datums staan in de tekst
+ * en mogen niet meeschuiven met een willekeurige commit.
+ */
+export const NAGELOPEN = {
+  gereedschap: '2026-09-20',
+  bronnen: '2026-09-21',
+};
+
 export const HOOFDSTUKKEN = [
   { nr: 0, slug: 'huischeck', titel: 'De huischeck', kort: 'Tien vragen, twee minuten. Elke "nee" is een deur die openstaat.' },
   { nr: 1, slug: 'plattegrond', titel: 'De plattegrond van je digitale huis', kort: 'Veertien plekken in je huis, van de voordeur tot de brandkast.' },

@@ -1,0 +1,7 @@
+---
+/** Een controledatum uit site.js, in gewone taal. Eén bron voor alle datums in de tekst. */
+import { NAGELOPEN, datumNL } from '../lib/site.js';
+const { wat } = Astro.props;
+const iso = NAGELOPEN[wat];
+---
+<time datetime={iso}>{datumNL(iso)}</time>
