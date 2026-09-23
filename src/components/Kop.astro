@@ -13,8 +13,8 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
     <a class="sloten" href="/#fort" data-sloten title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst>{`0 van ${TOTAAL_SLOTEN} sloten dicht`}</span></a>
     <Lezen />
     <details class="menu">
-      <summary class="knop licht klein">Menu</summary>
-      <nav aria-label="Hoofdstukken">
+      <summary class="knop licht klein geen-driehoek">Menu</summary>
+      <nav class="paneel" aria-label="Hoofdstukken">
         <ol>
           {HOOFDSTUKKEN.map((h) => (
             <li class={h.extra ? 'extra' : ''}>
@@ -28,6 +28,34 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
     </details>
   </div>
 </header>
+
+<script>
+  import { lees } from '../lib/opslag.js';
+  import { LIJSTEN, SLOT_LIJSTEN, TOTAAL_SLOTEN } from '../data/lijsten.js';
+  import { toestandPerKamer } from '../lib/toestand.js';
+  import { toestandPerDeel } from '../data/fort.js';
+
+  // de teller telt de vinkjes uit de lijsten met sloten; de kantelen laten per
+  // fortdeel zien of hij staat (groen), wankelt (rood) of nog onbekend is
+  function telSloten(data) {
+    return SLOT_LIJSTEN.reduce((n, id) => {
+      const items = data.lijsten[id] ?? {};
+      return n + LIJSTEN[id].items.filter((it) => items[it.id]).length;
+    }, 0);
+  }
+
+  function toonTeller(data = lees()) {
+    const el = document.querySelector<HTMLElement>('[data-sloten]');
+    const tekst = document.querySelector<HTMLElement>('[data-sloten-tekst]');
+    if (!el || !tekst) return;
+    const delen = toestandPerDeel(toestandPerKamer(data));
+    tekst.textContent = `${telSloten(data)} van ${TOTAAL_SLOTEN} sloten dicht`;
+    el.querySelectorAll<HTMLElement>('[data-kanteel]').forEach((k) => { k.dataset.toestand = delen[k.dataset.kanteel!]; });
+  }
+
+  toonTeller();
+  window.addEventListener('jdh:gewijzigd', (e: Event) => toonTeller((e as CustomEvent).detail));
+</script>
 
 <script>
   // De uitklappers in de kop (Lezen en Menu) sluiten met Escape en
@@ -72,16 +100,9 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   .sloten + :global(.lezen) { margin-left: 0; }
   .menu { position: relative; }
   .sloten[hidden] ~ :global(.lezen) { margin-left: auto; }
-  summary { list-style: none; }
-  summary::-webkit-details-marker { display: none; }
-  .menu[open] summary { background: var(--inkt); color: var(--papier); border-color: var(--inkt); }
-  /* net als bij het leespaneel: een dichte <details> mag geen lay-out maken */
+  /* net als bij het weergavepaneel: een dichte <details> mag geen lay-out maken */
   .menu:not([open]) nav { display: none; }
-  nav {
-    position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 10;
-    background: var(--papier); border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius);
-    min-width: min(22rem, 90vw); padding: 0.5rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  }
+  nav { min-width: min(22rem, 90vw); padding: 0.5rem 0; }
   ol { list-style: none; margin: 0; padding: 0; }
   li { margin: 0; }
   li a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 1rem; color: var(--inkt); text-decoration: none; font-size: 1rem; }

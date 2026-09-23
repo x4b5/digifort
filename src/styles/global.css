@@ -15,7 +15,13 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-t
 /* de leesknop in de kop; alles is in rem, dus alles schaalt mee */
 html[data-tekst="groot"] { font-size: 115%; }
 html[data-tekst="groter"] { font-size: 132%; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* wie beweging heeft uitgezet, krijgt geen opspringende tekeningen bij het tabben
+   en geen schuivende meter */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  a[data-kamer] g, a[data-deel] g { transform: none !important; }
+}
 
 body {
   margin: 0;
@@ -50,6 +56,10 @@ h1, h2, h3, h4 {
 }
 h1 { font-size: clamp(2.4rem, 7vw, 4rem); margin-bottom: 1rem; }
 h2 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); margin: 3rem 0 0.75rem; padding-top: 1.25rem; border-top: var(--lijndikte) solid var(--lijn-sterk); }
+/* de streep markeert een nieuwe sectie in de lopende tekst. Binnen een eigen kader
+   (een stap, een trede, de trede-check) is de rand van dat kader al de scheiding;
+   dit staat hier, zodat niet elk component het apart hoeft uit te zetten */
+:is(.stap, .trede, .tredecheck) h2 { padding-top: 0; border-top: 0; }
 h3 { font-size: clamp(1.3rem, 3.2vw, 1.6rem); margin: 2.25rem 0 0.5rem; }
 h4 { font-size: 1.15rem; margin: 1.5rem 0 0.4rem; }
 
@@ -79,6 +89,9 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--papier-2); 
   color: var(--rood);
   margin: 0 0 0.5rem;
 }
+/* zelfde kopje, maar terughoudend: boven een lijstje of in een paneel */
+.eyebrow.zacht { color: var(--inkt-zacht); }
+.eyebrow.klein { font-size: var(--tekst-s); letter-spacing: 0.08em; margin-bottom: 0.35rem; }
 
 .intro { font-size: 1.35rem; line-height: 1.45; color: var(--inkt-zacht); }
 
@@ -95,7 +108,7 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--papier-2); 
 .kort p { margin: 0; }
 
 .noot {
-  border: 2px solid var(--lijn);
+  border: var(--lijndikte-dun) solid var(--lijn);
   border-radius: var(--radius);
   padding: 0.9rem 1.1rem;
   margin: 1.25rem 0;
@@ -108,7 +121,7 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--papier-2); 
   min-height: 3rem; padding: 0.6rem 1.4rem;
   background: var(--rood); color: var(--op-kleur);
   font-family: var(--kop); font-size: 1.15rem; font-weight: 700;
-  text-decoration: none; border: 3px solid var(--rood); border-radius: var(--radius);
+  text-decoration: none; border: var(--lijndikte) solid var(--rood); border-radius: var(--radius);
   cursor: pointer;
 }
 .knop:hover { background: var(--rood-donker); border-color: var(--rood-donker); color: var(--op-kleur); }
@@ -117,10 +130,31 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--papier-2); 
 .knop.klein { min-height: 2.75rem; font-size: 0.95rem; padding: 0.3rem 0.9rem; }
 .knop[hidden] { display: none; }
 
+/* een paneel dat uit de kop klapt (menu, weergave) */
+.paneel {
+  position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 10;
+  background: var(--papier); border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius);
+  box-shadow: var(--schaduw);
+}
+.geen-driehoek { list-style: none; }
+.geen-driehoek::-webkit-details-marker { display: none; }
+/* wat je gekozen hebt, staat omgekeerd: inkt als vlak, papier als letter.
+   Geldt voor het open paneel, een gekozen weergave en het antwoord "weet ik niet". */
+.gekozen,
+details[open] > .geen-driehoek,
+:is(.keuze, .antwoord.weet):has(input:checked) { background: var(--inkt); border-color: var(--inkt); color: var(--papier); }
+
+/* het nummer in een rondje, voor een trede of een stap */
+.bol {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.6rem; height: 2.6rem; border-radius: 50%; flex: none;
+  background: var(--rood); color: var(--op-kleur); font-size: var(--tekst-l); letter-spacing: 0;
+}
+
 /* tabellen */
 .tabel-scroll { overflow-x: auto; margin: 0 0 1.25rem; }
 table { border-collapse: collapse; width: 100%; font-size: 0.95em; }
-th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 2px solid var(--lijn); }
+th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: var(--lijndikte-dun) solid var(--lijn); }
 th { font-family: var(--kop); font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: var(--lijndikte) solid var(--lijn-sterk); }
 @media (max-width: 40rem) {
   .tabel-stapel, .tabel-stapel tbody, .tabel-stapel tr, .tabel-stapel td { display: block; }
@@ -156,6 +190,26 @@ figure.foto .herkomst a { color: inherit; }
 .tek-tekst { font-family: var(--kop); font-size: 13px; font-weight: 700; fill: var(--inkt); }
 .tek-label { font-family: var(--tekst); font-size: 12px; fill: var(--inkt-zacht); }
 .tek-stippel { stroke-dasharray: 2 7; }
+
+/* ---- tekening met legenda (plattegrond en fort) ----
+   De kleur zit op een data-toestand, zodat javascript alleen een woord hoeft te zetten:
+   'open' is rood, 'dicht' groen, 'onbekend' blijft grijs. */
+[data-toestand="open"] .tek, [data-toestand="open"] .tek-dun { stroke: var(--rood); }
+[data-toestand="open"] .tek-vul { fill: var(--rood); }
+[data-toestand="dicht"] .tek, [data-toestand="dicht"] .tek-dun { stroke: var(--groen); }
+[data-toestand="dicht"] .tek-vul { fill: var(--groen); }
+
+.legenda { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr)); font-size: var(--tekst-m); }
+.legenda li { margin: 0; }
+.legenda a { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
+.legenda a:hover, .legenda li.licht-op a { background: var(--papier-2); }
+.legenda .wat { color: var(--inkt-zacht); }
+.lampje { flex: none; width: 0.75rem; height: 0.75rem; border-radius: 50%; border: var(--lijndikte-dun) solid var(--lijn-sterk); margin-top: 0.45rem; }
+[data-toestand="open"] .lampje { background: var(--rood); border-color: var(--rood); }
+[data-toestand="dicht"] .lampje { background: var(--groen); border-color: var(--groen); }
+
+/* de stand onder een tekening of lijst: hoeveel er al staat */
+.stand { font-family: var(--kop); font-size: var(--tekst-m); color: var(--inkt-zacht); }
 
 /* kaartjes */
 .kaarten { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr)); margin: 1.5rem 0; padding: 0; list-style: none; }

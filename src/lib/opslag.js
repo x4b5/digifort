@@ -59,14 +59,3 @@ export function wisAlles() {
   }
   window.dispatchEvent(new CustomEvent('jdh:gewijzigd', { detail: { ...LEEG } }));
 }
-
-export function telHuischeck(data = lees()) {
-  const antwoorden = Object.values(data.huischeck);
-  return { ja: antwoorden.filter((a) => a === true).length, beantwoord: antwoorden.length };
-}
-
-export function telLijst(data, lijst, totaal) {
-  const items = data.lijsten[lijst] ?? {};
-  const af = Object.values(items).filter(Boolean).length;
-  return { af, totaal };
-}

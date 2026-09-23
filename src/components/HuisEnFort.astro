@@ -115,7 +115,7 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
   <p class="stand" data-fort-stand aria-live="polite">{uitleg ?? <>Doe de <a href="/huischeck">huischeck</a> of vink iets af in <a href="/aan-de-slag">hoofdstuk 4</a>: dan zie je hier welke delen van je fort al staan.</>}</p>
 
   {legenda && (
-    <ol class="delen" data-fort-legenda>
+    <ol class="legenda delen" data-fort-legenda>
       {FORTDELEN.map((x) => (
         <li data-deel-legenda={x.id}>
           <a href={href(x)}><span class="lampje" aria-hidden="true"></span><span><strong>{x.naam}</strong> <span class="wat">— {x.wat}</span></span></a>
@@ -129,6 +129,7 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
   import { lees } from '../lib/opslag.js';
   import { toestandPerKamer } from '../lib/toestand.js';
   import { FORTDELEN, toestandPerDeel } from '../data/fort.js';
+  import { koppelLegenda } from '../lib/koppel.js';
 
   document.querySelectorAll<HTMLElement>('[data-huis-en-fort]').forEach((fig) => {
     // de zin zoals hij bij het laden op de pagina stond, om na een wis naar terug te keren
@@ -152,17 +153,7 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
     kleur();
     window.addEventListener('jdh:gewijzigd', (e: Event) => kleur((e as CustomEvent).detail));
 
-    const koppel = (id: string, aan: boolean) => {
-      fig.querySelector(`[data-deel="${id}"]`)?.classList.toggle('licht-op', aan);
-      fig.querySelector(`[data-deel-legenda="${id}"]`)?.classList.toggle('licht-op', aan);
-    };
-    fig.querySelectorAll<HTMLElement>('[data-deel], [data-deel-legenda]').forEach((el) => {
-      const id = el.dataset.deel ?? el.dataset.deelLegenda!;
-      el.addEventListener('mouseenter', () => koppel(id, true));
-      el.addEventListener('mouseleave', () => koppel(id, false));
-      el.addEventListener('focusin', () => koppel(id, true));
-      el.addEventListener('focusout', () => koppel(id, false));
-    });
+    koppelLegenda(fig, 'deel');
   });
 </script>
 
@@ -173,23 +164,13 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
   .paar svg { flex: 1 1 0; min-width: 0; }
   .pijl { font-family: var(--kop); font-size: 2rem; color: var(--inkt-flauw); flex: none; }
   @media (max-width: 40rem) { .paar { flex-direction: column; gap: 0; } .paar svg { width: 100%; max-width: 24rem; } .pijl { transform: rotate(90deg); line-height: 1; } }
-  a[data-deel] { cursor: pointer; outline: none; }
-  a[data-deel]:focus-visible g { outline: 3px solid var(--focus); }
+  a[data-deel] { cursor: pointer; }
+  a[data-deel]:focus-visible g { outline: 3px solid var(--focus); outline-offset: 2px; }
   a[data-deel] g { transition: transform 0.15s ease, opacity 0.2s ease; transform-box: fill-box; transform-origin: center; }
   a[data-deel].licht-op g, a[data-deel]:hover g { transform: scale(1.08); opacity: 1; }
   [data-toestand="onbekend"] g { opacity: 0.45; }
-  [data-toestand="open"] :global(.tek), [data-toestand="open"] :global(.tek-dun) { stroke: var(--rood); }
-  [data-toestand="open"] :global(.tek-vul) { fill: var(--rood); }
-  [data-toestand="dicht"] :global(.tek), [data-toestand="dicht"] :global(.tek-dun) { stroke: var(--groen); }
-  [data-toestand="dicht"] :global(.tek-vul) { fill: var(--groen); }
 
-  .stand { font-family: var(--kop); font-size: 1rem; color: var(--inkt-zacht); margin: 0.75rem 0 0; }
-  .delen { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr)); font-size: 0.95rem; }
-  .delen li { margin: 0; }
-  .delen a { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
-  .delen a:hover, .delen li.licht-op a { background: var(--papier-2); }
-  .delen .wat { color: var(--inkt-zacht); }
-  .lampje { flex: none; width: 0.75rem; height: 0.75rem; border-radius: 50%; border: 2px solid var(--lijn-sterk); margin-top: 0.45rem; }
-  [data-toestand="open"] .lampje { background: var(--rood); border-color: var(--rood); }
-  [data-toestand="dicht"] .lampje { background: var(--groen); border-color: var(--groen); }
+  /* kleuren, legenda en lampje staan in global.css: de plattegrond gebruikt ze ook */
+  .stand { font-size: 1rem; margin: 0.75rem 0 0; }
+  .delen { margin-top: 1rem; }
 </style>

@@ -178,6 +178,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
 <script>
   import { lees } from '../lib/opslag.js';
   import { toestandPerKamer } from '../lib/toestand.js';
+  import { koppelLegenda } from '../lib/koppel.js';
 
   document.querySelectorAll<HTMLElement>('[data-plattegrond]').forEach((fig) => {
     function kleur(data = lees()) {
@@ -192,38 +193,16 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     kleur();
     window.addEventListener('jdh:gewijzigd', (e: Event) => kleur((e as CustomEvent).detail));
 
-    // legenda en tekening wijzen naar elkaar
-    const koppel = (id: string, aan: boolean) => {
-      fig.querySelector(`[data-kamer="${id}"]`)?.classList.toggle('licht-op', aan);
-      fig.querySelector(`[data-kamer-legenda="${id}"]`)?.classList.toggle('licht-op', aan);
-    };
-    fig.querySelectorAll<HTMLElement>('[data-kamer], [data-kamer-legenda]').forEach((el) => {
-      const id = el.dataset.kamer ?? el.dataset.kamerLegenda!;
-      el.addEventListener('mouseenter', () => koppel(id, true));
-      el.addEventListener('mouseleave', () => koppel(id, false));
-      el.addEventListener('focusin', () => koppel(id, true));
-      el.addEventListener('focusout', () => koppel(id, false));
-    });
+    koppelLegenda(fig, 'kamer');
   });
 </script>
 
 <style>
   .plattegrond svg { overflow: visible; }
-  a[data-kamer] { cursor: pointer; outline: none; }
-  a[data-kamer]:focus-visible g { outline: 3px solid var(--focus); }
+  a[data-kamer] { cursor: pointer; }
+  a[data-kamer]:focus-visible g { outline: 3px solid var(--focus); outline-offset: 2px; }
   a[data-kamer] g { transition: transform 0.15s ease; transform-box: fill-box; transform-origin: center; }
   a[data-kamer].licht-op g, a[data-kamer]:hover g { transform: scale(1.08); }
-  [data-toestand="open"] :global(.tek), [data-toestand="open"] :global(.tek-dun) { stroke: var(--rood); }
-  [data-toestand="open"] :global(.tek-vul) { fill: var(--rood); }
-  [data-toestand="dicht"] :global(.tek), [data-toestand="dicht"] :global(.tek-dun) { stroke: var(--groen); }
-  [data-toestand="dicht"] :global(.tek-vul) { fill: var(--groen); }
+  /* kleuren, legenda en lampje staan in global.css: het fort gebruikt ze ook */
 
-  .legenda { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.15rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(17rem, 100%), 1fr)); font-size: 0.95rem; }
-  .legenda li { margin: 0; }
-  .legenda a { display: flex; align-items: flex-start; gap: 0.6rem; color: var(--inkt); text-decoration: none; padding: 0.3rem 0.4rem; border-radius: var(--radius); }
-  .legenda a:hover, .legenda li.licht-op a { background: var(--papier-2); }
-  .legenda .wat { color: var(--inkt-zacht); }
-  .lampje { flex: none; width: 0.75rem; height: 0.75rem; border-radius: 50%; border: 2px solid var(--lijn-sterk); margin-top: 0.45rem; }
-  [data-toestand="open"] .lampje { background: var(--rood); border-color: var(--rood); }
-  [data-toestand="dicht"] .lampje { background: var(--groen); border-color: var(--groen); }
 </style>

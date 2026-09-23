@@ -29,7 +29,7 @@ const koppen = [
   </div>
   {koppen.length >= 3 && (
     <nav class="inhoud" aria-label="In dit hoofdstuk">
-      <p class="inhoud-kop">In dit hoofdstuk</p>
+      <p class="eyebrow zacht klein inhoud-kop">In dit hoofdstuk</p>
       <ol>{koppen.map((k) => <li><a href={`#${k.slug}`}>{k.text}</a></li>)}</ol>
     </nav>
   )}
@@ -38,8 +38,8 @@ const koppen = [
 </Pagina>
 
 <style>
-  .inhoud { margin: 1.5rem 0 0.5rem; padding: 1rem 1.2rem; border: 2px solid var(--lijn); border-radius: var(--radius); font-size: 0.95rem; }
-  .inhoud-kop { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); margin: 0 0 0.4rem; }
+  .inhoud { margin: 1.5rem 0 0.5rem; padding: 1rem 1.2rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); font-size: 0.95rem; }
+  .inhoud-kop { margin-bottom: 0.4rem; }
   .inhoud ol { margin: 0; padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
   .inhoud li { margin: 0.15rem 0; break-inside: avoid; }
   .inhoud a { color: var(--inkt); text-decoration: none; }

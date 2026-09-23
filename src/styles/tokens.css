@@ -4,7 +4,7 @@
   --papier-2: #f5f3ee;
   --inkt: #141414;
   --inkt-zacht: #4a4744;
-  --inkt-flauw: #8a8681;
+  --inkt-flauw: #8a8681; /* 3,6:1 op papier: alleen voor decoratie, nooit voor leestekst */
   --lijn: #d9d6d0;
   --lijn-sterk: #141414;
   --rood: #c8321e;
@@ -24,7 +24,15 @@
   --maat: 38rem;
   --breed: 64rem;
   --lijndikte: 3px;
+  /* de zachte rand: om een kader dat niet om aandacht vraagt (noot, inhoudsopgave, tabelrij) */
+  --lijndikte-dun: 2px;
   --radius: 4px;
+  --schaduw: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+  /* tekstmaten: klein voor bijschriften, kopje voor het rode streepje boven een kop */
+  --tekst-s: 0.8rem;
+  --tekst-m: 0.95rem;
+  --tekst-l: 1.1rem;
 
   color-scheme: light dark;
 }
@@ -45,6 +53,7 @@
     --groen-licht: #1c2f24;
     --focus: #7cb3ff;
     --op-kleur: var(--papier);
+    --schaduw: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -64,6 +73,7 @@
   --groen-licht: #1c2f24;
   --focus: #7cb3ff;
   --op-kleur: var(--papier);
+    --schaduw: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 :root[data-theme="light"] { color-scheme: light; }

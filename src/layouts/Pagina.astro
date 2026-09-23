@@ -50,28 +50,7 @@ const hier = new URL(Astro.url.pathname, Astro.site);
     </main>
     <Voet datum={datum} />
     <script>
-      import { lees, wisAlles } from '../lib/opslag.js';
-      import { LIJSTEN, SLOT_LIJSTEN, TOTAAL_SLOTEN } from '../data/lijsten.js';
-      import { toestandPerKamer } from '../lib/toestand.js';
-      import { toestandPerDeel } from '../data/fort.js';
-
-      function telSloten(data) {
-        return SLOT_LIJSTEN.reduce((n, id) => {
-          const items = data.lijsten[id] ?? {};
-          return n + LIJSTEN[id].items.filter((it) => items[it.id]).length;
-        }, 0);
-      }
-
-      function toonTeller(data = lees()) {
-        const el = document.querySelector('[data-sloten]');
-        const tekst = document.querySelector('[data-sloten-tekst]');
-        if (!el || !tekst) return;
-        const dicht = telSloten(data);
-        const delen = toestandPerDeel(toestandPerKamer(data));
-        const staat = Object.values(delen).filter((t) => t !== 'onbekend').length;
-        tekst.textContent = `${dicht} van ${TOTAAL_SLOTEN} sloten dicht`;
-        el.querySelectorAll('[data-kanteel]').forEach((k) => { k.dataset.toestand = delen[k.dataset.kanteel]; });
-      }
+      import { wisAlles } from '../lib/opslag.js';
 
       // brede tabellen scrollen in hun eigen bak, niet de hele pagina;
       // op een telefoon stapelen ze per rij, met de kolomkop erbij (niet het woordenboek: dat filtert)
@@ -92,9 +71,6 @@ const hier = new URL(Astro.url.pathname, Astro.site);
         t.replaceWith(bak);
         bak.append(t);
       });
-
-      toonTeller();
-      window.addEventListener('jdh:gewijzigd', (e) => toonTeller(e.detail));
 
       // je voortgang staat alleen in deze browser; op papier gaat hij wel mee.
       // De printstijl laat de lijsten en het noodpakket staan en de rest weg.

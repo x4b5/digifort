@@ -21,10 +21,10 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
       <p class="eyebrow">Stap {i + 1}{it.tijd && ` · ${it.tijd} min`}</p>
       <h2 tabindex="-1">{it.stap}</h2>
       <p class="waarom">{it.waarom}.</p>
-      <p class="hoe-kop">Zo doe je het</p>
+      <p class="eyebrow klein hoe-kop">Zo doe je het</p>
       <ol class="hoe">{AVOND[it.id].hoe.map((h) => <li>{h}</li>)}</ol>
       {AVOND[it.id].gereedschap?.length > 0 && (
-        <p class="gereedschap"><span class="gereedschap-kop">Gereedschap</span> {AVOND[it.id].gereedschap.map((g) => <Merk id={g} maat={22} link />)}</p>
+        <p class="gereedschap"><span class="eyebrow zacht klein gereedschap-kop">Gereedschap</span> {AVOND[it.id].gereedschap.map((g) => <Merk id={g} maat={22} link />)}</p>
       )}
       <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {AVOND[it.id].klaar} <button type="button" class="link" data-toch-niet>Toch niet gedaan</button></p>
       <p class="knoppen">
@@ -102,21 +102,22 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
 
 <style>
   .avond { margin: 1.5rem 0 2rem; }
-  .stand { font-family: var(--kop); color: var(--inkt-zacht); margin: 0 0 0.75rem; }
+  /* in de avond is dit de enige regel boven de stap: iets groter dan elders */
+  .stand { font-size: var(--tekst-l); margin: 0 0 0.75rem; }
   .bolletjes { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; gap: 0.4rem; }
   .bolletjes li { width: 2.2rem; height: 2.2rem; border-radius: 50%; border: var(--lijndikte) solid var(--lijn-sterk); display: grid; place-items: center; font-family: var(--kop); font-weight: 700; color: var(--inkt-zacht); background: var(--papier); }
   .bolletjes li[data-toestand="nu"] { border-color: var(--rood); color: var(--rood); }
   .bolletjes li[data-toestand="gedaan"] { background: var(--groen); border-color: var(--groen); color: var(--op-kleur); }
   .stap { padding: 1.5rem 1.6rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); }
   .stap[hidden] { display: none; }
-  .stap h2 { border-top: 0; padding-top: 0; margin: 0 0 0.5rem; font-size: clamp(1.5rem, 4vw, 2rem); }
+  .stap h2 { margin: 0 0 0.5rem; font-size: clamp(1.5rem, 4vw, 2rem); }
   .stap h2:focus { outline: none; }
   .waarom { color: var(--inkt-zacht); margin-bottom: 1rem; }
-  .hoe-kop { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rood); margin: 0 0 0.3rem; }
+  .hoe-kop { margin-bottom: 0.3rem; }
   .hoe { padding-left: 1.4rem; margin-bottom: 1.25rem; }
   .hoe li { margin-bottom: 0.5rem; }
   .gereedschap { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin: -0.5rem 0 1.25rem; }
-  .gereedschap-kop { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); }
+  .gereedschap-kop { margin: 0; }
   .klaar-zin { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.7rem 1rem; }
   .klaar-zin[hidden] { display: none; }
   .link { background: none; border: 0; padding: 0; font: inherit; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: pointer; }

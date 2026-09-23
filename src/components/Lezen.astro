@@ -15,10 +15,10 @@ const THEMAS = [
 ];
 ---
 <details class="lezen" data-lezen>
-  <summary class="knop licht klein"><span class="aa" aria-hidden="true">Aa</span> Weergave</summary>
+  <summary class="knop licht klein geen-driehoek"><span class="aa" aria-hidden="true">Aa</span> Weergave</summary>
   <div class="paneel">
     <fieldset>
-      <legend>Tekstgrootte</legend>
+      <legend class="eyebrow zacht klein">Tekstgrootte</legend>
       <div class="rij">
         {MATEN.map((m) => (
           <label class="keuze"><input type="radio" name="jdh-tekst" value={m.id} data-veld="tekst" /><span>{m.label}</span></label>
@@ -26,7 +26,7 @@ const THEMAS = [
       </div>
     </fieldset>
     <fieldset>
-      <legend>Kleuren</legend>
+      <legend class="eyebrow zacht klein">Kleuren</legend>
       <div class="rij">
         {THEMAS.map((t) => (
           <label class="keuze"><input type="radio" name="jdh-thema" value={t.id} data-veld="thema" /><span>{t.label}</span></label>
@@ -57,29 +57,21 @@ const THEMAS = [
 
 <style>
   .lezen { position: relative; }
-  summary { list-style: none; }
-  summary::-webkit-details-marker { display: none; }
   .aa { font-size: 1.1em; }
-  .lezen[open] summary { background: var(--inkt); color: var(--papier); border-color: var(--inkt); }
   /* Chrome rekent de inhoud van een dichte <details> nog mee in de lay-out;
      zonder dit steekt het paneel buiten het scherm uit. */
   .lezen:not([open]) .paneel { display: none; }
-  .paneel {
-    position: absolute; right: 0; top: calc(100% + 0.5rem); z-index: 10;
-    background: var(--papier); border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius);
-    min-width: min(20rem, 90vw); padding: 0.9rem 1rem 0.75rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  }
+  .paneel { min-width: min(20rem, 90vw); padding: 0.9rem 1rem 0.75rem; }
   fieldset { border: 0; margin: 0 0 0.9rem; padding: 0; }
-  legend { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); padding: 0 0 0.35rem; }
+  legend { padding: 0; }
   .rij { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .keuze {
     display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.3rem 0.9rem;
-    border: 2px solid var(--lijn-sterk); border-radius: var(--radius);
-    font-family: var(--kop); font-size: 0.95rem; font-weight: 700; cursor: pointer; background: var(--papier); color: var(--inkt);
+    border: var(--lijndikte-dun) solid var(--lijn-sterk); border-radius: var(--radius);
+    font-family: var(--kop); font-size: var(--tekst-m); font-weight: 700; cursor: pointer; background: var(--papier); color: var(--inkt);
   }
   .keuze input { position: absolute; opacity: 0; width: 1px; height: 1px; }
   .keuze:hover { background: var(--papier-2); }
-  .keuze:has(input:checked) { background: var(--inkt); border-color: var(--inkt); color: var(--papier); }
   .keuze:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
   .uitleg { margin: 0; font-size: 0.85rem; color: var(--inkt-zacht); }
 

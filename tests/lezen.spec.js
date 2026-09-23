@@ -56,7 +56,7 @@ test('het open leespaneel past op een telefoon', async ({ page }) => {
   await page.addInitScript(() => window.localStorage.setItem('jdh:lezen', '{"tekst":"groter","thema":"auto"}'));
   await page.goto('/');
   await page.locator('.kop details.lezen summary').click();
-  const paneel = page.locator('.kop .paneel');
+  const paneel = page.locator('.kop details.lezen .paneel');
   await expect(paneel).toBeVisible();
   const past = await paneel.evaluate((el) => {
     const r = el.getBoundingClientRect();

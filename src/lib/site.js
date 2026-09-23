@@ -32,10 +32,6 @@ export const HOOFDSTUKKEN = [
   { nr: 9, slug: 'over', titel: 'Over deze site', kort: 'Waarom, door wie, en waar de bronnen staan.' },
 ];
 
-export function hoofdstuk(slug) {
-  return HOOFDSTUKKEN.find((h) => h.slug === slug);
-}
-
 export function buren(slug) {
   const i = HOOFDSTUKKEN.findIndex((h) => h.slug === slug);
   return { vorige: HOOFDSTUKKEN[i - 1] ?? null, volgende: HOOFDSTUKKEN[i + 1] ?? null };
