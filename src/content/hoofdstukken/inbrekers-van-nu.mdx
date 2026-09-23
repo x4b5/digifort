@@ -5,6 +5,7 @@ kort: "Babbeltrucs, datalekken, gijzeling en gestolen nummers."
 datum: "2026-09-23"
 ---
 import Kort from '../../components/Kort.astro';
+import Vraagje from '../../components/Vraagje.astro';
 import Noot from '../../components/Noot.astro';
 import Sleutelmaker from '../../components/tekeningen/Sleutelmaker.astro';
 import Patroon from '../../components/tekeningen/Patroon.astro';
@@ -20,6 +21,12 @@ De meeste inbrekers op internet breken geen slot open. Ze bellen aan en laten jo
 <Kort>een nepbericht wil dat je snel klikt, inlogt of betaalt.</Kort>
 
 <Babbeltruc />
+
+<Vraagje vraag="Je krijgt een bericht dat van je bank lijkt te komen. Waaraan zie je het snelst dat het nep is?" opties={[
+  { tekst: 'Aan de spelfouten', uitleg: 'Op spelfouten kun je niet meer afgaan. Oplichters schrijven tegenwoordig foutloos, en laten hun berichten schrijven door AI.' },
+  { tekst: 'Aan de haast: het moet nu meteen', goed: true, uitleg: 'Er is bijna altijd haast, geheimhouding of angst. De Fraudehelpdesk noemt het herkennen van die druk belangrijker dan het kennen van elke afzonderlijke truc.' },
+  { tekst: 'Aan het logo dat niet klopt', uitleg: 'Een logo is zo gekopieerd en ziet er meestal perfect uit. De druk in het bericht verraadt meer dan de vormgeving.' },
+]} />
 
 **Wat het is.** Je krijgt een bericht. Het lijkt van je bank te komen. Of van een pakketdienst, de Belastingdienst of je eigen kind. Maar het is nep. De afzender wil dat je op een link klikt. Of dat je inlogt op een nagemaakte site. Of dat je geld overmaakt. Dit heet phishing. Spreek uit: fisjing. Dat woord en alle andere vaktermen staan in het [woordenboek](/woordenboek).
 

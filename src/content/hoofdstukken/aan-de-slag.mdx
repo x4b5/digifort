@@ -4,6 +4,7 @@ titel: "Aan de slag: deur voor deur"
 kort: "Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis."
 datum: "2026-09-23"
 ---
+import Vraagje from '../../components/Vraagje.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
 import Afvinklijst from '../../components/Afvinklijst.astro';
@@ -90,6 +91,12 @@ Dit is een lijst om in op te zoeken. De keuzes zijn gemaakt op vier punten. Het 
 | Back-up | Losse schijf met Tijdmachine (Mac) of Bestandsgeschiedenis (Windows) | Proton Drive, of iCloud met Geavanceerde gegevensbescherming aan | Koppel de schijf los na de back-up |
 | Bestanden versleutelen in de cloud | Cryptomator (gratis op je computer) |  | Werkt bovenop elke clouddienst. De telefoon-app kan gratis alleen lezen; schrijven kost eenmalig zo'n 30 euro |
 | Fysieke sleutel | YubiKey | Andere FIDO2-sleutels | Koop er twee. Dit is de enige aanrader die geld kost |
+
+<Vraagje vraag="Wat klopt er over virusscanners op een Windows-computer?" opties={[
+  { tekst: 'Je hebt een betaalde scanner nodig', uitleg: 'Twintig jaar geleden wel. Nu zit er een goede in Windows en voegt een gekochte scanner daar weinig aan toe.' },
+  { tekst: 'De scanner die al in Windows zit, is voor bijna iedereen genoeg', goed: true, uitleg: 'Windows Beveiliging doet het werk. Pas wel op met gratis scanners van anderen: sommige verdienen geld aan wat jij op internet doet.' },
+  { tekst: 'Een goede scanner houdt ook babbeltrucs tegen', uitleg: 'Geen enkele scanner doet dat. Je updates, je tweede slot en je eigen oplettendheid doen meer.' },
+]} />
 
 **Over virusscanners.** Twintig jaar geleden moest je een virusscanner kopen. Nu zit er een goede in Windows en in de Mac. Voor bijna iedereen is die genoeg. Een gekochte scanner voegt weinig toe. Sommige gratis scanners verdienen geld aan wat jij op internet doet. En geen enkele scanner houdt een babbeltruc tegen. Je updates, je tweede slot en je eigen oplettendheid doen meer.
 

@@ -4,6 +4,7 @@ titel: "Als er toch is ingebroken"
 kort: "Het eerste uur, je telefoon kwijt, en het noodpakket."
 datum: "2026-09-23"
 ---
+import Vraagje from '../../components/Vraagje.astro';
 import Kort from '../../components/Kort.astro';
 import Afvinklijst from '../../components/Afvinklijst.astro';
 import EersteUur from '../../components/tekeningen/EersteUur.astro';
@@ -36,6 +37,12 @@ Snel handelen beperkt de schade, en je hoeft je nergens voor te schamen. Dit ove
 Een verloren apparaat is een sleutelbos op straat. Wie hem vindt, heeft nog geen toegang, mits je scherm op slot zit en je snel handelt. Doe dit vanaf een ander apparaat, in deze volgorde:
 
 <Afvinklijst lijst="verlies" kop={false} genummerd />
+
+<Vraagje vraag="Je iPhone is gestolen. Een dag later krijg je een bericht dat het toestel gevonden is, met een link om in te loggen. Wat doe je?" opties={[
+  { tekst: 'Inloggen via die link, om te zien waar hij is', uitleg: 'Dat is precies waar het bericht voor gemaakt is. Het is phishing om je Apple-account te ontgrendelen, zodat de dief het toestel kan doorverkopen.' },
+  { tekst: 'Het toestel uit je account verwijderen', uitleg: 'Juist niet. Zolang het aan je account gekoppeld blijft, is het voor de dief onbruikbaar.' },
+  { tekst: 'Niets met dat bericht doen', goed: true, uitleg: 'Klopt. Log alleen in via een adres dat je zelf intypt, en laat het toestel aan je account gekoppeld.' },
+]} />
 
 **Trap niet in het tweede bedrog.** Na diefstal van een iPhone krijgen slachtoffers vaak een sms of mail: "je toestel is gevonden, log hier in". Dat is phishing om je Apple-account te ontgrendelen zodat de dief het toestel kan doorverkopen. Log alleen in via het adres dat je zelf intypt. Verwijder het toestel ook niet uit je account: zolang het eraan gekoppeld is, is het voor de dief onbruikbaar.
 

@@ -1,0 +1,49 @@
+---
+/**
+ * Drie vragen aan het eind van een hoofdstuk, uit data/quiz.js.
+ * Hergebruikt Vraagje: dezelfde vraag, dezelfde uitleg, alleen de score erbij.
+ * Een hoofdstuk zonder quiz laat niets zien.
+ */
+import Vraagje from './Vraagje.astro';
+import { quiz } from '../data/quiz.js';
+interface Props { slug: string }
+const { slug } = Astro.props;
+const vragen = quiz(slug);
+---
+{vragen.length > 0 && (
+  <section class="quiz" id="quiz" data-quiz aria-labelledby="quiz-kop">
+    <h2 id="quiz-kop">Wat blijft er hangen?</h2>
+    <p class="uitleg">Drie vragen over dit hoofdstuk. Geen cijfer, niets wordt opgeslagen: je ziet meteen hoe het zit.</p>
+    {vragen.map((v, i) => <Vraagje vraag={v.vraag} opties={v.opties} nr={i + 1} />)}
+    <p class="score" data-quiz-score aria-live="polite" aria-atomic="true" hidden></p>
+  </section>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-quiz]').forEach((q) => {
+    const totaal = q.querySelectorAll('[data-vraagje]').length;
+    const score = q.querySelector<HTMLElement>('[data-quiz-score]')!;
+    // de score verschijnt pas als alle vragen beantwoord zijn; eerder is hij
+    // alleen een tussenstand die niets zegt
+    q.addEventListener('change', () => {
+      const gekozen = [...q.querySelectorAll<HTMLInputElement>('[data-vraagje] input:checked')];
+      if (gekozen.length < totaal) return;
+      const goed = gekozen.filter((i) => i.dataset.goed === '1').length;
+      score.hidden = false;
+      score.dataset.alles = goed === totaal ? '1' : '0';
+      score.textContent = `${goed} van de ${totaal} goed. ` + (goed === totaal
+        ? 'Dit hoofdstuk zit erin.'
+        : 'Lees de uitleg bij wat je miste; dat is het stuk dat blijft hangen.');
+    });
+  });
+</script>
+
+<style>
+  .quiz { margin: 2.5rem 0 1.5rem; padding: 1.25rem 1.4rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); }
+  .quiz h2 { margin: 0 0 0.25rem; font-size: clamp(1.4rem, 3.4vw, 1.8rem); }
+  .uitleg { color: var(--inkt-zacht); font-size: 0.97rem; margin-bottom: 0.5rem; }
+  .quiz :global(.vraagje) { border: 0; padding: 0.6rem 0; margin: 0; background: none; border-top: var(--lijndikte-dun) solid var(--lijn); border-radius: 0; }
+  .score { margin: 0.75rem 0 0; padding-top: 0.75rem; border-top: var(--lijndikte-dun) solid var(--lijn); font-family: var(--kop); font-size: 1.1rem; }
+  .score[data-alles="1"] { color: var(--groen); }
+  .score[hidden] { display: none; }
+</style>

@@ -4,6 +4,7 @@ titel: "De storm om het huis"
 kort: "Staten, hackers en oorlog op afstand: wat de wereld met jouw voordeur te maken heeft."
 datum: "2026-09-23"
 ---
+import Vraagje from '../../components/Vraagje.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
 import Cijfers from '../../components/Cijfers.astro';
@@ -41,6 +42,12 @@ De NCTV, de dienst die over de veiligheid van Nederland gaat, zegt het zo: lande
   { getal: '10 van de 10', tekst: 'landen die het vaakst door Russische hackers worden geraakt, zijn NAVO-landen. Nederland dus ook', bron: 'Microsoft, 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' },
   { getal: '97%', tekst: 'van de aanvallen op accounts is gewoon wachtwoorden raden, in het groot', bron: 'Microsoft, 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' },
   { getal: '99%', tekst: 'van die aanvallen houdt een tweede slot tegen dat niet te phishen is, zoals een passkey', bron: 'Microsoft, 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' },
+]} />
+
+<Vraagje vraag="De website van je gemeente ligt plat door een aanval. Wat is er dan meestal gestolen?" opties={[
+  { tekst: 'De gegevens van alle inwoners', uitleg: 'Meestal niets daarvan. Bij dit soort aanvallen komt niemand binnen; de deur wordt alleen geblokkeerd.' },
+  { tekst: 'Niets', goed: true, uitleg: 'Dit heet een DDoS: duizenden computers bellen tegelijk aan, zodat er voor echte bezoekers geen plek meer is. Het is een steen door de ruit, geen inbraak.' },
+  { tekst: 'De wachtwoorden van de ambtenaren', uitleg: 'Dat zou een inbraak zijn, en dat is iets anders. Bij een platgelegde website wordt niets meegenomen; er kan alleen niemand meer naar binnen.' },
 ]} />
 
 En dichter bij huis: in april 2025 en opnieuw rond de NAVO-top in juni lagen de websites van gemeenten en provincies plat. Een pro-Russische groep, NoName057(16), zei dat zij het deden, omdat Nederland Oekraïne helpt. Dat soort aanvallen heet [DDoS](/woordenboek): duizenden computers tegelijk bellen aan, zodat de deur voor echte bezoekers dicht blijft. Er wordt niets gestolen. Het is een steen door de ruit, geen inbraak.

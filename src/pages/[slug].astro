@@ -4,6 +4,8 @@ import Pagina from '../layouts/Pagina.astro';
 import { tredeKoppen } from '../data/tredes.js';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import Buren from '../components/Buren.astro';
+import Quiz from '../components/Quiz.astro';
+import { quiz } from '../data/quiz.js';
 
 export async function getStaticPaths() {
   const hoofdstukken = await getCollection('hoofdstukken');
@@ -23,6 +25,9 @@ const leestijd = minuten >= 8 ? minuten : null;
 const koppen = [
   ...(h.id === 'van-geheim-woord-naar-zegelring' ? tredeKoppen() : []),
   ...headings.filter((k) => k.depth === 2),
+  // de quiz is een component, dus render() ziet die kop niet; zonder deze regel
+  // staat er onderaan iets waar de inhoudsopgave niets over zegt
+  ...(quiz(h.id).length ? [{ slug: 'quiz', text: 'Wat blijft er hangen?', depth: 2 }] : []),
 ];
 ---
 <Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum}>
@@ -40,6 +45,7 @@ const koppen = [
     </nav>
   )}
   <Content />
+  <Quiz slug={h.id} />
   <Buren slug={h.id} />
 </Pagina>
 

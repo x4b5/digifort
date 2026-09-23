@@ -1,0 +1,65 @@
+---
+/**
+ * Eén meerkeuzevraag midden in de tekst. Geen toets, geen score, niets opgeslagen:
+ * de lezer raadt, en krijgt bij elk antwoord de zin te lezen die uitlegt hoe het zit.
+ * `opties`: [{ tekst, goed?, uitleg }] — elke optie heeft een eigen uitleg,
+ * want ook een goede gok verdient te horen waarom hij goed is.
+ */
+interface Optie { tekst: string; goed?: boolean; uitleg: string }
+interface Props { vraag: string; opties: Optie[]; nr?: number }
+const { vraag, opties, nr } = Astro.props;
+// naam van de radiogroep: afgeleid van de vraag zelf, zodat elke build
+// dezelfde HTML geeft en twee vragen op één pagina elkaar niet overschrijven
+const id = 'vraagje-' + [...vraag].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7).toString(36);
+---
+<section class="vraagje" data-vraagje>
+  <p class="eyebrow">{nr ? `Vraag ${nr}` : 'Even denken'}</p>
+  <fieldset>
+    <legend>{vraag}</legend>
+    {opties.map((o, i) => (
+      <label class="optie">
+        <input type="radio" name={id} value={i} data-goed={o.goed ? '1' : undefined} data-uitleg={o.uitleg} />
+        <span>{o.tekst}</span>
+      </label>
+    ))}
+  </fieldset>
+  <p class="antwoord" data-antwoord aria-live="polite" aria-atomic="true" hidden></p>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-vraagje]').forEach((s) => {
+    const uit = s.querySelector<HTMLElement>('[data-antwoord]')!;
+    s.querySelectorAll<HTMLInputElement>('input').forEach((i) => i.addEventListener('change', () => {
+      const goed = i.dataset.goed === '1';
+      s.dataset.beantwoord = '1';
+      uit.hidden = false;
+      uit.dataset.goed = goed ? '1' : '0';
+      uit.textContent = `${goed ? 'Klopt.' : 'Net niet.'} ${i.dataset.uitleg}`;
+      // het juiste antwoord aanwijzen, ook als de lezer ernaast zat
+      s.querySelectorAll<HTMLElement>('.optie').forEach((l) => {
+        const vak = l.querySelector<HTMLInputElement>('input')!;
+        l.dataset.rol = vak.dataset.goed === '1' ? 'goed' : vak.checked ? 'mis' : '';
+      });
+    }));
+  });
+</script>
+
+<style>
+  .vraagje { margin: 1.75rem 0; padding: 1.1rem 1.25rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier-2); }
+  fieldset { border: 0; padding: 0; margin: 0; }
+  legend { font-weight: 700; padding: 0; margin-bottom: 0.5rem; }
+  .optie { display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0.5rem; border-radius: var(--radius); cursor: pointer; transition: background-color 0.15s ease; }
+  .optie:hover { background: var(--papier); }
+  .optie input { width: 1.25rem; height: 1.25rem; accent-color: var(--rood); flex: none; margin: 0; }
+  .optie input:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  /* na het antwoorden wijst de kleur aan hoe het zit; de tekst zegt het ook,
+     want kleur alleen is voor wie slecht kleuren ziet geen antwoord */
+  [data-beantwoord] .optie { cursor: default; }
+  [data-beantwoord] .optie:hover { background: none; }
+  .optie[data-rol="goed"] { background: var(--groen-licht); }
+  .optie[data-rol="mis"] { background: var(--rood-licht); }
+  .antwoord { margin: 0.75rem 0 0; padding-left: 0.5rem; border-left: var(--lijndikte) solid var(--groen); font-size: 0.97rem; }
+  .antwoord[data-goed="0"] { border-left-color: var(--rood); }
+  .antwoord[hidden] { display: none; }
+  @media (prefers-reduced-motion: reduce) { .optie { transition: none; } }
+</style>

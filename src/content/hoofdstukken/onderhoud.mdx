@@ -4,6 +4,7 @@ titel: "Onderhoud en opruimen"
 kort: "Oude apparaten, weggooien, en wat er over jou op internet staat."
 datum: "2026-09-23"
 ---
+import Vraagje from '../../components/Vraagje.astro';
 import Kort from '../../components/Kort.astro';
 import Afvinklijst from '../../components/Afvinklijst.astro';
 import Foto from '../../components/Foto.astro';
@@ -15,6 +16,12 @@ Een huis op slot zetten is één ding. Het daarna goed houden is iets anders. Di
 <Kort>een apparaat dat geen updates meer krijgt, wordt elk jaar onveiliger.</Kort>
 
 Elk apparaat krijgt maar een paar jaar updates. Zolang die komen, loopt de timmerman langs en maakt hij nieuwe scheuren dicht voordat iemand ze vindt. Daarna werkt het apparaat nog gewoon, maar komt er niemand meer langs. Het voelt als een prima huis, tot iemand de scheur vindt.
+
+<Vraagje vraag="Je telefoon krijgt al twee jaar geen beveiligingsupdates meer, maar werkt prima. Wat doe je?" opties={[
+  { tekst: 'Gewoon blijven gebruiken, hij doet het nog', uitleg: 'Hij werkt, maar er komt geen timmerman meer langs om scheuren dicht te maken. Elk jaar dat verstrijkt wordt hij onveiliger.' },
+  { tekst: 'Hem niet meer gebruiken voor je bank en je e-mail', goed: true, uitleg: 'Dat is het eerlijke antwoord: hij mag blijven, maar niet meer voor je belangrijkste deuren. Koop je een nieuwe, kijk dan hoeveel jaar de maker updates belooft.' },
+  { tekst: 'Meteen weggooien', uitleg: 'Dat hoeft niet. Voor muziek of spelletjes kan hij prima door. Alleen je bank en je e-mail horen er niet meer op.' },
+]} />
 
 - **Windows 10.** Microsoft is op 14 oktober 2025 gestopt met updates. Je hebt drie keuzes. Eén: stap gratis over op Windows 11, als je computer dat aankan. Kijk bij Instellingen en dan Windows Update. Twee: meld je aan voor de extra beveiligingsupdates van Microsoft. Die lopen voor gewone gebruikers tot 12 oktober 2027. Drie: koop een andere computer. Is je oude computer verder nog goed? Dan kun je er een ander systeem op zetten, zoals Linux of ChromeOS Flex.
 - **Android-telefoons.** Kijk bij Instellingen en dan Over de telefoon. Daar staat de datum van de laatste beveiligingsupdate. Is die lang geleden en komt er niets meer? Gebruik de telefoon dan niet meer voor je bank en je e-mail. Koop je een nieuwe telefoon? Kijk dan hoeveel jaar de maker updates belooft.

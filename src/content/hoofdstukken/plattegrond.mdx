@@ -4,6 +4,7 @@ titel: "De plattegrond van je digitale huis"
 kort: "Veertien plekken in je huis, van de voordeur tot de brandkast."
 datum: "2026-09-23"
 ---
+import Vraagje from '../../components/Vraagje.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
 import KamerIcoon from '../../components/KamerIcoon.astro';
@@ -111,6 +112,12 @@ Denk aan een slimme deurbel, een camera, een tv of een thermostaat. Ze zijn gema
 <Kort>een VPN zorgt dat niemand onderweg kan meekijken. Meer doet hij niet.</Kort>
 
 Een VPN is een afgesloten gang van je huis naar buiten. Dat is nuttig op wifi van een ander, zoals in de trein of een hotel. Niemand op dat netwerk ziet dan wat je doet. Maar een VPN houdt geen oplichters tegen. Ook geen virussen. En een site waar je inlogt, weet nog steeds wie je bent. Het is een nuttig slot, maar het minst belangrijke van je huis.
+
+<Vraagje vraag="Je zet een VPN aan op de wifi van een hotel. Waar beschermt hij je tegen?" opties={[
+  { tekst: 'Tegen een nepbericht dat van je bank lijkt te komen', uitleg: 'Een VPN houdt geen oplichters tegen. Hij verbergt wat je onderweg doet, niet wie er bij je aanbelt.' },
+  { tekst: 'Tegen iemand op dat wifi-netwerk die meekijkt', goed: true, uitleg: 'Daar is hij voor: een afgesloten gang van je huis naar buiten. Nuttig in de trein of een hotel, en verder het minst belangrijke slot van je huis.' },
+  { tekst: 'Tegen een virus in een bijlage', uitleg: 'Ook niet. Een VPN kijkt niet naar wat je binnenhaalt, alleen naar wie er onderweg kan meekijken.' },
+]} />
 
 ## De brandkast buiten de deur: back-ups
 

@@ -4,6 +4,7 @@ titel: "Van geheim woord naar zegelring"
 kort: "De ladder: acht manieren om in te loggen, van zwak naar sterk."
 datum: "2026-09-23"
 ---
+import Vraagje from '../../components/Vraagje.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
 import Trede from '../../components/Trede.astro';
@@ -83,6 +84,12 @@ Welkom01, Zomer2026!, je achternaam met een uitroepteken: die staan er allemaal 
 
 <Kort>een kluis die de vijftig sleutels voor je bewaart. Jij onthoudt er nog maar één: die van de kluis.</Kort>
 
+<Vraagje vraag="Welk wachtwoord kost een kraakprogramma de meeste moeite?" opties={[
+  { tekst: 'Zomer2026!', uitleg: 'Dit staat al in de lijsten. Een hoofdletter voorop en een leesteken achteraan zijn precies de patronen waar kraakprogramma’s mee beginnen.' },
+  { tekst: 'K0ff!e&F1ets', uitleg: 'Een cijfer voor een letter voelt slim, maar die trucs kennen kraakprogramma’s beter dan jij. Kort met patroon blijft kort met patroon.' },
+  { tekst: 'kaars tractor wolk banaan sleutel', goed: true, uitleg: 'Lengte zonder patroon is wat een computer dwarszit, niet slimmigheid. Woorden die je blind uit een lijst trekt hebben dat; een zin uit een liedje niet, want die staat in dezelfde lijsten.' },
+]} />
+
 Een kluis doet drie dingen tegelijk. Hij verzint wachtwoorden die jij nooit zou bedenken, hij onthoudt ze, en hij vult ze alleen in op de site waar ze bij horen. Dat laatste is een stille bonus: sta je op een nepsite, dan biedt de kluis niets aan. Die stilte is een waarschuwing.
 
 Maar de sterkte van het geheel hangt nu aan die ene wachtzin. Vandaar de tekening hieronder: niet slimmigheid maar lengte zonder patroon is wat een kraker dwarszit. Vakmensen noemen die gok-ruimte entropie; hoe meer mogelijkheden, hoe hopelozer het raden wordt.
@@ -117,7 +124,7 @@ Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over
 <Jargon items={[
   ['2FA / MFA', 'two-factor of multi-factor authentication: inloggen met twee of meer stappen'],
   ['OTP', 'one-time password: een code die maar één keer geldig is'],
-  ['SIM-swap', 'het kapen van je telefoonnummer via de klantenservice van de provider'],
+  ['SIM-swap', 'subscriber identity module: het kapen van je telefoonnummer via de klantenservice van de provider'],
 ]} />
 
 <Weegschaal houdt="Iemand ver weg die alleen je wachtwoord heeft. Hij mist het briefje." breekt="De postbode. Met een kopie van je paspoort laat een oplichter je telefoonnummer op zijn eigen simkaart zetten, en de briefjes komen bij hem." />
@@ -129,6 +136,12 @@ Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over
 <L07 />
 
 <Kort>een cijferslot dat elke dertig seconden verspringt, en dat alleen jouw telefoon kan meelezen. Geen post meer onderweg.</Kort>
+
+<Vraagje vraag="Je typt op een nagemaakte inlogpagina de code uit je app over. Kan de oplichter daar iets mee?" opties={[
+  { tekst: 'Nee, na dertig seconden is die code waardeloos', uitleg: 'Dertig seconden is ruim genoeg. De nepsite geeft alles wat jij invult op hetzelfde moment door aan de echte site.' },
+  { tekst: 'Ja, hij sluist je code meteen door naar de echte site', goed: true, uitleg: 'Die aanval heet adversary-in-the-middle, en hij werkt tegen elke code die je met de hand overneemt. Daarom houdt de ladder niet op bij trede 5.' },
+  { tekst: 'Nee, zo’n code werkt alleen op de echte site', uitleg: 'Een code weet niet waar je hem intypt. Dat verschil komt pas bij trede 6: een passkey zegelt het webadres mee, en op een nepadres past hij niet.' },
+]} />
 
 Bij het instellen scan je een QR-code. Daarmee krijgen de app en de site één gedeeld geheim. Daarna rekenen ze allebei, los van elkaar, elke dertig seconden dezelfde code uit op basis van dat geheim en de klok. Er reist dus niets meer over het netwerk, en wat niet reist, kan niet onderschept worden.
 
@@ -163,7 +176,7 @@ Dezelfde nepsite, twee uitkomsten. Een code is losse informatie: de nepsite geef
 
 <Jargon items={[
   ['passkey', 'de publieksnaam voor deze manier van inloggen; een vorm van 2FA'],
-  ['FIDO2 / WebAuthn', 'de standaarden erachter; deze woorden zie je in instellingenmenu\'s staan'],
+  ['FIDO2 / WebAuthn', 'Fast Identity Online 2 en Web Authentication: de standaarden erachter; deze woorden zie je in instellingenmenu\'s staan'],
   ['publieke en private sleutel', 'de twee helften; alleen de publieke helft gaat naar de site'],
   ['synced passkey', 'een passkey die via een kluis naar al je apparaten wordt gekopieerd'],
 ]} />

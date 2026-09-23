@@ -4,6 +4,7 @@ titel: "De inbrekers van morgen"
 kort: "AI dat jouw stem kent en computers die oude sloten openen."
 datum: "2026-09-23"
 ---
+import Vraagje from '../../components/Vraagje.astro';
 import Kort from '../../components/Kort.astro';
 import NuStelen from '../../components/tekeningen/NuStelen.astro';
 import GeheimWoord from '../../components/tekeningen/GeheimWoord.astro';
@@ -72,6 +73,12 @@ Wat je eerlijk moet weten:
 <NuStelen />
 
 Waarom is dit vandaag al een onderwerp? Gegevens die nu veilig op slot zitten, kunnen nu al gestolen en bewaard worden. Over tien jaar breekt de dief ze alsnog open. Dat is vooral een gevaar voor geheimen die lang geheim moeten blijven. Denk aan geheimen van een land, van een ziekenhuis of van een bedrijf. Voor je boodschappenlijstje maakt het niets uit.
+
+<Vraagje vraag="De kwantumcomputer bestaat nog niet. Wat kun jij er vandaag dan tegen doen?" opties={[
+  { tekst: 'Iets kopen dat "kwantumveilig" heet', uitleg: 'Wie dat nu aan gewone mensen verkoopt, verkoopt vooral angst. De nieuwe sloten komen vanzelf.' },
+  { tekst: 'Je updates op automatisch zetten', goed: true, uitleg: 'Sinds 2024 bestaan de officiële afspraken voor sloten waar een kwantumcomputer niet doorheen komt. Bedrijven bouwen ze stap voor stap in, en jij krijgt ze binnen via je updates.' },
+  { tekst: 'Niets; dit is werk voor banken en de overheid', uitleg: 'Voor het grootste deel klopt dat, maar niet helemaal: een apparaat dat geen updates meer krijgt, krijgt die nieuwe sloten ook nooit.' },
+]} />
 
 ## Wat jij kunt doen, en wat niet
 
