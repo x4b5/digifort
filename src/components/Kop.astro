@@ -19,7 +19,7 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
           {HOOFDSTUKKEN.map((h) => (
             <li class={h.extra ? 'extra' : ''}>
               <a href={`/${h.slug}`} aria-current={huidig === `/${h.slug}` ? 'page' : undefined}>
-                <HoofdstukIcoon slug={h.slug} maat={22} /><span class="nr">{h.nr === null ? '↳' : h.nr}</span> {h.titel}
+                {h.extra ? h.titel : <><HoofdstukIcoon slug={h.slug} maat={22} /><span class="nr">{h.nr}</span> {h.titel}</>}
               </a>
             </li>
           ))}
@@ -111,5 +111,8 @@ const huidig = Astro.url.pathname.replace(/\/$/, '');
   li a:hover, li a[aria-current="page"] { background: var(--papier-2); }
   li a[aria-current="page"] { font-weight: 700; }
   .nr { font-family: var(--kop); color: var(--rood); min-width: 1.2rem; text-align: right; }
-  li.extra a { padding-left: 1.6rem; color: var(--inkt-zacht); }
+  /* een verdieping hangt als zijtak aan het hoofdstuk erboven: de tekst begint
+     onder de titel van dat hoofdstuk, met een dun lijntje als tak */
+  li.extra a { margin-left: 3.4rem; padding: 0.35rem 1rem 0.35rem 1.8rem; border-left: var(--lijndikte-dun) solid var(--lijn); color: var(--inkt-zacht); font-size: 0.92rem; }
+  li.extra a:hover, li.extra a[aria-current="page"] { color: var(--inkt); }
 </style>
