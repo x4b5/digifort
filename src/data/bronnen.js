@@ -674,6 +674,28 @@ export const BRONNEN = [
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'De fraudepagina van Tikkie zelf (tikkie.me/fraude) laadt alleen met JavaScript en kon daarom niet als tekst worden nagelopen' }],
   },
+  {
+    hoofdstuk: ['voor-de-mensen-om-je-heen'],
+    bewering: 'Stalkerware laat iemand stiekem meekijken op je telefoon (zoekopdrachten, locatie, berichten, foto\'s, gesprekken) en werkt verborgen op de achtergrond. Een snel lege batterij, meer dataverbruik of vreemde meldingen kunnen een teken zijn, maar hoeven het niet te zijn. Verwijderen kan door de dader worden opgemerkt en de dreiging vergroten; zoek hulp via een ander toestel en houd bij wat er gebeurt',
+    bron: [{ tekst: 'Coalition Against Stalkerware, information for survivors', href: 'https://stopstalkerware.org/information-for-survivors/' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De Coalition Against Stalkerware is in 2019 opgericht door organisaties voor slachtofferhulp en daderhulp, digitale burgerrechten en cyberbeveiliging. Letterlijk: "Only attempt to remove stalkerware if you believe it is safe to do so."' }],
+  },
+  {
+    hoofdstuk: ['voor-de-mensen-om-je-heen'],
+    bewering: 'Wie door een (ex-)partner wordt gestalkt, kan gratis en desgewenst anoniem terecht bij Veilig Thuis: 0800-2000',
+    bron: [{ tekst: 'Politie, ik word gestalkt, waar vind ik hulp', href: 'https://www.politie.nl/informatie/ik-word-gestalkt.-waar-vind-ik-hulp.html' }],
+    status: 'gecontroleerd',
+  },
+  {
+    hoofdstuk: ['voor-de-mensen-om-je-heen'],
+    bewering: 'Met Veiligheidscontrole op een iPhone met iOS 16 of nieuwer bekijk je welke informatie je met anderen deelt en stop je dat delen',
+    bron: [
+      { tekst: 'Apple, veelgestelde vragen over Veiligheidscontrole', href: 'https://support.apple.com/nl-nl/guide/personal-safety/ips5f85e089f/web' },
+      { tekst: 'Apple, gids persoonlijke veiligheid', href: 'https://support.apple.com/nl-nl/guide/personal-safety/ipsb8deced49/web' },
+    ],
+    status: 'gecontroleerd',
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */
