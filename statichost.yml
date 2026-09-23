@@ -1,0 +1,4 @@
+# Bouwinstructies voor statichost.eu (Zweden): zelfde bouw als lokaal, uitvoer in dist/
+image: node:22
+command: npm install && npm run build
+public: dist
