@@ -26,7 +26,7 @@ const ZONDER_LEESTIJD = ['woordenboek', 'bronnen', 'een-avond'];
 for (const { slug } of HOOFDSTUKKEN.filter((h) => !ZONDER_LEESTIJD.includes(h.slug))) {
   test(`/${slug} zegt bovenaan hoe lang het lezen duurt`, async ({ page }) => {
     await page.goto(`/${slug}`);
-    await expect(page.locator('.paginakop .leestijd')).toHaveText(/^ · ongeveer (1 minuut|\d+ minuten) lezen$/);
+    await expect(page.locator('.paginakop .leestijd')).toHaveText(/^Ongeveer (1 minuut|\d+ minuten) lezen$/);
   });
 }
 

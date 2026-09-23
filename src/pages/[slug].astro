@@ -39,8 +39,14 @@ const koppen = [
 <Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum}>
   <div class="paginakop">
     <div>
-      <p class="eyebrow">{h.data.nr === null ? 'Verdieping' : `Hoofdstuk ${h.data.nr}`}{leestijd && <span class="leestijd"> · ongeveer {leestijd} lezen</span>}</p>
+      <p class="eyebrow">{h.data.nr === null ? 'Verdieping' : `Hoofdstuk ${h.data.nr}`}</p>
       <h1>{h.data.titel}</h1>
+      {leestijd && (
+        <p class="leestijd">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" /><path d="M12 7 V12 L15.5 14" /></svg>
+          Ongeveer {leestijd} lezen
+        </p>
+      )}
     </div>
     <HoofdstukIcoon slug={h.id} maat={72} />
   </div>
@@ -63,7 +69,8 @@ const koppen = [
   .inhoud a { color: var(--inkt); text-decoration: none; }
   .inhoud a:hover { color: var(--rood); text-decoration: underline; }
   @media (max-width: 40rem) { .inhoud ol { columns: 1; } }
-  .leestijd { color: var(--inkt-zacht); }
+  .leestijd { display: flex; align-items: center; gap: 0.4rem; margin: -0.4rem 0 0; color: var(--inkt-zacht); font-size: 0.95rem; }
+  .leestijd svg { flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .paginakop { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
   .paginakop > div { min-width: 0; }
   .paginakop > :global(.hicoon) { flex: none; margin-top: 0.4rem; }
