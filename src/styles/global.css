@@ -23,6 +23,12 @@ html[data-tekst="groter"] { font-size: 132%; }
   a[data-kamer] g, a[data-deel] g { transform: none !important; }
 }
 
+/* blokken die zacht omhoog in beeld schuiven; src/lib/opkomen.js zet de klassen */
+.opkomen { opacity: 0; }
+.opkomen.opgekomen { animation: opkomen 0.45s ease-out both; }
+@keyframes opkomen { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media print { .opkomen { opacity: 1; animation: none; } }
+
 body {
   margin: 0;
   background: var(--papier);

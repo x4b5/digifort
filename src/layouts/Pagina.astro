@@ -53,6 +53,7 @@ const hier = new URL(Astro.url.pathname, Astro.site);
     <NaarBoven />
     <script>
       import { wisAlles } from '../lib/opslag.js';
+      import { laatOpkomen } from '../lib/opkomen.js';
 
       // brede tabellen scrollen in hun eigen bak, niet de hele pagina;
       // op een telefoon stapelen ze per rij, met de kolomkop erbij (niet het woordenboek: dat filtert)
@@ -101,6 +102,8 @@ const hier = new URL(Astro.url.pathname, Astro.site);
       document.querySelectorAll('[data-print]').forEach((knop) => {
         knop.addEventListener('click', () => window.print());
       });
+
+      laatOpkomen();
 
       // wissen kan niet ongedaan gemaakt worden, dus pas op de tweede klik.
       // De knop blijft bruikbaar; de bevestiging gaat naar een aparte melding,
