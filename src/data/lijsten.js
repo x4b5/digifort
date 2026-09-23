@@ -23,6 +23,7 @@ export const LIJSTEN = {
     items: [
       { id: 'accounts-wachtwoord', stap: 'Geef je belangrijkste accounts een nieuw wachtwoord: je bank, DigiD, webwinkels en sociale media', waarom: 'Elke deur een eigen sleutel', tijd: 60, kamer: 'sleutels' },
       { id: 'accounts-tweede-slot', stap: 'Zet op al die accounts een tweede slot of een passkey', waarom: 'Twee sloten overal waar je geld of je naam zit', tijd: 45, kamer: 'passkey', gereedschap: ['ente', '2fas'] },
+      { id: 'whatsapp-pincode', stap: 'Zet in WhatsApp verificatie in twee stappen aan', waarom: 'Een geheime pincode die alleen jij weet. Ontfutselt iemand je sms-code, dan komt hij er nog niet in', tijd: 5, kamer: 'brievenbus' },
       { id: 'noodcodes', stap: 'Schrijf je herstelcodes op papier', waarom: 'Zo kom je binnen als je telefoon weg is', tijd: 15, kamer: 'sleutels' },
       { id: 'backup', stap: 'Maak twee reservekopieën: één op internet en één op een losse schijf', waarom: 'De brandkast buiten de deur', tijd: 60, kamer: 'brandkast' },
       { id: 'router', stap: 'Geef je router een nieuw wachtwoord en werk hem bij', waarom: 'Het tuinhek gaat op slot', tijd: 20, kamer: 'tuinhek' },

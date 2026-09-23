@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 
+import { TOTAAL_SLOTEN } from '../src/data/lijsten.js';
+
 test('afvinken telt, blijft na herladen en verschijnt in de kop', async ({ page }) => {
   await page.goto('/aan-de-slag');
   const lijst = page.locator('[data-lijst="niveau-1"]');
@@ -11,7 +13,7 @@ test('afvinken telt, blijft na herladen en verschijnt in de kop', async ({ page 
 
   await page.reload();
   await expect(lijst.locator('[data-stand-tekst]')).toHaveText('2 van 6 gedaan');
-  await expect(page.locator('[data-sloten-tekst]')).toHaveText('2 van 20 sloten dicht');
+  await expect(page.locator('[data-sloten-tekst]')).toHaveText(`2 van ${TOTAAL_SLOTEN} sloten dicht`);
 });
 
 test('wis mijn antwoorden vraagt eerst om bevestiging en maakt daarna alles leeg', async ({ page }) => {
@@ -33,7 +35,7 @@ test('wis mijn antwoorden vraagt eerst om bevestiging en maakt daarna alles leeg
   await page.reload();
   await expect(page.locator('[data-lijst="niveau-1"] [data-stand-tekst]')).toHaveText('0 van 6 gedaan');
   // de teller blijft staan, in nulstand: hij nodigt uit om te beginnen
-  await expect(page.locator('[data-sloten-tekst]')).toHaveText('0 van 20 sloten dicht');
+  await expect(page.locator('[data-sloten-tekst]')).toHaveText(`0 van ${TOTAAL_SLOTEN} sloten dicht`);
 });
 
 test('het fort zet zijn uitnodigende beginzin terug na wissen', async ({ page }) => {

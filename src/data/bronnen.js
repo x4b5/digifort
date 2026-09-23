@@ -657,6 +657,16 @@ export const BRONNEN = [
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'Dat meekijkfraude buiten de coulanceregeling valt, schrijft de Consumentenbond: de banken houden vast aan de oude omschrijving van bankhelpdeskfraude. De Consumentenbond vindt dat oneerlijk en meldt dat de banken het niet willen aanpassen' }],
   },
+  {
+    hoofdstuk: ['plattegrond', 'aan-de-slag'],
+    bewering: 'Oplichters vragen via een (overgenomen) bekende om de WhatsApp-code door te sturen, of laten de code inspreken en luisteren de voicemail af met de standaardpincode. Deel de code nooit; verificatie in twee stappen met een geheime pincode beschermt je account',
+    bron: [
+      { tekst: 'Veiliginternetten.nl (ministerie van Economische Zaken, NCSC en ECP), mijn WhatsApp is gehackt', href: 'https://veiliginternetten.nl/thema/mobiel/basisbeveiliging-mobiel/mijn-whatsapp-gehackt/' },
+      { tekst: 'WhatsApp, security', href: 'https://www.whatsapp.com/security' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'WhatsApp zelf: "Enable two-step verification. Set up a secret pin and never share it with anyone to prevent someone from stealing your account." Veiliginternetten beschrijft de truc met de doorgestuurde code en de voicemail' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */
