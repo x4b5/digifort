@@ -4,6 +4,7 @@ titel: "Als er toch is ingebroken"
 kort: "Het eerste uur, je telefoon kwijt, en het noodpakket."
 datum: "2026-09-23"
 ---
+import Kort from '../../components/Kort.astro';
 import Afvinklijst from '../../components/Afvinklijst.astro';
 import EersteUur from '../../components/tekeningen/EersteUur.astro';
 import Foto from '../../components/Foto.astro';
@@ -14,11 +15,15 @@ Snel handelen beperkt de schade, en je hoeft je nergens voor te schamen. Dit ove
 
 ## Het eerste uur
 
+<Kort>bij een inbraak vervang je eerst de sloten, daarna bel je wie er gebeld moet worden. Online is het net zo.</Kort>
+
 <EersteUur />
 
 <Afvinklijst lijst="eerste-uur" kop={false} genummerd />
 
 ## Drie veelvoorkomende situaties
+
+<Kort>welke deur ze ook gebruikten: eerst dichtdoen, dan pas opruimen.</Kort>
 
 **Je account is gehackt.** Volg de stappen hierboven. Kom je er zelf niet meer in, gebruik dan de herstelprocedure van de dienst en houd je herstelcodes bij de hand. Verander daarna ook het wachtwoord op elke plek waar je hetzelfde gebruikte.
 

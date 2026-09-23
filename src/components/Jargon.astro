@@ -7,6 +7,7 @@ const { items } = Astro.props;
   <dl>
     {items.map(([term, uitleg]) => (<><dt>{term}</dt><dd>{uitleg}</dd></>))}
   </dl>
+  <p class="verder">Deze woorden staan hier in het Engels, want zo kom je ze tegen. De Nederlandse uitleg staat in het <a href="/woordenboek">woordenboek</a>.</p>
 </details>
 <style>
   .jargon { border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); padding: 0.6rem 1rem; margin: 1.25rem 0; }
@@ -14,4 +15,5 @@ const { items } = Astro.props;
   dl { margin: 0.75rem 0 0; }
   dt { font-family: var(--mono); font-size: 0.9rem; color: var(--rood); margin-top: 0.6rem; }
   dd { margin: 0.1rem 0 0; color: var(--inkt-zacht); font-size: 0.95em; }
+  .verder { margin: 0.9rem 0 0.2rem; font-size: var(--tekst-m); color: var(--inkt-zacht); }
 </style>

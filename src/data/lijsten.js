@@ -18,7 +18,7 @@ export const LIJSTEN = {
     items: [
       { id: 'accounts-wachtwoord', stap: 'Geef je belangrijkste accounts een nieuw wachtwoord: je bank, DigiD, webwinkels en sociale media', waarom: 'Elke deur een eigen sleutel', tijd: 60, kamer: 'sleutels' },
       { id: 'accounts-tweede-slot', stap: 'Zet op al die accounts een tweede slot of een passkey', waarom: 'Twee sloten overal waar je geld of je naam zit', tijd: 45, kamer: 'passkey', gereedschap: ['ente', '2fas'] },
-      { id: 'noodcodes', stap: 'Schrijf je noodcodes op papier', waarom: 'Zo kom je binnen als je telefoon weg is', tijd: 15, kamer: 'sleutels' },
+      { id: 'noodcodes', stap: 'Schrijf je herstelcodes op papier', waarom: 'Zo kom je binnen als je telefoon weg is', tijd: 15, kamer: 'sleutels' },
       { id: 'backup', stap: 'Maak twee reservekopieën: één op internet en één op een losse schijf', waarom: 'De brandkast buiten de deur', tijd: 60, kamer: 'brandkast' },
       { id: 'router', stap: 'Geef je router een nieuw wachtwoord en werk hem bij', waarom: 'Het tuinhek gaat op slot', tijd: 20, kamer: 'tuinhek' },
       { id: 'versleuteling', stap: 'Zet je laptop zo in dat alles erop onleesbaar is zonder jouw wachtwoord', waarom: 'Een gestolen laptop is dan alleen nog een stuk metaal', tijd: 10, kamer: 'tweede-voordeur' },
@@ -52,7 +52,7 @@ export const LIJSTEN = {
     titel: 'De onderhoudsbeurt: twee keer per jaar',
     items: [
       { id: 'backup-loopt', stap: 'Loopt je reservekopie nog? Zet één bestand terug om het te testen' },
-      { id: 'noodcodes-kloppen', stap: 'Kloppen je noodcodes nog?' },
+      { id: 'noodcodes-kloppen', stap: 'Kloppen je herstelcodes nog?' },
       { id: 'geen-updates', stap: 'Welke apparaten krijgen geen updates meer?' },
       { id: 'datalek', stap: 'Staat je e-mailadres in een nieuw datalek? Kijk op haveibeenpwned.com', gereedschap: ['hibp'] },
     ],

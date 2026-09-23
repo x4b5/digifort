@@ -20,5 +20,6 @@ export function trede(nr) {
 
 /** De treden als kopjes voor de inhoudsopgave van de ladderpagina. */
 export function tredeKoppen() {
-  return TREDES.map((t) => ({ slug: `trede-${t.nr}`, text: `${t.nr}. ${t.titel}` }));
+  // geen nummer in de tekst: de lijst in de inhoudsopgave nummert zelf al
+  return TREDES.map((t) => ({ slug: `trede-${t.nr}`, text: t.titel }));
 }

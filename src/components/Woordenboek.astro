@@ -1,5 +1,7 @@
 ---
-/** Zoekveld dat de tabel eronder filtert terwijl je typt. Zet de tabel in de slot. */
+/** Zoekveld plus de woordentabel, allebei uit src/data/woorden.js. */
+import { WOORDEN } from '../data/woorden.js';
+import { kamer } from '../data/kamers.js';
 ---
 <div class="woordenboek" data-woordenboek>
   <label class="zoek">
@@ -7,7 +9,23 @@
     <input type="search" data-zoek placeholder="bijv. passkey, router, phishing" autocomplete="off" />
   </label>
   <p class="stand" data-stand aria-live="polite"></p>
-  <div class="tabel-scroll" tabindex="0" role="region" aria-label="Woordenlijst, zijwaarts te scrollen"><slot /></div>
+  <div class="tabel-scroll" tabindex="0" role="region" aria-label="Woordenlijst, zijwaarts te scrollen">
+    <table>
+      <thead><tr><th>Term</th><th>In gewone taal</th><th>In het huis</th></tr></thead>
+      <tbody>
+        {WOORDEN.map((w) => {
+          const k = w.kamer && kamer(w.kamer);
+          return (
+            <tr>
+              <td>{w.term}</td>
+              <td>{w.uitleg}</td>
+              <td>{k ? <a href={`/plattegrond#${k.anker}`}>{w.huis}</a> : w.huis}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>

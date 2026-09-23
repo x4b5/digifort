@@ -12,6 +12,12 @@ export async function getStaticPaths() {
 
 const { h } = Astro.props;
 const { Content, headings } = await render(h);
+// ruwe leestijd: ongeveer 200 woorden per minuut, naar boven afgerond op vijf.
+// Staat alleen bij de lange hoofdstukken; bij een kort stuk is het geruststelling
+// die niemand nodig heeft.
+const woorden = h.body ? h.body.split(/\s+/).length : 0;
+const minuten = Math.round(woorden / 200);
+const leestijd = minuten >= 8 ? minuten : null;
 // de acht treden zijn koppen uit een component, dus die ziet render() niet;
 // zonder deze regel mist juist het skelet waar de ladderpagina om draait
 const koppen = [
@@ -22,7 +28,7 @@ const koppen = [
 <Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum}>
   <div class="paginakop">
     <div>
-      <p class="eyebrow">{h.data.nr === null ? 'Verdieping' : `Hoofdstuk ${h.data.nr}`}</p>
+      <p class="eyebrow">{h.data.nr === null ? 'Verdieping' : `Hoofdstuk ${h.data.nr}`}{leestijd && <span class="leestijd"> · ongeveer {leestijd} minuten lezen</span>}</p>
       <h1>{h.data.titel}</h1>
     </div>
     <HoofdstukIcoon slug={h.id} maat={72} />
@@ -45,6 +51,7 @@ const koppen = [
   .inhoud a { color: var(--inkt); text-decoration: none; }
   .inhoud a:hover { color: var(--rood); text-decoration: underline; }
   @media (max-width: 40rem) { .inhoud ol { columns: 1; } }
+  .leestijd { color: var(--inkt-zacht); }
   .paginakop { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
   .paginakop > div { min-width: 0; }
   .paginakop > :global(.hicoon) { flex: none; margin-top: 0.4rem; }
