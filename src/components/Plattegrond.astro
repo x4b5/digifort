@@ -64,7 +64,7 @@ const href = (id: string) => `/plattegrond#${k[id].anker}`;
     <a href={href('voordeur')} data-kamer="voordeur" aria-label={`${k['voordeur'].naam}: ${k['voordeur'].wat}`}>
       <title>{k.voordeur.naam}: {k.voordeur.wat}</title>
       <g>
-        <path class="tek" d="M215 340 V275 a25 25 0 0 1 50 0 V340" />
+        <path class="tek" data-geen-vak d="M215 340 V275 a25 25 0 0 1 50 0 V340" />
         <line class="tek-dun" x1="222" y1="332" x2="258" y2="332" />
         <text class="tek-label" x="240" y="262" text-anchor="middle">@</text>
       </g>

@@ -1,18 +1,12 @@
-/** Alle pagina's van de site, op één plek: de laadtest en de axe-test lopen dezelfde lijst af. */
-export const PAGINAS = [
-  '/',
-  '/huischeck',
-  '/plattegrond',
-  '/inbrekers-van-nu',
-  '/inbrekers-van-morgen',
-  '/de-storm-om-het-huis',
-  '/een-avond',
-  '/aan-de-slag',
-  '/van-geheim-woord-naar-zegelring',
-  '/onderhoud',
-  '/als-er-is-ingebroken',
-  '/voor-de-mensen-om-je-heen',
-  '/woordenboek',
-  '/over',
-  '/404',
-];
+import { HOOFDSTUKKEN } from '../src/lib/site.js';
+
+/**
+ * Alle pagina's van de site, op één plek: de laadtest, de axe-test en de tekeningtest
+ * lopen dezelfde lijst af.
+ *
+ * De hoofdstukken komen uit site.js in plaats van uit een tweede handgeschreven lijst.
+ * Toen die lijst nog los bestond liep hij achter, en vielen nieuwe hoofdstukken buiten
+ * élke test zonder dat iets dat meldde. Staat een hoofdstuk niet in site.js, dan klaagt
+ * eenheid.spec.js daar al over.
+ */
+export const PAGINAS = ['/', ...HOOFDSTUKKEN.map((h) => `/${h.slug}`), '/404'];

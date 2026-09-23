@@ -4,15 +4,18 @@ import Tekening from '../Tekening.astro';
 ---
 <Tekening onderschrift="3-2-1: drie kopieën van je bestanden, op twee soorten opslag, waarvan één buiten je huis. Brandt het huis af, dan heb je alles nog.">
   <svg viewBox="0 0 640 230" role="img" aria-label="Een huis met daarin een laptop en een losse schijf, en buiten het huis een wolk. Drie keer hetzelfde bestand: op de laptop, op de schijf en in de wolk. De losse schijf is losgekoppeld van de laptop.">
-    <path class="tek" d="M40 110 L200 30 L360 110" />
-    <path class="tek" d="M60 105 V200 H340 V105" />
+    <path class="tek" data-geen-vak d="M40 110 L200 30 L360 110" />
+    <path class="tek" data-geen-vak d="M60 105 V200 H340 V105" />
     <line class="tek" x1="10" y1="200" x2="630" y2="200" />
+    <!-- De bogen staan vóór de labels, zodat de papier-halo van de labels ze kan onderbreken. -->
+    <path class="tek-dun tek-stippel" d="M178 104 C 240 62, 420 62, 470 136" />
+    <path class="tek-dun tek-stippel" d="M178 104 C 200 118, 226 122, 258 138" />
     <!-- laptop -->
     <g>
       <rect class="tek" x="90" y="120" width="90" height="56" rx="3" />
       <path class="tek" d="M78 176 H192 V184 H78 Z" />
       <path class="tek-dun" d="M120 136 h30 v24 h-30 z M126 144 h18 M126 152 h12" />
-      <text class="tek-label" x="135" y="112" text-anchor="middle">1 · je computer</text>
+      <text class="tek-label tek-halo" x="135" y="112" text-anchor="middle">1 · je computer</text>
     </g>
     <!-- losse schijf -->
     <g>
@@ -20,16 +23,14 @@ import Tekening from '../Tekening.astro';
       <circle class="tek-dun" cx="255" cy="162" r="4" />
       <path class="tek-dun" d="M272 152 h22 v22 h-22 z M278 160 h10 M278 167 h7" />
       <path class="tek-rood tek-stippel" d="M192 160 H236" />
-      <text class="tek-label" x="275" y="132" text-anchor="middle">2 · losse schijf</text>
+      <text class="tek-label tek-halo" x="275" y="132" text-anchor="middle">2 · losse schijf</text>
       <text class="tek-label" x="214" y="150" text-anchor="middle">los!</text>
     </g>
     <!-- wolk buiten -->
     <g>
       <path class="tek" d="M440 150 a24 24 0 0 1 46 -10 a20 20 0 0 1 38 8 a16 16 0 0 1 -4 32 H452 a18 18 0 0 1 -12 -30 z" />
       <path class="tek-dun" d="M486 152 h22 v22 h-22 z M492 160 h10 M492 167 h7" />
-      <text class="tek-label" x="490" y="122" text-anchor="middle">3 · buiten de deur</text>
+      <text class="tek-label tek-halo" x="490" y="122" text-anchor="middle">3 · buiten de deur</text>
     </g>
-    <path class="tek-dun tek-stippel" d="M140 100 C 200 60, 400 60, 480 120" />
-    <path class="tek-dun tek-stippel" d="M140 100 C 180 120, 220 120, 260 138" />
   </svg>
 </Tekening>
