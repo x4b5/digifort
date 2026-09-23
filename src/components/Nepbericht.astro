@@ -1,0 +1,117 @@
+---
+/**
+ * "Vind de truc": een nagemaakt oplichtersbericht waarin de lezer de verdachte plekken
+ * aantikt. Elke vondst kleurt rood en klapt de uitleg open; de teller houdt bij hoeveel
+ * er nog over zijn. Zonder JavaScript staan alle plekken en alle uitleg meteen open.
+ */
+import { nepbericht } from '../data/nepberichten.js';
+interface Props { id: string }
+const b = nepbericht(Astro.props.id);
+const volgorde = Object.keys(b.vlaggen);
+const nummer = (vlag: string) => volgorde.indexOf(vlag) + 1;
+---
+<figure class="nepbericht" data-nepbericht data-totaal={volgorde.length}>
+  <div class="balk">
+    <p class="eyebrow">Vind de truc</p>
+    <p class="teller" data-teller aria-live="polite">Tik aan wat je niet vertrouwt. Er zitten er {volgorde.length} in.</p>
+  </div>
+
+  <div class="scherm" data-scherm>
+    <p class="kop"><span class="afzender">{b.afzender}</span><span class="kanaal">{b.kanaal} · {b.tijd}</span></p>
+    {b.bubbels.map((bubbel) => (
+      <p class="bubbel">
+        {bubbel.map((s) => typeof s === 'string'
+          ? s
+          : <span class="vlag" role="button" tabindex="0" data-vlag={s.vlag} aria-expanded="false" aria-controls={`${b.id}-${s.vlag}`}>{s.tekst}<span class="nr" aria-hidden="true">{nummer(s.vlag)}</span></span>)}
+      </p>
+    ))}
+    <p class="stempel" aria-hidden="true">Nagemaakt voorbeeld</p>
+  </div>
+
+  <ol class="uitleg">
+    {volgorde.map((vlag) => (
+      <li id={`${b.id}-${vlag}`} value={nummer(vlag)} data-uitleg={vlag}>{b.vlaggen[vlag]}</li>
+    ))}
+  </ol>
+  <p class="les" data-les><strong>Wat je doet.</strong> {b.les}</p>
+  <p class="alles"><button type="button" class="knop licht klein" data-alles>Laat alles zien</button></p>
+  <figcaption class="schermlezer">Een nagemaakt bericht van {b.afzender} via {b.kanaal}, om te oefenen. Het is geen echt bericht.</figcaption>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-nepbericht]').forEach((fig) => {
+    const totaal = Number(fig.dataset.totaal);
+    const teller = fig.querySelector<HTMLElement>('[data-teller]')!;
+    const les = fig.querySelector<HTMLElement>('[data-les]')!;
+    const alles = fig.querySelector<HTMLButtonElement>('[data-alles]')!;
+    const gevonden = new Set<string>();
+
+    // met JavaScript beginnen we dicht: eerst zoeken, dan lezen
+    fig.classList.add('speelt');
+    fig.querySelectorAll<HTMLElement>('[data-uitleg]').forEach((li) => { li.hidden = true; });
+    les.hidden = true;
+
+    function vind(vlag: string) {
+      gevonden.add(vlag);
+      fig.querySelectorAll<HTMLElement>(`[data-vlag="${vlag}"]`).forEach((el) => {
+        el.classList.add('gevonden');
+        el.setAttribute('aria-expanded', 'true');
+      });
+      fig.querySelector<HTMLElement>(`[data-uitleg="${vlag}"]`)!.hidden = false;
+      const klaar = gevonden.size === totaal;
+      teller.textContent = klaar
+        ? `Alle ${totaal} gevonden. Zo herken je hem de volgende keer ook.`
+        : `${gevonden.size} van de ${totaal} gevonden.`;
+      les.hidden = !klaar;
+      alles.hidden = klaar;
+    }
+
+    fig.querySelector<HTMLElement>('[data-scherm]')!.addEventListener('click', (e) => {
+      const knop = (e.target as HTMLElement).closest<HTMLElement>('[data-vlag]');
+      if (knop) { vind(knop.dataset.vlag!); return; }
+      if (gevonden.size < totaal) teller.textContent = `Daar zit het niet. ${gevonden.size} van de ${totaal} gevonden. Let op haast, links en geld.`;
+    });
+    // een stukje zin als knop: Enter en spatie doen hetzelfde als tikken
+    fig.querySelectorAll<HTMLElement>('[data-vlag]').forEach((el) => el.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      vind(el.dataset.vlag!);
+    }));
+    alles.addEventListener('click', () => {
+      fig.querySelectorAll<HTMLElement>('[data-uitleg]').forEach((li) => vind(li.dataset.uitleg!));
+    });
+  });
+</script>
+
+<style>
+  .nepbericht { margin: 2rem 0; padding: 1.1rem 1.2rem 1.2rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier-2); }
+  .balk { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; }
+  .balk .eyebrow { margin: 0; }
+  .teller { margin: 0; font-size: 0.95rem; font-family: var(--kop); font-weight: 700; }
+
+  /* het scherm: een telefoon, zonder te doen alsof het een echte app is */
+  .scherm { position: relative; max-width: 24rem; margin: 1rem auto; padding: 0.9rem 0.9rem 2.2rem; border: var(--lijndikte) solid var(--inkt); border-radius: 22px; background: var(--papier); cursor: default; }
+  .kop { display: flex; flex-direction: column; align-items: center; margin: 0 0 0.9rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--lijn); line-height: 1.3; }
+  .afzender { font-family: var(--kop); font-weight: 700; }
+  .kanaal { font-size: 0.8rem; color: var(--inkt-zacht); }
+  .bubbel { margin: 0 2.5rem 0.5rem 0; padding: 0.55rem 0.8rem; border-radius: 4px 16px 16px 16px; background: var(--papier-2); font-size: 1rem; line-height: 1.45; }
+  .stempel { position: absolute; right: 0.9rem; bottom: 0.5rem; margin: 0; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); }
+
+  /* de verdachte plekken: een stukje zin dat doorloopt, geen blokje.
+     Zonder JavaScript meteen gemarkeerd, met JavaScript eerst gewone tekst */
+  .vlag { background: var(--rood-licht); padding: 0.2rem 0.1rem; border-radius: 3px; cursor: pointer; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .speelt .vlag:not(.gevonden) { background: transparent; }
+  .speelt .vlag:not(.gevonden):hover { background: var(--papier); outline: 1px dashed var(--inkt-zacht); }
+  .vlag:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .vlag.gevonden { background: var(--rood-licht); box-shadow: inset 0 -2px 0 var(--rood); }
+  .nr { display: none; margin-left: 0.25rem; min-width: 1.2rem; padding: 0 0.3rem; border-radius: 999px; background: var(--rood); color: var(--op-kleur); font-family: var(--kop); font-size: 0.75rem; font-weight: 700; line-height: 1.2rem; text-align: center; vertical-align: 0.1em; }
+  .nepbericht:not(.speelt) .nr, .gevonden .nr { display: inline-block; }
+
+  .uitleg { margin: 0.5rem 0 0; padding-left: 1.6rem; font-size: 1rem; }
+  .uitleg li { margin: 0.35rem 0; }
+  .uitleg li::marker { color: var(--rood); font-family: var(--kop); font-weight: 700; }
+  .les { margin: 1rem 0 0; padding: 0.75rem 1rem; border-radius: var(--radius); background: var(--groen-licht); font-size: 1rem; }
+  .alles { margin: 0.75rem 0 0; }
+  .nepbericht:not(.speelt) .alles { display: none; }
+  .klein { min-height: 2.75rem; padding: 0.3rem 0.9rem; font-size: 0.9rem; }
+</style>
