@@ -13,6 +13,9 @@
   --groen: #2e7d4f;
   --groen-licht: #e3f1e8;
   --focus: #1a5fb4;
+  /* tekst op een rood of groen vlak; in donker zijn die vlakken licht,
+     dus dan is donkere tekst juist leesbaar (wit op donkergroen haalt 2,5:1) */
+  --op-kleur: #ffffff;
 
   --kop: "Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
   --tekst: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
@@ -41,6 +44,7 @@
     --groen: #5db57f;
     --groen-licht: #1c2f24;
     --focus: #7cb3ff;
+    --op-kleur: var(--papier);
   }
 }
 
@@ -59,6 +63,7 @@
   --groen: #5db57f;
   --groen-licht: #1c2f24;
   --focus: #7cb3ff;
+  --op-kleur: var(--papier);
 }
 
 :root[data-theme="light"] { color-scheme: light; }

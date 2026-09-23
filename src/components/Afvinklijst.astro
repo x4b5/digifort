@@ -80,7 +80,7 @@ const Tag = genummerd ? 'ol' : 'ul';
   input { position: absolute; opacity: 0; width: 1px; height: 1px; }
   .vink { display: block; width: 2rem; height: 2rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); position: relative; margin-top: 0.1rem; background: var(--papier); }
   input:checked + .vink { background: var(--groen); border-color: var(--groen); }
-  input:checked + .vink::after { content: ""; position: absolute; left: 0.55rem; top: 0.2rem; width: 0.5rem; height: 1rem; border: solid #fff; border-width: 0 4px 4px 0; transform: rotate(45deg); }
+  input:checked + .vink::after { content: ""; position: absolute; left: 0.55rem; top: 0.2rem; width: 0.5rem; height: 1rem; border: solid var(--op-kleur); border-width: 0 4px 4px 0; transform: rotate(45deg); }
   input:focus-visible + .vink { outline: 3px solid var(--focus); outline-offset: 3px; }
   .tekst-blok { display: flex; flex-direction: column; gap: 0.15rem; }
   .stap { font-weight: 700; }

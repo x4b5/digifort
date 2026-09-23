@@ -24,7 +24,9 @@
         r.hidden = !past;
         if (past) n += 1;
       });
-      stand.textContent = q ? `${n} van ${rijen.length} woorden` : `${rijen.length} woorden`;
+      stand.textContent = !q ? `${rijen.length} woorden`
+        : n === 0 ? 'Niets gevonden. Probeer een ander woord.'
+        : `${n} van ${rijen.length} woorden`;
     }
     veld.addEventListener('input', filter);
     filter();

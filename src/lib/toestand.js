@@ -15,7 +15,8 @@ export function toestandPerKamer(data) {
         l.items.filter((it) => it.kamer === k.id).map((it) => Boolean(data.lijsten[lijst]?.[it.id])),
       );
       if (vinkjes.includes(true)) return [k.id, 'dicht'];
-      if (antwoorden.includes(false)) return [k.id, 'open'];
+      // "nee" en "weet ik niet" (null) tellen allebei als open deur, net als in de uitslag
+      if (antwoorden.includes(false) || antwoorden.includes(null)) return [k.id, 'open'];
       if (antwoorden.includes(true)) return [k.id, 'dicht'];
       return [k.id, 'onbekend'];
     }),

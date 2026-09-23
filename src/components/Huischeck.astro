@@ -170,8 +170,8 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
   .antwoord { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.3rem 1rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); font-family: var(--kop); font-weight: 700; cursor: pointer; background: var(--papier); }
   .antwoord input { position: absolute; opacity: 0; width: 1px; height: 1px; }
   .antwoord:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
-  .ja:has(input:checked) { background: var(--groen); border-color: var(--groen); color: #fff; }
-  .nee:has(input:checked) { background: var(--rood); border-color: var(--rood); color: #fff; }
+  .ja:has(input:checked) { background: var(--groen); border-color: var(--groen); color: var(--op-kleur); }
+  .nee:has(input:checked) { background: var(--rood); border-color: var(--rood); color: var(--op-kleur); }
   .weet:has(input:checked) { background: var(--inkt); border-color: var(--inkt); color: var(--papier); }
   .uitslag { margin-top: 2rem; padding: 1.25rem 1.4rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier-2); }
   .meter { height: 1rem; border: 2px solid var(--lijn-sterk); border-radius: 999px; overflow: hidden; margin: 0 0 0.6rem; background: var(--papier); }

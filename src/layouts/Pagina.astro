@@ -93,19 +93,39 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : SITE.naam;
       toonTeller();
       window.addEventListener('jdh:gewijzigd', (e) => toonTeller(e.detail));
 
+      // wissen kan niet ongedaan gemaakt worden, dus pas op de tweede klik.
+      // De knop blijft bruikbaar; de bevestiging gaat naar een aparte melding,
+      // want een knop die zichzelf uitschakelt verliest de focus en wordt niet voorgelezen.
       document.querySelectorAll('[data-wis]').forEach((knop) => {
+        const melding = document.querySelector('[data-wis-melding]');
+        const label = knop.textContent;
+        let klok;
+
+        function herstel() {
+          clearTimeout(klok);
+          knop.dataset.bevestig = '';
+          knop.textContent = label;
+        }
+
         knop.addEventListener('click', () => {
+          if (!knop.dataset.bevestig) {
+            knop.dataset.bevestig = 'ja';
+            knop.textContent = 'Weet je het zeker?';
+            klok = setTimeout(herstel, 8000);
+            return;
+          }
           wisAlles();
-          knop.textContent = 'Antwoorden gewist';
-          knop.setAttribute('disabled', '');
+          herstel();
+          if (melding) melding.textContent = 'Je antwoorden en vinkjes zijn gewist.';
         });
+        knop.addEventListener('blur', herstel);
       });
     </script>
   </body>
 </html>
 
 <style is:global>
-  .overslaan { position: absolute; left: -999px; top: 0; background: var(--rood); color: #fff; padding: 0.5rem 1rem; z-index: 100; }
+  .overslaan { position: absolute; left: -999px; top: 0; background: var(--rood); color: var(--op-kleur); padding: 0.5rem 1rem; z-index: 100; }
   .overslaan:focus { left: 0.5rem; top: 0.5rem; }
   main { padding-top: 2.5rem; }
 </style>

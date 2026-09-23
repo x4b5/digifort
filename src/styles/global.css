@@ -97,12 +97,12 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--papier-2); 
 .knop {
   display: inline-flex; align-items: center; gap: 0.5rem;
   min-height: 3rem; padding: 0.6rem 1.4rem;
-  background: var(--rood); color: #fff;
+  background: var(--rood); color: var(--op-kleur);
   font-family: var(--kop); font-size: 1.15rem; font-weight: 700;
   text-decoration: none; border: 3px solid var(--rood); border-radius: var(--radius);
   cursor: pointer;
 }
-.knop:hover { background: var(--rood-donker); border-color: var(--rood-donker); color: #fff; }
+.knop:hover { background: var(--rood-donker); border-color: var(--rood-donker); color: var(--op-kleur); }
 .knop.licht { background: transparent; color: var(--inkt); border-color: var(--lijn-sterk); }
 .knop.licht:hover { background: var(--papier-2); color: var(--inkt); border-color: var(--lijn-sterk); }
 .knop.klein { min-height: 2.4rem; font-size: 0.95rem; padding: 0.3rem 0.9rem; }

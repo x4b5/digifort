@@ -131,6 +131,10 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
   import { FORTDELEN, toestandPerDeel } from '../data/fort.js';
 
   document.querySelectorAll<HTMLElement>('[data-huis-en-fort]').forEach((fig) => {
+    // de zin zoals hij bij het laden op de pagina stond, om na een wis naar terug te keren
+    const beginZin = Array.from(fig.querySelector<HTMLElement>('[data-fort-stand]')!.childNodes)
+      .map((n) => n.cloneNode(true));
+
     function kleur(data = lees()) {
       const toestand = toestandPerDeel(toestandPerKamer(data));
       fig.querySelectorAll<SVGElement>('[data-deel]').forEach((el) => { el.dataset.toestand = toestand[el.dataset.deel!]; });
@@ -138,8 +142,9 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
       const staat = Object.values(toestand).filter((t) => t === 'dicht').length;
       const wankelt = Object.values(toestand).filter((t) => t === 'open').length;
       const stand = fig.querySelector<HTMLElement>('[data-fort-stand]')!;
-      if (staat === 0 && wankelt === 0) return;
       const totaal = FORTDELEN.length;
+      // niets ingevuld (of net gewist): de uitnodigende beginzin terug, niet de oude stand
+      if (staat === 0 && wankelt === 0) { stand.replaceChildren(...beginZin.map((n) => n.cloneNode(true))); return; }
       stand.textContent = staat === totaal
         ? `Alle ${totaal} delen van je fort staan. Help nu iemand anders met de zijne.`
         : `${staat} van de ${totaal} delen van je fort staan${wankelt ? `, ${wankelt} ${wankelt === 1 ? 'wankelt' : 'wankelen'} nog` : ''}.`;
