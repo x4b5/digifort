@@ -62,6 +62,23 @@ test('een brede tabel zit in een scrolbare bak en stapelt op een telefoon', asyn
   }
 });
 
+test('het woordenboek sorteert van makkelijk naar moeilijk en weer terug', async ({ page }) => {
+  await page.goto('/woordenboek');
+  const eerste = page.locator('tbody tr td:first-child').first();
+  await expect(eerste).toContainText('2FA');
+
+  await page.getByRole('button', { name: 'Makkelijk eerst' }).click();
+  await expect(page.getByRole('button', { name: 'Makkelijk eerst' })).toHaveAttribute('aria-pressed', 'true');
+  // de niveaus staan nu oplopend, en het niveau is ook af te lezen
+  const niveaus = await page.locator('tbody tr').evaluateAll((rs) => rs.map((r) => Number(r.dataset.niveau)));
+  expect(niveaus).toEqual([...niveaus].sort((a, b) => a - b));
+  await expect(eerste.locator('.niveau')).toBeVisible();
+
+  await page.getByRole('button', { name: 'A\u2013Z' }).click();
+  await expect(page.locator('tbody tr td:first-child').first()).toContainText('2FA');
+  await expect(page.locator('tbody tr .niveau').first()).toBeHidden();
+});
+
 test('het woordenboek filtert niet via de stapelweergave', async ({ page }) => {
   await page.goto('/woordenboek');
   await expect(page.locator('[data-woordenboek] table')).not.toHaveClass(/tabel-stapel/);

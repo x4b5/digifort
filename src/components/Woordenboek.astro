@@ -1,9 +1,16 @@
 ---
-/** Zoekveld plus de woordentabel, allebei uit src/data/woorden.js. */
+/** Zoekveld, sorteerknoppen en de woordentabel, alle drie uit src/data/woorden.js. */
 import { WOORDEN } from '../data/woorden.js';
 import { kamer } from '../data/kamers.js';
+
+const NIVEAUNAAM: Record<number, string> = { 1: 'makkelijk', 2: 'gemiddeld', 3: 'vakjargon' };
 ---
 <div class="woordenboek" data-woordenboek>
+  <div class="sorteer" role="group" aria-label="Volgorde van de lijst">
+    <span class="sorteer-kop">Volgorde</span>
+    <button type="button" data-sorteer="az" aria-pressed="true">A&ndash;Z</button>
+    <button type="button" data-sorteer="niveau" aria-pressed="false">Makkelijk eerst</button>
+  </div>
   <label class="zoek">
     <span>Zoek een woord</span>
     <input type="search" data-zoek placeholder="bijv. passkey, router, phishing" autocomplete="off" />
@@ -16,8 +23,8 @@ import { kamer } from '../data/kamers.js';
         {WOORDEN.map((w) => {
           const k = w.kamer && kamer(w.kamer);
           return (
-            <tr>
-              <td>{w.term}</td>
+            <tr data-niveau={w.niveau}>
+              <td>{w.term} <span class="niveau">{NIVEAUNAAM[w.niveau]}</span></td>
               <td>{w.uitleg}</td>
               <td>{k ? <a href={`/plattegrond#${k.anker}`}>{w.huis}</a> : w.huis}</td>
             </tr>
@@ -32,7 +39,19 @@ import { kamer } from '../data/kamers.js';
   document.querySelectorAll<HTMLElement>('[data-woordenboek]').forEach((wb) => {
     const veld = wb.querySelector<HTMLInputElement>('[data-zoek]')!;
     const stand = wb.querySelector<HTMLElement>('[data-stand]')!;
+    const lijf = wb.querySelector<HTMLElement>('tbody')!;
+    const knoppen = Array.from(wb.querySelectorAll<HTMLButtonElement>('[data-sorteer]'));
     const rijen = Array.from(wb.querySelectorAll<HTMLTableRowElement>('tbody tr'));
+    // De lijst staat alfabetisch in de data; die volgorde is de A-Z-stand.
+    const alfabetisch = rijen.slice();
+    const opNiveau = rijen.slice().sort((a, b) => Number(a.dataset.niveau) - Number(b.dataset.niveau));
+
+    function sorteer(hoe: string) {
+      const volgorde = hoe === 'niveau' ? opNiveau : alfabetisch;
+      volgorde.forEach((r) => lijf.appendChild(r));
+      wb.classList.toggle('op-niveau', hoe === 'niveau');
+      knoppen.forEach((k) => k.setAttribute('aria-pressed', String(k.dataset.sorteer === hoe)));
+    }
 
     function filter() {
       const q = veld.value.trim().toLowerCase();
@@ -46,13 +65,21 @@ import { kamer } from '../data/kamers.js';
         : n === 0 ? 'Niets gevonden. Probeer een ander woord.'
         : `${n} van ${rijen.length} woorden`;
     }
+
+    knoppen.forEach((k) => k.addEventListener('click', () => sorteer(k.dataset.sorteer!)));
     veld.addEventListener('input', filter);
     filter();
   });
 </script>
 
 <style>
+  .sorteer { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 1.25rem 0 0; }
+  .sorteer-kop { font-weight: 700; margin-right: 0.15rem; }
+  .sorteer button { font: inherit; font-size: var(--tekst-m); padding: 0.35rem 0.8rem; border: var(--lijndikte-dun) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier); color: var(--inkt-zacht); cursor: pointer; }
+  .sorteer button[aria-pressed='true'] { background: var(--inkt); color: var(--papier); border-color: var(--inkt); font-weight: 700; }
   .zoek { display: flex; flex-direction: column; gap: 0.35rem; margin: 1rem 0 0.5rem; font-weight: 700; }
   .zoek input { font: inherit; font-size: 1.1rem; padding: 0.6rem 0.9rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier); color: var(--inkt); max-width: 28rem; }
   .stand { margin: 0 0 0.75rem; }
+  .niveau { display: none; font-family: var(--mono); font-size: 0.75em; color: var(--inkt-zacht); white-space: nowrap; }
+  .op-niveau .niveau { display: inline; }
 </style>
