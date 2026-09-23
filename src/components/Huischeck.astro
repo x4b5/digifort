@@ -9,8 +9,8 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
   <ol class="vragen">
     {VRAGEN.map((v) => (
       <li data-vraag={v.nr} data-kind-vraag={v.kind ? '1' : undefined}>
-        <p class="vraag"><span class="nr">{v.nr}</span> {v.vraag}</p>
-        <div class="antwoorden" role="group" aria-label={`Vraag ${v.nr}`}>
+        <p class="vraag" id={`vraag-${v.nr}`}><span class="nr">{v.nr}</span> {v.vraag}</p>
+        <div class="antwoorden" role="group" aria-labelledby={`vraag-${v.nr}`}>
           <label class="antwoord ja"><input type="radio" name={`v${v.nr}`} value="ja" /><span>Ja</span></label>
           <label class="antwoord nee"><input type="radio" name={`v${v.nr}`} value="nee" /><span>Nee</span></label>
           <label class="antwoord weet"><input type="radio" name={`v${v.nr}`} value="weet-niet" /><span>Weet ik niet</span></label>
@@ -82,10 +82,13 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
       sectie!.querySelector('[data-score-tekst]')!.textContent = `keer ja van de ${totaal}`;
       const vul = sectie!.querySelector<HTMLElement>('[data-meter-vul]')!;
       vul.style.width = `${(ja / totaal) * 100}%`;
-      vul.style.background = ja / totaal >= 0.8 ? 'var(--groen)' : 'var(--rood)';
+      vul.dataset.toestand = ja / totaal >= 0.8 ? 'dicht' : 'open';
 
       const klaar = beantwoord === totaal;
       const b = band(schaal);
+      // zeg er ook bij dat de kindmodus vragen weglaat; anders verdwijnen er
+      // zes vragen uit de pagina zonder dat iemand hoort waarom
+      const kind = kindSchakel.checked ? `Vier vragen, samen met een kind. ` : '';
       sectie!.querySelectorAll<HTMLElement>('[data-band]').forEach((el) => { el.hidden = !klaar || BANDEN[Number(el.dataset.band)] !== b; });
       sectie!.querySelector<HTMLElement>('[data-open-deuren]')!.hidden = !klaar || ja === totaal;
       const lijst = sectie!.querySelector<HTMLElement>('[data-open-lijst]')!;
@@ -133,9 +136,9 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
       // Eén zin voor de schermlezer. Het hele uitslagblok voorlezen bij elke
       // klik is te veel; dit is wat je op dat moment wilt weten.
       const melding = sectie!.querySelector<HTMLElement>('[data-melding]')!;
-      melding.textContent = klaar
+      melding.textContent = kind + (klaar
         ? `Uitslag: ${ja} keer ja van de ${totaal}. ${b.kop}.`
-        : `${ja} keer ja. Nog ${teGaan} ${teGaan === 1 ? 'vraag' : 'vragen'} te gaan.`;
+        : `${ja} keer ja. Nog ${teGaan} ${teGaan === 1 ? 'vraag' : 'vragen'} te gaan.`);
     }
 
     // afvinken in de bouwvolgorde is hetzelfde vinkje als in hoofdstuk 4
@@ -176,6 +179,7 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
   .uitslag { margin-top: 2rem; padding: 1.25rem 1.4rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier-2); }
   .meter { height: 1rem; border: 2px solid var(--lijn-sterk); border-radius: 999px; overflow: hidden; margin: 0 0 0.6rem; background: var(--papier); }
   .meter span { display: block; height: 100%; width: 0; background: var(--rood); transition: width 0.3s ease; }
+  .meter span[data-toestand="dicht"] { background: var(--groen); }
   .score { font-family: var(--kop); font-size: 1.5rem; margin: 0 0 0.75rem; }
   .score strong { font-size: 2.4rem; color: var(--rood); }
   .band h3 { margin: 0.5rem 0 0.3rem; }

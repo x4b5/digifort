@@ -7,12 +7,17 @@ const SLEUTEL = 'jdh:lezen';
 
 export const STANDAARD = Object.freeze({ tekst: 'normaal', thema: 'auto' });
 
+/** Alleen deze standen bestaan. Staat er iets anders in het laatje, dan negeren we het:
+    anders zet één rare waarde de pagina in een stand die geen knop kan terugdraaien. */
+const GELDIG = Object.freeze({ tekst: ['normaal', 'groot', 'groter'], thema: ['auto', 'light', 'dark'] });
+const keur = (veld, waarde) => (GELDIG[veld].includes(waarde) ? waarde : STANDAARD[veld]);
+
 export function leesLezen() {
   try {
     const ruw = window.localStorage.getItem(SLEUTEL);
     if (!ruw) return { ...STANDAARD };
     const data = JSON.parse(ruw);
-    return { tekst: data.tekst ?? STANDAARD.tekst, thema: data.thema ?? STANDAARD.thema };
+    return { tekst: keur('tekst', data.tekst), thema: keur('thema', data.thema) };
   } catch {
     return { ...STANDAARD };
   }

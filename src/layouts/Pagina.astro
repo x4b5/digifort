@@ -96,6 +96,12 @@ const hier = new URL(Astro.url.pathname, Astro.site);
       toonTeller();
       window.addEventListener('jdh:gewijzigd', (e) => toonTeller(e.detail));
 
+      // je voortgang staat alleen in deze browser; op papier gaat hij wel mee.
+      // De printstijl laat de lijsten en het noodpakket staan en de rest weg.
+      document.querySelectorAll('[data-print]').forEach((knop) => {
+        knop.addEventListener('click', () => window.print());
+      });
+
       // wissen kan niet ongedaan gemaakt worden, dus pas op de tweede klik.
       // De knop blijft bruikbaar; de bevestiging gaat naar een aparte melding,
       // want een knop die zichzelf uitschakelt verliest de focus en wordt niet voorgelezen.

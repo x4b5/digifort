@@ -17,7 +17,7 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
   </ol>
 
   {stappen.map((it, i) => (
-    <article class="stap" data-stap={i} data-item={it.id} hidden>
+    <article class="stap" data-stap={i} data-item={it.id} data-tijd={it.tijd ?? 0} hidden>
       <p class="eyebrow">Stap {i + 1}{it.tijd && ` · ${it.tijd} min`}</p>
       <h2 tabindex="-1">{it.stap}</h2>
       <p class="waarom">{it.waarom}.</p>
@@ -26,7 +26,7 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
       {AVOND[it.id].gereedschap?.length > 0 && (
         <p class="gereedschap"><span class="gereedschap-kop">Gereedschap</span> {AVOND[it.id].gereedschap.map((g) => <Merk id={g} maat={22} link />)}</p>
       )}
-      <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {AVOND[it.id].klaar}</p>
+      <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {AVOND[it.id].klaar} <button type="button" class="link" data-toch-niet>Toch niet gedaan</button></p>
       <p class="knoppen">
         <button type="button" class="knop" data-gedaan>Gedaan, volgende →</button>
         <button type="button" class="knop licht" data-over>Sla over</button>
@@ -70,7 +70,9 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
       });
       const klaar = stappen.filter((_, n) => isGedaan(n)).length;
       if (huidig < totaal) {
-        const rest = stappen.slice(huidig).reduce((n, el) => n + Number(el.querySelector('.eyebrow')?.textContent?.match(/(\d+) min/)?.[1] ?? 0), 0);
+        // alleen wat nog open staat, net als in de afvinklijst in hoofdstuk 4;
+        // de minuten komen uit data-tijd, niet uit de zichtbare tekst
+        const rest = stappen.reduce((n, el, i) => n + (isGedaan(i) ? 0 : Number(el.dataset.tijd)), 0);
         stand.textContent = `Stap ${huidig + 1} van ${totaal}${rest ? ` · nog ongeveer ${rest} minuten` : ''}`;
         stappen[huidig].querySelector<HTMLElement>('[data-klaar-zin]')!.hidden = !isGedaan(huidig);
       } else {
@@ -85,6 +87,8 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
 
     stappen.forEach((el, i) => {
       el.querySelector('[data-gedaan]')?.addEventListener('click', () => { zetVinkje(LIJST, el.dataset.item!, true); toon(i + 1); });
+      // wie te snel "gedaan" klikte, kan het hier terugzetten zonder naar hoofdstuk 4 te hoeven
+      el.querySelector('[data-toch-niet]')?.addEventListener('click', () => { zetVinkje(LIJST, el.dataset.item!, false); toon(i, false); });
       el.querySelector('[data-over]')?.addEventListener('click', () => toon(i + 1));
       el.querySelector('[data-terug]')?.addEventListener('click', () => toon(i - 1));
     });
@@ -115,6 +119,7 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
   .gereedschap-kop { font-family: var(--kop); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); }
   .klaar-zin { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.7rem 1rem; }
   .klaar-zin[hidden] { display: none; }
+  .link { background: none; border: 0; padding: 0; font: inherit; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: pointer; }
   .knoppen { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin: 0; }
   .einde { background: var(--papier-2); }
 </style>

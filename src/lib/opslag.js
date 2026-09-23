@@ -5,14 +5,24 @@
  */
 const SLEUTEL = 'jdh:v1';
 
-const LEEG = Object.freeze({ huischeck: {}, lijsten: {} });
+const VERSIE = 1;
+const LEEG = Object.freeze({ versie: VERSIE, huischeck: {}, lijsten: {} });
+
+/**
+ * Oudere vormen van het laatje omzetten naar de huidige.
+ * Nu nog leeg: er is één versie. Verandert de vorm, dan hoort hier de omzetting,
+ * zodat niemand stilzwijgend zijn vinkjes kwijtraakt.
+ */
+function migreer(data) {
+  return { ...data, versie: VERSIE };
+}
 
 export function lees() {
   try {
     const ruw = window.localStorage.getItem(SLEUTEL);
     if (!ruw) return { ...LEEG };
     const data = JSON.parse(ruw);
-    return { huischeck: { ...(data.huischeck ?? {}) }, lijsten: { ...(data.lijsten ?? {}) } };
+    return migreer({ huischeck: { ...(data.huischeck ?? {}) }, lijsten: { ...(data.lijsten ?? {}) } });
   } catch {
     return { ...LEEG };
   }
