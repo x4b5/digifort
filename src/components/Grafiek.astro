@@ -1,0 +1,68 @@
+---
+/**
+ * Staafgrafiek met liggende balken. `items`: [{ label, waarde, toon, kleur }].
+ * `waarde` is het getal waarop de balk wordt geschaald, `toon` is wat de lezer leest —
+ * zo blijft "63.000" leesbaar terwijl de balk op 63000 schaalt.
+ * `kleur` is 'inkt' (standaard), 'rood' voor het cijfer dat de waarschuwing draagt,
+ * of 'groen' voor wat geregeld is. Het onderschrift is een slot en geen prop, zodat
+ * er links in kunnen: een cijfer zonder narekenbare bron hoort hier niet, en twee
+ * cijfers naast elkaar komen lang niet altijd uit dezelfde bron.
+ * `max` zet de schaal vast. Zonder `max` is de grootste balk vol, wat klopt voor
+ * losse getallen maar niet voor percentages: geef daar `max={100}`, anders lijkt
+ * 55 procent de hele taart.
+ */
+interface Props {
+  items: { label: string; waarde: number; toon: string; kleur?: 'inkt' | 'rood' | 'groen' }[];
+  max?: number;
+}
+const { items, max } = Astro.props;
+const top = max ?? (Math.max(...items.map((i) => i.waarde), 0) || 1);
+---
+<figure class="grafiek">
+  <ul>
+    {items.map((i) => (
+      <li data-kleur={i.kleur ?? 'inkt'}>
+        <span class="g-label">{i.label}</span>
+        <span class="g-baan"><span class="g-balk" style={`--deel: ${(i.waarde / top) * 100}%`} /></span>
+        <span class="g-waarde">{i.toon}</span>
+      </li>
+    ))}
+  </ul>
+  {Astro.slots.has('default') && <figcaption><slot /></figcaption>}
+</figure>
+<style>
+  .grafiek { margin: 1.5rem 0 2rem; }
+  .grafiek ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
+  .grafiek li {
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(4.5rem, auto) 1fr minmax(4rem, auto);
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .g-label { font-family: var(--kop); font-size: 0.92rem; color: var(--inkt); }
+  .g-baan { background: var(--papier-2); border-radius: 2px; height: 1.6rem; overflow: hidden; }
+  .g-balk {
+    display: block;
+    width: var(--deel);
+    height: 100%;
+    background: var(--inkt-zacht);
+    border-radius: 2px;
+    transform-origin: left center;
+    animation: groei 0.5s ease-out both;
+  }
+  [data-kleur='rood'] .g-balk { background: var(--rood); }
+  [data-kleur='groen'] .g-balk { background: var(--groen); }
+  .g-waarde { font-family: var(--kop); font-size: 1.05rem; color: var(--inkt); text-align: right; }
+  [data-kleur='rood'] .g-waarde { color: var(--rood); }
+  [data-kleur='groen'] .g-waarde { color: var(--groen); }
+  .grafiek figcaption {
+    margin-top: 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--inkt-zacht);
+  }
+  .grafiek figcaption :global(p) { margin: 0; }
+  @keyframes groei { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce) { .g-balk { animation: none; } }
+</style>

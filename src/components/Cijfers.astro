@@ -12,7 +12,7 @@ const { items } = Astro.props;
     <li>
       <strong class="getal">{c.getal}</strong>
       <span class="tekst">{c.tekst}</span>
-      {c.bron && <a class="bron" href={c.href ?? '/over#bronnen'}>{c.bron}</a>}
+      {c.bron && <a class="bron" href={c.href ?? '/bronnen'}>{c.bron}</a>}
     </li>
   ))}
 </ul>

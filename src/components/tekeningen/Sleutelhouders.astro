@@ -1,0 +1,48 @@
+---
+/** Wie er nog meer een sleutel van jouw huis heeft, en waar de inbreker het dan probeert. */
+import Tekening from '../Tekening.astro';
+---
+<Tekening onderschrift="Niet iedereen met een sleutel van jouw huis woont erin. Een inbreker die bij jou niet binnenkomt, probeert de sleutel die het slechtst bewaard wordt.">
+  <svg viewBox="0 0 640 276" role="img" aria-label="Links een huis met het label jouw huis. Vanuit het huis lopen drie lijnen naar drie mensen die elk een sleutel hebben: je moeder, je kind en een collega. De sleutel van de collega is rood, en een rode stippellijn loopt van die sleutel terug naar de voordeur van het huis.">
+    <!-- jouw huis -->
+    <text class="tek-tekst" x="110" y="50" text-anchor="middle">jouw huis</text>
+    <path class="tek" d="M44 116 L110 70 L176 116" />
+    <path class="tek" d="M58 112 V212 H162 V112" />
+    <rect class="tek-dun" x="97" y="164" width="26" height="48" rx="2" />
+    <circle class="tek-vul-inkt" cx="116" cy="190" r="2.5" />
+
+    <!-- de draden naar de mensen met een sleutel -->
+    <path class="tek-dun" d="M176 160 C 226 160, 232 46, 278 46" />
+    <path class="tek-dun" d="M176 160 C 226 160, 232 130, 278 130" />
+    <path class="tek-dun" d="M176 160 C 226 160, 232 214, 278 214" />
+
+    <!-- sleutel + persoon, driemaal -->
+    <g>
+      <circle class="tek" cx="292" cy="46" r="6" />
+      <path class="tek" d="M298 46 H330 M320 46 v7 M327 46 v7" />
+      <circle class="tek" cx="372" cy="30" r="9" />
+      <path class="tek" d="M372 39 v22 M359 48 h26 M372 61 l-8 13 M372 61 l8 13" />
+      <text class="tek-label" x="398" y="50">je moeder</text>
+    </g>
+    <g>
+      <circle class="tek" cx="292" cy="130" r="6" />
+      <path class="tek" d="M298 130 H330 M320 130 v7 M327 130 v7" />
+      <circle class="tek" cx="372" cy="114" r="9" />
+      <path class="tek" d="M372 123 v22 M359 132 h26 M372 145 l-8 13 M372 145 l8 13" />
+      <text class="tek-label" x="398" y="134">je kind</text>
+    </g>
+    <g>
+      <circle class="tek-rood" cx="292" cy="214" r="6" />
+      <path class="tek-rood" d="M298 214 H330 M320 214 v7 M327 214 v7" />
+      <circle class="tek" cx="372" cy="198" r="9" />
+      <path class="tek" d="M372 207 v22 M359 216 h26 M372 229 l-8 13 M372 229 l8 13" />
+      <text class="tek-label" x="398" y="218">een collega</text>
+    </g>
+
+    <!-- de weg terug: de slechtst bewaarde sleutel opent jouw voordeur -->
+    <path class="tek-rood tek-stippel" d="M286 222 C 234 258, 156 256, 118 220" />
+    <path class="tek-rood" d="M118 220 m-7 8 l7 -8 l7 8" />
+    <text class="tek-label tek-halo" x="478" y="252" text-anchor="middle">de slechtst bewaarde sleutel</text>
+    <text class="tek-label tek-halo" x="478" y="268" text-anchor="middle">opent jouw voordeur</text>
+  </svg>
+</Tekening>

@@ -1,8 +1,18 @@
 ---
 /** Tien vragen, twee minuten. Het antwoord blijft in je eigen browser. */
-import { VRAGEN, BANDEN } from '../data/huischeck.js';
+import { VRAGEN, BANDEN, SPIEGELS, LANDELIJK_CIJFER } from '../data/huischeck.js';
+const CIJFERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 ---
 <section class="huischeck" data-huischeck>
+  <div class="eigen-cijfer" data-eigen-cijfer>
+    <p class="cijfer-vraag" id="cijfer-vraag">Voordat je begint: welk cijfer geef je jezelf voor je digitale veiligheid?</p>
+    <p class="cijfer-hint">Je eerste ingeving is goed genoeg. Aan het eind zie je wat de tien vragen ervan vinden.</p>
+    <div class="cijfers" role="group" aria-labelledby="cijfer-vraag">
+      {CIJFERS.map((c) => (
+        <label class="cijfer"><input type="radio" name="eigen-cijfer" value={c} /><span>{c}</span></label>
+      ))}
+    </div>
+  </div>
   <div class="schakel">
     <label><input type="checkbox" data-kind /> Ik doe de check samen met een kind (alleen vraag 1, 3, 6 en 9)</label>
   </div>
@@ -24,6 +34,19 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
     <p class="eyebrow">Je uitslag</p>
     <p class="meter" aria-hidden="true"><span data-meter-vul></span></p>
     <p class="score"><strong data-score>0</strong> <span data-score-tekst>keer ja van de 10</span></p>
+    <div class="spiegel" data-spiegel hidden>
+      <p class="spiegel-cijfers">
+        <span><strong data-spiegel-eigen>—</strong> gaf je jezelf</span>
+        <span><strong data-spiegel-deuren>—</strong> van de 10 deuren dicht</span>
+        <span class="landelijk">Nederland geeft zichzelf gemiddeld een {String(LANDELIJK_CIJFER).replace('.', ',')}</span>
+      </p>
+      {SPIEGELS.map((sp, i) => (
+        <div class="spiegel-duiding" data-spiegel-duiding={i} hidden>
+          <h3>{sp.kop}</h3>
+          <p>{sp.tekst} <a href={sp.link}>{sp.linkTekst} →</a></p>
+        </div>
+      ))}
+    </div>
     {BANDEN.map((b, i) => (
       <div class="band" data-band={i} hidden>
         <h3>{b.kop}</h3>
@@ -42,8 +65,8 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
 </section>
 
 <script>
-  import { lees, zetAntwoord, zetVinkje } from '../lib/opslag.js';
-  import { band, BANDEN, VRAGEN } from '../data/huischeck.js';
+  import { lees, zetAntwoord, zetCijfer, zetVinkje } from '../lib/opslag.js';
+  import { band, BANDEN, VRAGEN, SPIEGELS, spiegel } from '../data/huischeck.js';
   import { kamer } from '../data/kamers.js';
   import { LIJSTEN } from '../data/lijsten.js';
 
@@ -54,14 +77,18 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
   const sectie = document.querySelector<HTMLElement>('[data-huischeck]');
   if (sectie) {
     const kindSchakel = sectie.querySelector<HTMLInputElement>('[data-kind]')!;
+    const cijferBlok = sectie.querySelector<HTMLElement>('[data-eigen-cijfer]')!;
+    const cijferKnoppen = Array.from(sectie.querySelectorAll<HTMLInputElement>('input[name=eigen-cijfer]'));
     const vragen = Array.from(sectie.querySelectorAll<HTMLElement>('[data-vraag]'));
-    const radios = Array.from(sectie.querySelectorAll<HTMLInputElement>('input[type=radio]'));
+    // alleen de radio's van de tien vragen: de cijferknoppen hebben hun eigen laatje
+    const radios = Array.from(sectie.querySelectorAll<HTMLInputElement>('.vragen input[type=radio]'));
 
     function actieveVragen() {
       return vragen.filter((v) => !kindSchakel.checked || v.dataset.kindVraag === '1');
     }
 
     function vulIn(data = lees()) {
+      cijferKnoppen.forEach((k) => { k.checked = data.cijfer === Number(k.value); });
       radios.forEach((r) => {
         const nr = r.name.slice(1);
         const a = data.huischeck[nr];
@@ -91,6 +118,20 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
       const kind = kindSchakel.checked ? `Vier vragen, samen met een kind. ` : '';
       sectie!.querySelectorAll<HTMLElement>('[data-band]').forEach((el) => { el.hidden = !klaar || BANDEN[Number(el.dataset.band)] !== b; });
       sectie!.querySelector<HTMLElement>('[data-open-deuren]')!.hidden = !klaar || ja === totaal;
+      // het eigen cijfer gaat over jouw huis, niet over dat van het kind
+      cijferBlok.hidden = kindSchakel.checked;
+      const eigenCijfer = lees().cijfer;
+      const toonSpiegel = klaar && !kindSchakel.checked && eigenCijfer !== null;
+      const sp = toonSpiegel ? spiegel(eigenCijfer! - schaal) : null;
+      sectie!.querySelector<HTMLElement>('[data-spiegel]')!.hidden = !toonSpiegel;
+      if (sp) {
+        sectie!.querySelector('[data-spiegel-eigen]')!.textContent = String(eigenCijfer);
+        sectie!.querySelector('[data-spiegel-deuren]')!.textContent = String(schaal);
+      }
+      sectie!.querySelectorAll<HTMLElement>('[data-spiegel-duiding]').forEach((el) => {
+        el.hidden = !sp || SPIEGELS[Number(el.dataset.spiegelDuiding)] !== sp;
+      });
+
       const lijst = sectie!.querySelector<HTMLElement>('[data-open-lijst]')!;
       const bewaard = lees().lijsten;
       const open = BOUWVOLGORDE
@@ -137,7 +178,7 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
       // klik is te veel; dit is wat je op dat moment wilt weten.
       const melding = sectie!.querySelector<HTMLElement>('[data-melding]')!;
       melding.textContent = kind + (klaar
-        ? `Uitslag: ${ja} keer ja van de ${totaal}. ${b.kop}.`
+        ? `Uitslag: ${ja} keer ja van de ${totaal}.${sp ? ` Je gaf jezelf een ${eigenCijfer}. ${sp.kop}.` : ''} ${b.kop}.`
         : `${ja} keer ja. Nog ${teGaan} ${teGaan === 1 ? 'vraag' : 'vragen'} te gaan.`);
     }
 
@@ -156,6 +197,7 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
       zetAntwoord(r.name.slice(1), waarde);
       toon();
     }));
+    cijferKnoppen.forEach((k) => k.addEventListener('change', () => { zetCijfer(Number(k.value)); toon(); }));
     kindSchakel.addEventListener('change', toon);
     window.addEventListener('jdh:gewijzigd', (e: Event) => { vulIn((e as CustomEvent).detail); toon(); });
   }
@@ -181,6 +223,23 @@ import { VRAGEN, BANDEN } from '../data/huischeck.js';
   .nee:not(:has(input:checked)):hover { background: var(--rood-licht); }
   .weet:not(:has(input:checked)):hover { background: var(--oranje-licht); }
   @media (prefers-reduced-motion: reduce) { .antwoord { transition: none; } }
+  .eigen-cijfer { margin-bottom: 1.5rem; padding: 1rem 1.2rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier-2); }
+  .cijfer-vraag { margin: 0 0 0.3rem; font-weight: 700; }
+  .cijfer-hint { margin: 0 0 0.8rem; font-size: 0.95rem; color: var(--inkt-zacht); }
+  .cijfers { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .cijfer { display: inline-flex; align-items: center; justify-content: center; min-width: 2.75rem; min-height: 2.75rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); font-family: var(--kop); font-weight: 700; cursor: pointer; background: var(--papier); transition: background-color 0.15s ease; }
+  .cijfer input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .cijfer:has(input:focus-visible) { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .cijfer:has(input:checked) { background: var(--inkt); border-color: var(--inkt); color: var(--papier); }
+  .cijfer:not(:has(input:checked)):hover { background: var(--oranje-licht); }
+  @media (prefers-reduced-motion: reduce) { .cijfer { transition: none; } }
+  .spiegel { margin: 0 0 1rem; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier); }
+  .spiegel-cijfers { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; margin: 0 0 0.6rem; align-items: baseline; }
+  .spiegel-cijfers strong { font-family: var(--kop); font-size: 1.6rem; color: var(--rood); margin-right: 0.2rem; }
+  .spiegel-cijfers .landelijk { color: var(--inkt-zacht); font-size: 0.95rem; }
+  .spiegel-duiding h3 { margin: 0 0 0.3rem; }
+  .spiegel-duiding p { margin: 0; }
+
   .uitslag { margin-top: 2rem; padding: 1.25rem 1.4rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier-2); }
   .meter { height: 1rem; border: 2px solid var(--lijn-sterk); border-radius: 999px; overflow: hidden; margin: 0 0 0.6rem; background: var(--papier); }
   .meter span { display: block; height: 100%; width: 0; background: var(--rood); transition: width 0.3s ease; }

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { HOOFDSTUKKEN, SITE } from '../src/lib/site.js';
+import { HOOFDSTUKKEN, VOETPAGINAS, SITE } from '../src/lib/site.js';
 import { WOORDEN } from '../src/data/woorden.js';
 import { KAMERS } from '../src/data/kamers.js';
 import { FORTDELEN } from '../src/data/fort.js';
@@ -11,7 +11,7 @@ test.describe.configure({ mode: 'parallel' });
 
 test('de korte omschrijving in site.js is gelijk aan die in de frontmatter', () => {
   const map = 'src/content/hoofdstukken';
-  for (const h of HOOFDSTUKKEN) {
+  for (const h of [...HOOFDSTUKKEN, ...VOETPAGINAS]) {
     const bestand = `${map}/${h.slug}.mdx`;
     let tekst;
     try {
@@ -28,7 +28,7 @@ test('de korte omschrijving in site.js is gelijk aan die in de frontmatter', () 
 
 test('elk hoofdstukbestand staat in de sitekaart', () => {
   const bestanden = readdirSync('src/content/hoofdstukken').filter((f) => f.endsWith('.mdx'));
-  const slugs = HOOFDSTUKKEN.map((h) => h.slug);
+  const slugs = [...HOOFDSTUKKEN, ...VOETPAGINAS].map((h) => h.slug);
   for (const b of bestanden) expect(slugs, `${b} ontbreekt in site.js`).toContain(b.replace('.mdx', ''));
 });
 

@@ -1,0 +1,29 @@
+---
+nr: null
+titel: "De bronnen"
+kort: "Elke feitelijke bewering op deze site, met de bron erbij en of hij is nagelopen."
+datum: "2026-09-23"
+---
+import Bronnen from '../../components/Bronnen.astro';
+import Nagelopen from '../../components/Nagelopen.astro';
+import Kort from '../../components/Kort.astro';
+import { BRONNEN, NOG_KOPPELEN } from '../../data/bronnen.js';
+
+<Kort>alles wat op deze site als feit staat, staat hier met de bron erbij. Je hoeft me niet te geloven: klik door en kijk zelf.</Kort>
+
+Elke feitelijke bewering op deze site hoort bij een bron die je zelf kunt nalopen. Dat zijn er {BRONNEN.length}. Achter elke bewering staat hoe ver de controle is:
+
+- **Gecontroleerd** betekent dat de bron is geopend en de bewering ondersteunt.
+- **Nog koppelen** betekent dat de bron bestaat, maar dat de precieze pagina nog moet worden opgezocht. Dat geldt nu voor {NOG_KOPPELEN} beweringen; met het vinkje hieronder zie je welke.
+
+Status per <Nagelopen wat="gereedschap" />. De bronnen bij "De storm om het huis" en de cijfers onder de huischeck zijn op <Nagelopen wat="bronnen" /> nagelopen.
+
+<Bronnen />
+
+## Hoe de bronnen zijn gekozen
+
+Eerst overheid en onafhankelijke instanties (CBS, NCSC, AIVD, Autoriteit Persoonsgegevens, politie, NIST, Europol), dan de makers van een product over hun eigen product, dan vakpers. Commerciële beveiligingsbedrijven alleen als er niets beters is, en dan met vermelding.
+
+## Wat de bronnen hebben veranderd
+
+Nalopen is geen formaliteit. De zin over datalekken in [Voor de mensen om je heen](/voor-de-mensen-om-je-heen) was te stellig en is gecorrigeerd: de meldplicht geldt alleen als het lek waarschijnlijk een risico oplevert voor de betrokkenen.

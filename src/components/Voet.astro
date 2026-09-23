@@ -5,7 +5,7 @@ const { datum = SITE.laatstNagelopen } = Astro.props;
 <footer class="voet">
   <div class="wrap voet-rij">
     <p>Deze pagina is voor het laatst nagelopen op <time datetime={datum}>{datumNL(datum)}</time>.</p>
-    <p>Gratis, onafhankelijk, zonder reclame en zonder volgers. <a href="/over">Over deze site</a> · <button type="button" class="link" data-print>Zet mijn lijst op papier</button> · <button type="button" class="link" data-wis>Wis mijn antwoorden</button></p>
+    <p>Gratis, onafhankelijk, zonder reclame en zonder volgers. <a href="/over">Over deze site</a> · <a href="/kleine-lettertjes">De kleine lettertjes</a> · <button type="button" class="link" data-print>Zet mijn lijst op papier</button> · <button type="button" class="link" data-wis>Wis mijn antwoorden</button></p>
     <p class="melding" data-wis-melding role="status"></p>
   </div>
 </footer>

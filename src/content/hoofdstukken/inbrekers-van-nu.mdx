@@ -7,14 +7,16 @@ datum: "2026-09-23"
 import Kort from '../../components/Kort.astro';
 import Vraagje from '../../components/Vraagje.astro';
 import Noot from '../../components/Noot.astro';
+import Verhaal from '../../components/Verhaal.astro';
 import Sleutelmaker from '../../components/tekeningen/Sleutelmaker.astro';
 import Patroon from '../../components/tekeningen/Patroon.astro';
 import Babbeltruc from '../../components/tekeningen/Babbeltruc.astro';
 import Foto from '../../components/Foto.astro';
+import Grafiek from '../../components/Grafiek.astro';
 
 De meeste inbrekers op internet breken geen slot open. Ze bellen aan en laten jou opendoen. Dit zijn de manieren die je het vaakst tegenkomt.
 
-<Foto id="telefoon-in-hand" onderschrift="Bijna elke inbraak begint hier: een bericht dat wil dat je nu iets doet." />
+<Foto id="telefoon-in-hand" onderschrift="Bijna elke inbraak begint hier. De voordeur van nu past in één hand." />
 
 ## De babbeltruc aan de deur: phishing
 
@@ -34,6 +36,24 @@ De meeste inbrekers op internet breken geen slot open. Ze bellen aan en laten jo
 
 **Wat je doet.** Klik niet op de link in het bericht. Ga zelf naar de site of open zelf de app. Of bel het nummer dat je zelf opzoekt. Vraagt iemand in een bericht om geld? Bel die persoon eerst op het nummer dat je al had.
 
+<Verhaal
+  titel="Eén telefoontje, en een heel digitaal leven was weg"
+  wanneer="augustus 2012"
+  bron="IEEE Spectrum"
+  href="https://spectrum.ieee.org/amazon-apple-and-google-security-lapses-lead-to-takeover-of-tech-journalists-online-persona"
+  voorkomen="Een tweede slot op zijn e-mail, en één kopie van de foto's op een losse schijf. Allebei niveau 1, samen een half uur werk."
+  naar="/aan-de-slag#niveau-1"
+  naarTekst="Naar niveau 1"
+>
+
+Iemand belde de klantenservice van Amazon en zei dat hij een creditcard wilde toevoegen. Hij kreeg daarna de laatste vier cijfers van een kaart te zien. Met diezelfde vier cijfers overtuigde hij de klantenservice van Apple dat hij Mat Honan was, een journalist uit San Francisco.
+
+Daarna ging het snel. In één uur stond zijn Apple-account op naam van de inbrekers, daarna zijn Gmail, daarna zijn Twitter. Vanuit dat Apple-account wisten ze op afstand zijn telefoon, zijn tablet en zijn laptop leeg. Weg was ruim een jaar aan foto's van zijn dochter van één. Die stonden nergens anders.
+
+Er is geen slot opengebroken. Er is geen wachtwoord geraden. Twee jongens van negentien hebben twee keer gebeld en netjes gevraagd. Ze wilden zijn korte Twitternaam. Honan schreef later dat het waarschijnlijk anders was gelopen als hij een tweede slot op zijn Google-account had gezet.
+
+</Verhaal>
+
 ## De oplichter die je zelf laat betalen
 
 <Kort>de meeste schade ontstaat doordat mensen zelf geld overmaken aan een oplichter.</Kort>
@@ -44,6 +64,13 @@ Hier breekt niemand in. Jij doet zelf de deur open en geeft het geld. Geen slot 
 - De meeste schade komt door nepbeleggingen. De toezichthouder AFM schat de echte schade op honderden miljoenen euro's per jaar. Het kan oplopen tot 750 miljoen. De meeste slachtoffers zeggen niets, omdat ze zich schamen. ([bron](https://www.afm.nl/nl-nl/persbericht/2025/dec/pb-beleggingsfraude))
 - Oplichters die zich voordeden als de bank, stalen in 2025 bijna 26 miljoen euro. Dat gebeurde bij zo'n 5.900 mensen. De banken gaven minder dan de helft terug. ([bron](https://www.nvb.nl/nieuws-en-verhalen/banken-roepen-socialmediaplatforms-op-meer-te-doen-aan-online-fraudebestrijding/))
 - Volgens de banken beginnen zeven van de tien oplichtingen op sociale media. Vaak met een nepadvertentie.
+
+<Grafiek items={[
+  { label: '2024', waarde: 63000, toon: '63.000' },
+  { label: '2025', waarde: 100000, toon: '100.000', kleur: 'rood' },
+]}>
+  Meldingen bij de Fraudehelpdesk. In één jaar kwamen er ruim de helft bij — en dit is alleen wat gemeld wórdt. <a href="https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Terugblik-2025.pdf">Fraudehelpdesk, terugblik 2025</a>
+</Grafiek>
 
 | Vorm | Hoe het gaat | Het signaal | Wat je doet |
 | --- | --- | --- | --- |

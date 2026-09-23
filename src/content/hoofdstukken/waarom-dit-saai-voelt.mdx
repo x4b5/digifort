@@ -1,0 +1,111 @@
+---
+nr: null
+titel: "Waarom dit saai voelt"
+kort: "De helft van Nederland maakt zich geen zorgen. Dat is geen domheid — het zit in één woordje."
+datum: "2026-09-23"
+---
+import Kort from '../../components/Kort.astro';
+import Noot from '../../components/Noot.astro';
+import Vraagje from '../../components/Vraagje.astro';
+import Grafiek from '../../components/Grafiek.astro';
+
+Je hebt net de huischeck gedaan. Misschien viel hij tegen. Misschien dacht je: ja, dat weet ik wel, maar het komt er niet van.
+
+Dat is geen luiheid. Het is het gewoonste patroon dat er is, en er is onderzoek naar. Dit hoofdstuk gaat niet over inbrekers. Het gaat over jou, en waarom dit onderwerp zo makkelijk van je aandacht af glijdt.
+
+Bij de huischeck stond een vraag die niet meetelde voor je score: welk cijfer geef je jezelf? Nederlanders geven zichzelf gemiddeld een 6,9 voor het omgaan met online risico's. Dat cijfer staat sinds 2022 ongeveer stil. Tien procent geeft zichzelf een onvoldoende, drie op de tien een acht of hoger. Als jouw cijfer hoger was dan het aantal deuren dat dichtstaat, ben je in goed gezelschap — en dit hoofdstuk legt uit waarom.
+
+## De helft maakt zich geen zorgen
+
+<Kort>van alle Nederlanders maakt 51 procent zich weinig tot geen zorgen over de eigen digitale veiligheid.</Kort>
+
+Veertig procent maakt zich *enige* zorgen. Acht procent maakt zich veel zorgen. ([bron](https://alertonline.veiliginternetten.nl/media/documents/Hoofdrapport_Alert_Online_2025.pdf))
+
+Ondertussen kreeg 72 procent van de Nederlanders in twaalf maanden een vorm van cybercrime op zijn dak. Meestal phishing (55 procent). Telefonische helpdeskfraude verdubbelde in één jaar van 15 naar 29 procent.
+
+Dus: driekwart van ons wordt geprobeerd, en de helft van ons ligt er niet wakker van.
+
+<Grafiek max={100} items={[
+  { label: 'Kreeg cybercrime op zijn dak', waarde: 72, toon: '72%', kleur: 'rood' },
+  { label: 'Maakt zich weinig of geen zorgen', waarde: 51, toon: '51%' },
+  { label: 'Maakt zich veel zorgen', waarde: 8, toon: '8%' },
+]}>
+  Wat er gebeurt, en wat we ervan vinden. <a href="https://alertonline.veiliginternetten.nl/media/documents/Hoofdrapport_Alert_Online_2025.pdf">Alert Online 2025, Ipsos I&O</a>, onderzoek onder Nederlanders van 18 jaar en ouder.
+</Grafiek>
+
+Er zit nog een merkwaardigheid in die cijfers. Over de digitale veiligheid van hun *naasten* maken mensen zich méér zorgen dan over die van zichzelf. Vijfenvijftig procent tegen achtenveertig.
+
+Dat is het oudste denkfoutje dat er is: een gevaar is echt voor een ander, en theoretisch voor mij. Onderzoekers noemen het optimisme-vertekening. Het is precies wat er gebeurt als je bij een verhaal over een gehackte buurman denkt: ja, maar die klikte dan ook op alles.
+
+<Vraagje vraag="Waarom maken mensen die zich weinig zorgen maken, zich weinig zorgen?" opties={[
+  { tekst: 'Omdat ze denken dat het toch niet uitmaakt wat ze doen', uitleg: 'Dat speelt mee, maar het is niet de meestgenoemde reden. De meeste mensen zijn juist niet moedeloos — ze zijn gerust.' },
+  { tekst: 'Omdat ze denken dat ze het al geregeld hebben', goed: true, uitleg: 'Klopt. De helft (48 procent) noemt "ik update altijd mijn apparaten" als reden. Daarna komen het controleren van links (47 procent) en twee-staps-inloggen (46 procent). Bijna vier op de tien zeggen simpelweg: ik ben geen aantrekkelijk doelwit.' },
+  { tekst: 'Omdat ze er nooit iets over horen', uitleg: 'Daar ligt het niet aan. Driekwart van de Nederlanders kreeg het afgelopen jaar zelf een poging tot cybercrime te verwerken.' },
+]} />
+
+## Het woordje "soms"
+
+<Kort>gevraagd of ze veilig doen, antwoordt bijna iedereen ja. Gevraagd of ze het overal doen, antwoordt bijna niemand ja.</Kort>
+
+Hier wordt het interessant. Twee serieuze onderzoeken, twee heel verschillende uitkomsten:
+
+<Grafiek max={100} items={[
+  { label: '"Twee-staps-inloggen"', waarde: 92, toon: '92%', kleur: 'groen' },
+  { label: 'Maar: overal een tweede slot', waarde: 27, toon: '27%', kleur: 'rood' },
+  { label: '"Overal ander wachtwoord"', waarde: 80, toon: '80%', kleur: 'groen' },
+  { label: 'Maar: echt overal een eigen', waarde: 38, toon: '38%', kleur: 'rood' },
+]}>
+  De groene balken komen uit <a href="https://alertonline.veiliginternetten.nl/media/documents/Hoofdrapport_Alert_Online_2025.pdf">Alert Online 2025</a> en tellen iedereen die het <em>altijd of soms</em> doet. De rode uit <a href="https://www.cbs.nl/nl-nl/longread/rapportages/2025/online-veiligheid-en-criminaliteit-2024?onepage=true">CBS, Online Veiligheid en Criminaliteit 2024</a>, dat vraagt of je het voor <em>al</em> je accounts doet.
+</Grafiek>
+
+Het verschil zit niet in het onderzoek. Het zit in het woordje *soms*.
+
+Je hebt twee-staps-inloggen. Op één plek. Waarschijnlijk op je bank, want die dwong je. Daarmee ben je in het ene onderzoek iemand die twee-staps-inloggen gebruikt, en in het andere iemand die het niet overal heeft. Allebei waar.
+
+En dat is precies waarom dit huis een plattegrond nodig heeft. Eén goed slot op twaalf deuren voelt als een beveiligd huis. Het is er geen.
+
+<Noot>
+Dit zijn twee verschillende onderzoeken met een andere vraagstelling, dus het is geen exacte vergelijking. Juist daarom staat het hier: het gat tussen de twee cijfers *is* het punt. Het laat zien hoe ver "ik doe dit" af kan staan van "dit is bij mij geregeld".
+</Noot>
+
+## Beveiligingsmoeheid is een echt woord
+
+<Kort>te veel keuzes maken mensen niet voorzichtiger, maar onverschilliger.</Kort>
+
+In 2016 onderzocht het Amerikaanse normeninstituut NIST waarom goed geïnformeerde mensen toch onveilig doen. Ze vonden iets wat ze *security fatigue* noemden: beveiligingsmoeheid. ([bron](https://www.nist.gov/news-events/news/2016/10/security-fatigue-can-cause-computer-users-feel-hopeless-and-act-recklessly))
+
+Mensen voelden zich bestookt. Steeds weer een wachtwoord, steeds weer een waarschuwing, steeds weer een keuze. Het gevolg was niet meer aandacht, maar minder: berusting, het gevoel geen controle te hebben, en dan de makkelijkste optie kiezen. Of helemaal niets.
+
+De onderzoekers gaven drie adviezen. Niet aan de gebruiker — aan iedereen die beveiliging uitlegt of bouwt:
+
+1. Laat mensen zo min mogelijk beslissingen nemen.
+2. Maak de goede keuze de makkelijkste keuze.
+3. Zorg dat het elke keer hetzelfde werkt.
+
+Deze site is op die drie regels gebouwd. Daarom is er een [huischeck](/huischeck) met tien vragen in plaats van een lijst met honderd tips. Daarom is er [één avond](/een-avond) met zes stappen. En daarom is de volgorde altijd hetzelfde: e-mail eerst, dan de rest.
+
+## Waarom abstracte uitleg niet blijft hangen
+
+<Kort>mensen denken in beelden, niet in begrippen. Wie geen beeld krijgt, maakt er zelf een.</Kort>
+
+Van de mensen die op hun werk beveiligingstraining krijgen, noemt ruim een derde die training saai. Bijna twee derde zegt er niet echt bij te zijn met hun aandacht. ([bron](https://www.computerweekly.com/news/252523196/Cyber-security-training-boring-and-largely-ignored))
+
+Dat is geen onwil. Onderzoeker Rick Wash liet in 2010 zien dat gewone computergebruikers wel degelijk een verklaring in hun hoofd hebben voor wat een virus is of wie een hacker is — alleen is dat hun eigen verklaring. Hij noemde ze *folk models*, huis-tuin-en-keukenmodellen. Mensen leenden beelden uit een wereld die ze wél kenden: een inbreker, een ziekte, een oorlog. ([bron](https://dl.acm.org/doi/10.1145/1837110.1837125))
+
+Het probleem is dat advies dat niet in zo'n beeld past, genegeerd wordt. Niet omdat het te moeilijk is, maar omdat het nergens aan vast zit.
+
+Daarom staat er op deze site een huis. Niet omdat het leuk klinkt, maar omdat je dan een plek hebt om nieuwe dingen op te hangen. Een wachtwoordkluis is niet "een applicatie voor credentialbeheer" — het is de sleutelkast in de gang. Je e-mail is niet "een centraal identiteitspunt" — het is de voordeur, want daar komt elke reservesleutel aan.
+
+## Dus
+
+Als je dit onderwerp saai vindt, ben je in gezelschap van ongeveer heel Nederland. Er zijn drie redenen, en geen ervan is dat je er te dom voor bent:
+
+- Je denkt dat het al geregeld is, omdat je het ergens hebt geregeld.
+- Je bent moe van het aantal keuzes dat er van je gevraagd wordt.
+- Niemand heeft het ooit aan iets vastgemaakt dat je al kende.
+
+Het eerste lost de [plattegrond](/plattegrond) op: die laat zien hoeveel deuren er zijn. Het tweede lost [één avond](/een-avond) op: zes stappen, en dan ben je klaar. Het derde is dit hele huis.
+
+<Noot>
+Wil je weten waar je nu staat? Doe eerst de [huischeck](/huischeck). Tien vragen, twee minuten.
+</Noot>

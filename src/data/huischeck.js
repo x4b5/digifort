@@ -12,6 +12,46 @@ export const VRAGEN = [
   { nr: 10, vraag: 'Weet je wie je belt als je bent opgelicht?', kamer: 'eigendomsakte' },
 ];
 
+/**
+ * Het cijfer dat Nederlanders zichzelf gemiddeld geven voor het omgaan met online
+ * risico's. Staat met bron in de bronnenlijst (Alert Online 2025, Ipsos I&O).
+ */
+export const LANDELIJK_CIJFER = 6.9;
+
+/**
+ * De spiegel: jouw eigen cijfer naast het aantal deuren dat dicht staat.
+ * Het gat tussen die twee is waar het om gaat — niet de score zelf.
+ * `cijfer` is 1..10 (wat je jezelf gaf), `schaal` is je uitslag omgerekend naar 10.
+ */
+export const SPIEGELS = [
+  {
+    vanaf: 2,
+    kop: 'Je schatte jezelf hoger in dan je deuren',
+    tekst: 'Dat is geen schande, het is het normaalste van Nederland. Bijna iedereen heeft ergens een tweede slot, en bijna niemand overal.',
+    link: '/waarom-dit-saai-voelt',
+    linkTekst: 'Lees waarom dat zo is',
+  },
+  {
+    vanaf: -1,
+    kop: 'Je kende jezelf goed',
+    tekst: 'Je cijfer en je deuren liggen dicht bij elkaar. Dat is zeldzamer dan je denkt: de meeste mensen schatten zichzelf te hoog in.',
+    link: '/aan-de-slag',
+    linkTekst: 'Ga verder met de deuren die nog openstaan',
+  },
+  {
+    vanaf: -10,
+    kop: 'Je was strenger voor jezelf dan nodig',
+    tekst: 'Je doet meer dan je dacht. Dat is ook iets waard: wie denkt dat hij niets goed doet, begint er vaak niet meer aan.',
+    link: '/aan-de-slag',
+    linkTekst: 'Kijk wat er nog over is',
+  },
+];
+
+/** Bij welk verschil hoort welke spiegel? `gat` is je cijfer min je uitslag. */
+export function spiegel(gat) {
+  return SPIEGELS.find((s) => gat >= s.vanaf) ?? SPIEGELS[SPIEGELS.length - 1];
+}
+
 export const BANDEN = [
   { tot: 4, kop: 'Begin bij niveau 1', tekst: 'Begin bij niveau 1 in hoofdstuk 4. Dat kost één avond.', link: '/aan-de-slag#niveau-1' },
   { tot: 7, kop: 'De basis staat', tekst: 'De basis staat. Ga door naar niveau 2.', link: '/aan-de-slag#niveau-2' },

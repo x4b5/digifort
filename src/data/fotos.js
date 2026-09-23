@@ -13,7 +13,7 @@ export const FOTOS = {
   },
   'telefoon-in-hand': {
     bestand: 'telefoon-in-hand.jpg',
-    alt: 'Twee handen houden een telefoon vast en lezen een bericht.',
+    alt: 'Twee handen houden een telefoon vast boven een tafel; de achterkant van het toestel is in beeld.',
     maker: 'Adrianna Calvo',
     licentie: 'CC0',
     bron: 'https://stocksnap.io/photo/iphone-smartphone-ODN23L0AC9',
@@ -34,7 +34,7 @@ export const FOTOS = {
   },
   'harde-schijven': {
     bestand: 'harde-schijven.jpg',
-    alt: 'Opengeschroefde harde schijven naast elkaar, met de schijf en de printplaat in het zicht.',
+    alt: 'Harde schijven zonder behuizing, dicht op elkaar, met de printplaten en aansluitingen in het zicht.',
     maker: 'Lenharth Systems',
     licentie: 'CC0',
     bron: 'https://stocksnap.io/photo/computer-hard-2J3PLNMO9M',
@@ -56,14 +56,14 @@ export const FOTOS = {
   },
   'ouder-met-telefoon': {
     bestand: 'ouder-met-telefoon.jpg',
-    alt: 'Een oudere man met pet, van achteren gezien, houdt een telefoon voor zich om een foto te maken.',
-    maker: 'Fabrizio Verrecchia',
+    alt: 'Een lachende oudere man met wit haar en baard houdt een telefoon aan zijn oor.',
+    maker: 'Direct Media',
     licentie: 'CC0',
-    bron: 'https://stocksnap.io/photo/people-elderly-PF43WRU0XB',
+    bron: 'https://stocksnap.io/photo/senior-smartphone-XFLPCWOOVY',
   },
   kwantumcomputer: {
     bestand: 'kwantumcomputer.jpg',
-    alt: 'Twee ingenieurs werken in een donkere zaal aan een kwantumcomputer: een hoge, goudkleurige cilinder achter glas.',
+    alt: 'Ingenieurs werken in een donkere zaal aan een kwantumcomputer: een hoge, goudkleurige cilinder achter glas.',
     maker: 'IBM Research',
     licentie: 'CC BY 2.0',
     licentieBron: 'https://creativecommons.org/licenses/by/2.0/',

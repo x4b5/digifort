@@ -1,0 +1,138 @@
+---
+/**
+ * De bronnenlijst: elke bewering met de bron ernaast, gegroepeerd per hoofdstuk.
+ * Zoeken, filteren op hoofdstuk en "alleen nog te koppelen" gaan in de browser.
+ * Alles komt uit src/data/bronnen.js; hier staat geen tekst die daar ook staat.
+ */
+import { BRONNEN } from '../data/bronnen.js';
+import { HOOFDSTUKKEN } from '../lib/site.js';
+
+const titel = (slug: string) => HOOFDSTUKKEN.find((h) => h.slug === slug);
+
+/** Elke bewering staat één keer, bij het eerste hoofdstuk waar hij hoort. */
+const groepen = HOOFDSTUKKEN
+  .map((h) => ({ ...h, items: BRONNEN.filter((b) => b.hoofdstuk[0] === h.slug) }))
+  .filter((g) => g.items.length > 0);
+
+const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppelen' };
+---
+<div class="bronnen" data-bronnen>
+  <div class="filters">
+    <label class="zoek">
+      <span>Zoek in de bronnen</span>
+      <input type="search" data-zoek placeholder="bijv. CBS, passkey, Kifid" autocomplete="off" />
+    </label>
+    <label class="kies">
+      <span>Hoofdstuk</span>
+      <select data-hoofdstuk>
+        <option value="">Alle hoofdstukken</option>
+        {groepen.map((g) => <option value={g.slug}>{g.nr === null ? 'Verdieping' : `${g.nr}.`} {g.titel}</option>)}
+      </select>
+    </label>
+    <label class="open">
+      <input type="checkbox" data-open />
+      <span>Alleen wat nog te koppelen is</span>
+    </label>
+  </div>
+  <p class="stand" data-stand aria-live="polite"></p>
+
+  {groepen.map((g) => (
+    <section class="groep" data-groep={g.slug}>
+      <h3 id={g.slug}>
+        <span class="nr">{g.nr === null ? 'Verdieping' : `Hoofdstuk ${g.nr}`}</span>
+        <a href={`/${g.slug}`}>{g.titel}</a>
+      </h3>
+      <ul>
+        {g.items.map((b) => (
+          <li data-status={b.status}>
+            <p class="bewering">{b.bewering}</p>
+            {b.hoofdstuk.length > 1 && (
+              <p class="ook">Ook bij {b.hoofdstuk.slice(1).map((s, i) => (
+                <>{i > 0 && ', '}<a href={`/${s}`}>{titel(s)?.titel}</a></>
+              ))}</p>
+            )}
+            <p class="bron">
+              {b.bron.map((s, i) => (
+                <>{i > 0 && '; '}{s.href ? <a href={s.href} rel="noopener">{s.tekst}</a> : s.tekst}</>
+              ))}
+            </p>
+            <p class="status">
+              <span class={`vlag ${b.status}`}>{STATUSNAAM[b.status]}</span>
+              {b.toelichting && <span class="toelichting">{b.toelichting.map((s) => (
+                s.href ? <a href={s.href} rel="noopener">{s.tekst}</a> : s.tekst
+              ))}</span>}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-bronnen]').forEach((blok) => {
+    const veld = blok.querySelector<HTMLInputElement>('[data-zoek]')!;
+    const keuze = blok.querySelector<HTMLSelectElement>('[data-hoofdstuk]')!;
+    const alleenOpen = blok.querySelector<HTMLInputElement>('[data-open]')!;
+    const stand = blok.querySelector<HTMLElement>('[data-stand]')!;
+    const groepen = Array.from(blok.querySelectorAll<HTMLElement>('[data-groep]'));
+    const items = Array.from(blok.querySelectorAll<HTMLLIElement>('.groep li'));
+    const totaal = items.length;
+
+    function filter() {
+      const q = veld.value.trim().toLowerCase();
+      const slug = keuze.value;
+      const open = alleenOpen.checked;
+      let n = 0;
+      groepen.forEach((g) => {
+        let zichtbaar = 0;
+        g.querySelectorAll<HTMLLIElement>('li').forEach((li) => {
+          const past =
+            (!q || li.textContent!.toLowerCase().includes(q)) &&
+            (!slug || g.dataset.groep === slug) &&
+            (!open || li.dataset.status === 'nog-koppelen');
+          li.hidden = !past;
+          if (past) zichtbaar += 1;
+        });
+        g.hidden = zichtbaar === 0;
+        n += zichtbaar;
+      });
+      const alles = !q && !slug && !open;
+      stand.textContent = alles ? `${totaal} beweringen met een bron`
+        : n === 0 ? 'Niets gevonden. Probeer een ander woord of een ander hoofdstuk.'
+        : `${n} van ${totaal} beweringen`;
+    }
+
+    veld.addEventListener('input', filter);
+    keuze.addEventListener('change', filter);
+    alleenOpen.addEventListener('change', filter);
+    filter();
+  });
+</script>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1rem; margin: 1.25rem 0 0.75rem; }
+  .zoek, .kies { display: flex; flex-direction: column; gap: 0.35rem; font-weight: 700; }
+  .zoek input, .kies select { font: inherit; font-size: 1.05rem; padding: 0.55rem 0.8rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier); color: var(--inkt); }
+  .zoek input { min-width: min(22rem, 100%); }
+  .open { display: flex; align-items: center; gap: 0.45rem; padding-bottom: 0.6rem; }
+  .open input { width: 1.1rem; height: 1.1rem; accent-color: var(--rood); }
+  .stand { margin: 0 0 1.5rem; color: var(--inkt-zacht); }
+
+  .groep { margin: 2.25rem 0; }
+  .groep h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem; margin: 0 0 0.75rem; }
+  .groep h3 .nr { font-family: var(--mono); font-size: var(--tekst-s); letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); }
+  .groep ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; }
+  .groep li { margin: 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier); }
+  .groep li p { margin: 0 0 0.35rem; }
+  .groep li p:last-child { margin-bottom: 0; }
+  .bewering { font-weight: 700; }
+  .ook, .bron { font-size: var(--tekst-m); }
+  .ook { color: var(--inkt-zacht); }
+  .status { font-size: var(--tekst-m); display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: baseline; }
+  .vlag { font-family: var(--mono); font-size: var(--tekst-s); letter-spacing: 0.06em; text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: var(--radius); white-space: nowrap; }
+  /* kleur zit in het vlak en het streepje, niet in de letter: groen op groen haalt 4,5:1 niet */
+  .vlag.gecontroleerd { background: var(--groen-licht); color: var(--inkt); border-left: 4px solid var(--groen); }
+  .vlag.nog-koppelen { background: var(--papier-2); color: var(--inkt); border-left: 4px solid var(--inkt-flauw); }
+  .toelichting { color: var(--inkt-zacht); }
+</style>

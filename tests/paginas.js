@@ -1,4 +1,4 @@
-import { HOOFDSTUKKEN } from '../src/lib/site.js';
+import { HOOFDSTUKKEN, VOETPAGINAS } from '../src/lib/site.js';
 
 /**
  * Alle pagina's van de site, op één plek: de laadtest, de axe-test en de tekeningtest
@@ -9,4 +9,4 @@ import { HOOFDSTUKKEN } from '../src/lib/site.js';
  * élke test zonder dat iets dat meldde. Staat een hoofdstuk niet in site.js, dan klaagt
  * eenheid.spec.js daar al over.
  */
-export const PAGINAS = ['/', ...HOOFDSTUKKEN.map((h) => `/${h.slug}`), '/404'];
+export const PAGINAS = ['/', ...HOOFDSTUKKEN.map((h) => `/${h.slug}`), ...VOETPAGINAS.map((p) => `/${p.slug}`), '/404'];
