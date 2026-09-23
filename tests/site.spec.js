@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const PAGINAS = ['/', '/huischeck', '/plattegrond', '/inbrekers-van-nu', '/inbrekers-van-morgen', '/de-storm-om-het-huis', '/een-avond', '/aan-de-slag', '/van-geheim-woord-naar-zegelring', '/onderhoud', '/als-er-is-ingebroken', '/voor-de-mensen-om-je-heen', '/woordenboek', '/over'];
+import { PAGINAS } from './paginas.js';
 
 for (const pad of PAGINAS) {
   test(`${pad} laadt, scrolt niet zijwaarts en elke tekening heeft een label`, async ({ page }) => {
@@ -10,8 +10,10 @@ for (const pad of PAGINAS) {
     await expect(page.locator('h1')).toBeVisible();
     const [scroll, client] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
     expect(scroll).toBeLessThanOrEqual(client);
-    const zonderLabel = await page.locator('figure svg:not([aria-hidden="true"])').evaluateAll((svgs) =>
-      svgs.filter((s) => !s.getAttribute('aria-label') && !s.getAttribute('aria-labelledby')).length,
+    // een tekening is of verborgen voor de schermlezer (ook via een ouder), of hij heeft een label
+    const zonderLabel = await page.locator('figure svg').evaluateAll((svgs) =>
+      svgs.filter((s) => !s.closest('[aria-hidden="true"]')
+        && !s.getAttribute('aria-label') && !s.getAttribute('aria-labelledby')).length,
     );
     expect(zonderLabel).toBe(0);
     expect(fouten).toEqual([]);
@@ -41,4 +43,26 @@ test('de plattegrond linkt naar het juiste kopje', async ({ page }) => {
   await page.locator('[data-kamer-legenda="ramen"] a').click();
   await expect(page).toHaveURL(/plattegrond#de-ramen-je-browser/);
   await expect(page.locator('#de-ramen-je-browser')).toBeInViewport();
+});
+
+test('een brede tabel zit in een scrolbare bak en stapelt op een telefoon', async ({ page, viewport }) => {
+  await page.goto('/aan-de-slag');
+  const tabel = page.locator('table.tabel-stapel').first();
+  await expect(tabel).toBeAttached();
+  // de tabel hangt in een bak die zelf scrolt, met toetsenbord bereikbaar
+  const bak = page.locator('.tabel-scroll').first();
+  await expect(bak).toHaveAttribute('role', 'region');
+  await expect(bak).toHaveAttribute('tabindex', '0');
+  // op een telefoon krijgt elke cel de kolomkop mee
+  const label = await tabel.locator('tbody td').nth(1).getAttribute('data-label');
+  expect(label && label.length).toBeGreaterThan(0);
+  if (viewport && viewport.width < 640) {
+    const breder = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+    expect(breder).toBe(false);
+  }
+});
+
+test('het woordenboek filtert niet via de stapelweergave', async ({ page }) => {
+  await page.goto('/woordenboek');
+  await expect(page.locator('[data-woordenboek] table')).not.toHaveClass(/tabel-stapel/);
 });

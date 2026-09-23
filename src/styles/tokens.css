@@ -12,6 +12,7 @@
   --rood-licht: #fbe9e5;
   --groen: #2e7d4f;
   --groen-licht: #e3f1e8;
+  --oranje-licht: #fcedda;
   --focus: #1a5fb4;
   /* tekst op een rood of groen vlak; in donker zijn die vlakken licht,
      dus dan is donkere tekst juist leesbaar (wit op donkergroen haalt 2,5:1) */
@@ -46,11 +47,12 @@
     --inkt-flauw: #7d7973;
     --lijn: #3a3835;
     --lijn-sterk: #f2f0eb;
-    --rood: #e5533c;
+    --rood: #e85c45; /* iets lichter dan het rood in licht: haalt 4,8:1 op de grijze kaart */
     --rood-donker: #f07a66;
     --rood-licht: #3a1d18;
     --groen: #5db57f;
     --groen-licht: #1c2f24;
+    --oranje-licht: #3a2a14;
     --focus: #7cb3ff;
     --op-kleur: var(--papier);
     --schaduw: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -66,11 +68,12 @@
   --inkt-flauw: #7d7973;
   --lijn: #3a3835;
   --lijn-sterk: #f2f0eb;
-  --rood: #e5533c;
+  --rood: #e85c45; /* iets lichter dan het rood in licht: haalt 4,8:1 op de grijze kaart */
   --rood-donker: #f07a66;
   --rood-licht: #3a1d18;
   --groen: #5db57f;
   --groen-licht: #1c2f24;
+  --oranje-licht: #3a2a14;
   --focus: #7cb3ff;
   --op-kleur: var(--papier);
     --schaduw: 0 10px 30px rgba(0, 0, 0, 0.5);

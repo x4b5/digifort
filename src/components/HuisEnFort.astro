@@ -53,59 +53,59 @@ const d = Object.fromEntries(FORTDELEN.map((x) => [x.id, x]));
     <line class="tek" x1="408" y1="300" x2="748" y2="300" />
     <text class="tek-tekst" x="580" y="334" text-anchor="middle">Het fort</text>
 
-    <a href={href(d.gracht)} data-deel="gracht"><title>{d.gracht.naam}: {d.gracht.wat}</title><g>
+    <a href={href(d.gracht)} data-deel="gracht" aria-label={`${d.gracht.naam}: ${d.gracht.wat}`}><title>{d.gracht.naam}: {d.gracht.wat}</title><g>
       <path class="tek-dun" d="M440 288 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
       <path class="tek-dun" d="M450 296 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
     </g></a>
 
-    <a href={href(d.hek)} data-deel="hek"><title>{d.hek.naam}: {d.hek.wat}</title><g>
+    <a href={href(d.hek)} data-deel="hek" aria-label={`${d.hek.naam}: ${d.hek.wat}`}><title>{d.hek.naam}: {d.hek.wat}</title><g>
       <path class="tek" d="M418 300 V270 M432 300 V266 M446 300 V270" />
       <path class="tek-dun" d="M412 280 H452 M412 292 H452" />
     </g></a>
 
-    <a href={href(d.muur)} data-deel="muur"><title>{d.muur.naam}: {d.muur.wat}</title><g>
+    <a href={href(d.muur)} data-deel="muur" aria-label={`${d.muur.naam}: ${d.muur.wat}`}><title>{d.muur.naam}: {d.muur.wat}</title><g>
       <path class="tek" d="M470 282 V174 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 v-14 h18 v14 h18 V282" />
       <path class="tek-dun" d="M486 200 h16 M522 200 h16 M594 200 h16 M646 200 h16 M504 226 h16 M558 226 h16 M630 226 h16 M486 252 h16 M540 252 h16 M666 252 h16" />
     </g></a>
 
-    <a href={href(d.poort)} data-deel="poort"><title>{d.poort.naam}: {d.poort.wat}</title><g>
+    <a href={href(d.poort)} data-deel="poort" aria-label={`${d.poort.naam}: ${d.poort.wat}`}><title>{d.poort.naam}: {d.poort.wat}</title><g>
       <path class="tek" d="M556 282 V240 a24 24 0 0 1 48 0 V282" />
       <path class="tek-dun" d="M580 216 V282" />
     </g></a>
 
-    <a href={href(d.sloten)} data-deel="sloten"><title>{d.sloten.naam}: {d.sloten.wat}</title><g>
+    <a href={href(d.sloten)} data-deel="sloten" aria-label={`${d.sloten.naam}: ${d.sloten.wat}`}><title>{d.sloten.naam}: {d.sloten.wat}</title><g>
       <circle class="tek" cx="571" cy="254" r="4.5" />
       <circle class="tek" cx="571" cy="268" r="4.5" />
       <circle class="tek-vul" cx="571" cy="254" r="1.5" />
       <circle class="tek-vul" cx="571" cy="268" r="1.5" />
     </g></a>
 
-    <a href={href(d.brug)} data-deel="brug"><title>{d.brug.naam}: {d.brug.wat}</title><g>
+    <a href={href(d.brug)} data-deel="brug" aria-label={`${d.brug.naam}: ${d.brug.wat}`}><title>{d.brug.naam}: {d.brug.wat}</title><g>
       <path class="tek" d="M556 282 L512 226" />
       <path class="tek-dun tek-stippel" d="M512 226 L556 222" />
       <path class="tek-dun" d="M518 232 l8 -6 M526 242 l8 -6 M534 252 l8 -6" />
     </g></a>
 
-    <a href={href(d.toren)} data-deel="toren"><title>{d.toren.naam}: {d.toren.wat}</title><g>
+    <a href={href(d.toren)} data-deel="toren" aria-label={`${d.toren.naam}: ${d.toren.wat}`}><title>{d.toren.naam}: {d.toren.wat}</title><g>
       <path class="tek" d="M640 174 V104 h12 v-12 h12 v12 h12 v-12 h12 v12 h12 V174" />
       <path class="tek" d="M700 92 V60 M700 62 h26 l-8 8 l8 8 h-26" />
       <circle class="tek-dun" cx="670" cy="120" r="6" />
       <path class="tek-dun" d="M662 140 v-6 a8 8 0 0 1 16 0 v6" />
     </g></a>
 
-    <a href={href(d.luiken)} data-deel="luiken"><title>{d.luiken.naam}: {d.luiken.wat}</title><g>
+    <a href={href(d.luiken)} data-deel="luiken" aria-label={`${d.luiken.naam}: ${d.luiken.wat}`}><title>{d.luiken.naam}: {d.luiken.wat}</title><g>
       <rect class="tek" x="656" y="146" width="28" height="22" />
       <path class="tek-dun" d="M670 146 V168 M656 157 H684" />
     </g></a>
 
-    <a href={href(d.schat)} data-deel="schat"><title>{d.schat.naam}: {d.schat.wat}</title><g>
+    <a href={href(d.schat)} data-deel="schat" aria-label={`${d.schat.naam}: ${d.schat.wat}`}><title>{d.schat.naam}: {d.schat.wat}</title><g>
       <rect class="tek" x="708" y="252" width="36" height="30" rx="3" />
       <path class="tek-dun" d="M708 264 H744" />
       <circle class="tek" cx="726" cy="270" r="4" />
       <path class="tek-dun" d="M726 266 V270" />
     </g></a>
 
-    <a href={href(d.schild)} data-deel="schild"><title>{d.schild.naam}: {d.schild.wat}</title><g>
+    <a href={href(d.schild)} data-deel="schild" aria-label={`${d.schild.naam}: ${d.schild.wat}`}><title>{d.schild.naam}: {d.schild.wat}</title><g>
       <path class="tek" d="M616 214 h28 v18 q0 12 -14 18 q-14 -6 -14 -18 z" />
       <circle class="tek-vul" cx="630" cy="230" r="4" />
     </g></a>

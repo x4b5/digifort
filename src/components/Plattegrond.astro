@@ -23,7 +23,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     <line class="tek-dun" x1="350" y1="235" x2="350" y2="340" />
 
     <!-- brandkast buiten de deur -->
-    <a href={href('brandkast')} data-kamer="brandkast">
+    <a href={href('brandkast')} data-kamer="brandkast" aria-label={`${k['brandkast'].naam}: ${k['brandkast'].wat}`}>
       <title>{k.brandkast.naam}: {k.brandkast.wat}</title>
       <g>
         <rect class="tek" x="22" y="288" width="60" height="52" rx="3" />
@@ -34,7 +34,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- tuinhek en meterkast -->
-    <a href={href('tuinhek')} data-kamer="tuinhek">
+    <a href={href('tuinhek')} data-kamer="tuinhek" aria-label={`${k['tuinhek'].naam}: ${k['tuinhek'].wat}`}>
       <title>{k.tuinhek.naam}: {k.tuinhek.wat}</title>
       <g>
         <path class="tek" d="M100 340 V304 M116 340 V300 M132 340 V304 M148 340 V300" />
@@ -46,7 +46,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- brievenbus -->
-    <a href={href('brievenbus')} data-kamer="brievenbus">
+    <a href={href('brievenbus')} data-kamer="brievenbus" aria-label={`${k['brievenbus'].naam}: ${k['brievenbus'].wat}`}>
       <title>{k.brievenbus.naam}: {k.brievenbus.wat}</title>
       <g>
         <line class="tek" x1="170" y1="340" x2="170" y2="300" />
@@ -56,7 +56,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- voordeur -->
-    <a href={href('voordeur')} data-kamer="voordeur">
+    <a href={href('voordeur')} data-kamer="voordeur" aria-label={`${k['voordeur'].naam}: ${k['voordeur'].wat}`}>
       <title>{k.voordeur.naam}: {k.voordeur.wat}</title>
       <g>
         <path class="tek" d="M215 340 V275 a25 25 0 0 1 50 0 V340" />
@@ -66,7 +66,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- tweede slot -->
-    <a href={href('tweede-slot')} data-kamer="tweede-slot">
+    <a href={href('tweede-slot')} data-kamer="tweede-slot" aria-label={`${k['tweede-slot'].naam}: ${k['tweede-slot'].wat}`}>
       <title>{k['tweede-slot'].naam}: {k['tweede-slot'].wat}</title>
       <g>
         <circle class="tek" cx="254" cy="300" r="4" />
@@ -75,7 +75,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- passkey -->
-    <a href={href('passkey')} data-kamer="passkey">
+    <a href={href('passkey')} data-kamer="passkey" aria-label={`${k['passkey'].naam}: ${k['passkey'].wat}`}>
       <title>{k.passkey.naam}: {k.passkey.wat}</title>
       <g>
         <ellipse class="tek-dun" cx="286" cy="304" rx="9" ry="12" />
@@ -85,7 +85,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- sleutels -->
-    <a href={href('sleutels')} data-kamer="sleutels">
+    <a href={href('sleutels')} data-kamer="sleutels" aria-label={`${k['sleutels'].naam}: ${k['sleutels'].wat}`}>
       <title>{k.sleutels.naam}: {k.sleutels.wat}</title>
       <g>
         <line class="tek" x1="286" y1="248" x2="336" y2="248" />
@@ -94,7 +94,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- sleutelkluis -->
-    <a href={href('sleutelkluis')} data-kamer="sleutelkluis">
+    <a href={href('sleutelkluis')} data-kamer="sleutelkluis" aria-label={`${k['sleutelkluis'].naam}: ${k['sleutelkluis'].wat}`}>
       <title>{k.sleutelkluis.naam}: {k.sleutelkluis.wat}</title>
       <g>
         <rect class="tek" x="380" y="278" width="58" height="62" rx="3" />
@@ -105,7 +105,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- tweede voordeur -->
-    <a href={href('tweede-voordeur')} data-kamer="tweede-voordeur">
+    <a href={href('tweede-voordeur')} data-kamer="tweede-voordeur" aria-label={`${k['tweede-voordeur'].naam}: ${k['tweede-voordeur'].wat}`}>
       <title>{k['tweede-voordeur'].naam}: {k['tweede-voordeur'].wat}</title>
       <g>
         <path class="tek" d="M498 340 V262 H548 V340" />
@@ -115,7 +115,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- kattenluik -->
-    <a href={href('kattenluik')} data-kamer="kattenluik">
+    <a href={href('kattenluik')} data-kamer="kattenluik" aria-label={`${k['kattenluik'].naam}: ${k['kattenluik'].wat}`}>
       <title>{k.kattenluik.naam}: {k.kattenluik.wat}</title>
       <g>
         <path class="tek" d="M513 338 V322 a10 10 0 0 1 20 0 V338" />
@@ -123,7 +123,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- ramen -->
-    <a href={href('ramen')} data-kamer="ramen">
+    <a href={href('ramen')} data-kamer="ramen" aria-label={`${k['ramen'].naam}: ${k['ramen'].wat}`}>
       <title>{k.ramen.naam}: {k.ramen.wat}</title>
       <g>
         <rect class="tek" x="215" y="160" width="55" height="50" />
@@ -134,7 +134,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- eigendomsakte -->
-    <a href={href('eigendomsakte')} data-kamer="eigendomsakte">
+    <a href={href('eigendomsakte')} data-kamer="eigendomsakte" aria-label={`${k['eigendomsakte'].naam}: ${k['eigendomsakte'].wat}`}>
       <title>{k.eigendomsakte.naam}: {k.eigendomsakte.wat}</title>
       <g>
         <rect class="tek" x="420" y="155" width="62" height="56" rx="2" />
@@ -144,7 +144,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- onderhoud -->
-    <a href={href('onderhoud')} data-kamer="onderhoud">
+    <a href={href('onderhoud')} data-kamer="onderhoud" aria-label={`${k['onderhoud'].naam}: ${k['onderhoud'].wat}`}>
       <title>{k.onderhoud.naam}: {k.onderhoud.wat}</title>
       <g>
         <path class="tek" d="M470 96 L496 108" />
@@ -154,7 +154,7 @@ const href = (id) => `/plattegrond#${k[id].anker}`;
     </a>
 
     <!-- overdekte gang -->
-    <a href={href('gang')} data-kamer="gang">
+    <a href={href('gang')} data-kamer="gang" aria-label={`${k['gang'].naam}: ${k['gang'].wat}`}>
       <title>{k.gang.naam}: {k.gang.wat}</title>
       <g>
         <path class="tek" d="M560 168 H690 M560 206 H690" />

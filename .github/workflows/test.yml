@@ -1,0 +1,45 @@
+name: Bouwen en testen
+
+# Draait bij elke push en bij elke pull request naar main.
+# Vercel bouwt onafhankelijk hiervan; dit is het vangnet dat zegt of het klopt.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # datums.mjs leest de git-geschiedenis; een ondiepe kloon geeft hem niets
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Browsers installeren
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Bouwen
+        run: npm run build
+
+      - name: Testen (desktop in Chromium, telefoon in WebKit)
+        run: npx playwright test
+
+      - name: Uitslag bewaren bij een fout
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-uitslag
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
