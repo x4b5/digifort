@@ -48,6 +48,9 @@ const hier = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Astro.si
         if (v.thema === 'auto') delete document.documentElement.dataset.theme;
       } catch (e) { /* opslag geblokkeerd: gewoon de standaardstand */ }
     </script>
+    <!-- bezoekers tellen zonder cookies. Het script staat op onze eigen site en telt niet op
+         localhost; wat GoatCounter te zien krijgt, staat op /kleine-lettertjes. -->
+    <script is:inline async data-goatcounter="https://x4b5.goatcounter.com/count" src="/goatcounter.js"></script>
   </head>
   <body>
     <a class="overslaan" href="#inhoud">Naar de inhoud</a>
