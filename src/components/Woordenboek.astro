@@ -86,17 +86,15 @@ const NIVEAUNAAM: Record<number, string> = { 1: 'makkelijk', 2: 'gemiddeld', 3: 
   .niveau { display: none; font-family: var(--mono); font-size: 0.75em; color: var(--inkt-zacht); white-space: nowrap; }
   .op-niveau .niveau { display: inline; }
 
-  /* Op een telefoon is een tabel van drie kolommen te breed: elk woord wordt een eigen blok.
+  /* Drie kolommen maken de uitleg smal: elk woord wordt een eigen blok, term boven, uitleg eronder.
      Niet via .tabel-stapel uit global.css: daar krijgt elke rij display:block, en dat wint
      van het hidden-attribuut waarmee het zoekveld rijen verbergt. */
-  @media (max-width: 40rem) {
-    table, tbody, tr, td { display: block; }
-    tr[hidden] { display: none; }
-    thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-    tr { padding: 0.9rem 0; border-bottom: var(--lijndikte-dun) solid var(--lijn); }
-    td { border: 0; padding: 0; }
-    td:first-child { font-weight: 700; font-size: 1.05em; margin-bottom: 0.2rem; }
-    td:nth-child(3) { margin-top: 0.4rem; font-size: 0.9em; color: var(--inkt-zacht); }
-    td:nth-child(3)::before { content: 'In het huis: '; }
-  }
+  table, tbody, tr, td { display: block; }
+  tr[hidden] { display: none; }
+  thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  tr { padding: 0.9rem 0; border-bottom: var(--lijndikte-dun) solid var(--lijn); }
+  td { border: 0; padding: 0; }
+  td:first-child { font-weight: 700; font-size: 1.05em; margin-bottom: 0.2rem; }
+  td:nth-child(3) { margin-top: 0.4rem; font-size: 0.9em; color: var(--inkt-zacht); }
+  td:nth-child(3)::before { content: 'In het huis: '; }
 </style>
