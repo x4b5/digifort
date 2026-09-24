@@ -2,11 +2,10 @@
 nr: null
 titel: "De kleine lettertjes"
 kort: "Wat deze site niet is, wat er over jou bijgehouden wordt, van wie dit is en hoe hij gemaakt is."
-datum: "2026-09-23"
+datum: "2026-09-24"
 ---
 import Contact from '../../components/Contact.astro';
 import Kort from '../../components/Kort.astro';
-import Noot from '../../components/Noot.astro';
 
 <Kort>deze site houdt niets over jou bij, belooft je geen veiligheid, en je mag alles wat er staat overnemen zolang je niemand laat betalen voor wat hier gratis is.</Kort>
 
@@ -44,11 +43,11 @@ Omdat er niets wordt gevolgd en niets wordt verstuurd, heeft deze site geen cook
 
 ### Wat de server ziet
 
-Deze site staat bij [Vercel](https://vercel.com/). Zoals elke webserver houdt die bij welke pagina's worden opgevraagd, met daarbij je IP-adres — het nummer waarop jouw internetverbinding te bereiken is. Dat is een persoonsgegeven, ook al staat er geen naam bij.
+Deze site staat bij [statichost.eu](https://www.statichost.eu/). Zoals elke webserver ziet die welke pagina's worden opgevraagd, met daarbij je IP-adres — het nummer waarop jouw internetverbinding te bereiken is. Dat is een persoonsgegeven, ook al staat er geen naam bij.
 
-- **Waarom:** zodat de site blijft werken en zodat een aanval of storing te zien is. Dat is wat de wet een *gerechtvaardigd belang* noemt: een belang dat zwaar genoeg weegt om het zonder jouw toestemming te mogen doen.
-- **Door wie:** Vercel Inc., een Amerikaans bedrijf. Wat zij vastleggen, staat in [hun privacyverklaring](https://vercel.com/legal/privacy-policy). Voor het doorgeven van gegevens naar de Verenigde Staten beroepen zij zich op het EU-U.S. Data Privacy Framework en op standaardcontractbepalingen van de Europese Commissie.
-- **Hoe lang:** dat bepaalt Vercel, niet ik. Zij noemen geen vaste termijn.
+- **Waarom:** zonder je IP-adres weet de server niet waar hij de pagina heen moet sturen. Dat is wat de wet een *gerechtvaardigd belang* noemt: een belang dat zwaar genoeg weegt om het zonder jouw toestemming te mogen doen.
+- **Door wie:** statichost.eu, een bedrijf uit Stockholm. Hun servers staan bij Hetzner in Duitsland en BunnyWay in Slovenië, dus alles blijft binnen de EU. Er is een [verwerkersovereenkomst](https://www.statichost.eu/dpa/): een contract dat vastlegt wat zij wel en niet met je gegevens mogen doen.
+- **Hoe lang:** niet. Je IP-adres wordt alleen gebruikt om de pagina bij je af te leveren en daarna niet bewaard.
 - **Wat ik ermee doe:** niets. Ik kijk er niet in en ik kan er geen persoon uit halen.
 
 ### Als je mailt
@@ -60,8 +59,6 @@ Stuur je een mail, dan bewaar ik die. Het adres op deze site is een doorstuuradr
 De AVG geeft je het recht om te vragen welke gegevens iemand over jou heeft, om die te laten verbeteren of wissen, en om bezwaar te maken. Die rechten heb je hier ook — alleen valt er weinig te halen: ik heb geen dossier over jou. Heb je gemaild en wil je dat ik die mail verwijder, vraag het dan via <Contact />; dan doe ik het.
 
 Vind je dat ik verkeerd met jouw gegevens omga, dan mag je daarover klagen bij de [Autoriteit Persoonsgegevens](https://www.autoriteitpersoonsgegevens.nl/).
-
-<Noot titel="Waar ik zelf niet helemaal tevreden over ben">Vercel is een Amerikaans bedrijf en de logs staan daar. Voor een site die over digitale weerbaarheid gaat, is dat niet het mooiste voorbeeld. Het staat op de lijst.</Noot>
 
 ## Van wie dit is
 
