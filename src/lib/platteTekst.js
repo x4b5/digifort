@@ -23,6 +23,10 @@ export function platteTekst(mdx) {
     .replace(/\{BRONNEN\.length\}/g, String(BRONNEN.length))
     .replace(/\{NOG_KOPPELEN\}/g, String(NOG_KOPPELEN))
     .replace(/<Kort>/g, '*In het kort:* ')
+    .replace(/<Citaat\b([^>]*)>(.*?)<\/Citaat>/gs, (_, attr, tekst) => {
+      const veld = (naam) => attr.match(new RegExp(`\\b${naam}="([^"]+)"`))?.[1] ?? '';
+      return `> "${tekst}" — ${veld('wie')}, ${veld('wat')}`;
+    })
     .replace(/<[A-Z][A-Za-z0-9]*\b[^>]*?\/>/gs, '')
     .replace(/<\/?[A-Z][A-Za-z0-9]*\b[^>]*>/gs, '')
     .replace(/<a href="([^"]+)"[^>]*>(.*?)<\/a>/gs, '[$2]($1)')

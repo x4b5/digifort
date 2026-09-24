@@ -849,6 +849,32 @@ export const BRONNEN = [
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'Voor kinderen van 13 tot en met 15 jaar staat een TikTok-account wel standaard op privé. De menunamen in apps veranderen geregeld; dit zijn de namen die de Consumentenbond noemt' }],
   },
+  {
+    hoofdstuk: ['inbrekers-van-nu'],
+    bewering: 'Citaat van Bruce Schneier: "Only amateurs attack machines; professionals target people."',
+    bron: [{ tekst: 'Bruce Schneier, Semantic Attacks: The Third Wave of Network Attacks, Crypto-Gram, 15 oktober 2000', href: 'https://www.schneier.com/crypto-gram/archives/2000/1015.html' }],
+    status: 'gecontroleerd',
+  },
+  {
+    hoofdstuk: ['onderhoud'],
+    bewering: 'Citaat van Bruce Schneier: "Security is a process, not a product."',
+    bron: [{ tekst: 'Bruce Schneier, The Process of Security, Information Security Magazine, april 2000', href: 'https://www.schneier.com/essays/archives/2000/04/the_process_of_secur.html' }],
+    status: 'gecontroleerd',
+  },
+  {
+    hoofdstuk: ['voor-de-mensen-om-je-heen'],
+    bewering: 'Citaat van Kevin Mitnick: "Expensive locks or no, the homeowner remains vulnerable. Why? Because the human factor is truly security\'s weakest link."',
+    bron: [{ tekst: 'Kevin D. Mitnick en William L. Simon, The Art of Deception, Wiley 2002, hoofdstuk 1: Security\'s Weakest Link', href: 'https://www.wiley.com/en-us/The+Art+of+Deception%3A+Controlling+the+Human+Element+of+Security-p-9780764542800' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Woordelijk nagelezen in de boektekst; de link gaat naar de uitgever' }],
+  },
+  {
+    hoofdstuk: ['het-fort-afbouwen'],
+    bewering: 'Citaat van Gene Spafford: "The only truly secure system is one that is powered off, cast in a block of concrete and sealed in a lead-lined room with armed guards - and even then I have my doubts."',
+    bron: [{ tekst: 'Gene Spafford, Quotable Spaf', href: 'https://spaf.cerias.purdue.edu/quotes.html' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Eerst verschenen in A. K. Dewdney, Computer Recreations, Scientific American, maart 1989, p. 110. Er gaat een versie rond met titanium en zenuwgas; die heeft Spafford volgens zijn eigen site nooit gezegd' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */

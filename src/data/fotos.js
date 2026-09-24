@@ -1,6 +1,7 @@
 /**
- * Echte foto's bij de tekst. Elke foto is vrijgegeven door de maker (CC0) en staat
- * hier met maker en bron, zodat het onderschrift zichzelf invult.
+ * Echte foto's bij de tekst. Elke foto is vrijgegeven door de maker (CC0, of CC BY / BY-SA
+ * met naamsvermelding) en staat hier met maker en bron, zodat het onderschrift zichzelf invult.
+ * De portretten bij een citaat zijn vierkant bijgesneden; bij BY-SA valt die uitsnede onder dezelfde licentie.
  */
 /** @type {Record<string, { bestand: string, alt: string, maker: string, licentie: string, bron: string, licentieBron?: string }>} */
 export const FOTOS = {
@@ -75,5 +76,29 @@ export const FOTOS = {
     maker: 'chuttersnap',
     licentie: 'CC0',
     bron: 'https://commons.wikimedia.org/wiki/File:White_Hallway_(Unsplash).jpg',
+  },
+  'portret-schneier': {
+    bestand: 'portret-schneier.jpg',
+    alt: 'Bruce Schneier, een man met grijze baard en een kale kruin, kijkt opzij.',
+    maker: 'Rama',
+    licentie: 'CC BY-SA 2.0 FR',
+    licentieBron: 'https://creativecommons.org/licenses/by-sa/2.0/fr/deed.en',
+    bron: 'https://commons.wikimedia.org/wiki/File:Bruce_Schneier_at_CoPS2013-IMG_9174.jpg',
+  },
+  'portret-mitnick': {
+    bestand: 'portret-mitnick.jpg',
+    alt: 'Kevin Mitnick, een man met bril en een microfoontje bij zijn wang, van opzij op een podium.',
+    maker: 'Eneas De Troya',
+    licentie: 'CC BY 2.0',
+    licentieBron: 'https://creativecommons.org/licenses/by/2.0/',
+    bron: 'https://commons.wikimedia.org/wiki/File:Kevin_Mitnick_(4892570820).jpg',
+  },
+  'portret-spafford': {
+    bestand: 'portret-spafford.jpg',
+    alt: 'Gene Spafford, een man met rossige baard en een vlinderdas, tijdens een lezing.',
+    maker: 'Chlor',
+    licentie: 'CC BY-SA 3.0',
+    licentieBron: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    bron: 'https://commons.wikimedia.org/wiki/File:Gene-spafford.jpg',
   },
 };

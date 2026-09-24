@@ -1,0 +1,60 @@
+---
+/**
+ * Een uitspraak van iemand uit het vak, vertaald, met het origineel en de bron erbij.
+ * Alleen citaten die woordelijk in de oorspronkelijke bron zijn nagelezen;
+ * de bron staat ook in src/data/bronnen.js. Met `foto` (een sleutel uit
+ * src/data/fotos.js) staat er een rond portret naast de naam, met de maker eronder.
+ */
+import { Image } from 'astro:assets';
+import { FOTOS } from '../data/fotos.js';
+
+interface Props {
+  wie: string;
+  wat: string;
+  origineel: string;
+  bron: string;
+  href: string;
+  foto?: string;
+}
+const { wie, wat, origineel, bron, href, foto: fotoId } = Astro.props;
+
+const foto = fotoId ? FOTOS[fotoId] : undefined;
+if (fotoId && !foto) throw new Error(`Onbekende foto: ${fotoId}`);
+const bestanden = import.meta.glob<{ default: ImageMetadata }>('../assets/foto/*.{jpg,jpeg,png,webp}', { eager: true });
+const beeld = foto ? bestanden[`../assets/foto/${foto.bestand}`] : undefined;
+if (foto && !beeld) throw new Error(`Foto ontbreekt in src/assets/foto: ${foto.bestand}`);
+---
+<figure class="citaat">
+  <blockquote><p><slot /></p></blockquote>
+  <figcaption>
+    {beeld && foto && <Image class="portret" src={beeld.default} alt={foto.alt} width={160} height={160} loading="lazy" decoding="async" />}
+    <span class="tekst">
+      <span class="wie"><strong>{wie}</strong>, {wat}</span>
+      <span class="origineel" lang="en">“{origineel}”</span>
+      <a class="bron" href={href}>{bron}</a>
+      {foto && (
+        <span class="herkomst">
+          Foto: <a href={foto.bron} rel="nofollow noopener">{foto.maker}</a>,{' '}
+          {foto.licentieBron ? <a href={foto.licentieBron} rel="nofollow noopener">{foto.licentie}</a> : foto.licentie}
+        </span>
+      )}
+    </span>
+  </figcaption>
+</figure>
+<style>
+  .citaat { margin: 2.5rem 0; padding-left: 1.25rem; border-left: var(--lijndikte) solid var(--rood); break-inside: avoid; }
+  blockquote { margin: 0; }
+  blockquote p {
+    margin: 0; font-family: var(--kop); font-weight: 700; font-size: clamp(1.25rem, 3.5vw, 1.6rem);
+    line-height: 1.3; color: var(--inkt);
+  }
+  blockquote p::before { content: '“'; }
+  blockquote p::after { content: '”'; }
+  figcaption { display: flex; align-items: flex-start; gap: 0.9rem; margin-top: 0.9rem; }
+  .portret { flex: none; width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; border: var(--lijndikte-dun) solid var(--lijn); }
+  .tekst { display: flex; flex-direction: column; gap: 0.2rem; font-size: var(--tekst-m); color: var(--inkt-zacht); }
+  .wie strong { color: var(--inkt); }
+  .origineel { font-style: italic; }
+  .bron, .herkomst { font-size: var(--tekst-s); color: var(--inkt-zacht); }
+  .herkomst a { color: inherit; }
+</style>
