@@ -2,9 +2,10 @@
 nr: 6
 titel: "Als er toch is ingebroken"
 kort: "Het eerste uur, je telefoon kwijt, en het noodpakket."
-datum: "2026-09-23"
+datum: "2026-09-24"
 ---
 import Vraagje from '../../components/Vraagje.astro';
+import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Afvinklijst from '../../components/Afvinklijst.astro';
 import EersteUur from '../../components/tekeningen/EersteUur.astro';
@@ -36,11 +37,15 @@ Snel handelen beperkt de schade, en je hoeft je nergens voor te schamen. Dit ove
 
 <Kort>welke deur ze ook gebruikten: eerst dichtdoen, dan pas opruimen.</Kort>
 
+<Meer>
+
 **Je account is gehackt.** Volg de stappen hierboven. Kom je er zelf niet meer in, gebruik dan de herstelprocedure van de dienst en houd je herstelcodes bij de hand. Verander daarna ook het wachtwoord op elke plek waar je hetzelfde gebruikte.
 
 **Je bent opgelicht.** Bel je bank, doe aangifte en meld het. Wees alert op een tweede poging: oplichters bellen slachtoffers soms terug als "fraudeafdeling" die je geld gaat terughalen.
 
 **Je telefoon is kwijt of gestolen.** Vergrendel of wis hem op afstand via Zoek mijn iPhone of Vind mijn apparaat van Google. Laat je simkaart blokkeren door je provider. Verander daarna het wachtwoord van je e-mail en je wachtwoordmanager.
+
+</Meer>
 
 ## Telefoon of laptop kwijt: het stappenplan
 
@@ -53,10 +58,6 @@ Een verloren apparaat is een sleutelbos op straat. Wie hem vindt, heeft nog geen
   { tekst: 'Het toestel uit je account verwijderen', uitleg: 'Juist niet. Zolang het aan je account gekoppeld blijft, is het voor de dief onbruikbaar.' },
   { tekst: 'Niets met dat bericht doen', goed: true, uitleg: 'Klopt. Log alleen in via een adres dat je zelf intypt, en laat het toestel aan je account gekoppeld.' },
 ]} />
-
-**Trap niet in het tweede bedrog.** Na diefstal van een iPhone krijgen slachtoffers soms een sms of mail: "je toestel is gevonden, log hier in". Dat is phishing om je Apple-account te ontgrendelen zodat de dief het toestel kan doorverkopen. Apple neemt zelf nooit contact met je op om te melden dat je toestel is gevonden. Log alleen in via het adres dat je zelf intypt. Verwijder het toestel ook niet uit Zoek mijn: zolang het eraan gekoppeld is, kan de dief het niet zomaar wissen en doorverkopen.
-
-**Wat je vooraf regelt, want achteraf kan het niet meer:**
 
 <Afvinklijst lijst="vooraf" kop={false} />
 
@@ -77,6 +78,14 @@ Er was niet ingebroken bij Twitter. Er was niets geraden. Het telefoonnummer van
 Deze truc heet simswapping. Hij werkt niet omdat jouw wachtwoord zwak is, maar omdat een medewerker van een telefoonwinkel iemand geloofde. Daarom is een code per sms de zwakste van alle tweede sloten: hij hangt aan je telefoonnummer, en dat nummer is niet van jou maar van je provider.
 
 </Verhaal>
+
+<Meer>
+
+**Trap niet in het tweede bedrog.** Na diefstal van een iPhone krijgen slachtoffers soms een sms of mail: "je toestel is gevonden, log hier in". Dat is phishing om je Apple-account te ontgrendelen zodat de dief het toestel kan doorverkopen. Apple neemt zelf nooit contact met je op om te melden dat je toestel is gevonden. Log alleen in via het adres dat je zelf intypt. Verwijder het toestel ook niet uit Zoek mijn: zolang het eraan gekoppeld is, kan de dief het niet zomaar wissen en doorverkopen.
+
+**Wat je vooraf regelt, want achteraf kan het niet meer:**
+
+</Meer>
 
 ## Waar meld je het
 
@@ -102,6 +111,8 @@ Vertel één persoon die je vertrouwt waar het ligt. Dat is ook belangrijk voor 
 
 Als jou iets overkomt, staan je naasten voor een huis waar ze niet in kunnen. Foto's, administratie, abonnementen die doorlopen, een mailbox vol post. Zonder voorbereiding komen ze er vaak niet of pas na maanden in. Dit regel je in een half uur:
 
+<Meer titel="Zo regel je het">
+
 - **Apple:** stel een **erfeniscontact** in via Instellingen, je naam, Inloggen en beveiliging. Die persoon krijgt een toegangssleutel en kan daarmee, samen met een overlijdensakte, toegang aanvragen. Hij of zij hoeft zelf geen Apple-apparaat te hebben.
 - **Google:** stel **Inactiviteitsvoorkeuren** in (vroeger heette dat Inactief accountbeheer). Je kiest hoe lang Google wacht als je niet meer inlogt, tot maximaal achttien maanden. Je wijst tot tien mensen aan die dan bericht krijgen, en je kiest welke gegevens zij mogen downloaden. Je kunt ook instellen dat het account daarna wordt verwijderd.
 - **Microsoft** heeft zo'n regeling niet. Daar ben je aangewezen op je noodpakket.
@@ -110,6 +121,8 @@ Als jou iets overkomt, staan je naasten voor een huis waar ze niet in kunnen. Fo
 - **Zeg de telefoon van een overledene niet meteen op.** Dat nummer is vaak nodig om met een sms-code nog in accounts te komen.
 
 Vertel één persoon waar het noodpakket ligt en wat erin zit. Meer hoeft die persoon nu niet te weten.
+
+</Meer>
 
 ## Wat je nu kunt doen
 

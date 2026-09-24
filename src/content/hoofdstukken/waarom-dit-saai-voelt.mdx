@@ -2,9 +2,10 @@
 nr: null
 titel: "Waarom dit saai voelt"
 kort: "De helft van Nederland maakt zich geen zorgen. Dat is geen domheid — het zit in één woordje."
-datum: "2026-09-23"
+datum: "2026-09-24"
 ---
 import Kort from '../../components/Kort.astro';
+import Meer from '../../components/Meer.astro';
 import Noot from '../../components/Noot.astro';
 import Vraagje from '../../components/Vraagje.astro';
 import Grafiek from '../../components/Grafiek.astro';
@@ -19,6 +20,14 @@ Bij de huischeck stond een vraag die niet meetelde voor je score: welk cijfer ge
 ## De helft maakt zich geen zorgen
 
 Van alle Nederlanders maakt 51 procent zich weinig tot geen zorgen over de eigen digitale veiligheid. Veertig procent maakt zich *enige* zorgen. Acht procent maakt zich veel zorgen. ([bron](https://alertonline.veiliginternetten.nl/media/documents/Hoofdrapport_Alert_Online_2025.pdf))
+
+<Vraagje vraag="Waarom maken mensen die zich weinig zorgen maken, zich weinig zorgen?" opties={[
+  { tekst: 'Omdat ze denken dat het toch niet uitmaakt wat ze doen', uitleg: 'Dat speelt mee, maar het is niet de meestgenoemde reden. De meeste mensen zijn juist niet moedeloos — ze zijn gerust.' },
+  { tekst: 'Omdat ze denken dat ze het al geregeld hebben', goed: true, uitleg: 'Klopt. De helft (48 procent) noemt "ik update altijd mijn apparaten" als reden. Daarna komen het controleren van links (47 procent) en twee-staps-inloggen (46 procent). Bijna vier op de tien zeggen simpelweg: ik ben geen aantrekkelijk doelwit.' },
+  { tekst: 'Omdat ze er nooit iets over horen', uitleg: 'Daar ligt het niet aan. Driekwart van de Nederlanders kreeg het afgelopen jaar zelf een poging tot cybercrime te verwerken.' },
+]} />
+
+<Meer>
 
 Ondertussen kreeg 72 procent van de Nederlanders in twaalf maanden een vorm van cybercrime op zijn dak. Meestal phishing (55 procent). Telefonische helpdeskfraude verdubbelde in één jaar van 15 naar 29 procent.
 
@@ -36,15 +45,17 @@ Er zit nog een merkwaardigheid in die cijfers. Over de digitale veiligheid van h
 
 Dat is het oudste denkfoutje dat er is: een gevaar is echt voor een ander, en theoretisch voor mij. Onderzoekers noemen het optimisme-vertekening. Het is precies wat er gebeurt als je bij een verhaal over een gehackte buurman denkt: ja, maar die klikte dan ook op alles.
 
-<Vraagje vraag="Waarom maken mensen die zich weinig zorgen maken, zich weinig zorgen?" opties={[
-  { tekst: 'Omdat ze denken dat het toch niet uitmaakt wat ze doen', uitleg: 'Dat speelt mee, maar het is niet de meestgenoemde reden. De meeste mensen zijn juist niet moedeloos — ze zijn gerust.' },
-  { tekst: 'Omdat ze denken dat ze het al geregeld hebben', goed: true, uitleg: 'Klopt. De helft (48 procent) noemt "ik update altijd mijn apparaten" als reden. Daarna komen het controleren van links (47 procent) en twee-staps-inloggen (46 procent). Bijna vier op de tien zeggen simpelweg: ik ben geen aantrekkelijk doelwit.' },
-  { tekst: 'Omdat ze er nooit iets over horen', uitleg: 'Daar ligt het niet aan. Driekwart van de Nederlanders kreeg het afgelopen jaar zelf een poging tot cybercrime te verwerken.' },
-]} />
+</Meer>
 
 ## Het woordje "soms"
 
 <Kort>gevraagd of ze veilig doen, antwoordt bijna iedereen ja. Gevraagd of ze het overal doen, antwoordt bijna niemand ja.</Kort>
+
+<Noot>
+Dit zijn twee verschillende onderzoeken met een andere vraagstelling, dus het is geen exacte vergelijking. Juist daarom staat het hier: het gat tussen de twee cijfers *is* het punt. Het laat zien hoe ver "ik doe dit" af kan staan van "dit is bij mij geregeld".
+</Noot>
+
+<Meer>
 
 Hier wordt het interessant. Twee serieuze onderzoeken, twee heel verschillende uitkomsten:
 
@@ -65,13 +76,13 @@ En dat is precies waarom dit huis een plattegrond nodig heeft. Eén goed slot op
 
 <Foto id="galerij-voordeuren" onderschrift="Een galerij vol voordeuren. Aan de buitenkant zie je niet welke op slot zit, en dat geldt ook voor je accounts." />
 
-<Noot>
-Dit zijn twee verschillende onderzoeken met een andere vraagstelling, dus het is geen exacte vergelijking. Juist daarom staat het hier: het gat tussen de twee cijfers *is* het punt. Het laat zien hoe ver "ik doe dit" af kan staan van "dit is bij mij geregeld".
-</Noot>
+</Meer>
 
 ## Beveiligingsmoeheid is een echt woord
 
 <Kort>te veel keuzes maken mensen niet voorzichtiger, maar onverschilliger.</Kort>
+
+<Meer>
 
 In 2016 onderzocht het Amerikaanse normeninstituut NIST waarom goed geïnformeerde mensen toch onveilig doen. Ze vonden iets wat ze *security fatigue* noemden: beveiligingsmoeheid. ([bron](https://www.nist.gov/news-events/news/2016/10/security-fatigue-can-cause-computer-users-feel-hopeless-and-act-recklessly))
 
@@ -85,9 +96,13 @@ De onderzoekers gaven drie adviezen. Niet aan de gebruiker — aan iedereen die 
 
 Deze site is op die drie regels gebouwd. Daarom is er een [huischeck](/huischeck) met tien vragen in plaats van een lijst met honderd tips. Daarom is er [één avond](/een-avond) met zes stappen. En daarom is de volgorde altijd hetzelfde: e-mail eerst, dan de rest.
 
+</Meer>
+
 ## Waarom abstracte uitleg niet blijft hangen
 
 <Kort>mensen denken in beelden, niet in begrippen. Wie geen beeld krijgt, maakt er zelf een.</Kort>
+
+<Meer>
 
 Van de mensen die op hun werk beveiligingstraining krijgen, noemt ruim een derde die training saai. Slechts een derde zegt er met volle aandacht bij te zijn. ([bron](https://1670277.fs1.hubspotusercontent-na1.net/hubfs/1670277/%5BCollateral%5D%20Tessian-Research-Reports/%5BTessian%20Research%5D%20How%20Security%20Cultures%20Impact%20Employee%20Behavior.pdf))
 
@@ -96,6 +111,8 @@ Dat is geen onwil. Onderzoeker Rick Wash liet in 2010 zien dat gewone computerge
 Het probleem is dat advies dat niet in zo'n beeld past, genegeerd wordt. Niet omdat het te moeilijk is, maar omdat het nergens aan vast zit.
 
 Daarom staat er op deze site een huis. Niet omdat het leuk klinkt, maar omdat je dan een plek hebt om nieuwe dingen op te hangen. Een wachtwoordkluis is niet "een applicatie voor credentialbeheer" — het is de sleutelkast in de gang. Je e-mail is niet "een centraal identiteitspunt" — het is de voordeur, want daar komt elke reservesleutel aan.
+
+</Meer>
 
 ## Dus
 

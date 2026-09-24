@@ -2,10 +2,11 @@
 nr: null
 titel: "Van geheim woord naar zegelring"
 kort: "De ladder: acht manieren om in te loggen, van zwak naar sterk."
-datum: "2026-09-23"
+datum: "2026-09-24"
 ---
 import Vraagje from '../../components/Vraagje.astro';
 import Kort from '../../components/Kort.astro';
+import Meer from '../../components/Meer.astro';
 import Noot from '../../components/Noot.astro';
 import Trede from '../../components/Trede.astro';
 import Jargon from '../../components/Jargon.astro';
@@ -44,6 +45,10 @@ De hele ladder in één beeld. Tot en met trede 5 bescherm je jezelf met iets wa
 
 <Kort>één geheim woord dat je bij elke deur fluistert, en dat bij elke deur wordt opgeschreven.</Kort>
 
+<Weegschaal houdt="De buurman die over je schouder meekijkt." breekt="Eén webshop die gehackt wordt. Het woord past dan ook op je mail, je bank en je foto's." />
+
+<Meer>
+
 Wordt een webwinkel gehackt, dan worden de gestolen e-mailadressen en wachtwoorden vaak doorverkocht op criminele marktplaatsen. Daarna hoeft niemand meer iets te raden: programma's proberen jouw combinatie automatisch bij tientallen tot honderden andere diensten. Ook gegevens uit een lek van jaren geleden duiken zo weer op, en kunnen vandaag nog je mailbox openen.
 
 Je kunt zelf nakijken of je adres in zo'n lijst staat, op [haveibeenpwned.com](https://haveibeenpwned.com). Dat is de bekendste en betrouwbaarste zoekmachine voor gelekte accounts. Hij vraagt alleen je e-mailadres, nooit een wachtwoord.
@@ -54,7 +59,7 @@ Je kunt zelf nakijken of je adres in zo'n lijst staat, op [haveibeenpwned.com](h
   ['have i been pwned', 'gratis site om op te zoeken of je adres in een bekend lek voorkomt'],
 ]} />
 
-<Weegschaal houdt="De buurman die over je schouder meekijkt." breekt="Eén webshop die gehackt wordt. Het woord past dan ook op je mail, je bank en je foto's." />
+</Meer>
 
 </Trede>
 
@@ -63,6 +68,10 @@ Je kunt zelf nakijken of je adres in zo'n lijst staat, op [haveibeenpwned.com](h
 <L03 />
 
 <Kort>voor elke deur een andere sleutel, maar je moet ze allemaal uit je hoofd kennen.</Kort>
+
+<Weegschaal houdt="Het domino-effect: één lek opent nog maar één deur." breekt="Je geheugen. Wie vijftig sleutels moet onthouden, maakt ze kort en voorspelbaar, en daar leven kraakprogramma's van." />
+
+<Meer>
 
 Wie je wachtwoord niet heeft, kan het proberen te raden. Dat gaat niet met de hand: een gewone computer loopt miljarden mogelijkheden per seconde af. En hij begint nooit bij aaaa. Hij begint bij lijsten van echte wachtwoorden die eerder gelekt zijn, en bij woordenboeken met alle gangbare varianten daarop.
 
@@ -74,7 +83,7 @@ Welkom01, Zomer2026!, je achternaam met een uitroepteken: die staan er allemaal 
   ['hash', 'de versleutelde vorm waarin een site je wachtwoord bewaart; kraken = raden tot de hash klopt'],
 ]} />
 
-<Weegschaal houdt="Het domino-effect: één lek opent nog maar één deur." breekt="Je geheugen. Wie vijftig sleutels moet onthouden, maakt ze kort en voorspelbaar, en daar leven kraakprogramma's van." />
+</Meer>
 
 </Trede>
 
@@ -89,6 +98,12 @@ Welkom01, Zomer2026!, je achternaam met een uitroepteken: die staan er allemaal 
   { tekst: 'K0ff!e&F1ets', uitleg: 'Een cijfer voor een letter voelt slim, maar die trucs kennen kraakprogramma’s beter dan jij. Kort met patroon blijft kort met patroon.' },
   { tekst: 'kaars tractor wolk banaan sleutel', goed: true, uitleg: 'Lengte zonder patroon is wat een computer dwarszit, niet slimmigheid. Woorden die je blind uit een lijst trekt hebben dat; een zin uit een liedje niet, want die staat in dezelfde lijsten.' },
 ]} />
+
+<Weegschaal houdt="Slappe wachtwoorden. De kluis verzint er lange, wilde, onraadbare. Dat is het echte winstpunt." breekt="De kluisdeur zelf. Eén wachtwoord staat nu tussen een vreemde en alles wat je hebt." />
+
+<Noot titel="Wat je nog moet onthouden">Nog maar drie wachtzinnen: die van de kluis, je computer en je telefoon. De rest verzint de kluis. Die hoef je nooit te lezen of te typen.</Noot>
+
+<Meer>
 
 Een kluis doet drie dingen tegelijk. Hij verzint wachtwoorden die jij nooit zou bedenken, hij onthoudt ze, en hij vult ze alleen in op de site waar ze bij horen. Dat laatste is een stille bonus: sta je op een nepsite, dan biedt de kluis niets aan. Die stilte is een waarschuwing.
 
@@ -105,9 +120,7 @@ Een cijfer voor een letter en een leesteken achteraan voelt slim, maar het is pr
   ['entropie', 'vakterm voor het aantal mogelijkheden dat een kraker moet aflopen'],
 ]} />
 
-<Weegschaal houdt="Slappe wachtwoorden. De kluis verzint er lange, wilde, onraadbare. Dat is het echte winstpunt." breekt="De kluisdeur zelf. Eén wachtwoord staat nu tussen een vreemde en alles wat je hebt." />
-
-<Noot titel="Wat je nog moet onthouden">Nog maar drie wachtzinnen: die van de kluis, je computer en je telefoon. De rest verzint de kluis. Die hoef je nooit te lezen of te typen.</Noot>
+</Meer>
 
 </Trede>
 
@@ -116,6 +129,10 @@ Een cijfer voor een letter en een leesteken achteraan voelt slim, maar het is pr
 <L06 />
 
 <Kort>de eerste tweede stap: naast het woord wil de deur ook een briefje zien dat per post is nagestuurd.</Kort>
+
+<Weegschaal houdt="Iemand ver weg die alleen je wachtwoord heeft. Hij mist het briefje." breekt="De postbode. Met een kopie van je paspoort laat een oplichter je telefoonnummer op zijn eigen simkaart zetten, en de briefjes komen bij hem." />
+
+<Meer>
 
 Inloggen met twee stappen heet tweestapsverificatie: iets wat je weet (het wachtwoord) plus iets wat je hebt (de telefoon). Dat idee is goed. Sms is alleen de zwakste uitvoering ervan, omdat een telefoonnummer niet echt van jou is: het hoort bij een simkaart, en een simkaart kan worden vervangen.
 
@@ -127,7 +144,7 @@ Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over
   ['SIM-swap', 'subscriber identity module: het kapen van je telefoonnummer via de klantenservice van de provider'],
 ]} />
 
-<Weegschaal houdt="Iemand ver weg die alleen je wachtwoord heeft. Hij mist het briefje." breekt="De postbode. Met een kopie van je paspoort laat een oplichter je telefoonnummer op zijn eigen simkaart zetten, en de briefjes komen bij hem." />
+</Meer>
 
 </Trede>
 
@@ -143,6 +160,10 @@ Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over
   { tekst: 'Nee, zo’n code werkt alleen op de echte site', uitleg: 'Een code weet niet waar je hem intypt. Dat verschil komt pas bij trede 6: een passkey zegelt het webadres mee, en op een nepadres past hij niet.' },
 ]} />
 
+<Weegschaal houdt="De simkaarttruc, en iedereen die alleen je wachtwoord buitmaakte." breekt="Jezelf. Op een nagemaakte inlogpagina typ je de code gewoon over, en de oplichter gebruikt hem binnen de dertig seconden." />
+
+<Meer>
+
 Bij het instellen scan je een QR-code. Daarmee krijgen de app en de site één gedeeld geheim. Daarna rekenen ze allebei, los van elkaar, elke dertig seconden dezelfde code uit op basis van dat geheim en de klok. Er reist dus niets meer over het netwerk, en wat niet reist, kan niet onderschept worden.
 
 Wat wél werkt is jou vragen de code zelf in te typen. Een moderne phishingsite geeft alles wat jij invult op hetzelfde moment door aan de echte site en logt daar in. Die aanval heet adversary-in-the-middle, en hij is bestand tegen elke code die je met de hand overneemt.
@@ -154,7 +175,7 @@ Wat wél werkt is jou vragen de code zelf in te typen. Een moderne phishingsite 
   ['AiTM', 'adversary-in-the-middle: phishingsite die alles direct doorsluist naar de echte site'],
 ]} />
 
-<Weegschaal houdt="De simkaarttruc, en iedereen die alleen je wachtwoord buitmaakte." breekt="Jezelf. Op een nagemaakte inlogpagina typ je de code gewoon over, en de oplichter gebruikt hem binnen de dertig seconden." />
+</Meer>
 
 </Trede>
 
@@ -165,6 +186,10 @@ Wat wél werkt is jou vragen de code zelf in te typen. Een moderne phishingsite 
 <Kort>hier houdt het woord op en begint de ring. De site stuurt een willekeurig zinnetje, je kluis drukt er een zegel in, en zegelt het webadres mee.</Kort>
 
 <Noot titel="Dit is óók tweestapsverificatie">Een passkey voelt als één handeling, maar het zijn twee stappen: iets wat je hebt (je toestel, waar de ring in zit) plus iets wat je bent of weet (je vinger, je gezicht of je pincode). Trede 6, 7 en 8 zijn dus geen alternatief voor 2FA. Ze zíjn 2FA, alleen zonder code die je kunt overtypen aan een oplichter.</Noot>
+
+<Weegschaal houdt="Phishing. Op pr0ton.me vindt de ring geen passend zegel en doet hij eenvoudigweg niets." breekt="De kluis die hem rondstuurt. Wie je Apple- of Google-account overneemt, erft alle ringen in één keer." />
+
+<Meer>
 
 Bij het aanmaken maakt je apparaat twee helften die bij elkaar horen. De geheime helft blijft waar hij is en vertrekt nooit; de publieke helft geef je aan de site. Met die publieke helft kan de site controleren of een zegel echt is, maar er zelf geen maken. Dat is publieke-sleutelcryptografie, dezelfde techniek waarmee het hangslotje in de adresbalk werkt.
 
@@ -181,7 +206,7 @@ Dezelfde nepsite, twee uitkomsten. Een code is losse informatie: de nepsite geef
   ['synced passkey', 'een passkey die via een kluis naar al je apparaten wordt gekopieerd'],
 ]} />
 
-<Weegschaal houdt="Phishing. Op pr0ton.me vindt de ring geen passend zegel en doet hij eenvoudigweg niets." breekt="De kluis die hem rondstuurt. Wie je Apple- of Google-account overneemt, erft alle ringen in één keer." />
+</Meer>
 
 </Trede>
 
@@ -190,6 +215,10 @@ Dezelfde nepsite, twee uitkomsten. Een code is losse informatie: de nepsite geef
 <L10 />
 
 <Kort>dezelfde ring, maar gegoten in metaal en nergens gekopieerd. Het geheim zit in de chip en kan er fysiek niet uit. Ook niet door jou. Ook dit is tweestapsverificatie: de sleutel is wat je hebt, de aanraking plus pincode is wie je bent.</Kort>
+
+<Weegschaal houdt="Alles van hierboven, plus de kluis als zwakke plek. Er is geen account meer om over te nemen." extra="Het metalen vlakje moet aangeraakt worden. Software kan veel, maar niets aanraken. Dus geen stille inlog terwijl jij koffie haalt." breekt="Verlies. Eén sleutel kwijt is één account kwijt." />
+
+<Meer>
 
 De geheime helft woont hier in een chip die zo gebouwd is dat er eenvoudigweg geen opdracht bestaat om hem uit te lezen. Ook jij kunt er niet bij. Zo'n chip heet een secure element en zit ook in je bankpas en in je telefoon.
 
@@ -206,7 +235,7 @@ Allebei zegelringen, alleen niet op dezelfde plek. Een passkey wordt vanuit een 
   ['user presence / verification', 'de aanraking, en de pincode of vingerafdruk erbovenop'],
 ]} />
 
-<Weegschaal houdt="Alles van hierboven, plus de kluis als zwakke plek. Er is geen account meer om over te nemen." extra="Het metalen vlakje moet aangeraakt worden. Software kan veel, maar niets aanraken. Dus geen stille inlog terwijl jij koffie haalt." breekt="Verlies. Eén sleutel kwijt is één account kwijt." />
+</Meer>
 
 </Trede>
 
@@ -215,6 +244,10 @@ Allebei zegelringen, alleen niet op dezelfde plek. Een passkey wordt vanuit een 
 <L12 />
 
 <Kort>de sleutel aan je sleutelbos, de tweede in de la, de herstelcodes op papier. Niet sterker dan trede 7, maar wel de enige trede waar je niet buitengesloten raakt.</Kort>
+
+<Weegschaal houdt="Het scenario dat alle andere treden negeren: dat de beveiliging jóu buitensluit." breekt="Kwaadaardige software op je eigen computer, die meekijkt in een sessie die al open is. Daar helpt geen enkele sleutel tegen, want dan heb jij de deur al geopend." />
+
+<Meer>
 
 Elk systeem heeft een achterdeur voor het geval je jezelf buitensluit. Bij accounts heet dat account recovery, en het is bijna altijd de zwakste schakel van het geheel: wie die achterdeur weet te forceren, hoeft de voordeur niet meer. Daarom bewaar je herstelcodes zorgvuldig, en nooit binnen de dienst die ze moeten redden.
 
@@ -226,13 +259,15 @@ De tweede sleutel dekt het omgekeerde af: dat de voordeur zó goed wordt dat je 
   ['single point of failure', 'één onderdeel waarvan het hele bouwwerk afhangt'],
 ]} />
 
-<Weegschaal houdt="Het scenario dat alle andere treden negeren: dat de beveiliging jóu buitensluit." breekt="Kwaadaardige software op je eigen computer, die meekijkt in een sessie die al open is. Daar helpt geen enkele sleutel tegen, want dan heb jij de deur al geopend." />
+</Meer>
 
 </Trede>
 
 ## En als de echte site zelf gehackt wordt?
 
 Dan helpt geen enkele trede. De inbreker staat al binnen en hoeft de voordeur niet meer. Maar het maakt wél uit wat hij daar aantreft.
+
+<Meer>
 
 Een site die met wachtwoorden werkt, moet iets van je wachtwoord bewaren om het te kunnen herkennen. Wordt die voorraad buitgemaakt, dan gaan kraakprogramma's er dagenlang overheen, en alles wat eruit komt, wordt meteen geprobeerd op je andere accounts.
 
@@ -244,6 +279,8 @@ Wat een inbreker van de server meeneemt. Van een wachtwoord ligt daar iets bruik
 
 Wat hij wél kan is lezen wat er op die server staat. Daar helpt geen sleutel tegen, alleen versleuteling. Dat is precies waarom een versleutelde maildienst iets toevoegt: als de dienst je berichten zelf niet kan lezen, kan een inbreker in hun kelder dat ook niet.
 
+</Meer>
+
 ## Waar deze ladder wringt
 
 Een ladder suggereert één rechte lijn, en zo netjes is het niet. Een kluis met een sterk wachtwoord en een app-code erop (treden 3 en 5 samen) is in de praktijk sterker dan een passkey op een slordig beveiligd Apple-account. De volgorde hierboven gaat over de techniek, niet over hoe zorgvuldig iemand is.
@@ -252,11 +289,15 @@ En elke trede beschermt alleen de voordeur. Wie eenmaal binnen is omdat jij hem 
 
 ## Binnen welk vak valt dit?
 
+<Meer titel="Lees welk vakgebied dit is">
+
 Alles hierboven hoort bij informatiebeveiliging, in het dagelijks spraakgebruik cybersecurity. Daarbinnen is er een eigen hoek voor precies deze vraag: identiteits- en toegangsbeheer, afgekort IAM (identity and access management). Dat vak maakt één onderscheid dat de hele ladder verklaart: authenticatie is de vraag wie je bent, autorisatie is de vraag wat je mag. Hierboven ging het uitsluitend over het eerste.
 
 De onderste treden leunen op het menselijke deel van het vak: social engineering (mensen overhalen in plaats van techniek kraken) en usable security, de studie van beveiliging die mensen ook echt volhouden. De bovenste treden leunen op cryptografie, en dan specifiek de asymmetrische variant: twee bij elkaar horende helften waarvan er één geheim blijft.
 
 Wie verder wil lezen: de Amerikaanse standaard NIST SP 800-63B is het document waar de wachtzin-regel vandaan komt. Lengte boven complexiteit, en stop met mensen elk kwartaal een nieuw wachtwoord laten verzinnen. ISO 27001 is de norm waarin organisaties hun beveiliging vastleggen, en de standaarden achter de passkey (FIDO2 en WebAuthn) komen van de FIDO Alliance en het W3C, het consortium dat ook de regels van het web zelf beheert.
+
+</Meer>
 
 ## Wat je nu kunt doen
 

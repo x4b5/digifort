@@ -2,9 +2,10 @@
 nr: 5
 titel: "Onderhoud en opruimen"
 kort: "Oude apparaten, weggooien, en wat er over jou op internet staat."
-datum: "2026-09-23"
+datum: "2026-09-24"
 ---
 import Vraagje from '../../components/Vraagje.astro';
+import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Afvinklijst from '../../components/Afvinklijst.astro';
 import Foto from '../../components/Foto.astro';
@@ -24,22 +25,28 @@ Een huis op slot zetten is één ding. Het daarna goed houden is iets anders. Di
 
 <Kort>een apparaat dat geen updates meer krijgt, wordt elk jaar onveiliger.</Kort>
 
-Elk apparaat krijgt maar een paar jaar updates. Zolang die komen, loopt de timmerman langs en maakt hij nieuwe scheuren dicht voordat iemand ze vindt. Daarna werkt het apparaat nog gewoon, maar komt er niemand meer langs. Het voelt als een prima huis, tot iemand de scheur vindt.
-
 <Vraagje vraag="Je telefoon krijgt al twee jaar geen beveiligingsupdates meer, maar werkt prima. Wat doe je?" opties={[
   { tekst: 'Gewoon blijven gebruiken, hij doet het nog', uitleg: 'Hij werkt, maar er komt geen timmerman meer langs om scheuren dicht te maken. Elk jaar dat verstrijkt wordt hij onveiliger.' },
   { tekst: 'Hem niet meer gebruiken voor je bank en je e-mail', goed: true, uitleg: 'Dat is het eerlijke antwoord: hij mag blijven, maar niet meer voor je belangrijkste deuren. Koop je een nieuwe, kijk dan hoeveel jaar de maker updates belooft.' },
   { tekst: 'Meteen weggooien', uitleg: 'Dat hoeft niet. Voor muziek of spelletjes kan hij prima door. Alleen je bank en je e-mail horen er niet meer op.' },
 ]} />
 
+<Meer>
+
+Elk apparaat krijgt maar een paar jaar updates. Zolang die komen, loopt de timmerman langs en maakt hij nieuwe scheuren dicht voordat iemand ze vindt. Daarna werkt het apparaat nog gewoon, maar komt er niemand meer langs. Het voelt als een prima huis, tot iemand de scheur vindt.
+
 - **Windows 10.** Microsoft is op 14 oktober 2025 gestopt met updates. Je hebt drie keuzes. Eén: stap gratis over op Windows 11, als je computer dat aankan. Kijk bij Instellingen en dan Windows Update. Twee: meld je aan voor de extra beveiligingsupdates van Microsoft. Die lopen voor gewone gebruikers tot 12 oktober 2027. Drie: koop een andere computer. Is je oude computer verder nog goed? Dan kun je er een ander systeem op zetten, zoals Linux of ChromeOS Flex.
 - **Android-telefoons.** Kijk bij Instellingen en dan Over de telefoon. Daar staat de datum van de laatste beveiligingsupdate. Is die lang geleden en komt er niets meer? Gebruik de telefoon dan niet meer voor je bank en je e-mail. Koop je een nieuwe telefoon? Kijk dan hoeveel jaar de maker updates belooft.
 - **iPhone en iPad.** Apple geeft lang updates, maar niet voor altijd. Kun je de nieuwste versie niet meer installeren? Dan komt het einde in zicht.
 - **Router en slimme apparaten.** Een router van je internetbedrijf wordt meestal vanzelf bijgewerkt. Heb je zelf een router gekocht en is hij vijf jaar of ouder? Kijk op de site van de maker of er nog updates komen. Slimme apparaten zonder updates horen op het gastnetwerk. Of ze gaan de deur uit.
 
+</Meer>
+
 ## Verhuizen: oude apparaten wegdoen
 
 <Kort>maak een apparaat helemaal leeg voordat je het verkoopt of weggooit.</Kort>
+
+<Meer>
 
 Je laat je sleutels ook niet achter in je oude huis. In een oude telefoon of laptop zit je hele leven, ook als jij denkt dat alles weg is.
 
@@ -52,9 +59,13 @@ Je laat je sleutels ook niet achter in je oude huis. In een oude telefoon of lap
 5. **Een losse schijf of usb-stick** is niet leeg als je de bestanden in de prullenbak gooit. Gebruik een wisprogramma. Of maak de schijf echt kapot.
 6. **Vergeet de rest niet.** In printers, routers, slimme tv's en navigatiesystemen staan ook accounts, wifi-wachtwoorden en adressen. In een auto die je inlevert ook.
 
+</Meer>
+
 ## Wat er op je gevel staat: wat iedereen over jou kan vinden
 
 <Kort>alles wat openbaar over jou op internet staat, kan een oplichter gebruiken.</Kort>
+
+<Meer>
 
 Je geboortedatum. De namen van je kinderen. Waar je werkt. Een filmpje waarin je praat. Samen is dat genoeg voor een bericht of een telefoontje dat precies klopt.
 
@@ -65,6 +76,8 @@ Je geboortedatum. De namen van je kinderen. Waar je werkt. Een filmpje waarin je
 - **Denk na over foto's van je kinderen.** Zij kunnen er later niets meer aan veranderen.
 - **Ruim oude accounts op.** Dat account van vijftien jaar geleden bestaat nog, met je oude wachtwoord erbij.
 - **Vraag om verwijdering.** Volgens de privacywet mag je een bedrijf vragen om je gegevens te wissen. Zoekmachines hebben een formulier om zoekresultaten over jou weg te halen.
+
+</Meer>
 
 ## De onderhoudsbeurt: twee keer per jaar
 

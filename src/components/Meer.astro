@@ -1,0 +1,31 @@
+---
+/**
+ * De uitleg achter de kern: dicht tot je hem opent.
+ * Zo zie je bij het scrollen eerst wat je moet weten, en lees je het waarom
+ * alleen waar je nieuwsgierig bent. De tekst staat gewoon in de pagina,
+ * dus zoeken (Ctrl+F), printen en zoekmachines vinden hem ook dicht.
+ */
+interface Props { titel?: string }
+const { titel = 'Lees hoe het zit' } = Astro.props;
+---
+<details class="meer">
+  <summary><span class="pijl" aria-hidden="true">›</span> {titel}</summary>
+  <div class="inhoud"><slot /></div>
+</details>
+<style>
+  .meer { margin: 1.25rem 0; }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary {
+    display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem;
+    cursor: pointer; font-family: var(--kop); font-weight: 700; color: var(--rood);
+  }
+  summary:hover { color: var(--rood-donker); }
+  summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .pijl { display: inline-block; font-size: 1.4em; line-height: 1; transition: transform 0.15s; }
+  .meer[open] .pijl { transform: rotate(90deg); }
+  /* een lijn links laat zien welke tekst bij het opengeklapte blok hoort */
+  .inhoud { border-left: var(--lijndikte) solid var(--lijn); padding-left: 1rem; margin-top: 0.25rem; }
+  .inhoud > :first-child { margin-top: 0.5rem; }
+  @media (prefers-reduced-motion: reduce) { .pijl { transition: none; } }
+</style>

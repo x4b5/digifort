@@ -2,9 +2,10 @@
 nr: 4
 titel: "Aan de slag: deur voor deur"
 kort: "Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis."
-datum: "2026-09-23"
+datum: "2026-09-24"
 ---
 import Vraagje from '../../components/Vraagje.astro';
+import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
 import Afvinklijst from '../../components/Afvinklijst.astro';
@@ -31,6 +32,8 @@ Niveau 1 kost één avond. Daarmee sluit je de deur waar de meeste inbraken door
 
 <Straat />
 
+<Meer>
+
 De meeste inbrekers op internet zoeken niet naar jou. Ze lopen de hele straat door en voelen aan elke deur. Een computer doet dat voor ze, bij miljoenen huizen tegelijk. Gaat een deur open? Dan gaan ze naar binnen. Zit hij op slot? Dan lopen ze door. Inbrekers plukken het fruit dat laag hangt. Zes dingen zorgen dat jij hoog hangt:
 
 | Wat je doet | Wat de inbreker dan niet meer kan |
@@ -44,6 +47,8 @@ De meeste inbrekers op internet zoeken niet naar jou. Ze lopen de hele straat do
 
 Twee dingen moet je eerlijk weten. Dit werkt tegen inbrekers die het bij iedereen proberen. Dat zijn ze bijna allemaal. Zoekt iemand speciaal naar jou, zoals bij een stalker of bij een bekende persoon? Dan heb je meer hulp nodig dan deze site kan geven. En de lat gaat omhoog. Met AI wordt een aanval op maat goedkoper. Wat nu hoog genoeg hangt, hangt over een paar jaar lager. Daarom kijk je je huis twee keer per jaar na. Dat staat in [hoofdstuk 5](/onderhoud).
 
+</Meer>
+
 ## Je fort, terwijl je bouwt
 
 Elke stap hieronder is een deel van het fort. Vink af wat je hebt gedaan en kijk hier hoe het groeit. Het blijft in je eigen browser staan.
@@ -56,9 +61,13 @@ Liever één stap per scherm, met precies hoe je het doet? Ga naar [Ik heb één
 
 <Afvinklijst lijst="niveau-1" kop={false} genummerd />
 
+<Meer titel="Uitleg bij deze stappen">
+
 **Hoe maak je een sterk hoofdwachtwoord?** Neem vier of vijf gewone woorden die niets met elkaar te maken hebben. Bijvoorbeeld een gek zinnetje dat alleen jij snapt. Lang is sterker dan ingewikkeld. Schrijf het op papier. Bewaar dat papier thuis op een veilige plek.
 
 **Welke wachtwoordmanager?** Bitwarden is gratis. Iedereen mag controleren hoe het programma werkt, en dat maakt het betrouwbaar. De kluis die al in je iPhone of Android-telefoon zit, is ook goed. Het belangrijkste is dat je er één gebruikt.
+
+</Meer>
 
 ## Niveau 2: goed op slot in een weekend
 
@@ -66,11 +75,15 @@ Liever één stap per scherm, met precies hoe je het doet? Ga naar [Ik heb één
 
 **Wat zijn herstelcodes?** Zet je een tweede slot op een account? Dan krijg je een rijtje codes voor noodgevallen. Elke code werkt één keer. Sommige diensten noemen ze noodcodes of backup codes; het is hetzelfde. Die en andere vaktermen staan in het [woordenboek](/woordenboek). Ben je je telefoon kwijt? Dan kom je er met zo'n code toch in.
 
+<Meer titel="Uitleg bij deze stappen">
+
 **Je laptop onleesbaar maken** heet versleuteling. Op een Mac heet het FileVault. Op Windows heet het BitLocker of Apparaatversleuteling. Je vindt het bij de instellingen.
 
 **De regel voor reservekopieën is 3-2-1.** Je hebt drie kopieën van je bestanden. Ze staan op twee soorten opslag, zoals je computer en een losse schijf. Eén kopie ligt buiten je huis, bijvoorbeeld op internet. Probeer één keer of je een bestand ook echt kunt terugzetten.
 
 <DrieTweeEen />
+
+</Meer>
 
 ## Niveau 3: voor wie verder wil
 
@@ -81,6 +94,14 @@ Liever één stap per scherm, met precies hoe je het doet? Ga naar [Ik heb één
 ## De gereedschapskist: concrete aanraders
 
 <Kort>goed gereedschap is vaak gratis. En het beste slot zit meestal al in je apparaat.</Kort>
+
+<Vraagje vraag="Wat klopt er over virusscanners op een Windows-computer?" opties={[
+  { tekst: 'Je hebt een betaalde scanner nodig', uitleg: 'Twintig jaar geleden wel. Nu zit er een goede in Windows en voegt een gekochte scanner daar weinig aan toe.' },
+  { tekst: 'De scanner die al in Windows zit, is voor bijna iedereen genoeg', goed: true, uitleg: 'Windows Beveiliging doet het werk. Pas wel op met gratis scanners van anderen: sommige verdienen geld aan wat jij op internet doet.' },
+  { tekst: 'Een goede scanner houdt ook babbeltrucs tegen', uitleg: 'Geen enkele scanner doet dat. Je updates, je tweede slot en je eigen oplettendheid doen meer.' },
+]} />
+
+<Meer titel="Bekijk de aanraders">
 
 Dit is een lijst om in op te zoeken. De keuzes zijn gemaakt op vier punten. Het is gratis of goedkoop. Het heeft bewezen dat het werkt. Iedereen mag controleren hoe het in elkaar zit. En het bedrijf verdient geen geld aan jouw gegevens. Deze site verdient er ook niets aan.
 
@@ -101,12 +122,6 @@ Dit is een lijst om in op te zoeken. De keuzes zijn gemaakt op vier punten. Het 
 | Bestanden versleutelen in de cloud | Cryptomator (gratis op je computer) |  | Werkt bovenop elke clouddienst. De telefoon-app kan gratis alleen lezen; schrijven kost eenmalig zo'n 30 euro |
 | Fysieke sleutel | YubiKey | Andere FIDO2-sleutels | Koop er twee. Dit is de enige aanrader die geld kost |
 
-<Vraagje vraag="Wat klopt er over virusscanners op een Windows-computer?" opties={[
-  { tekst: 'Je hebt een betaalde scanner nodig', uitleg: 'Twintig jaar geleden wel. Nu zit er een goede in Windows en voegt een gekochte scanner daar weinig aan toe.' },
-  { tekst: 'De scanner die al in Windows zit, is voor bijna iedereen genoeg', goed: true, uitleg: 'Windows Beveiliging doet het werk. Pas wel op met gratis scanners van anderen: sommige verdienen geld aan wat jij op internet doet.' },
-  { tekst: 'Een goede scanner houdt ook babbeltrucs tegen', uitleg: 'Geen enkele scanner doet dat. Je updates, je tweede slot en je eigen oplettendheid doen meer.' },
-]} />
-
 **Over virusscanners.** Twintig jaar geleden moest je een virusscanner kopen. Nu zit er een goede in Windows en in de Mac. Die vangt de meeste gewone kwaadaardige programma's af, en een gekochte scanner is voor de meeste mensen niet nodig. Eén zwak punt: de scanner van Windows houdt geen nepwebsites tegen. Daar helpen je eigen oplettendheid en een wachtwoordmanager, die je wachtwoord niet invult op een nepsite. Sommige gratis scanners verdienen geld aan wat jij op internet doet. En geen enkele scanner houdt een babbeltruc tegen. Je updates, je tweede slot en je eigen oplettendheid doen meer.
 
 **Over Proton.** Proton is een Zwitsers bedrijf. Het maakt e-mail, een wachtwoordmanager, een VPN en opslag. Je betaalt met geld en niet met je gegevens. Dat is handig en betrouwbaar. Er zit één nadeel aan. Heb je alles bij één bedrijf? Dan opent één account al je deuren. Zet daar dus je sterkste slot op. Bewaar de herstelcodes in je noodpakket.
@@ -119,6 +134,8 @@ Dit is een lijst om in op te zoeken. De keuzes zijn gemaakt op vier punten. Het 
 - **[fraudehelpdesk.nl](https://www.fraudehelpdesk.nl)**: actuele oplichtingstrucs en een meldpunt
 
 *De gratis versies in deze lijst zijn nagelopen op <Nagelopen wat="gereedschap" />. Dit verandert regelmatig; klopt iets niet meer, laat het weten via de pagina [Over deze site](/over).*
+
+</Meer>
 
 ## Alles op één rij
 

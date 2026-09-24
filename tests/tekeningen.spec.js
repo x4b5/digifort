@@ -82,6 +82,9 @@ const meet = (speling) => {
 // daarvoor staat er een breder reserveletter of nog de ongekrompen maat, en dat geeft
 // fouten die er in het echt niet zijn.
 const wachtOpTekeningen = async (page) => {
+  // een tekening in een dichte uitklapper (Meer.astro) wordt pas gemeten als hij opengaat;
+  // klap ze open, zodat ook die tekeningen gecontroleerd worden
+  await page.evaluate(() => document.querySelectorAll('details.meer').forEach((d) => { d.open = true; }));
   // fonts.ready alleen is niet genoeg: dat is al 'klaar' als het lettertype nog niet is opgevraagd
   await page.evaluate(() => Promise.all([...document.fonts].map((f) => f.load().catch(() => null))));
   await expect.poll(() => page.evaluate(() => [...document.querySelectorAll('main svg[viewBox]')]
