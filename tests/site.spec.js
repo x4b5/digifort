@@ -157,3 +157,10 @@ test('de updates van Windows 10 staan op een tijdlijn, van begin tot de laatste 
   await expect(lijn).toContainText('14 oktober 2025');
   await expect(lijn).toContainText('12 oktober 2027');
 });
+
+test('bij Maersk laat een tekening zien dat alleen de computer in Ghana overbleef', async ({ page }) => {
+  await page.goto('/de-storm-om-het-huis');
+  const tekening = page.locator('svg[aria-label*="Ghana"]');
+  await expect(tekening).toHaveCount(1);
+  await expect(tekening.locator('.tek-rood')).toHaveCount(12);
+});
