@@ -1,0 +1,37 @@
+---
+/**
+ * De Europese vlag: twaalf gele sterren in een kring op blauw.
+ * De enige tekening met eigen kleuren, want een vlag in andere kleuren is geen vlag meer.
+ * Maten en kleuren volgen het officiële ontwerp:
+ * https://european-union.europa.eu/principles-countries-history/symbols/european-flag_en
+ * De sterren worden bij het bouwen uitgerekend: twaalf gelijke stappen rond het midden.
+ */
+const { maat = 24 } = Astro.props; // hoogte in pixels; de vlag is 3 breed bij 2 hoog
+
+const HOOGTE = 36;
+const BREEDTE = HOOGTE * 1.5;
+const AANTAL = 12;
+const KRING = HOOGTE / 3; // straal van de kring waarop de sterren staan
+const PUNT = HOOGTE / 18; // straal van een ster tot zijn punt
+const DAL = PUNT * 0.382; // straal tot de inham tussen twee punten
+const BLAUW = '#003399';
+const GEEL = '#FFCC00';
+
+function ster(cx: number, cy: number) {
+  const hoeken = Array.from({ length: 10 }, (_, i) => {
+    const r = i % 2 === 0 ? PUNT : DAL;
+    const a = -Math.PI / 2 + (i * Math.PI) / 5;
+    return `${(cx + r * Math.cos(a)).toFixed(2)} ${(cy + r * Math.sin(a)).toFixed(2)}`;
+  });
+  return `M${hoeken.join(' L')} Z`;
+}
+
+const sterren = Array.from({ length: AANTAL }, (_, i) => {
+  const a = (i * 2 * Math.PI) / AANTAL;
+  return ster(BREEDTE / 2 + KRING * Math.sin(a), HOOGTE / 2 - KRING * Math.cos(a));
+});
+---
+<svg width={maat * 1.5} height={maat} viewBox={`0 0 ${BREEDTE} ${HOOGTE}`} aria-hidden="true" focusable="false">
+  <rect width={BREEDTE} height={HOOGTE} fill={BLAUW} />
+  {sterren.map((d) => <path d={d} fill={GEEL} />)}
+</svg>

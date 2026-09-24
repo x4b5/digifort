@@ -1,5 +1,6 @@
 ---
 import { SITE, datumNL } from '../lib/site.js';
+import Europa from './Europa.astro';
 const { datum = SITE.laatstNagelopen } = Astro.props;
 ---
 <footer class="voet">
@@ -7,6 +8,7 @@ const { datum = SITE.laatstNagelopen } = Astro.props;
     <p>Deze pagina is voor het laatst nagelopen op <time datetime={datum}>{datumNL(datum)}</time>.</p>
     <p>Gratis, onafhankelijk, zonder reclame en zonder volgers. <a href="/over">Over deze site</a> · <a href="/kleine-lettertjes">De kleine lettertjes</a> · <button type="button" class="link" data-print>Zet mijn lijst op papier</button> · <button type="button" class="link" data-wis>Wis mijn antwoorden</button></p>
     <p class="melding" data-wis-melding role="status"></p>
+    <a class="europa" href="/kleine-lettertjes#wat-de-server-ziet"><Europa maat={24} /><span>Gehost in Europa</span></a>
   </div>
 </footer>
 
@@ -14,6 +16,9 @@ const { datum = SITE.laatstNagelopen } = Astro.props;
   .voet { border-top: var(--lijndikte) solid var(--lijn-sterk); margin-top: 4rem; padding: 1.75rem 0 2.5rem; color: var(--inkt-zacht); font-size: 0.95rem; }
   .voet p { margin: 0 0 0.4rem; }
   .melding:empty { display: none; }
+  .europa { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 0.9rem; color: var(--inkt); font-family: var(--kop); font-weight: 700; text-decoration: none; }
+  .europa:hover span { color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .europa svg { flex: none; }
   .melding { color: var(--inkt); font-weight: 700; }
   .link { background: none; border: 0; padding: 0; font: inherit; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: pointer; }
   /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
