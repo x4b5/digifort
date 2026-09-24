@@ -45,6 +45,16 @@ test('de voorpagina zegt dat het een website is', async ({ page }) => {
   expect(site.url).toBe(`${SITE.url}/`);
 });
 
+// korter en Google verzint zelf iets, langer en het wordt afgekapt
+for (const slug of ['', ...HOOFDSTUKKEN.map((h) => h.slug)]) {
+  test(`/${slug} heeft een omschrijving van een hele zin in de zoekresultaten`, async ({ page }) => {
+    await page.goto(`/${slug}`);
+    const tekst = await page.locator('meta[name="description"]').getAttribute('content');
+    expect(tekst?.length ?? 0).toBeGreaterThanOrEqual(70);
+    expect(tekst?.length ?? 0).toBeLessThanOrEqual(160);
+  });
+}
+
 test('de 404 hoort niet in een zoekmachine', async ({ page }) => {
   await page.goto('/404');
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');

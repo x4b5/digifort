@@ -36,10 +36,11 @@ const koppen = [
   // staat er onderaan iets waar de inhoudsopgave niets over zegt
   ...(quiz(h.id).length ? [{ slug: 'quiz', text: 'Wat blijft er hangen?', depth: 2 }] : []),
 ];
+const beschrijving = h.data.omschrijving ?? h.data.kort;
 ---
-<Pagina titel={h.data.titel} beschrijving={h.data.kort} datum={h.data.datum} soort="article"
+<Pagina titel={h.data.titel} beschrijving={beschrijving} datum={h.data.datum} soort="article"
   gegevens={[
-    artikelGegevens({ slug: h.id, titel: h.data.titel, beschrijving: h.data.kort, datum: h.data.datum }),
+    artikelGegevens({ slug: h.id, titel: h.data.titel, beschrijving, datum: h.data.datum }),
     h.id === 'woordenboek' && begrippenGegevens(),
   ]}>
   {leestijd && <div class="leesbalk" aria-hidden="true" />}
