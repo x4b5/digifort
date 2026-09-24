@@ -5,7 +5,7 @@
  */
 const SLEUTEL = 'jdh:lezen';
 
-export const STANDAARD = Object.freeze({ tekst: 'normaal', thema: 'auto' });
+export const STANDAARD = Object.freeze({ tekst: 'normaal', thema: 'light' });
 
 /** Alleen deze standen bestaan. Staat er iets anders in het laatje, dan negeren we het:
     anders zet één rare waarde de pagina in een stand die geen knop kan terugdraaien. */

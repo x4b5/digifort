@@ -13,15 +13,14 @@ const paginaTitel = titel ? `${titel} · ${SITE.naam}` : `${SITE.naam} Van open 
 const hier = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Astro.site);
 ---
 <!doctype html>
-<html lang="nl">
+<html lang="nl" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={beschrijving} />
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" />
     <title>{paginaTitel}</title>
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={hier} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -44,7 +43,9 @@ const hier = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Astro.si
       try {
         var v = JSON.parse(window.localStorage.getItem('jdh:lezen') || '{}');
         if (v.tekst && v.tekst !== 'normaal') document.documentElement.dataset.tekst = v.tekst;
-        if (v.thema && v.thema !== 'auto') document.documentElement.dataset.theme = v.thema;
+        // licht is de standaard; alleen wie zelf iets anders koos, krijgt dat
+        if (v.thema === 'dark') document.documentElement.dataset.theme = 'dark';
+        if (v.thema === 'auto') delete document.documentElement.dataset.theme;
       } catch (e) { /* opslag geblokkeerd: gewoon de standaardstand */ }
     </script>
   </head>

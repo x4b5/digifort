@@ -25,6 +25,26 @@ test('de leesknop zet de site in het donker', async ({ page }) => {
   expect(achtergrond).toBe('rgb(20, 20, 20)');
 });
 
+test.describe('op een apparaat dat op donker staat', () => {
+  test.use({ colorScheme: 'dark' });
+
+  test('begint de site toch licht', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    const achtergrond = await page.locator('body').evaluate((el) => getComputedStyle(el).backgroundColor);
+    expect(achtergrond).toBe('rgb(255, 255, 255)');
+  });
+
+  test('volgt de site het apparaat als je dat kiest', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.kop details.lezen summary').click();
+    await page.getByLabel('Zoals mijn apparaat').check();
+    await expect(page.locator('html')).not.toHaveAttribute('data-theme');
+    const achtergrond = await page.locator('body').evaluate((el) => getComputedStyle(el).backgroundColor);
+    expect(achtergrond).toBe('rgb(20, 20, 20)');
+  });
+});
+
 test('een uitklapper in de kop sluit met Escape', async ({ page }) => {
   await page.goto('/');
   const menu = page.locator('.kop details.menu');
