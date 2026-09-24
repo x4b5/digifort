@@ -34,10 +34,25 @@ export const HOOFDSTUKKEN = [
   { nr: 5, slug: 'onderhoud', titel: 'Onderhoud en opruimen', kort: 'Oude apparaten, weggooien, en wat er over jou op internet staat.' },
   { nr: 6, slug: 'als-er-is-ingebroken', titel: 'Als er toch is ingebroken', kort: 'Het eerste uur, je telefoon kwijt, en het noodpakket.' },
   { nr: 7, slug: 'voor-de-mensen-om-je-heen', titel: 'Voor de mensen om je heen', kort: 'Ouders, kinderen en collega’s: zij hebben ook een sleutel.' },
+  { nr: null, slug: 'het-inbraakspel', titel: 'Het inbraakspel', kort: 'Speel de oplichter en probeer geld los te krijgen bij Ria. Wie de truc zelf bedenkt, herkent hem later sneller.', extra: true },
   { nr: 8, slug: 'woordenboek', titel: 'Woordenboek', kort: 'Elke vakterm in één zin, met de plek in het huis erbij.' },
   { nr: 9, slug: 'over', titel: 'Over deze site', kort: 'Waarom, door wie, en waar de bronnen staan.' },
   { nr: null, slug: 'bronnen', titel: 'De bronnen', kort: 'Elke feitelijke bewering op deze site, met de bron erbij en of hij is nagelopen.', extra: true },
 ];
+
+/**
+ * De hoofdstukken, elk met de verdiepingen die erachter staan. Zo kan het menu
+ * en de homepage een verdieping onder zijn hoofdstuk wegklappen.
+ */
+/** @typedef {(typeof HOOFDSTUKKEN)[number]} Hoofdstuk */
+/** @returns {Array<Hoofdstuk & { verdiepingen: Hoofdstuk[] }>} */
+export function metVerdiepingen() {
+  return HOOFDSTUKKEN.reduce((/** @type {Array<Hoofdstuk & { verdiepingen: Hoofdstuk[] }>} */ groepen, h) => {
+    const vorige = groepen.at(-1);
+    if (!h.extra || !vorige) return [...groepen, { ...h, verdiepingen: [] }];
+    return [...groepen.slice(0, -1), { ...vorige, verdiepingen: [...vorige.verdiepingen, h] }];
+  }, []);
+}
 
 /**
  * Pagina's die bestaan maar niet in de leesroute staan: ze horen in de voetregel,

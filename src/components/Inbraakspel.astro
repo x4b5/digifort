@@ -1,0 +1,171 @@
+---
+/**
+ * "Breek in bij Ria": de lezer speelt de oplichter. Elke keuze zet een bericht in het
+ * gesprek, Ria antwoordt, en dan volgt de volgende keuze of een einde. Elk einde toont
+ * hoe Ria je had kunnen tegenhouden. Zonder JavaScript staat de hele route uitgeschreven.
+ */
+import { inbraakspel } from '../data/inbraakspel.js';
+interface Props { id: string }
+const s = inbraakspel(Astro.props.id);
+const uitslag = (binnen: boolean) => binnen ? 'Binnen.' : 'Mislukt.';
+---
+<figure class="inbraakspel" data-inbraakspel>
+  <div class="balk">
+    <p class="eyebrow">Speel de oplichter</p>
+    <p class="titel">{s.titel}</p>
+  </div>
+  <p class="intro">{s.intro}</p>
+
+  <div class="spel" data-spel hidden>
+    <div class="scherm">
+      <p class="kop"><span class="afzender">Ria</span><span class="kanaal">WhatsApp · jij stuurt vanaf een nieuw nummer</span></p>
+      <div class="gesprek" data-gesprek aria-live="polite"></div>
+      <p class="stempel" aria-hidden="true">Nagemaakt voorbeeld</p>
+    </div>
+    <p class="vraag" data-vraag></p>
+    <div class="keuzes" data-keuzes></div>
+    <div class="uitkomst" data-uitkomst="" tabindex="-1" hidden>
+      <strong data-uitslag></strong> <span data-uitkomst-tekst></span>
+    </div>
+  </div>
+
+  <ol class="uitgeschreven" data-uitgeschreven>
+    {Object.values(s.stappen).map((stap) => (
+      <li>
+        <strong>{stap.vraag}</strong>
+        <ul>
+          {stap.keuzes.map((k) => {
+            const einde = s.eindes[k.naar];
+            return (
+              <li>
+                "{k.jij}" Ria: "{k.ria}"{' '}
+                {einde ? <em>{uitslag(einde.binnen)} {einde.tekst}</em> : <em>Door naar de volgende stap.</em>}
+              </li>
+            );
+          })}
+        </ul>
+      </li>
+    ))}
+  </ol>
+
+  <div class="tegenhouden" data-tegenhouden>
+    <p><strong>Zo had Ria je tegengehouden</strong></p>
+    <ul>{s.tegenhouden.map((tip) => <li>{tip}</li>)}</ul>
+    <p><a href="/inbrekers-van-morgen#het-geheime-woord-van-je-familie">Spreek een geheim woord af</a></p>
+  </div>
+  <p class="opnieuw" data-opnieuw hidden><button type="button" class="knop licht klein">Probeer het opnieuw</button></p>
+
+  <script type="application/json" data-gegevens set:html={JSON.stringify(s)} />
+  <figcaption class="schermlezer">Een oefenspel met een nagemaakt WhatsApp-gesprek. Het is geen echt gesprek.</figcaption>
+</figure>
+
+<script>
+  import type { Inbraakspel } from '../data/inbraakspel.js';
+
+  document.querySelectorAll<HTMLElement>('[data-inbraakspel]').forEach((fig) => {
+    const s: Inbraakspel = JSON.parse(fig.querySelector('[data-gegevens]')!.textContent!);
+    const gesprek = fig.querySelector<HTMLElement>('[data-gesprek]')!;
+    const vraag = fig.querySelector<HTMLElement>('[data-vraag]')!;
+    const keuzes = fig.querySelector<HTMLElement>('[data-keuzes]')!;
+    const uitkomst = fig.querySelector<HTMLElement>('[data-uitkomst]')!;
+    const tegenhouden = fig.querySelector<HTMLElement>('[data-tegenhouden]')!;
+    const opnieuw = fig.querySelector<HTMLElement>('[data-opnieuw]')!;
+
+    // met JavaScript speel je; de uitgeschreven route is dan niet meer nodig
+    fig.querySelector<HTMLElement>('[data-spel]')!.hidden = false;
+    fig.querySelector<HTMLElement>('[data-uitgeschreven]')!.hidden = true;
+
+    function bubbel(wie: 'jij' | 'ria', tekst: string) {
+      const p = document.createElement('p');
+      p.className = `bubbel ${wie}`;
+      p.textContent = tekst;
+      gesprek.append(p);
+    }
+
+    function toonStap(id: string) {
+      const stap = s.stappen[id];
+      vraag.textContent = stap.vraag;
+      keuzes.replaceChildren(...stap.keuzes.map((k) => {
+        const knop = document.createElement('button');
+        knop.type = 'button';
+        knop.className = 'knop licht keuze';
+        knop.textContent = k.jij;
+        knop.addEventListener('click', () => kies(k));
+        return knop;
+      }));
+    }
+
+    function kies(k: Inbraakspel['stappen'][string]['keuzes'][number]) {
+      bubbel('jij', k.jij);
+      bubbel('ria', k.ria);
+      const einde = s.eindes[k.naar];
+      if (!einde) {
+        toonStap(k.naar);
+        keuzes.querySelector('button')!.focus();
+        return;
+      }
+      vraag.textContent = '';
+      keuzes.replaceChildren();
+      uitkomst.dataset.uitkomst = einde.binnen ? 'binnen' : 'mislukt';
+      uitkomst.querySelector('[data-uitslag]')!.textContent = einde.binnen ? 'Binnen.' : 'Mislukt. Ria’s fort hield stand.';
+      uitkomst.querySelector('[data-uitkomst-tekst]')!.textContent = einde.tekst;
+      uitkomst.hidden = false;
+      tegenhouden.hidden = false;
+      opnieuw.hidden = false;
+      uitkomst.focus();
+    }
+
+    function begin() {
+      gesprek.replaceChildren();
+      uitkomst.hidden = true;
+      uitkomst.dataset.uitkomst = '';
+      tegenhouden.hidden = true;
+      opnieuw.hidden = true;
+      toonStap(s.start);
+    }
+
+    opnieuw.querySelector('button')!.addEventListener('click', () => {
+      begin();
+      keuzes.querySelector('button')!.focus();
+    });
+    begin();
+  });
+</script>
+
+<style>
+  .inbraakspel { margin: 2rem 0; padding: 1.1rem 1.2rem 1.2rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); background: var(--papier-2); }
+  .balk { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1rem; }
+  .balk .eyebrow, .titel { margin: 0; }
+  .titel { font-family: var(--kop); font-weight: 700; }
+  .intro { margin: 0.6rem 0 0; font-size: 1rem; }
+
+  /* hetzelfde telefoonscherm als bij "vind de truc" */
+  .scherm { position: relative; max-width: 24rem; margin: 1rem auto; padding: 0.9rem 0.9rem 2.2rem; border: var(--lijndikte) solid var(--inkt); border-radius: 22px; background: var(--papier); }
+  .kop { display: flex; flex-direction: column; align-items: center; margin: 0 0 0.9rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--lijn); line-height: 1.3; }
+  .afzender { font-family: var(--kop); font-weight: 700; }
+  .kanaal { font-size: 0.8rem; color: var(--inkt-zacht); text-align: center; }
+  .gesprek { min-height: 3rem; }
+  .gesprek :global(.bubbel) { margin: 0 0 0.5rem; padding: 0.55rem 0.8rem; font-size: 1rem; line-height: 1.45; }
+  /* jij bent de oplichter: jouw berichten rechts, in de gevarenkleur */
+  .gesprek :global(.bubbel.jij) { margin-left: 2.5rem; border-radius: 16px 4px 16px 16px; background: var(--rood-licht); }
+  .gesprek :global(.bubbel.ria) { margin-right: 2.5rem; border-radius: 4px 16px 16px 16px; background: var(--papier-2); }
+  .stempel { position: absolute; right: 0.9rem; bottom: 0.5rem; margin: 0; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); }
+
+  .vraag { margin: 0 0 0.5rem; font-family: var(--kop); font-weight: 700; }
+  .vraag:empty { display: none; }
+  .keuzes { display: grid; gap: 0.5rem; }
+  .keuzes :global(.keuze) { width: 100%; text-align: left; white-space: normal; line-height: 1.4; }
+
+  .uitkomst { margin: 1rem 0 0; padding: 0.75rem 1rem; border-radius: var(--radius); font-size: 1rem; }
+  .uitkomst[data-uitkomst="mislukt"] { background: var(--groen-licht); }
+  .uitkomst[data-uitkomst="binnen"] { background: var(--rood-licht); }
+  .uitkomst:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  .uitgeschreven { margin: 1rem 0 0; padding-left: 1.4rem; font-size: 1rem; }
+  .uitgeschreven ul { padding-left: 1.2rem; }
+  .uitgeschreven li { margin: 0.35rem 0; }
+  .tegenhouden { margin: 1rem 0 0; font-size: 1rem; }
+  .tegenhouden p { margin: 0.4rem 0; }
+  .opnieuw { margin: 0.75rem 0 0; }
+  .klein { min-height: 2.75rem; padding: 0.3rem 0.9rem; font-size: 0.9rem; }
+</style>

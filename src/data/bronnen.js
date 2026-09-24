@@ -633,6 +633,26 @@ export const BRONNEN = [
     toelichting: [{ tekst: 'Het cijfer over hoi mam is van 2020. Over alle vormen van online oplichting samen worden 65-plussers juist minder vaak slachtoffer dan 25- tot 45-jarigen (CBS 2024); ouderen zijn vooral het doelwit van deze twee trucs' }],
   },
   {
+    hoofdstuk: ['inbrekers-van-nu', 'voor-de-mensen-om-je-heen', 'het-inbraakspel'],
+    bewering: 'Bij hulpvraagfraude ("hoi mam") meldt een bekende een nieuw nummer en vraagt daarna met haast om geld, met de belofte het snel terug te betalen. Oplichters halen namen, profielfoto\'s en persoonlijke details van sociale media. Wie terugbelt, hoort vaak alleen ruis en krijgt te horen dat er slecht bereik is',
+    bron: [
+      { tekst: 'Fraudehelpdesk, ik kreeg een WhatsApp-bericht van een bekende', href: 'https://www.fraudehelpdesk.nl/fraude/ik-krijg-een-whatsapp-bericht-van-een-bekende/' },
+      { tekst: 'Fraudehelpdesk, betaal nooit voor je het oude nummer hebt gebeld', href: 'https://www.fraudehelpdesk.nl/campagnes/hulpvraagfraude-laat-je-niet-neppen-tijdens-het-appen/' },
+      { tekst: 'SNS, hulpvraagfraude', href: 'https://www.snsbank.nl/particulier/over-sns/veilig-bankieren/soorten-fraude/hulpvraagfraude.html' },
+    ],
+    status: 'gecontroleerd',
+  },
+  {
+    hoofdstuk: ['inbrekers-van-nu', 'voor-de-mensen-om-je-heen', 'het-inbraakspel'],
+    bewering: 'Tegen hulpvraagfraude: maak niets over voordat je de bekende hebt gebeld op het oude nummer uit je eigen contacten. Stel een controlevraag die alleen de echte persoon weet, en spreek met je familie een codewoord af voor geldvragen',
+    bron: [
+      { tekst: 'Fraudehelpdesk, betaal nooit voor je het oude nummer hebt gebeld', href: 'https://www.fraudehelpdesk.nl/campagnes/hulpvraagfraude-laat-je-niet-neppen-tijdens-het-appen/' },
+      { tekst: 'RegioBank, hulpvraagfraude', href: 'https://www.regiobank.nl/service/online-bankieren/veilig-bankieren/vormen-van-fraude/hulpvraagfraude.html' },
+      { tekst: 'SNS, hulpvraagfraude', href: 'https://www.snsbank.nl/particulier/over-sns/veilig-bankieren/soorten-fraude/hulpvraagfraude.html' },
+    ],
+    status: 'gecontroleerd',
+  },
+  {
     hoofdstuk: ['van-geheim-woord-naar-zegelring'],
     bewering: 'Gestolen e-mailadressen en wachtwoorden worden doorverkocht op criminele marktplaatsen en daarna met programma\'s automatisch bij veel andere diensten geprobeerd (credential stuffing)',
     bron: [

@@ -48,7 +48,7 @@ test.describe('op een apparaat dat op donker staat', () => {
 test('een uitklapper in de kop sluit met Escape', async ({ page }) => {
   await page.goto('/');
   const menu = page.locator('.kop details.menu');
-  await menu.locator('summary').click();
+  await menu.locator(':scope > summary').click();
   await expect(menu).toHaveAttribute('open', '');
   await page.keyboard.press('Escape');
   await expect(menu).not.toHaveAttribute('open', '');
@@ -57,7 +57,7 @@ test('een uitklapper in de kop sluit met Escape', async ({ page }) => {
 test('twee uitklappers staan nooit tegelijk open', async ({ page }) => {
   await page.goto('/');
   await page.locator('.kop details.lezen summary').click();
-  await page.locator('.kop details.menu summary').click();
+  await page.locator('.kop details.menu > summary').click();
   await expect(page.locator('.kop details.lezen')).not.toHaveAttribute('open', '');
 });
 
@@ -89,7 +89,7 @@ for (const tekst of ['normaal', 'groter']) {
   test(`het open menu past op het scherm en elk hoofdstuk is te bereiken (tekst ${tekst})`, async ({ page }) => {
     await page.addInitScript((t) => window.localStorage.setItem('jdh:lezen', JSON.stringify({ tekst: t, thema: 'auto' })), tekst);
     await page.goto('/huischeck');
-    await page.locator('.kop details.menu summary').click();
+    await page.locator('.kop details.menu > summary').click();
     const paneel = page.locator('.kop details.menu .paneel');
     await expect(paneel).toBeVisible();
     const past = await paneel.evaluate((el) => {
@@ -98,8 +98,26 @@ for (const tekst of ['normaal', 'groter']) {
     });
     expect(past).toBe(true);
     // het laatste hoofdstuk kun je in beeld scrollen en aantikken
-    const laatste = paneel.locator('li').last().locator('a');
+    const laatste = paneel.locator('.menu-hoofd > li').last().locator(':scope > a');
     await laatste.scrollIntoViewIfNeeded();
     await expect(laatste).toBeInViewport();
   });
 }
+
+test('de verdiepingen liggen in het menu weggeklapt onder hun hoofdstuk', async ({ page }) => {
+  await page.goto('/huischeck');
+  await page.locator('.kop details.menu > summary').click();
+  const takken = page.locator('.kop details.menu .takken').first();
+  const verdieping = takken.locator('a').first();
+  await expect(verdieping).toBeHidden();
+  await takken.locator('summary').click();
+  await expect(verdieping).toBeVisible();
+  // het klapje opent, maar het menu blijft open
+  await expect(page.locator('.kop details.menu')).toHaveAttribute('open', '');
+});
+
+test('op een verdieping staat zijn klapje in het menu al open', async ({ page }) => {
+  await page.goto('/krijg-je-je-geld-terug');
+  await page.locator('.kop details.menu > summary').click();
+  await expect(page.locator('.kop details.menu a[aria-current="page"]')).toBeVisible();
+});

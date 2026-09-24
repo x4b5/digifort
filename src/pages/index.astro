@@ -6,7 +6,7 @@ import HuisEnFort from '../components/HuisEnFort.astro';
 import Verder from '../components/Verder.astro';
 import Snelcheck from '../components/Snelcheck.astro';
 import Poppetjes from '../components/Poppetjes.astro';
-import { HOOFDSTUKKEN } from '../lib/site.js';
+import { metVerdiepingen } from '../lib/site.js';
 /** De twee plekken waar je begint: groter en groen, zodat het raster een begin heeft. */
 const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 'Dan dit' };
 ---
@@ -42,14 +42,24 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
   <section class="hoofdstukken">
     <h2>De hoofdstukken</h2>
     <ol class="kaarten">
-      {HOOFDSTUKKEN.map((h) => (
-        <li class:list={{ extra: h.extra, start: START[h.slug] }}>
+      {metVerdiepingen().map((h) => (
+        <li class:list={{ start: START[h.slug], 'met-lade': h.verdiepingen.length > 0 }}>
           <a class="kaart" href={`/${h.slug}`}>
-            <span class="kaart-kop"><span class="nr">{h.extra ? 'Verdieping' : `Hoofdstuk ${h.nr}`}</span><HoofdstukIcoon slug={h.slug} maat={START[h.slug] ? 56 : 40} /></span>
+            <span class="kaart-kop"><span class="nr">Hoofdstuk {h.nr}</span><HoofdstukIcoon slug={h.slug} maat={START[h.slug] ? 56 : 40} /></span>
             <h3>{h.titel}</h3>
             <p>{h.kort}</p>
             {START[h.slug] && <span class="start-label">{START[h.slug]} →</span>}
           </a>
+          {h.verdiepingen.length > 0 && (
+            <details class="lade">
+              <summary>{h.verdiepingen.length === 1 ? '1 verdieping' : `${h.verdiepingen.length} verdiepingen`}</summary>
+              <ul>
+                {h.verdiepingen.map((v) => (
+                  <li><a href={`/${v.slug}`}><strong>{v.titel}</strong><span>{v.kort}</span></a></li>
+                ))}
+              </ul>
+            </details>
+          )}
         </li>
       ))}
     </ol>
@@ -75,9 +85,24 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
   .kleur.groen { background: var(--groen); }
   .hoofdstukken h2 { margin-top: 3rem; }
   .kaart-kop { display: flex; justify-content: space-between; align-items: center; }
-  li.extra .kaart { border-style: dashed; border-width: 2px; padding: calc(1.1rem + 1px) calc(1.2rem + 1px); background: var(--papier-2); }
-  li.extra .nr { color: var(--inkt-zacht); }
-  li.start .kaart { background: var(--groen-licht); height: 100%; display: flex; flex-direction: column; }
+  /* een hoofdstuk met verdiepingen krijgt een lade onder de kaart: dicht is het
+     één regel, open staan de verdiepingen eronder. Zo blijft het raster rustig. */
+  .kaarten > li { display: flex; flex-direction: column; }
+  .kaarten > li > .kaart { flex: 1; }
+  li.met-lade > .kaart { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+  .lade { border: var(--lijndikte) solid var(--lijn-sterk); border-top: 0; border-radius: 0 0 var(--radius) var(--radius); background: var(--papier-2); }
+  .lade summary { padding: 0.6rem 1.2rem; min-block-size: 44px; display: flex; align-items: center; gap: 0.4rem; list-style: none; cursor: pointer; font-family: var(--kop); font-size: 0.9rem; color: var(--inkt-zacht); }
+  .lade summary::-webkit-details-marker { display: none; }
+  .lade summary::before { content: '▸'; transition: transform 0.15s ease; }
+  .lade[open] summary::before { transform: rotate(90deg); }
+  .lade summary:hover { color: var(--inkt); }
+  .lade ul { list-style: none; margin: 0; padding: 0 0 0.5rem; }
+  .lade li { margin: 0; }
+  .lade li a { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.5rem 1.2rem 0.5rem 2.2rem; color: var(--inkt); text-decoration: none; }
+  .lade li a:hover { background: var(--papier); }
+  .lade li span { color: var(--inkt-zacht); font-size: 0.9rem; line-height: 1.4; }
+  @media (prefers-reduced-motion: reduce) { .lade summary::before { transition: none; } }
+  li.start .kaart { background: var(--groen-licht); display: flex; flex-direction: column; }
   li.start .kaart:hover { background: var(--papier-2); }
   li.start .nr { color: var(--inkt); }
   li.start h3 { font-size: 1.6rem; }

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { HOOFDSTUKKEN, VOETPAGINAS, SITE } from '../src/lib/site.js';
+import { HOOFDSTUKKEN, VOETPAGINAS, SITE, metVerdiepingen } from '../src/lib/site.js';
 import { WOORDEN } from '../src/data/woorden.js';
 import { KAMERS } from '../src/data/kamers.js';
 import { FORTDELEN } from '../src/data/fort.js';
@@ -59,4 +59,11 @@ test('het anti-flits-script gebruikt dezelfde opslagsleutel als lezen.js', () =>
 test('de site kent zijn eigen adres en contact', () => {
   expect(SITE.contact).toMatch(/@/);
   expect(SITE.laatstNagelopen).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+});
+
+test('elke verdieping hangt onder precies één hoofdstuk en er raakt er geen zoek', () => {
+  const groepen = metVerdiepingen();
+  expect(groepen.every((g) => !g.extra)).toBe(true);
+  const plat = groepen.flatMap((g) => [g.slug, ...g.verdiepingen.map((v) => v.slug)]);
+  expect(plat).toEqual(HOOFDSTUKKEN.map((h) => h.slug));
 });

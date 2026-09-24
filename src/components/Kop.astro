@@ -2,9 +2,10 @@
 import Logo from './Logo.astro';
 import HoofdstukIcoon from './HoofdstukIcoon.astro';
 import Lezen from './Lezen.astro';
-import { HOOFDSTUKKEN, SITE } from '../lib/site.js';
+import { metVerdiepingen, SITE } from '../lib/site.js';
 import { FORTDELEN } from '../data/fort.js';
 import { TOTAAL_SLOTEN } from '../data/lijsten.js';
+const GROEPEN = metVerdiepingen();
 const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, '');
 ---
 <header class="kop">
@@ -16,12 +17,24 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
     <details class="menu">
       <summary class="knop licht klein geen-driehoek">Menu</summary>
       <nav class="paneel" aria-label="Hoofdstukken">
-        <ol>
-          {HOOFDSTUKKEN.map((h) => (
-            <li class={h.extra ? 'extra' : ''}>
+        <ol class="menu-hoofd">
+          {GROEPEN.map((h) => (
+            <li>
               <a href={`/${h.slug}`} aria-current={huidig === `/${h.slug}` ? 'page' : undefined}>
-                {h.extra ? h.titel : <><HoofdstukIcoon slug={h.slug} maat={22} /><span class="nr">{h.nr}</span> {h.titel}</>}
+                <HoofdstukIcoon slug={h.slug} maat={22} /><span class="nr">{h.nr}</span> {h.titel}
               </a>
+              {h.verdiepingen.length > 0 && (
+                <details class="takken" open={h.verdiepingen.some((v) => huidig === `/${v.slug}`)}>
+                  <summary>{h.verdiepingen.length === 1 ? '1 verdieping' : `${h.verdiepingen.length} verdiepingen`}</summary>
+                  <ol>
+                    {h.verdiepingen.map((v) => (
+                      <li class="extra">
+                        <a href={`/${v.slug}`} aria-current={huidig === `/${v.slug}` ? 'page' : undefined}>{v.titel}</a>
+                      </li>
+                    ))}
+                  </ol>
+                </details>
+              )}
             </li>
           ))}
         </ol>
@@ -97,7 +110,8 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
 <script>
   // De uitklappers in de kop (Lezen en Menu) sluiten met Escape en
   // bij een klik ernaast. Zonder dit blijft een open menu hangen.
-  const uitklappers = Array.from(document.querySelectorAll<HTMLDetailsElement>('.kop details'));
+  // De klapjes met verdiepingen binnen het menu tellen niet mee: die sluiten het menu niet.
+  const uitklappers = Array.from(document.querySelectorAll<HTMLDetailsElement>('.kop details:not(.takken)'));
 
   function sluitAndere(open: HTMLDetailsElement | null) {
     uitklappers.forEach((d) => { if (d !== open) d.open = false; });
@@ -171,5 +185,13 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
   /* een verdieping hangt als zijtak aan het hoofdstuk erboven: de tekst begint
      onder de titel van dat hoofdstuk, met een dun lijntje als tak */
   li.extra a { margin-left: 3.4rem; padding: 0.35rem 1rem 0.35rem 1.8rem; border-left: var(--lijndikte-dun) solid var(--lijn); color: var(--inkt-zacht); font-size: 0.92rem; }
+  /* de verdiepingen liggen standaard weggeklapt: alleen een klein klapje onder het hoofdstuk */
+  .takken summary { margin-left: 3.4rem; padding: 0.2rem 1rem 0.35rem 0; list-style: none; cursor: pointer; color: var(--inkt-zacht); font-size: 0.85rem; }
+  .takken summary::-webkit-details-marker { display: none; }
+  .takken summary::before { content: '▸'; display: inline-block; width: 1rem; transition: transform 0.15s ease; }
+  .takken[open] summary::before { transform: rotate(90deg); }
+  .takken summary:hover { color: var(--inkt); }
+  @media (pointer: coarse) { .takken summary { min-block-size: 44px; display: flex; align-items: center; } }
+  @media (prefers-reduced-motion: reduce) { .takken summary::before { transition: none; } }
   li.extra a:hover, li.extra a[aria-current="page"] { color: var(--inkt); }
 </style>
