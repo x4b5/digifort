@@ -1,9 +1,15 @@
 ---
-/** Een fort in drie lijnen: kantelen, muur, en een rode poort. */
+/**
+ * Een massief fort met een gesloten poort en een sleutelgat: dicht en op slot.
+ * Geen rood, want rood betekent op deze site "staat open of gaat mis".
+ * Dezelfde vorm staat in public/favicon.svg en public/apple-touch-icon.png.
+ */
 const { maat = 32 } = Astro.props;
 ---
 <svg width={maat} height={maat} viewBox="0 0 40 40" aria-hidden="true" focusable="false">
-  <path class="tek" d="M6 34 V14 h6 v-5 h5 v5 h6 v-5 h5 v5 h6 V34" />
-  <line class="tek" x1="3" y1="34" x2="37" y2="34" />
-  <path class="tek-vul" d="M16 34 V24 a4 4 0 0 1 8 0 V34 Z" />
+  <!-- de lijn rondom rondt de hoeken af -->
+  <path class="tek-vul-inkt" style="stroke: var(--lijn-sterk); stroke-width: 2; stroke-linejoin: round" d="M5 33 V13 h6 v-6 h6 v6 h6 v-6 h6 v6 h6 V33 Z" />
+  <path class="tek-vul-papier" d="M15 33 V23 a5 5 0 0 1 10 0 V33 Z" />
+  <circle class="tek-vul-inkt" cx="20" cy="25.5" r="1.8" />
+  <path class="tek-vul-inkt" d="M19 26.5 h2 l0.6 4 h-3.2 Z" />
 </svg>
