@@ -5,6 +5,7 @@ import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import HuisEnFort from '../components/HuisEnFort.astro';
 import Verder from '../components/Verder.astro';
 import Snelcheck from '../components/Snelcheck.astro';
+import Poppetjes from '../components/Poppetjes.astro';
 import { HOOFDSTUKKEN } from '../lib/site.js';
 /** De twee plekken waar je begint: groter en groen, zodat het raster een begin heeft. */
 const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 'Dan dit' };
@@ -23,6 +24,7 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
       <Verder />
     </div>
     <aside class="hero-cijfer" aria-label="Eén cijfer">
+      <Poppetjes rood={1} van={10} />
       <strong class="getal">1 op 10</strong>
       <p>Nederlanders van 15 jaar en ouder werd in 2025 online opgelicht. Gehackt worden gebeurde minder vaak: 6 op 100. De meeste inbrekers breken niets open. Ze bellen aan.</p>
       <a class="bron" href="https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit">CBS, Veiligheidsmonitor 2025</a>

@@ -875,6 +875,13 @@ export const BRONNEN = [
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'Eerst verschenen in A. K. Dewdney, Computer Recreations, Scientific American, maart 1989, p. 110. Er gaat een versie rond met titanium en zenuwgas; die heeft Spafford volgens zijn eigen site nooit gezegd' }],
   },
+  {
+    hoofdstuk: ['over'],
+    bewering: 'Een kans als rij poppetjes (zoals de tien op de voorpagina, één in het rood) wordt nauwkeuriger begrepen dan alleen een getal, door mensen die goed met getallen zijn én door mensen die dat niet zijn',
+    bron: [{ tekst: 'Galesic, Garcia-Retamero en Gigerenzer, Using icon arrays to communicate medical risks: overcoming low numeracy, Health Psychology 28(2), 2009, blz. 210–216', href: 'https://doi.org/10.1037/a0014474' }],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'Twee experimenten, met ouderen (62 tot 77 jaar, n=59) en studenten (n=112). Een risico als poppetjes voelt ook minder ernstig dan hetzelfde risico als getal; dat past bij een site zonder bangmakerij' }],
+  },
 ];
 
 /** Hoeveel beweringen nog op 'nog koppelen' staan. Zo hoeft dat aantal niet in de tekst. */

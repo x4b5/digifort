@@ -179,9 +179,9 @@ th { font-family: var(--kop); font-size: 0.85rem; letter-spacing: 0.06em; text-t
 }
 
 /* tekeningen */
-figure.tekening { margin: 1.75rem 0 2rem; }
+figure.tekening, figure.poppetjes-figuur { margin: 1.75rem 0 2rem; }
 figure.tekening svg { display: block; width: 100%; height: auto; }
-figure.tekening figcaption { font-size: 0.95rem; color: var(--inkt-zacht); margin-top: 0.6rem; }
+figure.tekening figcaption, figure.poppetjes-figuur figcaption { font-size: 0.95rem; color: var(--inkt-zacht); margin-top: 0.6rem; }
 
 /* echte foto's: zelfde kader als een tekening, met een lijn eromheen */
 figure.foto img {

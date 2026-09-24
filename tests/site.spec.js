@@ -122,3 +122,22 @@ test('het woordenboek past op een telefoon zonder zijwaarts schuiven, en zoeken 
   await page.locator('[data-zoek]').fill('passkey');
   await expect(page.locator('tbody tr:visible')).toHaveCount(7);
 });
+
+test('het cijfer op de voorpagina staat er ook als tien poppetjes, één in het rood', async ({ page }) => {
+  await page.goto('/');
+  const rij = page.locator('.hero-cijfer [data-poppetjes]');
+  await expect(rij).toHaveAttribute('aria-hidden', 'true'); // de tekst zegt het al
+  await expect(rij.locator('[data-pop]')).toHaveCount(10);
+  await expect(rij.locator('[data-pop="rood"]')).toHaveCount(1);
+  // alle tien op één regel, ook op een telefoon
+  const tops = await rij.locator('[data-pop]').evaluateAll((p) => p.map((e) => Math.round(e.getBoundingClientRect().top)));
+  expect(new Set(tops).size).toBe(1);
+});
+
+test('bij de ouderen staan acht van de tien poppetjes in het rood', async ({ page }) => {
+  await page.goto('/voor-de-mensen-om-je-heen');
+  const figuur = page.locator('figure.poppetjes-figuur');
+  await expect(figuur.locator('[data-pop]')).toHaveCount(10);
+  await expect(figuur.locator('[data-pop="rood"]')).toHaveCount(8);
+  await expect(figuur.locator('figcaption')).toContainText('ouder dan 60');
+});

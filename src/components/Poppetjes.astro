@@ -1,0 +1,24 @@
+---
+/** Een kans als rij poppetjes: `rood` van de `van` zijn getroffen, de rest is grijs.
+    Mensen lezen een kans zo nauwkeuriger dan als getal (Galesic e.a. 2009, zie bronnen.js).
+    Verborgen voor de schermlezer: de tekst ernaast zegt hetzelfde. */
+interface Props { rood: number; van: number }
+const { rood, van } = Astro.props;
+const rij = Array.from({ length: van }, (_, i) => (i < rood ? 'rood' : 'grijs'));
+---
+<span class="poppetjes" data-poppetjes aria-hidden="true">
+  {rij.map((kleur) => (
+    <svg class={`pop pop-${kleur}`} data-pop={kleur} viewBox="0 0 20 40">
+      <circle cx="10" cy="6" r="5" />
+      <path d="M2 38 V20 a8 8 0 0 1 16 0 V38 Z" />
+    </svg>
+  ))}
+</span>
+
+<style>
+  .poppetjes { display: flex; flex-wrap: nowrap; gap: 0.3rem; }
+  .pop { width: 1.25rem; height: 2.5rem; flex: none; }
+  .pop-rood { fill: var(--rood); }
+  /* inkt-flauw is er voor decoratie; wat de poppetjes zeggen staat ook in de tekst */
+  .pop-grijs { fill: var(--inkt-flauw); }
+</style>
