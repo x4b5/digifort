@@ -361,7 +361,7 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['wie-bewaart-je-sleutel'],
-    bewering: 'Het Hof van Justitie van de EU verklaarde in 2015 (Schrems I) en in 2020 (Schrems II) de afspraken over gegevens naar de VS ongeldig, omdat de bescherming daar niet gelijkwaardig was aan die in de EU',
+    bewering: 'Het Hof van Justitie van de EU verklaarde in 2015 (Schrems I) en in 2020 (Schrems II) de afspraken over gegevens naar de VS ongeldig: Safe Harbour uit 2000 en Privacy Shield uit 2016, omdat de bescherming daar niet gelijkwaardig was aan die in de EU',
     bron: [{ tekst: 'Hof van Justitie van de EU, persbericht 91/20 over zaak C-311/18, 16 juli 2020', href: 'https://curia.europa.eu/jcms/upload/docs/application/pdf/2020-07/cp200091en.pdf' }],
     status: 'gecontroleerd',
     toelichting: [{ tekst: 'Het Hof oordeelde dat de Amerikaanse inlichtingenprogramma\'s niet beperkt waren tot wat strikt noodzakelijk is. Schrems I (2015) staat samengevat in het persbericht over Latombe hieronder' }],
@@ -431,8 +431,11 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['onderhoud'],
-    bewering: 'Ondersteuning Windows 10 gestopt op 14 oktober 2025; pc blijft werken maar krijgt geen beveiligingsupdates meer',
-    bron: [{ tekst: 'Microsoft Support, einde ondersteuning Windows 10', href: 'https://support.microsoft.com/nl-nl/windows/windows-10-ondersteuning-is-be%C3%ABindigd-op-14-oktober-2025-2ca8b313-1946-43d3-b55c-2b95b107f281' }],
+    bewering: 'Windows 10 verscheen op 29 juli 2015. De ondersteuning stopte op 14 oktober 2025; de pc blijft werken maar krijgt geen beveiligingsupdates meer',
+    bron: [
+      { tekst: 'Microsoft Support, einde ondersteuning Windows 10', href: 'https://support.microsoft.com/nl-nl/windows/windows-10-ondersteuning-is-be%C3%ABindigd-op-14-oktober-2025-2ca8b313-1946-43d3-b55c-2b95b107f281' },
+      { tekst: 'Microsoft Learn, levenscyclus van Windows 10 Home en Pro', href: 'https://learn.microsoft.com/nl-nl/lifecycle/products/windows-10-home-and-pro' },
+    ],
     status: 'gecontroleerd',
   },
   {

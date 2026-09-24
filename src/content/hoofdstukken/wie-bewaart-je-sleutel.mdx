@@ -8,6 +8,7 @@ import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
+import Tijdlijn from '../../components/Tijdlijn.astro';
 
 Je wachtwoorden, je mail en je foto's staan bijna altijd bij een bedrijf. Dat bedrijf bewaart een reservesleutel van jouw huis. Dan is de vraag niet alleen óf dat bedrijf te vertrouwen is. De vraag is ook: welk land kan dat bedrijf dwingen om de sleutel af te geven?
 
@@ -40,6 +41,18 @@ Dat betekent niet dat iemand in Amerika jouw vakantiefoto's leest. Zo'n bevel ga
 Europese bedrijven sturen elke dag gegevens naar Amerikaanse diensten. Daarvoor moet er een afspraak zijn dat die gegevens daar net zo goed beschermd zijn als hier. Die afspraak sneuvelde twee keer bij het Hof van Justitie van de Europese Unie: in 2015 en in 2020. De reden was beide keren dezelfde: Amerikaanse inlichtingendiensten konden te makkelijk bij Europese gegevens. ([bron](https://curia.europa.eu/jcms/upload/docs/application/pdf/2020-07/cp200091en.pdf))
 
 In 2023 kwam er een nieuwe afspraak, het Data Privacy Framework. ([bron](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/eu-us-data-transfers_en)) Een Fransman, Philippe Latombe, stapte naar de rechter. Op 3 september 2025 oordeelde het Gerecht van de EU dat de afspraak blijft staan, maar alleen gekeken naar de situatie van 2023. ([bron](https://curia.europa.eu/site/upload/docs/application/pdf/2025-09/cp250106en.pdf)) Hij ging in hoger beroep; die zaak loopt nog. ([bron](https://eur-lex.europa.eu/eli/C/2025/6610/oj/eng))
+
+<Tijdlijn stappen={[
+  { wanneer: '2000', tekst: 'Eerste afspraak: Safe Harbour.' },
+  { wanneer: '2015', tekst: 'Het Europese Hof zet er een streep door.', soort: 'rood' },
+  { wanneer: '2016', tekst: 'Tweede afspraak: Privacy Shield.' },
+  { wanneer: '2020', tekst: 'Het Europese Hof zet er weer een streep door.', soort: 'rood' },
+  { wanneer: '2023', tekst: 'Derde afspraak: het Data Privacy Framework.' },
+  { wanneer: '3 september 2025', tekst: 'Het Gerecht van de EU laat hem staan, gekeken naar de situatie van 2023.' },
+  { wanneer: 'Nu', tekst: 'Het hoger beroep bij het Europese Hof loopt nog.', soort: 'open' },
+]}>
+  Twee keer viel de afspraak om, om dezelfde reden. <a href="https://curia.europa.eu/jcms/upload/docs/application/pdf/2020-07/cp200091en.pdf">Hof van Justitie van de EU, 2020</a>
+</Tijdlijn>
 
 Voor jou betekent dat: de regels voor jouw gegevens bij een Amerikaans bedrijf kunnen nog een keer omvallen. Bij een Europees bedrijf speelt die vraag niet.
 

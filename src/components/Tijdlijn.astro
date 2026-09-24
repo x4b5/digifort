@@ -1,0 +1,37 @@
+---
+/** Een tijdlijn van boven naar beneden: een gewone lijst, dus leesbaar voor een schermlezer
+    en op elke schermbreedte. De stip volgt de kleurregel: rood waar iets misgaat,
+    groen waar het geregeld is, inkt voor de rest. `open` is een stip zonder vulling:
+    iets wat nog loopt. */
+interface Stap { wanneer: string; tekst: string; soort?: 'rood' | 'groen' | 'inkt' | 'open' }
+interface Props { stappen: Stap[] }
+const { stappen } = Astro.props;
+---
+<figure class="tijdlijn-figuur">
+  <ol class="tijdlijn" data-tijdlijn>
+    {stappen.map(({ wanneer, tekst, soort = 'inkt' }) => (
+      <li class={`stap stap-${soort}`} data-soort={soort}>
+        <span class="wanneer">{wanneer}</span>
+        <span class="wat">{tekst}</span>
+      </li>
+    ))}
+  </ol>
+  {Astro.slots.has('default') && <figcaption><slot /></figcaption>}
+</figure>
+
+<style>
+  .tijdlijn-figuur { margin: 1.75rem 0 2rem; }
+  .tijdlijn { list-style: none; margin: 0; padding: 0; }
+  .stap { position: relative; padding: 0 0 1.1rem 2rem; }
+  /* de lijn loopt van stip naar stip; de laatste stap heeft er geen onder zich */
+  .stap::before { content: ''; position: absolute; left: 0.45rem; top: 0.6rem; bottom: -0.6rem; border-left: var(--lijndikte) solid var(--lijn-sterk); }
+  .stap:last-child::before { display: none; }
+  .stap::after { content: ''; position: absolute; left: 0; top: 0.2rem; width: 1.2rem; height: 1.2rem; box-sizing: border-box; border-radius: 50%; border: var(--lijndikte) solid var(--lijn-sterk); background: var(--lijn-sterk); }
+  .stap-rood::after { background: var(--rood); border-color: var(--rood); }
+  .stap-groen::after { background: var(--groen); border-color: var(--groen); }
+  .stap-open::after { background: var(--papier); }
+  .wanneer { display: block; font-family: var(--kop); font-weight: 700; line-height: 1.3; }
+  .stap-rood .wanneer { color: var(--rood); }
+  .wat { display: block; line-height: 1.45; }
+  figcaption { font-size: 0.95rem; color: var(--inkt-zacht); margin-top: 0.2rem; }
+</style>

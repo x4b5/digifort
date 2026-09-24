@@ -11,6 +11,7 @@ import Kort from '../../components/Kort.astro';
 import Afvinklijst from '../../components/Afvinklijst.astro';
 import Foto from '../../components/Foto.astro';
 import Scene from '../../components/Scene.astro';
+import Tijdlijn from '../../components/Tijdlijn.astro';
 
 <Scene wie="ria" bron="Microsoft, einde ondersteuning Windows 10" href="https://support.microsoft.com/nl-nl/windows/windows-10-ondersteuning-is-be%C3%ABindigd-op-14-oktober-2025-2ca8b313-1946-43d3-b55c-2b95b107f281">
 
@@ -37,6 +38,15 @@ Een huis op slot zetten is één ding. Het daarna goed houden is iets anders. Di
 <Meer>
 
 Elk apparaat krijgt maar een paar jaar updates. Zolang die komen, loopt de timmerman langs en maakt hij nieuwe scheuren dicht voordat iemand ze vindt. Daarna werkt het apparaat nog gewoon, maar komt er niemand meer langs. Het voelt als een prima huis, tot iemand de scheur vindt.
+
+<Tijdlijn stappen={[
+  { wanneer: '29 juli 2015', tekst: 'Windows 10 verschijnt. Tien jaar lang komt de timmerman langs.', soort: 'groen' },
+  { wanneer: '14 oktober 2025', tekst: 'De gewone updates stoppen. De computer werkt gewoon door.', soort: 'rood' },
+  { wanneer: 'Tot 12 oktober 2027', tekst: 'Alleen wie zich aanmeldt, krijgt nog extra beveiligingsupdates.', soort: 'open' },
+  { wanneer: 'Daarna', tekst: 'Er komt niemand meer langs.', soort: 'rood' },
+]}>
+  Het leven van één besturingssysteem. <a href="https://learn.microsoft.com/nl-nl/lifecycle/products/windows-10-home-and-pro">Microsoft, levenscyclus van Windows 10</a>
+</Tijdlijn>
 
 - **Windows 10.** Microsoft is op 14 oktober 2025 gestopt met updates. Je hebt drie keuzes. Eén: stap gratis over op Windows 11, als je computer dat aankan. Kijk bij Instellingen en dan Windows Update. Twee: meld je aan voor de extra beveiligingsupdates van Microsoft. Die lopen voor gewone gebruikers tot 12 oktober 2027. Drie: koop een andere computer. Is je oude computer verder nog goed? Dan kun je er een ander systeem op zetten, zoals Linux of ChromeOS Flex.
 - **Android-telefoons.** Kijk bij Instellingen en dan Over de telefoon. Daar staat de datum van de laatste beveiligingsupdate. Is die lang geleden en komt er niets meer? Gebruik de telefoon dan niet meer voor je bank en je e-mail. Koop je een nieuwe telefoon? Kijk dan hoeveel jaar de maker updates belooft.

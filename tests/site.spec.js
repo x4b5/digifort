@@ -141,3 +141,19 @@ test('bij de ouderen staan acht van de tien poppetjes in het rood', async ({ pag
   await expect(figuur.locator('[data-pop="rood"]')).toHaveCount(8);
   await expect(figuur.locator('figcaption')).toContainText('ouder dan 60');
 });
+
+test('de afspraken met Amerika staan op een tijdlijn, met de twee strepen in het rood', async ({ page }) => {
+  await page.goto('/wie-bewaart-je-sleutel');
+  const lijn = page.locator('[data-tijdlijn]');
+  await expect(lijn.locator('li')).toHaveCount(7);
+  await expect(lijn.locator('[data-soort="rood"]')).toHaveCount(2);
+  await expect(lijn.locator('li').last()).toHaveAttribute('data-soort', 'open'); // het beroep loopt nog
+});
+
+test('de updates van Windows 10 staan op een tijdlijn, van begin tot de laatste extra update', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const lijn = page.locator('[data-tijdlijn]');
+  await expect(lijn.locator('li').first()).toContainText('29 juli 2015');
+  await expect(lijn).toContainText('14 oktober 2025');
+  await expect(lijn).toContainText('12 oktober 2027');
+});
