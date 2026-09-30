@@ -165,13 +165,10 @@ test('bij Maersk laat een tekening zien dat alleen de computer in Ghana overblee
   await expect(tekening.locator('.tek-rood')).toHaveCount(12);
 });
 
-test('de homepage toont alleen hoofdstukken; de verdiepingen liggen in een lade eronder', async ({ page }) => {
+test('de homepage toont alleen de titels van de hoofdstukken; de verdiepingen staan in het menu', async ({ page }) => {
   await page.goto('/');
-  const kaarten = page.locator('.hoofdstukken .kaarten > li');
-  await expect(kaarten).toHaveCount(HOOFDSTUKKEN.filter((h) => !h.extra).length);
-  const lade = page.locator('.hoofdstukken .lade').first();
-  const verdieping = lade.locator('a').first();
-  await expect(verdieping).toBeHidden();
-  await lade.locator('summary').click();
-  await expect(verdieping).toBeVisible();
+  const titels = page.locator('.hoofdstukken .hs-lijst > li');
+  await expect(titels).toHaveCount(HOOFDSTUKKEN.filter((h) => !h.extra).length);
+  await expect(page.locator('.hoofdstukken .lade')).toHaveCount(0);
+  await expect(page.locator('.hs-lijst li.start').first()).toContainText('Begin hier');
 });
