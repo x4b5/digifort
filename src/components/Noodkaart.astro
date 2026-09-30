@@ -4,9 +4,26 @@
  * Geen uitleg, alleen nummers die je met één tik belt. De stappen staan er direct onder.
  * Bronnen: politie.nl (112 en 0900-8844), Rijksoverheid en fraudehelpdesk.nl (088-786 73 72),
  * fraudehelpdesk.nl/bank (noodnummers van de banken); allemaal in src/data/bronnen.js.
+ * Banknummers nagelopen op 30 september 2026, elk op de site van de bank zelf:
+ *   ING        ing.nl/particulier/klantenservice/alarmlijn         020 22 888 00, 24/7
+ *   Rabobank   rabobank.nl/veiligbankieren/fraude-melden           088 722 66 00, 24/7
+ *   ABN AMRO   abnamro.nl/.../overzicht-alle-telefoonnummers.html  0900 00 24 (werkdagen 9-17),
+ *              088 22 62 630 buiten openingstijden, bij nood (pas blokkeren, fraude)
+ *   SNS / ASN  snsbank.nl/.../fraude-en-incidenten-melden.html,
+ *              asnbank.nl/.../meld-fraude-en-incidenten.html        070 35 69 335
+ *   RegioBank  regiobank.nl/.../zo-meld-je-fraude.html              070 35 69 335
+ *   Knab       knab.nl/veiligheid                                   020 303 16 59, 24/7 Fraude Alarmlijn
+ *   bunq       bunq.com/nl-nl/contact/report                        geen belnummer: support in de app of het formulier
  */
+const BANKEN = [
+  { naam: 'ING', tel: '020 22 888 00', telHref: 'tel:0202288800' },
+  { naam: 'Rabobank', tel: '088 722 66 00', telHref: 'tel:0887226600' },
+  { naam: 'ABN AMRO', tel: '088 22 62 630', telHref: 'tel:0882262630', noot: { tekst: 'Op werkdagen van 9 tot 17 uur:', tel: '0900 00 24', telHref: 'tel:09000024' } },
+  { naam: 'SNS, ASN of RegioBank', tel: '070 35 69 335', telHref: 'tel:0703569335' },
+  { naam: 'Knab', tel: '020 303 16 59', telHref: 'tel:0203031659' },
+];
 const NUMMERS = [
-  { wie: 'Geld weg of je pas misbruikt?', wat: 'Bel je bank. Het noodnummer staat op je pas en in de app.', link: { href: 'https://www.fraudehelpdesk.nl/bank/', tekst: 'Noodnummers van alle banken' } },
+  { wie: 'Geld weg of je pas misbruikt?', wat: 'Bel meteen je bank. Tik op jouw bank:', banken: true },
   { wie: 'Aangifte doen bij de politie', wat: 'Of online, via politie.nl.', tel: '0900-8844', telHref: 'tel:09008844' },
   { wie: 'Direct gevaar?', wat: 'Bel het alarmnummer.', tel: '112', telHref: 'tel:112' },
   { wie: 'Advies en melden: Fraudehelpdesk', wat: 'Alleen op werkdagen. Melden kan altijd via fraudehelpdesk.nl.', tel: '088-786 73 72', telHref: 'tel:0887867372' },
@@ -19,6 +36,24 @@ const NUMMERS = [
       <li>
         <p class="wie">{n.wie}</p>
         <p class="wat">{n.wat}</p>
+        {n.banken && (
+          <>
+            <ul class="banken" aria-label="Noodnummers van de banken">
+              {BANKEN.map((b) => (
+                <li>
+                  <a class="bel bank" href={b.telHref}>
+                    <span class="naam">{b.naam}</span>
+                    <span class="nr">Bel {b.tel}</span>
+                  </a>
+                  {b.noot && <p class="noot">{b.noot.tekst} <a href={b.noot.telHref}>bel {b.noot.tel}</a></p>}
+                </li>
+              ))}
+            </ul>
+            <p class="noot">bunq heeft geen belnummer: kies support in de bunq-app, of <a href="https://www.bunq.com/nl-nl/contact/report">meld het op bunq.com</a>.</p>
+            <p class="noot">Andere bank? Het noodnummer staat op je pas. Of kijk bij de <a href="https://www.fraudehelpdesk.nl/bank/">noodnummers van alle banken</a>.</p>
+            <p class="noot"><strong>Let op:</strong> je bank vraagt nooit om geld over te maken of een app te installeren. Wie dat vraagt, is een oplichter. Hang op en bel zelf.</p>
+          </>
+        )}
         {n.tel && <a class="bel" href={n.telHref}>Bel {n.tel}</a>}
         {n.link && <a class="link" href={n.link.href}>{n.link.tekst}</a>}
       </li>
@@ -43,4 +78,10 @@ const NUMMERS = [
   .bel:focus-visible, .link:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
   .link { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 700; }
   .daarna { margin: 1rem 0 0; }
+  .banken { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); gap: 0.6rem; margin: 0.3rem 0 0.6rem; }
+  .bank { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; width: 100%; min-height: 3.5rem; padding: 0.45rem 1rem; box-sizing: border-box; }
+  .bank .naam { font-size: 1rem; line-height: 1.2; }
+  .bank .nr { font-size: 1.15rem; line-height: 1.3; white-space: nowrap; }
+  .noot { margin: 0.25rem 0 0; font-size: var(--tekst-m); }
+  .banken .noot { margin-top: 0.2rem; }
 </style>
