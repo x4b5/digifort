@@ -23,9 +23,9 @@ const BANKEN = [
   { naam: 'Knab', tel: '020 303 16 59', telHref: 'tel:0203031659' },
 ];
 const NUMMERS = [
+  { wie: 'Direct gevaar?', wat: 'Bel het alarmnummer.', tel: '112', telHref: 'tel:112' },
   { wie: 'Geld weg of je pas misbruikt?', wat: 'Bel meteen je bank. Tik op jouw bank:', banken: true },
   { wie: 'Aangifte doen bij de politie', wat: 'Of online, via politie.nl.', tel: '0900-8844', telHref: 'tel:09008844' },
-  { wie: 'Direct gevaar?', wat: 'Bel het alarmnummer.', tel: '112', telHref: 'tel:112' },
   { wie: 'Advies en melden: Fraudehelpdesk', wat: 'Alleen op werkdagen. Melden kan altijd via fraudehelpdesk.nl.', tel: '088-786 73 72', telHref: 'tel:0887867372' },
 ];
 ---
@@ -49,9 +49,8 @@ const NUMMERS = [
                 </li>
               ))}
             </ul>
-            <p class="noot">bunq heeft geen belnummer: kies support in de bunq-app, of <a href="https://www.bunq.com/nl-nl/contact/report">meld het op bunq.com</a>.</p>
-            <p class="noot">Andere bank? Het noodnummer staat op je pas. Of kijk bij de <a href="https://www.fraudehelpdesk.nl/bank/">noodnummers van alle banken</a>.</p>
-            <p class="noot"><strong>Let op:</strong> je bank vraagt nooit om geld over te maken of een app te installeren. Wie dat vraagt, is een oplichter. Hang op en bel zelf.</p>
+            <p class="noot">Andere bank? Het nummer staat op je pas, of bij de <a href="https://www.fraudehelpdesk.nl/bank/">noodnummers van alle banken</a>. Bij bunq meld je het in de app.</p>
+            <p class="noot"><strong>Let op:</strong> je bank vraagt nooit om geld over te maken of een app te installeren. Hang op en bel zelf.</p>
           </>
         )}
         {n.tel && <a class="bel" href={n.telHref}>Bel {n.tel}</a>}
