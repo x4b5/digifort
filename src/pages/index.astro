@@ -6,6 +6,7 @@ import HuisEnFort from '../components/HuisEnFort.astro';
 import Verder from '../components/Verder.astro';
 import Snelcheck from '../components/Snelcheck.astro';
 import Poppetjes from '../components/Poppetjes.astro';
+import Portret from '../components/Portret.astro';
 import { metVerdiepingen } from '../lib/site.js';
 /** De twee plekken waar je begint: groter en groen, zodat het raster een begin heeft. */
 const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 'Dan dit' };
@@ -16,11 +17,11 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
       <p class="eyebrow">Digitale weerbaarheid in gewone taal</p>
       <h1>Van open huis naar fort.</h1>
       <p class="intro">Je gaat niet naar het internet. Het internet komt bij jou binnen. Elke app, elk account en elk apparaat is een deur, en bij de meeste mensen <a href="/huischeck#hoe-weten-we-dat">staan die deuren open</a>. Deze site helpt je ze dicht te doen, stap voor stap, tot je huis een fort is. Zonder bangmakerij en zonder reclame.</p>
-      <p class="knoppen">
-        <a class="knop" href="/huischeck#doe-de-huischeck">Doe de huischeck →</a>
-        <a class="knop licht" href="/een-avond">Ik heb één avond</a>
-        <a class="knop licht" href="/de-storm-om-het-huis">Waarom nu?</a>
-      </p>
+      <div class="begin">
+        <a class="knop groot" href="/huischeck#doe-de-huischeck">Begin hier: doe de huischeck →</a>
+        <p class="begin-uitleg">Tien vragen, twee minuten. Je ziet meteen welke deuren bij jou openstaan.</p>
+      </div>
+      <p class="anders-kan">Liever meteen aan de slag? <a href="/een-avond">Ik heb één avond</a>. Eerst weten waarom? <a href="/de-storm-om-het-huis">Waarom nu</a>.</p>
       <Verder />
     </div>
     <aside class="hero-cijfer" aria-label="Eén cijfer">
@@ -29,6 +30,17 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
       <p>Nederlanders van 15 jaar en ouder werd in 2025 online opgelicht. Gehackt worden gebeurde minder vaak: 6 op 100. De meeste inbrekers breken niets open. Ze bellen aan.</p>
       <a class="bron" href="https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit">CBS, Veiligheidsmonitor 2025</a>
     </aside>
+  </section>
+
+  <section class="anders" aria-labelledby="anders-kop">
+    <h2 id="anders-kop">Wat deze site anders maakt</h2>
+    <ul class="anders-lijst">
+      <li><a href="#fort"><strong>Eén verhaal, geen losse tips</strong><span>Elke stap maakt een deel van je fort af. Zo zie je wat je al hebt, en wat nog openstaat.</span></a></li>
+      <li><a href="/inbrekers-van-nu"><strong><span class="gezin" aria-hidden="true"><Portret wie="ria" maat={32} /><Portret wie="sanne" maat={32} /><Portret wie="milan" maat={32} /></span>Een gezin dat het meemaakt</strong><span>Ria, haar dochter Sanne en kleinzoon Milan krijgen de trucs die jou ook kunnen overkomen.</span></a></li>
+      <li><a href="/het-inbraakspel"><strong>Speel zelf de oplichter</strong><span>In het inbraakspel probeer je geld los te krijgen bij Ria. Wie de truc zelf bedenkt, herkent hem later sneller.</span></a></li>
+      <li><a href="/bronnen"><strong>Een bron bij elke bewering</strong><span>Geen “experts zeggen”. Bij elk cijfer staat waar het vandaan komt, zodat je het zelf kunt nalezen.</span></a></li>
+      <li><a href="/kleine-lettertjes#wat-deze-site-over-jou-bijhoudt"><strong>Geen cookies, geen reclame</strong><span>Deze site volgt je niet en toont geen reclame. Gratis, en in gewone taal.</span></a></li>
+    </ul>
   </section>
 
   <section class="fort" id="fort">
@@ -67,8 +79,6 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
 </Pagina>
 
 <style>
-  /* de tekstkolom blijft leesbaar smal, maar de knoppen mogen de volle breedte
-     gebruiken: anders valt de derde op een breed scherm alleen op een tweede regel */
   .hero { padding-bottom: 1rem; display: grid; gap: 1.5rem 2.5rem; align-items: end; }
   @media (min-width: 60rem) { .hero { grid-template-columns: minmax(0, 1fr) 17rem; } }
   .hero-cijfer { border-left: 6px solid var(--rood); padding: 0.25rem 0 0.25rem 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; }
@@ -76,9 +86,25 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
   .hero-cijfer p { margin: 0; font-size: 1rem; line-height: 1.45; }
   .hero-cijfer .bron { align-self: flex-start; padding: 0.3rem 0; font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); text-decoration-thickness: 1px; }
   .fort-uitleg { margin-top: 2rem; }
-  .hero-tekst > :not(.knoppen) { max-width: var(--maat); }
+  .hero-tekst > * { max-width: var(--maat); }
   .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
-  .knoppen { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  /* één knop in het eerste scherm: wie hier nieuw is, hoeft niet te kiezen */
+  .begin { margin-top: 1.5rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .knop.groot { font-size: 1.2rem; padding: 0.8rem 1.4rem; }
+  .begin-uitleg { margin: 0; color: var(--inkt-zacht); }
+  .anders-kan { margin-top: 1.25rem; }
+  .anders-kan a { display: inline-block; padding: 0.35rem 0; }
+  .anders h2 { margin-top: 2.5rem; }
+  .anders-lijst { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
+  @media (min-width: 40rem) { .anders-lijst { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 64rem) { .anders-lijst { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .anders-lijst li { margin: 0; }
+  .anders-lijst a { display: flex; flex-direction: column; gap: 0.35rem; height: 100%; padding: 1rem 1.2rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); color: var(--inkt); text-decoration: none; }
+  .anders-lijst a:hover { background: var(--papier-2); }
+  .anders-lijst a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .anders-lijst strong { font-family: var(--kop); font-size: 1.15rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  .anders-lijst a > span { color: var(--inkt-zacht); line-height: 1.45; }
+  .gezin { display: flex; gap: 0.25rem; }
   .fort-kop { margin-top: 2rem; }
   .kleur { font-weight: 700; padding: 0 0.3rem; border-radius: var(--radius); color: var(--op-kleur); }
   .kleur.rood { background: var(--rood); }
