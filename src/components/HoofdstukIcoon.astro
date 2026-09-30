@@ -10,6 +10,8 @@ const SOORT: Record<string, string> = {
   huischeck: 'doen',
   'aan-de-slag': 'doen',
   'een-avond': 'doen',
+  'een-weekend': 'doen',
+  'ik-wil-verder': 'doen',
   'van-geheim-woord-naar-zegelring': 'doen',
   onderhoud: 'doen',
   'het-fort-afbouwen': 'doen',
@@ -28,6 +30,8 @@ const soort = SOORT[slug] ?? 'naslag';
     {slug === 'de-storm-om-het-huis' && <g><path class="tek" d="M12 26 a10 10 0 0 1 18 -8 a12 12 0 0 1 22 3 a8 8 0 0 1 -2 15 H18 a8 8 0 0 1 -6 -10 z" /><path class="tek-rood" d="M32 36 l-6 8 h8 l-6 10" /><path class="tek-dun" d="M16 42 l-3 6 M46 42 l-3 6" /></g>}
     {slug === 'aan-de-slag' && <g><rect class="tek" x="10" y="12" width="20" height="42" rx="2" /><circle class="tek-dun" cx="26" cy="34" r="1.6" /><path class="tek-groen" d="M14 30 l4 4 l8 -9" /><rect class="tek" x="36" y="12" width="20" height="42" rx="2" /><circle class="tek-dun" cx="40" cy="34" r="1.6" /><path class="tek-rood" d="M47 24 V42" /><path class="tek" d="M8 54 H56" /></g>}
     {slug === 'een-avond' && <g><circle class="tek" cx="32" cy="34" r="22" /><path class="tek" d="M32 34 V20" /><path class="tek" d="M32 34 l12 6" /><path class="tek-dun" d="M24 8 h16" /></g>}
+    {slug === 'een-weekend' && <g><rect class="tek" x="12" y="14" width="40" height="38" rx="3" /><path class="tek" d="M12 24 H52" /><path class="tek-dun" d="M22 8 v10 M42 8 v10" /><path class="tek" d="M20 38 l6 6 l10 -12" /></g>}
+    {slug === 'ik-wil-verder' && <g><path class="tek" d="M20 56 V8 M44 56 V8" /><path class="tek-dun" d="M20 46 H44 M20 34 H44 M20 22 H44" /><path class="tek" d="M26 14 l6 -6 l6 6" /></g>}
     {slug === 'van-geheim-woord-naar-zegelring' && <g><path class="tek" d="M16 56 V8 M48 56 V8" /><path class="tek-groen" d="M16 17 H48" /><path class="tek-dun" d="M16 28 H48 M16 39 H48" /><path class="tek-rood" d="M16 50 H48" /></g>}
     {slug === 'het-fort-afbouwen' && <g><path class="tek" d="M10 56 V22 H18 V28 H26 V22 H38 V28 H46 V22 H54 V56 Z" /><path class="tek-dun" d="M10 36 H54" /><path class="tek-groen" d="M26 56 V46 a6 6 0 0 1 12 0 V56" /></g>}
     {slug === 'onderhoud' && <g><path class="tek" d="M12 18 H52" /><path class="tek" d="M26 18 V13 H38 V18" /><path class="tek" d="M17 22 L20 52 H44 L47 22" /><path class="tek-dun" d="M26 28 V46 M38 28 V46" /></g>}

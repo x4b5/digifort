@@ -1,0 +1,28 @@
+---
+import Pagina from '../layouts/Pagina.astro';
+import Avond from '../components/Avond.astro';
+import { WEEKEND } from '../data/weekend.js';
+import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
+import Buren from '../components/Buren.astro';
+import { artikelGegevens } from '../lib/gegevens.js';
+import { SITE } from '../lib/site.js';
+
+const BESCHRIJVING = 'Tien stappen, één per scherm, ongeveer vier uur. Daarna zit je hele huis goed op slot.';
+---
+<Pagina titel="Ik heb een weekend" beschrijving={BESCHRIJVING} soort="article"
+  gegevens={artikelGegevens({ slug: 'een-weekend', titel: 'Ik heb een weekend', beschrijving: BESCHRIJVING, datum: SITE.laatstNagelopen })}>
+  <div class="paginakop">
+    <div>
+      <p class="eyebrow">Stap voor stap</p>
+      <h1>Ik heb een weekend</h1>
+    </div>
+    <HoofdstukIcoon slug="een-weekend" maat={72} />
+  </div>
+  <p class="intro">Tien stappen, één per scherm. Doe op zaterdag stap 1 tot en met 4 en op zondag de rest. Stoppen mag altijd: wat je afvinkt, blijft in je eigen browser staan en telt mee in <a href="/aan-de-slag#niveau-2">hoofdstuk 4</a>.</p>
+  <Avond lijst="niveau-2" uitleg={WEEKEND} moment="Klaar voor dit weekend" alles="Alle tien de stappen van niveau 2 zijn gedaan. Je huis zit nu goed op slot." volgende={{ href: '/ik-wil-verder', tekst: 'Wil je verder? Niveau 3 →' }} />
+  <Buren slug="een-weekend" />
+</Pagina>
+<style>
+  .paginakop { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+  .paginakop > :global(.hicoon) { flex: none; margin-top: 0.4rem; }
+</style>

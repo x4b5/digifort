@@ -3,7 +3,7 @@ export const SITE = {
   naam: 'digi-fort.',
   url: 'https://digi-fort.nl', // gelijk aan `site` in astro.config.mjs; eenheid.spec.js bewaakt dat
   slogan: 'Digitale weerbaarheid in gewone taal, zonder bangmakerij en zonder reclame.',
-  laatstNagelopen: '2026-09-24',
+  laatstNagelopen: '2026-09-30',
   contact: 'x4b5.clause500@8shield.net', // SimpleLogin-alias, stuurt door naar Proton
 };
 
@@ -29,6 +29,8 @@ export const HOOFDSTUKKEN = [
   { nr: null, slug: 'wie-bewaart-je-sleutel', titel: 'Wie bewaart je sleutel?', kort: 'Een Amerikaans bedrijf moet je gegevens afgeven aan Amerika, ook als ze in Europa staan. Daarom kiest deze site Europees waar het kan.', extra: true },
   { nr: 4, slug: 'aan-de-slag', titel: 'Aan de slag: deur voor deur', kort: 'Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis.' },
   { nr: null, slug: 'een-avond', titel: 'Ik heb één avond', kort: 'Zes stappen, één per scherm, ongeveer een uur. Dezelfde lijst als niveau 1.', extra: true },
+  { nr: null, slug: 'een-weekend', titel: 'Ik heb een weekend', kort: 'Tien stappen, één per scherm, ongeveer vier uur. Dezelfde lijst als niveau 2.', extra: true },
+  { nr: null, slug: 'ik-wil-verder', titel: 'Ik wil verder', kort: 'Zes klussen, één per scherm, voor wie de basis heeft staan. Dezelfde lijst als niveau 3.', extra: true },
   { nr: null, slug: 'van-geheim-woord-naar-zegelring', titel: 'Van geheim woord naar zegelring', kort: 'De ladder: acht manieren om in te loggen, van zwak naar sterk.', extra: true },
   { nr: null, slug: 'het-fort-afbouwen', titel: 'Het fort afbouwen', kort: 'Voor wie niveau 3 al heeft: eerst een bouwtekening, dan de zwaarste sloten die er zijn.', extra: true },
   { nr: 5, slug: 'onderhoud', titel: 'Onderhoud en opruimen', kort: 'Oude apparaten, weggooien, en wat er over jou op internet staat.' },

@@ -19,7 +19,7 @@ for (const pad of PAGINAS) {
 // in donker gelden andere kleuren; contrastfouten zitten juist daar
 test.describe('donkere stand', () => {
   test.use({ colorScheme: 'dark' });
-  for (const pad of ['/', '/huischeck', '/aan-de-slag', '/een-avond', '/van-geheim-woord-naar-zegelring']) {
+  for (const pad of ['/', '/huischeck', '/aan-de-slag', '/een-avond', '/een-weekend', '/ik-wil-verder', '/van-geheim-woord-naar-zegelring']) {
     test(`${pad} heeft geen toegankelijkheidsfouten in donker (axe)`, async ({ page }) => {
       await page.addInitScript(() => window.localStorage.setItem('jdh:lezen', '{"tekst":"normaal","thema":"dark"}'));
       await axe(page, pad);

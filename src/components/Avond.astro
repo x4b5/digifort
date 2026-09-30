@@ -1,17 +1,35 @@
 ---
 /**
- * Eén avond, zes stappen, één per scherm. Elke "Gedaan" is hetzelfde vinkje als in hoofdstuk 4,
+ * Een lijst uit hoofdstuk 4, één stap per scherm: de avond (niveau 1), het weekend (niveau 2)
+ * en "Ik wil verder" (niveau 3). Elke "Gedaan" is hetzelfde vinkje als in hoofdstuk 4,
  * dus het fort en de teller in de kop groeien mee.
  */
 import { LIJSTEN } from '../data/lijsten.js';
 import { AVOND } from '../data/avond.js';
 import HuisEnFort from './HuisEnFort.astro';
 import Merk from './Merk.astro';
-const stappen = LIJSTEN['niveau-1'].items;
+interface Props {
+  lijst?: string;
+  uitleg?: Record<string, { hoe: string[], gereedschap: string[], klaar: string }>;
+  /** bovenregel van het slotscherm, en de zin als alles gedaan is */
+  moment?: string;
+  alles?: string;
+  volgende?: { href: string, tekst: string };
+}
+const {
+  lijst = 'niveau-1',
+  uitleg = AVOND,
+  moment = 'Klaar voor vanavond',
+  alles = 'Alle zes de stappen van niveau 1 zijn gedaan. Daarmee houd je de meeste inbrekers al buiten.',
+  volgende = { href: '/een-weekend', tekst: 'Volgende keer: niveau 2 →' },
+} = Astro.props;
+const stappen = LIJSTEN[lijst].items;
 const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
+/** vanaf anderhalf uur leest "4 uur" makkelijker dan "240 minuten" */
+const duur = (min: number) => (min >= 90 ? `${Math.round(min / 60)} uur` : `${min} minuten`);
 ---
-<section class="avond" data-avond data-totaal={stappen.length}>
-  <p class="stand" data-stand aria-live="polite">Stap 1 van {stappen.length} · ongeveer {totaalTijd} minuten in totaal</p>
+<section class="avond" data-avond data-lijst={lijst} data-alles={alles} data-totaal={stappen.length}>
+  <p class="stand" data-stand aria-live="polite">Stap 1 van {stappen.length}{totaalTijd > 0 && ` · ongeveer ${duur(totaalTijd)} in totaal`}</p>
   <ol class="bolletjes" aria-hidden="true">
     {stappen.map((_, i) => <li data-bol={i}>{i + 1}</li>)}
   </ol>
@@ -20,13 +38,13 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
     <article class="stap" data-stap={i} data-item={it.id} data-tijd={it.tijd ?? 0} hidden>
       <p class="eyebrow">Stap {i + 1}{it.tijd && ` · ${it.tijd} min`}</p>
       <h2 tabindex="-1">{it.stap}</h2>
-      <p class="waarom">{it.waarom}.</p>
+      <p class="waarom">{it.waarom.replace(/[.]$/, '')}.</p>
       <p class="eyebrow klein hoe-kop">Zo doe je het</p>
-      <ol class="hoe">{AVOND[it.id].hoe.map((h) => <li>{h}</li>)}</ol>
-      {AVOND[it.id].gereedschap?.length > 0 && (
-        <p class="gereedschap"><span class="eyebrow zacht klein gereedschap-kop">Gereedschap</span> {AVOND[it.id].gereedschap.map((g) => <Merk id={g} maat={22} link />)}</p>
+      <ol class="hoe">{uitleg[it.id].hoe.map((h) => <li>{h}</li>)}</ol>
+      {uitleg[it.id].gereedschap?.length > 0 && (
+        <p class="gereedschap"><span class="eyebrow zacht klein gereedschap-kop">Gereedschap</span> {uitleg[it.id].gereedschap.map((g) => <Merk id={g} maat={22} link />)}</p>
       )}
-      <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {AVOND[it.id].klaar} <button type="button" class="link" data-toch-niet>Toch niet gedaan</button></p>
+      <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {uitleg[it.id].klaar} <button type="button" class="link" data-toch-niet>Toch niet gedaan</button></p>
       <p class="knoppen">
         <button type="button" class="knop" data-gedaan>Gedaan, volgende →</button>
         <button type="button" class="knop licht" data-over>Sla over</button>
@@ -36,12 +54,12 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
   ))}
 
   <article class="stap einde" data-einde hidden>
-    <p class="eyebrow">Klaar voor vanavond</p>
+    <p class="eyebrow">{moment}</p>
     <h2 tabindex="-1" data-einde-kop>Je fort staat</h2>
     <p data-einde-tekst></p>
     <HuisEnFort legenda={false} uitleg="Elk groen deel heb je vanavond zelf gebouwd." />
     <p class="knoppen">
-      <a class="knop" href="/aan-de-slag#niveau-2">Volgende keer: niveau 2 →</a>
+      <a class="knop" href={volgende.href}>{volgende.tekst}</a>
       <button type="button" class="knop licht" data-opnieuw>Bekijk de stappen nog eens</button>
     </p>
   </article>
@@ -51,7 +69,7 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
   import { lees, zetVinkje } from '../lib/opslag.js';
 
   document.querySelectorAll<HTMLElement>('[data-avond]').forEach((s) => {
-    const LIJST = 'niveau-1';
+    const LIJST = s.dataset.lijst!;
     const stappen = Array.from(s.querySelectorAll<HTMLElement>('[data-stap]'));
     const einde = s.querySelector<HTMLElement>('[data-einde]')!;
     const stand = s.querySelector<HTMLElement>('[data-stand]')!;
@@ -73,13 +91,14 @@ const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
         // alleen wat nog open staat, net als in de afvinklijst in hoofdstuk 4;
         // de minuten komen uit data-tijd, niet uit de zichtbare tekst
         const rest = stappen.reduce((n, el, i) => n + (isGedaan(i) ? 0 : Number(el.dataset.tijd)), 0);
-        stand.textContent = `Stap ${huidig + 1} van ${totaal}${rest ? ` · nog ongeveer ${rest} minuten` : ''}`;
+        const duur = rest >= 90 ? `${Math.round(rest / 60)} uur` : `${rest} minuten`;
+        stand.textContent = `Stap ${huidig + 1} van ${totaal}${rest ? ` · nog ongeveer ${duur}` : ''}`;
         stappen[huidig].querySelector<HTMLElement>('[data-klaar-zin]')!.hidden = !isGedaan(huidig);
       } else {
         stand.textContent = `${klaar} van ${totaal} stappen gedaan`;
         einde.querySelector<HTMLElement>('[data-einde-kop]')!.textContent = klaar === totaal ? 'Je fort staat' : `${klaar} van de ${totaal} stappen staan`;
         einde.querySelector<HTMLElement>('[data-einde-tekst]')!.textContent = klaar === totaal
-          ? 'Alle zes de stappen van niveau 1 zijn gedaan. Daarmee houd je de meeste inbrekers al buiten.'
+          ? s.dataset.alles!
           : 'De overgeslagen stappen staan in hoofdstuk 4 klaar om later af te maken.';
       }
       if (focus) (huidig < totaal ? stappen[huidig] : einde).querySelector<HTMLElement>('h2')?.focus();
