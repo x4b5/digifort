@@ -11,7 +11,7 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
 <header class="kop">
   <div class="wrap kop-rij">
     <a class="merk" href="/"><Logo maat={34} /><span>{SITE.naam}</span></a>
-    <a class="sloten" href="/#fort" data-sloten hidden title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst>{`0 van ${TOTAAL_SLOTEN} sloten dicht`}</span></a>
+    <a class="sloten" href="/aan-de-slag#je-fort-terwijl-je-bouwt" data-sloten hidden title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst>{`0 van ${TOTAAL_SLOTEN} sloten dicht`}</span></a>
     <p class="feestje" data-feestje role="status" aria-live="polite"></p>
     <Lezen />
     <details class="menu">

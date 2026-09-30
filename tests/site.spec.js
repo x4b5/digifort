@@ -60,7 +60,7 @@ test('een woord in het woordenboek linkt naar zijn plek op de plattegrond', asyn
 
 test('de plattegrond linkt naar het juiste kopje', async ({ page }) => {
   await page.goto('/plattegrond');
-  await page.locator('[data-kamer-legenda="ramen"] a').click();
+  await page.locator('a[data-kamer="ramen"]').press('Enter');
   await expect(page).toHaveURL(/plattegrond#de-ramen-je-browser/);
   await expect(page.locator('#de-ramen-je-browser')).toBeInViewport();
 });
@@ -165,10 +165,10 @@ test('bij Maersk laat een tekening zien dat alleen de computer in Ghana overblee
   await expect(tekening.locator('.tek-rood')).toHaveCount(12);
 });
 
-test('de homepage toont alleen de titels van de hoofdstukken; de verdiepingen staan in het menu', async ({ page }) => {
+test('de homepage is een trechter: één knop, en die gaat naar de huischeck', async ({ page }) => {
   await page.goto('/');
-  const titels = page.locator('.hoofdstukken .hs-lijst > li');
-  await expect(titels).toHaveCount(HOOFDSTUKKEN.filter((h) => !h.extra).length);
-  await expect(page.locator('.hoofdstukken .lade')).toHaveCount(0);
-  await expect(page.locator('.hs-lijst li.start').first()).toContainText('Begin hier');
+  const knoppen = page.locator('main .knop');
+  await expect(knoppen).toHaveCount(1);
+  await expect(knoppen).toHaveAttribute('href', '/huischeck#doe-de-huischeck');
+  await expect(page.locator('main [data-snelcheck], main .hoofdstukken')).toHaveCount(0);
 });

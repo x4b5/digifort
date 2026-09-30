@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 
 test('het fort kleurt mee met de huischeck', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/aan-de-slag');
   await expect(page.locator('[data-deel="toren"]')).toHaveAttribute('data-toestand', 'onbekend');
   await page.goto('/huischeck');
   await page.locator('[data-vraag="4"] .ja').click(); // updates: ja → torenwacht staat
   await page.locator('[data-vraag="1"] .nee').click(); // e-mail: nee → poort wankelt
-  await page.goto('/');
+  await page.goto('/aan-de-slag');
   await expect(page.locator('[data-deel="toren"]')).toHaveAttribute('data-toestand', 'dicht');
   await expect(page.locator('[data-deel="poort"]')).toHaveAttribute('data-toestand', 'open');
   await expect(page.locator('[data-fort-stand]')).toHaveText('1 van de 10 delen van je fort staan, 1 wankelt nog.');

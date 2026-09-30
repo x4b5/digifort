@@ -1,13 +1,8 @@
 ---
 import { websiteGegevens } from '../lib/gegevens.js';
 import Pagina from '../layouts/Pagina.astro';
-import HuisEnFort from '../components/HuisEnFort.astro';
 import Verder from '../components/Verder.astro';
-import Snelcheck from '../components/Snelcheck.astro';
 import Poppetjes from '../components/Poppetjes.astro';
-import { metVerdiepingen } from '../lib/site.js';
-/** De twee plekken waar je begint: groter en groen, zodat het raster een begin heeft. */
-const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 'Dan dit' };
 ---
 <Pagina breed gegevens={websiteGegevens()} beschrijving="Elke app is een deur naar je huis. Deze site laat zien waar je digitale huis openstaat en hoe je het stap voor stap dichtmaakt. Gratis, in gewone taal.">
   <section class="hero">
@@ -28,37 +23,6 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
       <a class="bron" href="https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit">CBS, Veiligheidsmonitor 2025</a>
     </aside>
   </section>
-
-  <p class="anders-kan">Liever meteen aan de slag? <a href="/een-avond">Ik heb één avond</a>. Eerst weten waarom? <a href="/de-storm-om-het-huis">Waarom nu</a>.</p>
-
-  <!-- één regel in plaats van vijf kaarten: wie wil weten waarom deze site anders is, klikt door -->
-  <p class="anders">{[
-    ['#fort', 'Eén verhaal, van huis naar fort'],
-    ['/inbrekers-van-nu', 'een gezin dat het meemaakt'],
-    ['/het-inbraakspel', 'speel zelf de oplichter'],
-    ['/bronnen', 'een bron bij elke bewering'],
-    ['/kleine-lettertjes#wat-deze-site-over-jou-bijhoudt', 'geen cookies, geen reclame'],
-  ].map(([href, tekst], i) => <>{i > 0 && ' · '}<a href={href}>{tekst}</a></>)}</p>
-
-  <section class="fort" id="fort">
-    <h2 class="fort-kop">Hoe staat jouw fort ervoor?</h2>
-    <p class="tekst">Dit zijn de eerste drie vragen van de huischeck. Wat je regelt, kleurt <span class="kleur groen">groen</span>; wat openstaat, kleurt <span class="kleur rood">rood</span>. Kijk wat er met het fort hieronder gebeurt.</p>
-    <Snelcheck />
-    <p class="tekst fort-uitleg">Links het huis waar de meeste mensen in wonen. Rechts het fort waar we naartoe werken. Elk deel hoort bij een stap uit <a href="/aan-de-slag">hoofdstuk 4</a>.</p>
-    <HuisEnFort />
-  </section>
-
-  <!-- alleen de titels: de uitleg staat bovenaan elk hoofdstuk, de verdiepingen in het menu -->
-  <section class="hoofdstukken">
-    <h2>De hoofdstukken</h2>
-    <ol class="hs-lijst">
-      {metVerdiepingen().map((h) => (
-        <li class:list={{ start: START[h.slug] }}>
-          <a href={`/${h.slug}`}><span class="nr">{h.nr}</span><span class="titel">{h.titel}</span>{START[h.slug] && <span class="start-label">{START[h.slug]}</span>}</a>
-        </li>
-      ))}
-    </ol>
-  </section>
 </Pagina>
 
 <style>
@@ -68,32 +32,15 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
   .hero-cijfer .getal { font-family: var(--kop); font-size: clamp(2.6rem, 6vw, 3.4rem); line-height: 1; color: var(--rood); letter-spacing: -0.02em; }
   .hero-cijfer p { margin: 0; font-size: 1rem; line-height: 1.45; }
   .hero-cijfer .bron { align-self: flex-start; padding: 0.3rem 0; font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); text-decoration-thickness: 1px; }
-  .fort-uitleg { margin-top: 2rem; }
   .hero-tekst > * { max-width: var(--maat); }
   .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
-  /* één knop in het eerste scherm: wie hier nieuw is, hoeft niet te kiezen */
+  /* een trechter: de voorpagina heeft één knop, naar de huischeck. De hoofdstukken staan in het menu. */
   .begin { margin-top: 1.5rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .knop.groot { font-size: 1.2rem; padding: 0.8rem 1.4rem; }
   .begin-uitleg { margin: 0; color: var(--inkt-zacht); }
-  .anders-kan { margin-top: 1.25rem; }
-  .anders-kan a { display: inline-block; padding: 0.35rem 0; }
   /* de bron bij de bewering: aanklikbaar, maar geen tweede rode knop naast "Begin hier" */
   .intro .bronlink { color: inherit; }
-  .anders { margin: 0.5rem 0 0; max-width: var(--maat); color: var(--inkt-zacht); font-size: 0.95rem; line-height: 1.8; }
-  .anders a { color: var(--inkt); }
-  .fort-kop { margin-top: 2rem; }
-  .kleur { font-weight: 700; padding: 0 0.3rem; border-radius: var(--radius); color: var(--op-kleur); }
-  .kleur.rood { background: var(--rood); }
-  .kleur.groen { background: var(--groen); }
-  .hoofdstukken h2 { margin-top: 3rem; }
-  .hs-lijst { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0 2.5rem; }
   @media (min-width: 48rem) { .hs-lijst { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .hs-lijst li { margin: 0; border-bottom: var(--lijndikte-dun) solid var(--lijn); }
-  .hs-lijst a { display: flex; align-items: baseline; gap: 0.9rem; min-block-size: 44px; padding: 0.7rem 0; color: var(--inkt); text-decoration: none; font-family: var(--kop); font-weight: 700; font-size: 1.1rem; }
-  .hs-lijst a:hover .titel { color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
-  .hs-lijst a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-  .hs-lijst .nr { flex: none; min-width: 1.6rem; color: var(--inkt-zacht); font-variant-numeric: tabular-nums; }
-  .start-label { margin-left: auto; flex: none; font-size: 0.85rem; color: var(--groen); }
   /* op een telefoon moeten de knoppen in het eerste scherm passen */
   @media (max-width: 40rem) { .hero .intro { font-size: 1.12rem; } }
 </style>

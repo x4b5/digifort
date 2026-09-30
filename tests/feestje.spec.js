@@ -1,17 +1,17 @@
 import { test, expect } from '@playwright/test';
 
 test('een fortdeel dat dicht gaat, krijgt een feestje in de kop', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/huischeck');
   const feestje = page.locator('[data-feestje]');
   await expect(feestje).toBeEmpty();
 
-  await page.locator('[data-snel="2"] .ja').click();
+  await page.locator('[data-vraag="2"] .ja').click();
   await expect(feestje).toHaveText('De gracht staat.');
   await expect(feestje).toHaveClass(/zichtbaar/);
   await expect(page.locator('[data-kanteel="gracht"]')).toHaveClass(/net-dicht/);
 
   // een "nee" is geen feest
-  await page.locator('[data-snel="4"] .nee').click();
+  await page.locator('[data-vraag="4"] .nee').click();
   await expect(feestje).toHaveText('De gracht staat.');
 
   // bij het laden van een pagina is er niets te vieren, ook al staat de gracht
