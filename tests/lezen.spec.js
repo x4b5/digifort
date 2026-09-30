@@ -121,3 +121,13 @@ test('op een verdieping staat zijn klapje in het menu al open', async ({ page })
   await page.locator('.kop details.menu > summary').click();
   await expect(page.locator('.kop details.menu a[aria-current="page"]')).toBeVisible();
 });
+
+test('de kop schuift weg bij naar beneden lezen en komt terug bij omhoog scrollen', async ({ page }) => {
+  await page.goto('/inbrekers-van-nu');
+  const kop = page.locator('header.kop');
+  await page.evaluate(() => window.scrollTo(0, 900));
+  await expect(kop).toHaveClass(/weg/);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(900); // soepel scrollen eerst laten uitlopen
+  await page.evaluate(() => window.scrollTo(0, 700));
+  await expect(kop).not.toHaveClass(/weg/);
+});

@@ -15,7 +15,7 @@ const THEMAS = [
 ];
 ---
 <details class="lezen" data-lezen>
-  <summary class="knop licht klein geen-driehoek"><span class="aa" aria-hidden="true">Aa</span> Weergave</summary>
+  <summary class="knop licht klein geen-driehoek"><span class="aa" aria-hidden="true">Aa</span> <span class="woord">Weergave</span></summary>
   <div class="paneel">
     <fieldset>
       <legend class="eyebrow zacht klein">Tekstgrootte</legend>
@@ -58,6 +58,8 @@ const THEMAS = [
 <style>
   .lezen { position: relative; }
   .aa { font-size: 1.1em; }
+  /* op een smalle telefoon alleen "Aa", zodat de kop op één regel past; voorlezers horen nog steeds "Weergave" */
+  @media (max-width: 30rem) { .woord { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } }
   /* Chrome rekent de inhoud van een dichte <details> nog mee in de lay-out;
      zonder dit steekt het paneel buiten het scherm uit. */
   .lezen:not([open]) .paneel { display: none; }

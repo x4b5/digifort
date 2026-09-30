@@ -142,7 +142,10 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
   /* bij het wisselen van pagina blijft de kop staan en vloeit alleen de inhoud over */
   .kop { view-transition-name: kop; }
   @view-transition { navigation: auto; }
-  .kop { border-bottom: var(--lijndikte) solid var(--lijn-sterk); background: var(--papier); position: sticky; top: 0; z-index: 5; }
+  .kop { border-bottom: var(--lijndikte) solid var(--lijn-sterk); background: var(--papier); position: sticky; top: 0; z-index: 5; transition: transform 0.2s ease; }
+  /* naar beneden lezen: de kop schuift weg; een stukje omhoog en hij is er weer */
+  .kop.weg { transform: translateY(-100%); }
+  @media (prefers-reduced-motion: reduce) { .kop { transition: none; } }
   .kop-rij { display: flex; align-items: center; gap: 1rem; min-height: 4.25rem; flex-wrap: wrap; }
   .merk { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--kop); font-weight: 700; font-size: 1.25rem; color: var(--inkt); text-decoration: none; }
   .sloten { margin-left: auto; font-size: 0.9rem; color: var(--inkt-zacht); display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; }
@@ -173,10 +176,11 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
   /* de kop blijft staan als je scrolt, dus een menu dat langer is dan het scherm
      scrolt zelf; anders zijn de laatste hoofdstukken onbereikbaar */
   .menu nav { max-height: calc(100dvh - 9rem); overflow-y: auto; overscroll-behavior: contain; }
-  /* op een telefoon staat de knop links op een eigen regel: het menu hangt dan
-     aan de hele kopregel, zodat het niet links buiten beeld uitklapt */
+  /* op een telefoon past alles op één regel; het menu hangt aan de hele
+     kopregel, zodat het over de volle breedte uitklapt en niet buiten beeld valt */
   @media (max-width: 40rem) {
-    .kop-rij { position: relative; }
+    .kop-rij { position: relative; flex-wrap: nowrap; gap: 0.6rem; }
+    .merk { font-size: 1.1rem; }
     .menu { position: static; }
     .menu nav { left: clamp(1rem, 4vw, 2rem); right: clamp(1rem, 4vw, 2rem); min-width: 0; }
   }
@@ -199,3 +203,23 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
   @media (prefers-reduced-motion: reduce) { .takken summary::before { transition: none; } }
   li.extra a:hover, li.extra a[aria-current="page"] { color: var(--inkt); }
 </style>
+
+<script>
+  // Op een telefoon pakt een vaste kop een kwart van het scherm. Wie naar beneden
+  // leest, krijgt dat scherm terug; wie omhoog scrollt (zoekt), ziet de kop meteen.
+  const kop = document.querySelector<HTMLElement>('header.kop');
+  let vorige = window.scrollY;
+  window.addEventListener('scroll', () => {
+    if (!kop) return;
+    const nu = window.scrollY;
+    const ietsOpen = kop.querySelector('details[open]');
+    if (nu < 80 || ietsOpen || nu < vorige - 4) kop.classList.remove('weg');
+    else if (nu > vorige + 4) kop.classList.add('weg');
+    vorige = nu;
+  }, { passive: true });
+  // wie met Tab door de kop gaat, moet hem zien
+  kop?.addEventListener('focusin', () => kop.classList.remove('weg'));
+  // een feestje hangt onder de kop: dan moet de kop er ook zijn
+  const feest = kop?.querySelector('[data-feestje]');
+  if (kop && feest) new MutationObserver(() => { if (feest.classList.contains('zichtbaar')) kop.classList.remove('weg'); }).observe(feest, { attributes: true, attributeFilter: ['class'] });
+</script>
