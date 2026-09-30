@@ -2,7 +2,7 @@
 nr: null
 titel: "De storm om het huis"
 kort: "Staten, hackers en oorlog op afstand: wat de wereld met jouw voordeur te maken heeft."
-datum: "2026-09-24"
+datum: "2026-09-30"
 ---
 import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
@@ -13,8 +13,31 @@ import Storm from '../../components/tekeningen/Storm.astro';
 import Foto from '../../components/Foto.astro';
 import Verhaal from '../../components/Verhaal.astro';
 import Maersk from '../../components/tekeningen/Maersk.astro';
+import Doe from '../../components/Doe.astro';
 
-Er is oorlog in Europa, en die wordt ook op internet gevoerd. Jouw huis staat niet op het slagveld. Maar het staat wel in de storm. Dit hoofdstuk legt uit wat dat betekent, met cijfers, en waarom het antwoord toch gewoon hetzelfde is: sloten.
+Er is oorlog in Europa, en die wordt ook op internet gevoerd. Jouw huis staat niet op het slagveld. Maar het staat wel in de storm.
+
+## Wat dit voor jou betekent
+
+<Kort>niemand komt speciaal voor jou. Maar een website, internet of je bank kan een dag niet werken. Met een paar sloten en een briefje op papier sta je droog.</Kort>
+
+<Doe>
+
+**Dit doe je vandaag. Drie dingen, één voor één.**
+
+1. **Zet een tweede slot op je e-mail.** Een code uit een app, of een passkey. Hoe dat gaat: [trede 6](/van-geheim-woord-naar-zegelring#trede-6).
+2. **Zet de updates van je router aan** en geef hem een nieuw wachtwoord. Hoe dat gaat: [niveau 2](/aan-de-slag#niveau-2).
+3. **Leg wat contant geld en een lijstje telefoonnummers op papier klaar.** Voor als internet of betalen een dag niet werkt. Zie het [noodpakket](/als-er-is-ingebroken#noodpakket).
+
+</Doe>
+
+Meer hoeft niet. De rest van dit hoofdstuk legt uit waarom, in kleine stukjes. Lees wat je wilt; je mag ook stoppen.
+
+## Wat je níet hoeft
+
+- **Geen bunker.** Je hoeft geen "militaire" VPN, geen speciale telefoon en geen dure software. Wie dat aan gewone mensen verkoopt, verkoopt angst.
+- **Geen paniek.** Het NCSC, de dienst die bedrijven en de overheid helpt met digitale veiligheid, adviseert al jaren hetzelfde: doe de basis goed. Dat is [niveau 1 en 2](/aan-de-slag).
+- **Geen nieuws volgen.** Je hoeft niet te weten welke groep vandaag wie aanvalt. Je hoeft alleen te weten welke deuren jij dicht hebt.
 
 ## Wat er aan de hand is
 
@@ -42,14 +65,23 @@ De NCTV, de dienst die over de veiligheid van Nederland gaat, zegt het zo: lande
 
 ## De cijfers
 
+<Kort>bijna alle aanvallen op accounts zijn gewoon wachtwoorden raden. Een tweede slot houdt ze bijna allemaal tegen.</Kort>
+
 <Cijfers items={[
-  { getal: '80 jaar', tekst: 'zo lang bestaat de AIVD, en nooit zag de dienst zoveel dreiging tegelijk als nu', bron: 'AIVD, jaarverslag 2025', href: 'https://www.aivd.nl/actueel/magazines/jaarverslag/2025/2025/cyberdreigingen' },
-  { getal: '4.875', tekst: 'cyberaanvallen in één jaar in de EU; bijna 80% kwam van actiegroepen die websites platleggen', bron: 'ENISA, 2025', href: 'https://www.enisa.europa.eu/sites/default/files/2026-01/ENISA%20Threat%20Landscape%202025_v1.2.pdf' },
-  { getal: '60%', tekst: 'van de inbraken begint met een babbeltruc: een nepbericht waar iemand op klikt', bron: 'ENISA, 2025', href: 'https://www.enisa.europa.eu/sites/default/files/2026-01/ENISA%20Threat%20Landscape%202025_v1.2.pdf' },
   { getal: '10 van de 10', tekst: 'landen die het vaakst door Russische hackers worden geraakt, zijn NAVO-landen. Nederland dus ook', bron: 'Microsoft, 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' },
   { getal: '97%', tekst: 'van de aanvallen op accounts die Microsoft zag, is gewoon wachtwoorden raden, in het groot', bron: 'Microsoft, 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/' },
   { getal: '99%', tekst: 'van die inbraakpogingen houdt een tweede slot tegen. Een slot dat niet te phishen is, zoals een passkey, is nog sterker', bron: 'Microsoft, 2025', href: 'https://blogs.microsoft.com/on-the-issues/2025/10/16/mddr-2025/', kleur: 'groen' },
 ]} />
+
+<Meer titel="Nog drie cijfers">
+
+<Cijfers items={[
+  { getal: '80 jaar', tekst: 'zo lang bestaat de AIVD, en nooit zag de dienst zoveel dreiging tegelijk als nu', bron: 'AIVD, jaarverslag 2025', href: 'https://www.aivd.nl/actueel/magazines/jaarverslag/2025/2025/cyberdreigingen' },
+  { getal: '4.875', tekst: 'cyberaanvallen in één jaar in de EU; bijna 80% kwam van actiegroepen die websites platleggen', bron: 'ENISA, 2025', href: 'https://www.enisa.europa.eu/sites/default/files/2026-01/ENISA%20Threat%20Landscape%202025_v1.2.pdf' },
+  { getal: '60%', tekst: 'van de inbraken begint met een babbeltruc: een nepbericht waar iemand op klikt', bron: 'ENISA, 2025', href: 'https://www.enisa.europa.eu/sites/default/files/2026-01/ENISA%20Threat%20Landscape%202025_v1.2.pdf' },
+]} />
+
+</Meer>
 
 <Vraagje vraag="De website van je gemeente ligt plat door een aanval. Wat is er dan meestal gestolen?" opties={[
   { tekst: 'De gegevens van alle inwoners', uitleg: 'Meestal niets daarvan. Bij dit soort aanvallen komt niemand binnen; de deur wordt alleen geblokkeerd.' },
@@ -115,12 +147,6 @@ Het gereedschap van een staat is beter en het geduld is groter. Maar de deuren w
 | De gemeente platleggen | Niet jouw deur | Geduld. En een [noodpakket](/als-er-is-ingebroken#noodpakket) op papier, zodat je niet stilvalt |
 
 </Meer>
-
-## Wat je níet hoeft
-
-- **Geen bunker.** Je hoeft geen "militaire" VPN, geen speciale telefoon en geen dure software. Wie dat aan gewone mensen verkoopt, verkoopt angst.
-- **Geen paniek.** Het NCSC, de dienst die bedrijven en de overheid helpt met digitale veiligheid, adviseert al jaren hetzelfde: doe de basis goed. Dat is [niveau 1 en 2](/aan-de-slag).
-- **Geen nieuws volgen.** Je hoeft niet te weten welke groep vandaag wie aanvalt. Je hoeft alleen te weten welke deuren jij dicht hebt.
 
 <Noot titel="Waar het beeld niet klopt">Een fort bouw je niet om de storm tegen te houden, maar om er droog in te staan terwijl hij overwaait. Een fort houdt een leger tegen. Jouw sloten niet: een staat die echt jou wil, komt binnen. Maar een staat die tienduizend huizen tegelijk probeert, loopt door naar het huis waar de deur openstaat. Zorg dat dat niet het jouwe is.</Noot>
 
