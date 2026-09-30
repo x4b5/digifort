@@ -3,7 +3,7 @@ nr: null
 titel: "Van geheim woord naar zegelring"
 kort: "De ladder: acht manieren om in te loggen, van zwak naar sterk."
 omschrijving: "Acht manieren om in te loggen, van zwak naar sterk: van één wachtwoord overal, via een kluis en een code op je telefoon, tot passkey en sleutel."
-datum: "2026-09-24"
+datum: "2026-09-30"
 ---
 import Vraagje from '../../components/Vraagje.astro';
 import Kort from '../../components/Kort.astro';
@@ -30,7 +30,11 @@ import Foto from '../../components/Foto.astro';
 
 Inloggen gaat altijd met iets wat je weet, of met iets wat je hebt. Een woord kun je navertellen. Een ring moet je in je hand houden.
 
+<Noot titel="Wat bedoelen we met ring en zegel?">De ring is een geheime sleutel die in je telefoon of in een klein sleuteltje zit. Het zegel is het bewijs dat die sleutel maakt als je inlogt. De site kan dat bewijs nakijken, maar niet namaken.</Noot>
+
 <Kort>gebruik een wachtwoordkluis, zet een tweede slot op je e-mail, en kies een passkey waar dat kan. Weinig tijd? Ga meteen naar [wat je nu kunt doen](#wat-je-nu-kunt-doen).</Kort>
+
+Een tweede slot betekent: na je wachtwoord moet je nog iets laten zien, bijvoorbeeld een code uit een app op je telefoon. Het officiële woord daarvoor is tweestapsverificatie.
 
 Hieronder staan acht manieren op een rij, van zwak naar sterk. De rij begint bij een geheim woord dat iedereen kan herhalen. Hij eindigt bij een ring die niemand kan namaken. Per trede lees je eerst wat je in het echt doet. Daarna zie je wat hij tegenhoudt, en waar hij breekt. Wil je meer weten? Klap dan het blok eronder open.
 
@@ -131,7 +135,7 @@ Een cijfer voor een letter en een leesteken achteraan voelt slim, maar het is pr
 
 <L06 />
 
-<Kort>je krijgt een sms met zes cijfers. Die tik je na je wachtwoord in.</Kort>
+<Kort>je krijgt een sms met zes cijfers. Die tik je na je wachtwoord in. Dit is je eerste tweede slot.</Kort>
 
 <Weegschaal houdt="Iemand ver weg die alleen je wachtwoord heeft. Hij mist de sms." breekt="Je telefoonnummer. Met een kopie van je paspoort laat een oplichter jouw nummer op zijn eigen simkaart zetten. Dan komen de sms'jes bij hem." />
 
@@ -252,11 +256,13 @@ Allebei zegelringen, alleen niet op dezelfde plek. Een passkey wordt vanuit een 
 
 <Kort>je hebt twee sleutels: één aan je sleutelbos, één in de la. Je herstelcodes staan op papier. Niet sterker dan trede 7, maar hier raak je niet buitengesloten.</Kort>
 
+Herstelcodes zijn reservecodes die een site je één keer geeft. Ben je je sleutels kwijt, dan kom je daarmee toch binnen. Die weg terug naar binnen heet de herstelprocedure.
+
 <Weegschaal houdt="Het gevaar dat alle andere treden vergeten: dat de beveiliging jóu buitensluit." breekt="Een schadelijk programma op je eigen computer, dat meekijkt terwijl je al bent ingelogd. Daar helpt geen enkele sleutel tegen, want dan heb jij de deur al geopend." />
 
 <Meer>
 
-Elk systeem heeft een achterdeur voor het geval je jezelf buitensluit. Bij accounts heet dat account recovery, en het is bijna altijd de zwakste schakel van het geheel: wie die achterdeur weet te forceren, hoeft de voordeur niet meer. Daarom bewaar je herstelcodes zorgvuldig, en nooit binnen de dienst die ze moeten redden.
+Elk systeem heeft een achterdeur voor het geval je jezelf buitensluit. Bij accounts heet dat de herstelprocedure (in het Engels account recovery), en het is bijna altijd de zwakste schakel van het geheel: wie die achterdeur weet te forceren, hoeft de voordeur niet meer. Daarom bewaar je herstelcodes zorgvuldig, en nooit binnen de dienst die ze moeten redden.
 
 De tweede sleutel dekt het omgekeerde af: dat de voordeur zó goed wordt dat je er zelf niet meer door kunt. Met één sleutel is die sleutel een single point of failure: één onderdeel waar alles van afhangt.
 
@@ -290,15 +296,21 @@ Wat hij wél kan is lezen wat er op die server staat. Daar helpt geen sleutel te
 
 ## Waar deze ladder wringt
 
-Een ladder suggereert één rechte lijn, en zo netjes is het niet. Een kluis met een sterk wachtwoord en een app-code erop (treden 3 en 5 samen) is in de praktijk sterker dan een passkey op een slordig beveiligd Apple-account. De volgorde hierboven gaat over de techniek, niet over hoe zorgvuldig iemand is.
+Een ladder doet denken aan één rechte lijn. Zo netjes is het niet.
+
+<Meer titel="Lees waarom niet">
+
+Een kluis met een sterk wachtwoord en een app-code erop (treden 3 en 5 samen) is in de praktijk sterker dan een passkey op een slordig beveiligd Apple-account. De volgorde hierboven gaat over de techniek, niet over hoe zorgvuldig iemand is.
 
 En elke trede beschermt alleen de voordeur. Wie eenmaal binnen is omdat jij hem hebt binnengelaten, komt geen slot meer tegen.
+
+</Meer>
 
 ## Binnen welk vak valt dit?
 
 <Meer titel="Lees welk vakgebied dit is">
 
-Alles hierboven hoort bij informatiebeveiliging, in het dagelijks spraakgebruik cybersecurity. Daarbinnen is er een eigen hoek voor precies deze vraag: identiteits- en toegangsbeheer, afgekort IAM (identity and access management). Dat vak maakt één onderscheid dat de hele ladder verklaart: authenticatie is de vraag wie je bent, autorisatie is de vraag wat je mag. Hierboven ging het uitsluitend over het eerste.
+Alles hierboven hoort bij informatiebeveiliging, in het dagelijks spraakgebruik cybersecurity. Daarbinnen is er een eigen hoek voor precies deze vraag: identiteits- en toegangsbeheer, afgekort IAM (identity and access management). Dat vak maakt één onderscheid dat de hele ladder verklaart: authenticatie is de vraag wie je bent, autorisatie is de vraag wat je mag. Hierboven ging het alleen over het eerste.
 
 De onderste treden leunen op het menselijke deel van het vak: social engineering (mensen overhalen in plaats van techniek kraken) en usable security, de studie van beveiliging die mensen ook echt volhouden. De bovenste treden leunen op cryptografie, en dan specifiek de asymmetrische variant: twee bij elkaar horende helften waarvan er één geheim blijft.
 
