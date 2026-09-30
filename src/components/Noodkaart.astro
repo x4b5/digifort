@@ -1,0 +1,46 @@
+---
+/**
+ * Bovenaan hoofdstuk 6: wie net is gehackt of opgelicht, ziet eerst wie hij belt.
+ * Geen uitleg, alleen nummers die je met één tik belt. De stappen staan er direct onder.
+ * Bronnen: politie.nl (112 en 0900-8844), Rijksoverheid en fraudehelpdesk.nl (088-786 73 72),
+ * fraudehelpdesk.nl/bank (noodnummers van de banken); allemaal in src/data/bronnen.js.
+ */
+const NUMMERS = [
+  { wie: 'Geld weg of je pas misbruikt?', wat: 'Bel je bank. Het noodnummer staat op je pas en in de app.', link: { href: 'https://www.fraudehelpdesk.nl/bank/', tekst: 'Noodnummers van alle banken' } },
+  { wie: 'Aangifte doen bij de politie', wat: 'Of online, via politie.nl.', tel: '0900-8844', telHref: 'tel:09008844' },
+  { wie: 'Direct gevaar?', wat: 'Bel het alarmnummer.', tel: '112', telHref: 'tel:112' },
+  { wie: 'Advies en melden: Fraudehelpdesk', wat: 'Alleen op werkdagen. Melden kan altijd via fraudehelpdesk.nl.', tel: '088-786 73 72', telHref: 'tel:0887867372' },
+];
+---
+<section class="noodkaart" aria-labelledby="noodkaart-kop">
+  <h2 id="noodkaart-kop">Net gebeurd? Bel eerst</h2>
+  <ul>
+    {NUMMERS.map((n) => (
+      <li>
+        <p class="wie">{n.wie}</p>
+        <p class="wat">{n.wat}</p>
+        {n.tel && <a class="bel" href={n.telHref}>Bel {n.tel}</a>}
+        {n.link && <a class="link" href={n.link.href}>{n.link.tekst}</a>}
+      </li>
+    ))}
+  </ul>
+  <p class="daarna">Daarna: de zes stappen hieronder, in deze volgorde. Telefoon of laptop kwijt? <a href="#telefoon-of-laptop-kwijt-het-stappenplan">Ga naar het stappenplan</a>.</p>
+</section>
+
+<style>
+  .noodkaart { margin: 1.25rem 0 2rem; padding: 1rem 1.1rem; border-left: 6px solid var(--rood); border-radius: var(--radius); background: var(--rood-licht); }
+  h2 { margin: 0 0 0.75rem; font-size: 1.4rem; }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; }
+  li { margin: 0; }
+  .wie { margin: 0; font-weight: 700; }
+  .wat { margin: 0.1rem 0 0.4rem; }
+  .bel {
+    display: inline-flex; align-items: center; min-height: 3rem; padding: 0 1.1rem;
+    border-radius: var(--radius); background: var(--rood-donker); color: var(--op-kleur);
+    font-family: var(--kop); font-weight: 700; font-size: 1.15rem; text-decoration: none;
+  }
+  .bel:hover { background: var(--rood); }
+  .bel:focus-visible, .link:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .link { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 700; }
+  .daarna { margin: 1rem 0 0; }
+</style>

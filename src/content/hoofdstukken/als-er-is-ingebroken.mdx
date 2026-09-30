@@ -13,6 +13,25 @@ import EersteUur from '../../components/tekeningen/EersteUur.astro';
 import Foto from '../../components/Foto.astro';
 import Verhaal from '../../components/Verhaal.astro';
 import Scene from '../../components/Scene.astro';
+import Noodkaart from '../../components/Noodkaart.astro';
+
+<Noodkaart />
+
+## Het eerste uur
+
+<Afvinklijst lijst="eerste-uur" kop={false} genummerd />
+
+<Kort>bij een inbraak vervang je eerst de sloten, daarna bel je wie er gebeld moet worden. Online is het net zo.</Kort>
+
+Snel handelen beperkt de schade, en je hoeft je nergens voor te schamen. Dit overkomt ook mensen die er verstand van hebben. Oplichters zijn professionals; slachtoffer worden zegt niets over je intelligentie.
+
+<Meer titel="Waarom deze volgorde">
+
+<EersteUur />
+
+<Foto id="aantekeningen" onderschrift="Noteer wat er gebeurde en wanneer, en bewaar het bewijs voordat je iets weggooit." />
+
+</Meer>
 
 <Scene wie="sanne" bron="Politie, voorkom sim-swapping" href="https://www.politie.nl/informatie/voorkom-sim-swapping.html">
 
@@ -21,18 +40,6 @@ Zaterdagochtend. Sanne wil een appje sturen, maar haar telefoon heeft geen berei
 Gelukkig komt het tweede slot op haar e-mail uit een app, niet per sms. Maar vanaf nu telt elk uur.
 
 </Scene>
-
-Snel handelen beperkt de schade, en je hoeft je nergens voor te schamen. Dit overkomt ook mensen die er verstand van hebben. Oplichters zijn professionals; slachtoffer worden zegt niets over je intelligentie.
-
-<Foto id="aantekeningen" onderschrift="Noteer wat er gebeurde en wanneer, en bewaar het bewijs voordat je iets weggooit." />
-
-## Het eerste uur
-
-<Kort>bij een inbraak vervang je eerst de sloten, daarna bel je wie er gebeld moet worden. Online is het net zo.</Kort>
-
-<EersteUur />
-
-<Afvinklijst lijst="eerste-uur" kop={false} genummerd />
 
 ## Drie veelvoorkomende situaties
 
@@ -60,7 +67,7 @@ Een verloren apparaat is een sleutelbos op straat. Wie hem vindt, heeft nog geen
   { tekst: 'Niets met dat bericht doen', goed: true, uitleg: 'Klopt. Log alleen in via een adres dat je zelf intypt, en laat het toestel aan je account gekoppeld.' },
 ]} />
 
-<Afvinklijst lijst="vooraf" kop={false} />
+<Afvinklijst lijst="vooraf" />
 
 <Verhaal
   titel="De baas van Twitter raakte zijn eigen Twitter kwijt"
@@ -83,8 +90,6 @@ Deze truc heet simswapping. Hij werkt niet omdat jouw wachtwoord zwak is, maar o
 <Meer>
 
 **Trap niet in het tweede bedrog.** Na diefstal van een iPhone krijgen slachtoffers soms een sms of mail: "je toestel is gevonden, log hier in". Dat is phishing om je Apple-account te ontgrendelen zodat de dief het toestel kan doorverkopen. Apple neemt zelf nooit contact met je op om te melden dat je toestel is gevonden. Log alleen in via het adres dat je zelf intypt. Verwijder het toestel ook niet uit Zoek mijn: zolang het eraan gekoppeld is, kan de dief het niet zomaar wissen en doorverkopen.
-
-**Wat je vooraf regelt, want achteraf kan het niet meer:**
 
 </Meer>
 
