@@ -32,7 +32,7 @@ Inloggen gaat altijd met iets wat je weet, of met iets wat je hebt. Een woord ku
 
 <Kort>gebruik een wachtwoordkluis, zet een tweede slot op je e-mail, en kies een passkey waar dat kan. Weinig tijd? Ga meteen naar [wat je nu kunt doen](#wat-je-nu-kunt-doen).</Kort>
 
-Hieronder staan acht manieren op een rij, van zwak naar sterk. De rij begint bij een geheim woord dat iedereen kan herhalen. Hij eindigt bij een ring die niemand kan namaken. Per trede lees je eerst één zin. Daarna zie je wat hij tegenhoudt, en waar hij breekt. Wil je meer weten? Klap dan het blok eronder open.
+Hieronder staan acht manieren op een rij, van zwak naar sterk. De rij begint bij een geheim woord dat iedereen kan herhalen. Hij eindigt bij een ring die niemand kan namaken. Per trede lees je eerst wat je in het echt doet. Daarna zie je wat hij tegenhoudt, en waar hij breekt. Wil je meer weten? Klap dan het blok eronder open.
 
 <Foto id="oud-hangslot" onderschrift="Onderaan de ladder staat het oudste slot dat we nog gebruiken: een woord dat je uitspreekt." />
 
@@ -46,7 +46,7 @@ De hele ladder in één beeld. Tot en met trede 5 gebruik je iets wat je kunt na
 
 <L02 />
 
-<Kort>één geheim woord dat je bij elke deur fluistert, en dat bij elke deur wordt opgeschreven.</Kort>
+<Kort>je gebruikt overal hetzelfde wachtwoord. Elke site bewaart het, dus lekt het bij één webwinkel, dan kan iemand ermee in je mail, je bank en je foto's.</Kort>
 
 <Weegschaal houdt="De buurman die over je schouder meekijkt." breekt="Eén webshop die gehackt wordt. Het woord past dan ook op je mail, je bank en je foto's." />
 
@@ -70,7 +70,7 @@ Je kunt zelf nakijken of je adres in zo'n lijst staat, op [haveibeenpwned.com](h
 
 <L03 />
 
-<Kort>voor elke deur een andere sleutel, maar je moet ze allemaal uit je hoofd kennen.</Kort>
+<Kort>je hebt voor elke site een ander wachtwoord, en die onthoud je allemaal zelf.</Kort>
 
 <Weegschaal houdt="Het domino-effect: één lek opent nog maar één deur." breekt="Je geheugen. Wie vijftig sleutels moet onthouden, maakt ze kort en voorspelbaar, en daar leven kraakprogramma's van." />
 
@@ -94,7 +94,7 @@ Welkom01, Zomer2026!, je achternaam met een uitroepteken: die staan er allemaal 
 
 <L04 />
 
-<Kort>een kluis die de vijftig sleutels voor je bewaart. Jij onthoudt er nog maar één: die van de kluis.</Kort>
+<Kort>een app, de wachtwoordkluis, verzint en bewaart al je wachtwoorden. Jij onthoudt er nog maar één: dat van de kluis.</Kort>
 
 <Weegschaal houdt="Slappe wachtwoorden. De kluis verzint er lange, wilde, onraadbare. Dat is het echte winstpunt." breekt="De kluisdeur zelf. Eén wachtwoord staat nu tussen een vreemde en alles wat je hebt." />
 
@@ -131,9 +131,9 @@ Een cijfer voor een letter en een leesteken achteraan voelt slim, maar het is pr
 
 <L06 />
 
-<Kort>de eerste tweede stap: naast het woord wil de deur ook een briefje zien dat per post is nagestuurd.</Kort>
+<Kort>je krijgt een sms met zes cijfers. Die tik je na je wachtwoord in.</Kort>
 
-<Weegschaal houdt="Iemand ver weg die alleen je wachtwoord heeft. Hij mist het briefje." breekt="De postbode. Met een kopie van je paspoort laat een oplichter je telefoonnummer op zijn eigen simkaart zetten, en de briefjes komen bij hem." />
+<Weegschaal houdt="Iemand ver weg die alleen je wachtwoord heeft. Hij mist de sms." breekt="Je telefoonnummer. Met een kopie van je paspoort laat een oplichter jouw nummer op zijn eigen simkaart zetten. Dan komen de sms'jes bij hem." />
 
 <Meer>
 
@@ -155,7 +155,7 @@ Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over
 
 <L07 />
 
-<Kort>een cijferslot dat elke dertig seconden verspringt, en dat alleen jouw telefoon kan meelezen. Geen post meer onderweg.</Kort>
+<Kort>een app op je telefoon laat een code van zes cijfers zien. Die tik je na je wachtwoord in. Elke dertig seconden komt er een nieuwe, en er gaat geen sms meer onderweg.</Kort>
 
 <Weegschaal houdt="De simkaarttruc, en iedereen die alleen je wachtwoord buitmaakte." breekt="Jezelf. Op een nagemaakte inlogpagina typ je de code gewoon over, en de oplichter gebruikt hem binnen de dertig seconden." />
 
@@ -169,7 +169,7 @@ Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over
 
 Bij het instellen scan je een QR-code. Daarmee krijgen de app en de site één gedeeld geheim. Daarna rekenen ze allebei, los van elkaar, elke dertig seconden dezelfde code uit op basis van dat geheim en de klok. Er reist dus niets meer over het netwerk, en wat niet reist, kan niet onderschept worden.
 
-Wat wél werkt is jou vragen de code zelf in te typen. Een moderne phishingsite geeft alles wat jij invult op hetzelfde moment door aan de echte site en logt daar in. Die aanval heet adversary-in-the-middle, en hij is bestand tegen elke code die je met de hand overneemt.
+Wat wél werkt is jou vragen de code zelf in te typen. Een moderne nagemaakte inlogpagina geeft alles wat jij invult op hetzelfde moment door aan de echte site en logt daar in. Die aanval heet adversary-in-the-middle, en hij is bestand tegen elke code die je met de hand overneemt.
 
 <Jargon items={[
   ['TOTP', 'time-based one-time password: de code die elke 30 seconden verspringt'],
@@ -186,15 +186,15 @@ Wat wél werkt is jou vragen de code zelf in te typen. Een moderne phishingsite 
 
 <L08 />
 
-<Kort>hier houdt het woord op en begint de ring. Je toestel zet een zegel dat alleen past op de echte site.</Kort>
+<Kort>je logt in met je vinger, je gezicht of de pincode van je telefoon. Een wachtwoord typ je niet meer. Dit heet een passkey, en hij werkt alleen op de echte site.</Kort>
 
-<Weegschaal houdt="Phishing. Op pr0ton.me vindt de ring geen passend zegel en doet hij gewoon niets." breekt="De kluis die hem rondstuurt. Wie je Apple- of Google-account overneemt, krijgt alle ringen in één keer." />
+<Weegschaal houdt="Nagemaakte inlogpagina's. Op pr0ton.me werkt je passkey niet, dus er valt niets te stelen." breekt="Je Apple- of Google-account. Dat bewaart je passkeys en zet ze op al je toestellen. Wie dat account overneemt, krijgt ze allemaal in één keer." />
 
-<Noot titel="Dit is óók tweestapsverificatie">Een passkey voelt als één handeling, maar het zijn twee stappen: iets wat je hebt (je toestel, waar de ring in zit) plus iets wat je bent of weet (je vinger, je gezicht of je pincode). Trede 6, 7 en 8 zijn dus geen alternatief voor 2FA. Ze zíjn 2FA, alleen zonder code die je kunt overtypen aan een oplichter.</Noot>
+<Noot titel="Dit is óók een tweede slot">Een passkey voelt als één handeling, maar het zijn twee stappen: iets wat je hebt (je toestel, waar de passkey in zit) plus iets wat je bent of weet (je vinger, je gezicht of je pincode). Trede 6, 7 en 8 komen dus niet in plaats van een tweede slot. Ze zíjn een tweede slot, alleen zonder code die je aan een oplichter kunt geven.</Noot>
 
 <Meer>
 
-Zo gaat het inloggen: de site stuurt een willekeurig zinnetje, je kluis drukt er een zegel in, en zegelt het webadres mee.
+Zie een passkey als een zegelring. Zo gaat het inloggen: de site stuurt een willekeurig zinnetje, je toestel drukt er een zegel in, en zegelt het webadres mee.
 
 Bij het aanmaken maakt je apparaat twee helften die bij elkaar horen. De geheime helft blijft waar hij is en vertrekt nooit; de publieke helft geef je aan de site. Met die publieke helft kan de site controleren of een zegel echt is, maar er zelf geen maken. Dat is publieke-sleutelcryptografie, dezelfde techniek waarmee het hangslotje in de adresbalk werkt.
 
@@ -205,7 +205,7 @@ Het gevolg is groter dan het klinkt: de site bewaart nooit meer iets geheims van
 Dezelfde nepsite, twee uitkomsten. Een code is losse informatie: de nepsite geeft hem gewoon door aan de echte site en logt in als jou. Een zegel is dat niet. Het geldt alleen voor het adres dat erom vroeg, en voor pr0ton.me heeft je sleutel er geen. Er verlaat dus niets je hand.
 
 <Jargon items={[
-  ['passkey', 'de publieksnaam voor deze manier van inloggen; een vorm van 2FA'],
+  ['passkey', 'de publieksnaam voor deze manier van inloggen; een vorm van inloggen in twee stappen (2FA)'],
   ['FIDO2 / WebAuthn', 'Fast Identity Online 2 en Web Authentication: de standaarden erachter; deze woorden zie je in instellingenmenu\'s staan'],
   ['publieke en private sleutel', 'de twee helften; alleen de publieke helft gaat naar de site'],
   ['synced passkey', 'een passkey die via een kluis naar al je apparaten wordt gekopieerd'],
@@ -219,9 +219,9 @@ Dezelfde nepsite, twee uitkomsten. Een code is losse informatie: de nepsite geef
 
 <L10 />
 
-<Kort>dezelfde ring, maar gegoten in metaal en nergens gekopieerd. Het geheim zit in de chip en kan er niet uit. Ook niet door jou.</Kort>
+<Kort>je steekt een klein sleuteltje in je computer, of houdt het tegen je telefoon, en tikt erop. Het geheim zit in een chip en kan er niet uit. Ook niet door jou.</Kort>
 
-<Weegschaal houdt="Alles van hierboven, plus de kluis als zwakke plek. Er is geen account meer om over te nemen." extra="Het metalen vlakje moet aangeraakt worden. Software kan veel, maar niets aanraken. Dus geen stille inlog terwijl jij koffie haalt." breekt="Verlies. Eén sleutel kwijt is één account kwijt." />
+<Weegschaal houdt="Alles van hierboven, plus je Apple- of Google-account als zwakke plek. Er is geen account meer om over te nemen." extra="Het metalen vlakje moet aangeraakt worden. Software kan veel, maar niets aanraken. Dus geen stille inlog terwijl jij koffie haalt." breekt="Verlies. Eén sleutel kwijt is één account kwijt." />
 
 <Meer>
 
@@ -250,9 +250,9 @@ Allebei zegelringen, alleen niet op dezelfde plek. Een passkey wordt vanuit een 
 
 <L12 />
 
-<Kort>de sleutel aan je sleutelbos, de tweede in de la, de herstelcodes op papier. Niet sterker dan trede 7, maar wel de enige trede waar je niet buitengesloten raakt.</Kort>
+<Kort>je hebt twee sleutels: één aan je sleutelbos, één in de la. Je herstelcodes staan op papier. Niet sterker dan trede 7, maar hier raak je niet buitengesloten.</Kort>
 
-<Weegschaal houdt="Het gevaar dat alle andere treden vergeten: dat de beveiliging jóu buitensluit." breekt="Kwaadaardige software op je eigen computer, die meekijkt in een sessie die al open is. Daar helpt geen enkele sleutel tegen, want dan heb jij de deur al geopend." />
+<Weegschaal houdt="Het gevaar dat alle andere treden vergeten: dat de beveiliging jóu buitensluit." breekt="Een schadelijk programma op je eigen computer, dat meekijkt terwijl je al bent ingelogd. Daar helpt geen enkele sleutel tegen, want dan heb jij de deur al geopend." />
 
 <Meer>
 
@@ -311,4 +311,4 @@ Wie verder wil lezen: de Amerikaanse standaard NIST SP 800-63B is het document w
 1. Kijk op welke trede je e-mail staat. Dat is je voordeur.
 2. Sta je op trede 1 of 2? Ga naar [niveau 1](/aan-de-slag#niveau-1): een kluis en een tweede slot, in één avond.
 3. Sta je op trede 4? Wissel de sms-code om voor een app. Dat kost vijf minuten per account.
-4. Wil je naar trede 7 of 8? Koop twee sleutels, zet ze in dezelfde sessie allebei aan, en leg de herstelcodes op papier in je [noodpakket](/als-er-is-ingebroken#noodpakket).
+4. Wil je naar trede 7 of 8? Koop twee sleutels, zet ze op hetzelfde moment allebei aan, en leg de herstelcodes op papier in je [noodpakket](/als-er-is-ingebroken#noodpakket).
