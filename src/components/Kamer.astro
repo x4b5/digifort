@@ -70,6 +70,8 @@ if (!k) throw new Error(`Onbekende kamer: ${Astro.props.id}`);
   h2 { margin: 0; padding: 0; border: 0; font-size: 1.3rem; line-height: 1.25; }
   .zin { display: block; margin-top: 0.2rem; font-size: 0.97rem; color: var(--inkt-zacht); }
   .lampje { margin-top: 0; }
+  /* een leeg rondje lijkt een aanvinkhokje: pas tonen als de huischeck er een kleur aan geeft */
+  .kamer:not([data-toestand="open"]):not([data-toestand="dicht"]) .lampje { visibility: hidden; }
   summary::after { content: "▸"; flex: none; font-size: 1.1rem; color: var(--inkt-zacht); transition: transform 0.15s ease; }
   .kamer[open] summary::after { transform: rotate(90deg); }
   .uitleg { padding: 0.25rem 0 1.25rem 4rem; }
