@@ -14,14 +14,13 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
 <Pagina breed gegevens={websiteGegevens()} beschrijving="Elke app is een deur naar je huis. Deze site laat zien waar je digitale huis openstaat en hoe je het stap voor stap dichtmaakt. Gratis, in gewone taal.">
   <section class="hero">
     <div class="hero-tekst">
-      <p class="eyebrow">Digitale weerbaarheid in gewone taal</p>
+      <p class="eyebrow">Veilig online, in gewone taal</p>
       <h1>Van open huis naar fort.</h1>
-      <p class="intro">Je gaat niet naar het internet. Het internet komt bij jou binnen. Elke app, elk account en elk apparaat is een deur, en bij de meeste mensen <a href="/huischeck#hoe-weten-we-dat">staan die deuren open</a>. Deze site helpt je ze dicht te doen, stap voor stap, tot je huis een fort is. Zonder bangmakerij en zonder reclame.</p>
+      <p class="intro">Je gaat niet naar het internet. Het internet komt bij jou binnen. Elke app, elk account en elk apparaat is een deur, en bij de meeste mensen <a class="bronlink" href="/huischeck#hoe-weten-we-dat">staan die deuren open</a>. Deze site helpt je ze dicht te doen, stap voor stap, tot je huis een fort is. Zonder bangmakerij en zonder reclame.</p>
       <div class="begin">
         <a class="knop groot" href="/huischeck#doe-de-huischeck">Begin hier: doe de huischeck →</a>
         <p class="begin-uitleg">Tien vragen, twee minuten. Je ziet meteen welke deuren bij jou openstaan.</p>
       </div>
-      <p class="anders-kan">Liever meteen aan de slag? <a href="/een-avond">Ik heb één avond</a>. Eerst weten waarom? <a href="/de-storm-om-het-huis">Waarom nu</a>.</p>
       <Verder />
     </div>
     <aside class="hero-cijfer" aria-label="Eén cijfer">
@@ -31,6 +30,8 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
       <a class="bron" href="https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit">CBS, Veiligheidsmonitor 2025</a>
     </aside>
   </section>
+
+  <p class="anders-kan">Liever meteen aan de slag? <a href="/een-avond">Ik heb één avond</a>. Eerst weten waarom? <a href="/de-storm-om-het-huis">Waarom nu</a>.</p>
 
   <section class="anders" aria-labelledby="anders-kop">
     <h2 id="anders-kop">Wat deze site anders maakt</h2>
@@ -94,6 +95,8 @@ const START: Record<string, string> = { huischeck: 'Begin hier', 'aan-de-slag': 
   .begin-uitleg { margin: 0; color: var(--inkt-zacht); }
   .anders-kan { margin-top: 1.25rem; }
   .anders-kan a { display: inline-block; padding: 0.35rem 0; }
+  /* de bron bij de bewering: aanklikbaar, maar geen tweede rode knop naast "Begin hier" */
+  .intro .bronlink { color: inherit; }
   .anders h2 { margin-top: 2.5rem; }
   .anders-lijst { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
   @media (min-width: 40rem) { .anders-lijst { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -11,7 +11,7 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
 <header class="kop">
   <div class="wrap kop-rij">
     <a class="merk" href="/"><Logo maat={34} /><span>{SITE.naam}</span></a>
-    <a class="sloten" href="/#fort" data-sloten title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst>{`0 van ${TOTAAL_SLOTEN} sloten dicht`}</span></a>
+    <a class="sloten" href="/#fort" data-sloten hidden title="Je fort: elk blokje is een deel"><span class="kantelen" aria-hidden="true">{FORTDELEN.map((d) => <span data-kanteel={d.id}></span>)}</span><span data-sloten-tekst>{`0 van ${TOTAAL_SLOTEN} sloten dicht`}</span></a>
     <p class="feestje" data-feestje role="status" aria-live="polite"></p>
     <Lezen />
     <details class="menu">
@@ -63,7 +63,10 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
     const tekst = document.querySelector<HTMLElement>('[data-sloten-tekst]');
     if (!el || !tekst) return {};
     const delen = toestandPerDeel(toestandPerKamer(data));
-    tekst.textContent = `${telSloten(data)} van ${TOTAAL_SLOTEN} sloten dicht`;
+    const dicht = telSloten(data);
+    // pas tonen als er iets dicht is: "0 van 22" zegt een nieuwe lezer niets
+    el.hidden = dicht === 0;
+    tekst.textContent = `${dicht} van ${TOTAAL_SLOTEN} sloten dicht`;
     el.querySelectorAll<HTMLElement>('[data-kanteel]').forEach((k) => { k.dataset.toestand = delen[k.dataset.kanteel!]; });
     return delen;
   }
@@ -144,6 +147,7 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
   .merk { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--kop); font-weight: 700; font-size: 1.25rem; color: var(--inkt); text-decoration: none; }
   .sloten { margin-left: auto; font-size: 0.9rem; color: var(--inkt-zacht); display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; }
   .sloten:hover { color: var(--inkt); }
+  .sloten[hidden] { display: none; }
   .kantelen { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
   .kantelen span { display: block; transform-origin: bottom center; width: 7px; height: 9px; border: 2px solid var(--lijn-sterk); border-bottom: 0; opacity: 0.4; }
   .kantelen span:nth-child(odd) { height: 14px; }
