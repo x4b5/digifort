@@ -1,0 +1,100 @@
+---
+/**
+ * De onderhoudsbeurt van hoofdstuk 5, één stap tegelijk.
+ * Zonder JavaScript staan alle stappen onder elkaar. Met JavaScript zie je er één,
+ * met knoppen naar de vorige en de volgende. Vinkjes gaan in hetzelfde laatje als
+ * de afvinklijst 'onderhoudsbeurt' (src/data/lijsten.js), met dezelfde sleutels.
+ */
+const LIJST = 'onderhoudsbeurt';
+---
+<section class="beurt" data-beurt={LIJST} id={LIJST} aria-label="De onderhoudsbeurt, stap voor stap">
+  <p class="stand" data-beurt-stand aria-live="polite"></p>
+  <ol class="stappen"><slot /></ol>
+  <div class="nav" data-beurt-nav hidden>
+    <button type="button" class="knop licht klein" data-beurt-terug>Vorige stap</button>
+    <button type="button" class="knop klein" data-beurt-verder>Volgende stap</button>
+  </div>
+  <div class="klaar" data-beurt-klaar hidden>
+    <p><strong>Klaar.</strong> Je huis is nagelopen. De volgende beurt is als de klok weer wordt verzet.</p>
+    <button type="button" class="knop licht klein" data-beurt-alles>Laat alle stappen zien</button>
+  </div>
+</section>
+
+<script>
+  import { lees, zetVinkje } from '../lib/opslag.js';
+
+  document.querySelectorAll<HTMLElement>('[data-beurt]').forEach((beurt) => {
+    const lijst = beurt.dataset.beurt!;
+    const stappen = Array.from(beurt.querySelectorAll<HTMLElement>('[data-beurt-stap]'));
+    const vakjes = stappen.map((s) => s.querySelector<HTMLInputElement>('input[data-item]')!);
+    const stand = beurt.querySelector<HTMLElement>('[data-beurt-stand]')!;
+    const nav = beurt.querySelector<HTMLElement>('[data-beurt-nav]')!;
+    const terug = beurt.querySelector<HTMLButtonElement>('[data-beurt-terug]')!;
+    const verder = beurt.querySelector<HTMLButtonElement>('[data-beurt-verder]')!;
+    const klaar = beurt.querySelector<HTMLElement>('[data-beurt-klaar]')!;
+    const alles = beurt.querySelector<HTMLButtonElement>('[data-beurt-alles]')!;
+    const totaal = stappen.length;
+
+    stappen.forEach((s, i) => {
+      const plek = s.querySelector('[data-plek]');
+      if (plek) plek.textContent = `Stap ${i + 1} van ${totaal}`;
+      s.querySelector('h3')?.setAttribute('tabindex', '-1');
+    });
+
+    let huidig = 0;
+    let allesTonen = false;
+
+    function laadVinkjes(items: Record<string, boolean>) {
+      vakjes.forEach((v) => { v.checked = Boolean(items[v.dataset.item!]); });
+    }
+
+    function toon() {
+      const af = vakjes.filter((v) => v.checked).length;
+      const rest = stappen.filter((_, i) => !vakjes[i].checked).reduce((n, s) => n + Number(s.dataset.minuten), 0);
+      const helemaalAf = af === totaal;
+      stand.textContent = helemaalAf ? `Alles gedaan (${totaal} van ${totaal})` : `${af} van ${totaal} gedaan · nog ongeveer ${rest} minuten`;
+      beurt.classList.toggle('af', helemaalAf);
+
+      const eenPerKeer = !helemaalAf && !allesTonen;
+      stappen.forEach((s, i) => { s.hidden = eenPerKeer && i !== huidig; });
+      nav.hidden = !eenPerKeer;
+      klaar.hidden = !helemaalAf || allesTonen;
+      if (helemaalAf && !allesTonen) stappen.forEach((s) => { s.hidden = true; });
+      terug.hidden = huidig === 0;
+      verder.textContent = huidig === totaal - 1 ? 'Terug naar stap 1' : 'Volgende stap';
+    }
+
+    function ga(naar: number) {
+      huidig = (naar + totaal) % totaal;
+      toon();
+      stappen[huidig].querySelector<HTMLElement>('h3')?.focus();
+    }
+
+    laadVinkjes(lees().lijsten[lijst] ?? {});
+    // begin bij de eerste stap die nog niet af is
+    const eersteOpen = vakjes.findIndex((v) => !v.checked);
+    huidig = eersteOpen === -1 ? 0 : eersteOpen;
+    toon();
+
+    terug.addEventListener('click', () => ga(huidig - 1));
+    verder.addEventListener('click', () => ga(huidig + 1));
+    alles.addEventListener('click', () => { allesTonen = true; toon(); stappen[0].querySelector<HTMLElement>('h3')?.focus(); });
+    vakjes.forEach((v) => v.addEventListener('change', () => { zetVinkje(lijst, v.dataset.item!, v.checked); toon(); }));
+    window.addEventListener('jdh:gewijzigd', (e: Event) => {
+      laadVinkjes((e as CustomEvent).detail.lijsten?.[lijst] ?? {});
+      toon();
+    });
+  });
+</script>
+
+<style>
+  .beurt { margin: 1.5rem 0 2.5rem; }
+  .stand { margin: 0 0 0.75rem; font-weight: 700; }
+  .af .stand { color: var(--groen); }
+  .stappen { list-style: none; padding: 0; margin: 0; }
+  .nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; }
+  .nav [data-beurt-verder] { margin-left: auto; }
+  .klaar { padding: 0.9rem 1.1rem; border-left: 6px solid var(--groen); border-radius: var(--radius); background: var(--groen-licht); }
+  .klaar p { margin: 0 0 0.75rem; }
+  .klaar[hidden], .nav[hidden] { display: none; }
+</style>

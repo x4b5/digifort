@@ -3,13 +3,16 @@ nr: 5
 titel: "Onderhoud en opruimen"
 kort: "Oude apparaten, weggooien, en wat er over jou op internet staat."
 omschrijving: "Een apparaat zonder updates, een oude telefoon wegdoen, en wat iedereen over jou op internet kan vinden. Met een onderhoudsbeurt voor twee keer per jaar."
-datum: "2026-09-24"
+datum: "2026-09-30"
 ---
 import Citaat from '../../components/Citaat.astro';
 import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
-import Afvinklijst from '../../components/Afvinklijst.astro';
+import Doe from '../../components/Doe.astro';
+import Merk from '../../components/Merk.astro';
+import Onderhoudsbeurt from '../../components/Onderhoudsbeurt.astro';
+import OnderhoudStap from '../../components/OnderhoudStap.astro';
 import Foto from '../../components/Foto.astro';
 import Scene from '../../components/Scene.astro';
 import Tijdlijn from '../../components/Tijdlijn.astro';
@@ -22,9 +25,57 @@ Wat ze niet ziet: op de laptop draait Windows 10, en sinds 14 oktober 2025 komt 
 
 </Scene>
 
-Een huis op slot zetten is één ding. Het daarna goed houden is iets anders. Dit hoofdstuk gaat over apparaten die oud worden, spullen die je wegdoet en wat er over jou op internet staat.
+Een huis op slot zetten is één ding. Het daarna goed houden is iets anders. Daarom begint dit hoofdstuk met een vaste onderhoudsbeurt.
 
 <Citaat foto="portret-schneier" wie="Bruce Schneier" wat="beveiligingsexpert, in 2000" origineel="Security is a process, not a product." bron="Information Security Magazine, april 2000" href="https://www.schneier.com/essays/archives/2000/04/the_process_of_secur.html">Beveiliging is een proces, geen product.</Citaat>
+
+## De onderhoudsbeurt: twee keer per jaar
+
+<Doe>
+
+**Hoe lang?** Ongeveer een half uur, twee keer per jaar.
+
+**Eerste stap:** pak nu je agenda. Zet er "huis nalopen" in, op de dag dat de klok wordt verzet.
+
+</Doe>
+
+Op die dag loop je zelf met de timmerman mee door je huis. Je kijkt vier dingen na, één voor één. Wat je afvinkt, onthoudt je eigen browser.
+
+<Onderhoudsbeurt>
+<OnderhoudStap id="backup-loopt" nr={1} titel="Werkt je reservekopie nog?" minuten={10}>
+
+Kijk wanneer je reservekopie voor het laatst is gemaakt. Zet dan één foto of bestand terug en open het. Gaat het open? Dan werkt je reservekopie. Of een reservekopie je redt, weet je pas als je het geprobeerd hebt. ([bron](https://www.ncsc.nl/en/backup/all-about-good-backups))
+
+Heb je nog geen reservekopie? Die maak je in [niveau 2](/aan-de-slag#niveau-2).
+
+</OnderhoudStap>
+<OnderhoudStap id="noodcodes-kloppen" nr={2} titel="Kloppen je herstelcodes nog?" minuten={5}>
+
+Pak je noodpakket erbij. Liggen de herstelcodes van je e-mail en je Apple-, Google- of Microsoft-account er nog in? Heb je sinds de vorige keer nieuwe codes gemaakt? Leg dan de nieuwe erin en gooi de oude weg.
+
+Wat er in het noodpakket hoort, lees je bij [het noodpakket](/als-er-is-ingebroken#het-noodpakket).
+
+</OnderhoudStap>
+<OnderhoudStap id="geen-updates" nr={3} titel="Welke apparaten krijgen geen updates meer?" minuten={10}>
+
+Loop je apparaten langs: telefoon, tablet, computer en router.
+
+- **Android:** kijk bij Instellingen en dan Over de telefoon. Daar staat de datum van de laatste beveiligingsupdate.
+- **Windows:** kijk bij Instellingen en dan Windows Update.
+
+Is de laatste update lang geleden, en komt er niets meer? Gebruik dat apparaat dan niet meer voor je bank en je e-mail. Wat je verder kunt doen, staat hieronder bij [apparaten zonder updates](#als-de-timmerman-niet-meer-komt-apparaten-zonder-updates).
+
+</OnderhoudStap>
+<OnderhoudStap id="datalek" nr={4} titel="Staat je e-mailadres in een nieuw datalek?" minuten={5}>
+
+Een [datalek](/woordenboek) is als een inbraak bij een winkel waar jij klant bent: jouw gegevens liggen dan op straat.
+
+Ga naar <Merk id="hibp" maat={18} link /> ([haveibeenpwned.com](https://haveibeenpwned.com)). Typ je e-mailadres in. Om een wachtwoord vraagt de site nooit. Staat er een nieuw lek bij sinds de vorige keer? Verander dan het wachtwoord van die dienst. Gebruikte je hetzelfde wachtwoord ook ergens anders? Verander het daar ook.
+
+</OnderhoudStap>
+</Onderhoudsbeurt>
+
+De rest van dit hoofdstuk gaat over wat je tegenkomt als je zo door je huis loopt: apparaten die oud worden, spullen die je wegdoet en wat er over jou op internet staat.
 
 ## Als de timmerman niet meer komt: apparaten zonder updates
 
@@ -92,9 +143,3 @@ Je geboortedatum. De namen van je kinderen. Waar je werkt. Een filmpje waarin je
 - **Vraag om verwijdering.** Volgens de privacywet mag je een bedrijf vragen om je gegevens te wissen. Zoekmachines hebben een formulier om zoekresultaten over jou weg te halen.
 
 </Meer>
-
-## De onderhoudsbeurt: twee keer per jaar
-
-Zet het in je agenda: twee keer per jaar, als de klok wordt verzet, loop je zelf met de timmerman mee. Je doet vier dingen. Loopt je reservekopie nog? Kloppen je herstelcodes nog? Welke apparaten krijgen geen updates meer? En staat je e-mailadres in een nieuw [datalek](/woordenboek)? Dat laatste zie je op [haveibeenpwned.com](https://haveibeenpwned.com).
-
-<Afvinklijst lijst="onderhoudsbeurt" kop={false} />
