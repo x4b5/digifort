@@ -75,6 +75,16 @@ export const BRONNEN = [
   },
   {
     hoofdstuk: ['inbrekers-van-morgen'],
+    bewering: 'Wat je in een chatbot typt, bewaren de meeste bedrijven achter die chatbots op hun eigen servers; zet er dus geen gevoelige gegevens of gegevens van anderen in, en deel zo min mogelijk over jezelf',
+    bron: [
+      { tekst: 'Autoriteit Persoonsgegevens, Caution: use of AI chatbot may lead to data breaches', href: 'https://www.autoriteitpersoonsgegevens.nl/en/current/caution-use-of-ai-chatbot-may-lead-to-data-breaches' },
+      { tekst: 'EFF, Privacy Considerations with AI Tools (nagelopen 5 augustus 2026)', href: 'https://ssd.eff.org/module/privacy-considerations-with-ai-tools' },
+    ],
+    status: 'gecontroleerd',
+    toelichting: [{ tekst: 'De AP kreeg meldingen van datalekken doordat mensen medische en klantgegevens in een chatbot typten. Wachtwoord en BSN noemt geen van beide bronnen letterlijk; het zijn de gevoeligste voorbeelden van wat de AP bedoelt' }],
+  },
+  {
+    hoofdstuk: ['inbrekers-van-morgen'],
     bewering: 'Experts verwachten dat kwantumcomputers tussen 2030 en 2040 veel gangbare versleuteling kunnen breken; de kans dat het in 2030 al zover is, is klein maar reëel',
     bron: [
       { tekst: 'AIVD en NCSC, handreiking Maak je organisatie quantumveilig', href: 'https://www.aivd.nl/actueel/nieuws/2023/09/18/handreiking-maak-je-organisatie-quantumveilig-gepubliceerd' },
