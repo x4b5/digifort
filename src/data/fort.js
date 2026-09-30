@@ -3,16 +3,16 @@
  * Een deel "staat" als al zijn kamers dicht zijn; het "wankelt" zodra er één open is.
  */
 export const FORTDELEN = [
-  { id: 'poort', naam: 'De poort', kamers: ['voordeur', 'tweede-voordeur'], wat: 'je e-mail en het account van je toestel, elk met een eigen sterk wachtwoord' },
-  { id: 'sloten', naam: 'De twee sloten op de poort', kamers: ['tweede-slot', 'passkey'], wat: 'tweestapsverificatie of een passkey' },
-  { id: 'muur', naam: 'De muur', kamers: ['sleutels'], wat: 'voor elke deur een andere sleutel' },
-  { id: 'gracht', naam: 'De gracht', kamers: ['sleutelkluis'], wat: 'een wachtwoordmanager die de sleutels bewaart' },
-  { id: 'brug', naam: 'De ophaalbrug', kamers: ['brievenbus'], wat: 'jij bepaalt wie binnenkomt: het geheime woord en een sim-pincode' },
-  { id: 'toren', naam: 'De torenwacht', kamers: ['onderhoud'], wat: 'updates op automatisch' },
-  { id: 'luiken', naam: 'De luiken', kamers: ['ramen'], wat: 'een browser die niet meekijkt' },
-  { id: 'hek', naam: 'Het hek', kamers: ['tuinhek'], wat: 'een router met een eigen wachtwoord' },
-  { id: 'schat', naam: 'De schatkamer buiten de muur', kamers: ['brandkast'], wat: 'een reservekopie op een andere plek' },
-  { id: 'schild', naam: 'Het wapenschild', kamers: ['eigendomsakte'], wat: 'zuinig op je BSN en je DigiD' },
+  { id: 'poort', naam: 'De poort', kamers: ['voordeur', 'tweede-voordeur'], wat: 'je e-mail en het account van je telefoon, elk met een eigen sterk wachtwoord' },
+  { id: 'sloten', naam: 'De twee sloten op de poort', kamers: ['tweede-slot', 'passkey'], wat: 'een extra code bij het inloggen (tweestapsverificatie), of inloggen met je vinger of gezicht (passkey)' },
+  { id: 'muur', naam: 'De muur', kamers: ['sleutels'], wat: 'voor elke app en website een ander wachtwoord' },
+  { id: 'gracht', naam: 'De gracht', kamers: ['sleutelkluis'], wat: 'een app die al je wachtwoorden veilig onthoudt (wachtwoordmanager)' },
+  { id: 'brug', naam: 'De ophaalbrug', kamers: ['brievenbus'], wat: 'jij bepaalt wie binnenkomt: een geheim woord met je familie, en een pincode op je simkaart' },
+  { id: 'toren', naam: 'De torenwacht', kamers: ['onderhoud'], wat: 'je telefoon en computer werken zichzelf bij (automatische updates)' },
+  { id: 'luiken', naam: 'De luiken', kamers: ['ramen'], wat: 'een internetprogramma dat niet meekijkt (browser)' },
+  { id: 'hek', naam: 'Het hek', kamers: ['tuinhek'], wat: 'het kastje van je wifi (router) met een eigen wachtwoord' },
+  { id: 'schat', naam: 'De schatkamer buiten de muur', kamers: ['brandkast'], wat: 'een extra kopie van je foto\'s en papieren, op een andere plek' },
+  { id: 'schild', naam: 'Het wapenschild', kamers: ['eigendomsakte'], wat: 'zuinig op je burgerservicenummer (BSN) en je DigiD' },
 ];
 
 /** Per fortdeel: 'dicht' als alle kamers dicht zijn, 'open' zodra er één open is, anders 'onbekend'. */
