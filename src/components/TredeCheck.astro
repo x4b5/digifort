@@ -4,19 +4,19 @@ const VRAGEN = [
   { id: 'ww', vraag: 'Hoe log je in op je e-mail?', opties: [
     ['zelfde', 'Met een wachtwoord dat ik ook ergens anders gebruik'],
     ['eigen', 'Met een eigen wachtwoord dat ik uit mijn hoofd ken'],
-    ['kluis', 'Met een wachtwoord uit mijn wachtwoordmanager'],
+    ['kluis', 'Met een wachtwoord uit mijn wachtwoordmanager (een app die al je wachtwoorden onthoudt)'],
     ['passkey', 'Zonder wachtwoord: met mijn vinger, gezicht of een sleuteltje'],
   ] },
   { id: 'stap', vraag: 'Komt er daarna nog een tweede stap?', opties: [
     ['geen', 'Nee'],
-    ['sms', 'Ja, een code per sms'],
-    ['app', 'Ja, een code uit een app'],
-    ['passkey', 'Ja, een passkey op mijn telefoon of computer'],
-    ['sleutel', 'Ja, een los sleuteltje zoals een YubiKey'],
+    ['sms', 'Ja, een code per sms (cijfers die je na je wachtwoord intikt)'],
+    ['app', 'Ja, een code uit een app (een app op je telefoon die steeds een nieuwe code toont)'],
+    ['passkey', 'Ja, een passkey op mijn telefoon of computer (je bevestigt met je vinger, gezicht of pincode)'],
+    ['sleutel', 'Ja, een los sleuteltje zoals een YubiKey (een klein stickje dat je in je computer steekt of tegen je telefoon houdt)'],
   ] },
   { id: 'nood', vraag: 'Raak je je telefoon vandaag kwijt: kom je dan nog binnen?', opties: [
     ['nee', 'Nee, of ik weet het niet'],
-    ['ja', 'Ja, ik heb herstelcodes op papier of een tweede sleutel'],
+    ['ja', 'Ja, ik heb herstelcodes op papier (reservecodes voor als je telefoon weg is) of een tweede sleutel'],
   ] },
 ];
 ---
