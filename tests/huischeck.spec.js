@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { LIJSTEN } from '../src/data/lijsten.js';
 
 /** Beantwoord alle tien vragen; `antwoord(nr)` geeft 'ja', 'nee' of 'weet-niet'. */
 async function vulIn(page, antwoord) {
@@ -281,7 +282,8 @@ test('na de laatste vraag hoort een schermlezer de uitslag en de eerste stap', a
   await page.goto('/huischeck');
   await vulIn(page, (nr) => (nr === 1 ? 'nee' : 'ja'));
   await expect(page.locator('[data-melding]')).toHaveText(
-    'Klaar. 9 van de 10 deuren zitten dicht. Begin bij de basis. Je eerste stap: Geef je e-mail een nieuw en lang wachtwoord, dat je nergens anders gebruikt. Je uitslag staat onder de vragen.',
+    // de tekst van de stap komt uit lijsten.js, net als op de pagina zelf
+    `Klaar. 9 van de 10 deuren zitten dicht. Begin bij de basis. Je eerste stap: ${LIJSTEN['niveau-1'].items.find((i) => i.id === 'mail-wachtwoord').stap}. Je uitslag staat onder de vragen.`,
   );
 });
 
