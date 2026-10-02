@@ -15,12 +15,16 @@
  *   Knab       knab.nl/veiligheid                                   020 303 16 59, 24/7 Fraude Alarmlijn
  *   bunq       bunq.com/nl-nl/contact/report                        geen belnummer: support in de app of het formulier
  */
+import Waarschuwing from './Waarschuwing.astro';
+// ABN AMRO heeft twee nummers, elk voor een eigen tijd. Twee knoppen, elk met
+// zijn tijd erop, zodat niemand hoeft te raden welk nummer nu werkt.
 const BANKEN = [
-  { naam: 'ING', tel: '020 22 888 00', telHref: 'tel:0202288800' },
-  { naam: 'Rabobank', tel: '088 722 66 00', telHref: 'tel:0887226600' },
-  { naam: 'ABN AMRO', tel: '088 22 62 630', telHref: 'tel:0882262630', noot: { tekst: 'Op werkdagen van 9 tot 17 uur:', tel: '0900 00 24', telHref: 'tel:09000024' } },
+  { naam: 'ING', wanneer: 'dag en nacht', tel: '020 22 888 00', telHref: 'tel:0202288800' },
+  { naam: 'Rabobank', wanneer: 'dag en nacht', tel: '088 722 66 00', telHref: 'tel:0887226600' },
+  { naam: 'ABN AMRO', wanneer: 'werkdagen 9 tot 17 uur', tel: '0900 00 24', telHref: 'tel:09000024' },
+  { naam: 'ABN AMRO', wanneer: 'avond, nacht en weekend', tel: '088 22 62 630', telHref: 'tel:0882262630' },
   { naam: 'SNS, ASN of RegioBank', tel: '070 35 69 335', telHref: 'tel:0703569335' },
-  { naam: 'Knab', tel: '020 303 16 59', telHref: 'tel:0203031659' },
+  { naam: 'Knab', wanneer: 'dag en nacht', tel: '020 303 16 59', telHref: 'tel:0203031659' },
 ];
 const NUMMERS = [
   { wie: 'Direct gevaar?', wat: 'Bel het alarmnummer.', tel: '112', telHref: 'tel:112' },
@@ -43,21 +47,21 @@ const NUMMERS = [
                 <li>
                   <a class="bel bank" href={b.telHref}>
                     <span class="naam">{b.naam}</span>
+                    {b.wanneer && <span class="wanneer">{b.wanneer}</span>}
                     <span class="nr">Bel {b.tel}</span>
                   </a>
-                  {b.noot && <p class="noot">{b.noot.tekst} <a href={b.noot.telHref}>bel {b.noot.tel}</a></p>}
                 </li>
               ))}
             </ul>
             <p class="noot">Andere bank? Het nummer staat op je pas, of bij de <a href="https://www.fraudehelpdesk.nl/bank/">noodnummers van alle banken</a>. Bij bunq meld je het in de app.</p>
-            <p class="noot"><strong>Let op:</strong> je bank vraagt nooit om geld over te maken of een app te installeren. Hang op en bel zelf.</p>
+            <Waarschuwing>Je bank vraagt nooit om geld over te maken of een app te installeren. Hang op en bel zelf.</Waarschuwing>
           </>
         )}
         {n.tel && <a class="bel" href={n.telHref}>Bel {n.tel}</a>}
       </li>
     ))}
   </ul>
-  <p class="daarna">Daarna: de zes stappen hieronder, in deze volgorde. Telefoon of laptop kwijt? <a href="#telefoon-of-laptop-kwijt-het-stappenplan">Ga naar het stappenplan</a>.</p>
+  <p class="daarna"><strong>Daarna:</strong> <a href="#het-eerste-uur">kies wat er is gebeurd en volg de stappen</a>.</p>
 </section>
 
 <style>
@@ -79,7 +83,7 @@ const NUMMERS = [
   .banken { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); gap: 0.6rem; margin: 0.3rem 0 0.6rem; }
   .bank { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; width: 100%; min-height: 3.5rem; padding: 0.45rem 1rem; box-sizing: border-box; }
   .bank .naam { font-size: 1rem; line-height: 1.2; }
+  .bank .wanneer { font-family: var(--tekst); font-weight: 400; font-size: var(--tekst-m); line-height: 1.3; }
   .bank .nr { font-size: 1.15rem; line-height: 1.3; white-space: nowrap; }
   .noot { margin: 0.25rem 0 0; font-size: var(--tekst-m); }
-  .banken .noot { margin-top: 0.2rem; }
 </style>

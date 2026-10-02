@@ -1,0 +1,16 @@
+---
+/**
+ * "Wat je zegt": een zin die je hardop kunt gebruiken bij iemand anders.
+ * Naar het inzetblok van GOV.UK (inset text): een grijze lijn links, geen kleur.
+ * Zet de tekst op één regel in MDX, dan komt er geen alinea in een alinea.
+ */
+---
+<div class="zeg" data-zeg>
+  <p><span class="label">Wat je zegt:</span> <slot /></p>
+</div>
+
+<style>
+  .zeg { margin: 0.9rem 0; padding: 0.6rem 0 0.6rem 1rem; border-left: 6px solid var(--lijn); }
+  .zeg p { margin: 0; font-size: var(--tekst-l); }
+  .label { display: block; font-family: var(--kop); font-weight: 700; font-size: var(--tekst-m); color: var(--inkt-zacht); }
+</style>

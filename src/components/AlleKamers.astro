@@ -1,0 +1,38 @@
+---
+/**
+ * Eén knop die alle plekken van de plattegrond tegelijk open- of dichtklapt, zoals
+ * "Show all sections" bij de accordion van GOV.UK. Handig om te printen, om met Ctrl+F
+ * te zoeken in een browser die dichte uitklappers overslaat, of om alles achter elkaar
+ * te lezen. Zonder JavaScript blijft de knop weg: dan werkt hij ook niet.
+ */
+---
+<p class="alle-kamers" data-alle-kamers hidden>
+  <button type="button" class="knop licht klein" aria-expanded="false" data-alle-knop>Alle plekken openklappen</button>
+</p>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-alle-kamers]').forEach((houder) => {
+    const knop = houder.querySelector<HTMLButtonElement>('[data-alle-knop]')!;
+    const kamers = Array.from(document.querySelectorAll<HTMLDetailsElement>('details[data-kamer-uitleg]'));
+    if (!kamers.length) return;
+    houder.hidden = false;
+
+    function stand() {
+      const alles = kamers.every((d) => d.open);
+      knop.textContent = alles ? 'Alle plekken dichtklappen' : 'Alle plekken openklappen';
+      knop.setAttribute('aria-expanded', String(alles));
+    }
+    knop.addEventListener('click', () => {
+      const open = !kamers.every((d) => d.open);
+      kamers.forEach((d) => { d.open = open; });
+      stand();
+    });
+    kamers.forEach((d) => d.addEventListener('toggle', stand));
+    stand();
+  });
+</script>
+
+<style>
+  .alle-kamers { margin: 0.75rem 0 0.5rem; display: flex; justify-content: flex-end; }
+  .alle-kamers[hidden] { display: none; }
+</style>

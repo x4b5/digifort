@@ -2,16 +2,21 @@
 /**
  * Een lijst die je kunt afvinken. Wat je aanvinkt blijft in je eigen browser staan.
  * `lijst` is de sleutel in src/data/lijsten.js.
+ *
+ * Met `pagina` wordt het een takenlijst zoals die van GOV.UK: elke rij heeft een korte naam,
+ * één zin uitleg, een status ("Nog doen" of "Gedaan") en een link naar de stap op de
+ * stap-voor-stappagina, waar staat hoe je het precies doet.
  */
 import { LIJSTEN } from '../data/lijsten.js';
 import Merk from './Merk.astro';
-const { lijst, kop = true, genummerd = false } = Astro.props;
+interface Props { lijst: string; kop?: boolean; genummerd?: boolean; pagina?: string }
+const { lijst, kop = true, genummerd = false, pagina } = Astro.props;
 const data = LIJSTEN[lijst];
 if (!data) throw new Error(`Onbekende lijst: ${lijst}`);
 const totaalTijd = data.items.reduce((n, it) => n + (it.tijd ?? 0), 0);
 const Tag = genummerd ? 'ol' : 'ul';
 ---
-<section class="lijst" data-lijst={lijst} data-totaal={data.items.length} id={lijst}>
+<section class:list={['lijst', { taken: pagina }]} data-lijst={lijst} data-afvinklijst data-totaal={data.items.length} id={lijst}>
   {kop && <h3>{data.titel}</h3>}
   <p class="stand" data-stand aria-live="polite">
     <span data-stand-tekst>0 van {data.items.length} gedaan</span>
@@ -26,10 +31,19 @@ const Tag = genummerd ? 'ol' : 'ul';
           <span class="tekst-blok">
             <span class="stap">{genummerd && <span class="nr">{i + 1}.</span>} {it.stap}</span>
             {it.waarom && <span class="waarom">{it.waarom}</span>}
-            {it.tijd && <span class="minuten">{it.tijd} min</span>}
+            {(it.tijd || pagina) && (
+              <span class="regel">
+                {it.tijd && <span class="minuten">{it.tijd} min</span>}
+                {/* de status staat er voor het oog; een schermlezer hoort het vinkje zelf al */}
+                <span class="status" data-status aria-hidden="true">Nog doen</span>
+              </span>
+            )}
             {it.gereedschap && it.gereedschap.length > 0 && <span class="gereedschap">{it.gereedschap.map((g) => <Merk id={g} maat={18} />)}</span>}
           </span>
         </label>
+        {pagina && (
+          <a class="hoe-link" href={`${pagina}#stap-${it.id}`}>Zo doe je het<span class="onzichtbaar">: {it.stap}</span><span class="pijl" aria-hidden="true">→</span></a>
+        )}
       </li>
     ))}
   </Tag>
@@ -38,7 +52,7 @@ const Tag = genummerd ? 'ol' : 'ul';
 <script>
   import { lees, zetVinkje } from '../lib/opslag.js';
 
-  document.querySelectorAll<HTMLElement>('[data-lijst]').forEach((sectie) => {
+  document.querySelectorAll<HTMLElement>('[data-afvinklijst]').forEach((sectie) => {
     const lijst = sectie.dataset.lijst!;
     const totaal = Number(sectie.dataset.totaal);
     const vakjes = Array.from(sectie.querySelectorAll<HTMLInputElement>('input[data-item]'));
@@ -51,7 +65,12 @@ const Tag = genummerd ? 'ol' : 'ul';
       if (tekst) tekst.textContent = af === totaal ? `Alles gedaan (${totaal} van ${totaal})` : `${af} van ${totaal} gedaan`;
       if (tijd) tijd.textContent = rest > 0 ? ` · nog ${rest} min` : '';
       sectie.classList.toggle('klaar', af === totaal);
-      vakjes.forEach((v) => v.closest('li')?.classList.toggle('af', v.checked));
+      vakjes.forEach((v) => {
+        const li = v.closest('li');
+        li?.classList.toggle('af', v.checked);
+        const status = li?.querySelector('[data-status]');
+        if (status) status.textContent = v.checked ? 'Gedaan' : 'Nog doen';
+      });
     }
 
     const bewaard = lees().lijsten[lijst] ?? {};
@@ -87,6 +106,21 @@ const Tag = genummerd ? 'ol' : 'ul';
   .nr { color: var(--rood); font-family: var(--kop); }
   .waarom { color: var(--inkt-zacht); font-size: 0.95em; }
   .gereedschap { display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem; margin-top: 0.3rem; }
-  .minuten { font-family: var(--kop); font-size: 0.8rem; color: var(--rood); letter-spacing: 0.05em; }
-  li.af .stap { text-decoration: line-through; text-decoration-thickness: 2px; color: var(--inkt-zacht); }
+  .regel { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.75rem; margin-top: 0.2rem; }
+  .minuten { font-family: var(--kop); font-size: var(--tekst-s); color: var(--inkt-zacht); }
+  /* de status van GOV.UK: "Nog doen" valt op als label, "Gedaan" is gewone tekst.
+     Zo springt eruit wat nog open staat; afgevinkte stappen worden niet doorgestreept,
+     want doorgestreepte tekst is lastig te lezen */
+  .status { display: none; font-family: var(--kop); font-size: var(--tekst-s); font-weight: 700; padding: 0.05rem 0.5rem; border-radius: var(--radius); background: var(--rood-licht); color: var(--inkt); }
+  .taken .status { display: inline-block; }
+  li.af .status { background: none; padding: 0; color: var(--groen); }
+  li.af .stap { color: var(--inkt-zacht); }
+  .lijst:not(.taken) li.af .stap { text-decoration: line-through; text-decoration-thickness: 2px; }
+
+  /* takenlijst: de link naar hoe je het doet staat onder de stap, op één lijn met de tekst */
+  .taken li { padding-bottom: 0.6rem; }
+  .taken label { padding-bottom: 0.4rem; }
+  .hoe-link { display: inline-flex; align-items: center; min-height: 2.75rem; margin-left: calc(2rem + 0.9rem + 0.25rem); font-weight: 700; }
+  .hoe-link .pijl { margin-left: 0.4rem; text-decoration: none; }
+  .onzichtbaar { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>

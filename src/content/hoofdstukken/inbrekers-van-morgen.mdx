@@ -2,7 +2,7 @@
 nr: null
 titel: "De inbrekers van morgen"
 kort: "AI dat jouw stem kent en computers die oude sloten openen."
-omschrijving: "AI die een stem of gezicht nadoet en kwantumcomputers die oude sloten openen. Wat er aankomt, wat een geheim familiewoord doet, en wat jij kunt doen."
+omschrijving: "Kan AI een stem nadoen? Wat typ je niet in een chatbot? Kraakt een kwantumcomputer mijn wachtwoord? Het antwoord, en wat je doet."
 datum: "2026-09-30"
 ---
 import Vraagje from '../../components/Vraagje.astro';
@@ -14,6 +14,8 @@ import GeheimWoord from '../../components/tekeningen/GeheimWoord.astro';
 import Foto from '../../components/Foto.astro';
 import Verhaal from '../../components/Verhaal.astro';
 import Scene from '../../components/Scene.astro';
+import Overzicht from '../../components/Overzicht.astro';
+import NaarDoen from '../../components/NaarDoen.astro';
 
 <Scene wie="ria" bron="Federal Trade Commission, 2023" href="https://consumer.ftc.gov/consumer-alerts/2023/03/scammers-use-ai-enhance-their-family-emergency-schemes">
 
@@ -23,17 +25,28 @@ Milan heeft geen scooter. Een kort stukje van een filmpje op internet was genoeg
 
 </Scene>
 
-Wat Ria hier had moeten doen, regel jij vandaag al. Het kost één gesprek aan tafel.
+Er komen twee dingen aan. AI maakt de babbeltruc nu al beter. Daar doe jij vandaag iets mee. Kwantumcomputers kunnen later een deel van onze sloten openen. Dat is vooral werk voor de bedrijven die de sloten maken.
+
+<Overzicht kop="Wat doe je ertegen? Zoek het hier op." rijen={[
+  { vraag: 'Een bekende stem vraagt in paniek om geld', antwoord: 'Vraag naar het geheime woord. Of hang op en bel zelf terug, op het nummer dat je al had.', href: '#een-nagemaakte-stem', link: 'Een nagemaakte stem' },
+  { vraag: 'Een videogesprek of filmpje met een bekend gezicht', antwoord: 'Een bekend gezicht is geen bewijs meer. Hang op en bel zelf terug.', href: '#een-nagemaakt-gezicht-deepfakes', link: 'Een nagemaakt gezicht' },
+  { vraag: 'Een bericht zonder fouten dat precies bij jou past', antwoord: 'Controleer het zelf, via een nummer of site die je al kende.', href: '#een-bericht-dat-precies-klopt', link: 'Een bericht dat precies klopt' },
+  { vraag: 'Je gebruikt zelf een chatbot, zoals ChatGPT of Claude', antwoord: 'Typ er geen wachtwoord, BSN of gegevens van anderen in.', href: '#wat-typ-je-niet-in-een-chatbot', link: 'Wat typ je niet in een chatbot?' },
+  { vraag: 'Kan een kwantumcomputer straks mijn wachtwoord kraken?', antwoord: 'Nee. Een lang en sterk wachtwoord blijft gewoon goed.', href: '#kan-een-kwantumcomputer-mijn-wachtwoord-kraken', link: 'Kan een kwantumcomputer mijn wachtwoord kraken?' },
+  { vraag: 'Moet ik iets doen tegen kwantumcomputers?', antwoord: 'Zet je updates op automatisch. Koop niets wat "kwantumveilig" heet.', href: '#moet-je-iets-doen-tegen-kwantumcomputers', link: 'Moet je iets doen tegen kwantumcomputers?' },
+]} />
 
 ## Het geheime woord van je familie
 
-<GeheimWoord />
+<Kort>spreek thuis een woord af dat alleen jullie kennen. Een nagemaakte stem kent het niet.</Kort>
 
 <Doe>
 
 **Doe dit vandaag:** spreek met je familie een geheim woord af. Doe het aan tafel, niet in een bericht. Zet het nergens op internet.
 
 </Doe>
+
+<GeheimWoord />
 
 Belt er iemand in paniek die om geld vraagt? Vraag dan naar het woord. Een nagemaakte stem kent het niet.
 
@@ -43,31 +56,33 @@ Drie regels die erbij horen:
 2. **Controleer het zelf.** Hang op. Bel terug op het nummer dat je al had.
 3. **Geloof je ogen en oren niet zomaar.** Een bekende stem of een bekend gezicht is geen bewijs meer.
 
+<NaarDoen stappen={['geheim-woord']} />
+
 <Vraagje vraag="“Milan” vraagt Ria om geld, en zegt: niet tegen mama vertellen. Wat doet Ria het best?" opties={[
   { tekst: 'Snel geld overmaken. Het is echt zijn stem.', uitleg: 'Daar rekent de oplichter op: haast en een stem die je kent. Een bekende stem is geen bewijs meer.' },
   { tekst: 'Vragen naar het geheime woord, of ophangen en Milan zelf bellen op zijn eigen nummer', goed: true, uitleg: 'Een nagemaakte stem kent het woord niet. En wie jij zelf belt op een nummer dat je al had, is de echte Milan.' },
   { tekst: 'Terugbellen naar het nummer waar het bericht vandaan kwam', uitleg: 'Dan bel je de oplichter terug. Bel het nummer dat je al had.' },
 ]} />
 
-Waarom is dit nodig? Er komen twee dingen aan. AI maakt de babbeltruc nu al beter. Daar moet jij vandaag iets mee. Kwantumcomputers kunnen later een deel van onze sloten openen. Dat is vooral werk voor de bedrijven die de sloten maken.
+## Kan AI een stem of gezicht nadoen?
 
-## AI: de inbreker die jou kent
-
-<Kort>met AI lijkt een nepbericht of nepstem bijna echt.</Kort>
+<Kort>ja. Met AI lijkt een nepbericht, een nepstem of een nepfilmpje bijna echt. Controleer het daarom altijd zelf.</Kort>
 
 AI is de afkorting van kunstmatige intelligentie. Het zijn computerprogramma's die zelf tekst, beeld en geluid kunnen maken. Vroeger herkende je oplichting aan kromme zinnen. Dat werkt niet meer. Hieronder staan drie trucs, elk met wat je ertegen doet.
 
-### Een stem die je kent
+### Een nagemaakte stem
 
 Een kort stukje geluid uit een filmpje is genoeg om een stem na te maken. De programma's daarvoor kosten weinig of niets. Daarna klinkt de oplichter aan de telefoon als iemand die je kent. "Mam, ik heb een ongeluk gehad. Ik heb nu geld nodig."
 
 **Wat helpt:** het [geheime woord](#het-geheime-woord-van-je-familie).
 
-### Een gezicht dat je kent
+### Een nagemaakt gezicht: deepfakes
 
 AI kan ook nepfilmpjes en nepfoto's maken van echte mensen. Zo'n nagemaakt beeld heet een deepfake, en staat zo ook in het [woordenboek](/woordenboek). Het kan zelfs in een videogesprek.
 
 **Wat helpt:** hang op en bel zelf terug, op een nummer dat je al had.
+
+<Meer titel="Lees hoe een videogesprek 25 miljoen dollar kostte">
 
 <Verhaal
   titel="Een videogesprek met vijf collega's die geen van allen bestonden"
@@ -89,17 +104,19 @@ Let op wat hier gebeurde: hij twijfelde wél. Het beeld nam zijn twijfel weg. Da
 
 </Verhaal>
 
+</Meer>
+
 ### Een bericht dat precies klopt
 
 - **Zonder fouten.** In elke taal en in elke toon. Ook in de toon van je bank of je baas.
 - **Op maat.** Alles wat over jou op internet staat, verwerkt de computer tot een bericht dat precies bij jouw leven past.
 - **Naar duizenden mensen tegelijk.** Vroeger kostte één slachtoffer veel werk. Nu doet de computer dat werk.
 
-**Wat helpt:** controleer het zelf, via een nummer of website die je al kende. Hoe dat werkt staat in [De inbrekers van nu](/inbrekers-van-nu).
+**Wat helpt:** controleer het zelf, via een nummer of website die je al kende. Hoe dat werkt staat in [De inbrekers van nu](/inbrekers-van-nu#is-dit-bericht-echt).
 
 De techniek is nieuw. De truc is oud: iemand wil dat je snel iets doet, zonder na te denken. Je beste verdediging is daarom geen programma. Het is wat je zelf doet.
 
-## De nieuwe huisgenoot: zelf AI gebruiken
+## Wat typ je niet in een chatbot?
 
 <Kort>AI is handig, maar het onthoudt wat je vertelt. Geef het niet al je sleutels.</Kort>
 
@@ -109,9 +126,7 @@ De techniek is nieuw. De truc is oud: iemand wil dat je snel iets doet, zonder n
 
 </Doe>
 
-<Meer>
-
-AI is niet alleen gereedschap van inbrekers. Je haalt het ook zelf in huis. Als programma waarmee je kunt praten, zoals ChatGPT of Claude. Dat heet een chatbot. Of als hulpje dat je mail leest en dingen voor je regelt. Het is een handige huisgenoot. Maar let op een paar dingen.
+Een chatbot is een programma waarmee je kunt praten. Er zijn ook AI-hulpjes die je mail lezen en dingen voor je regelen. Het is een handige huisgenoot. Let wel op deze dingen:
 
 - **Wat je intypt, gaat je huis uit.** Zet geen wachtwoorden, geen BSN en niets over je gezondheid in een chatbot. Ook geen gegevens van andere mensen. Op je werk geldt dat nog sterker.
 - **Kijk in de instellingen.** Daar staat of het bedrijf jouw gesprekken gebruikt om het programma slimmer te maken. Vaak kun je dat uitzetten.
@@ -119,13 +134,34 @@ AI is niet alleen gereedschap van inbrekers. Je haalt het ook zelf in huis. Als 
 - **Controleer wat het zegt.** Een chatbot kan iets verzinnen en het heel zeker laten klinken. Ook een webadres of een telefoonnummer. Zoek het nummer van je bank dus nooit op via een chatbot.
 - **Er bestaan ook nepapps.** Installeer alleen de echte app van de maker.
 
-</Meer>
+## Kan een kwantumcomputer mijn wachtwoord kraken?
 
-## Kwantumcomputers: de loper voor oude sloten
+<Kort>nee. Een lang en sterk wachtwoord blijft gewoon goed. Een kwantumcomputer bedreigt iets anders: de techniek waarmee apparaten een veilige verbinding met elkaar maken. Die techniek vervangen de bedrijven, en jij krijgt de nieuwe sloten via je updates.</Kort>
 
-<Kort>er komt een nieuw soort computer die sommige sloten van nu kan openen. Hij bestaat nog niet.</Kort>
+- **Je wachtwoord:** blijft goed, als het lang en sterk is. Je hoeft het niet te veranderen vanwege kwantumcomputers.
+- **De veilige verbinding:** daar werken bedrijven aan. De nieuwe sloten bestaan al sinds 2024.
+- **Wanneer:** zo'n computer bestaat nog niet. De AIVD en het NCSC verwachten hem tussen 2030 en 2040. ([bron](https://www.aivd.nl/actueel/nieuws/2023/09/18/handreiking-maak-je-organisatie-quantumveilig-gepubliceerd))
 
-<Meer>
+## Moet je iets doen tegen kwantumcomputers?
+
+<Kort>bijna niets. Zo'n computer bestaat nog niet. Zet je updates op automatisch: dan krijg je de nieuwe sloten vanzelf.</Kort>
+
+**Wat je wel doet:**
+
+- Houd je apparaten en apps bijgewerkt. De nieuwe sloten komen vanzelf binnen met updates.
+- Kies diensten die laten zien dat ze hun beveiliging bijhouden.
+- Vervang apparaten die geen updates meer krijgen.
+
+**Wat je niet doet:**
+
+- Koop geen spullen die "kwantumveilig" heten. Wie dat nu aan gewone mensen verkoopt, verkoopt vooral angst.
+- Maak je geen zorgen over wanneer de kwantumcomputer komt. Daar heb je geen invloed op. Dit is werk voor bedrijven, banken en de overheid.
+
+<NaarDoen stappen={['updates']} ook={[
+  { href: '/onderhoud', tekst: 'Welke apparaten krijgen geen updates meer?', waar: 'Onderhoud en opruimen' },
+]} />
+
+<Meer titel="Wat is een kwantumcomputer?">
 
 Veel beveiliging op internet werkt met rekensommen. Die sommen zijn zo moeilijk dat een gewone computer er langer over doet dan een mensenleven duurt. Een kwantumcomputer rekent op een heel andere manier. Als hij sterk genoeg is, lost hij een deel van die sommen snel op. Dan heb je een loper: één sleutel die op heel veel oude sloten past.
 
@@ -134,16 +170,10 @@ Veel beveiliging op internet werkt met rekensommen. Die sommen zijn zo moeilijk 
 Wat je eerlijk moet weten:
 
 - **Die computer is er nog niet.** Niemand weet precies wanneer hij komt. De AIVD en het NCSC verwachten het tussen 2030 en 2040. Dat zijn twee organisaties van de overheid die over veiligheid gaan. De kans dat het in 2030 al lukt, noemen experts klein maar echt. ([bron](https://www.aivd.nl/actueel/nieuws/2023/09/18/handreiking-maak-je-organisatie-quantumveilig-gepubliceerd))
-- **Niet alle sloten zijn zwak.** Het gaat om de techniek waarmee apparaten een veilige verbinding met elkaar maken. Een lang en sterk wachtwoord blijft gewoon goed.
+- **Niet alle sloten zijn zwak.** Het gaat om de techniek waarmee apparaten een veilige verbinding met elkaar maken. Een lang en sterk wachtwoord blijft gewoon goed. Zie ook [Kan een kwantumcomputer mijn wachtwoord kraken?](#kan-een-kwantumcomputer-mijn-wachtwoord-kraken)
 - **De nieuwe sloten bestaan al.** Sinds 2024 zijn er officiële afspraken voor beveiliging waar een kwantumcomputer niet doorheen komt. Grote bedrijven bouwen die stap voor stap in.
 
 </Meer>
-
-## Nu stelen, later openbreken
-
-<NuStelen />
-
-Waarom is dit vandaag al een onderwerp? Gegevens die nu veilig op slot zitten, kunnen nu al gestolen en bewaard worden. Over tien jaar breekt de dief ze alsnog open. Dat is vooral een gevaar voor geheimen die lang geheim moeten blijven. Denk aan geheimen van een land, van een ziekenhuis of van een bedrijf. Voor je boodschappenlijstje maakt het niets uit.
 
 <Vraagje vraag="De kwantumcomputer bestaat nog niet. Wat kun jij er vandaag dan tegen doen?" opties={[
   { tekst: 'Iets kopen dat "kwantumveilig" heet', uitleg: 'Wie dat nu aan gewone mensen verkoopt, verkoopt vooral angst. De nieuwe sloten komen vanzelf.' },
@@ -151,25 +181,17 @@ Waarom is dit vandaag al een onderwerp? Gegevens die nu veilig op slot zitten, k
   { tekst: 'Niets; dit is werk voor banken en de overheid', uitleg: 'Voor het grootste deel klopt dat, maar niet helemaal: een apparaat dat geen updates meer krijgt, krijgt die nieuwe sloten ook nooit.' },
 ]} />
 
-## Wat jij kunt doen, en wat niet
+## Wat betekent "nu stelen, later openbreken"?
 
-**Wel:**
+<Kort>dieven stelen nu gegevens die op slot zitten, en breken ze later open. Dat is vooral een gevaar voor grote geheimen, niet voor je boodschappenlijstje.</Kort>
 
-- Houd je apparaten en apps bijgewerkt. De nieuwe sloten komen vanzelf binnen met updates.
-- Kies diensten die laten zien dat ze hun beveiliging bijhouden.
-- Vervang apparaten die geen updates meer krijgen.
-- Spreek het geheime woord af en gebruik de drie regels.
+<NuStelen />
 
-**Niet:**
-
-- Koop geen spullen die "kwantumveilig" heten. Wie dat nu aan gewone mensen verkoopt, verkoopt vooral angst.
-- Je kunt niet beïnvloeden wanneer de kwantumcomputer komt. Dit is werk voor bedrijven, banken en de overheid.
-
-Kort gezegd: AI is het probleem van vandaag. Het vraagt dat je anders gaat doen. Kwantum is het probleem van morgen. Het vraagt vooral dat je je updates blijft doen.
+Gegevens die nu veilig op slot zitten, kunnen nu al gestolen en bewaard worden. Over tien jaar breekt de dief ze alsnog open. Dat is vooral een gevaar voor geheimen die lang geheim moeten blijven. Denk aan geheimen van een land, van een ziekenhuis of van een bedrijf.
 
 ## Wat je nu kunt doen
 
-1. Spreek thuis een [geheim woord](/aan-de-slag#niveau-1) af. Een nagemaakte stem kent het niet.
-2. Twijfel je bij een bericht? Bel zelf terug op een nummer dat je al had. Hoe dat werkt staat in [De inbrekers van nu](/inbrekers-van-nu).
-3. Zet updates op automatisch. Dat is het enige wat echt helpt tegen de kwantumcomputer, en het staat in [niveau 1](/aan-de-slag#niveau-1).
-4. Typ geen wachtwoord, BSN of gegevens van anderen in een chatbot zoals ChatGPT of Claude. Meer daarover staat bij [de nieuwe huisgenoot](#de-nieuwe-huisgenoot-zelf-ai-gebruiken).
+1. Spreek thuis een geheim woord af. Een nagemaakte stem kent het niet. Het is een stap van [Ik heb één avond](/een-avond).
+2. Twijfel je bij een bericht? Bel zelf terug op een nummer dat je al had. Hoe dat werkt staat in [De inbrekers van nu](/inbrekers-van-nu#is-dit-bericht-echt).
+3. Zet updates op automatisch. Dat is het enige wat echt helpt tegen de kwantumcomputer. Ook dat staat in [Ik heb één avond](/een-avond).
+4. Typ geen wachtwoord, BSN of gegevens van anderen in een chatbot. Meer daarover staat bij [Wat typ je niet in een chatbot?](#wat-typ-je-niet-in-een-chatbot).

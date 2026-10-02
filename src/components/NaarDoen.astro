@@ -1,0 +1,46 @@
+---
+/**
+ * De brug van naslag naar doen: "zo doe je het, stap voor stap", met per stap een link
+ * naar de stap-voor-stap-pagina waar hij staat (één avond, een weekend, ik wil verder).
+ * Titel, paginanaam en stapnummer komen uit lijsten.js, zodat ze nooit uit de pas lopen.
+ *
+ * `stappen`: ids uit niveau 1, 2 of 3.
+ * `ook`: andere plekken in het doe-deel, bijvoorbeeld "Als er toch is ingebroken".
+ */
+import { doeStap } from '../data/doestappen.js';
+interface Ook { href: string; tekst: string; waar: string }
+interface Props { stappen?: string[]; ook?: Ook[]; kop?: string }
+const { stappen = [], ook = [], kop = 'Zo doe je het, stap voor stap' } = Astro.props;
+const rijen = stappen.map(doeStap);
+---
+{(rijen.length > 0 || ook.length > 0) && (
+  <div class="naar-doen" data-naar-doen>
+    <p class="naar-kop">{kop}</p>
+    <ul>
+      {rijen.map((r) => (
+        <li data-doe-stap={r.id} data-nr={r.nr} data-href={r.href}>
+          <a href={r.href}>{r.stap}</a>
+          <span class="waar">{r.pagina}, stap {r.nr}{r.tijd ? ` · ${r.tijd} minuten` : ''}</span>
+        </li>
+      ))}
+      {ook.map((o) => (
+        <li>
+          <a href={o.href}>{o.tekst}</a>
+          <span class="waar">{o.waar}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+<style>
+  .naar-doen { margin: 1.25rem 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-left: 6px solid var(--groen); border-radius: var(--radius); }
+  .naar-kop { margin: 0 0 0.4rem; font-family: var(--kop); font-weight: 700; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { margin: 0; padding: 0.45rem 0; }
+  li + li { border-top: 1px solid var(--lijn); }
+  a { font-weight: 700; }
+  a::after { content: " →"; content: " →" / ""; }
+  .waar { display: block; font-size: var(--tekst-m); color: var(--inkt-zacht); }
+  @media print { a::after { content: ""; } }
+</style>

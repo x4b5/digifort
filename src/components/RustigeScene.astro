@@ -1,0 +1,20 @@
+---
+/**
+ * Een scène op een naslagpagina: hetzelfde verhaal als Scene, maar rechtop en in
+ * gewone letters. Op een naslagpagina komt de lezer voor een antwoord; het verhaal
+ * staat daarom pas ná het antwoord, en leest zo licht mogelijk (geen cursief en geen
+ * bronregel in kleine hoofdletters, wat zwaar leest bij dyslexie of slecht zicht).
+ */
+import Scene from './Scene.astro';
+interface Props { wie: 'ria' | 'sanne' | 'milan'; bron?: string; href?: string }
+const props = Astro.props;
+---
+<div class="rustige-scene" data-rustige-scene>
+  <Scene {...props}><slot /></Scene>
+</div>
+
+<style>
+  .rustige-scene :global(.scene) { margin-top: 2rem; }
+  .rustige-scene :global(.scene .tekst) { font-style: normal; font-size: inherit; }
+  .rustige-scene :global(.scene .herkomst) { font-family: inherit; font-size: var(--tekst-m, 0.95rem); letter-spacing: normal; text-transform: none; }
+</style>

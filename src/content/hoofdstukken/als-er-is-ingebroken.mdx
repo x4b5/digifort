@@ -2,64 +2,334 @@
 nr: 3
 titel: "Als er toch is ingebroken"
 kort: "Het eerste uur, je telefoon kwijt, en het noodpakket."
-omschrijving: "Gehackt, opgelicht of je telefoon kwijt? Wat je in het eerste uur doet, waar je het meldt, en welk noodpakket je nu al klaarlegt."
+omschrijving: "Opgelicht, gehackt of je telefoon kwijt? Bel eerst je bank. Daarna een stappenplan per situatie, waar je het meldt, en welk noodpakket je nu al klaarlegt."
 datum: "2026-09-24"
 ---
 import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
-import Kort from '../../components/Kort.astro';
 import Afvinklijst from '../../components/Afvinklijst.astro';
-import EersteUur from '../../components/tekeningen/EersteUur.astro';
-import Foto from '../../components/Foto.astro';
 import Verhaal from '../../components/Verhaal.astro';
 import Scene from '../../components/Scene.astro';
 import Noodkaart from '../../components/Noodkaart.astro';
+import Situaties from '../../components/Situaties.astro';
+import Stappenplan from '../../components/Stappenplan.astro';
+import Stap from '../../components/Stap.astro';
+import Waarschuwing from '../../components/Waarschuwing.astro';
+import Optie from '../../components/Optie.astro';
+import Schermafbeelding from '../../components/Schermafbeelding.astro';
+import MailWachtwoord from '../../components/MailWachtwoord.astro';
+import AnderAccount from '../../components/AnderAccount.astro';
+import Uitloggen from '../../components/Uitloggen.astro';
+import Doorsturen from '../../components/Doorsturen.astro';
+import TweedeSlot from '../../components/TweedeSlot.astro';
+import Herstelgegevens from '../../components/Herstelgegevens.astro';
+import ZelfdeWachtwoord from '../../components/ZelfdeWachtwoord.astro';
 
 <Noodkaart />
 
 ## Het eerste uur
 
-<Afvinklijst lijst="eerste-uur" kop={false} genummerd />
+Wat is er gebeurd? Kies hieronder. Je hoeft alleen het stappenplan te lezen dat bij jou past. Doe de stappen van boven naar beneden, één tegelijk. Bij elke stap staat alles wat je nodig hebt.
 
-<Kort>bij een inbraak vervang je eerst de sloten, daarna bel je wie er gebeld moet worden. Online is het net zo.</Kort>
+<Situaties />
 
-Snel handelen beperkt de schade, en je hoeft je nergens voor te schamen. Dit overkomt ook mensen die er verstand van hebben. Oplichters zijn professionals; slachtoffer worden zegt niets over je intelligentie.
+Je hoeft je nergens voor te schamen. Dit overkomt ook mensen die er verstand van hebben. Oplichters doen dit voor hun werk. Slachtoffer worden zegt niets over hoe slim je bent.
 
-<Meer titel="Waarom deze volgorde">
+## Opgelicht of geld weg
 
-<EersteUur />
+<Stappenplan id="stappen-geld" stappen={6}>
 
-<Foto id="aantekeningen" onderschrift="Noteer wat er gebeurde en wanneer, en bewaar het bewijs voordat je iets weggooit." />
+<Stap nr={1} id="bank" titel="Bel je bank" gelukt="de bank weet wat er is gebeurd. Je hebt opgeschreven met wie je sprak, en hoe laat.">
 
-</Meer>
+Doe dit meteen. Hoe sneller je belt, hoe groter de kans dat een betaling wordt tegengehouden.
+
+Het nummer staat [bovenaan deze pagina](#noodkaart-kop). Het staat ook op je pas en in je bankapp.
+
+Vertel wat er is gebeurd. Vraag of de bank je pas blokkeert.
+
+</Stap>
+
+<Stap nr={2} id="bewijs" anker="stap-bewijs" titel="Bewaar het bewijs" gelukt="de schermafbeeldingen staan bij je foto's, of in een map op je computer.">
+
+Gooi nog niets weg. Maak eerst een schermafbeelding van de berichten, de telefoonnummers en de rekeningnummers.
+
+<Schermafbeelding />
+
+Schrijf ook op papier wat er gebeurde, en wanneer.
+
+</Stap>
+
+<Stap nr={3} id="toegang" titel="Liet je iemand meekijken? Sluit die deur" gelukt="je vindt AnyDesk of TeamViewer niet meer in de lijst met apps. Je e-mail heeft een nieuw wachtwoord.">
+
+Sla deze stap over als niemand op je scherm meekeek.
+
+Oplichters laten je soms een programma installeren, zoals AnyDesk of TeamViewer. Daarmee kijken ze mee op je scherm, of nemen ze je computer over. Een bank vraagt daar nooit om. Heb je zo'n programma geïnstalleerd? Vertel het je bank.
+
+Haal het programma daarna weg. Doe dat op het apparaat waar het op staat:
+
+- **Windows-laptop:** open Instellingen en kies Apps. Zoek AnyDesk of TeamViewer in de lijst. Klik op de naam of op de drie puntjes ernaast. Kies Verwijderen.
+- **Mac:** open Finder. Kies links de map met je programma's. Sleep AnyDesk of TeamViewer naar de prullenmand. Leeg de prullenmand.
+- **iPhone:** houd je vinger op het icoon van de app, tot er een menu verschijnt. Kies Verwijder app. Bevestig met Verwijder app.
+- **Android:** houd je vinger op het icoon van de app. Kies Verwijderen, of sleep het icoon naar Verwijderen.
+
+Geef daarna je e-mail een nieuw wachtwoord.
+
+<MailWachtwoord />
+
+Typte je nog een ander wachtwoord terwijl de oplichter meekeek? Verander dat ook. Wat er met je bankapp moet gebeuren, hoor je van je bank.
+
+Gaf je een wachtwoord of een inlogcode weg? Doe dan alle [stappen voor je account](#iemand-zit-in-je-account).
+
+</Stap>
+
+<Stap nr={4} id="aangifte" titel="Doe aangifte bij de politie" gelukt="je hebt een bevestiging van je aangifte. Die bewaar je bij je bewijs.">
+
+Aangifte van oplichting op internet kan online, op [politie.nl](https://www.politie.nl/onderwerpen/internetoplichting.html). Of bel de politie: [0900-8844](tel:09008844).
+
+Houd je schermafbeeldingen uit stap 2 bij de hand.
+
+**Krijg je je geld terug?** Dat hangt af van één vraag: wie drukte op akkoord?
+
+- **Iemand anders haalde het geld van je rekening, zonder jouw akkoord.** Dan moet je bank het in de meeste gevallen terugbetalen.
+- **Je maakte het zelf over, omdat je werd bedrogen.** Dan heb je geen recht op je geld terug. Soms betaalt de bank toch iets. Vraag het je bank.
+
+Ben je het niet eens met je bank? Dan kun je daarna gratis klagen bij het klachteninstituut Kifid. Alles hierover staat op de pagina [Krijg je je geld terug](/krijg-je-je-geld-terug).
+
+</Stap>
+
+<Stap nr={5} id="melden" titel="Meld het bij de Fraudehelpdesk" gelukt="je hebt het formulier verstuurd, of je hebt de Fraudehelpdesk gesproken.">
+
+Melden kan altijd, met het formulier op [fraudehelpdesk.nl](https://www.fraudehelpdesk.nl/contact/). Bellen kan op werkdagen: [088-786 73 72](tel:0887867372). Daar krijg je ook advies.
+
+Melden helpt ook als je je geld niet terugkrijgt. Elke melding maakt het makkelijker om de volgende poging te stoppen.
+
+</Stap>
+
+<Stap nr={6} id="tweede-poging" titel="Pas op voor de tweede poging">
+
+Oplichters bellen hun slachtoffers soms terug. Ze zeggen dan dat ze van de fraudeafdeling zijn. Ze beloven dat ze je geld terughalen.
+
+<Waarschuwing>Hang op. Bel zelf je bank, op het nummer op je pas.</Waarschuwing>
+
+</Stap>
+
+</Stappenplan>
+
+Heb je steun nodig? [Slachtofferhulp Nederland](https://www.slachtofferhulp.nl/gebeurtenissen/oplichting-en-fraude/online-fraude/) helpt je, ook met praktische dingen.
+
+## Iemand zit in je account
+
+Doe deze stappen op een apparaat dat je vertrouwt. Begin bij je e-mail: dat is je voordeur. Met je e-mail kun je overal een nieuw wachtwoord aanvragen.
+
+<Stappenplan id="stappen-account" stappen={9}>
+
+<Stap nr={1} id="niet-erin" titel="Kom je er niet meer in? Vraag je account terug" gelukt="je kunt weer inloggen.">
+
+Sla deze stap over als je nog kunt inloggen.
+
+Ga naar de inlogpagina. Kies daar Wachtwoord vergeten. Volg dan de stappen op het scherm. Vaak krijg je een code op je telefoon, of op een ander e-mailadres.
+
+Vraagt de site om een herstelcode? Dat is een reservecode van een paar letters en cijfers. Je krijgt zulke codes als je een tweede slot aanzet. Heb je ze ooit op papier gezet? Pak dat papier erbij. Heb je ze niet? Dat is niet erg. Kies dan een andere manier op het scherm.
+
+Is je e-mail van je internetprovider, zoals KPN of Ziggo? Dan kun je ook je provider bellen.
+
+</Stap>
+
+<Stap nr={2} id="mail-wachtwoord" anker="stap-mail-wachtwoord" titel="Geef je e-mail een nieuw wachtwoord" gelukt="je logt in met het nieuwe wachtwoord. Vraagt de mail-app op je telefoon of computer daarna om een wachtwoord? Vul daar het nieuwe in.">
+
+<MailWachtwoord />
+
+</Stap>
+
+<Stap nr={3} id="ander-wachtwoord" titel="Geef het account dat gehackt is een nieuw wachtwoord" gelukt="je logt in met het nieuwe wachtwoord.">
+
+<AnderAccount />
+
+</Stap>
+
+<Stap nr={4} id="uitloggen" anker="stap-uitloggen" titel="Log overal uit" gelukt="in de lijst met apparaten staan alleen nog apparaten die van jou zijn.">
+
+Doe dit bij je e-mail, en bij het account dat gehackt is.
+
+<Uitloggen />
+
+</Stap>
+
+<Stap nr={5} id="herstelgegevens" titel="Kijk of alleen jouw nummer en adres erbij staan" gelukt="bij je account staan alleen jouw telefoonnummer en jouw e-mailadres. Er is geen regel die je mail doorstuurt die je niet zelf hebt gemaakt.">
+
+Bij je account staan een telefoonnummer, en vaak een tweede e-mailadres. Daarmee vraag je een nieuw wachtwoord aan als je het kwijt bent. Een inbreker zet daar soms zijn eigen nummer neer. Dan kan hij later weer binnenkomen.
+
+Kijk wat er bij jouw account staat. Haal weg wat je niet kent.
+
+<Herstelgegevens />
+
+<Doorsturen />
+
+</Stap>
+
+<Stap nr={6} id="zelfde-wachtwoord" titel="Verander je wachtwoord overal waar het hetzelfde was" gelukt="op je papier staat een streep door elk account met geld. De rest doe je deze week.">
+
+Gebruikte je hetzelfde wachtwoord ook ergens anders? Dan kan de inbreker daar ook in. Geef die accounts ook een nieuw wachtwoord.
+
+<ZelfdeWachtwoord />
+
+</Stap>
+
+<Stap nr={7} id="contacten" titel="Waarschuw je contacten">
+
+Doe dit als er uit jouw naam berichten zijn verstuurd. Zeg dat die berichten niet van jou komen.
+
+</Stap>
+
+<Stap nr={8} id="melden" titel="Bewaar bewijs en doe aangifte" gelukt="je hebt schermafbeeldingen, en een bevestiging van je aangifte.">
+
+Maak schermafbeeldingen van berichten en meldingen die je niet zelf hebt gedaan. Gooi ze niet weg.
+
+<Schermafbeelding />
+
+Aangifte van hacken doe je bij de politie: bel [0900-8844](tel:09008844), of kijk op [politie.nl](https://www.politie.nl).
+
+</Stap>
+
+<Stap nr={9} id="tweede-slot" anker="stap-tweede-slot" titel="Als het rustig is: zet een tweede slot op je e-mail" gelukt="je e-mail vraagt bij het inloggen om je wachtwoord én om je telefoon.">
+
+<TweedeSlot />
+
+</Stap>
+
+</Stappenplan>
 
 <Scene wie="sanne" bron="Politie, voorkom sim-swapping" href="https://www.politie.nl/informatie/voorkom-sim-swapping.html">
 
 Zaterdagochtend. Sanne wil een appje sturen, maar haar telefoon heeft geen bereik. Bovenin staat: alleen noodoproepen. Vanaf de telefoon van de buurvrouw belt ze haar provider. Haar nummer is vanochtend overgezet naar een andere simkaart, door iemand die zei dat hij Sanne was.
 
-Gelukkig komt het tweede slot op haar e-mail uit een app, niet per sms. Maar vanaf nu telt elk uur.
+Gelukkig komt het tweede slot op haar e-mail uit een app, niet per sms. Ze volgt de stappen hierboven, en begint bij haar e-mail.
 
 </Scene>
 
-## Drie veelvoorkomende situaties
-
-<Kort>welke deur ze ook gebruikten: eerst dichtdoen, dan pas opruimen.</Kort>
-
-<Meer>
-
-**Je account is gehackt.** Volg de stappen hierboven. Kom je er zelf niet meer in, gebruik dan de herstelprocedure van de dienst en houd je herstelcodes bij de hand. Verander daarna ook het wachtwoord op elke plek waar je hetzelfde gebruikte.
-
-**Je bent opgelicht.** Bel je bank, doe aangifte en meld het. Wees alert op een tweede poging: oplichters bellen slachtoffers soms terug als "fraudeafdeling" die je geld gaat terughalen.
-
-**Je telefoon is kwijt of gestolen.** Vergrendel of wis hem op afstand via Zoek mijn iPhone of Vind mijn apparaat van Google. Laat je simkaart blokkeren door je provider. Verander daarna het wachtwoord van je e-mail en je wachtwoordmanager.
-
-</Meer>
-
 ## Telefoon of laptop kwijt: het stappenplan
 
-Een verloren apparaat is een sleutelbos op straat. Wie hem vindt, heeft nog geen toegang, mits je scherm op slot zit en je snel handelt. Doe dit vanaf een ander apparaat, in deze volgorde:
+Een verloren apparaat is als een sleutelbos op straat. Wie hem vindt, komt er nog niet in. Dat geldt als je scherm op slot zit en je snel bent.
 
-<Afvinklijst lijst="verlies" kop={false} genummerd />
+Doe deze stappen op een ander apparaat. Leen er een als het moet.
+
+<Stappenplan id="stappen-verlies" stappen={8}>
+
+<Stap nr={1} id="vergrendel" titel="Vergrendel het op afstand" gelukt="je ziet je apparaat in de lijst, en de site zegt dat het op slot gaat. Staat het apparaat uit? Dan gaat het slot erop zodra het weer verbinding heeft.">
+
+- **iPhone, iPad of Mac:** ga naar icloud.com/find. Log in met je Apple-account. Kies je apparaat in de lijst. Kies dan de knop met "verloren" erin, zoals Markeer als verloren.
+- **Android:** ga naar google.com/android/find. Log in met je Google-account. Kies je toestel. Kies dan de knop met "beveiligen" erin.
+- **Windows-laptop:** ga naar account.microsoft.com/devices. Log in met je Microsoft-account. Kies je laptop. Kies dan de knop met "vergrendelen" erin.
+
+Zet er een telefoonnummer bij dat op het scherm komt. Dan kan een eerlijke vinder je bellen.
+
+Weet je het wachtwoord niet meer? Kies op de inlogpagina Wachtwoord vergeten.
+
+Vraagt de site om een code die naar je kwijte telefoon gaat? Kijk of er een andere keuze op het scherm staat. Lukt het toch niet? Ga dan eerst door met stap 2 tot en met 5. Die werken ook zonder. Kom daarna terug naar deze stap.
+
+</Stap>
+
+<Stap nr={2} id="sim" titel="Laat je simkaart blokkeren" gelukt="je provider zegt dat je simkaart geblokkeerd is.">
+
+Bel je provider, met een andere telefoon. Zo kan niemand je sms-codes krijgen, of bellen op jouw kosten. Vraag meteen om een nieuwe simkaart met je eigen nummer.
+
+Weet je het nummer van je provider niet? Zoek op een ander apparaat naar de naam van je provider en "klantenservice". Het nummer staat ook op je rekening, en in mails van je provider.
+
+</Stap>
+
+<Stap nr={3} id="wachtwoorden" titel="Geef je e-mail een nieuw wachtwoord" gelukt="je logt in met het nieuwe wachtwoord. Het oude werkt niet meer.">
+
+<MailWachtwoord />
+
+Geef daarna ook het account van je telefoon of laptop een nieuw wachtwoord. Dat is je Apple-, Google- of Microsoft-account. Was dat ook je e-mail? Dan ben je al klaar. Heb je een wachtwoordmanager? Die ook.
+
+</Stap>
+
+<Stap nr={4} id="uitloggen" titel="Haal het apparaat uit je apps" gelukt="het kwijte apparaat staat niet meer in de lijst bij je apps. In je Apple-, Google- of Microsoft-account staat het nog wel.">
+
+Je apps staan misschien nog open op het kwijte apparaat. Zo zorg je dat niemand meeleest.
+
+<Waarschuwing>Haal het apparaat niet uit je Apple-, Google- of Microsoft-account. Zolang het daar in staat, kun je het op slot houden en wissen.</Waarschuwing>
+
+Tik op wat bij jou past:
+
+<Optie titel="Mijn e-mail is van Apple, Google of Microsoft">
+
+Dan hoef je hier niets te doen voor je e-mail. Je nieuwe wachtwoord uit stap 3 en het slot uit stap 1 zijn genoeg. Ook als je e-mail en je Apple-account hetzelfde zijn.
+
+</Optie>
+
+<Optie titel="Mijn e-mail is van mijn provider, zoals Ziggo of KPN">
+
+Het nieuwe wachtwoord uit stap 3 is genoeg. De mail-app op het kwijte apparaat kent het nieuwe wachtwoord niet.
+
+</Optie>
+
+<Optie titel="WhatsApp">
+
+Zet WhatsApp op een andere telefoon, met je eigen nummer. Dat kan zodra je je nieuwe simkaart hebt. Dan stopt WhatsApp op de kwijte telefoon.
+
+Heb je nog geen andere telefoon? Dan wacht je daarmee. Of je zet je nieuwe simkaart in een oude of geleende telefoon. Tot die tijd houdt het slot uit stap 1 WhatsApp dicht.
+
+</Optie>
+
+<Optie titel="Facebook, Instagram of een andere app">
+
+Log in op een ander apparaat. Zoek in de instellingen naar de lijst met apparaten waar je bent ingelogd. Bij Facebook en Instagram is dat Accountcentrum, Wachtwoord en beveiliging, Waar je bent ingelogd. Kies het kwijte apparaat, en log het uit.
+
+</Optie>
+
+<Optie titel="Mijn wachtwoordmanager">
+
+Log in op de website van je wachtwoordmanager. Zoek in de instellingen naar "apparaten" of "sessies". Log het kwijte apparaat uit. Geef de wachtwoordmanager ook een nieuw hoofdwachtwoord.
+
+</Optie>
+
+</Stap>
+
+<Stap nr={5} id="bank" titel="Stond je bankapp erop? Bel je bank">
+
+Doe dit ook als je betaalpas in de wallet van je telefoon stond. Vraag de bank om de koppeling met dat toestel te verwijderen.
+
+Het nummer staat [bovenaan deze pagina](#noodkaart-kop).
+
+</Stap>
+
+<Stap nr={6} id="wis" titel="Wis het apparaat op afstand" gelukt="je hebt het wissen bevestigd. De site zegt dat het apparaat gewist wordt. Staat het uit? Dan gebeurt het zodra het weer verbinding heeft.">
+
+Doe dit als je het apparaat niet binnen een dag terug hebt. Of meteen, als je weet dat het gestolen is. Met een back-up verlies je niets.
+
+Wissen gaat pas als je het bevestigt. Je kunt dus rustig kijken waar de knop zit.
+
+- **iPhone, iPad of Mac:** ga naar icloud.com/find en log in. Kies je apparaat in de lijst. Kies de knop met "wis" erin, zoals Wis dit apparaat. Bevestig.
+- **Android:** ga naar google.com/android/find en log in. Kies je toestel. Kies de knop met "wissen" of "fabrieksinstellingen" erin. Bevestig.
+- **Windows-laptop:** ga naar account.microsoft.com/devices en log in. Kies je laptop. Zie je geen knop met "wissen" erin? Dan kan het bij jouw laptop niet op afstand. Het slot uit stap 1 blijft erop.
+
+Vraagt de site nog een keer om je wachtwoord? Typ het in. Dat is om te zien of jij het echt bent.
+
+Haal het apparaat daarna niet uit je Apple-, Google- of Microsoft-account. Zolang het eraan vastzit, kan de dief het niet zomaar wissen en doorverkopen.
+
+</Stap>
+
+<Stap nr={7} id="aangifte" titel="Is het gestolen? Doe aangifte" gelukt="je hebt een bevestiging van je aangifte.">
+
+Je hebt het IMEI-nummer (telefoon) of het serienummer (laptop) nodig. De politie en je verzekeraar vragen erom. Heb je het opgeschreven? Dan ligt het bij je [noodpakket](#het-noodpakket).
+
+Niet opgeschreven? Kijk op de doos van het apparaat. Of kijk op de bon of de factuur.
+
+Bel de politie op [0900-8844](tel:09008844), of kijk op [politie.nl](https://www.politie.nl).
+
+</Stap>
+
+<Stap nr={8} id="werk" titel="Stond er werk op? Meld het bij je werkgever">
+
+Doe dit direct. Stonden er gegevens van andere mensen op? Dan kan het een datalek zijn. Daarvoor geldt een termijn van 72 uur.
+
+</Stap>
+
+</Stappenplan>
+
+<Waarschuwing>Krijg je na een diefstal een bericht dat je iPhone gevonden is, met een link om in te loggen? Klik niet. Apple meldt dat nooit zelf.</Waarschuwing>
 
 <Vraagje vraag="Je iPhone is gestolen. Een dag later krijg je een bericht dat het toestel gevonden is, met een link om in te loggen. Wat doe je?" opties={[
   { tekst: 'Inloggen via die link, om te zien waar hij is', uitleg: 'Dat is precies waar het bericht voor gemaakt is. Het is phishing om je Apple-account te ontgrendelen, zodat de dief het toestel kan doorverkopen.' },
@@ -67,29 +337,11 @@ Een verloren apparaat is een sleutelbos op straat. Wie hem vindt, heeft nog geen
   { tekst: 'Niets met dat bericht doen', goed: true, uitleg: 'Klopt. Log alleen in via een adres dat je zelf intypt, en laat het toestel aan je account gekoppeld.' },
 ]} />
 
-<Afvinklijst lijst="vooraf" />
+<Meer titel="Waarom dat bericht nep is">
 
-<Verhaal
-  titel="De baas van Twitter raakte zijn eigen Twitter kwijt"
-  wanneer="augustus 2019"
-  bron="DataBreachToday, 2 september 2019, met de verklaring van Twitter"
-  href="https://www.databreachtoday.com/hey-jack-how-was-your-account-hacked-a-13007"
-  voorkomen="Een tweede slot dat niet op sms werkt, en een pincode op je simkaart. Allebei staan ze hierboven bij 'wat je vooraf regelt'."
-  naar="/van-geheim-woord-naar-zegelring"
-  naarTekst="Bekijk de ladder van sloten"
->
+Na diefstal van een iPhone krijgen slachtoffers soms een sms of mail: "je toestel is gevonden, log hier in". Dat is phishing. De dief wil je Apple-account ontgrendelen, zodat hij het toestel kan doorverkopen. Apple neemt zelf nooit contact met je op om te melden dat je toestel is gevonden.
 
-Jack Dorsey was op dat moment de baas van Twitter. Op een middag in augustus 2019 verscheen er een halfuur lang de ene na de andere boodschap op zijn eigen account die hij niet had geschreven: scheldwoorden, racisme, een bommelding aan het adres van zijn eigen kantoor.
-
-Er was niet ingebroken bij Twitter. Er was niets geraden. Het telefoonnummer van Dorsey was bij zijn provider overgezet naar een simkaart van iemand anders; Twitter sprak van een beveiligingsfout van de provider. Twitter liet je toen berichten plaatsen door een sms te sturen vanaf je eigen nummer. Wie het nummer had, had dus ook het account. En alle sms'jes naar dat nummer, ook inlogcodes, kwamen bij iemand anders binnen.
-
-Deze truc heet simswapping. Hij werkt niet omdat jouw wachtwoord zwak is, maar omdat een medewerker van een telefoonwinkel iemand geloofde. Daarom is een code per sms de zwakste van alle tweede sloten: hij hangt aan je telefoonnummer, en dat nummer is niet van jou maar van je provider.
-
-</Verhaal>
-
-<Meer>
-
-**Trap niet in het tweede bedrog.** Na diefstal van een iPhone krijgen slachtoffers soms een sms of mail: "je toestel is gevonden, log hier in". Dat is phishing om je Apple-account te ontgrendelen zodat de dief het toestel kan doorverkopen. Apple neemt zelf nooit contact met je op om te melden dat je toestel is gevonden. Log alleen in via het adres dat je zelf intypt. Verwijder het toestel ook niet uit Zoek mijn: zolang het eraan gekoppeld is, kan de dief het niet zomaar wissen en doorverkopen.
+Log alleen in via het adres dat je zelf intypt. Haal het toestel ook niet uit Zoek mijn. Zolang het eraan vastzit, kan de dief het niet zomaar wissen en doorverkopen.
 
 </Meer>
 
@@ -107,20 +359,133 @@ Melden helpt ook als je je geld niet terugkrijgt. Elke melding maakt het makkeli
 
 ## Het noodpakket
 
-Stel je voor dat je telefoon vandaag in het water valt. Kom je dan nog in je e-mail, je bank en je wachtwoordmanager? Met een noodpakket wel. Leg op papier, op een veilige plek thuis:
+**Vanaf hier is alles voor later, als het rustig is.** Je hoeft het nu niet te lezen.
+
+Stel: je telefoon valt vandaag in het water. Kom je dan nog in je e-mail en je bank? Met een noodpakket wel.
+
+Pak een vel papier. Schrijf dit erop, en leg het op een veilige plek thuis:
 
 <Afvinklijst lijst="noodpakket" kop={false} />
 
-Vertel één persoon die je vertrouwt waar het ligt. Dat is ook belangrijk voor als jou iets overkomt: zonder deze gegevens kunnen nabestaanden nergens bij.
+### Waar vind je wat je opschrijft?
+
+- **Het hoofdwachtwoord.** Alleen als je een wachtwoordmanager hebt. Dat is een app die al je wachtwoorden bewaart, zoals Bitwarden of Proton Pass. Het hoofdwachtwoord is het ene wachtwoord waarmee je die app opent. Heb je zo'n app niet? Sla dit dan over.
+- **De herstelcodes.** Dat zijn reservecodes van een paar letters en cijfers. Met één code kom je in je account, ook als je telefoon weg is. Zoek bij de beveiliging van je e-mail naar "herstelcodes" of "back-upcodes". Vind je ze niet? Zet dan eerst een [tweede slot](#stap-tweede-slot) aan.
+- **De pincode van je simkaart en de pukcode.** De pincode van je simkaart is iets anders dan de code van je scherm. Typ je die pincode drie keer fout? Dan heb je de pukcode nodig. Ze staan allebei op het plastic kaartje waar je simkaart ooit uit kwam. Kwijt? Je provider kan ze je geven.
+- **Het noodnummer van je bank.** Het staat op je pas, en [bovenaan deze pagina](#noodkaart-kop).
+
+Vertel één persoon die je vertrouwt waar het ligt. Dat is ook belangrijk als jou iets overkomt. Zonder deze gegevens kunnen nabestaanden nergens bij.
+
+Zet de nummers die je in paniek nodig hebt ook in je telefoon: je bank, de politie (0900-8844) en de [Fraudehelpdesk](https://www.fraudehelpdesk.nl/contact/).
+
+Wil je nog sterker staan? Een tweede sleutel helpt ook als je telefoon weg is. Dat is een klein sleuteltje aan je sleutelbos. Je leest het bij [de inlogladder, trede 8](/van-geheim-woord-naar-zegelring#trede-8).
+
+## Wat je vooraf regelt
+
+Sommige dingen kun je achteraf niet meer regelen. Doe ze nu, nu je je telefoon nog hebt. Eén ding tegelijk. Je kunt elk ding apart doen.
+
+<Stappenplan id="stappen-vooraf" stappen={6}>
+
+<Stap nr={1} id="zoek-mijn" titel="Zet Zoek mijn aan" gelukt="de schakelaar staat aan. Op een iPhone is hij groen.">
+
+Hiermee vind je een kwijt apparaat terug, en zet je het op afstand op slot.
+
+- **iPhone:** open Instellingen en tik bovenaan op je naam. Kies Zoek mijn, en dan Zoek mijn iPhone. Zet de schakelaar aan.
+- **Android:** open Instellingen. Typ "Vind mijn apparaat" in de zoekbalk. Zet het aan.
+- **Mac:** open Systeeminstellingen. Typ "Zoek mijn" in de zoekbalk. Zet Zoek mijn Mac aan.
+- **Windows-laptop:** open Instellingen. Typ "Mijn apparaat zoeken" in de zoekbalk. Zet het aan.
+
+</Stap>
+
+<Stap nr={2} id="pincode" titel="Geef je telefoon een pincode van zes cijfers" gelukt="je telefoon vraagt om zes cijfers. Doe je een minuut niets, dan gaat het scherm vanzelf op slot.">
+
+- **iPhone:** open Instellingen en kies Face ID en toegangscode. Kies Wijzig toegangscode. Tik op Toegangscode-opties, en kies Aangepaste numerieke code.
+- **Android:** open Instellingen en kies Beveiliging. Kies Schermvergrendeling, en dan Pincode.
+
+Kies zes cijfers of meer. Niet je geboortedatum, en niet 123456.
+
+Laat het scherm daarna na één minuut vanzelf op slot gaan. Op een iPhone kies je dat bij Instellingen, Scherm en helderheid. Op Android typ je "time-out" in de zoekbalk van Instellingen.
+
+</Stap>
+
+<Stap nr={3} id="gestolen-apparaat" titel="iPhone: zet Beveiliging van gestolen apparaten aan" gelukt="Beveiliging van gestolen apparaten staat aan.">
+
+Dan kan een dief die je pincode heeft afgekeken, je Apple-wachtwoord niet zomaar veranderen. Heb je geen iPhone? Sla deze stap over.
+
+Open Instellingen en kies Face ID en toegangscode. Typ je pincode. Tik op Beveiliging van gestolen apparaten, en zet het aan.
+
+</Stap>
+
+<Stap nr={4} id="schijf" titel="Laptop: maak je bestanden onleesbaar voor een dief" gelukt="op een Mac staat FileVault aan. Op Windows staat Apparaatversleuteling of BitLocker aan. De herstelsleutel staat op papier.">
+
+Zonder dit kan een dief de schijf uit je laptop halen en alles lezen. Ook als je laptop een wachtwoord heeft. Dit heet versleutelen. Daarna kan alleen wie je wachtwoord kent je bestanden lezen.
+
+Je krijgt er een herstelsleutel bij. Dat is een lange code van letters en cijfers. Daarmee kom je erin als je je wachtwoord vergeet.
+
+- **Mac:** open Systeeminstellingen en kies Privacy en beveiliging. Zet FileVault aan. Zo heet het op een Mac. Je Mac vraagt hoe je erin komt als je je wachtwoord vergeet. Kies je een herstelsleutel? Dan staat die op het scherm. Schrijf hem over.
+- **Windows:** open Instellingen en kies Privacy en beveiliging. Kies Apparaatversleuteling en zet het aan. De herstelsleutel komt in je Microsoft-account. Je vindt hem op account.microsoft.com/devices/recoverykey. Schrijf hem over.
+
+Staat Apparaatversleuteling er niet? Typ dan "BitLocker" in de zoekbalk van Instellingen. Vind je dat ook niet? Dan kan jouw laptop dit niet zomaar. Sla deze stap dan over.
+
+Laat de laptop aan de stroom. Het versleutelen gaat vanzelf, terwijl je verder werkt.
+
+</Stap>
+
+<Stap nr={5} id="imei" titel="Schrijf het IMEI-nummer en het serienummer op" gelukt="de nummers staan op het papier van je noodpakket.">
+
+Bij diefstal vragen de politie en je verzekeraar om deze nummers.
+
+- **iPhone:** open Instellingen en kies Algemeen, en dan Info. Scroll naar IMEI.
+- **Android:** open Instellingen. Typ "IMEI" in de zoekbalk.
+- **Elke telefoon:** je kunt ook *#06# bellen. Het nummer verschijnt dan op het scherm.
+- **Laptop:** het serienummer staat vaak op een sticker aan de onderkant. Op een Mac klik je linksboven op het appeltje, en dan op Over deze Mac.
+
+</Stap>
+
+<Stap nr={6} id="backup" titel="Zorg dat je reservekopie loopt" gelukt="je ziet de datum van de laatste reservekopie, van vandaag of gisteren.">
+
+Met een reservekopie verlies je niets als je een kwijt apparaat moet wissen.
+
+- **iPhone:** open Instellingen en tik op je naam. Kies iCloud, en dan iCloud-reservekopie. Zet het aan. Daar zie je ook wanneer de laatste kopie is gemaakt.
+- **Android:** open Instellingen. Typ "back-up" in de zoekbalk. Zet het aan. Daar zie je ook wanneer de laatste kopie is gemaakt.
+
+Zie je geen datum van vandaag of gisteren? Staat er dat je opslag vol is? Dan past de kopie er niet in. Je hebt twee keuzes:
+
+- Koop meer opslag, bij Apple of Google. Dat kost elke maand een klein bedrag. Je telefoon laat zien hoe het kan.
+- Of maak ruimte vrij. Haal oude foto's, video's of oude reservekopieën weg die je niet meer nodig hebt.
+
+Twijfel je? Vraag iemand die je vertrouwt om mee te kijken.
+
+</Stap>
+
+</Stappenplan>
+
+<Verhaal
+  titel="De baas van Twitter raakte zijn eigen Twitter kwijt"
+  wanneer="augustus 2019"
+  bron="DataBreachToday, 2 september 2019, met de verklaring van Twitter"
+  href="https://www.databreachtoday.com/hey-jack-how-was-your-account-hacked-a-13007"
+  voorkomen="Een tweede slot dat niet op sms werkt, en een pincode op je simkaart."
+  naar="/van-geheim-woord-naar-zegelring"
+  naarTekst="Bekijk de ladder van sloten"
+>
+
+Jack Dorsey was op dat moment de baas van Twitter. Op een middag in augustus 2019 verscheen er een halfuur lang de ene na de andere boodschap op zijn eigen account die hij niet had geschreven: scheldwoorden, racisme, een bommelding aan het adres van zijn eigen kantoor.
+
+Er was niet ingebroken bij Twitter. Er was niets geraden. Het telefoonnummer van Dorsey was bij zijn provider overgezet naar een simkaart van iemand anders; Twitter sprak van een beveiligingsfout van de provider. Twitter liet je toen berichten plaatsen door een sms te sturen vanaf je eigen nummer. Wie het nummer had, had dus ook het account. En alle sms'jes naar dat nummer, ook inlogcodes, kwamen bij iemand anders binnen.
+
+Deze truc heet simswapping. Hij werkt niet omdat jouw wachtwoord zwak is, maar omdat een medewerker van een telefoonwinkel iemand geloofde. Daarom is een code per sms de zwakste van alle tweede sloten: hij hangt aan je telefoonnummer, en dat nummer is niet van jou maar van je provider.
+
+</Verhaal>
 
 ## Wie krijgt de sleutels: je digitale nalatenschap
 
-Als jou iets overkomt, staan je naasten voor een huis waar ze niet in kunnen. Foto's, administratie, abonnementen die doorlopen, een mailbox vol post. Zonder voorbereiding komen ze er vaak niet of pas na maanden in. Dit regel je in een half uur:
+Als jou iets overkomt, staan je naasten voor een huis waar ze niet in kunnen. Foto's, administratie, abonnementen die doorlopen, een mailbox vol post. Zonder voorbereiding komen ze er vaak niet of pas na maanden in. Dit regel je in een half uur.
 
-<Meer titel="Zo regel je het">
+<Meer titel="Zo regel je het, per dienst">
 
-- **Apple:** stel een **erfeniscontact** in via Instellingen, je naam, Inloggen en beveiliging. Die persoon krijgt een toegangssleutel en kan daarmee, samen met een overlijdensakte, toegang aanvragen. Hij of zij hoeft zelf geen Apple-apparaat te hebben.
-- **Google:** stel **Inactiviteitsvoorkeuren** in (vroeger heette dat Inactief accountbeheer). Je kiest hoe lang Google wacht als je niet meer inlogt, tot maximaal achttien maanden. Je wijst tot tien mensen aan die dan bericht krijgen, en je kiest welke gegevens zij mogen downloaden. Je kunt ook instellen dat het account daarna wordt verwijderd.
+- **Apple:** stel een **erfeniscontact** in via Instellingen, je naam, Inloggen en beveiliging. Die persoon krijgt een toegangssleutel. Daarmee kan hij of zij, samen met een overlijdensakte, toegang aanvragen. Die persoon hoeft zelf geen Apple-apparaat te hebben.
+- **Google:** stel **Inactiviteitsvoorkeuren** in (vroeger heette dat Inactief accountbeheer). Ga naar myaccount.google.com en typ "inactiviteitsvoorkeuren" in de zoekbalk bovenaan. Je kiest hoe lang Google wacht als je niet meer inlogt, tot maximaal achttien maanden. Je wijst tot tien mensen aan die dan bericht krijgen. Je kiest welke gegevens zij mogen downloaden. Je kunt ook instellen dat het account daarna wordt verwijderd.
 - **Microsoft** heeft zo'n regeling niet. Daar ben je aangewezen op je noodpakket.
 - **Facebook en Instagram:** wijs een contactpersoon aan voor een herdenkingsaccount, of kies voor verwijderen.
 - **Je wachtwoordmanager:** sommige hebben een noodtoegang voor een vertrouwd persoon. Anders ligt het hoofdwachtwoord in je noodpakket.
@@ -129,9 +494,3 @@ Als jou iets overkomt, staan je naasten voor een huis waar ze niet in kunnen. Fo
 Vertel één persoon waar het noodpakket ligt en wat erin zit. Meer hoeft die persoon nu niet te weten.
 
 </Meer>
-
-## Wat je nu kunt doen
-
-1. Maak je [noodpakket](#het-noodpakket) vóórdat je het nodig hebt. Dat is een half uur werk, op papier.
-2. Zet de nummers die je in paniek nodig hebt in je telefoon én op dat papier: je bank, de politie (0900-8844) en de [Fraudehelpdesk](https://www.fraudehelpdesk.nl/contact/).
-3. Zorg dat je erin kunt zonder je telefoon: herstelcodes op papier, of een tweede sleutel. Dat is [trede 8](/van-geheim-woord-naar-zegelring#trede-8).

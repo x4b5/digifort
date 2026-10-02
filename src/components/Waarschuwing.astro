@@ -1,0 +1,23 @@
+---
+/**
+ * Een waarschuwing naar het voorbeeld van GOV.UK (warning text): een uitroepteken
+ * in een rondje en één vetgedrukte zin. Voor wat misgaat als je het verkeerd doet,
+ * niet voor gewone tips. De schermlezer hoort eerst het woord "Waarschuwing".
+ */
+---
+<div class="waarschuwing" data-waarschuwing>
+  <span class="teken" aria-hidden="true">!</span>
+  <p><strong><span class="schermlezer">Waarschuwing: </span><slot /></strong></p>
+</div>
+
+<style>
+  .waarschuwing { display: flex; gap: 0.9rem; align-items: flex-start; margin: 1.25rem 0; }
+  .teken {
+    flex: none; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; margin-top: 0.05rem;
+    border-radius: 50%; background: var(--inkt); color: var(--papier);
+    font-family: var(--kop); font-weight: 700; font-size: 1.4rem; line-height: 1;
+  }
+  p { margin: 0; line-height: 1.45; }
+  p :global(a) { font-weight: 700; }
+  @media (forced-colors: active) { .teken { border: 2px solid CanvasText; } }
+</style>

@@ -1,0 +1,49 @@
+---
+/**
+ * Eén niveau in Aan de slag, als takenlijst: hoeveel stappen en hoe lang, wat je ermee
+ * bereikt (de slot), een startknop naar de stap-voor-stappagina, en de lijst om af te vinken.
+ * De knop past zich aan: "Begin", "Ga verder" of "Bekijk de stappen nog eens",
+ * net als de startknop van een dienst op GOV.UK.
+ */
+import { LIJSTEN } from '../data/lijsten.js';
+import Afvinklijst from './Afvinklijst.astro';
+interface Props { lijst: string; pagina: string; naam: string; kosten?: string }
+const { lijst, pagina, naam, kosten = 'gratis' } = Astro.props;
+const items = LIJSTEN[lijst].items;
+const minuten = items.reduce((n, it) => n + (it.tijd ?? 0), 0);
+const duur = minuten === 0 ? 'in je eigen tempo' : minuten >= 90 ? `ongeveer ${Math.round(minuten / 60)} uur` : `ongeveer een uur`;
+---
+<div class="niveau" data-niveau={lijst} data-aantal={items.length}>
+  <p class="niveau-meta">{items.length} stappen · {duur} · {kosten}</p>
+  <div class="niveau-wat"><slot /></div>
+  <p class="niveau-knop">
+    <a class="knop" href={pagina} data-niveau-knop data-naam={naam}>Begin met {naam} →</a>
+  </p>
+  <Afvinklijst lijst={lijst} kop={false} genummerd pagina={pagina} />
+</div>
+
+<script>
+  import { lees } from '../lib/opslag.js';
+
+  function werkBij() {
+    document.querySelectorAll<HTMLElement>('[data-niveau]').forEach((n) => {
+      const items = lees().lijsten[n.dataset.niveau!] ?? {};
+      const ids = Array.from(n.querySelectorAll<HTMLInputElement>('input[data-item]')).map((v) => v.dataset.item!);
+      const af = ids.filter((id) => items[id]).length;
+      const knop = n.querySelector<HTMLAnchorElement>('[data-niveau-knop]')!;
+      const naam = knop.dataset.naam!;
+      knop.textContent = af === 0 ? `Begin met ${naam} →`
+        : af >= ids.length ?`Bekijk ${naam} nog eens →`
+        : `Ga verder met ${naam} →`;
+    });
+  }
+  werkBij();
+  window.addEventListener('jdh:gewijzigd', werkBij);
+</script>
+
+<style>
+  .niveau { margin: 0 0 1rem; }
+  .niveau-meta { font-family: var(--kop); font-weight: 700; color: var(--inkt-zacht); margin: 0 0 0.5rem; }
+  .niveau-wat :global(p) { margin: 0 0 1rem; }
+  .niveau-knop { margin: 0 0 0.5rem; }
+</style>

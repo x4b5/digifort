@@ -19,11 +19,28 @@ const BESCHRIJVING = 'Tien stappen, één per scherm, ongeveer vier uur. Daarna 
     </div>
     <HoofdstukIcoon slug="een-weekend" maat={72} />
   </div>
-  <p class="intro">Tien stappen, één per scherm. Doe op zaterdag stap 1 tot en met 4 en op zondag de rest. Stoppen mag altijd: wat je afvinkt, blijft in je eigen browser staan en telt mee in <a href="/aan-de-slag#niveau-2">Aan de slag</a>.</p>
+  <p class="intro">Tien stappen, één per scherm, samen ongeveer vier uur. Doe op zaterdag stap 1 tot en met 4 en op zondag de rest.</p>
+  <h2 class="nodig-kop">Wat je nodig hebt</h2>
+  <ul class="nodig">
+    <li>je telefoon en je computer</li>
+    <li>Bitwarden, je wachtwoordmanager uit niveau 1</li>
+    <li>pen, papier en een envelop</li>
+    <li>een externe harde schijf voor de reservekopie (stap 5)</li>
+    <li>het kaartje van je simkaart (stap 10)</li>
+  </ul>
+  <div class="envelop">
+    <h2 class="nodig-kop">Je envelop: het noodpakket</h2>
+    <p>In dit weekend schrijf je een paar codes op papier. Die gaan allemaal in één envelop. Dat is je noodpakket. Het hoofdwachtwoord van niveau 1 doe je er ook in. Leg de envelop thuis op een vaste, veilige plek. Raak je je telefoon kwijt, dan kom je met wat erin zit toch weer binnen. Meer over het noodpakket staat in <a href="/als-er-is-ingebroken#het-noodpakket">Als er toch is ingebroken</a>.</p>
+  </div>
+  <p>Stoppen mag altijd. Wat je afvinkt, onthoudt je eigen browser en telt mee in <a href="/aan-de-slag#niveau-2">Aan de slag</a>.</p>
   <Avond lijst="niveau-2" uitleg={WEEKEND} moment="Klaar voor dit weekend" alles="Alle tien de stappen van niveau 2 zijn gedaan. Je huis zit nu goed op slot." volgende={{ href: '/ik-wil-verder', tekst: 'Wil je verder? Niveau 3 →' }} />
   <Buren slug="een-weekend" />
 </Pagina>
 <style>
   .paginakop { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
   .paginakop > :global(.hicoon) { flex: none; margin-top: 0.4rem; }
+  .nodig-kop { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; }
+  .nodig { margin-top: 0; }
+  .envelop { border-left: 6px solid var(--lijn-sterk); padding: 0.1rem 0 0.1rem 1rem; margin: 1.5rem 0; }
+  .envelop .nodig-kop { margin-top: 0.3rem; }
 </style>

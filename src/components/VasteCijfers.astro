@@ -1,0 +1,60 @@
+---
+/**
+ * Als Cijfers, maar zonder optellen: het echte getal staat er altijd, ook in een
+ * dichtgeklapt blok, in een momentopname, bij minder beweging en zonder JavaScript.
+ * Op een naslagpagina zoek je een cijfer op; een teller die bij 0 begint, zegt dan iets onjuists.
+ *
+ * Grote getallen met één zin erbij. `items`: [{ getal, tekst, bron, href }].
+ * `href` wijst naar de bron zelf; zonder href gaat de lezer naar de bronnenlijst,
+ * want een cijfer zonder narekenbare bron hoort hier niet.
+ * Eindigt `getal` op een procent, dan krijgt het blok een ring die dat deel van
+ * het geheel laat zien.
+ * `kleur` volgt de kleurregel van de site: 'rood' (standaard) voor een cijfer over
+ * gevaar, 'groen' voor een cijfer over wat je zelf regelt.
+ */
+interface Props { items: { getal: string; tekst: string; bron?: string; href?: string; kleur?: 'rood' | 'groen' }[] }
+const { items } = Astro.props;
+const procent = (getal: string) => {
+  const m = getal.trim().match(/^(\d+(?:,\d+)?)\s*%$/);
+  return m ? Math.min(Number(m[1].replace(',', '.')), 100) : null;
+};
+---
+<ul class="cijfers">
+  {items.map((c) => (
+    <li data-kleur={c.kleur ?? 'rood'}>
+      <span class="kop">
+        <strong class="getal">{c.getal}</strong>
+        {procent(c.getal) !== null && (
+          <svg class="ring" viewBox="0 0 36 36" aria-hidden="true" style={`--deel: ${procent(c.getal)}`}>
+            <circle class="ring-baan" cx="18" cy="18" r="15" pathLength="100" />
+            <circle class="ring-deel" cx="18" cy="18" r="15" pathLength="100" />
+          </svg>
+        )}
+      </span>
+      <span class="tekst">{c.tekst}</span>
+      {c.bron && <a class="bron" href={c.href ?? '/bronnen'}>{c.bron}</a>}
+    </li>
+  ))}
+</ul>
+<style>
+  .cijfers { list-style: none; padding: 0; margin: 1.5rem 0 2rem; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); }
+  .cijfers li { margin: 0; padding: 1rem 1.1rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); display: flex; flex-direction: column; gap: 0.3rem; background: var(--papier); transition: background-color 0.15s ease; }
+  .cijfers li:hover { background: var(--rood-licht); }
+  @media (prefers-reduced-motion: reduce) { .cijfers li { transition: none; } }
+  .getal { font-family: var(--kop); font-size: clamp(1.9rem, 4vw, 2.4rem); line-height: 1; color: var(--rood); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .kop { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+  .ring { width: 2.6rem; height: 2.6rem; flex: none; transform: rotate(-90deg); }
+  .ring circle { fill: none; stroke-width: 5; }
+  .ring-baan { stroke: var(--lijn); }
+  .ring-deel {
+    stroke: var(--rood);
+    stroke-dasharray: 100 100;
+    stroke-dashoffset: calc(100 - var(--deel));
+  }
+  [data-kleur='groen'] .getal { color: var(--groen); }
+  [data-kleur='groen'] .ring-deel { stroke: var(--groen); }
+  .cijfers li[data-kleur='groen']:hover { background: var(--groen-licht); }
+  .tekst { font-size: 0.97rem; line-height: 1.4; }
+  .bron { font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); margin-top: auto; padding-top: 0.3rem; text-decoration-thickness: 1px; }
+  .bron:hover { color: var(--rood); }
+</style>

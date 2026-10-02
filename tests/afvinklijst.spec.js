@@ -9,7 +9,7 @@ test('afvinken telt, blijft na herladen en verschijnt in de kop', async ({ page 
   await lijst.locator('input[data-item="mail-wachtwoord"]').check({ force: true });
   await lijst.locator('input[data-item="pincode"]').check({ force: true });
   await expect(lijst.locator('[data-stand-tekst]')).toHaveText('2 van 6 gedaan');
-  await expect(lijst.locator('[data-tijd-rest]')).toHaveText(' · nog 45 min');
+  await expect(lijst.locator('[data-tijd-rest]')).toHaveText(' · nog 55 min');
 
   await page.reload();
   await expect(lijst.locator('[data-stand-tekst]')).toHaveText('2 van 6 gedaan');
@@ -49,4 +49,38 @@ test('het fort zet zijn uitnodigende beginzin terug na wissen', async ({ page })
   await wis.click();
   await wis.click();
   await expect(stand).toContainText('Nog niets afgevinkt');
+});
+
+test('Aan de slag is een takenlijst: status per stap en een link naar hoe je het doet', async ({ page }) => {
+  await page.goto('/aan-de-slag');
+  const lijst = page.locator('[data-lijst="niveau-1"]');
+  const rij = lijst.locator('li').filter({ has: page.locator('input[data-item="updates"]') });
+  await expect(rij.locator('[data-status]')).toHaveText('Nog doen');
+  await expect(rij.locator('a.hoe-link')).toHaveAttribute('href', '/een-avond#stap-updates');
+  await rij.locator('input[data-item="updates"]').check({ force: true });
+  await expect(rij.locator('[data-status]')).toHaveText('Gedaan');
+
+  // elke stap van niveau 1, 2 en 3 wijst naar zijn eigen stap-voor-stappagina
+  for (const [l, pad] of [['niveau-1', '/een-avond'], ['niveau-2', '/een-weekend'], ['niveau-3', '/ik-wil-verder']]) {
+    const links = page.locator(`[data-lijst="${l}"] a.hoe-link`);
+    expect(await links.count()).toBeGreaterThan(0);
+    for (const href of await links.evaluateAll((a) => a.map((x) => x.getAttribute('href')))) expect(href).toMatch(new RegExp(`^${pad}#stap-`));
+  }
+
+  // de link opent precies die stap
+  await rij.locator('a.hoe-link').click();
+  await expect(page.locator('#stap-updates')).toBeVisible();
+});
+
+test('de startknop van een niveau zegt begin, ga verder of bekijk nog eens', async ({ page }) => {
+  await page.goto('/aan-de-slag');
+  const knop = page.locator('[data-niveau="niveau-1"] [data-niveau-knop]');
+  await expect(knop).toHaveText('Begin met niveau 1 →');
+  await expect(knop).toHaveAttribute('href', '/een-avond');
+  await page.locator('input[data-item="mail-wachtwoord"]').check({ force: true });
+  await expect(knop).toHaveText('Ga verder met niveau 1 →');
+  for (const id of ['mail-tweede-slot', 'wachtwoordmanager', 'updates', 'pincode', 'geheim-woord']) {
+    await page.locator(`input[data-item="${id}"]`).check({ force: true });
+  }
+  await expect(knop).toHaveText('Bekijk niveau 1 nog eens →');
 });

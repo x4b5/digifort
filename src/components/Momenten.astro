@@ -1,0 +1,61 @@
+---
+/**
+ * Het overzicht bovenaan Onderhoud en opruimen: welke klussen er zijn, per moment.
+ * Naar de takenlijst van GOV.UK (task list): elke rij is een link, met rechts de stand.
+ * De stand komt uit het laatje in de browser (de <Onderhoudsbeurt>-lijsten op de pagina);
+ * zonder JavaScript staat er alleen hoe lang het duurt.
+ */
+interface Props {
+  momenten: { href: string; wat: string; tijd: string }[];
+}
+const { momenten } = Astro.props;
+---
+<ul class="momenten" data-momenten>
+  {momenten.map((m) => (
+    <li>
+      <a href={m.href}>{m.wat}</a>
+      <span class="tijd">{m.tijd}</span>
+      <span class="stand" data-moment-stand={m.href.slice(1)}></span>
+    </li>
+  ))}
+</ul>
+
+<script>
+  import { lees } from '../lib/opslag.js';
+
+  // het anker wijst naar de kop; de lijst met stappen staat daarna, als eerste [data-beurt]
+  function lijstNa(anker: string) {
+    let el = document.getElementById(decodeURIComponent(anker))?.nextElementSibling;
+    while (el && !el.matches('[data-beurt]') && !el.matches('h2')) el = el.nextElementSibling;
+    return el?.matches('[data-beurt]') ? (el as HTMLElement) : null;
+  }
+
+  function toon() {
+    const data = lees();
+    document.querySelectorAll<HTMLElement>('[data-moment-stand]').forEach((stand) => {
+      const beurt = lijstNa(stand.dataset.momentStand!);
+      if (!beurt) return;
+      const ids = Array.from(beurt.querySelectorAll<HTMLInputElement>('input[data-item]')).map((v) => v.dataset.item!);
+      const vinkjes = data.lijsten[beurt.dataset.beurt!] ?? {};
+      const af = ids.filter((id) => vinkjes[id]).length;
+      stand.textContent = af === ids.length ? 'Gedaan' : af === 0 ? 'Nog niet gedaan' : `${af} van ${ids.length} gedaan`;
+      stand.dataset.af = af === ids.length ? '1' : '';
+    });
+  }
+
+  toon();
+  window.addEventListener('jdh:gewijzigd', toon);
+</script>
+
+<style>
+  .momenten { list-style: none; padding: 0; margin: 1.25rem 0 2rem; border-top: 1px solid var(--lijn); }
+  .momenten li {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 1rem;
+    padding: 0.8rem 0; border-bottom: 1px solid var(--lijn);
+  }
+  .momenten a { flex: 1 0 100%; font-weight: 700; font-size: var(--tekst-l); }
+  .tijd { color: var(--inkt-zacht); }
+  .stand { flex: 0 0 auto; font-weight: 700; }
+  .stand:empty { display: none; }
+  .stand[data-af="1"] { color: var(--groen); }
+</style>
