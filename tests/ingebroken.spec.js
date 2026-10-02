@@ -61,3 +61,35 @@ test('de plekken waar andere pagina\'s naar linken bestaan nog', async ({ page }
     await expect(page.locator(`[id="${id}"]`), id).toHaveCount(1);
   }
 });
+
+test('elke link binnen de pagina komt ergens uit', async ({ page }) => {
+  await page.goto(PAD);
+  const ankers = await page.locator('main a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
+  expect(ankers.length).toBeGreaterThan(5);
+  for (const h of new Set(ankers)) {
+    await expect(page.locator(`[id="${h.slice(1)}"]`), h).toHaveCount(1);
+  }
+});
+
+test('het nieuwe e-mailwachtwoord zegt per soort adres waar je het verandert', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('#stap-mail-wachtwoord');
+  for (const t of ['@gmail.com', '@outlook.com', '@icloud.com', '@ziggo.nl']) await expect(stap).toContainText(t);
+  await expect(stap).toContainText('Mail op je iPhone');
+});
+
+test('wat je vooraf regelt is een stappenplan met waar je tikt, per toestel', async ({ page }) => {
+  await page.goto(PAD);
+  const plan = page.locator('[data-stappenplan="stappen-vooraf"]');
+  await expect(plan.locator('.stap-item')).toHaveCount(6);
+  // elke stap zegt wat je ziet als het gelukt is
+  await expect(plan.locator('.gelukt')).toHaveCount(6);
+  await expect(plan).toContainText('FileVault');
+  await expect(plan).toContainText('Instellingen');
+});
+
+test('wie AnyDesk of TeamViewer kreeg, leest per apparaat hoe hij het weghaalt', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('[data-stappenplan="stappen-geld"] .stap-item').nth(2);
+  for (const t of ['Windows', 'Mac', 'iPhone', 'Android', 'Verwijder']) await expect(stap).toContainText(t);
+});

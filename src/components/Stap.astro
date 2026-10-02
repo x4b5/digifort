@@ -5,11 +5,12 @@
  * `id` is de sleutel van het vinkje in de opslag; laat hem gelijk als je de tekst
  * herschrijft, anders verliest een lezer zijn vinkje.
  * De schermlezer hoort "Stap 3:" voor de kop; het rondje met het cijfer zelf zwijgt.
+ * `anker` geeft de stap een id op de pagina, zodat een andere stap ernaar kan linken.
  */
-interface Props { nr: number; id: string; titel: string; gelukt?: string }
-const { nr, id, titel, gelukt } = Astro.props;
+interface Props { nr: number; id: string; titel: string; gelukt?: string; anker?: string }
+const { nr, id, titel, gelukt, anker } = Astro.props;
 ---
-<li class="stap-item">
+<li class="stap-item" id={anker}>
   <span class="cijfer" aria-hidden="true">{nr}</span>
   <h3 class="stapkop"><span class="schermlezer">Stap {nr}: </span>{titel}</h3>
   <div class="hoe"><slot /></div>
@@ -24,7 +25,7 @@ const { nr, id, titel, gelukt } = Astro.props;
 </li>
 
 <style>
-  .stap-item { position: relative; margin: 0; padding: 0 0 1.75rem 3.4rem; }
+  .stap-item { scroll-margin-top: 1rem; position: relative; margin: 0; padding: 0 0 1.75rem 3.4rem; }
   /* de lijn die de stappen verbindt, van rondje naar rondje; na de laatste stap niet meer */
   .stap-item::before {
     content: ""; position: absolute; left: 1.2rem; top: 2.6rem; bottom: 0.2rem;
