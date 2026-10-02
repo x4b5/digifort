@@ -10,7 +10,7 @@ export const LIJSTEN = {
     slot: true,
     items: [
       { id: 'mail-wachtwoord', stap: 'Geef je e-mail een nieuw, lang wachtwoord', waarom: 'Met je e-mail zet je overal je wachtwoord terug, dus die deur gaat als eerste op slot', tijd: 5, kamer: 'voordeur' },
-      { id: 'mail-tweede-slot', stap: 'Zet een tweede slot op je e-mail', waarom: 'Wie alleen je wachtwoord heeft, komt er dan nog steeds niet in', tijd: 10, kamer: 'tweede-slot', gereedschap: ['ente', '2fas', 'aegis'] },
+      { id: 'mail-tweede-slot', stap: 'Zet een tweede slot op je e-mail', waarom: 'Wie alleen je wachtwoord heeft, komt er dan nog steeds niet in', tijd: 20, kamer: 'tweede-slot', gereedschap: ['ente', '2fas', 'aegis'] },
       { id: 'wachtwoordmanager', stap: 'Installeer een wachtwoordmanager', waarom: 'Die maakt en onthoudt voortaan al je wachtwoorden voor je', tijd: 20, kamer: 'sleutelkluis', gereedschap: ['bitwarden', 'protonpass'] },
       { id: 'updates', stap: 'Zet updates op automatisch', waarom: 'Dan worden scheuren in je muren vanzelf gerepareerd', tijd: 10, kamer: 'onderhoud' },
       { id: 'pincode', stap: 'Geef je telefoon een pincode van zes cijfers of meer', waarom: 'Je telefoon is de sleutelbos van je hele huis', tijd: 2, kamer: 'tweede-voordeur' },

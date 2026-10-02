@@ -36,10 +36,10 @@ test('"toch niet gedaan" zet het vinkje terug binnen de avond zelf', async ({ pa
 
 test('de resterende tijd telt alleen wat nog open staat', async ({ page }) => {
   await page.goto('/een-avond');
-  // zes stappen: 5 + 10 + 20 + 10 + 2 + 5 = 52 minuten
-  await expect(page.locator('[data-avond] [data-stand]')).toHaveText(/nog ongeveer 52 minuten/);
+  // zes stappen: 5 + 20 + 20 + 10 + 2 + 5 = 62 minuten
+  await expect(page.locator('[data-avond] [data-stand]')).toHaveText(/nog ongeveer 62 minuten/);
   await page.locator('[data-stap="0"] [data-gedaan]').click();
-  await expect(page.locator('[data-avond] [data-stand]')).toHaveText(/nog ongeveer 47 minuten/);
+  await expect(page.locator('[data-avond] [data-stand]')).toHaveText(/nog ongeveer 57 minuten/);
 });
 
 test('een weekend: niveau 2 stap voor stap, met het vinkje in Aan de slag', async ({ page }) => {
@@ -176,4 +176,45 @@ test('ik wil verder legt uit hoe je een sleutel toevoegt, en noemt Lightning naa
   await toevoegen.locator('summary').click();
   await expect(toevoegen).toContainText('Steek hem nu pas in je computer');
   await expect(toevoegen).toContainText('tweede sleutel');
+});
+
+test('het tweede slot staat in drie delen, met een lijstje dat de woorden uit elkaar houdt', async ({ page }) => {
+  await page.goto('/een-avond#stap-mail-tweede-slot');
+  const stap = page.locator('#stap-mail-tweede-slot');
+  for (const deel of ['Deel 2: maak een account in Ente Auth', 'Deel 3: koppel Ente Auth aan je e-mail']) {
+    await expect(stap.getByRole('heading', { name: deel })).toBeVisible();
+  }
+  const woorden = stap.locator('details.uitklap').filter({ hasText: 'wat is wat?' });
+  await woorden.locator('summary').click();
+  await expect(woorden).toContainText('herstelsleutel van Ente');
+  await expect(woorden).toContainText('herstelcodes van je e-mail');
+  // Microsoft duwt zijn eigen app: de pagina zegt dat dat niet hoeft
+  const ms = stap.locator('details.uitklap').filter({ hasText: '@outlook.com' });
+  await ms.locator('summary').click();
+  await expect(ms).toContainText('andere app');
+  // de controle werkt zonder uitloggen, ook als de computer je mail al kent
+  await expect(stap.locator('.gelukt')).toContainText('Je hoeft niet uit te loggen');
+  // en wie iCloud-mail heeft, logt niet uit op de iPhone
+  await expect(page.locator('#stap-mail-wachtwoord .gelukt')).toContainText('niet uit op je iPhone');
+});
+
+test('Bitwarden: de schermen bij het maken van een account, en een nieuw item op de computer', async ({ page }) => {
+  await page.goto('/een-avond#stap-wachtwoordmanager');
+  const schermen = page.locator('#stap-wachtwoordmanager details.uitklap').filter({ hasText: 'Welke schermen' });
+  await schermen.locator('summary').click();
+  await expect(schermen).toContainText('EU');
+  await expect(schermen).toContainText('hint');
+  await page.goto('/een-weekend#stap-accounts-wachtwoord');
+  const niet = page.locator('#stap-accounts-wachtwoord details.uitklap').filter({ hasText: 'niet bewaard' });
+  await niet.locator('summary').click();
+  await expect(niet).toContainText('nog niet in je kluis');
+  await page.goto('/een-weekend#stap-accounts-tweede-slot');
+  await expect(page.locator('#stap-accounts-tweede-slot details.uitklap').filter({ hasText: 'Waar bewaar ik een passkey?' })).toHaveCount(1);
+});
+
+test('ik wil verder legt NFC uit en laat iemand anders naar je alias mailen', async ({ page }) => {
+  await page.goto('/ik-wil-verder#stap-hardwaresleutel');
+  await expect(page.locator('#stap-hardwaresleutel .hoe').first()).toContainText('NFC betekent');
+  await page.goto('/ik-wil-verder#stap-alias');
+  await expect(page.locator('#stap-alias .gelukt')).toContainText('iemand anders');
 });

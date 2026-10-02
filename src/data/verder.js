@@ -10,9 +10,10 @@ export const VERDER = {
     hoe: [
       'Kijk eerst welke aansluiting je computer heeft. Kijk naar de gaatjes aan de zijkant. Klein en ovaal, aan beide kanten rond? Dat is USB-C. Groter en rechthoekig? Dat is USB-A.',
       'Kijk dan naar je telefoon, naar het gaatje waar de oplader in gaat. Heb je een iPhone van een paar jaar oud? Dan is dat vaak Lightning: ook klein, maar smal en plat. Lightning is geen USB-C. Twijfel je? Neem je oplader mee naar de winkel.',
-      'Koop twee sleutels van hetzelfde soort, bijvoorbeeld twee YubiKeys. Kies er een met de aansluiting van je computer. Staat er NFC bij? Dan kun je hem ook tegen je telefoon houden. Dat werkt ook bij een iPhone met Lightning.',
-      'Je koopt ze op de site van de maker, yubico.com, of in een computerwinkel. De prijs staat bij de sleutel. Twijfel je welke? Vraag het in de winkel en noem je telefoon en je computer.',
-      'Zet de sleutels eerst op je e-mail. Hoe dat gaat, staat hieronder bij "Een sleutel toevoegen, stap voor stap". Doe het op je computer.',
+      'Koop twee sleutels van hetzelfde soort, bijvoorbeeld twee YubiKeys. Kies er een met de aansluiting van je computer.',
+      'Staat er NFC bij? NFC betekent: je houdt de sleutel tegen je telefoon, zoals je met je bankpas tegen de kassa houdt. Dan werkt hij ook met je telefoon. Dat werkt ook bij een iPhone met Lightning.',
+      'Je koopt ze in een computerwinkel, of op de site van de maker, yubico.com. Die site is in het Engels. Twijfel je welke? Vraag het in de winkel en zeg: "Ik wil twee beveiligingssleutels voor deze computer en deze telefoon." Neem je telefoon mee.',
+      'Zet de sleutels eerst op je e-mail. Vind je bij je maildienst geen plek voor een sleutel? Dat kan bij KPN- of Ziggo-mail. Begin dan bij je wachtwoordmanager, en sla je e-mail over. Hoe dat gaat, staat hieronder bij "Een sleutel toevoegen, stap voor stap". Doe het op je computer.',
       'Doe daarna hetzelfde bij je wachtwoordmanager. Bij Bitwarden doe je dit op de website, vault.bitwarden.com. Zoek bij Instellingen, Beveiliging naar Tweestapsaanmelding.',
       'Hang de ene sleutel aan je sleutelbos. Leg de andere bij je noodpakket.',
     ],
@@ -56,7 +57,7 @@ export const VERDER = {
       ] },
       { vraag: 'Zijn er andere diensten?', antwoord: ['Ja. DuckDuckGo Email Protection is ook gratis. Het werkt op dezelfde manier.'] },
     ],
-    gelukt: 'Stuur een mail naar je nieuwe alias. Komt die aan in je gewone mailbox? Dan werkt het.',
+    gelukt: 'Vraag iemand anders om een mail naar je nieuwe alias te sturen. Komt die aan in je gewone mailbox? Dan werkt het. Stuur hem niet zelf vanaf je eigen adres: dan zie je hem soms alleen bij Verzonden.',
     lukNiet: [
       'Komt de mail niet aan? Kijk in je map met ongewenste mail.',
       'Wil je een alias niet meer? Zet hem uit bij je aliasdienst. Mail naar dat adres komt dan niet meer aan.',
