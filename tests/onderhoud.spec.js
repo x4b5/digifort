@@ -105,3 +105,33 @@ test('onderhoud: elke klus werkt ook zonder eerdere stappen', async ({ page }) =
   // een herinnering die terugkomt: per telefoon hoe
   await expect(page.getByText('Zo zet je een herinnering die vanzelf terugkomt')).toBeVisible();
 });
+
+test('onderhoud: de reservekopie van elke maand zegt hoe je er nu een maakt, ook zonder losse schijf of met volle opslag', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const stap = page.locator('[data-beurt-stap="maand-kopie"]');
+  await expect(stap).toContainText('Maak nu reservekopie');
+  await expect(stap).toContainText('opslag vol is');
+  await expect(stap).toContainText('Heb je geen losse schijf?');
+  await expect(stap).not.toContainText('een-weekend');
+  // Windows 10 heeft een tussenstap naar Windows Update
+  await expect(page.locator('[data-beurt-stap="maand-updates"]')).toContainText('Bijwerken en beveiliging');
+  // wissen: de iPhone vraagt om je code, dat staat er vooraf
+  await expect(page.locator('[data-beurt-stap="weg-wissen"]')).toContainText('vraagt nu om je toegangscode');
+});
+
+test('onderhoud: een link naar een stap opent die stap, ook midden in de rij', async ({ page }) => {
+  await page.goto('/onderhoud');
+  await page.locator('[data-beurt-stap="backup-loopt"] a[href="#stap-maand-kopie"]').evaluate((a) => a.click());
+  const stap = page.locator('#stap-maand-kopie');
+  await expect(stap).toBeVisible();
+  await expect(stap.locator('h3')).toBeFocused();
+
+  await page.goto('/voor-de-mensen-om-je-heen#stap-mail-slot');
+  await expect(page.locator('[data-beurt="bezoek"] [data-beurt-stap]:visible h3')).toHaveText('Zet een tweede slot op de e-mail');
+});
+
+test('onderhoud: de quiz over de usb-stick zegt hetzelfde als de stap', async ({ page }) => {
+  await page.goto('/onderhoud');
+  await expect(page.locator('[data-beurt-stap="weg-rest"]')).toContainText('snel formatteren uit');
+  await expect(page.locator('[data-quiz] [data-vraagje]').nth(1).locator('label', { has: page.locator('input[data-goed]') })).toContainText('snel formatteren uit');
+});

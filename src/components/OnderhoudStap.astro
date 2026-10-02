@@ -4,11 +4,12 @@
  * hoe je het doet, en een vinkje "Gedaan".
  * In de onderhoudsbeurt is `id` dezelfde sleutel als in LIJSTEN.onderhoudsbeurt,
  * zodat het vinkje in hetzelfde laatje landt als bij de gewone afvinklijst.
+ * Een link naar #stap-{id} opent de onderhoudsbeurt op precies deze stap.
  */
 interface Props { id: string; nr: number; titel: string; minuten: number }
 const { id, nr, titel, minuten } = Astro.props;
 ---
-<li class="stap" data-beurt-stap={id} data-minuten={minuten}>
+<li class="stap" id={`stap-${id}`} data-beurt-stap={id} data-minuten={minuten}>
   <p class="plek"><span data-plek>Stap {nr}</span> · ongeveer {minuten} minuten</p>
   <h3>{titel}</h3>
   <div class="hoe"><slot /></div>

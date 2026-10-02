@@ -91,6 +91,20 @@ const {
     huidig = eersteOpen === -1 ? 0 : eersteOpen;
     toon();
 
+    // een link naar #stap-… opent precies die stap, ook als hij al is afgevinkt
+    function volgHash() {
+      const doel = decodeURIComponent(location.hash.slice(1));
+      const i = stappen.findIndex((s) => s.id === doel);
+      if (i === -1) return;
+      allesTonen = vakjes.every((v) => v.checked);
+      huidig = i;
+      toon();
+      stappen[i].scrollIntoView();
+      stappen[i].querySelector<HTMLElement>('h3')?.focus({ preventScroll: true });
+    }
+    volgHash();
+    window.addEventListener('hashchange', volgHash);
+
     terug.addEventListener('click', () => ga(huidig - 1));
     verder.addEventListener('click', () => ga(huidig + 1));
     alles.addEventListener('click', () => { allesTonen = true; toon(); stappen[0].querySelector<HTMLElement>('h3')?.focus(); });

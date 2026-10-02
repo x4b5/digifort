@@ -105,8 +105,8 @@ export const QUIZZEN = {
     ] },
     { vraag: 'Je gooit alle bestanden van een usb-stick in de prullenbak en leegt die. Is de stick nu leeg?', opties: [
       { tekst: 'Ja, weg is weg', uitleg: 'De verwijzing is weg, de gegevens niet. Met gratis gereedschap zijn ze vaak gewoon terug te halen.' },
-      { tekst: 'Nee, gebruik een wisprogramma of maak hem kapot', goed: true, uitleg: 'Dat zijn de twee zekere manieren. Hetzelfde geldt voor een losse harde schijf.' },
-      { tekst: 'Nee, maar één keer opnieuw formatteren is genoeg', uitleg: 'Ook dat laat vaak nog van alles staan. Wissen of kapotmaken is het antwoord.' },
+      { tekst: 'Nee, formatteer hem met het vinkje bij snel formatteren uit, of maak hem kapot', goed: true, uitleg: 'Dat zijn de twee zekere manieren. Hetzelfde geldt voor een losse harde schijf.' },
+      { tekst: 'Nee, maar snel formatteren is genoeg', uitleg: 'Snel formatteren laat de bestanden vaak nog staan. Zet het vinkje bij snel formatteren uit, of maak de stick kapot.' },
     ] },
     { vraag: 'Hoe vaak kijk je je huis na?', opties: [
       { tekst: 'Elke maand', uitleg: 'Dat houdt bijna niemand vol, en het hoeft ook niet.' },
