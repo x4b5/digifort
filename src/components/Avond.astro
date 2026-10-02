@@ -14,7 +14,8 @@ import HuisEnFort from './HuisEnFort.astro';
 import Merk from './Merk.astro';
 
 type Toestel = { naam: string, stappen: string[] };
-type Uitleg = { wat?: string, hoe: string[], toestellen?: Toestel[], na?: string[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string };
+type Uitklap = { vraag: string, antwoord: string[] };
+type Uitleg = { wat?: string, hoe: string[], toestellen?: Toestel[], na?: string[], letOp?: string, uitklap?: Uitklap[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string };
 interface Props {
   lijst?: string;
   uitleg?: Record<string, Uitleg>;
@@ -84,7 +85,7 @@ const kiesId = `toestel-${lijst}`;
         {u.toestellen?.map((t) => (
           <div class="toestel" data-soort={soort(t.naam)}>
             <h4>{t.naam}</h4>
-            <ol class="hoe">{t.stappen.map((h) => <li>{h}</li>)}</ol>
+            <ol class="hoe">{t.stappen.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>
           </div>
         ))}
         {na.length > 0 && (
@@ -93,6 +94,22 @@ const kiesId = `toestel-${lijst}`;
             {na.length === 1
               ? <p>{stukjes(na[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>
               : <ol class="hoe">{na.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
+          </div>
+        )}
+        {u.uitklap?.map((k) => (
+          <details class="uitklap">
+            <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
+            <div class="uitklap-tekst">
+              {k.antwoord.length === 1
+                ? <p>{stukjes(k.antwoord[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>
+                : <ol class="hoe">{k.antwoord.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
+            </div>
+          </details>
+        ))}
+        {u.letOp && (
+          <div class="let-op">
+            <span class="let-op-teken" aria-hidden="true">!</span>
+            <p><strong><span class="schermlezer">Let op: </span>{stukjes(u.letOp).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</strong></p>
           </div>
         )}
         {u.gereedschap && u.gereedschap.length > 0 && (
@@ -122,6 +139,7 @@ const kiesId = `toestel-${lijst}`;
     <p class="eyebrow">{moment}</p>
     <h2 id={`einde-${lijst}`} tabindex="-1" data-einde-kop>Je fort staat</h2>
     <p data-einde-tekst></p>
+    <p class="fort-uitleg">De eerste tekening hieronder is een huis met open deuren, zoals de meeste huizen. Het briefje met "welkom01" is een voorbeeld van een zwak wachtwoord. De tweede tekening is het fort. Elke stap die je afvinkt, kleurt een deel van het fort groen. Je hoeft hier verder niets te doen.</p>
     <HuisEnFort legenda={false} uitleg="Elk groen deel heb je zelf gebouwd." />
     <p class="knoppen">
       <a class="knop" href={volgende.href}>{volgende.tekst}</a>
@@ -254,16 +272,27 @@ const kiesId = `toestel-${lijst}`;
   .gelukt .kopje { margin-top: 0.6rem; }
   .gelukt p { margin: 0; }
 
-  /* "Lukt het niet?" als het details-blok van GOV.UK: een link met een pijltje, de hulp eronder */
+  /* "Lukt het niet?" en de uitklappers als het details-blok van GOV.UK: een link met een pijltje, de hulp eronder */
   .lukt-niet { margin: 0 0 1.5rem; }
-  .lukt-niet summary { list-style: none; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; cursor: pointer; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
-  .lukt-niet summary::-webkit-details-marker { display: none; }
-  .lukt-niet summary:hover { text-decoration-thickness: 3px; }
-  .lukt-niet summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-  .lukt-niet .pijl { display: inline-block; font-size: 1.4em; line-height: 1; text-decoration: none; transition: transform 0.15s; }
-  .lukt-niet[open] .pijl { transform: rotate(90deg); }
+  .uitklap { margin: 0 0 0.5rem; }
+  /* een lange vraag loopt over twee regels: het pijltje blijft bij de eerste regel staan */
+  .uitklap summary { align-items: flex-start; }
+  .uitklap-tekst { border-left: var(--lijndikte) solid var(--lijn); padding: 0.25rem 0 0.25rem 1rem; margin: 0.25rem 0 1rem; }
+  .uitklap-tekst p { margin: 0.3rem 0; }
+  .uitklap-tekst .hoe { margin-bottom: 0.3rem; }
+  .lukt-niet summary, .uitklap summary { list-style: none; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; cursor: pointer; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .lukt-niet summary::-webkit-details-marker, .uitklap summary::-webkit-details-marker { display: none; }
+  .lukt-niet summary:hover, .uitklap summary:hover { text-decoration-thickness: 3px; }
+  .lukt-niet summary:focus-visible, .uitklap summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .lukt-niet .pijl, .uitklap .pijl { display: inline-block; font-size: 1.4em; line-height: 1; text-decoration: none; transition: transform 0.15s; }
+  .lukt-niet[open] .pijl, .uitklap[open] > summary .pijl { transform: rotate(90deg); }
   .lukt-niet ul { border-left: var(--lijndikte) solid var(--lijn); padding: 0.25rem 0 0.25rem 1.6rem; margin: 0.25rem 0 0; }
-  @media (prefers-reduced-motion: reduce) { .lukt-niet .pijl { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .lukt-niet .pijl, .uitklap .pijl { transition: none; } }
+
+  /* "Let op" als de waarschuwing van GOV.UK: een rond uitroepteken en vette tekst */
+  .let-op { display: flex; gap: 0.9rem; align-items: flex-start; margin: 1rem 0 1.25rem; }
+  .let-op p { margin: 0; padding-top: 0.35rem; }
+  .let-op-teken { flex: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--inkt); color: var(--papier); display: grid; place-items: center; font-family: var(--kop); font-weight: 700; font-size: 1.4rem; line-height: 1; }
 
   .klaar-zin { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.7rem 1rem; }
   .klaar-zin[hidden] { display: none; }

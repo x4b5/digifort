@@ -8,7 +8,9 @@ export const VERDER = {
   'hardwaresleutel': {
     wat: 'Een echte sleutel is een klein sleuteltje, zoals een YubiKey. Je steekt het in je computer of houdt het tegen je telefoon. Voor deze klus moet je iets kopen; de rest kan gratis.',
     hoe: [
-      'Koop twee sleutels van hetzelfde soort, bijvoorbeeld twee YubiKeys. Kies er een die past op je telefoon en je computer.',
+      'Kijk eerst welke aansluiting je telefoon en je computer hebben. Kijk naar het gaatje waar de oplader in gaat. Klein en ovaal? Dat is USB-C. Plat en rechthoekig, op een oudere computer? Dat is USB-A.',
+      'Koop twee sleutels van hetzelfde soort, bijvoorbeeld twee YubiKeys. Kies er een met de aansluiting van je computer. Staat er NFC bij? Dan kun je hem ook tegen je telefoon houden.',
+      'Je koopt ze op de site van de maker, yubico.com, of in een computerwinkel. De prijs staat bij de sleutel. Twijfel je welke? Vraag het in de winkel en noem je telefoon en je computer.',
       'Ga bij je e-mail en je wachtwoordmanager naar de beveiliging. Zoek "beveiligingssleutel" of "passkey".',
       'Voeg de eerste sleutel toe. Daarna meteen de tweede, als reserve.',
       'Hang de ene aan je sleutelbos. Leg de andere bij je noodpakket.',
@@ -24,10 +26,19 @@ export const VERDER = {
   'alias': {
     wat: 'Zo’n apart adres heet een alias. Het stuurt alles door naar je echte adres. Krijg je ineens rommel op één alias? Dan weet je welk bedrijf je gegevens heeft gelekt.',
     hoe: [
-      'Kies een dienst voor aliassen: SimpleLogin (van Proton) of DuckDuckGo Email Protection. Heb je betaald iCloud+? Dan kan ook Verberg mijn e-mail van Apple.',
-      'Maak een account en koppel je echte e-mailadres.',
-      'Schrijf je je in bij een webwinkel of nieuwsbrief? Maak dan een nieuwe alias en gebruik die.',
+      'Neem SimpleLogin, van Proton. Dat is gratis voor een handvol aliassen.',
+      'Ga in je browser naar simplelogin.io en maak een account. Gebruik je echte e-mailadres. Daar komt straks alle mail van je aliassen binnen.',
+      'Je krijgt een mail om je adres te bevestigen. Klik op de link in die mail.',
+      'Schrijf je je in bij een webwinkel of nieuwsbrief? Log in bij SimpleLogin. Klik op de knop om een nieuwe alias te maken. Kies een willekeurige alias, dan hoef je geen naam te bedenken.',
+      'Kopieer het nieuwe adres. Plak het bij de webwinkel, op de plek van je e-mailadres.',
       'Gebruik aliassen niet voor je bank of DigiD. Daar blijft je echte adres staan.',
+    ],
+    uitklap: [
+      { vraag: 'Ik heb een iPhone met betaald iCloud+', antwoord: [
+        'Dan kun je ook Verberg mijn e-mail van Apple gebruiken.',
+        'Open Instellingen, tik bovenaan op je naam en dan op iCloud. Tik op Verberg mijn e-mail en maak een nieuw adres aan.',
+      ] },
+      { vraag: 'Zijn er andere diensten?', antwoord: ['Ja. DuckDuckGo Email Protection is ook gratis. Het werkt op dezelfde manier.'] },
     ],
     gelukt: 'Stuur een mail naar je nieuwe alias. Komt die aan in je gewone mailbox? Dan werkt het.',
     lukNiet: [
@@ -40,10 +51,24 @@ export const VERDER = {
   'gastnetwerk': {
     wat: 'Een gastnetwerk is een tweede wifi in je huis, met een eigen naam en een eigen wachtwoord.',
     hoe: [
-      'Log in op je router, net als bij niveau 2. Het adres staat vaak op de sticker.',
-      'Zoek "gastnetwerk" en zet het aan. Geef het een eigen naam en een eigen wachtwoord.',
-      'Verbind je slimme apparaten opnieuw, maar nu met het gastnetwerk: je camera, je tv, je deurbel, je slimme lampen.',
+      'Dit is een klus voor wie het leuk vindt. Vind je het te veel gedoe? Sla hem gerust over.',
+      'Zet eerst het gastnetwerk aan. Wil je niet zelf in je router? Bel je provider en vraag: "Wilt u het gastnetwerk op mijn router aanzetten?" Schrijf de naam en het wachtwoord op die je krijgt.',
+      'Doe je het zelf? Log in op je router, net als in [niveau 2](/een-weekend#stap-router). Zoek "gastnetwerk" en zet het aan. Geef het een eigen naam en een eigen wachtwoord.',
+      'Zet daarna je slimme apparaten één voor één over naar het gastnetwerk: je tv, je camera, je deurbel, je slimme lampen. Hoe dat gaat, staat hieronder.',
       'Je laptop en je telefoon blijven op je gewone netwerk.',
+    ],
+    uitklap: [
+      { vraag: 'Mijn tv op het gastnetwerk zetten', antwoord: [
+        'Pak de afstandsbediening en open de instellingen van je tv.',
+        'Zoek naar "netwerk" of "wifi".',
+        'Kies de naam van je gastnetwerk. Typ het wachtwoord van het gastnetwerk.',
+      ] },
+      { vraag: 'Een deurbel, camera of lamp op het gastnetwerk zetten', antwoord: [
+        'Deze apparaten stel je in met hun eigen app op je telefoon.',
+        'Open die app en zoek bij het apparaat naar "wifi" of "netwerk". Kies het gastnetwerk.',
+        'Kun je de wifi daar niet veranderen? Kijk dan in de handleiding of op de site van de maker. Soms moet je het apparaat opnieuw instellen.',
+        'Lukt het niet? Laat dat apparaat dan op je gewone netwerk. Elk apparaat dat wel overgaat, telt.',
+      ] },
     ],
     gelukt: 'Kijk op je tv of camera bij de wifi-instellingen. Staat daar de naam van je gastnetwerk? Dan is het gelukt.',
     lukNiet: [
@@ -85,12 +110,24 @@ export const VERDER = {
     klaar: 'Oude deuren die je vergeten was, zijn dichtgemetseld. Wat er niet meer is, kan ook niet lekken.',
   },
   'profielen': {
+    wat: 'Een profiel is een aparte kamer in je browser, met eigen bladwijzers en eigen logins. Wat je in de ene kamer doet, ziet de andere niet.',
     hoe: [],
     toestellen: [
-      { naam: 'In Firefox', stappen: ['Typ about:profiles in de adresbalk.', 'Kies Nieuw profiel aanmaken.'] },
-      { naam: 'In Chrome of Edge', stappen: ['Klik rechtsboven op het rondje met je foto of letter.', 'Kies Toevoegen.'] },
+      { naam: 'In Chrome of Edge', stappen: [
+        'Klik rechtsboven op het rondje met je foto of letter.',
+        'Kies Toevoegen en volg de stappen. Er gaat een nieuw venster open.',
+        'Wisselen doe je op dezelfde plek: klik op het rondje en kies het andere profiel.',
+      ] },
+      { naam: 'In Firefox', stappen: [
+        'Klik bovenin, in de adresbalk. Typ about:profiles en druk op Enter.',
+        'Klik op Nieuw profiel aanmaken en volg de stappen.',
+        'Wisselen doe je op dezelfde pagina: typ weer about:profiles en klik bij het andere profiel op de knop om het te starten.',
+      ] },
     ],
-    na: ['Noem het ene profiel Werk en het andere Thuis. Log in elk profiel alleen in op wat daarbij hoort.'],
+    na: [
+      'Noem het ene profiel Werk en het andere Thuis.',
+      'Log in elk profiel alleen in op wat daarbij hoort. Zet Bitwarden in allebei.',
+    ],
     gelukt: 'Je hebt twee browservensters, elk met een eigen profiel. In het ene ben je ingelogd voor je werk, in het andere niet.',
     lukNiet: ['Weet je niet meer welk profiel welk is? Geef ze elk een eigen kleur of thema.'],
     gereedschap: ['firefox'],

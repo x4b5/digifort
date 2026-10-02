@@ -117,3 +117,37 @@ test('kies je telefoon, dan zie je alleen de stappen voor die telefoon, ook na h
   await page.getByRole('radio', { name: 'Laat allebei zien' }).check();
   await expect(page.locator('#stap-updates .toestel[data-soort="android"]').first()).toBeVisible();
 });
+
+test('stap 1 en 2 van de avond zeggen per maildienst waar de knop zit, ook met alleen een telefoon', async ({ page }) => {
+  await page.goto('/een-avond#stap-mail-wachtwoord');
+  const stap1 = page.locator('#stap-mail-wachtwoord');
+  // de Mail-app heeft de knop niet: dat staat er vooraan
+  await expect(stap1.locator('.wat')).toContainText('website van je maildienst');
+  // en wie schrikt omdat de Mail-app om het nieuwe wachtwoord vraagt, krijgt een waarschuwing vooraf
+  await expect(stap1.locator('.let-op')).toContainText('Mail-app');
+  const gmail = stap1.locator('details.uitklap').filter({ hasText: '@gmail.com' });
+  await expect(gmail.locator('li').first()).toBeHidden();
+  await gmail.locator('summary').click();
+  await expect(gmail.locator('li').first()).toContainText('myaccount.google.com');
+
+  await page.goto('/een-avond#stap-mail-tweede-slot');
+  const stap2 = page.locator('#stap-mail-tweede-slot');
+  const telefoon = stap2.locator('details.uitklap').filter({ hasText: 'alleen een telefoon' });
+  await telefoon.locator('summary').click();
+  await expect(telefoon).toContainText('Kopieer');
+  await expect(telefoon).toContainText('Plak');
+  // de reservekopie van de code-app staat bij de stap zelf, niet alleen in de gereedschapskist
+  await expect(stap2.locator('.hoe').filter({ hasText: 'reservekopie' }).first()).toBeVisible();
+});
+
+test('het weekend legt het noodpakket uit voordat een stap ernaar verwijst', async ({ page }) => {
+  await page.goto('/een-weekend');
+  const uitleg = page.locator('.envelop');
+  await expect(uitleg).toContainText('noodpakket');
+  // de uitleg staat boven de stappen
+  const voor = await uitleg.evaluate((el) => Boolean(el.compareDocumentPosition(document.querySelector('[data-avond]')) & Node.DOCUMENT_POSITION_FOLLOWING));
+  expect(voor).toBe(true);
+  // de router mag je ook aan je provider overlaten
+  await page.goto('/een-weekend#stap-router');
+  await expect(page.locator('#stap-router .hoe').first()).toContainText('Bel je provider');
+});
