@@ -1,0 +1,28 @@
+---
+/**
+ * Hoe je een woord vindt op een webpagina, voor de diensten zonder eigen
+ * zoekbalk (zoals Microsoft). De testpersoon wist niet hoe "zoek op die pagina"
+ * moest. Naar de inset text van GOV.UK: een lijn links, rustig, geen kader.
+ * Ctrl+F en Cmd+F werken in elke browser, welke versie de site ook heeft.
+ */
+interface Props { woord: string }
+const { woord } = Astro.props;
+---
+<div class="zoek-op-pagina">
+  <p><strong>Zo vind je het woord "{woord}" op de pagina:</strong></p>
+  <ul>
+    <li><strong>Op een computer:</strong> druk tegelijk op de toetsen Ctrl en F. Op een Mac is dat Cmd en F.</li>
+    <li><strong>Op een telefoon:</strong> open het menu van je browser. Kies Zoek op pagina.</li>
+  </ul>
+  <p>Er komt een vakje. Typ daarin "{woord}". Het woord krijgt dan een kleur op de pagina.</p>
+</div>
+
+<style>
+  .zoek-op-pagina {
+    margin: 0.6rem 0 0.9rem; padding: 0.2rem 0 0.2rem 1rem;
+    border-left: 5px solid var(--lijn);
+  }
+  .zoek-op-pagina p { margin: 0.3rem 0; }
+  .zoek-op-pagina ul { margin: 0.3rem 0; padding-left: 1.25rem; }
+  .zoek-op-pagina li { margin: 0.2rem 0; }
+</style>

@@ -1,0 +1,45 @@
+---
+/** Overal uitloggen, per dienst: voor wie er iemand anders in zijn account zit. */
+import Optie from './Optie.astro';
+import ZoekOpPagina from './ZoekOpPagina.astro';
+---
+<p>Bij je account staat een lijst met apparaten die erin zitten, zoals iPhone of Windows. Vaak staan er ook een plaats en een datum bij. Haal eruit wat niet van jou is. Tik op je dienst:</p>
+<Optie titel="Google (@gmail.com)">
+  <ol>
+    <li>Ga naar myaccount.google.com en log in.</li>
+    <li>Typ "apparaten" in de zoekbalk bovenaan. Kies wat over je apparaten gaat. Je ziet nu een lijst met apparaten.</li>
+    <li>Kies een apparaat dat je niet kent, en dan Uitloggen.</li>
+  </ol>
+</Optie>
+<Optie titel="Apple (@icloud.com)">
+  <ol>
+    <li>Open Instellingen op je iPhone en tik op je naam.</li>
+    <li>Onderaan staan je apparaten. Tik op een apparaat dat niet van jou is.</li>
+    <li>Kies Verwijder van account.</li>
+  </ol>
+</Optie>
+<Optie titel="Microsoft (@outlook.com, @hotmail.com)">
+  <ol>
+    <li>Ga naar account.microsoft.com en log in.</li>
+    <li>Kies Beveiliging.</li>
+    <li>Zoek op die pagina het woord "afmelden".<ZoekOpPagina woord="afmelden" />Klik op de link om overal af te melden. Bevestig dat.</li>
+  </ol>
+</Optie>
+<Optie titel="Facebook of Instagram">
+  <ol>
+    <li>Open de app. Ga naar Instellingen, en dan Accountcentrum.</li>
+    <li>Kies Wachtwoord en beveiliging, en dan Waar je bent ingelogd.</li>
+    <li>Kies een apparaat dat je niet kent, en log het uit.</li>
+  </ol>
+</Optie>
+<Optie titel="WhatsApp">
+  <ol>
+    <li>Open WhatsApp. Op een iPhone tik je onderaan op Instellingen. Op Android tik je rechtsboven op de drie puntjes.</li>
+    <li>Kies Gekoppelde apparaten.</li>
+    <li>Tik op een apparaat dat je niet kent, en kies Uitloggen.</li>
+  </ol>
+</Optie>
+<Optie titel="Je provider of een andere dienst">
+  <p>Log in op de website. Zoek in de instellingen naar "apparaten", "uitloggen" of "afmelden". Vind je het niet? Bel de klantenservice.</p>
+</Optie>
+<p>Twijfel je of een apparaat van jou is? Log het toch uit. Je eigen apparaat vraagt dan gewoon opnieuw om je wachtwoord.</p>
