@@ -18,19 +18,9 @@ import Foto from '../../components/Foto.astro';
 import Grafiek from '../../components/Grafiek.astro';
 import Nepbericht from '../../components/Nepbericht.astro';
 import Doe from '../../components/Doe.astro';
-import Scene from '../../components/Scene.astro';
+import RustigeScene from '../../components/RustigeScene.astro';
 import Overzicht from '../../components/Overzicht.astro';
 import NaarDoen from '../../components/NaarDoen.astro';
-
-<Scene wie="ria" bron="Veiliginternetten, bankhelpdeskfraude" href="https://veiliginternetten.nl/bankhelpdeskfraude-kost-slachtoffer-steeds-meer-geld/">
-
-Dinsdagmiddag gaat Ria's telefoon. Een vriendelijke man zegt dat hij van haar bank is. Er wordt vanmiddag geld van haar rekening gehaald, vertelt hij. Hij kan het tegenhouden. Dan moet ze haar spaargeld nu overzetten naar een veilige rekening. Hij blijft aan de lijn terwijl ze haar bankapp opent.
-
-Ria twijfelt. Hoe het afloopt, lees je in [Voor de mensen om je heen](/voor-de-mensen-om-je-heen).
-
-</Scene>
-
-Twijfel je over een bericht of een telefoontje? Het antwoord is bijna altijd hetzelfde.
 
 <Doe>
 
@@ -51,8 +41,37 @@ Neem daarna de tijd. Slaap er een nacht over. Praat erover met iemand. Een echte
   { vraag: 'Een webwinkel of app waar je een account hebt, is gehackt', antwoord: 'Gebruikte je dat wachtwoord ook ergens anders? Verander het daar.', href: '#mijn-wachtwoord-is-gelekt-wat-nu', link: 'Mijn wachtwoord is gelekt' },
   { vraag: 'Je bestanden zijn onleesbaar en iemand vraagt losgeld', antwoord: 'Dat is ransomware. Met een losse reservekopie zet je alles terug.', href: '#wat-is-ransomware', link: 'Wat is ransomware?' },
   { vraag: 'Je telefoon heeft ineens geen bereik', antwoord: 'Misschien is je nummer gestolen. Bel meteen je telefoonbedrijf.', href: '#wat-is-sim-swapping', link: 'Wat is sim-swapping?' },
-  { vraag: 'Al geklikt, ingelogd of betaald?', antwoord: 'Gaat het om geld? Bel direct je bank. Verander daarna het wachtwoord van je e-mail.', href: '/als-er-is-ingebroken#het-eerste-uur', link: 'Het eerste uur na een inbraak' },
+  { vraag: 'Al geklikt, ingelogd of betaald?', antwoord: 'Gaat het om geld? Bel direct je bank. Verander daarna het wachtwoord van je e-mail.', href: '#ik-heb-al-geklikt-ingelogd-of-betaald-wat-nu', link: 'Al geklikt: wat nu?' },
+  { vraag: 'Geld kwijt aan een oplichter?', antwoord: 'Het hangt af van wie op akkoord drukte. Bel eerst je bank.', href: '#krijg-ik-mijn-geld-terug', link: 'Krijg ik mijn geld terug?' },
 ]} />
+
+## Ik heb al geklikt, ingelogd of betaald. Wat nu?
+
+<Kort>gaat het om geld? Bel direct je bank. Verander daarna het wachtwoord van je e-mail. Schamen hoeft niet: hoe sneller je belt, hoe meer je redt.</Kort>
+
+<Doe>
+
+**Doe dit nu, in deze volgorde:**
+
+1. **Gaat het om geld? Bel direct je bank.** Het noodnummer staat op je pas en in de app. Hoe sneller, hoe groter de kans dat een betaling wordt tegengehouden.
+2. **Verander het wachtwoord van je e-mail.** Doe dat op een apparaat dat je vertrouwt. Daarna het wachtwoord van het account waar je inlogde.
+3. **Log overal uit.** Bijna elke dienst heeft een knop om uit te loggen op alle apparaten.
+4. **Bewaar bewijs.** Maak schermafbeeldingen van het bericht, het nummer en het rekeningnummer. Gooi pas daarna iets weg.
+
+</Doe>
+
+<NaarDoen kop="De hele lijst, met waar je het meldt" ook={[
+  { href: '/als-er-is-ingebroken#het-eerste-uur', tekst: 'Het eerste uur: alle stappen om af te vinken', waar: 'Als er toch is ingebroken' },
+  { href: '/als-er-is-ingebroken#waar-meld-je-het', tekst: 'Waar meld je het?', waar: 'Als er toch is ingebroken' },
+]} />
+
+<RustigeScene wie="ria" bron="Veiliginternetten, bankhelpdeskfraude" href="https://veiliginternetten.nl/bankhelpdeskfraude-kost-slachtoffer-steeds-meer-geld/">
+
+Dinsdagmiddag gaat Ria's telefoon. Een vriendelijke man zegt dat hij van haar bank is. Er wordt vanmiddag geld van haar rekening gehaald, vertelt hij. Hij kan het tegenhouden. Dan moet ze haar spaargeld nu overzetten naar een veilige rekening. Hij blijft aan de lijn terwijl ze haar bankapp opent.
+
+Ria twijfelt. Hoe het afloopt, lees je in [Voor de mensen om je heen](/voor-de-mensen-om-je-heen).
+
+</RustigeScene>
 
 ## Is dit bericht echt?
 
@@ -134,8 +153,26 @@ Hier breekt niemand in. Jij doet zelf de deur open en geeft het geld. Geen slot 
 **Opgelicht worden is niet dom.** Oplichters doen dit de hele dag. Ze hebben vaste teksten, belkantoren en nu ook AI. Bij bankhelpdeskfraude worden mensen volgens het klachteninstituut Kifid zo gemanipuleerd dat ze echt denken met een medewerker van hun bank te praten. Schaamte beschermt de oplichter. Melden beschermt de volgende.
 
 <NaarDoen kop="Al geld overgemaakt?" ook={[
-  { href: '/als-er-is-ingebroken#het-eerste-uur', tekst: 'Bel direct je bank, en doe de rest van het eerste uur', waar: 'Als er toch is ingebroken' },
-  { href: '/krijg-je-je-geld-terug', tekst: 'Krijg je je geld terug?', waar: 'Opzoeken' },
+  { href: '#ik-heb-al-geklikt-ingelogd-of-betaald-wat-nu', tekst: 'Bel direct je bank, en doe de rest van het eerste uur', waar: 'Op deze pagina' },
+  { href: '#krijg-ik-mijn-geld-terug', tekst: 'Krijg ik mijn geld terug?', waar: 'Op deze pagina' },
+]} />
+
+## Krijg ik mijn geld terug?
+
+<Kort>dat hangt af van wie op akkoord drukte. Haalde iemand anders het geld van je rekening, zonder dat jij het goedkeurde? Dan moet de bank het in beginsel terugbetalen. Heb je het zelf overgemaakt, ook al werd je bedrogen? Dan heb je geen recht op je geld terug.</Kort>
+
+- **Iemand anders deed het.** De bank moet in beginsel terugbetalen. Alleen als jij heel erg onvoorzichtig was, hoeft dat niet.
+- **Je deed het zelf.** Soms betaalt de bank toch iets terug, uit coulance. Maar dat is geen recht. Bij oplichters die zich voordeden als de bank, gaven de banken in 2025 minder dan de helft terug. ([bron](https://www.nvb.nl/nieuws-en-verhalen/banken-roepen-socialmediaplatforms-op-meer-te-doen-aan-online-fraudebestrijding/))
+- **Heeft iemand op je scherm meegekeken?** Dan valt het buiten de terugbetaalregeling van de banken.
+
+<Doe>
+
+**Wat je doet.** Bel direct je bank, ook als je denkt dat het geld weg is. Hoe sneller, hoe groter de kans dat een betaling wordt tegengehouden. Doe daarna aangifte bij de politie. Belde de oplichter namens je bank? Dan is aangifte een voorwaarde om geld terug te krijgen.
+
+</Doe>
+
+<NaarDoen kop="Lees hoe het precies zit" ook={[
+  { href: '/krijg-je-je-geld-terug', tekst: 'Krijg je je geld terug? De regels uitgelegd', waar: 'Opzoeken' },
 ]} />
 
 <Citaat foto="portret-schneier" wie="Bruce Schneier" wat="beveiligingsexpert, in 2000" origineel="Only amateurs attack machines; professionals target people." bron="Crypto-Gram, 15 oktober 2000" href="https://www.schneier.com/crypto-gram/archives/2000/1015.html">Alleen amateurs vallen machines aan. Professionals richten zich op mensen.</Citaat>

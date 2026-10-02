@@ -48,3 +48,33 @@ test('oude links naar het geheime woord blijven werken', async ({ page }) => {
   await page.goto('/inbrekers-van-morgen#het-geheime-woord-van-je-familie');
   await expect(page.locator('#het-geheime-woord-van-je-familie')).toBeInViewport();
 });
+
+test('de inbrekers van nu opent met het antwoord: het kader, dan het overzicht, dan pas Ria', async ({ page }) => {
+  await page.goto('/inbrekers-van-nu');
+  const volgorde = await page.evaluate(() => {
+    const main = document.querySelector('main');
+    const kader = Array.from(main.querySelectorAll('*')).find((el) => el.children.length === 0 && el.textContent.trim() === 'Stop, en neem zelf contact op.');
+    const overzicht = main.querySelector('[data-overzicht]');
+    const scene = main.querySelector('.scene');
+    const na = (a, b) => Boolean(a && b && (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING));
+    return { kaderVoorOverzicht: na(kader, overzicht), overzichtVoorScene: na(overzicht, scene) };
+  });
+  expect(volgorde).toEqual({ kaderVoorOverzicht: true, overzichtVoorScene: true });
+  // het verhaal leest rechtop, niet cursief
+  await expect(page.locator('.scene .tekst')).toHaveCSS('font-style', 'normal');
+});
+
+test('op een telefoon staat het kader in het eerste scherm', async ({ page }, info) => {
+  test.skip(info.project.name !== 'telefoon', 'alleen op een smal scherm');
+  await page.goto('/inbrekers-van-nu');
+  await expect(page.getByText('Stop, en neem zelf contact op.', { exact: true })).toBeInViewport();
+});
+
+test('wie al geklikt of betaald heeft, vindt een kop met de eerste stappen en een kop over geld terug', async ({ page }) => {
+  await page.goto('/inbrekers-van-nu');
+  for (const naam of ['Ik heb al geklikt, ingelogd of betaald. Wat nu?', 'Krijg ik mijn geld terug?']) {
+    await expect(page.getByRole('heading', { level: 2, name: naam })).toHaveCount(1);
+  }
+  await page.locator('[data-overzicht] a', { hasText: 'Al geklikt: wat nu?' }).click();
+  await expect(page.getByRole('heading', { level: 2, name: 'Ik heb al geklikt, ingelogd of betaald. Wat nu?' })).toBeInViewport();
+});

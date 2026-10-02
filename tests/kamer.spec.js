@@ -94,3 +94,32 @@ test('het lampje van een kamer kleurt mee met de huischeck, en zegt het ook in w
   await expect(page.locator('[data-kamer-uitleg="sleutelkluis"] [data-toestand-tekst]')).toHaveText('Op slot');
   await expect(page.locator('[data-kamer-uitleg="tuinhek"] [data-toestand-tekst]')).toHaveText('Staat open');
 });
+
+test('de lijst met plekken staat vóór de tekening, met de voordeur als eerste', async ({ page }) => {
+  await page.goto('/plattegrond');
+  const eerste = page.locator('details.kamer').first();
+  await expect(eerste).toHaveAttribute('id', 'de-voordeur-je-e-mail');
+  const voor = await eerste.evaluate((el) => {
+    const tekening = document.querySelector('[data-plattegrond]');
+    return Boolean(tekening && (el.compareDocumentPosition(tekening) & Node.DOCUMENT_POSITION_FOLLOWING));
+  });
+  expect(voor).toBe(true);
+});
+
+test('op een telefoon staat je e-mail met wat je doet in het eerste scherm', async ({ page }, info) => {
+  test.skip(info.project.name !== 'telefoon', 'alleen op een smal scherm');
+  await page.goto('/plattegrond');
+  await expect(page.locator('#de-voordeur-je-e-mail summary .zin')).toBeInViewport({ ratio: 0.9 });
+});
+
+test('wie denkt dat er is ingebroken, vindt een kop met de eerste stappen', async ({ page }) => {
+  await page.goto('/plattegrond');
+  const kop = page.getByRole('heading', { level: 2, name: 'Is er al ingebroken in een account?' });
+  await expect(kop).toHaveCount(1);
+  await page.locator('main a', { hasText: 'wat je nu doet' }).click();
+  await expect(kop).toBeInViewport();
+  // de kop onder paspoort zegt waar hij over gaat, niet "als het toch misgaat"
+  // (hij staat in een dichte kamer, dus zoek hem ook als hij verborgen is)
+  await expect(page.getByRole('heading', { name: 'Misbruikt iemand je BSN of paspoort?', includeHidden: true })).toHaveCount(1);
+  await expect(page.getByRole('heading', { name: 'Wat doe je als het toch misgaat?', includeHidden: true })).toHaveCount(0);
+});
