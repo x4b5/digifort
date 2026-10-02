@@ -5,7 +5,7 @@
  * niet voor gewone tips. De schermlezer hoort eerst het woord "Waarschuwing".
  */
 ---
-<div class="waarschuwing">
+<div class="waarschuwing" data-waarschuwing>
   <span class="teken" aria-hidden="true">!</span>
   <p><strong><span class="schermlezer">Waarschuwing: </span><slot /></strong></p>
 </div>
@@ -19,4 +19,5 @@
   }
   p { margin: 0; line-height: 1.45; }
   p :global(a) { font-weight: 700; }
+  @media (forced-colors: active) { .teken { border: 2px solid CanvasText; } }
 </style>

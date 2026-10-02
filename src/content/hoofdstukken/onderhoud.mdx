@@ -2,7 +2,7 @@
 nr: 5
 titel: "Onderhoud en opruimen"
 kort: "Oude apparaten, weggooien, en wat er over jou op internet staat."
-omschrijving: "Een apparaat zonder updates, een oude telefoon wegdoen, en wat iedereen over jou op internet kan vinden. Met een onderhoudsbeurt voor twee keer per jaar."
+omschrijving: "Klussen om af te vinken: elke maand, twee keer per jaar, elk jaar, en als je een telefoon of computer wegdoet."
 datum: "2026-09-30"
 ---
 import Citaat from '../../components/Citaat.astro';
@@ -13,59 +13,363 @@ import Doe from '../../components/Doe.astro';
 import Merk from '../../components/Merk.astro';
 import Onderhoudsbeurt from '../../components/Onderhoudsbeurt.astro';
 import OnderhoudStap from '../../components/OnderhoudStap.astro';
+import Gelukt from '../../components/Gelukt.astro';
+import Waarschuwing from '../../components/Waarschuwing.astro';
+import Momenten from '../../components/Momenten.astro';
 import Foto from '../../components/Foto.astro';
 import Scene from '../../components/Scene.astro';
 import Tijdlijn from '../../components/Tijdlijn.astro';
 
 <Doe>
 
-**Hoe lang?** Ongeveer een half uur, twee keer per jaar.
+**Wat je nodig hebt:** je telefoon, je computer en je agenda.
 
-**Eerste stap:** pak nu je agenda. Zet er "huis nalopen" in, op de dag dat de klok wordt verzet.
+**Eerste stap:** zet nu herinneringen in je agenda die vanzelf terugkomen:
+
+- één voor elke maand, bijvoorbeeld op de eerste van de maand;
+- één voor eind maart en één voor eind oktober, die elk jaar terugkomen. Dan wordt ook de klok verzet;
+- één voor januari, die elk jaar terugkomt.
 
 </Doe>
 
-## De onderhoudsbeurt: twee keer per jaar
+<Meer titel="Zo zet je een herinnering die vanzelf terugkomt">
 
-Een huis op slot zetten is één ding. Het daarna goed houden is iets anders. Op de dag dat de klok wordt verzet, loop je zelf met de timmerman mee door je huis. Je kijkt vier dingen na, één voor één. Wat je afvinkt, onthoudt je eigen browser.
+- **iPhone:** open de app Agenda. Tik rechtsboven op het plusteken. Typ een naam, zoals "Onderhoud". Kies de datum. Tik op Herhaal en kies Elke maand of Elk jaar. Tik op Voeg toe.
+- **Android:** open de app Google Agenda. Tik rechtsonder op het plusteken en kies Afspraak. Typ een naam en kies de datum. Tik op Wordt niet herhaald en kies hoe vaak. Tik op Opslaan.
 
-<Onderhoudsbeurt>
-<OnderhoudStap id="backup-loopt" nr={1} titel="Werkt je reservekopie nog?" minuten={10}>
+</Meer>
 
-Kijk wanneer je reservekopie voor het laatst is gemaakt. Zet dan één foto of bestand terug en open het. Gaat het open? Dan werkt je reservekopie. Of een reservekopie je redt, weet je pas als je het geprobeerd hebt. ([bron](https://www.ncsc.nl/en/backup/all-about-good-backups))
+Een huis op slot zetten is één ding. Het daarna goed houden is iets anders. Hier staan de klussen, per moment. Kies het moment dat nu aan de beurt is. Wat je afvinkt, onthoudt je eigen browser.
 
-Heb je nog geen reservekopie? Die maak je in [niveau 2](/aan-de-slag#niveau-2).
+<Momenten momenten={[
+  { href: '#elke-maand', wat: 'Elke maand', tijd: 'ongeveer 10 minuten' },
+  { href: '#twee-keer-per-jaar-als-de-klok-wordt-verzet', wat: 'Twee keer per jaar', tijd: 'ongeveer 30 minuten' },
+  { href: '#elk-jaar-in-januari', wat: 'Elk jaar', tijd: 'ongeveer 45 minuten' },
+  { href: '#als-je-een-toestel-wegdoet', wat: 'Als je een toestel wegdoet', tijd: 'ongeveer een uur' },
+]} />
+
+## Elke maand
+
+Updates gaan meestal vanzelf. Toch blijft er soms één hangen. Deze twee klussen kosten samen tien minuten.
+
+<Onderhoudsbeurt lijst="onderhoud-maand" naam="Elke maand, stap voor stap" klaar="Je toestellen zijn bijgewerkt. Volgende maand weer.">
+<OnderhoudStap id="maand-updates" nr={1} titel="Installeer de updates die klaarstaan" minuten={5}>
+
+Kijk of er een update op je wacht. Doe het op elk toestel dat je gebruikt.
+
+- **iPhone:** open Instellingen. Tik op Algemeen en dan op Software-update.
+- **Android:** open Instellingen. Tik op Systeem en dan op Systeemupdate. Staat dat er niet? Typ "update" in het zoekveld bovenin Instellingen.
+- **Mac:** open Systeeminstellingen. Klik op Algemeen en dan op Software-update.
+- **Windows:** klik linksonder op Start, het logo met de vier vakjes. Klik op Instellingen, het tandwieltje. Zie je links Windows Update staan? Klik erop. Zie je het niet? Dan heb je Windows 10. Klik dan eerst op Bijwerken en beveiliging en daarna op Windows Update. Klik op de knop om naar updates te zoeken.
+- **Browser op je telefoon:** Safari op de iPhone wordt bijgewerkt met de iPhone zelf. Gebruik je Chrome of Firefox? Die worden bijgewerkt met je andere apps.
+- **Chrome op je computer:** klik rechtsboven op de drie puntjes. Kies Help en dan Over Google Chrome. Chrome zoekt dan zelf naar een update.
+- **Firefox op je computer:** open het menu met de drie streepjes. Kies Help en dan Over Firefox. Firefox zoekt dan zelf naar een update.
+- **Apps op je telefoon:** open de App Store of de Play Store. Kijk of er updates klaarstaan.
+
+Vraagt een browser om opnieuw te starten? Doe dat. Daarna is hij bij.
+
+Staat er een update klaar? Installeer hem. Laat het toestel zolang aan de lader.
+
+<Gelukt>er staat nergens meer een update klaar.</Gelukt>
 
 </OnderhoudStap>
-<OnderhoudStap id="noodcodes-kloppen" nr={2} titel="Kloppen je herstelcodes nog?" minuten={5}>
+<OnderhoudStap id="maand-kopie" nr={2} titel="Kijk of je reservekopie bij is" minuten={5}>
 
-Pak je noodpakket erbij. Liggen de herstelcodes van je e-mail en je Apple-, Google- of Microsoft-account er nog in? Heb je sinds de vorige keer nieuwe codes gemaakt? Leg dan de nieuwe erin en gooi de oude weg.
+Een reservekopie is een tweede set van je foto's en bestanden, op een andere plek. Hij hoort vanzelf te lopen. Kijk wanneer de laatste is gemaakt. Is die ouder dan een week, of is er nog geen? Maak er dan meteen een. Zo doe je dat:
 
-Wat er in het noodpakket hoort, lees je bij [het noodpakket](/als-er-is-ingebroken#het-noodpakket).
+**iPhone**
 
-</OnderhoudStap>
-<OnderhoudStap id="geen-updates" nr={3} titel="Welke apparaten krijgen geen updates meer?" minuten={10}>
+1. Open Instellingen en tik bovenaan op je naam.
+2. Tik op iCloud en dan op iCloud-reservekopie. Daar staat de datum van de laatste kopie.
+3. Staat het schuifje bij iCloud-reservekopie uit? Zet het aan.
+4. Zet de iPhone aan de lader en zorg dat hij op wifi zit. Tik op Maak nu reservekopie. Wacht tot de datum verandert in vandaag.
 
-Loop je apparaten langs: telefoon, tablet, computer en router.
+<Meer titel="De iPhone zegt dat je iCloud-opslag vol is">
 
-- **Android:** kijk bij Instellingen en dan Over de telefoon. Daar staat de datum van de laatste beveiligingsupdate.
-- **Windows:** kijk bij Instellingen en dan Windows Update.
+Dan past de kopie er niet in. Je kunt ruimte maken of meer opslag nemen.
 
-Is de laatste update lang geleden, en komt er niets meer? Gebruik dat apparaat dan niet meer voor je bank en je e-mail. Wat je verder kunt doen, staat hieronder bij [apparaten zonder updates](#als-de-timmerman-niet-meer-komt-apparaten-zonder-updates).
+1. Open Instellingen en tik bovenaan op je naam. Tik op iCloud.
+2. Bovenaan zie je een balk. Die laat zien hoe vol je opslag is. Tik op de regel eronder om je opslag te beheren.
+3. Je ziet nu wat de meeste ruimte inneemt. Hier kun je ook meer opslag kopen. Dat kost elke maand een bedrag.
 
-</OnderhoudStap>
-<OnderhoudStap id="datalek" nr={4} titel="Staat je e-mailadres in een nieuw datalek?" minuten={5}>
+Twijfel je wat je mag weggooien? Gooi dan niets weg. Vraag het eerst aan iemand die je vertrouwt.
 
-Een [datalek](/woordenboek) is als een inbraak bij een winkel waar jij klant bent: jouw gegevens liggen dan op straat.
+</Meer>
 
-Ga naar <Merk id="hibp" maat={18} link /> ([haveibeenpwned.com](https://haveibeenpwned.com)). Typ je e-mailadres in. Om een wachtwoord vraagt de site nooit. Staat er een nieuw lek bij sinds de vorige keer? Verander dan het wachtwoord van die dienst. Gebruikte je hetzelfde wachtwoord ook ergens anders? Verander het daar ook.
+**Android**
+
+1. Open Instellingen. Typ "back-up" in het zoekveld bovenin en open wat je vindt.
+2. Daar staat de datum van de laatste back-up. Staat de back-up uit? Zet hem aan.
+3. Zet de telefoon aan de lader en op wifi. Tik op de knop om nu een back-up te maken. Wacht tot hij klaar is.
+
+Zegt de telefoon dat je opslag vol is? Dan werkt het net als bij de iPhone: maak ruimte of neem meer opslag. Twijfel je? Gooi niets weg en vraag hulp.
+
+**Computer**
+
+Voor een kopie van je computer heb je een losse schijf nodig. Dat is een kastje dat je met een kabel aansluit. Je koopt het bij een winkel in computers of elektronica.
+
+- **Heb je een losse schijf?** Sluit hem aan.
+  - **Mac:** open Systeeminstellingen. Typ "Time Machine" in het zoekveld linksboven en open het. Daar staat de datum van de laatste kopie. Staat er nog geen schijf? Klik op de knop om een schijf toe te voegen en kies je schijf.
+  - **Windows:** klik op Start en typ "Bestandsgeschiedenis". Open het. Daar staat wanneer er voor het laatst is gekopieerd. Staat het nog uit? Kies je schijf en klik op de knop om het aan te zetten.
+  - Haal de schijf los als de kopie klaar is.
+- **Heb je geen losse schijf?** Doe deze stap dan alleen voor je telefoon. Schrijf "losse schijf kopen" op je boodschappenlijstje. Volgende maand maak je de kopie van je computer.
+
+<Gelukt>de laatste kopie van je telefoon is van vandaag of de afgelopen week. En van je computer ook, als je een losse schijf hebt.</Gelukt>
 
 </OnderhoudStap>
 </Onderhoudsbeurt>
 
-De rest van dit hoofdstuk gaat over wat je tegenkomt als je zo door je huis loopt: apparaten die oud worden, spullen die je wegdoet en wat er over jou op internet staat.
+## Twee keer per jaar: als de klok wordt verzet
+
+Eind maart en eind oktober wordt de klok verzet. Op die dag loop je met de timmerman door je huis. Je kijkt vier dingen na, één voor één.
+
+<Onderhoudsbeurt>
+<OnderhoudStap id="backup-loopt" nr={1} titel="Zet één bestand terug uit je reservekopie" minuten={10}>
+
+Of een reservekopie je redt, weet je pas als je het hebt geprobeerd. Dat zegt ook het [Nationaal Cyber Security Centrum](https://www.ncsc.nl/en/backup/all-about-good-backups).
+
+Kies één foto of één bestand. Haal het terug uit je reservekopie. Hoe, hangt af van waar je kopie staat:
+
+- **In de cloud, zoals iCloud, Google Drive of OneDrive:** doe dit op een ander toestel dan je telefoon, bijvoorbeeld je computer. Open de app waarmee je op internet gaat. Ga naar de website van de dienst: icloud.com, drive.google.com of onedrive.com. Log in.
+  - **iCloud:** klik op Foto's en klik één foto aan. Klik bovenaan op het wolkje met het pijltje naar beneden.
+  - **Google Drive:** klik met de rechtermuisknop op een bestand en kies Downloaden.
+  - **OneDrive:** klik op het rondje voor een bestand, zodat er een vinkje staat. Klik bovenaan op Downloaden.
+  - Je browser laat daarna zien dat het bestand binnen is, vaak rechtsboven of onderaan. Klik erop om het te openen.
+- **Op een losse schijf, met een Mac:** sluit de schijf aan. Open in Finder de map waar het bestand stond. Klik rechtsboven op het vergrootglas en typ "Time Machine". Blader terug naar een eerdere dag. Klik op het bestand en dan op Zet terug. Vraagt de Mac of je het bestand wilt vervangen? Kies dat je beide wilt bewaren.
+- **Op een losse schijf, met Windows:** sluit de schijf aan. Klik op Start en typ "Bestandsgeschiedenis". Open het en kies links de regel om persoonlijke bestanden terug te zetten. Zoek je bestand op. Klik op de groene ronde knop onderaan.
+
+Heb je nog geen reservekopie? Maak er dan eerst een. Hoe dat gaat, staat bij [Elke maand, stap 2](#stap-maand-kopie).
+
+<Gelukt>het bestand gaat open en ziet er goed uit.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="noodcodes-kloppen" nr={2} titel="Kijk je herstelcodes na" minuten={5}>
+
+**Herstelcodes** zijn reservesleutels voor een account. Je krijgt ze als je een tweede slot aanzet. Daarmee kom je toch binnen als je telefoon kwijt is.
+
+Je **noodpakket** is een envelop thuis, op een vaste plek. Daarin liggen je herstelcodes en je WhatsApp-pincode, op papier.
+
+**Heb je al een noodpakket?**
+
+1. Pak de envelop erbij.
+2. Staan de herstelcodes van je e-mail erop? Ligt alles er nog?
+3. Heb je een code gebruikt? Zet er dan een streep door. Elke code werkt maar één keer.
+4. Weet je niet of je nieuwe codes hebt gemaakt? Dan is dat waarschijnlijk niet zo. Laat het papier dan zoals het is.
+
+**Heb je nog geen noodpakket?** Begin er nu een. Pak een envelop en een vel papier.
+
+1. Kijk naar je e-mailadres. Staat er gmail.com achter het @-teken? Ga dan in de browser naar myaccount.google.com en log in. Typ in het zoekveld bovenaan "back-upcodes".
+2. Staat er hotmail.com, outlook.com of live.nl achter? Ga dan naar account.microsoft.com en log in. Kies Beveiliging en zoek naar "herstelcode".
+3. Zie je codes? Schrijf ze met de hand op het papier. Zet erbij bij welk account ze horen.
+4. Zie je geen codes, of een ander soort adres? Dan heeft je e-mail nog geen tweede slot. Hoe je dat aanzet, staat bij [Voor de mensen om je heen, stap 6](/voor-de-mensen-om-je-heen#stap-mail-slot). Daar komen ook de codes. Het werkt voor je eigen e-mail net zo.
+5. Leg de envelop thuis op een vaste plek. Niet in je telefoon en niet in een foto.
+
+<Gelukt>je hebt een envelop met herstelcodes op papier, en je weet waar hij ligt.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="geen-updates" nr={3} titel="Zoek apparaten die geen updates meer krijgen" minuten={10}>
+
+Loop je apparaten langs: telefoon, tablet, computer en router.
+
+- **Android:** open Instellingen. Typ "beveiligingsupdate" in het zoekveld bovenin. Daar staat de datum van de laatste beveiligingsupdate. Is die datum meer dan een jaar oud? Dan krijgt de telefoon waarschijnlijk geen updates meer.
+- **iPhone en iPad:** open Instellingen. Tik op Algemeen en dan op Info. Bij iOS-versie staat een getal met een punt erin. Schrijf het op je briefje. Kijk de volgende keer weer. Is het getal na een half jaar nog hetzelfde, ook als je Software-update hebt gedaan? Dan krijgt je iPhone geen updates meer.
+- **Windows:** klik op Start, typ "winver" en druk op Enter. Er gaat een venster open. Staat er Windows 10? Dan krijgt de computer geen gewone updates meer. Lees wat je dan doet bij [apparaten zonder updates](#als-de-timmerman-niet-meer-komt-apparaten-zonder-updates).
+- **Router:** dat is het kastje waar je internet uit komt. Kijk erop. Staat de naam van je internetbedrijf erop, zoals KPN of Ziggo? Dan werkt dat bedrijf hem meestal zelf bij. Klaar. Staat er een ander merk op? Dan heb je hem waarschijnlijk zelf gekocht. Vraag dan iemand die er verstand van heeft om te kijken of er nog updates voor komen. Of bel je internetbedrijf en vraag om hun router.
+
+Krijgt een apparaat geen updates meer? Gebruik dat apparaat dan niet meer voor je bank en je e-mail. Lees verder bij [apparaten zonder updates](#als-de-timmerman-niet-meer-komt-apparaten-zonder-updates).
+
+<Gelukt>je weet van elk apparaat of het nog updates krijgt.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="datalek" nr={4} titel="Kijk of je e-mailadres in een nieuw datalek staat" minuten={5}>
+
+Een [datalek](/woordenboek) is als een inbraak bij een winkel waar jij klant bent. Jouw gegevens liggen dan op straat.
+
+De site heet Have I Been Pwned. Dat is Engels voor: ben ik gehackt? De site is in het Engels, maar je hebt maar één vakje nodig.
+
+1. Ga naar <Merk id="hibp" maat={18} link /> ([haveibeenpwned.com](https://haveibeenpwned.com)).
+2. Typ je e-mailadres in het vakje en klik op de knop ernaast. Om een wachtwoord vraagt de site nooit.
+3. Lees de uitslag. Zie je geen lijst met namen? Dan is je adres in geen enkel lek gevonden. Klaar. Zie je wel een lijst? Elke naam is een dienst waar je gegevens zijn uitgelekt.
+4. Schrijf de namen over op een briefje. Dan weet je de volgende keer welke nieuw zijn.
+5. Zet een streep door elke naam die je niet kent, of die je niet meer gebruikt. Daar hoef je nu niets mee.
+6. Kijk naar de namen die overblijven: diensten die je nog gebruikt. Geef die een nieuw wachtwoord. Begin bij de bovenste en doe er één tegelijk.
+7. Is een lekke dienst weg, maar gebruikte je daar hetzelfde wachtwoord als bij je e-mail? Geef je e-mail dan ook een nieuw wachtwoord.
+
+<Meer titel="Zo geef je een dienst een nieuw wachtwoord">
+
+1. Ga naar de website of open de app van de dienst. Log in.
+2. Zoek bij de instellingen of bij je account naar "wachtwoord".
+3. Typ een nieuw wachtwoord dat je nergens anders gebruikt. Bewaar het in je wachtwoordmanager, of schrijf het in een schriftje thuis.
+
+Weet je het oude wachtwoord niet meer? Klik bij het inloggen op "wachtwoord vergeten". Je krijgt dan een e-mail met een link. Daarmee maak je een nieuw wachtwoord.
+
+</Meer>
+
+Is de lijst lang? Doe vandaag je e-mail en je bank, als die erbij staan. De rest doe je een andere dag.
+
+<Gelukt>bij elke dienst die je nog gebruikt en die in een lek staat, heb je een nieuw wachtwoord.</Gelukt>
+
+</OnderhoudStap>
+</Onderhoudsbeurt>
+
+## Elk jaar in januari
+
+Eén keer per jaar kijk je naar de buitenkant van je huis: wat iedereen over jou kan vinden. Alles wat openbaar staat, kan een oplichter gebruiken.
+
+<Onderhoudsbeurt lijst="onderhoud-jaar" naam="Elk jaar, stap voor stap" klaar="Je gevel is nagelopen. Volgend jaar in januari weer.">
+<OnderhoudStap id="jaar-zoeken" nr={1} titel="Zoek jezelf op" minuten={10}>
+
+1. Typ je naam in een zoekmachine. Kijk ook bij de plaatjes.
+2. Doe hetzelfde met je telefoonnummer.
+3. Doe het nog een keer met je e-mailadres.
+4. Schrijf op wat je ziet en wat weg moet. Denk aan je geboortedatum, je adres en de namen van je kinderen.
+
+<Gelukt>je hebt een lijstje van wat er over jou te vinden is.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="jaar-prive" nr={2} titel="Zet je sociale media op privé" minuten={15}>
+
+Dat staat niet vanzelf zo. Bij TikTok is het account van een volwassene standaard openbaar.
+
+- **Instagram:** tik op je profielfoto en dan op de drie streepjes. Kies Instellingen en activiteit. Kies Wie je content kan zien en dan Accountprivacy.
+- **Facebook:** tik op je profielfoto of op de drie streepjes. Kies Instellingen en privacy en dan Instellingen. Zoek daar naar "privacycontrole". Die loopt stap voor stap met je langs wie wat van je ziet.
+- **Andere apps:** zoek in de instellingen van de app naar "privacy".
+
+Kijk daarna wat iedereen op je profiel kan lezen:
+
+- **Facebook:** open je eigen profiel. Tik op de knop om je profiel te bewerken, of op Info. Daar staan je geboortedatum, je telefoonnummer en je woonplaats. Bij elk ervan staat een knopje om te kiezen wie het ziet. Kies Alleen ik. Of haal het weg.
+- **Instagram:** je geboortedatum en telefoonnummer staan daar niet op je profiel. Kijk wel naar de tekst onder je naam. Staat daar je woonplaats of je nummer? Tik op Profiel bewerken en haal het weg.
+- **Andere apps:** open je eigen profiel en kijk wat er staat. Haal weg wat een vreemde niet hoeft te weten.
+
+Kijk ook wie je vrienden en volgers zijn. Ken je iemand niet? Haal hem weg.
+
+Privé is nooit helemaal privé. Ook iemand uit je eigen kring kan iets doorsturen.
+
+<Gelukt>je account staat op privé, en een vreemde ziet op je profiel geen geboortedatum, telefoonnummer of woonplaats meer.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="jaar-accounts" nr={3} titel="Ruim oude accounts op" minuten={20}>
+
+Dat account van vijftien jaar geleden bestaat nog, met je oude wachtwoord erbij.
+
+1. Maak een lijstje van je accounts. Zo vind je ze:
+   - Heb je een wachtwoordmanager? Loop de lijst daarin langs.
+   - Je telefoon en je browser bewaren vaak ook wachtwoorden. Zoek op je telefoon naar "wachtwoorden" en kijk welke sites daar staan.
+   - Zoek in je e-mail naar woorden als "welkom", "account" of "bevestig je e-mailadres". Zo vind je sites waar je je ooit hebt aangemeld.
+2. Gebruik je een site niet meer? Log in en zoek bij de instellingen naar "account verwijderen".
+3. Lukt dat niet? Vraag het bedrijf dan om je gegevens te wissen. Dat recht heb je volgens de privacywet. Zo doe je dat:
+   - Zoek onderaan de website van het bedrijf naar "privacy". Daar staat een e-mailadres of een formulier voor vragen over je gegevens.
+   - Stuur dit bericht. Vul je eigen naam en e-mailadres in.
+
+<Meer titel="Het bericht om je gegevens te laten wissen">
+
+**Onderwerp:** Verzoek om mijn gegevens te wissen
+
+Beste mensen,
+
+Ik had een account bij u met het e-mailadres [je e-mailadres]. Ik gebruik het niet meer. Ik vraag u om al mijn persoonsgegevens te wissen. Dit is een verzoek volgens artikel 17 van de AVG.
+
+Wilt u mij laten weten als het gebeurd is?
+
+Met vriendelijke groet,
+[je naam]
+
+</Meer>
+
+4. Staat er iets over jou in een zoekmachine dat weg moet? Je kunt de zoekmachine vragen om het weg te halen. Typ in die zoekmachine "formulier persoonsgegevens verwijderen" en kies het formulier van de zoekmachine zelf. Meer uitleg staat bij de [Autoriteit Persoonsgegevens](https://autoriteitpersoonsgegevens.nl/nl/zelf-doen/gebruik-uw-privacyrechten/recht-op-vergetelheid).
+
+<Gelukt>op je lijstje staan alleen nog accounts die je gebruikt. De rest is weg, of je hebt gevraagd om het te wissen.</Gelukt>
+
+</OnderhoudStap>
+</Onderhoudsbeurt>
+
+<Meer titel="Waarom je gevel ertoe doet">
+
+Je geboortedatum. De namen van je kinderen. Waar je werkt. Een filmpje waarin je praat. Samen is dat genoeg voor een bericht of een telefoontje dat precies klopt.
+
+- **Zet vakantiefoto's er pas op als je thuis bent.** Niet terwijl je huis leeg staat.
+- **Wees zuinig met openbare filmpjes waarin je praat.** Daarmee kan iemand je stem namaken.
+- **Denk na over foto's van je kinderen.** Zij kunnen er later niets meer aan veranderen.
+
+</Meer>
+
+## Als je een toestel wegdoet
+
+Doe dit voordat je een telefoon, tablet of computer verkoopt, weggeeft of inlevert. In een oud toestel zit je hele leven, ook als jij denkt dat alles weg is.
+
+<Waarschuwing>Is je toestel gestolen? Doe dan juist niet wat hier staat. Volg dan [het stappenplan bij verlies](/als-er-is-ingebroken#telefoon-of-laptop-kwijt-het-stappenplan).</Waarschuwing>
+
+<Onderhoudsbeurt lijst="onderhoud-wegdoen" naam="Een toestel wegdoen, stap voor stap" klaar="Het toestel is leeg. Je kunt het met een gerust hart weggeven.">
+<OnderhoudStap id="weg-kopie" nr={1} titel="Maak een reservekopie" minuten={15}>
+
+Zet alles wat je wilt houden op een andere plek. Denk aan foto's, berichten en bestanden.
+
+- **iPhone of iPad:** open Instellingen en tik bovenaan op je naam. Tik op iCloud en dan op iCloud-reservekopie. Tik op Maak nu reservekopie en wacht tot hij klaar is.
+- **Android:** open Instellingen en typ "back-up" in het zoekveld. Maak nu een back-up en wacht tot hij klaar is.
+- **Computer:** sluit een losse schijf aan. Sleep je mappen met foto's en bestanden naar die schijf. Wacht tot het kopiëren klaar is.
+
+Meer over reservekopieën staat bij stap 5 van [Ik heb een weekend](/een-weekend).
+
+<Gelukt>je ziet je foto's en bestanden terug op een ander toestel of in de cloud.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="weg-uitloggen" nr={2} titel="Log uit en zet Zoek mijn uit" minuten={5}>
+
+Doe je dit niet, dan blijft het toestel aan jou vastzitten. De nieuwe eigenaar kan er dan niets mee.
+
+- **iPhone of iPad:** open Instellingen en tik bovenaan op je naam. Tik helemaal onderaan op Log uit. Vul het wachtwoord van je Apple-account in. Daarmee gaat ook Zoek mijn uit.
+- **Android:** open Instellingen en typ "accounts" in het zoekveld. Kies je Google-account en verwijder het van het toestel.
+- **Computer:** log uit bij je Apple-, Google- of Microsoft-account.
+
+<Gelukt>er staat op het toestel geen account van jou meer.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="weg-wissen" nr={3} titel="Zet het toestel terug naar de fabrieksinstellingen" minuten={20}>
+
+Daarmee wis je alles. Het toestel wordt weer zoals het uit de fabriek kwam. Doe dit pas als stap 1 en 2 klaar zijn.
+
+- **iPhone of iPad:** open Instellingen. Tik op Algemeen. Veeg helemaal naar beneden en tik op Zet over of stel iPhone opnieuw in. Op een iPad staat er iPad. Tik op Wis alle inhoud en instellingen.
+- **Mac:** open Systeeminstellingen. Typ "wis alle inhoud" in het zoekveld linksboven en open wat je vindt.
+- **Android:** open Instellingen. Typ "fabrieksinstellingen" in het zoekveld bovenin. Kies Fabrieksinstellingen herstellen, of iets wat daarop lijkt.
+- **Windows:** klik op Start en typ "Deze pc opnieuw instellen". Open het. Kies Alles verwijderen en daarna dat je het station wilt opschonen.
+
+Het toestel vraagt nu om je toegangscode of je wachtwoord. Soms ook om het wachtwoord van je Apple-, Google- of Microsoft-account. Dat is normaal: zo weet het toestel dat jij het bent. Typ ze in. Het wissen duurt een paar minuten tot een uur. Laat het toestel zolang aan de lader.
+
+<Gelukt>het toestel start op met het welkomstscherm, net als een nieuw toestel.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="weg-kaartjes" nr={4} titel="Haal je simkaart en geheugenkaartje eruit" minuten={2}>
+
+Op je simkaart staat je telefoonnummer. Op een geheugenkaartje staan vaak foto's.
+
+1. Zoek aan de zijkant van de telefoon een klein laatje met een gaatje ernaast.
+2. Duw het speldje dat bij de telefoon zat in het gaatje. Geen speldje? Een rechtgebogen paperclip werkt ook.
+3. Het laatje springt een stukje open. Trek het eruit en haal het kaartje eraf. Een geheugenkaartje zit vaak in hetzelfde laatje.
+
+Zit er geen laatje in? Dan heb je misschien een eSIM: een simkaart zonder kaartje. Vraag je provider wat je daarmee doet.
+
+<Gelukt>je hebt de kaartjes in je hand, en het toestel is leeg.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="weg-rest" nr={5} titel="Vergeet losse schijven en andere apparaten niet" minuten={15}>
+
+- **Een losse schijf of usb-stick** is niet leeg als je de bestanden in de prullenbak gooit. Zo wis je hem echt:
+  - **Windows:** open Verkenner. Klik met de rechtermuisknop op de schijf en kies Formatteren. Zet het vinkje bij snel formatteren uit. Klik op Starten. Dat kan lang duren.
+  - **Mac:** klik rechtsboven op het vergrootglas en typ "Schijfhulpprogramma". Kies de schijf en klik op Wis. Zie je de knop Beveiligingsopties? Kies daar de veiligste stand.
+  - Twijfel je? Maak de schijf dan kapot, of houd hem zelf.
+- **Printers, routers, slimme tv's en navigatiesystemen** bewaren ook accounts, wifi-wachtwoorden en adressen. Zet ze terug naar de fabrieksinstellingen.
+- **Een auto die je inlevert** ook. Kijk in het menu van de auto naar fabrieksinstellingen.
+
+<Gelukt>er gaat geen apparaat de deur uit met jouw gegevens erop.</Gelukt>
+
+</OnderhoudStap>
+</Onderhoudsbeurt>
+
+<Foto id="harde-schijven" onderschrift="Een schijf is niet leeg als de bestanden in de prullenbak liggen. Wissen of kapotmaken, dat zijn de twee zekere manieren." />
 
 ## Als de timmerman niet meer komt: apparaten zonder updates
+
+<Kort>een apparaat dat geen updates meer krijgt, wordt elk jaar onveiliger.</Kort>
 
 <Scene wie="ria" bron="Microsoft, einde ondersteuning Windows 10" href="https://support.microsoft.com/nl-nl/windows/windows-10-ondersteuning-is-be%C3%ABindigd-op-14-oktober-2025-2ca8b313-1946-43d3-b55c-2b95b107f281">
 
@@ -75,17 +379,15 @@ Wat ze niet ziet: op de laptop draait Windows 10, en sinds 14 oktober 2025 komt 
 
 </Scene>
 
-<Kort>een apparaat dat geen updates meer krijgt, wordt elk jaar onveiliger.</Kort>
-
 <Vraagje vraag="Je telefoon krijgt al twee jaar geen beveiligingsupdates meer, maar werkt prima. Wat doe je?" opties={[
   { tekst: 'Gewoon blijven gebruiken, hij doet het nog', uitleg: 'Hij werkt, maar er komt geen timmerman meer langs om scheuren dicht te maken. Elk jaar dat verstrijkt wordt hij onveiliger.' },
   { tekst: 'Hem niet meer gebruiken voor je bank en je e-mail', goed: true, uitleg: 'Dat is het eerlijke antwoord: hij mag blijven, maar niet meer voor je belangrijkste deuren. Koop je een nieuwe, kijk dan hoeveel jaar de maker updates belooft.' },
   { tekst: 'Meteen weggooien', uitleg: 'Dat hoeft niet. Voor muziek of spelletjes kan hij prima door. Alleen je bank en je e-mail horen er niet meer op.' },
 ]} />
 
-<Meer>
+<Meer titel="Wat je doet met een apparaat zonder updates">
 
-Elk apparaat krijgt maar een paar jaar updates. Zolang die komen, loopt de timmerman langs en maakt hij nieuwe scheuren dicht voordat iemand ze vindt. Daarna werkt het apparaat nog gewoon, maar komt er niemand meer langs. Het voelt als een prima huis, tot iemand de scheur vindt.
+Elk apparaat krijgt maar een paar jaar updates. Zolang die komen, loopt de timmerman langs. Hij maakt nieuwe scheuren dicht voordat iemand ze vindt. Daarna werkt het apparaat nog gewoon, maar komt er niemand meer langs.
 
 <Tijdlijn stappen={[
   { wanneer: '29 juli 2015', tekst: 'Windows 10 verschijnt. Tien jaar lang komt de timmerman langs.', soort: 'groen' },
@@ -96,47 +398,10 @@ Elk apparaat krijgt maar een paar jaar updates. Zolang die komen, loopt de timme
   Het leven van één besturingssysteem. <a href="https://learn.microsoft.com/nl-nl/lifecycle/products/windows-10-home-and-pro">Microsoft, levenscyclus van Windows 10</a>
 </Tijdlijn>
 
-- **Windows 10.** Microsoft is op 14 oktober 2025 gestopt met updates. Je hebt drie keuzes. Eén: stap gratis over op Windows 11, als je computer dat aankan. Kijk bij Instellingen en dan Windows Update. Twee: meld je aan voor de extra beveiligingsupdates van Microsoft. Die lopen voor gewone gebruikers tot 12 oktober 2027. Drie: koop een andere computer. Is je oude computer verder nog goed? Dan kun je er een ander systeem op zetten, zoals Linux of ChromeOS Flex.
-- **Android-telefoons.** Kijk bij Instellingen en dan Over de telefoon. Daar staat de datum van de laatste beveiligingsupdate. Is die lang geleden en komt er niets meer? Gebruik de telefoon dan niet meer voor je bank en je e-mail. Koop je een nieuwe telefoon? Kijk dan hoeveel jaar de maker updates belooft.
-- **iPhone en iPad.** Apple geeft lang updates, maar niet voor altijd. Kun je de nieuwste versie niet meer installeren? Dan komt het einde in zicht.
-- **Router en slimme apparaten.** Een router van je internetbedrijf wordt meestal vanzelf bijgewerkt. Heb je zelf een router gekocht en is hij vijf jaar of ouder? Kijk op de site van de maker of er nog updates komen. Slimme apparaten zonder updates horen op het gastnetwerk. Of ze gaan de deur uit.
-
-</Meer>
-
-## Verhuizen: oude apparaten wegdoen
-
-<Kort>maak een apparaat helemaal leeg voordat je het verkoopt of weggooit.</Kort>
-
-<Meer>
-
-Je laat je sleutels ook niet achter in je oude huis. In een oude telefoon of laptop zit je hele leven, ook als jij denkt dat alles weg is.
-
-<Foto id="harde-schijven" onderschrift="Een schijf is niet leeg als de bestanden in de prullenbak liggen. Wissen of kapotmaken, dat zijn de twee zekere manieren." />
-
-1. **Maak eerst een reservekopie.** Controleer of alles erop staat.
-2. **Log uit bij je Apple-, Google- of Microsoft-account.** Zet ook de functie uit waarmee je het toestel kunt terugvinden. Doe je dat niet? Dan blijft het toestel aan jou vastzitten en kan de nieuwe eigenaar er niets mee. Let op: bij diefstal doe je juist het omgekeerde.
-3. **Zet het apparaat terug naar hoe het uit de fabriek kwam.** Op een iPhone of Mac heet dat Wis alle inhoud en instellingen. Op Android heet het Fabrieksinstellingen herstellen. Op Windows heet het Deze pc opnieuw instellen. Kies daar Alles verwijderen en het station opschonen.
-4. **Haal je simkaart en je geheugenkaartje eruit.**
-5. **Een losse schijf of usb-stick** is niet leeg als je de bestanden in de prullenbak gooit. Gebruik een wisprogramma. Of maak de schijf echt kapot.
-6. **Vergeet de rest niet.** In printers, routers, slimme tv's en navigatiesystemen staan ook accounts, wifi-wachtwoorden en adressen. In een auto die je inlevert ook.
-
-</Meer>
-
-## Wat er op je gevel staat: wat iedereen over jou kan vinden
-
-<Kort>alles wat openbaar over jou op internet staat, kan een oplichter gebruiken.</Kort>
-
-<Meer>
-
-Je geboortedatum. De namen van je kinderen. Waar je werkt. Een filmpje waarin je praat. Samen is dat genoeg voor een bericht of een telefoontje dat precies klopt.
-
-- **Zoek jezelf op.** Typ je naam, je telefoonnummer en je e-mailadres in een zoekmachine. Kijk ook bij de plaatjes.
-- **Zet sociale media op privé.** Dat staat niet vanzelf zo: bij TikTok is het account van een volwassene standaard openbaar. Op Instagram tik je op je profielfoto, dan op de drie streepjes, Instellingen en activiteit, Wie je content kan zien, Accountprivacy. Kijk daarna wie je vrienden en volgers zijn, en verberg je geboortedatum, je telefoonnummer en je woonplaats. Privé is wel nooit helemaal privé: ook iemand uit je eigen kring kan iets doorsturen.
-- **Zet vakantiefoto's er pas op als je thuis bent.** Niet terwijl je huis leeg staat.
-- **Wees zuinig met openbare filmpjes waarin je praat.** Daarmee kan iemand je stem namaken.
-- **Denk na over foto's van je kinderen.** Zij kunnen er later niets meer aan veranderen.
-- **Ruim oude accounts op.** Dat account van vijftien jaar geleden bestaat nog, met je oude wachtwoord erbij.
-- **Vraag om verwijdering.** Volgens de privacywet mag je een bedrijf vragen om je gegevens te wissen. Zoekmachines hebben een formulier om zoekresultaten over jou weg te halen.
+- **Windows 10.** Microsoft is op 14 oktober 2025 gestopt met updates. Je hebt drie keuzes. Eén: stap gratis over op Windows 11, als je computer dat aankan. Kijk bij Instellingen en dan Windows Update. Twee: meld je aan voor de extra beveiligingsupdates van Microsoft. Die lopen voor gewone gebruikers tot 12 oktober 2027. Open daarvoor Instellingen, dan Bijwerken en beveiliging, dan Windows Update. Staat daar een link om je in te schrijven? Klik erop en volg de stappen. Je hebt een Microsoft-account nodig. Meer staat bij [Microsoft](https://www.microsoft.com/nl-nl/windows/extended-security-updates). Drie: koop een andere computer. Is je oude computer verder nog goed? Dan kan iemand die er verstand van heeft er een ander systeem op zetten, zoals Linux of ChromeOS Flex. Dat is software in plaats van Windows, die wel updates krijgt.
+- **Android-telefoons.** Is de laatste beveiligingsupdate lang geleden en komt er niets meer? Gebruik de telefoon dan niet meer voor je bank en je e-mail. Koop je een nieuwe telefoon? Kijk dan hoeveel jaar de maker updates belooft.
+- **iPhone en iPad.** Apple geeft lang updates, maar niet voor altijd.
+- **Router en slimme apparaten.** Een router van je internetbedrijf wordt meestal vanzelf bijgewerkt. Slimme apparaten zonder updates horen op het gastnetwerk. Dat is een apart wifi-netwerk in je router, los van je laptop en je telefoon. Of ze gaan de deur uit.
 
 </Meer>
 

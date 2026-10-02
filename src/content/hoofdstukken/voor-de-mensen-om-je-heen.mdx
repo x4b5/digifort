@@ -2,18 +2,170 @@
 nr: 4
 titel: "Voor de mensen om je heen"
 kort: "Ouders, kinderen en collega’s: zij hebben ook een sleutel."
-omschrijving: "Help je ouders, kinderen en collega’s hun digitale huis dicht te doen. En wat je doet als iemand dichtbij meekijkt op je telefoon."
+omschrijving: "Zet in één bezoek de telefoon van je vader, moeder of kind op slot. Met wat je zegt en wat je doet, stap voor stap. En wat je doet als iemand dichtbij meekijkt."
 datum: "2026-09-24"
 ---
 import Citaat from '../../components/Citaat.astro';
 import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
+import Doe from '../../components/Doe.astro';
 import Foto from '../../components/Foto.astro';
 import Sleutelhouders from '../../components/tekeningen/Sleutelhouders.astro';
 import Verhaal from '../../components/Verhaal.astro';
 import Nepbericht from '../../components/Nepbericht.astro';
 import Scene from '../../components/Scene.astro';
 import Poppetjes from '../../components/Poppetjes.astro';
+import Onderhoudsbeurt from '../../components/Onderhoudsbeurt.astro';
+import OnderhoudStap from '../../components/OnderhoudStap.astro';
+import Zeg from '../../components/Zeg.astro';
+import Gelukt from '../../components/Gelukt.astro';
+import Waarschuwing from '../../components/Waarschuwing.astro';
+
+<Doe>
+
+**Hoe lang?** Eén bezoek van ongeveer een uur.
+
+**Wat je nodig hebt:** de telefoon van de ander, opgeladen. En deze pagina op je eigen telefoon.
+
+</Doe>
+
+Je huis is zo veilig als de mensen die een sleutel hebben. Komt een inbreker bij jou niet binnen? Dan probeert hij het via je moeder, je kind of je collega. Hier staat hoe je in één bezoek hun telefoon op slot zet.
+
+## Voor je gaat
+
+- **Plan een uur.** Zet koffie. Probeer niet alles in één keer.
+- **Vraag of de telefoon is opgeladen.**
+- **Vraag of ze het wachtwoord van hun e-mail weten**, of waar het staat opgeschreven.
+- **Spreek af: zij tikken, jij wijst.** Doe het niet voor de ander. Anders weten ze niet wat er veranderd is.
+
+## Het bezoek: zeven stappen
+
+Doe de stappen in deze volgorde. Na elke stap zet je een vinkje. Wat je afvinkt, onthoudt je eigen browser. Zo kun je bij een volgend bezoek verder waar je was.
+
+<Onderhoudsbeurt lijst="bezoek" naam="Het bezoek, stap voor stap" klaar="De telefoon zit op slot. Bel over een week even om te horen of alles nog werkt.">
+<OnderhoudStap id="bel-mij" nr={1} titel="Spreek af: bij twijfel bel je mij" minuten={5}>
+
+<Zeg>"Belt of appt iemand over je bank of over geld? Hang op en bel mij. Dat is nooit dom."</Zeg>
+
+Zet daarna jouw nummer, van jou als helper, bij hun favorieten. Dan bellen ze je met één tik.
+
+Staat jouw nummer nog niet in hun contacten? Zet het er dan eerst in:
+
+- **iPhone:** open de app Contacten. Tik rechtsboven op het plusteken. Typ je naam en je nummer. Tik op Gereed.
+- **Android:** open de app Contacten. Tik rechtsonder op het plusteken. Typ je naam en je nummer. Tik op Opslaan.
+
+Zet je nummer nu bij de favorieten:
+
+- **iPhone:** open de app Telefoon. Tik onderin op Favorieten en dan op het plusteken. Kies jouw naam.
+- **Android:** open de app Contacten. Open jouw naam en tik op het sterretje.
+
+<Gelukt>jouw naam staat bij de favorieten. Laat de ander je één keer bellen om het te proberen.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="familiewoord" nr={2} titel="Spreek een familiewoord af" minuten={5}>
+
+<Zeg>"Vraagt iemand in paniek om geld, ook als het op mij lijkt? Vraag dan eerst naar ons woord."</Zeg>
+
+1. Kies samen één gek woord. Iets wat nergens op internet staat.
+2. Zet het woord niet in een app of een bericht. Alleen in jullie hoofd.
+3. Oefen het één keer. Doe alsof je belt en om geld vraagt.
+
+<Gelukt>de ander vraagt bij het oefenen uit zichzelf naar het woord.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="schermslot" nr={3} titel="Zet het scherm op slot met een pincode" minuten={10}>
+
+<Zeg>"Je telefoon is de sleutelbos van je hele huis. Die doen we op slot."</Zeg>
+
+- **iPhone:** open Instellingen. Tik op Face ID en toegangscode. Heeft de iPhone een ronde knop onder het scherm? Dan heet het Touch ID en toegangscode.
+- **Staat er nog geen code op de iPhone?** Tik dan op Zet toegangscode aan. Staat er al wel een code op? Dan heet de knop Wijzig toegangscode.
+- **Android:** open Instellingen. Tik op Beveiliging, dan op Schermvergrendeling en dan op Pincode. Vind je het niet? Typ "schermvergrendeling" in het zoekveld bovenin Instellingen.
+
+Laat de ander zelf een code kiezen van zes cijfers of meer. Niet de geboortedatum en niet 123456. Kijk zelf niet mee.
+
+<Gelukt>de telefoon vraagt om de code als je hem van het slot haalt.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="updates-aan" nr={4} titel="Zet updates op automatisch" minuten={10}>
+
+<Zeg>"Een update is de timmerman die scheuren dichtmaakt. Die laten we voortaan vanzelf komen."</Zeg>
+
+- **iPhone:** open Instellingen. Tik op Algemeen, dan op Software-update en dan op Automatische updates. Zet daar alle schuifjes aan.
+- **Android:** open Instellingen. Tik op Systeem en dan op Systeemupdate. Staat dat er niet? Typ "update" in het zoekveld bovenin Instellingen.
+- **Apps op de iPhone:** open Instellingen, niet de App Store. Tik op App Store. Zet het schuifje aan waar "updates" bij staat.
+- **Apps op Android:** open de Play Store. Tik rechtsboven op het rondje met de foto of letter. Tik op Instellingen, dan op Netwerkvoorkeuren en dan op Apps automatisch updaten. Kies dat het via wifi mag.
+
+Staat er nu al een update klaar? Installeer hem meteen.
+
+<Gelukt>automatische updates staan aan, en er staat geen update meer klaar.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="whatsapp" nr={5} titel="Zet een pincode op WhatsApp" minuten={5}>
+
+<Zeg>"Vraagt iemand je om een code door te sturen, ook een bekende? Nooit doen."</Zeg>
+
+1. Open WhatsApp.
+   - **iPhone:** tik rechtsonder op Instellingen. Soms staat daar een foto in plaats van het woord.
+   - **Android:** tik rechtsboven op de drie puntjes en dan op Instellingen.
+2. Tik op Account en dan op Verificatie in twee stappen.
+3. Tik op Aanzetten. Laat de ander een pincode van zes cijfers kiezen.
+4. Vul ook een e-mailadres in. Vergeet de ander de pincode? Dan stuurt WhatsApp naar dat adres een link om een nieuwe te maken.
+5. Schrijf de pincode op papier, en leg dat thuis op een vaste plek.
+
+<Gelukt>bij Verificatie in twee stappen kun je de pincode nu wijzigen. Dan staat hij aan.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="mail-slot" nr={6} titel="Zet een tweede slot op de e-mail" minuten={20}>
+
+<Zeg>"Wie je e-mail heeft, kan overal je wachtwoord veranderen. Daar zetten we een tweede slot op."</Zeg>
+
+**Wat is een tweede slot?** Na het wachtwoord vraagt de e-mail nog om iets. Bijvoorbeeld een code op de telefoon. Een inbreker met alleen het wachtwoord komt er dan niet in. Op het scherm heet dit vaak tweestapsverificatie, verificatie in 2 stappen of 2FA.
+
+**Let op:** dit zit niet in de Mail-app. Je zet het aan bij het account van de e-mail.
+
+1. Kijk naar het e-mailadres van de ander. Welk stuk staat er na het @-teken?
+2. Volg de regel die daarbij past:
+   - **@gmail.com:** open de app waarmee je op internet gaat. Op een iPhone is dat Safari, het blauwe kompas. Op Android is dat meestal Chrome, het rondje in vier kleuren. Typ bovenin myaccount.google.com en log in. Typ in het zoekveld bovenaan "verificatie in 2 stappen" en tik erop. Tik op de knop om het aan te zetten.
+   - **@hotmail.com, @outlook.com of @live.nl:** open de app waarmee je op internet gaat, net als hierboven. Typ bovenin account.microsoft.com en log in. Tik op Beveiliging. Zoek de regel met "tweestapsverificatie" of "verificatie in twee stappen" en tik erop. Tik op de knop om het aan te zetten.
+   - **@icloud.com of @me.com:** open Instellingen op de iPhone. Tik bovenaan op de naam, en dan op het onderdeel met "beveiliging" erin. Staat Twee-factor-authenticatie op Aan? Dan is deze stap al klaar. Staat het op Uit, of staat er een knop om het aan te zetten? Tik erop en volg de vragen. Je bevestigt het telefoonnummer van de ander met een code die per sms komt.
+   - **Een adres van het internetbedrijf, zoals @kpnmail.nl of @ziggo.nl:** log in op de website van dat bedrijf. Zoek bij de instellingen naar tweestapsverificatie. Vind je het niet? Sla deze stap over. Bel later de klantenservice en vraag of het kan.
+3. Daarna stelt het scherm een paar vragen. Vaak zijn dat: het wachtwoord nog een keer, het telefoonnummer, en een code die per sms komt. Typ die code over. Lees elk scherm samen hardop voor voordat je verder tikt.
+4. Vraagt het scherm welk tweede slot je wilt? Kies een **passkey** als dat kan. Een passkey is een sleutel die in de telefoon zelf zit. De ander logt dan voortaan in met vinger, gezicht of de pincode van de telefoon. Kan dat niet? Kies dan een code op de telefoon.
+5. Krijg je **herstelcodes** te zien? Dat zijn reservesleutels. Daarmee kom je toch binnen als de telefoon kwijt is. Schrijf ze op papier en leg ze bij de WhatsApp-pincode.
+
+Duurt het te lang, of is de ander moe? Stop gerust. Doe deze stap bij het volgende bezoek.
+
+<Gelukt>de e-mail vraagt bij het inloggen om een tweede stap.</Gelukt>
+
+</OnderhoudStap>
+<OnderhoudStap id="harde-regel" nr={7} titel="Spreek de belangrijkste regel af" minuten={5}>
+
+Welke regel het is, hangt af van wie je helpt.
+
+**Bij een ouder:**
+
+<Zeg>"De bank vraagt nooit om je geld naar een veilige rekening te zetten. De bank vraagt nooit om je pincode. En de bank haalt nooit je pas op."</Zeg>
+
+Pak samen de bankpas. Daarop staat het telefoonnummer van de bank. Zet dat nummer in de contacten, met de naam van de bank erbij.
+
+<Zeg>"Belt iemand namens de bank? Hang op. Bel zelf terug op dit nummer."</Zeg>
+
+**Bij een kind:**
+
+<Zeg>"Vraagt iemand online om een foto, of dreigt iemand ermee? Nooit betalen, altijd vertellen. Je krijgt geen straf."</Zeg>
+
+<Gelukt>de ander kan de regel in eigen woorden zeggen. Bij een ouder staat ook het nummer van de bank in de contacten.</Gelukt>
+
+</OnderhoudStap>
+</Onderhoudsbeurt>
+
+## Na het bezoek
+
+1. **Bel over een week.** Vraag of alles nog werkt. Zo blijft de drempel om jou te bellen laag.
+2. **Plan een tweede bezoek.** Doe dan samen [de huischeck](/huischeck#doe-de-huischeck). Dat zijn tien korte vragen. Bij elke "nee" staat wat je kunt doen. Doe je de check met een kind? Zet dan bovenaan het vinkje aan bij "Ik doe de check samen met een kind". Dan zijn het vier vragen.
+3. **Doe daarna samen [Ik heb één avond](/een-avond).** Dat zijn zes stappen, één per scherm. Vier ervan heb je bij dit bezoek al gedaan. Nieuw is vooral een wachtwoordmanager. Dat is een app die alle wachtwoorden bewaart en voor je invult. Eén avond met een paar sloten erbij is meer waard dan een perfect plan dat niemand uitvoert.
+
+## Waarom juist zij
 
 <Scene wie="ria" bron="Veiliginternetten, bankhelpdeskfraude" href="https://veiliginternetten.nl/bankhelpdeskfraude-kost-slachtoffer-steeds-meer-geld/">
 
@@ -23,7 +175,7 @@ Nu hebben ze ook een woord dat alleen de familie kent. Wie belt of appt met een 
 
 </Scene>
 
-Je huis is zo veilig als de mensen die een sleutel hebben. Een inbreker die bij jou niet binnenkomt, probeert het via je moeder, je kind of je collega. Anderen helpen is daarom geen liefdadigheid maar ook zelfbescherming.
+Anderen helpen is geen liefdadigheid. Het is ook zelfbescherming.
 
 <Citaat foto="portret-mitnick" wie="Kevin Mitnick" wat="hacker die beveiligingsadviseur werd, in 2002" origineel="Expensive locks or no, the homeowner remains vulnerable. Why? Because the human factor is truly security's weakest link." bron="The Art of Deception, hoofdstuk 1" href="https://www.wiley.com/en-us/The+Art+of+Deception%3A+Controlling+the+Human+Element+of+Security-p-9780764542800">Dure sloten of niet, de huiseigenaar blijft kwetsbaar. Waarom? Omdat de menselijke factor echt de zwakste schakel is.</Citaat>
 
@@ -33,27 +185,29 @@ Je huis is zo veilig als de mensen die een sleutel hebben. Een inbreker die bij 
 
 <Foto id="ouder-met-telefoon" onderschrift="De belangrijkste afspraak van dit hoofdstuk kost niets: bellen bij twijfel mag altijd, en is nooit dom." />
 
-<Vraagje vraag="Je vader wil zijn wachtwoorden in een schriftje in een la thuis schrijven. Wat zeg je?" opties={[
-  { tekst: 'Doen. Dat is veiliger dan overal hetzelfde wachtwoord', goed: true, uitleg: 'Een indringer in zijn woonkamer is een veel kleiner risico dan een datalek aan de andere kant van de wereld. Perfect is de vijand van beter.' },
-  { tekst: 'Niet doen, wachtwoorden schrijf je nooit op', uitleg: 'Die regel komt uit de tijd van briefjes op het beeldscherm op kantoor. Een la bij iemand thuis is iets heel anders.' },
-  { tekst: 'Niet doen, het moet een wachtwoordmanager zijn', uitleg: 'Een manager is beter, maar alleen als hij hem ook echt gebruikt. Een systeem dat iemand niet volhoudt, beschermt niemand.' },
-]} />
-
-Ouderen zijn vaak het doelwit. Bij de nep-bankmedewerker is volgens de politie bijna 80 procent van de slachtoffers ouder dan 60. Bij de "hoi mam"-truc zijn de meeste slachtoffers ouder dan 50. Wat het meeste oplevert:
+Ouderen zijn vaak het doelwit. Bij de nep-bankmedewerker is volgens de politie bijna 80 procent van de slachtoffers ouder dan 60. Bij de "hoi mam"-truc zijn de meeste slachtoffers ouder dan 50.
 
 <figure class="poppetjes-figuur">
   <Poppetjes rood={8} van={10} />
   <figcaption>Van elke tien slachtoffers van de nep-bankmedewerker zijn er bijna acht ouder dan 60. <a href="https://www.politie.nl/nieuws/2024/maart/11/00-minder-bankhelpdeskfraude-in-2023.html">Politie, 2024</a></figcaption>
 </figure>
 
+Zo ziet zo'n bericht eruit. Laat het ook eens zien aan wie je wilt beschermen.
+
 <Nepbericht id="hoi-mam" />
+
+<Vraagje vraag="Je vader wil zijn wachtwoorden in een schriftje in een la thuis schrijven. Wat zeg je?" opties={[
+  { tekst: 'Doen. Dat is veiliger dan overal hetzelfde wachtwoord', goed: true, uitleg: 'Een indringer in zijn woonkamer is een veel kleiner risico dan een datalek aan de andere kant van de wereld. Perfect is de vijand van beter.' },
+  { tekst: 'Niet doen, wachtwoorden schrijf je nooit op', uitleg: 'Die regel komt uit de tijd van briefjes op het beeldscherm op kantoor. Een la bij iemand thuis is iets heel anders.' },
+  { tekst: 'Niet doen, het moet een wachtwoordmanager zijn', uitleg: 'Een manager is beter, maar alleen als hij hem ook echt gebruikt. Een systeem dat iemand niet volhoudt, beschermt niemand.' },
+]} />
 
 <Verhaal
   titel="Acht keer dezelfde truc, met de foto van iemands kind"
   wanneer="rechtszaak april 2021"
   bron="Openbaar Ministerie, 7 april 2021"
   href="https://www.om.nl/actueel/nieuws/2021/04/07/tot-twee-jaar-cel-geeist-voor-vriend-in-nood-fraude-via-whatsapp"
-  voorkomen="Eén keer terugbellen op het oude nummer. Of het familiewachtwoord dat hierboven staat."
+  voorkomen="Eén keer terugbellen op het oude nummer. Of het familiewoord uit stap 2 van het bezoek."
   naar="/inbrekers-van-morgen#het-geheime-woord-van-je-familie"
   naarTekst="Spreek een geheim woord af"
 >
@@ -70,35 +224,23 @@ Wat het Openbaar Ministerie erbij zei is het onthouden waard: zonder die geldeze
 
 Wil je weten hoe een oplichter denkt? In [het inbraakspel](/het-inbraakspel) probeer je zelf geld los te krijgen bij Ria.
 
-<Meer>
-
-- **Spreek het familiewachtwoord af** en oefen het één keer.
-- **Eén harde regel:** de bank belt nooit om geld over te maken naar een "veilige rekening", vraagt nooit om je pincode en haalt nooit je pas op.
-- **Wees de hulplijn.** Spreek af dat ze jou altijd mogen bellen bij twijfel, zonder dat het dom voelt.
-- **Zet samen de basis op:** updates aan, schermvergrendeling, tweede slot op de e-mail.
-- **Houd het simpel.** Een schriftje met wachtwoorden in een la thuis is veiliger dan overal hetzelfde wachtwoord. Perfect is de vijand van beter.
-
-Zo ziet zo'n bericht eruit. Laat het ook eens zien aan wie je wilt beschermen.
-
-</Meer>
-
 ## Kinderen en tieners
 
 - **Begin met het gesprek, niet met het verbod.** Een kind dat bang is voor straf, vertelt niet wat er is misgegaan.
-- **Sextortion bestaat.** Iemand doet zich online voor als leeftijdsgenoot, vraagt om een foto en chanteert daarna. De boodschap aan je kind: nooit betalen, altijd vertellen, je krijgt geen straf.
-- **Game-accounts zijn geld waard** en worden gestolen. Ook daar: uniek wachtwoord en tweede slot.
-- **Wat online staat, blijft online**, en wordt nu ook gebruikt om stemmen en gezichten na te maken. Denk na over wat openbaar staat.
+- **Sextortion bestaat.** Iemand doet zich online voor als leeftijdsgenoot. Hij vraagt om een foto en chanteert daarna. De boodschap aan je kind: nooit betalen, altijd vertellen, je krijgt geen straf.
+- **Game-accounts zijn geld waard** en worden gestolen. Ook daar: een eigen wachtwoord en een tweede slot.
+- **Wat online staat, blijft online.** Het wordt nu ook gebruikt om stemmen en gezichten na te maken. Denk na over wat openbaar staat.
 - **Geef het goede voorbeeld.** Kinderen doen wat je doet, niet wat je zegt.
 
 ## Op het werk
 
-Op je werk beheer je niet alleen je eigen huis, maar ook de sleutels van anderen: klanten, cliënten, kandidaten, collega's. De privacywet (AVG) verplicht je daar zorgvuldig mee om te gaan.
+Op je werk heb je ook de sleutels van anderen: klanten, cliënten, kandidaten, collega's. De privacywet (AVG) verplicht je daar zorgvuldig mee om te gaan.
 
-<Meer>
+<Meer titel="Vijf afspraken voor op je werk">
 
 - **Houd werk en privé gescheiden.** Geen persoonsgegevens van anderen op je eigen laptop, in je privémail of in je privécloud.
 - **Vergrendel je scherm** als je wegloopt, ook voor twee minuten.
-- **CEO-fraude:** een bericht van "de directeur" met een spoedbetaling. Met een gekloonde stem is dit overtuigender dan ooit. Verifieer altijd via een tweede kanaal.
+- **CEO-fraude:** een bericht van "de directeur" met een spoedbetaling. Met een gekloonde stem is dit overtuigender dan ooit. Check het altijd via een tweede kanaal, bijvoorbeeld door zelf terug te bellen.
 - **Let op wat je in AI-tools plakt.** Persoonsgegevens en vertrouwelijke stukken horen niet in een dienst waarvan je niet weet wat die ermee doet.
 - **Meld een fout direct.** Een datalek dat een risico oplevert voor de betrokkenen moet binnen 72 uur na ontdekking bij de Autoriteit Persoonsgegevens gemeld worden. Dat lukt alleen als jij het meteen zegt.
 
@@ -108,26 +250,16 @@ Op je werk beheer je niet alleen je eigen huis, maar ook de sleutels van anderen
 
 Niet elke inbreker komt van buiten. Soms heeft iemand die dichtbij staat, een partner of een ex, stiekem een app op je telefoon gezet. Zo'n app heet **stalkerware**. De ander ziet dan wat je zoekt, waar je bent, je berichten, je foto's en soms je gesprekken. De app werkt onzichtbaar op de achtergrond.
 
-<Meer>
+Een batterij die ineens snel leeg is, veel meer dataverbruik of vreemde meldingen kunnen een teken zijn. Maar dat hoeft niet. En sommige van die apps merk je helemaal niet.
 
-Een batterij die ineens snel leeg is, veel meer dataverbruik of vreemde meldingen kunnen een teken zijn. Maar dat hoeft niet, en sommige van die apps merk je helemaal niet.
+<Waarschuwing>Verwijder de app niet meteen. De ander kan merken dat hij weg is. Volgens hulporganisaties kan de dreiging dan juist groter worden.</Waarschuwing>
 
-**Verwijder het niet meteen.** Dat klinkt vreemd. Maar de ander kan merken dat de app weg is, en volgens hulporganisaties kan dat de dreiging juist groter maken. Doe daarom eerst dit:
+Doe eerst dit:
 
 1. **Zoek hulp via een ander toestel**, dat de ander nooit in handen heeft gehad. Wat je op je eigen telefoon opzoekt, kan hij of zij meelezen.
 2. **Bel Veilig Thuis: 0800-2000.** Gratis, en als je wilt anoniem. Samen bedenk je wat veilig is.
 3. **Houd bij wat er gebeurt**, met de datum erbij. Dat helpt als je later hulp zoekt of aangifte doet.
 
-Is het veilig om op te ruimen? Een iPhone met iOS 16 of nieuwer heeft **Veiligheidscontrole**, bij Instellingen en dan Privacy en beveiliging. Daar zie je met wie je iets deelt, zoals je locatie, en zet je dat stop.
+Ruim pas op als je met Veilig Thuis hebt besproken dat het veilig is. Een iPhone met iOS 16 of nieuwer heeft daarvoor **Veiligheidscontrole**, bij Instellingen en dan Privacy en beveiliging. Daar zie je met wie je iets deelt, zoals je locatie. En daar zet je dat stop.
 
-</Meer>
-
-## De huischeck bij iemand anders
-
-Neem de tien vragen uit [de huischeck](/huischeck#doe-de-huischeck) mee naar iemand die je wilt helpen. Plan een uur, zet koffie, en doe samen alleen niveau 1. Probeer niet alles in één keer. Eén avond met vier sloten erbij is meer waard dan een perfect plan dat niemand uitvoert.
-
-## Wat je nu kunt doen
-
-1. Doe de [huischeck](/huischeck#doe-de-huischeck) samen, met de knop "samen met een kind" aan als het om een kind gaat.
-2. Plan één avond en doe alleen [niveau 1](/aan-de-slag#niveau-1). Eén avond met vier sloten erbij is meer waard dan een perfect plan dat niemand uitvoert.
-3. Spreek het [geheime woord](/aan-de-slag#niveau-1) af met de mensen om wie het gaat. Juist zij krijgen de telefoontjes met een nagemaakte stem.
+Welke iOS je hebt, zie je zo: open Instellingen, tik op Algemeen en dan op Info. Het getal bij iOS-versie moet 16 of hoger zijn. Zie je Veiligheidscontrole niet staan? Dan is je iOS te oud.
