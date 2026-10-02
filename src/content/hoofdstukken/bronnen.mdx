@@ -2,6 +2,7 @@
 nr: null
 titel: "De bronnen"
 kort: "Elke feitelijke bewering op deze site, met de bron erbij en of hij is nagelopen."
+omschrijving: "Elke feitelijke bewering op digi-fort, met de bron erbij. Zoek op een woord of kies een hoofdstuk, en kijk zelf of het klopt."
 datum: "2026-09-23"
 ---
 import Bronnen from '../../components/Bronnen.astro';
@@ -9,21 +10,39 @@ import Nagelopen from '../../components/Nagelopen.astro';
 import Kort from '../../components/Kort.astro';
 import { BRONNEN, NOG_KOPPELEN } from '../../data/bronnen.js';
 
-<Kort>alles wat op deze site als feit staat, staat hier met de bron erbij. Je hoeft me niet te geloven: klik door en kijk zelf.</Kort>
+<Kort>elk feit op deze site staat hieronder, met de bron erbij. Je hoeft me niet te geloven. Klik op de bron en kijk zelf.</Kort>
 
-Elke feitelijke bewering op deze site hoort bij een bron die je zelf kunt nalopen. Dat zijn er {BRONNEN.length}. Achter elke bewering staat hoe ver de controle is:
+## Hoe vind ik een bron?
 
-- **Gecontroleerd** betekent dat de bron is geopend en de bewering ondersteunt.
-- **Nog koppelen** betekent dat de bron bestaat, maar dat de precieze pagina nog moet worden opgezocht. Dat geldt nu voor {NOG_KOPPELEN} beweringen; met het vinkje hieronder zie je welke.
+- Typ een woord in het zoekvak, bijvoorbeeld CBS, passkey of Kifid.
+- Of kies een hoofdstuk. Dan zie je alleen de feiten uit dat hoofdstuk.
+- Onder elk feit staat de bron. Klik erop om hem zelf te lezen.
 
-Status per <Nagelopen wat="gereedschap" />. De bronnen bij "De storm om het huis" en de cijfers onder de huischeck zijn op <Nagelopen wat="bronnen" /> nagelopen.
+## Wat betekenen "Gecontroleerd" en "Nog koppelen"?
+
+Achter elk feit staat hoe ver de controle is.
+
+- **Gecontroleerd**: de bron is geopend. Hij zegt wat er op de site staat.
+- **Nog koppelen**: de bron bestaat. Maar de precieze pagina moet nog worden opgezocht.
+
+Er staan {BRONNEN.length} feiten in de lijst. Bij {NOG_KOPPELEN} daarvan moet de pagina nog worden opgezocht. Zet het vinkje "Alleen wat nog te koppelen is" aan. Dan zie je welke dat zijn.
+
+De status is bijgewerkt op <Nagelopen wat="gereedschap" />. De bronnen bij "De storm om het huis" zijn op <Nagelopen wat="bronnen" /> nagelopen. Dat geldt ook voor de cijfers onder de huischeck.
+
+## Alle feiten met hun bron
 
 <Bronnen />
 
-## Hoe de bronnen zijn gekozen
+## Welke bronnen kiest deze site?
 
-Eerst overheid en onafhankelijke instanties (CBS, NCSC, AIVD, Autoriteit Persoonsgegevens, politie, NIST, Europol), dan de makers van een product over hun eigen product, dan vakpers. Commerciële beveiligingsbedrijven alleen als er niets beters is, en dan met vermelding.
+Deze site kiest een bron in deze volgorde:
 
-## Wat de bronnen hebben veranderd
+1. De overheid en onafhankelijke instanties. Bijvoorbeeld het CBS, het NCSC, de AIVD, de Autoriteit Persoonsgegevens, de politie, NIST en Europol.
+2. De maker van een product, over zijn eigen product.
+3. Vakbladen en nieuwssites over techniek.
 
-Nalopen is geen formaliteit. De zin over datalekken in [Voor de mensen om je heen](/voor-de-mensen-om-je-heen) was te stellig en is gecorrigeerd: de meldplicht geldt alleen als het lek waarschijnlijk een risico oplevert voor de betrokkenen.
+Een commercieel beveiligingsbedrijf is alleen een bron als er niets beters is. Dat staat er dan ook bij.
+
+## Wat is er door het nalopen veranderd?
+
+Nalopen is geen formaliteit. Een voorbeeld: de zin over datalekken in [Voor de mensen om je heen](/voor-de-mensen-om-je-heen) was te stellig. Die is verbeterd. De meldplicht geldt alleen als het lek waarschijnlijk een risico is voor de mensen om wie het gaat.

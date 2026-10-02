@@ -10,16 +10,26 @@ import Noot from '../../components/Noot.astro';
 import Vraagje from '../../components/Vraagje.astro';
 import Grafiek from '../../components/Grafiek.astro';
 import Foto from '../../components/Foto.astro';
+import NaarDoen from '../../components/NaarDoen.astro';
 
-Je hebt net de huischeck gedaan. Misschien viel hij tegen. Misschien dacht je: ja, dat weet ik wel, maar het komt er niet van.
+<Kort>dat is geen domheid en geen luiheid. Er zijn drie redenen. Je denkt dat het al geregeld is, omdat je het ergens hebt geregeld. Je bent moe van alle keuzes. En niemand heeft het ooit vastgemaakt aan iets wat je al kende.</Kort>
 
-Dat is geen luiheid. Het is het gewoonste patroon dat er is, en er is onderzoek naar. Dit hoofdstuk gaat niet over inbrekers. Het gaat over jou, en waarom dit onderwerp zo makkelijk van je aandacht af glijdt.
+<NaarDoen titel="Zelf doen, zonder gedoe" stappen={[
+  { href: '/huischeck', tekst: 'Kijk in twee minuten waar je staat', waar: 'De huischeck' },
+  { href: '/een-avond', tekst: 'Zes stappen, en dan ben je klaar', waar: 'Ik heb één avond' },
+]} />
 
-Bij de huischeck stond een vraag die niet meetelde voor je score: welk cijfer geef je jezelf? Nederlanders geven zichzelf gemiddeld een 6,9 voor het omgaan met online risico's. Dat cijfer staat sinds 2022 ongeveer stil. Tien procent geeft zichzelf een onvoldoende, drie op de tien een acht of hoger. Als jouw cijfer hoger was dan het aantal deuren dat dichtstaat, ben je in goed gezelschap — en dit hoofdstuk legt uit waarom.
+Misschien viel de huischeck je tegen. Misschien dacht je: ja, dat weet ik wel, maar het komt er niet van. Dat is het gewoonste patroon dat er is. En er is onderzoek naar. Deze pagina gaat niet over inbrekers. Hij gaat over jou, en waarom dit onderwerp zo makkelijk van je aandacht af glijdt.
 
-## De helft maakt zich geen zorgen
+## Welk cijfer geven Nederlanders zichzelf?
 
-Van alle Nederlanders maakt 51 procent zich weinig tot geen zorgen over de eigen digitale veiligheid. Veertig procent maakt zich *enige* zorgen. Acht procent maakt zich veel zorgen. ([bron](https://alertonline.veiliginternetten.nl/media/documents/Hoofdrapport_Alert_Online_2025.pdf))
+Gemiddeld een 6,9 voor het omgaan met online risico's. Dat cijfer staat sinds 2022 ongeveer stil. Tien procent geeft zichzelf een onvoldoende. Drie op de tien geven zichzelf een acht of hoger.
+
+Bij de huischeck stond die vraag ook. Hij telde niet mee voor je score. Was jouw cijfer hoger dan het aantal deuren dat dichtstaat? Dan ben je in goed gezelschap. Hieronder lees je waarom.
+
+## Maken Nederlanders zich zorgen?
+
+De helft niet. Van alle Nederlanders maakt 51 procent zich weinig tot geen zorgen over de eigen digitale veiligheid. Veertig procent maakt zich *enige* zorgen. Acht procent maakt zich veel zorgen. ([bron](https://alertonline.veiliginternetten.nl/media/documents/Hoofdrapport_Alert_Online_2025.pdf))
 
 <Vraagje vraag="Waarom maken mensen die zich weinig zorgen maken, zich weinig zorgen?" opties={[
   { tekst: 'Omdat ze denken dat het toch niet uitmaakt wat ze doen', uitleg: 'Dat speelt mee, maar het is niet de meestgenoemde reden. De meeste mensen zijn juist niet moedeloos — ze zijn gerust.' },
@@ -47,9 +57,9 @@ Dat is het oudste denkfoutje dat er is: een gevaar is echt voor een ander, en th
 
 </Meer>
 
-## Het woordje "soms"
+## Waarom denk ik dat het al geregeld is?
 
-<Kort>gevraagd of ze veilig doen, antwoordt bijna iedereen ja. Gevraagd of ze het overal doen, antwoordt bijna niemand ja.</Kort>
+Omdat je het ergens hebt geregeld. Gevraagd of ze veilig doen, antwoordt bijna iedereen ja. Gevraagd of ze het overal doen, antwoordt bijna niemand ja. Het verschil zit in het woordje *soms*.
 
 <Noot>
 Dit zijn twee verschillende onderzoeken met een andere vraagstelling, dus het is geen exacte vergelijking. Juist daarom staat het hier: het gat tussen de twee cijfers *is* het punt. Het laat zien hoe ver "ik doe dit" af kan staan van "dit is bij mij geregeld".
@@ -78,9 +88,9 @@ En dat is precies waarom dit huis een plattegrond nodig heeft. Eén goed slot op
 
 </Meer>
 
-## Beveiligingsmoeheid is een echt woord
+## Waarom ben ik er zo moe van?
 
-<Kort>te veel keuzes maken mensen niet voorzichtiger, maar onverschilliger.</Kort>
+Te veel keuzes maken mensen niet voorzichtiger, maar onverschilliger. Daar is een woord voor: beveiligingsmoeheid.
 
 <Meer>
 
@@ -98,15 +108,15 @@ Deze site is op die drie regels gebouwd. Daarom is er een [huischeck](/huischeck
 
 </Meer>
 
-## Waarom abstracte uitleg niet blijft hangen
+## Waarom blijft uitleg over beveiliging niet hangen?
 
-<Kort>mensen denken in beelden, niet in begrippen. Wie geen beeld krijgt, maakt er zelf een.</Kort>
+Mensen denken in beelden, niet in begrippen. Wie geen beeld krijgt, maakt er zelf een.
 
 <Meer>
 
 Van de mensen die op hun werk beveiligingstraining krijgen, noemt ruim een derde die training saai. Slechts een derde zegt er met volle aandacht bij te zijn. ([bron](https://1670277.fs1.hubspotusercontent-na1.net/hubfs/1670277/%5BCollateral%5D%20Tessian-Research-Reports/%5BTessian%20Research%5D%20How%20Security%20Cultures%20Impact%20Employee%20Behavior.pdf))
 
-Dat is geen onwil. Onderzoeker Rick Wash liet in 2010 zien dat gewone computergebruikers wel degelijk een verklaring in hun hoofd hebben voor wat een virus is of wie een hacker is — alleen is dat hun eigen verklaring. Hij noemde ze *folk models*, huis-tuin-en-keukenmodellen. Mensen leenden beelden uit een wereld die ze wél kenden: een inbreker, een ziekte, een oorlog. ([bron](https://dl.acm.org/doi/10.1145/1837110.1837125))
+Dat is geen onwil. Onderzoeker Rick Wash liet in 2010 iets zien. Gewone computergebruikers hebben wel degelijk een verklaring in hun hoofd voor wat een virus is of wie een hacker is. Alleen is dat hun eigen verklaring. Hij noemde ze *folk models*, huis-tuin-en-keukenmodellen. Mensen leenden beelden uit een wereld die ze wél kenden: een inbreker, een ziekte, een oorlog. ([bron](https://dl.acm.org/doi/10.1145/1837110.1837125))
 
 Het probleem is dat advies dat niet in zo'n beeld past, genegeerd wordt. Niet omdat het te moeilijk is, maar omdat het nergens aan vast zit.
 
@@ -114,15 +124,15 @@ Daarom staat er op deze site een huis. Niet omdat het leuk klinkt, maar omdat je
 
 </Meer>
 
-## Dus
+## Wat helpt dan?
 
-Als je dit onderwerp saai vindt, ben je in gezelschap van ongeveer heel Nederland. Er zijn drie redenen, en geen ervan is dat je er te dom voor bent:
+Elke reden heeft een eigen oplossing:
 
-- Je denkt dat het al geregeld is, omdat je het ergens hebt geregeld.
-- Je bent moe van het aantal keuzes dat er van je gevraagd wordt.
-- Niemand heeft het ooit aan iets vastgemaakt dat je al kende.
+- **Je denkt dat het al geregeld is.** De [plattegrond](/plattegrond) laat zien hoeveel deuren er zijn.
+- **Je bent moe van de keuzes.** [Ik heb één avond](/een-avond) heeft zes stappen, en dan ben je klaar.
+- **Niemand maakte het vast aan iets wat je kent.** Daarvoor is dit hele huis.
 
-Het eerste lost de [plattegrond](/plattegrond) op: die laat zien hoeveel deuren er zijn. Het tweede lost [één avond](/een-avond) op: zes stappen, en dan ben je klaar. Het derde is dit hele huis.
+Als je dit onderwerp saai vindt, ben je in gezelschap van ongeveer heel Nederland. Geen van de redenen is dat je er te dom voor bent.
 
 <Noot>
 Wil je weten waar je nu staat? Doe eerst de [huischeck](/huischeck). Tien vragen, twee minuten.

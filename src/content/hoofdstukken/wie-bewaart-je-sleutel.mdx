@@ -9,12 +9,20 @@ import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
 import Tijdlijn from '../../components/Tijdlijn.astro';
+import NaarDoen from '../../components/NaarDoen.astro';
+
+<Kort>een Amerikaans bedrijf moet je gegevens afgeven als de Amerikaanse overheid daar met een geldig bevel om vraagt. Ook als je gegevens in Europa staan. Kies daarom liever een Europees bedrijf, of een dienst die zelf niet in je kluis kan. Het best is allebei.</Kort>
+
+<NaarDoen stappen={[
+  { lijst: 'niveau-1', id: 'wachtwoordmanager' },
+  { href: '/aan-de-slag#de-gereedschapskist-concrete-aanraders', tekst: 'Kijk welke apps Europees zijn', waar: 'Aan de slag, de gereedschapskist' },
+]} />
 
 Je wachtwoorden, je mail en je foto's staan bijna altijd bij een bedrijf. Dat bedrijf bewaart een reservesleutel van jouw huis. Dan is de vraag niet alleen óf dat bedrijf te vertrouwen is. De vraag is ook: welk land kan dat bedrijf dwingen om de sleutel af te geven?
 
-## Wie de sleutel heeft, kan hem afgeven
+## Kan Amerika bij mijn gegevens als ze in Europa staan?
 
-<Kort>voor een Amerikaans bedrijf geldt de Amerikaanse wet, ook als je gegevens in Amsterdam staan.</Kort>
+Ja, als een Amerikaans bedrijf ze heeft en kan lezen. Voor een Amerikaans bedrijf geldt de Amerikaanse wet, ook als je gegevens in Amsterdam staan.
 
 <Vraagje vraag="Een Amerikaanse app zegt: jouw gegevens staan op servers in Duitsland. Kan de Amerikaanse overheid er dan nog bij?" opties={[
   { tekst: 'Nee, Duitse servers vallen onder Duitse wet', uitleg: 'Dat klinkt logisch, maar de Amerikaanse wet kijkt naar het bedrijf, niet naar het gebouw. Heeft een Amerikaans bedrijf de gegevens in handen, dan moet het ze op bevel afgeven.' },
@@ -32,9 +40,9 @@ Dat betekent niet dat iemand in Amerika jouw vakantiefoto's leest. Zo'n bevel ga
 
 </Meer>
 
-## Europa en Amerika: tien jaar touwtrekken
+## Mogen Europese gegevens naar Amerika?
 
-<Kort>het hoogste Europese hof zette twee keer een streep door de afspraken met Amerika. De derde afspraak staat nog, maar er loopt een beroep.</Kort>
+Voorlopig wel. Het hoogste Europese hof zette twee keer een streep door de afspraken met Amerika. De derde afspraak staat nog, maar er loopt een beroep.
 
 <Meer>
 
@@ -58,19 +66,19 @@ Voor jou betekent dat: de regels voor jouw gegevens bij een Amerikaans bedrijf k
 
 </Meer>
 
-## Ook de overheid wil minder afhankelijk zijn
+## Wat vindt de Tweede Kamer hiervan?
 
-Dit is geen zorg van een paar privacyactivisten. Op 18 maart 2025 nam de Tweede Kamer een reeks moties aan om de overheid minder afhankelijk te maken van Amerikaanse techbedrijven. Bijvoorbeeld: stoppen met onnodige verhuizingen naar Amerikaanse clouddiensten, een plan klaarhebben om ervan weg te kunnen, en zorgen dat de digitale overheid niet stilvalt als een Amerikaanse partij de stekker eruit trekt. ([bron](https://www.tweedekamer.nl/kamerstukken/stemmingsuitslagen/detail?id=2025P04110&did=2025P04110))
+De Tweede Kamer wil dat de overheid minder afhankelijk wordt van Amerikaanse techbedrijven. Dit is dus geen zorg van een paar privacyactivisten. Op 18 maart 2025 nam de Kamer daarover een reeks moties aan. ([bron](https://www.tweedekamer.nl/kamerstukken/stemmingsuitslagen/detail?id=2025P04110&did=2025P04110)) Bijvoorbeeld:
+
+- stoppen met onnodige verhuizingen naar Amerikaanse clouddiensten;
+- een plan klaarhebben om ervan weg te kunnen;
+- zorgen dat de digitale overheid niet stilvalt als een Amerikaanse partij de stekker eruit trekt.
 
 Wat de overheid voor haar eigen huis wil, kun jij voor het jouwe ook doen.
 
-## Twee dingen beschermen je: waar het bedrijf zit, en wie de sleutel heeft
+## Wat beschermt mijn gegevens het best?
 
-<Kort>het beste is een Europees bedrijf dat zelf niet in je kluis kan.</Kort>
-
-<Noot titel="Waar het beeld niet klopt">Europees is geen onzichtbaarheidsmantel. Ook een Europees bedrijf moet gegevens afgeven als een Europese rechter dat beveelt, en dat hoort ook zo. Het verschil is dat het dan onder regels gebeurt waar jij als Europeaan iets over te zeggen hebt. En Zwitserland, waar Proton en Threema zitten, hoort wel bij Europa maar niet bij de Europese Unie. Het heeft een eigen privacywet, die de Europese Commissie in 2024 nog eens even goed noemde als de Europese. ([bron](https://ec.europa.eu/commission/presscorner/detail/en/ip_24_161))</Noot>
-
-<Meer>
+Een Europees bedrijf dat zelf niet in je kluis kan. Twee dingen tellen: waar het bedrijf zit, en wie de sleutel heeft.
 
 Er zijn twee manieren om te zorgen dat niemand je sleutel afgeeft:
 
@@ -79,9 +87,9 @@ Er zijn twee manieren om te zorgen dat niemand je sleutel afgeeft:
 
 Het tweede weegt het zwaarst. Een Amerikaanse app waar alleen jij de sleutel van hebt, is veiliger dan een Europese app die alles kan meelezen. Maar heb je de keus, neem dan allebei.
 
-</Meer>
+<Noot titel="Waar het beeld niet klopt">Europees is geen onzichtbaarheidsmantel. Ook een Europees bedrijf moet gegevens afgeven als een Europese rechter dat beveelt, en dat hoort ook zo. Het verschil is dat het dan onder regels gebeurt waar jij als Europeaan iets over te zeggen hebt. En Zwitserland, waar Proton en Threema zitten, hoort wel bij Europa maar niet bij de Europese Unie. Het heeft een eigen privacywet, die de Europese Commissie in 2024 nog eens even goed noemde als de Europese. ([bron](https://ec.europa.eu/commission/presscorner/detail/en/ip_24_161))</Noot>
 
-## Hoe deze site kiest
+## Hoe kiest deze site een app of dienst?
 
 Bij elk stuk gereedschap in [Aan de slag](/aan-de-slag#de-gereedschapskist-concrete-aanraders) staat voortaan waar het bedrijf zit. De eerste keus is Europees als dat kan. Europees betekent hier: een bedrijf in de Europese Unie, Noorwegen of Zwitserland.
 
@@ -89,13 +97,13 @@ Er is één uitzondering. Sommige apps hebben geen bedrijf erachter. Ze worden g
 
 Is er geen goed Europees alternatief, dan zeggen we dat eerlijk en noemen we toch het beste wat er is.
 
-## Wat je níet hoeft
+## Wat hoef ik níet te doen?
 
 - **Niet alles in één weekend verhuizen.** Een wachtwoordmanager die je gebruikt, is beter dan een Europese die je nog moet installeren.
 - **Niet stoppen met WhatsApp als je familie daar zit.** Dat is versleuteld. Signal of Threema erbij is een stap, geen verplichting.
 - **Geen spijt van wat er al staat.** Ook je oude mail bij een Amerikaanse dienst is niet ineens openbaar. Het gaat om de volgende keuze.
 
-## Wat je nu kunt doen
+## Wat moet ik nu doen?
 
 1. Kijk in de [gereedschapskist](/aan-de-slag#de-gereedschapskist-concrete-aanraders) welke van jouw apps Amerikaans zijn.
 2. Begin bij je wachtwoordmanager. Dat is de kluis met al je andere sleutels erin.

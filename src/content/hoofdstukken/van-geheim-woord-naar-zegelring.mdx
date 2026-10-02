@@ -27,16 +27,32 @@ import L11 from '../../components/tekeningen/ladder/L11.astro';
 import L12 from '../../components/tekeningen/ladder/L12.astro';
 import L13 from '../../components/tekeningen/ladder/L13.astro';
 import Foto from '../../components/Foto.astro';
+import NaarDoen from '../../components/NaarDoen.astro';
+
+<Kort>het veiligst log je in met een passkey of een sleutel in je hand. Het zwakst is één wachtwoord voor alles. Doe in elk geval dit: neem een wachtwoordkluis, zet een tweede slot op je e-mail, en kies een passkey waar dat kan.</Kort>
+
+<NaarDoen stappen={[
+  { lijst: 'niveau-1', id: 'wachtwoordmanager' },
+  { lijst: 'niveau-1', id: 'mail-tweede-slot' },
+  { lijst: 'niveau-2', id: 'accounts-tweede-slot' },
+  { lijst: 'niveau-2', id: 'noodcodes' },
+]} />
+
+Er zijn acht manieren om in te loggen. Ze staan hieronder op een rij, van zwak naar sterk. Elke manier is een trede.
+
+Per trede zie je:
+
+- wat je in het echt doet;
+- wat de trede tegenhoudt, en waar hij breekt;
+- waar je het zelf regelt.
+
+Wil je meer weten? Klap dan het blok eronder open.
 
 Inloggen gaat altijd met iets wat je weet, of met iets wat je hebt. Een woord kun je navertellen. Een ring moet je in je hand houden.
 
 <Noot titel="Wat bedoelen we met ring en zegel?">De ring is een geheime sleutel die in je telefoon of in een klein sleuteltje zit. Het zegel is het bewijs dat die sleutel maakt als je inlogt. De site kan dat bewijs nakijken, maar niet namaken.</Noot>
 
-<Kort>gebruik een wachtwoordkluis, zet een tweede slot op je e-mail, en kies een passkey waar dat kan. Weinig tijd? Ga meteen naar [wat je nu kunt doen](#wat-je-nu-kunt-doen).</Kort>
-
-Een tweede slot betekent: na je wachtwoord moet je nog iets laten zien, bijvoorbeeld een code uit een app op je telefoon. Het officiële woord daarvoor is tweestapsverificatie.
-
-Hieronder staan acht manieren op een rij, van zwak naar sterk. De rij begint bij een geheim woord dat iedereen kan herhalen. Hij eindigt bij een ring die niemand kan namaken. Per trede lees je eerst wat je in het echt doet. Daarna zie je wat hij tegenhoudt, en waar hij breekt. Wil je meer weten? Klap dan het blok eronder open.
+Een tweede slot betekent: na je wachtwoord moet je nog iets laten zien. Bijvoorbeeld een code uit een app op je telefoon. Het officiële woord daarvoor is tweestapsverificatie.
 
 <Foto id="oud-hangslot" onderschrift="Onderaan de ladder staat het oudste slot dat we nog gebruiken: een woord dat je uitspreekt." />
 
@@ -53,6 +69,11 @@ De hele ladder in één beeld. Tot en met trede 5 gebruik je iets wat je kunt na
 <Kort>je gebruikt overal hetzelfde wachtwoord. Elke site bewaart het, dus lekt het bij één webwinkel, dan kan iemand ermee in je mail, je bank en je foto's.</Kort>
 
 <Weegschaal houdt="De buurman die over je schouder meekijkt." breekt="Eén webshop die gehackt wordt. Het woord past dan ook op je mail, je bank en je foto's." />
+
+<NaarDoen stappen={[
+  { lijst: 'niveau-1', id: 'mail-wachtwoord' },
+  { lijst: 'niveau-2', id: 'accounts-wachtwoord' },
+]} />
 
 <Meer>
 
@@ -78,6 +99,8 @@ Je kunt zelf nakijken of je adres in zo'n lijst staat, op [haveibeenpwned.com](h
 
 <Weegschaal houdt="Het domino-effect: één lek opent nog maar één deur." breekt="Je geheugen. Wie vijftig sleutels moet onthouden, maakt ze kort en voorspelbaar, en daar leven kraakprogramma's van." />
 
+<NaarDoen stappen={[{ lijst: 'niveau-1', id: 'wachtwoordmanager' }]} />
+
 <Meer>
 
 Wie je wachtwoord niet heeft, kan het proberen te raden. Dat gaat niet met de hand: een gewone computer loopt miljarden mogelijkheden per seconde af. En hij begint nooit bij aaaa. Hij begint bij lijsten van echte wachtwoorden die eerder gelekt zijn, en bij woordenboeken met alle gangbare varianten daarop.
@@ -101,6 +124,8 @@ Welkom01, Zomer2026!, je achternaam met een uitroepteken: die staan er allemaal 
 <Kort>een app, de wachtwoordkluis, verzint en bewaart al je wachtwoorden. Jij onthoudt er nog maar één: dat van de kluis.</Kort>
 
 <Weegschaal houdt="Slappe wachtwoorden. De kluis verzint er lange, wilde, onraadbare. Dat is het echte winstpunt." breekt="De kluisdeur zelf. Eén wachtwoord staat nu tussen een vreemde en alles wat je hebt." />
+
+<NaarDoen stappen={[{ lijst: 'niveau-1', id: 'wachtwoordmanager' }]} />
 
 <Noot titel="Wat je nog moet onthouden">Nog maar drie wachtzinnen: die van de kluis, je computer en je telefoon. De rest verzint de kluis. Die hoef je nooit te lezen of te typen.</Noot>
 
@@ -139,6 +164,11 @@ Een cijfer voor een letter en een leesteken achteraan voelt slim, maar het is pr
 
 <Weegschaal houdt="Iemand ver weg die alleen je wachtwoord heeft. Hij mist de sms." breekt="Je telefoonnummer. Met een kopie van je paspoort laat een oplichter jouw nummer op zijn eigen simkaart zetten. Dan komen de sms'jes bij hem." />
 
+<NaarDoen titel="Zelf de sms omwisselen" stappen={[
+  { lijst: 'niveau-1', id: 'mail-tweede-slot' },
+  { lijst: 'niveau-2', id: 'accounts-tweede-slot' },
+]} />
+
 <Meer>
 
 Inloggen met twee stappen heet tweestapsverificatie: iets wat je weet (het wachtwoord) plus iets wat je hebt (de telefoon). Dat idee is goed. Sms is alleen de zwakste uitvoering ervan, omdat een telefoonnummer niet echt van jou is: het hoort bij een simkaart, en een simkaart kan worden vervangen.
@@ -162,6 +192,11 @@ Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over
 <Kort>een app op je telefoon laat een code van zes cijfers zien. Die tik je na je wachtwoord in. Elke dertig seconden komt er een nieuwe, en er gaat geen sms meer onderweg.</Kort>
 
 <Weegschaal houdt="De simkaarttruc, en iedereen die alleen je wachtwoord buitmaakte." breekt="Jezelf. Op een nagemaakte inlogpagina typ je de code gewoon over, en de oplichter gebruikt hem binnen de dertig seconden." />
+
+<NaarDoen stappen={[
+  { lijst: 'niveau-1', id: 'mail-tweede-slot' },
+  { lijst: 'niveau-2', id: 'accounts-tweede-slot' },
+]} />
 
 <Vraagje vraag="Je typt op een nagemaakte inlogpagina de code uit je app over. Kan de oplichter daar iets mee?" opties={[
   { tekst: 'Nee, na dertig seconden is die code waardeloos', uitleg: 'Dertig seconden is ruim genoeg. De nepsite geeft alles wat jij invult op hetzelfde moment door aan de echte site.' },
@@ -194,7 +229,9 @@ Wat wél werkt is jou vragen de code zelf in te typen. Een moderne nagemaakte in
 
 <Weegschaal houdt="Nagemaakte inlogpagina's. Op pr0ton.me werkt je passkey niet, dus er valt niets te stelen." breekt="Je Apple- of Google-account. Dat bewaart je passkeys en zet ze op al je toestellen. Wie dat account overneemt, krijgt ze allemaal in één keer." />
 
-<Noot titel="Dit is óók een tweede slot">Een passkey voelt als één handeling, maar het zijn twee stappen: iets wat je hebt (je toestel, waar de passkey in zit) plus iets wat je bent of weet (je vinger, je gezicht of je pincode). Trede 6, 7 en 8 komen dus niet in plaats van een tweede slot. Ze zíjn een tweede slot, alleen zonder code die je aan een oplichter kunt geven.</Noot>
+<NaarDoen stappen={[{ lijst: 'niveau-2', id: 'accounts-tweede-slot' }]} />
+
+<Noot titel="Dit is óók een tweede slot">Een passkey voelt als één handeling, maar het zijn twee stappen. Iets wat je hebt: je toestel, waar de passkey in zit. Plus iets wat je bent of weet: je vinger, je gezicht of je pincode. Trede 6, 7 en 8 komen dus niet in plaats van een tweede slot. Ze zíjn een tweede slot, alleen zonder code die je aan een oplichter kunt geven.</Noot>
 
 <Meer>
 
@@ -226,6 +263,8 @@ Dezelfde nepsite, twee uitkomsten. Een code is losse informatie: de nepsite geef
 <Kort>je steekt een klein sleuteltje in je computer, of houdt het tegen je telefoon, en tikt erop. Het geheim zit in een chip en kan er niet uit. Ook niet door jou.</Kort>
 
 <Weegschaal houdt="Alles van hierboven, plus je Apple- of Google-account als zwakke plek. Er is geen account meer om over te nemen." extra="Het metalen vlakje moet aangeraakt worden. Software kan veel, maar niets aanraken. Dus geen stille inlog terwijl jij koffie haalt." breekt="Verlies. Eén sleutel kwijt is één account kwijt." />
+
+<NaarDoen stappen={[{ lijst: 'niveau-3', id: 'hardwaresleutel' }]} />
 
 <Meer>
 
@@ -260,9 +299,14 @@ Herstelcodes zijn reservecodes die een site je één keer geeft. Ben je je sleut
 
 <Weegschaal houdt="Het gevaar dat alle andere treden vergeten: dat de beveiliging jóu buitensluit." breekt="Een schadelijk programma op je eigen computer, dat meekijkt terwijl je al bent ingelogd. Daar helpt geen enkele sleutel tegen, want dan heb jij de deur al geopend." />
 
+<NaarDoen stappen={[
+  { lijst: 'niveau-2', id: 'noodcodes' },
+  { lijst: 'niveau-3', id: 'hardwaresleutel' },
+]} />
+
 <Meer>
 
-Elk systeem heeft een achterdeur voor het geval je jezelf buitensluit. Bij accounts heet dat de herstelprocedure (in het Engels account recovery), en het is bijna altijd de zwakste schakel van het geheel: wie die achterdeur weet te forceren, hoeft de voordeur niet meer. Daarom bewaar je herstelcodes zorgvuldig, en nooit binnen de dienst die ze moeten redden.
+Elk systeem heeft een achterdeur voor het geval je jezelf buitensluit. Bij accounts heet dat de herstelprocedure (in het Engels account recovery). Het is bijna altijd de zwakste schakel van het geheel. Wie die achterdeur weet te forceren, hoeft de voordeur niet meer. Daarom bewaar je herstelcodes zorgvuldig, en nooit binnen de dienst die ze moeten redden.
 
 De tweede sleutel dekt het omgekeerde af: dat de voordeur zó goed wordt dat je er zelf niet meer door kunt. Met één sleutel is die sleutel een single point of failure: één onderdeel waar alles van afhangt.
 
@@ -276,7 +320,7 @@ De tweede sleutel dekt het omgekeerde af: dat de voordeur zó goed wordt dat je 
 
 </Trede>
 
-## En als de echte site zelf gehackt wordt?
+## Wat als de echte site zelf gehackt wordt?
 
 Dan helpt geen enkele trede. De inbreker staat al binnen en hoeft de voordeur niet meer. Maar het maakt wél uit wat hij daar aantreft.
 
@@ -294,9 +338,9 @@ Wat hij wél kan is lezen wat er op die server staat. Daar helpt geen sleutel te
 
 </Meer>
 
-## Waar deze ladder wringt
+## Is hoger op de ladder altijd veiliger?
 
-Een ladder doet denken aan één rechte lijn. Zo netjes is het niet.
+Niet altijd. Een ladder doet denken aan één rechte lijn. Zo netjes is het niet.
 
 <Meer titel="Lees waarom niet">
 
@@ -306,21 +350,23 @@ En elke trede beschermt alleen de voordeur. Wie eenmaal binnen is omdat jij hem 
 
 </Meer>
 
-## Binnen welk vak valt dit?
+## Bij welk vakgebied hoort dit?
+
+Bij informatiebeveiliging, en daarbinnen bij identiteits- en toegangsbeheer.
 
 <Meer titel="Lees welk vakgebied dit is">
 
 Alles hierboven hoort bij informatiebeveiliging, in het dagelijks spraakgebruik cybersecurity. Daarbinnen is er een eigen hoek voor precies deze vraag: identiteits- en toegangsbeheer, afgekort IAM (identity and access management). Dat vak maakt één onderscheid dat de hele ladder verklaart: authenticatie is de vraag wie je bent, autorisatie is de vraag wat je mag. Hierboven ging het alleen over het eerste.
 
-De onderste treden leunen op het menselijke deel van het vak: social engineering (mensen overhalen in plaats van techniek kraken) en usable security, de studie van beveiliging die mensen ook echt volhouden. De bovenste treden leunen op cryptografie, en dan specifiek de asymmetrische variant: twee bij elkaar horende helften waarvan er één geheim blijft.
+De onderste treden leunen op het menselijke deel van het vak. Dat is social engineering: mensen overhalen in plaats van techniek kraken. En usable security: de studie van beveiliging die mensen ook echt volhouden. De bovenste treden leunen op cryptografie, en dan specifiek de asymmetrische variant: twee bij elkaar horende helften waarvan er één geheim blijft.
 
-Wie verder wil lezen: de Amerikaanse standaard NIST SP 800-63B is het document waar de wachtzin-regel vandaan komt. Lengte boven complexiteit, en stop met mensen elk kwartaal een nieuw wachtwoord laten verzinnen. ISO 27001 is de norm waarin organisaties hun beveiliging vastleggen, en de standaarden achter de passkey (FIDO2 en WebAuthn) komen van de FIDO Alliance en het W3C, het consortium dat ook de regels van het web zelf beheert.
+Wie verder wil lezen: de Amerikaanse standaard NIST SP 800-63B is het document waar de wachtzin-regel vandaan komt. Lengte boven complexiteit, en stop met mensen elk kwartaal een nieuw wachtwoord laten verzinnen. ISO 27001 is de norm waarin organisaties hun beveiliging vastleggen. De standaarden achter de passkey (FIDO2 en WebAuthn) komen van de FIDO Alliance en het W3C. Het W3C is het consortium dat ook de regels van het web zelf beheert.
 
 </Meer>
 
-## Wat je nu kunt doen
+## Wat moet ik nu doen?
 
-1. Kijk op welke trede je e-mail staat. Dat is je voordeur.
-2. Sta je op trede 1 of 2? Ga naar [niveau 1](/aan-de-slag#niveau-1): een kluis en een tweede slot, in één avond.
-3. Sta je op trede 4? Wissel de sms-code om voor een app. Dat kost vijf minuten per account.
-4. Wil je naar trede 7 of 8? Koop twee sleutels, zet ze op hetzelfde moment allebei aan, en leg de herstelcodes op papier in je [noodpakket](/als-er-is-ingebroken#noodpakket).
+1. Kijk met de [drie vragen](#tredecheck-kop) op welke trede je e-mail staat. Je e-mail is je voordeur.
+2. Sta je op trede 1 of 2? Neem een wachtwoordkluis en zet een tweede slot op je e-mail. Dat doe je in [Ik heb één avond](/een-avond).
+3. Sta je op trede 4? Wissel de sms-code om voor een app. Dat kost vijf minuten per account. Hoe dat gaat, staat in [Ik heb een weekend](/een-weekend).
+4. Wil je naar trede 7 of 8? Koop twee sleutels. Zet ze op hetzelfde moment allebei aan. Leg de herstelcodes op papier in je [noodpakket](/als-er-is-ingebroken#het-noodpakket). Hoe dat gaat, staat in [Ik wil verder](/ik-wil-verder).

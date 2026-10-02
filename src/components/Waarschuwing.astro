@@ -1,0 +1,23 @@
+---
+/**
+ * Iets wat je echt moet weten voordat je iets doet, zoals een termijn die verloopt.
+ * Naar het voorbeeld van de waarschuwingstekst van GOV.UK: een uitroepteken in een
+ * rondje, en vette tekst. Een schermlezer hoort "Let op" ervoor, want het teken ziet hij niet.
+ * Spaarzaam gebruiken: staat het overal, dan valt het nergens meer op.
+ */
+---
+<div class="waarschuwing">
+  <span class="teken" aria-hidden="true">!</span>
+  <p><strong><span class="schermlezer">Let op: </span><slot /></strong></p>
+</div>
+
+<style>
+  .waarschuwing { display: flex; align-items: flex-start; gap: 0.9rem; margin: 1.25rem 0 1.5rem; }
+  .teken {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 2.2rem; height: 2.2rem; border-radius: 50%;
+    background: var(--inkt); color: var(--papier);
+    font-family: var(--kop); font-size: 1.5rem; font-weight: 700; line-height: 1;
+  }
+  p { margin: 0.25rem 0 0; }
+</style>

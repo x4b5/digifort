@@ -13,33 +13,35 @@ import Storm from '../../components/tekeningen/Storm.astro';
 import Foto from '../../components/Foto.astro';
 import Verhaal from '../../components/Verhaal.astro';
 import Maersk from '../../components/tekeningen/Maersk.astro';
-import Doe from '../../components/Doe.astro';
-
-Er is oorlog in Europa, en die wordt ook op internet gevoerd. Jouw huis staat niet op het slagveld. Maar het staat wel in de storm.
-
-## Wat dit voor jou betekent
+import NaarDoen from '../../components/NaarDoen.astro';
 
 <Kort>niemand komt speciaal voor jou. Maar een website, internet of je bank kan een dag niet werken. Met een paar sloten en een briefje op papier sta je droog.</Kort>
 
-<Doe>
+Er is oorlog in Europa, en die wordt ook op internet gevoerd. Jouw huis staat niet op het slagveld. Maar het staat wel in de storm.
 
-**Dit doe je vandaag. Drie dingen, één voor één.**
+## Wat moet ik doen?
 
-1. **Zet een tweede slot op je e-mail.** Een code uit een app, of een passkey. [Zo zet je het tweede slot aan](/van-geheim-woord-naar-zegelring#trede-6).
-2. **Zet de updates van je router aan** en geef hem een nieuw wachtwoord. [Zo zet je je router op slot](/aan-de-slag#niveau-2).
-3. **Leg wat contant geld en een lijstje telefoonnummers op papier klaar.** Voor als internet of betalen een dag niet werkt. [Zo maak je een noodpakket op papier](/als-er-is-ingebroken#noodpakket).
+Drie dingen, één voor één. Meer hoeft niet.
 
-</Doe>
+1. **Zet een tweede slot op je e-mail.** Een code uit een app, of een passkey.
+2. **Zet de updates van je router aan** en geef hem een nieuw wachtwoord.
+3. **Leg wat contant geld en een lijstje telefoonnummers op papier klaar.** Voor als internet of betalen een dag niet werkt.
 
-Meer hoeft niet. De rest van dit hoofdstuk legt uit waarom, in kleine stukjes. Lees wat je wilt; je mag ook stoppen.
+<NaarDoen stappen={[
+  { lijst: 'niveau-1', id: 'mail-tweede-slot' },
+  { lijst: 'niveau-2', id: 'router' },
+  { href: '/als-er-is-ingebroken#het-noodpakket', tekst: 'Maak een noodpakket op papier', waar: 'Als er toch is ingebroken' },
+]} />
 
-## Wat je níet hoeft
+De rest van deze pagina legt uit waarom, in kleine stukjes. Lees wat je wilt. Je mag ook stoppen.
+
+## Wat hoef ik níet te doen?
 
 - **Geen bunker.** Je hoeft geen "militaire" VPN, geen speciale telefoon en geen dure software. Wie dat aan gewone mensen verkoopt, verkoopt angst.
 - **Geen paniek.** Het NCSC, de dienst die bedrijven en de overheid helpt met digitale veiligheid, adviseert al jaren hetzelfde: doe de basis goed. Hoe je dat doet, staat in [de basis, stap voor stap](/aan-de-slag).
 - **Geen nieuws volgen.** Je hoeft niet te weten welke groep vandaag wie aanvalt. Je hoeft alleen te weten welke deuren jij dicht hebt.
 
-## Wat er aan de hand is
+## Wat is er aan de hand?
 
 <Kort>landen vallen nu ook Nederland aan, en huren daar criminelen en hackers voor in.</Kort>
 
@@ -59,11 +61,11 @@ Drie dingen gebeurden vorig jaar in Nederland:
 
 Daarnaast lag het Openbaar Ministerie wekenlang plat door een gat in een programma van Citrix dat nog niet gerepareerd was. Een scheur in het dak, precies zoals op [de plattegrond](/plattegrond#het-onderhoud-updates).
 
-De NCTV, de dienst die over de veiligheid van Nederland gaat, zegt het zo: landen bouwen eigen hackprogramma's en huren daar ook criminelen en actiegroepen voor in. En met AI kunnen ze dat op grotere schaal doen dan ooit.
+De NCTV is de dienst die over de veiligheid van Nederland gaat. Die zegt het zo: landen bouwen eigen hackprogramma's en huren daar ook criminelen en actiegroepen voor in. En met AI kunnen ze dat op grotere schaal doen dan ooit.
 
 </Meer>
 
-## De cijfers
+## Wat zeggen de cijfers?
 
 <Kort>bijna alle aanvallen op accounts zijn gewoon wachtwoorden raden. Een tweede slot houdt ze bijna allemaal tegen.</Kort>
 
@@ -91,7 +93,7 @@ De NCTV, de dienst die over de veiligheid van Nederland gaat, zegt het zo: lande
 
 En dichter bij huis: in april 2025 en opnieuw rond de NAVO-top in juni lagen de websites van gemeenten en provincies plat. Een pro-Russische groep, NoName057(16), zei dat zij het deden, omdat Nederland Oekraïne helpt. Dat soort aanvallen heet [DDoS](/woordenboek): duizenden computers tegelijk bellen aan, zodat de deur voor echte bezoekers dicht blijft. Er wordt niets gestolen. Het is een steen door de ruit, geen inbraak.
 
-## Wat een staat met jouw huis wil
+## Wat wil een staat met mijn huis?
 
 <Kort>meestal niets. Maar je staat in de storm, en je huis kan een schuilplaats zijn.</Kort>
 
@@ -121,46 +123,34 @@ De aanval was niet eens op Maersk gericht. Hij was bedoeld voor Oekraïne en waa
 
 Een geheime dienst is niet in jouw vakantiefoto's geïnteresseerd. Toch raakt het jou, op drie manieren.
 
-**1. Je staat in de storm.** Ligt je gemeente plat, dan kun je geen paspoort aanvragen. Wordt je telecombedrijf bespioneerd, dan gaat dat om jouw belgegevens. Valt DigiD uit, dan kom je nergens in. Daar kun jij niets aan doen, behalve zorgen dat je zelf niet stilvalt: noodnummers op papier, een beetje contant geld in huis, een reservekopie op een losse schijf.
+**1. Je staat in de storm.** Ligt je gemeente plat, dan kun je geen paspoort aanvragen. Wordt je telecombedrijf bespioneerd, dan gaat dat om jouw belgegevens. Valt DigiD uit, dan kom je nergens in. Daar kun jij niets aan doen. Je kunt wel zorgen dat je zelf niet stilvalt: noodnummers op papier, een beetje contant geld in huis, een reservekopie op een losse schijf.
 
-**2. Je huis kan een schuilplaats zijn.** Hackers van staten gebruiken gekaapte routers en slimme apparaten van gewone mensen als dekmantel. Ze vallen van daaruit iemand anders aan, en het spoor loopt naar jouw huis. De Amerikaanse overheid haalde in 2024 zo'n netwerk van honderden gekaapte thuisrouters uit de lucht dat Chinese hackers gebruikten. Het waren bijna allemaal oude routers die geen updates meer kregen. ([bron](https://www.justice.gov/archives/opa/pr/us-government-disrupts-botnet-peoples-republic-china-used-conceal-hacking-critical)) Een router uit de fabriek, met het oude wachtwoord en zonder updates, is daar een makkelijk onderkomen; wat je daaraan doet staat in [Onderhoud en opruimen](/onderhoud).
+**2. Je huis kan een schuilplaats zijn.** Hackers van staten gebruiken gekaapte routers en slimme apparaten van gewone mensen als dekmantel. Ze vallen van daaruit iemand anders aan, en het spoor loopt naar jouw huis. De Amerikaanse overheid haalde in 2024 zo'n netwerk van honderden gekaapte thuisrouters uit de lucht dat Chinese hackers gebruikten. Het waren bijna allemaal oude routers die geen updates meer kregen. ([bron](https://www.justice.gov/archives/opa/pr/us-government-disrupts-botnet-peoples-republic-china-used-conceal-hacking-critical)) Een router uit de fabriek, met het oude wachtwoord en zonder updates, is daar een makkelijk onderkomen. Wat je daaraan doet, staat in [Onderhoud en opruimen](/onderhoud).
 
 **3. Je werkt ergens.** De aanval op de WhatsApp van ambtenaren ging via hun privételefoon. Werk je bij de overheid, bij Defensie, bij een haven, een ziekenhuis of een bedrijf dat iets maakt wat een ander land wil hebben? Dan is jouw privéhuis de achterdeur van je werk.
 
 </Meer>
 
-## Dezelfde deuren, dezelfde sloten
+## Helpen gewone sloten ook tegen een staat?
 
-<Kort>een staat gebruikt de babbeltruc en het geraden wachtwoord, net als de oplichter. Dus helpen dezelfde stappen.</Kort>
-
-<Meer>
+<Kort>ja. Een staat gebruikt de babbeltruc en het geraden wachtwoord, net als de oplichter. Dus helpen dezelfde stappen.</Kort>
 
 Het gereedschap van een staat is beter en het geduld is groter. Maar de deuren waardoor ze binnenkomen, zijn dezelfde als in [De inbrekers van nu](/inbrekers-van-nu).
 
 | Wat ze doen | Welke deur | Wat het tegenhoudt |
 | --- | --- | --- |
 | "Log opnieuw in bij WhatsApp" | De brievenbus | Nooit inloggen via een link. Zet een [passkey of tweede slot](/van-geheim-woord-naar-zegelring#trede-6) op je accounts: die werkt op een nepsite gewoon niet |
-| Miljoenen wachtwoorden raden | De sleutels | Een [wachtwoordmanager](/aan-de-slag#niveau-1) die lange, wilde sleutels maakt |
-| Je router kapen | Het tuinhek | Nieuw wachtwoord, updates aan, slimme apparaten op een [gastnetwerk](/aan-de-slag#niveau-3) |
+| Miljoenen wachtwoorden raden | De sleutels | Een [wachtwoordmanager](/een-avond) die lange, wilde sleutels maakt |
+| Je router kapen | Het tuinhek | Nieuw wachtwoord, updates aan, slimme apparaten op een [gastnetwerk](/ik-wil-verder) |
 | Een scheur die niet gerepareerd is | Het dak | [Updates op automatisch](/plattegrond#het-onderhoud-updates) |
 | Nu stelen, later openbreken | De brandkast | Gegevens die lang geheim moeten blijven niet in een gratis dienst zetten; zie [De inbrekers van morgen](/inbrekers-van-morgen) |
-| De gemeente platleggen | Niet jouw deur | Geduld. En een [noodpakket](/als-er-is-ingebroken#noodpakket) op papier, zodat je niet stilvalt |
-
-</Meer>
+| De gemeente platleggen | Niet jouw deur | Geduld. En een [noodpakket](/als-er-is-ingebroken#het-noodpakket) op papier, zodat je niet stilvalt |
 
 <Noot titel="Waar het beeld niet klopt">Een fort bouw je niet om de storm tegen te houden, maar om er droog in te staan terwijl hij overwaait. Een fort houdt een leger tegen. Jouw sloten niet: een staat die echt jou wil, komt binnen. Maar een staat die tienduizend huizen tegelijk probeert, loopt door naar het huis waar de deur openstaat. Zorg dat dat niet het jouwe is.</Noot>
 
-## Wat je nu kunt doen
+## Wat kan ik daarna nog doen?
 
-Dezelfde drie als bovenaan. Meer hoeft niet.
-
-1. **Zet een tweede slot op je e-mail.** [Zo zet je het tweede slot aan](/van-geheim-woord-naar-zegelring#trede-6).
-2. **Zet de updates van je router aan** en geef hem een nieuw wachtwoord. [Zo zet je je router op slot](/aan-de-slag#niveau-2).
-3. **Leg wat contant geld en een lijstje telefoonnummers op papier klaar.** Voor als internet of je bank een dag niet werkt. [Zo maak je een noodpakket op papier](/als-er-is-ingebroken#noodpakket).
-
-<Meer titel="Wil je daarna nog meer doen?">
+Doe eerst de [drie dingen bovenaan](#wat-moet-ik-doen). Wil je daarna nog meer doen?
 
 - Doe de [huischeck](/huischeck). Elke "nee" is een deur die ook voor een staat openstaat.
-- Zet het tweede slot ook op WhatsApp en op je Apple-, Google- of Microsoft-account. [Zo zet je het tweede slot aan](/van-geheim-woord-naar-zegelring#trede-6).
-
-</Meer>
+- Zet het tweede slot ook op WhatsApp en op je Apple-, Google- of Microsoft-account. Hoe dat gaat, staat in [Ik heb een weekend](/een-weekend).
