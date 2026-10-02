@@ -81,3 +81,27 @@ test('stalkerware: de waarschuwing staat open, met Let op voor een schermlezer',
   await expect(let_op).toContainText('Let op: Verwijder de app niet meteen');
   await expect(page.getByText('0800-2000')).toBeVisible();
 });
+
+test('het bezoek: het tweede slot op de e-mail zegt waar je het aanzet, per soort adres', async ({ page }) => {
+  await page.goto('/voor-de-mensen-om-je-heen');
+  const stap = page.locator('[data-beurt-stap="mail-slot"]');
+  await expect(stap).toContainText('niet in de Mail-app');
+  for (const adres of ['@gmail.com', '@outlook.com', '@icloud.com', '@kpnmail.nl']) await expect(stap).toContainText(adres);
+  // de vaktermen worden uitgelegd waar ze voor het eerst staan
+  await expect(stap).toContainText('Wat is een tweede slot?');
+  await expect(stap).toContainText('reservesleutels');
+});
+
+test('onderhoud: elke klus werkt ook zonder eerdere stappen', async ({ page }) => {
+  await page.goto('/onderhoud');
+  // een bestand terugzetten: per soort reservekopie hoe het moet
+  const terug = page.locator('[data-beurt-stap="backup-loopt"]');
+  for (const plek of ['In de cloud', 'met een Mac', 'met Windows']) await expect(terug).toContainText(plek);
+  await expect(terug).not.toContainText('(bron)');
+  // oude accounts vinden kan ook zonder wachtwoordmanager
+  await expect(page.locator('[data-beurt-stap="jaar-accounts"]')).toContainText('Zoek in je e-mail');
+  // het noodpakket wordt uitgelegd waar je het nodig hebt
+  await expect(page.locator('[data-beurt-stap="noodcodes-kloppen"]')).toContainText('Je noodpakket is');
+  // een herinnering die terugkomt: per telefoon hoe
+  await expect(page.getByText('Zo zet je een herinnering die vanzelf terugkomt')).toBeVisible();
+});
