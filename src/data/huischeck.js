@@ -1,16 +1,91 @@
-/** De tien vragen van de huischeck. `kamer` verwijst naar de plattegrond. */
+/**
+ * De tien vragen van de huischeck. `kamer` verwijst naar de plattegrond.
+ *
+ * - `vraag` is de vraag zelf: kort, één ding.
+ * - `hint` legt uit wat we bedoelen. Eén korte zin zonder punt en zonder link,
+ *   zoals een hint bij GOV.UK: een schermlezer leest hem bij elke keuze voor.
+ * - `groep` zet vragen die bij elkaar horen onder één kopje.
+ * - `stap` is de handeling die deze deur dichtdoet. Met `lijst` en `id` is het een
+ *   stap uit een afvinklijst (lijsten.js), met een eigen pagina (`STAPPAGINA`).
+ *   Zonder lijst is het een link naar een plek op de site.
+ *
+ * Het nummer `nr` is ook de sleutel in het laatje (opslag.js): verander het nooit.
+ */
 export const VRAGEN = [
-  { nr: 1, vraag: 'Heeft je e-mail een eigen wachtwoord, dat je nergens anders gebruikt?', kamer: 'voordeur', kind: true },
-  { nr: 2, vraag: 'Gebruik je een wachtwoordmanager? Dat is een kluis voor al je wachtwoorden.', kamer: 'sleutelkluis' },
-  { nr: 3, vraag: 'Zit er een tweede slot op je e-mail en je bank? Dat heet tweestapsverificatie: een code uit een app, of een passkey.', kamer: 'tweede-slot', kind: true },
-  { nr: 4, vraag: 'Werken je telefoon en computer zichzelf bij?', kamer: 'onderhoud' },
-  { nr: 5, vraag: 'Heb je een kopie van je bestanden die los staat van je computer?', kamer: 'brandkast' },
-  { nr: 6, vraag: 'Heeft je telefoon een pincode van zes cijfers of meer?', kamer: 'tweede-voordeur', kind: true },
-  { nr: 7, vraag: 'Heb je het wachtwoord van je wifi-kastje ooit veranderd? Dat kastje heet een router.', kamer: 'tuinhek' },
-  { nr: 8, vraag: 'Kun je nog in je accounts als je telefoon vandaag kwijtraakt?', kamer: 'sleutels' },
-  { nr: 9, vraag: 'Heb je thuis een geheim woord afgesproken voor noodgevallen?', kamer: 'brievenbus', kind: true },
-  { nr: 10, vraag: 'Weet je wie je belt als je bent opgelicht?', kamer: 'eigendomsakte' },
+  {
+    nr: 1, groep: 'mail', kamer: 'voordeur', kind: true,
+    vraag: 'Heeft je e-mail een eigen wachtwoord, dat je nergens anders gebruikt?',
+    hint: 'Met je e-mail kun je bijna overal een nieuw wachtwoord aanvragen',
+    stap: { lijst: 'niveau-1', id: 'mail-wachtwoord' },
+  },
+  {
+    nr: 2, groep: 'mail', kamer: 'sleutelkluis',
+    vraag: 'Gebruik je een wachtwoordmanager?',
+    hint: 'Dat is een app die al je wachtwoorden bewaart, zoals een kluis',
+    stap: { lijst: 'niveau-1', id: 'wachtwoordmanager' },
+  },
+  {
+    nr: 3, groep: 'mail', kamer: 'tweede-slot', kind: true,
+    vraag: 'Zit er een tweede slot op je e-mail en je bank?',
+    hint: 'Naast je wachtwoord ook een code uit een app, of een passkey',
+    stap: { lijst: 'niveau-1', id: 'mail-tweede-slot' },
+  },
+  {
+    nr: 4, groep: 'apparaten', kamer: 'onderhoud',
+    vraag: 'Werken je telefoon en computer zichzelf bij?',
+    hint: 'Updates gaan dan vanzelf, zonder dat jij erop hoeft te tikken',
+    stap: { lijst: 'niveau-1', id: 'updates' },
+  },
+  {
+    nr: 5, groep: 'apparaten', kamer: 'brandkast',
+    vraag: 'Heb je een kopie van je bestanden die los staat van je computer?',
+    hint: 'Bijvoorbeeld op een losse schijf, of op internet',
+    stap: { lijst: 'niveau-2', id: 'backup' },
+  },
+  {
+    nr: 6, groep: 'apparaten', kamer: 'tweede-voordeur', kind: true,
+    vraag: 'Heeft je telefoon een pincode van zes cijfers of meer?',
+    hint: 'De code die je intikt om je telefoon te openen',
+    stap: { lijst: 'niveau-1', id: 'pincode' },
+  },
+  {
+    nr: 7, groep: 'thuis', kamer: 'tuinhek',
+    vraag: 'Heb je het wachtwoord van je wifi-kastje ooit veranderd?',
+    hint: 'Dat kastje heet een router, en een wachtwoord uit de fabriek is soms makkelijk te raden',
+    stap: { lijst: 'niveau-2', id: 'router' },
+  },
+  {
+    nr: 8, groep: 'thuis', kamer: 'sleutels',
+    vraag: 'Kun je nog in je accounts als je telefoon vandaag kwijtraakt?',
+    hint: 'Bijvoorbeeld met herstelcodes die thuis op papier liggen',
+    stap: { lijst: 'niveau-2', id: 'noodcodes' },
+  },
+  {
+    nr: 9, groep: 'thuis', kamer: 'brievenbus', kind: true,
+    vraag: 'Heb je thuis een geheim woord afgesproken voor noodgevallen?',
+    hint: 'Belt iemand in paniek om geld, dan vraag je eerst naar dat woord',
+    stap: { lijst: 'niveau-1', id: 'geheim-woord' },
+  },
+  {
+    nr: 10, groep: 'thuis', kamer: 'eigendomsakte',
+    vraag: 'Weet je wie je belt als je bent opgelicht?',
+    hint: 'Bijvoorbeeld het noodnummer van je bank',
+    stap: { href: '/als-er-is-ingebroken#noodkaart-kop', tekst: 'Kijk wie je belt als je bent opgelicht', pagina: 'Als er toch is ingebroken' },
+  },
 ];
+
+/** De kopjes boven de vragen. De vragen staan in deze volgorde, dus elk kopje staat boven een aaneengesloten rij. */
+export const GROEPEN = [
+  { id: 'mail', kop: 'Je e-mail en je wachtwoorden' },
+  { id: 'apparaten', kop: 'Je telefoon en je computer' },
+  { id: 'thuis', kop: 'Thuis en in noodgevallen' },
+];
+
+/** Welke pagina hoort bij welke afvinklijst: daar doe je de stap, één per scherm. */
+export const STAPPAGINA = {
+  'niveau-1': { href: '/een-avond', naam: 'Ik heb één avond' },
+  'niveau-2': { href: '/een-weekend', naam: 'Ik heb een weekend' },
+};
 
 /**
  * Het cijfer dat Nederlanders zichzelf gemiddeld geven voor het omgaan met online
@@ -27,23 +102,19 @@ export const SPIEGELS = [
   {
     vanaf: 2,
     kop: 'Je schatte jezelf hoger in dan je deuren',
-    tekst: 'Dat is geen schande, het is het normaalste van Nederland. Bijna iedereen heeft ergens een tweede slot, en bijna niemand overal.',
+    tekst: 'Dat is geen schande. Het is het normaalste van Nederland. Bijna iedereen heeft ergens een tweede slot, en bijna niemand overal.',
     link: '/waarom-dit-saai-voelt',
     linkTekst: 'Lees waarom dat zo is',
   },
   {
     vanaf: -1,
     kop: 'Je kende jezelf goed',
-    tekst: 'Je cijfer en je deuren liggen dicht bij elkaar. Dat is zeldzamer dan je denkt: de meeste mensen schatten zichzelf te hoog in.',
-    link: '/aan-de-slag',
-    linkTekst: 'Ga verder met de deuren die nog openstaan',
+    tekst: 'Je cijfer en je deuren liggen dicht bij elkaar. Dat is zeldzamer dan je denkt. De meeste mensen schatten zichzelf te hoog in.',
   },
   {
     vanaf: -10,
     kop: 'Je was strenger voor jezelf dan nodig',
-    tekst: 'Je doet meer dan je dacht. Dat is ook iets waard: wie denkt dat hij niets goed doet, begint er vaak niet meer aan.',
-    link: '/aan-de-slag',
-    linkTekst: 'Kijk wat er nog over is',
+    tekst: 'Je doet meer dan je dacht. Ook dat is iets waard. Wie denkt dat hij niets goed doet, begint er vaak niet meer aan.',
   },
 ];
 
@@ -52,12 +123,23 @@ export function spiegel(gat) {
   return SPIEGELS.find((s) => gat >= s.vanaf) ?? SPIEGELS[SPIEGELS.length - 1];
 }
 
+/**
+ * Het oordeel boven je uitslag. Het hangt af van wélke deuren openstaan, niet
+ * alleen van hoeveel: wie zijn e-mail nog open heeft, begint bij de basis,
+ * ook als de rest dicht is.
+ */
 export const BANDEN = [
-  { tot: 4, kop: 'Begin bij niveau 1', tekst: 'Begin bij niveau 1 in Aan de slag. Dat kost één avond.', link: '/aan-de-slag#niveau-1' },
-  { tot: 7, kop: 'De basis staat', tekst: 'De basis staat. Ga door naar niveau 2.', link: '/aan-de-slag#niveau-2' },
-  { tot: 10, kop: 'Je huis zit goed op slot', tekst: 'Je huis zit goed op slot. Lees De inbrekers van morgen en help daarna iemand anders.', link: '/inbrekers-van-morgen' },
+  { id: 'basis', kop: 'Begin bij de basis', tekst: 'Een paar belangrijke deuren staan nog open. Die doe je in één avond dicht.' },
+  { id: 'verder', kop: 'De basis staat', tekst: 'Je belangrijkste deuren zitten dicht. Wat nog openstaat, doe je in een weekend.' },
+  { id: 'dicht', kop: 'Je huis zit goed op slot', tekst: 'Alle deuren uit de check zitten dicht. Mooi werk.' },
 ];
 
-export function band(ja) {
-  return BANDEN.find((b) => ja <= b.tot) ?? BANDEN[BANDEN.length - 1];
+/**
+ * Welk oordeel past bij deze open deuren?
+ * @param {number[]} open de nummers van de vragen met "nee" of "weet ik niet"
+ */
+export function band(open) {
+  if (!open.length) return BANDEN[2];
+  const basis = open.some((nr) => VRAGEN.find((v) => v.nr === nr)?.stap.lijst === 'niveau-1');
+  return basis ? BANDEN[0] : BANDEN[1];
 }
