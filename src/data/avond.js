@@ -63,7 +63,7 @@ const MAIL = [
     tweedeSlot: [
       'Ga in je browser naar de website van KPN en log in op MijnKPN.',
       'Typ "tweestapsverificatie" in de zoekbalk op de site van KPN.',
-      'Vind je geen tweede slot voor je mail? Kijk dan onder "Lukt het niet?" hieronder.',
+      'Vind je geen tweede slot voor je mail? Dan kun je deze stap nu niet afmaken. Dat is niet jouw fout. Druk onderaan op Sla over. Je nieuwe wachtwoord beschermt je mail al.',
     ],
   },
   {
@@ -76,7 +76,7 @@ const MAIL = [
     tweedeSlot: [
       'Ga in je browser naar de website van Ziggo en log in op Mijn Ziggo.',
       'Typ "tweestapsverificatie" in de zoekbalk op de site van Ziggo.',
-      'Vind je geen tweede slot voor je mail? Kijk dan onder "Lukt het niet?" hieronder.',
+      'Vind je geen tweede slot voor je mail? Dan kun je deze stap nu niet afmaken. Dat is niet jouw fout. Druk onderaan op Sla over. Je nieuwe wachtwoord beschermt je mail al.',
     ],
   },
   {
@@ -127,7 +127,8 @@ export const AVOND = {
       'Kun je "wachtwoord wijzigen" niet vinden? Kijk bij "account" of "beveiliging". Of zoek op de hulppagina van je e-maildienst.',
       'Weet je je oude wachtwoord niet meer? Kies op de inlogpagina "wachtwoord vergeten".',
       'Wil de dienst ook een cijfer of een teken? Zet er dan een tussen de woorden.',
-      'Komt er geen mail meer binnen in de Mail-app? Open de app. Vraagt hij om een wachtwoord, typ dan het nieuwe in. Vraagt hij niets? Haal je account dan weg uit de app en voeg het opnieuw toe, met het nieuwe wachtwoord.',
+      'Komt er geen mail meer binnen in de Mail-app? Open de app. Vraagt hij om een wachtwoord, typ dan het nieuwe in. Vraagt hij niets? Zoek in de instellingen van de app bij je e-mailaccount naar het wachtwoord. Typ daar het nieuwe in.',
+      'Lukt dat niet? Haal je account dan niet zelf weg uit de app. Vraag hulp aan iemand die je vertrouwt, of aan je maildienst. Je mail blijft intussen veilig bij je maildienst.',
     ],
     gereedschap: [],
     klaar: 'De voordeur heeft een eigen sleutel. Wordt een webwinkel gehackt, dan past die sleutel niet op je mail.',
@@ -143,10 +144,12 @@ export const AVOND = {
       { naam: 'Op een Android-telefoon', stappen: ['Open de Play Store.', 'Typ "Ente Auth" in de zoekbalk en tik op Installeren.'] },
     ],
     na: [
-      'Open Ente Auth. De app vraagt om een account te maken. Doe dat, met je e-mailadres en een nieuw wachtwoord. Dit account is je reservekopie: krijg je een nieuwe telefoon, dan krijg je zo je codes terug.',
-      'Schrijf het wachtwoord van Ente Auth op je papier. Laat de app je een herstelsleutel zien? Schrijf die er ook bij.',
+      'Open Ente Auth. De app vraagt om een account te maken. Dit account is je reservekopie: krijg je een nieuwe telefoon, dan krijg je zo je codes terug.',
+      'Typ je e-mailadres. Bedenk een nieuw wachtwoord, net als in stap 1: vier of vijf gewone woorden. Schrijf het op je papier. In stap 3 zet je het ook in je kluis.',
+      'Krijg je een mail van Ente met een code? Typ die code in de app. Zie je de mail niet? Kijk bij je ongewenste mail.',
+      'Laat de app je een herstelsleutel zien? Dat is een lange rij woorden. Daarmee kom je weer in je account als je het wachtwoord vergeet. Schrijf hem over op je papier.',
       'Ga nu op je computer naar de website van je maildienst. Zet daar het tweede slot aan. Klik hieronder op jouw dienst: daar staat waar het zit. Je ziet dan een vierkante code op het scherm.',
-      'Tik in Ente Auth op het plusteken (+). Kies om een code te scannen. Richt de camera van je telefoon op de vierkante code op je computer.',
+      'Tik in Ente Auth op het plusteken (+). Kies de keuze met het woord scannen of QR-code. Vraagt de app of hij de camera mag gebruiken? Kies toestaan. Richt de camera van je telefoon op de vierkante code op je computer.',
       'Ente Auth laat nu een code van zes cijfers zien. Typ die over op je computer, bij je e-mail.',
       'Krijg je herstelcodes te zien? Schrijf ze op je papier. Daarmee kom je binnen als je telefoon kwijt is.',
     ],
@@ -181,7 +184,8 @@ export const AVOND = {
     lukNiet: [
       'Werkt de code niet? Elke code werkt maar kort. Wacht op de volgende code in de app en typ die over.',
       'Kun je het tweede slot niet vinden? Zoek op de hulppagina van je e-maildienst naar "tweestapsverificatie".',
-      'Heeft je e-maildienst geen tweede slot? Dan is dat een goede reden om over te stappen, bijvoorbeeld naar Proton Mail. Dat hoeft niet vanavond.',
+      'Heb je KPN- of Ziggo-mail, of een andere dienst zonder tweede slot? Dan kun je deze stap nu niet afmaken. Dat is niet jouw fout. Druk op Sla over. Je nieuwe wachtwoord uit stap 1 beschermt je mail al. Ente Auth heb je straks nog nodig, in niveau 2.',
+      'Wil je je mail later toch twee sloten geven? Dan kun je overstappen, bijvoorbeeld naar Proton Mail. Dat hoeft niet vanavond.',
       'Wil je geen account bij Ente Auth? Neem dan 2FAS. Zet in de instellingen van 2FAS de reservekopie aan. Anders ben je bij een nieuwe telefoon je codes kwijt.',
     ],
     gereedschap: ['ente', '2fas'],
@@ -239,7 +243,7 @@ export const AVOND = {
     lukNiet: [
       'Zie je het wachtwoord niet op je telefoon? Kijk of je overal met hetzelfde account bent ingelogd. Sluit de app en open hem opnieuw.',
       'Vult de kluis niets in op je computer? Klik op het puzzelstukje. Staat Bitwarden er, en ben je daarin ingelogd?',
-      'Zie je geen puzzelstukje? Kijk dan rechtsboven naar een klein schildje: dat is Bitwarden.',
+      'Zie je geen puzzelstukje? Kijk dan rechtsboven naar de kleine pictogrammen. Houd je muis stil op een pictogram. Er verschijnt een naam. Staat er Bitwarden? Klik erop.',
     ],
     gereedschap: ['bitwarden', 'protonpass'],
     klaar: 'Je hebt een sleutelkluis. Vanaf nu verzint en onthoudt de kluis je sleutels.',

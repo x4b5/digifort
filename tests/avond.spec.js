@@ -151,3 +151,29 @@ test('het weekend legt het noodpakket uit voordat een stap ernaar verwijst', asy
   await page.goto('/een-weekend#stap-router');
   await expect(page.locator('#stap-router .hoe').first()).toContainText('Bel je provider');
 });
+
+test('het tweede slot op DigiD legt uit hoe je de DigiD-app installeert en activeert', async ({ page }) => {
+  await page.goto('/een-weekend#stap-accounts-tweede-slot');
+  const stap = page.locator('#stap-accounts-tweede-slot');
+  await expect(stap.locator('.hoe').first()).toContainText('DigiD');
+  const digid = stap.locator('details.uitklap').filter({ hasText: 'DigiD-app installeren en activeren' });
+  await expect(digid.locator('li').first()).toBeHidden();
+  await digid.locator('summary').click();
+  // waar je de echte app haalt, beide manieren om te activeren, en de pincode van de app
+  await expect(digid).toContainText('digid.nl/digid-app');
+  await expect(digid).toContainText('paspoort of identiteitskaart');
+  await expect(digid).toContainText('brief');
+  await expect(digid).toContainText('vijf cijfers');
+  // en waar je de beveiliging van een andere site vindt
+  await expect(stap.locator('details.uitklap').filter({ hasText: 'beveiliging van een site' })).toHaveCount(1);
+});
+
+test('ik wil verder legt uit hoe je een sleutel toevoegt, en noemt Lightning naast USB-C', async ({ page }) => {
+  await page.goto('/ik-wil-verder#stap-hardwaresleutel');
+  const stap = page.locator('#stap-hardwaresleutel');
+  await expect(stap.locator('.hoe').first()).toContainText('Lightning');
+  const toevoegen = stap.locator('details.uitklap').filter({ hasText: 'Een sleutel toevoegen' });
+  await toevoegen.locator('summary').click();
+  await expect(toevoegen).toContainText('Steek hem nu pas in je computer');
+  await expect(toevoegen).toContainText('tweede sleutel');
+});
