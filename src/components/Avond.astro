@@ -3,14 +3,21 @@
  * Een lijst uit Aan de slag, één stap per scherm: de avond (niveau 1), het weekend (niveau 2)
  * en "Ik wil verder" (niveau 3). Elke "Gedaan" is hetzelfde vinkje als in Aan de slag,
  * dus het fort en de teller in de kop groeien mee.
+ *
+ * Elke stap heeft dezelfde vorm (zie avond.js): wat je doet, waarom, hoe (per toestel waar
+ * dat verschilt), hoe je ziet dat het gelukt is, en wat je doet als het niet lukt.
+ * Een stap heeft een eigen adres (#stap-<id>), zodat Aan de slag er direct naar kan linken.
  */
 import { LIJSTEN } from '../data/lijsten.js';
 import { AVOND } from '../data/avond.js';
 import HuisEnFort from './HuisEnFort.astro';
 import Merk from './Merk.astro';
+
+type Toestel = { naam: string, stappen: string[] };
+type Uitleg = { wat?: string, hoe: string[], toestellen?: Toestel[], na?: string[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string };
 interface Props {
   lijst?: string;
-  uitleg?: Record<string, { hoe: string[], gereedschap: string[], klaar: string }>;
+  uitleg?: Record<string, Uitleg>;
   /** bovenregel van het slotscherm, en de zin als alles gedaan is */
   moment?: string;
   alles?: string;
@@ -24,9 +31,22 @@ const {
   volgende = { href: '/een-weekend', tekst: 'Volgende keer: niveau 2 →' },
 } = Astro.props;
 const stappen = LIJSTEN[lijst].items;
+for (const it of stappen) {
+  const u = uitleg[it.id];
+  if (!u?.gelukt || !u?.lukNiet?.length) throw new Error(`Stap ${it.id} mist "gelukt" of "lukNiet"`);
+}
 const totaalTijd = stappen.reduce((n, it) => n + (it.tijd ?? 0), 0);
 /** vanaf anderhalf uur leest "4 uur" makkelijker dan "240 minuten" */
 const duur = (min: number) => (min >= 90 ? `${Math.round(min / 60)} uur` : `${min} minuten`);
+/** "[tekst](/pad)" in de uitleg wordt een link; de rest blijft gewone tekst */
+const stukjes = (t: string) => t.split(/(\[[^\]]+\]\([^)]+\))/).filter(Boolean).map((s) => {
+  const m = s.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+  return m ? { tekst: m[1], href: m[2] } : { tekst: s };
+});
+/** welk toestel een blok is: daarop filtert de keuze "welke telefoon heb je?" */
+const soort = (naam: string) => (/iPhone/.test(naam) ? 'iphone' : /Android/.test(naam) ? 'android' : '');
+const heeftTelefoonkeuze = stappen.some((it) => uitleg[it.id].toestellen?.some((t) => soort(t.naam)));
+const kiesId = `toestel-${lijst}`;
 ---
 <section class="avond" data-avond data-lijst={lijst} data-alles={alles} data-totaal={stappen.length}>
   <p class="stand" data-stand aria-live="polite">Stap 1 van {stappen.length}{totaalTijd > 0 && ` · ongeveer ${duur(totaalTijd)} in totaal`}</p>
@@ -34,30 +54,75 @@ const duur = (min: number) => (min >= 90 ? `${Math.round(min / 60)} uur` : `${mi
     {stappen.map((_, i) => <li data-bol={i}>{i + 1}</li>)}
   </ol>
 
-  {stappen.map((it, i) => (
-    <article class="stap" data-stap={i} data-item={it.id} data-tijd={it.tijd ?? 0} hidden>
-      <p class="eyebrow">Stap {i + 1}{it.tijd && ` · ${it.tijd} min`}</p>
-      <h2 tabindex="-1">{it.stap}</h2>
-      <p class="waarom">{it.waarom.replace(/[.]$/, '')}.</p>
-      <p class="eyebrow klein hoe-kop">Zo doe je het</p>
-      <ol class="hoe">{uitleg[it.id].hoe.map((h) => <li>{h}</li>)}</ol>
-      {uitleg[it.id].gereedschap?.length > 0 && (
-        <p class="gereedschap"><span class="eyebrow zacht klein gereedschap-kop">Gereedschap</span> {uitleg[it.id].gereedschap.map((g) => <Merk id={g} maat={22} link />)}</p>
-      )}
-      <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {uitleg[it.id].klaar} <button type="button" class="link" data-toch-niet>Toch niet gedaan</button></p>
-      <p class="knoppen">
-        <button type="button" class="knop" data-gedaan>Gedaan, volgende →</button>
-        <button type="button" class="knop licht" data-over>Sla over</button>
-        {i > 0 && <button type="button" class="knop licht klein" data-terug>← Vorige</button>}
-      </p>
-    </article>
-  ))}
+  {heeftTelefoonkeuze && (
+    <fieldset class="toestelkeuze" data-toestelkeuze>
+      <legend>Welke telefoon heb je?</legend>
+      <p class="toestel-hint">Dan zie je alleen de stappen voor jouw telefoon.</p>
+      <div class="keuzes">
+        <label><input type="radio" name={kiesId} value="iphone" /> iPhone</label>
+        <label><input type="radio" name={kiesId} value="android" /> Android</label>
+        <label><input type="radio" name={kiesId} value="" checked /> Laat allebei zien</label>
+      </div>
+    </fieldset>
+  )}
 
-  <article class="stap einde" data-einde hidden>
+  {stappen.map((it, i) => {
+    const u = uitleg[it.id];
+    const hoe = u.toestellen?.length ? u.hoe : [...u.hoe, ...(u.na ?? [])];
+    const na = u.toestellen?.length ? (u.na ?? []) : [];
+    return (
+      <article class="stap" id={`stap-${it.id}`} data-stap={i} data-item={it.id} data-tijd={it.tijd ?? 0} aria-labelledby={`kop-${it.id}`} hidden>
+        <p class="eyebrow">Stap {i + 1} van {stappen.length}{it.tijd && ` · ongeveer ${it.tijd} minuten`}</p>
+        <h2 id={`kop-${it.id}`} tabindex="-1">{it.stap}</h2>
+        <p class="waarom"><strong>Waarom?</strong> {it.waarom.replace(/[.]$/, '')}.</p>
+        {u.wat && <p class="wat">{stukjes(u.wat).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>}
+
+        <h3 class="kopje">Zo doe je het</h3>
+        {/* één zin is geen lijstje: dan gewoon een alinea */}
+        {hoe.length === 1 && <p>{stukjes(hoe[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>}
+        {hoe.length > 1 && <ol class="hoe">{hoe.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
+        {u.toestellen?.map((t) => (
+          <div class="toestel" data-soort={soort(t.naam)}>
+            <h4>{t.naam}</h4>
+            <ol class="hoe">{t.stappen.map((h) => <li>{h}</li>)}</ol>
+          </div>
+        ))}
+        {na.length > 0 && (
+          <div class="toestel">
+            <h4>Daarna</h4>
+            {na.length === 1
+              ? <p>{stukjes(na[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>
+              : <ol class="hoe">{na.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
+          </div>
+        )}
+        {u.gereedschap && u.gereedschap.length > 0 && (
+          <p class="gereedschap"><span class="eyebrow zacht klein gereedschap-kop">Gereedschap</span> {u.gereedschap.map((g) => <Merk id={g} maat={22} link />)}</p>
+        )}
+
+        <div class="gelukt">
+          <h3 class="kopje">Zo zie je dat het gelukt is</h3>
+          <p>{u.gelukt}</p>
+        </div>
+        <details class="lukt-niet">
+          <summary><span class="pijl" aria-hidden="true">›</span> Lukt het niet?</summary>
+          <ul>{u.lukNiet.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ul>
+        </details>
+
+        <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {u.klaar} <button type="button" class="link" data-toch-niet>Toch niet gedaan</button></p>
+        <p class="knoppen">
+          <button type="button" class="knop" data-gedaan>Gedaan, volgende stap →</button>
+          <button type="button" class="knop licht" data-over>Sla over</button>
+          {i > 0 && <button type="button" class="knop licht klein" data-terug>← Vorige stap</button>}
+        </p>
+      </article>
+    );
+  })}
+
+  <article class="stap einde" data-einde aria-labelledby={`einde-${lijst}`} hidden>
     <p class="eyebrow">{moment}</p>
-    <h2 tabindex="-1" data-einde-kop>Je fort staat</h2>
+    <h2 id={`einde-${lijst}`} tabindex="-1" data-einde-kop>Je fort staat</h2>
     <p data-einde-tekst></p>
-    <HuisEnFort legenda={false} uitleg="Elk groen deel heb je vanavond zelf gebouwd." />
+    <HuisEnFort legenda={false} uitleg="Elk groen deel heb je zelf gebouwd." />
     <p class="knoppen">
       <a class="knop" href={volgende.href}>{volgende.tekst}</a>
       <button type="button" class="knop licht" data-opnieuw>Bekijk de stappen nog eens</button>
@@ -67,6 +132,11 @@ const duur = (min: number) => (min >= 90 ? `${Math.round(min / 60)} uur` : `${mi
 
 <script>
   import { lees, zetVinkje } from '../lib/opslag.js';
+
+  // welke telefoon je hebt, onthoudt alleen deze browser; zonder opslag zie je gewoon allebei
+  const TOESTEL = 'jdh:toestel';
+  const leesToestel = () => { try { return window.localStorage.getItem(TOESTEL) ?? ''; } catch { return ''; } };
+  const bewaarToestel = (w: string) => { try { window.localStorage.setItem(TOESTEL, w); } catch { /* geen opslag */ } };
 
   document.querySelectorAll<HTMLElement>('[data-avond]').forEach((s) => {
     const LIJST = s.dataset.lijst!;
@@ -78,6 +148,21 @@ const duur = (min: number) => (min >= 90 ? `${Math.round(min / 60)} uur` : `${mi
 
     const gedaan = () => lees().lijsten[LIJST] ?? {};
     const isGedaan = (i: number) => Boolean(gedaan()[stappen[i].dataset.item!]);
+
+    function toonToestel(w: string) {
+      s.querySelectorAll<HTMLElement>('.toestel[data-soort]').forEach((b) => {
+        b.hidden = Boolean(w && b.dataset.soort && b.dataset.soort !== w);
+      });
+    }
+    const keuze = s.querySelector<HTMLElement>('[data-toestelkeuze]');
+    if (keuze) {
+      const radios = Array.from(keuze.querySelectorAll<HTMLInputElement>('input[type=radio]'));
+      const bewaard = leesToestel();
+      radios.forEach((r) => { r.checked = r.value === bewaard; });
+      if (!radios.some((r) => r.checked)) radios[radios.length - 1].checked = true;
+      toonToestel(radios.find((r) => r.checked)!.value);
+      radios.forEach((r) => r.addEventListener('change', () => { bewaarToestel(r.value); toonToestel(r.value); }));
+    }
 
     function toon(i: number, focus = true) {
       huidig = Math.max(0, Math.min(i, totaal));
@@ -101,7 +186,12 @@ const duur = (min: number) => (min >= 90 ? `${Math.round(min / 60)} uur` : `${mi
           ? s.dataset.alles!
           : 'De overgeslagen stappen staan in Aan de slag klaar om later af te maken.';
       }
-      if (focus) (huidig < totaal ? stappen[huidig] : einde).querySelector<HTMLElement>('h2')?.focus();
+      if (focus) {
+        (huidig < totaal ? stappen[huidig] : einde).querySelector<HTMLElement>('h2')?.focus();
+        // het adres wijst naar de stap die je ziet, zodat herladen of delen daar weer uitkomt
+        const hier = huidig < totaal ? `#${stappen[huidig].id}` : location.pathname + location.search;
+        try { history.replaceState(null, '', hier); } catch { /* geen geschiedenis: niet erg */ }
+      }
     }
 
     stappen.forEach((el, i) => {
@@ -113,9 +203,16 @@ const duur = (min: number) => (min >= 90 ? `${Math.round(min / 60)} uur` : `${mi
     });
     einde.querySelector('[data-opnieuw]')?.addEventListener('click', () => toon(0));
 
-    // begin bij de eerste stap die nog niet gedaan is
+    // een link als /een-avond#stap-updates opent precies die stap
+    const uitAdres = () => stappen.findIndex((el) => `#${el.id}` === decodeURIComponent(location.hash));
+    window.addEventListener('hashchange', () => { const n = uitAdres(); if (n !== -1) toon(n); });
+
+    // anders: begin bij de eerste stap die nog niet gedaan is
+    const gevraagd = uitAdres();
     const eerste = stappen.findIndex((_, n) => !isGedaan(n));
-    toon(eerste === -1 ? totaal : eerste, false);
+    // bij het laden geen focus verplaatsen (dat verwart een schermlezer), wel de stap in beeld zetten
+    if (gevraagd !== -1) { toon(gevraagd, false); stappen[gevraagd].scrollIntoView({ block: 'start' }); }
+    else toon(eerste === -1 ? totaal : eerste, false);
   });
 </script>
 
@@ -123,20 +220,51 @@ const duur = (min: number) => (min >= 90 ? `${Math.round(min / 60)} uur` : `${mi
   .avond { margin: 1.5rem 0 2rem; }
   /* in de avond is dit de enige regel boven de stap: iets groter dan elders */
   .stand { font-size: var(--tekst-l); margin: 0 0 0.75rem; }
-  .bolletjes { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; gap: 0.4rem; }
-  .bolletjes li { width: 2.2rem; height: 2.2rem; border-radius: 50%; border: var(--lijndikte) solid var(--lijn-sterk); display: grid; place-items: center; font-family: var(--kop); font-weight: 700; color: var(--inkt-zacht); background: var(--papier); }
+  .bolletjes { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .bolletjes li { margin: 0; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: var(--lijndikte) solid var(--lijn-sterk); display: grid; place-items: center; font-family: var(--kop); font-weight: 700; color: var(--inkt-zacht); background: var(--papier); }
   .bolletjes li[data-toestand="nu"] { border-color: var(--rood); color: var(--rood); }
   .bolletjes li[data-toestand="gedaan"] { background: var(--groen); border-color: var(--groen); color: var(--op-kleur); }
+
+  /* de telefoonkeuze: rustig, boven de stappen */
+  .toestelkeuze { border: 0; padding: 0; margin: 0 0 1.5rem; }
+  .toestelkeuze legend { font-family: var(--kop); font-weight: 700; padding: 0; margin-bottom: 0.2rem; }
+  .toestel-hint { color: var(--inkt-zacht); margin: 0 0 0.5rem; }
+  .keuzes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .keuzes label { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0.3rem 0.9rem; border: var(--lijndikte-dun) solid var(--lijn-sterk); border-radius: var(--radius); cursor: pointer; }
+  .keuzes input { width: 1.3rem; height: 1.3rem; margin: 0; accent-color: var(--rood); }
+  .keuzes label:has(input:checked) { border-width: var(--lijndikte); font-weight: 700; }
+  .keuzes input:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
   .stap { padding: 1.5rem 1.6rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); }
-  .stap[hidden] { display: none; }
+  @media (max-width: 40rem) { .stap { padding: 1.1rem 1rem; } }
+  .stap[hidden], .toestel[hidden] { display: none; }
   .stap h2 { margin: 0 0 0.5rem; font-size: clamp(1.5rem, 4vw, 2rem); }
   .stap h2:focus { outline: none; }
-  .waarom { color: var(--inkt-zacht); margin-bottom: 1rem; }
-  .hoe-kop { margin-bottom: 0.3rem; }
-  .hoe { padding-left: 1.4rem; margin-bottom: 1.25rem; }
-  .hoe li { margin-bottom: 0.5rem; }
-  .gereedschap { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin: -0.5rem 0 1.25rem; }
+  .stap .kopje { font-size: 1.2rem; margin: 1.5rem 0 0.5rem; }
+  .stap h4 { font-size: 1.05rem; margin: 1rem 0 0.3rem; }
+  .waarom { margin-bottom: 0.75rem; }
+  .wat { color: var(--inkt-zacht); }
+  .hoe { padding-left: 1.6rem; margin-bottom: 1rem; }
+  .hoe li { margin-bottom: 0.5rem; padding-left: 0.2rem; }
+  .gereedschap { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin: 0 0 1.25rem; }
   .gereedschap-kop { margin: 0; }
+
+  /* het bewijs: groen, want dit is wat je zelf nakijkt */
+  .gelukt { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.2rem 1rem 0.8rem; margin: 1.5rem 0 1rem; border-radius: var(--radius); }
+  .gelukt .kopje { margin-top: 0.6rem; }
+  .gelukt p { margin: 0; }
+
+  /* "Lukt het niet?" als het details-blok van GOV.UK: een link met een pijltje, de hulp eronder */
+  .lukt-niet { margin: 0 0 1.5rem; }
+  .lukt-niet summary { list-style: none; display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; cursor: pointer; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .lukt-niet summary::-webkit-details-marker { display: none; }
+  .lukt-niet summary:hover { text-decoration-thickness: 3px; }
+  .lukt-niet summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .lukt-niet .pijl { display: inline-block; font-size: 1.4em; line-height: 1; text-decoration: none; transition: transform 0.15s; }
+  .lukt-niet[open] .pijl { transform: rotate(90deg); }
+  .lukt-niet ul { border-left: var(--lijndikte) solid var(--lijn); padding: 0.25rem 0 0.25rem 1.6rem; margin: 0.25rem 0 0; }
+  @media (prefers-reduced-motion: reduce) { .lukt-niet .pijl { transition: none; } }
+
   .klaar-zin { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.7rem 1rem; }
   .klaar-zin[hidden] { display: none; }
   .link { background: none; border: 0; padding: 0; font: inherit; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: pointer; }

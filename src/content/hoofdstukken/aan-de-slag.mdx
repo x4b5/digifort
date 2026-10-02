@@ -9,34 +9,29 @@ import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
-import Afvinklijst from '../../components/Afvinklijst.astro';
+import Niveau from '../../components/Niveau.astro';
 import DrieTweeEen from '../../components/tekeningen/DrieTweeEen.astro';
 import Straat from '../../components/tekeningen/Straat.astro';
 import HuisEnFort from '../../components/HuisEnFort.astro';
 import Gereedschapskist from '../../components/Gereedschapskist.astro';
 import Nagelopen from '../../components/Nagelopen.astro';
 import Scene from '../../components/Scene.astro';
-import Doe from '../../components/Doe.astro';
 
-## Begin hier: stap 1 kost vijf minuten
+<p class="intro">Hier maak je je digitale huis veiliger. Dat gaat in drie niveaus, en je doet steeds één ding tegelijk. Begin bij niveau 1. Dat kost één avond.</p>
 
-Je hoeft niet alles te lezen. Begin gewoon met deze ene stap. Pak je telefoon of je computer erbij.
+## Begin hier
 
-<Doe>
+Heb je nog niets gedaan? Begin dan met niveau 1. Dat zijn zes stappen van samen ongeveer een uur.
 
-**Stap 1 van 6: geef je e-mail een nieuw, lang wachtwoord.** Ongeveer 5 minuten.
+**Wat je nodig hebt:**
 
-1. Open de instellingen van je e-mail en zoek "wachtwoord wijzigen".
-2. Kies vier of vijf gewone woorden achter elkaar, zoals "lantaarn koffie zebra dakpan". Lengte telt, rare tekens niet.
-3. Gebruik dit wachtwoord nergens anders. Schrijf het voorlopig op papier.
+- je telefoon
+- je computer, als je die hebt
+- pen en papier
 
-</Doe>
+<p><a class="knop" href="/een-avond">Begin met niveau 1 →</a></p>
 
-Gelukt? Dan is je voordeur op slot. Stap 2 is een tweede slot op je e-mail: na je wachtwoord vraagt je e-mail dan ook om een code uit een app op je telefoon. Ongeveer 10 minuten.
-
-<p><a class="knop" href="/een-avond">Doe de volgende stap, één per scherm →</a></p>
-
-Liever alles in één lijst? Die staat hieronder bij [niveau 1](#niveau-1).
+Je ziet dan één stap per scherm, met precies wat je moet doen. Stoppen mag altijd. Wat je afvinkt, onthoudt je eigen browser.
 
 <Scene wie="sanne">
 
@@ -46,7 +41,65 @@ Ze had het drie jaar voor zich uit geschoven. Het kostte één avond.
 
 </Scene>
 
-Niveau 1 kost één avond. Daarmee sluit je de deur waar de meeste inbraken door binnenkomen: een gestolen of geraden wachtwoord. Doe de stappen in deze volgorde. Elke stap maakt de volgende makkelijker. Alles hier kan gratis.
+## Niveau 1: de basis in één avond
+
+<Niveau lijst="niveau-1" pagina="/een-avond" naam="niveau 1">
+
+Daarmee sluit je de deur waar de meeste inbraken door binnenkomen: een gestolen of geraden wachtwoord. Doe de stappen in deze volgorde.
+
+</Niveau>
+
+<Meer titel="Uitleg bij deze stappen">
+
+**Hoe maak je een sterk hoofdwachtwoord?** Neem vier of vijf gewone woorden die niets met elkaar te maken hebben. Lang is sterker dan ingewikkeld. Schrijf het op papier. Bewaar dat papier thuis op een veilige plek.
+
+**Welke wachtwoordmanager?** Bitwarden is gratis. Iedereen mag controleren hoe het programma werkt, en dat maakt het betrouwbaar. De kluis die al in je iPhone of Android-telefoon zit, is ook goed. Het belangrijkste is dat je er één gebruikt.
+
+</Meer>
+
+## Niveau 2: goed op slot in een weekend
+
+<Niveau lijst="niveau-2" pagina="/een-weekend" naam="niveau 2">
+
+Doe dit als niveau 1 staat. Zaterdag doe je stap 1 tot en met 4: ruim twee uur. Zondag doe je de rest: bijna twee uur.
+
+</Niveau>
+
+<Meer titel="Uitleg bij deze stappen">
+
+**Wat is een passkey?** Een passkey is inloggen zonder wachtwoord te typen. Je bevestigt het met je telefoon of laptop: met je vinger, je gezicht of je pincode. Een passkey werkt alleen op de echte website, dus een nepsite heeft er niets aan. Vraagt een site of je een passkey wilt maken? Zeg dan ja. Op deze site heet de passkey ook de zegelring.
+
+**Wat zijn herstelcodes?** Zet je een tweede slot op een account? Dan krijg je een rijtje codes voor noodgevallen. Elke code werkt één keer. Sommige diensten noemen ze noodcodes of backup codes. Ben je je telefoon kwijt? Dan kom je er met zo'n code toch in. Die en andere vaktermen staan in het [woordenboek](/woordenboek).
+
+**Je laptop onleesbaar maken** heet versleuteling. Op een Mac heet het FileVault. Op Windows heet het BitLocker of Apparaatversleuteling.
+
+**De regel voor reservekopieën is 3-2-1.** Je hebt drie kopieën van je bestanden. Ze staan op twee soorten opslag, zoals je computer en een losse schijf. Eén kopie ligt buiten je huis, bijvoorbeeld op internet. Probeer één keer of je een bestand ook echt kunt terugzetten.
+
+<DrieTweeEen />
+
+</Meer>
+
+## Niveau 3: voor wie verder wil
+
+<Niveau lijst="niveau-3" pagina="/ik-wil-verder" naam="niveau 3" kosten="bijna alles gratis">
+
+Doe deze klussen als niveau 1 en 2 staan. Eén per keer is goed. Alleen de echte sleutel kost geld.
+
+</Niveau>
+
+<Noot titel="Verder lezen">Wil je precies weten waarom een echte sleutel sterker is dan een code uit een app? Lees [Van geheim woord naar zegelring](/van-geheim-woord-naar-zegelring).</Noot>
+
+## Je fort, terwijl je bouwt
+
+Elke stap is een deel van het fort. Vink af wat je hebt gedaan en kijk hier hoe het groeit. Het blijft in je eigen browser staan.
+
+<HuisEnFort legenda={false} uitleg="Nog niets afgevinkt. Begin bij niveau 1 hierboven." />
+
+## Als je klaar bent
+
+1. Staat niveau 1? Ga verder met [niveau 2](#niveau-2), in een weekend.
+2. Staat niveau 2 ook? Pak dan je agenda en zet over zes maanden: "huis nalopen". Wat je dan doet, staat in [Onderhoud en opruimen](/onderhoud).
+3. Wil je weten waarom een echte sleutel sterker is dan een code? Lees [de ladder](/van-geheim-woord-naar-zegelring).
 
 ## Waarom dit werkt: de inbreker kiest het makkelijkste huis
 
@@ -70,56 +123,6 @@ De meeste inbrekers op internet zoeken niet naar jou. Ze lopen de hele straat do
 Twee dingen moet je eerlijk weten. Dit werkt tegen inbrekers die het bij iedereen proberen. Dat zijn ze bijna allemaal. Zoekt iemand speciaal naar jou, zoals bij een stalker of bij een bekende persoon? Dan heb je meer hulp nodig dan deze site kan geven. En de lat gaat omhoog. Met AI wordt een aanval op maat goedkoper. Wat nu hoog genoeg hangt, hangt over een paar jaar lager. Daarom kijk je je huis twee keer per jaar na. Dat staat in [Onderhoud en opruimen](/onderhoud).
 
 </Meer>
-
-## Je fort, terwijl je bouwt
-
-Elke stap hieronder is een deel van het fort. Vink af wat je hebt gedaan en kijk hier hoe het groeit. Het blijft in je eigen browser staan.
-
-<HuisEnFort legenda={false} uitleg="Nog niets afgevinkt. Begin bij niveau 1 hieronder." />
-
-## Niveau 1: de basis in één avond
-
-Doe de stappen van boven naar beneden, één tegelijk. Vink een stap pas af als hij echt staat. Liever één stap per scherm, met precies hoe je het doet? Ga naar [Ik heb één avond](/een-avond). Het is dezelfde lijst.
-
-<Afvinklijst lijst="niveau-1" kop={false} genummerd />
-
-<Meer titel="Uitleg bij deze stappen">
-
-**Hoe maak je een sterk hoofdwachtwoord?** Neem vier of vijf gewone woorden die niets met elkaar te maken hebben. Bijvoorbeeld een gek zinnetje dat alleen jij snapt. Lang is sterker dan ingewikkeld. Schrijf het op papier. Bewaar dat papier thuis op een veilige plek.
-
-**Welke wachtwoordmanager?** Bitwarden is gratis. Iedereen mag controleren hoe het programma werkt, en dat maakt het betrouwbaar. De kluis die al in je iPhone of Android-telefoon zit, is ook goed. Het belangrijkste is dat je er één gebruikt.
-
-</Meer>
-
-## Niveau 2: goed op slot in een weekend
-
-**Zo verdeel je het weekend.** Zaterdag doe je stap 1 tot en met 4: ruim twee uur. Zondag doe je stap 5 tot en met 10: bijna twee uur. Begin zaterdag met stap 1 en doe er één tegelijk. Liever één stap per scherm, met precies hoe je het doet? Ga naar [Ik heb een weekend](/een-weekend).
-
-**Wat is een passkey? (stap 2)** Een passkey is inloggen zonder wachtwoord te typen. Je bevestigt het met je telefoon of laptop: met je vinger, je gezicht of je pincode. Een passkey werkt alleen op de echte website, dus een nepsite heeft er niets aan. Vraagt een site of je een passkey wilt maken? Zeg dan ja. Kan dat niet? Zet dan een tweede slot aan met een code-app, zoals Ente Auth of 2FAS. Op deze site heet de passkey ook de zegelring.
-
-<Afvinklijst lijst="niveau-2" kop={false} genummerd />
-
-**Wat zijn herstelcodes?** Zet je een tweede slot op een account? Dan krijg je een rijtje codes voor noodgevallen. Elke code werkt één keer. Sommige diensten noemen ze noodcodes of backup codes; het is hetzelfde. Die en andere vaktermen staan in het [woordenboek](/woordenboek). Ben je je telefoon kwijt? Dan kom je er met zo'n code toch in.
-
-<Meer titel="Uitleg bij deze stappen">
-
-**Je laptop onleesbaar maken** heet versleuteling. Op een Mac heet het FileVault. Op Windows heet het BitLocker of Apparaatversleuteling. Je vindt het bij de instellingen.
-
-**De regel voor reservekopieën is 3-2-1.** Je hebt drie kopieën van je bestanden. Ze staan op twee soorten opslag, zoals je computer en een losse schijf. Eén kopie ligt buiten je huis, bijvoorbeeld op internet. Probeer één keer of je een bestand ook echt kunt terugzetten.
-
-<DrieTweeEen />
-
-</Meer>
-
-## Niveau 3: voor wie verder wil
-
-Liever één klus per scherm, met precies hoe je het doet? Ga naar [Ik wil verder](/ik-wil-verder).
-
-<Afvinklijst lijst="niveau-3" kop={false} />
-
-**Wat is een VPN?** Een VPN is een app die een afgeschermde verbinding maakt tussen jou en het internet. Zie het als een overdekte gang naar buiten. Hij helpt vooral op de wifi van een ander, zoals in de trein of in een hotel. Kies Proton VPN (gratis) of Mullvad (betaald). Vermijd andere gratis VPN's: veel daarvan verdienen aan jouw gegevens of aan reclame.
-
-<Noot titel="Verder lezen">Wil je precies weten waarom een echte sleutel sterker is dan een code uit een app? Lees [Van geheim woord naar zegelring](/van-geheim-woord-naar-zegelring).</Noot>
 
 ## De gereedschapskist: concrete aanraders
 
@@ -167,16 +170,8 @@ Dit is een lijst om in op te zoeken. De keuzes zijn gemaakt op vier punten. Het 
 
 </Meer>
 
-## Alles op één rij
+### Alles op één rij
 
 Alles wat op deze site wordt genoemd, op één rij. Allemaal gratis of goedkoop, en niemand verdient eraan als je erop klikt. De logo's staan er zodat je ze herkent in de app-winkel.
 
 <Gereedschapskist />
-
-## Klaar met deze avond?
-
-Kijk boven aan deze pagina hoe je fort erbij staat, of in de kop van elke pagina: elk blokje is een deel.
-
-1. Staat niveau 1? Ga verder met [niveau 2](#niveau-2), in een weekend.
-2. Staat niveau 2 ook? Pak dan nu je agenda en zet over zes maanden: "huis nalopen". Wat je dan doet, staat in [Onderhoud en opruimen](/onderhoud).
-3. Wil je weten waarom een echte sleutel sterker is dan een code? Lees [de ladder](/van-geheim-woord-naar-zegelring).

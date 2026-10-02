@@ -69,3 +69,51 @@ test('elke stap van niveau 1, 2 en 3 heeft uitleg hoe je het doet', async ({ pag
     for (let i = 0; i < aantal; i++) expect(await stappen.nth(i).locator('.hoe li').count()).toBeGreaterThan(1);
   }
 });
+
+test('elke stap zegt hoe je ziet dat het gelukt is, en wat je doet als het niet lukt', async ({ page }) => {
+  for (const [pad, aantal] of [['/een-avond', 6], ['/een-weekend', 10], ['/ik-wil-verder', 6]]) {
+    await page.goto(pad);
+    const stappen = page.locator('[data-stap]');
+    for (let i = 0; i < aantal; i++) {
+      const stap = stappen.nth(i);
+      await expect(stap.locator('.waarom')).toContainText('Waarom?');
+      await expect(stap.locator('.gelukt h3')).toHaveText('Zo zie je dat het gelukt is');
+      expect((await stap.locator('.gelukt p').textContent())?.trim().length).toBeGreaterThan(10);
+      expect(await stap.locator('details.lukt-niet li').count()).toBeGreaterThan(0);
+    }
+  }
+});
+
+test('lukt het niet? klapt open met hulp', async ({ page }) => {
+  await page.goto('/een-avond');
+  const hulp = page.locator('[data-stap="0"] details.lukt-niet');
+  await expect(hulp.locator('li').first()).toBeHidden();
+  await hulp.locator('summary').click();
+  await expect(hulp.locator('li').first()).toBeVisible();
+});
+
+test('een link naar #stap-<id> opent precies die stap', async ({ page }) => {
+  await page.goto('/een-avond#stap-updates');
+  await expect(page.locator('#stap-updates')).toBeVisible();
+  await expect(page.locator('[data-stand]')).toContainText('Stap 4 van 6');
+  await expect(page.locator('#stap-updates h2')).toBeInViewport();
+  // verder klikken zet het adres op de stap die je nu ziet
+  await page.locator('#stap-updates [data-over]').click();
+  await expect(page).toHaveURL(/#stap-pincode$/);
+});
+
+test('kies je telefoon, dan zie je alleen de stappen voor die telefoon, ook na herladen', async ({ page }) => {
+  await page.goto('/een-avond#stap-updates');
+  const stap = page.locator('#stap-updates');
+  await expect(stap.locator('.toestel[data-soort="android"]').first()).toBeVisible();
+  await page.getByRole('radio', { name: 'iPhone' }).check();
+  await expect(stap.locator('.toestel[data-soort="android"]').first()).toBeHidden();
+  await expect(stap.locator('.toestel[data-soort="iphone"]').first()).toBeVisible();
+  // wat voor iedereen geldt, zoals de computer, blijft staan
+  await expect(stap.getByRole('heading', { name: 'Op een Mac' })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole('radio', { name: 'iPhone' })).toBeChecked();
+  await expect(page.locator('#stap-updates .toestel[data-soort="android"]').first()).toBeHidden();
+  await page.getByRole('radio', { name: 'Laat allebei zien' }).check();
+  await expect(page.locator('#stap-updates .toestel[data-soort="android"]').first()).toBeVisible();
+});
