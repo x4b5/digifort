@@ -78,3 +78,26 @@ test('wie al geklikt of betaald heeft, vindt een kop met de eerste stappen en ee
   await page.locator('[data-overzicht] a', { hasText: 'Al geklikt: wat nu?' }).click();
   await expect(page.getByRole('heading', { level: 2, name: 'Ik heb al geklikt, ingelogd of betaald. Wat nu?' })).toBeInViewport();
 });
+
+test('wie een code moet doorsturen, vindt op de pagina over oplichting een eigen kop met het antwoord vooraan', async ({ page }) => {
+  await page.goto('/inbrekers-van-nu');
+  await page.locator('[data-overzicht] a', { hasText: 'Iemand vraagt om een code' }).click();
+  const kop = page.getByRole('heading', { level: 2, name: 'Iemand vraagt me een code door te sturen. Wat is dit?' });
+  await expect(kop).toBeInViewport();
+  // het antwoord staat direct onder de kop, niet verstopt in een uitklapper
+  const antwoord = await kop.evaluate((h) => h.nextElementSibling?.textContent ?? '');
+  expect(antwoord).toContain('Stuur de code nooit door');
+  // en de plattegrond wijst ernaar
+  await page.goto('/plattegrond');
+  await expect(page.locator('a[href="/inbrekers-van-nu#iemand-vraagt-me-een-code-door-te-sturen-wat-is-dit"]').first()).toBeAttached();
+});
+
+test('wie vraagt of een kwantumcomputer zijn wachtwoord kraakt, ziet het antwoord meteen onder een eigen kop', async ({ page }) => {
+  await page.goto('/inbrekers-van-morgen');
+  await page.locator('[data-overzicht] a', { hasText: 'Kan een kwantumcomputer mijn wachtwoord kraken?' }).click();
+  const kop = page.getByRole('heading', { level: 2, name: 'Kan een kwantumcomputer mijn wachtwoord kraken?' });
+  await expect(kop).toBeInViewport();
+  const antwoord = await kop.evaluate((h) => h.nextElementSibling?.textContent ?? '');
+  expect(antwoord).toContain('Een lang en sterk wachtwoord blijft gewoon goed');
+  expect(await kop.evaluate((h) => Boolean(h.closest('details')))).toBe(false);
+});
