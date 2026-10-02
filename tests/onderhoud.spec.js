@@ -121,7 +121,7 @@ test('onderhoud: de reservekopie van elke maand zegt hoe je er nu een maakt, ook
 
 test('onderhoud: een link naar een stap opent die stap, ook midden in de rij', async ({ page }) => {
   await page.goto('/onderhoud');
-  await page.locator('[data-beurt-stap="backup-loopt"] a[href="#stap-maand-kopie"]').evaluate((a) => a.click());
+  await page.locator('[data-beurt-stap="backup-loopt"] a[href="#stap-maand-kopie"]').first().evaluate((a) => a.click());
   const stap = page.locator('#stap-maand-kopie');
   await expect(stap).toBeVisible();
   await expect(stap.locator('h3')).toBeFocused();
@@ -134,4 +134,28 @@ test('onderhoud: de quiz over de usb-stick zegt hetzelfde als de stap', async ({
   await page.goto('/onderhoud');
   await expect(page.locator('[data-beurt-stap="weg-rest"]')).toContainText('snel formatteren uit');
   await expect(page.locator('[data-quiz] [data-vraagje]').nth(1).locator('label', { has: page.locator('input[data-goed]') })).toContainText('snel formatteren uit');
+});
+
+test('onderhoud: een bestand terugzetten maakt onderscheid tussen een kopie van de hele telefoon en losse foto\'s', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const stap = page.locator('[data-beurt-stap="backup-loopt"]');
+  await expect(stap).toContainText('Een kopie van je hele telefoon');
+  await expect(stap).toContainText('Die open je niet per foto');
+  await expect(stap).toContainText('Alleen een kopie van je hele telefoon?');
+  await expect(stap).toContainText('Finder');
+  // de iPhone-check van twee keer per jaar is vandaag af te maken
+  await expect(page.locator('[data-beurt-stap="geen-updates"] [data-gelukt]')).toContainText('staat op papier');
+  // een schijf haal je veilig los
+  await expect(page.locator('[data-beurt-stap="maand-kopie"]')).toContainText('Uitwerpen');
+  // Windows terugzetten: de vragen die Windows stelt staan erbij
+  await expect(page.locator('[data-beurt-stap="weg-wissen"]')).toContainText('Lokaal opnieuw installeren');
+});
+
+test('het bezoek: het tweede slot zegt wat een code op de telefoon is, en je hoeft niet uit te loggen', async ({ page }) => {
+  await page.goto('/voor-de-mensen-om-je-heen');
+  const stap = page.locator('[data-beurt-stap="mail-slot"]');
+  await expect(stap).toContainText('Een sms');
+  await expect(stap).toContainText('Een app die codes maakt');
+  await expect(stap).toContainText('niet uit te loggen');
+  await expect(page.locator('[data-beurt-stap="updates-aan"]')).toContainText('Apps en apparaat beheren');
 });
