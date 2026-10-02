@@ -1,0 +1,26 @@
+---
+/**
+ * Het kopje boven de titel: in welk deel van de site je bent, en waar.
+ * Bijvoorbeeld "Doen" met het nummer van het hoofdstuk, of "Opzoeken · Naslag". Het deel is een link naar
+ * het overzicht van dat deel op de voorpagina, zoals GOV.UK bovenaan een pagina
+ * uit een stap-voor-stapreis terugwijst naar het hele stappenplan.
+ * Eén bron: plek() uit site.js.
+ */
+import { plek } from '../lib/site.js';
+interface Props { slug: string }
+const { slug } = Astro.props;
+const p = plek(slug);
+---
+{p && (
+  <p class:list={['eyebrow', 'deelplek', `deelplek-${p.deel?.id}`]}>
+    <a href={`/#${p.deel?.id}`}>{p.deel?.titel}</a> · {p.tekst}
+  </p>
+)}
+
+<style>
+  .deelplek a { color: inherit; text-decoration-thickness: 1px; }
+  .deelplek a:hover { text-decoration-thickness: 2px; }
+  /* opzoeken is geen opdracht: het kopje is daar stiller dan bij doen */
+  .deelplek-opzoeken { color: var(--inkt-zacht); }
+  @media (pointer: coarse) { .deelplek a { display: inline-block; min-block-size: 24px; } }
+</style>

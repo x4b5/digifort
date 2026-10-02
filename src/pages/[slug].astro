@@ -4,6 +4,7 @@ import Pagina from '../layouts/Pagina.astro';
 import { tredeKoppen } from '../data/tredes.js';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import Buren from '../components/Buren.astro';
+import Plek from '../components/Plek.astro';
 import Quiz from '../components/Quiz.astro';
 import { quiz } from '../data/quiz.js';
 import { artikelGegevens, begrippenGegevens } from '../lib/gegevens.js';
@@ -46,7 +47,7 @@ const beschrijving = h.data.omschrijving ?? h.data.kort;
   {leestijd && <div class="leesbalk" aria-hidden="true" />}
   <div class="paginakop">
     <div>
-      <p class="eyebrow">{h.data.nr === null ? 'Verdieping' : `Hoofdstuk ${h.data.nr}`}</p>
+      <Plek slug={h.id} />
       <h1>{h.data.titel}</h1>
       {leestijd && (
         <p class="leestijd">

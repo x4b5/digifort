@@ -5,7 +5,7 @@ import { PAGINAS } from './paginas.js';
 
 async function axe(page, pad) {
   await page.goto(pad);
-  const uitslag = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
+  const uitslag = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
   const ernstig = uitslag.violations.filter((v) => ['serious', 'critical'].includes(v.impact));
   expect(ernstig.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);
 }

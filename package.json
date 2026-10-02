@@ -12,7 +12,8 @@
     "astro": "astro",
     "test": "playwright test",
     "check": "astro check",
-    "datums": "node scripts/datums.mjs"
+    "datums": "node scripts/datums.mjs",
+    "leesniveau": "node scripts/leesniveau.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",

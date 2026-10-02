@@ -21,7 +21,7 @@ export const QUIZZEN = {
     { vraag: 'Wat betekent "open huis" op deze site?', opties: [
       { tekst: 'Er zit helemaal geen slot op je spullen', uitleg: 'Zo bedoeld is het niet. De meeste mensen hebben wel degelijk sloten; ze weten alleen niet welke deur nog openstaat.' },
       { tekst: 'Bij de meeste mensen staat minstens één deur open', goed: true, uitleg: 'En meestal weten ze niet welke. Daar gaat de huischeck over: hem vinden, niet hem tellen.' },
-      { tekst: 'Je gegevens zijn openbaar op internet te vinden', uitleg: 'Dat is een ander onderwerp — wat er over je op je gevel staat, uit hoofdstuk 5.' },
+      { tekst: 'Je gegevens zijn openbaar op internet te vinden', uitleg: 'Dat is een ander onderwerp — wat er over je op je gevel staat, uit Onderhoud en opruimen.' },
     ] },
   ],
 
@@ -52,7 +52,7 @@ export const QUIZZEN = {
     { vraag: 'Wat is een datalek?', opties: [
       { tekst: 'Iemand heeft jouw computer gehackt', uitleg: 'Bij een datalek is er niet bij jou ingebroken, maar bij een bedrijf.' },
       { tekst: 'Een bedrijf waar jij een account hebt, is gehackt', goed: true, uitleg: 'Er is ingebroken bij de sleutelmaker, en die had een kopie van jouw sleutel. Op haveibeenpwned.com kun je zien of jouw adres in een bekend lek zit.' },
-      { tekst: 'Je hebt per ongeluk te veel over jezelf gedeeld', uitleg: 'Dat is wat er op je gevel staat, uit hoofdstuk 5. Een datalek overkomt je zonder dat jij iets deed.' },
+      { tekst: 'Je hebt per ongeluk te veel over jezelf gedeeld', uitleg: 'Dat is wat er op je gevel staat, uit Onderhoud en opruimen. Een datalek overkomt je zonder dat jij iets deed.' },
     ] },
     { vraag: 'Wat zorgt ervoor dat je bij ransomware nooit hoeft te betalen?', opties: [
       { tekst: 'Een goede virusscanner', uitleg: 'Die helpt, maar hij is geen garantie. Als je bestanden eenmaal op slot zitten, doet een scanner niets meer.' },
@@ -63,7 +63,7 @@ export const QUIZZEN = {
 
   'inbrekers-van-morgen': [
     { vraag: 'Hoeveel geluid heeft een oplichter nodig om je stem na te maken?', opties: [
-      { tekst: 'Een kort stukje uit een filmpje', goed: true, uitleg: 'Meer is het niet. Daarom staat in hoofdstuk 5 ook: wees zuinig met openbare filmpjes waarin je praat.' },
+      { tekst: 'Een kort stukje uit een filmpje', goed: true, uitleg: 'Meer is het niet. Daarom staat in Onderhoud en opruimen ook: wees zuinig met openbare filmpjes waarin je praat.' },
       { tekst: 'Een gesprek van een half uur', uitleg: 'Zoveel is allang niet meer nodig. Een kort fragment is genoeg.' },
       { tekst: 'Een uur aan opnames', uitleg: 'Dat was vroeger zo. Met AI kan het met een fragment uit een filmpje.' },
     ] },

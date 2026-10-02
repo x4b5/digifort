@@ -3,6 +3,9 @@ import { websiteGegevens } from '../lib/gegevens.js';
 import Pagina from '../layouts/Pagina.astro';
 import Verder from '../components/Verder.astro';
 import Poppetjes from '../components/Poppetjes.astro';
+import { perDeel } from '../lib/site.js';
+
+const [DOEN, OPZOEKEN] = perDeel();
 ---
 <Pagina breed gegevens={websiteGegevens()} beschrijving="Elke app is een deur naar je huis. Deze site laat zien waar je digitale huis openstaat en hoe je het stap voor stap dichtmaakt. Gratis, in gewone taal.">
   <section class="hero">
@@ -23,6 +26,45 @@ import Poppetjes from '../components/Poppetjes.astro';
       <a class="bron" href="https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit">CBS, Veiligheidsmonitor 2025</a>
     </aside>
   </section>
+
+  <!-- De doe-route, zoals GOV.UK een stap-voor-stapreis toont: genummerd, op volgorde,
+       met een lijn die de stappen verbindt. Geen knoppen: de enige knop blijft de huischeck. -->
+  <section class="deel" id="doen" aria-labelledby="doen-kop">
+    <p class="eyebrow">Deel {DOEN.nr} · {DOEN.kop}</p>
+    <h2 id="doen-kop">{DOEN.titel}</h2>
+    <p class="deel-uitleg">{DOEN.kort}</p>
+    <ol class="route">
+      {DOEN.groepen.map((h) => (
+        <li class="route-stap">
+          <span class="route-nr"><span class="schermlezer">Hoofdstuk </span>{h.nr}</span>
+          <h3 class="route-titel"><a href={`/${h.slug}`}>{h.titel}</a></h3>
+          <p class="route-kort">{h.kort}</p>
+          {h.verdiepingen.length > 0 && (
+            <>
+              <p class="route-kort">Of doe het stap voor stap, één scherm per keer. Kies wat bij je past:</p>
+              <ul class="route-keuze">
+                {h.verdiepingen.map((v) => <li><a href={`/${v.slug}`}>{v.titel}</a></li>)}
+              </ul>
+            </>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="deel" id="opzoeken" aria-labelledby="opzoeken-kop">
+    <p class="eyebrow zacht">Deel {OPZOEKEN.nr} · {OPZOEKEN.kop}</p>
+    <h2 id="opzoeken-kop">{OPZOEKEN.titel}</h2>
+    <p class="deel-uitleg">{OPZOEKEN.kort}</p>
+    <ul class="naslag">
+      {OPZOEKEN.groepen.map((h) => (
+        <li>
+          <a href={`/${h.slug}`}>{h.titel}</a>
+          <p>{h.kort}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
 </Pagina>
 
 <style>
@@ -34,13 +76,50 @@ import Poppetjes from '../components/Poppetjes.astro';
   .hero-cijfer .bron { align-self: flex-start; padding: 0.3rem 0; font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); text-decoration-thickness: 1px; }
   .hero-tekst > * { max-width: var(--maat); }
   .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
-  /* een trechter: de voorpagina heeft één knop, naar de huischeck. De hoofdstukken staan in het menu. */
+  /* een trechter: de voorpagina heeft één knop, naar de huischeck. Daaronder staat de route,
+     zodat je ziet wat er na de huischeck komt, maar met links en niet met nog meer knoppen. */
   .begin { margin-top: 1.5rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
   .knop.groot { font-size: 1.2rem; padding: 0.8rem 1.4rem; }
   .begin-uitleg { margin: 0; color: var(--inkt-zacht); }
   /* de bron bij de bewering: aanklikbaar, maar geen tweede rode knop naast "Begin hier" */
   .intro .bronlink { color: inherit; }
-  @media (min-width: 48rem) { .hs-lijst { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   /* op een telefoon moeten de knoppen in het eerste scherm passen */
   @media (max-width: 40rem) { .hero .intro { font-size: 1.12rem; } }
+  /* ---- de twee delen ---- */
+  /* de streep staat boven het hele deel, met het kopje eronder */
+  .deel { margin-top: 3rem; padding-top: 1.25rem; border-top: var(--lijndikte) solid var(--lijn-sterk); }
+  .deel > * { max-width: var(--maat); }
+  .deel h2 { margin-top: 0; padding-top: 0; border-top: 0; }
+  .deel-uitleg { color: var(--inkt-zacht); }
+  /* de route: een rondje met het nummer, een lijn naar het volgende rondje */
+  .route { list-style: none; padding: 0; margin: 1.5rem 0 0; counter-reset: none; }
+  .route-stap { position: relative; padding: 0 0 1.75rem 3.75rem; margin: 0; }
+  .route-stap::before {
+    content: ""; position: absolute; left: calc(1.3rem - 1px); top: 2.6rem; bottom: 0;
+    border-left: var(--lijndikte-dun) solid var(--lijn-sterk);
+  }
+  .route-stap:last-child { padding-bottom: 0; }
+  .route-stap:last-child::before { display: none; }
+  .route-nr {
+    position: absolute; left: 0; top: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2.6rem; height: 2.6rem; border-radius: 50%;
+    border: var(--lijndikte) solid var(--lijn-sterk); background: var(--papier);
+    font-family: var(--kop); font-weight: 700; font-size: 1.15rem;
+  }
+  .route-stap:first-child .route-nr { background: var(--rood); border-color: var(--rood); color: var(--op-kleur); }
+  .route-titel { margin: 0.35rem 0 0.35rem; font-size: clamp(1.3rem, 3.2vw, 1.5rem); }
+  .route-titel a { color: var(--inkt); }
+  .route-titel a:hover { color: var(--rood); }
+  .route-kort { margin: 0 0 0.5rem; }
+  .route-keuze { margin: 0.25rem 0 0; }
+  .route-keuze li { margin-bottom: 0.25rem; }
+  /* naslag: een rustig register, twee kolommen op een breed scherm */
+  .deel .naslag { max-width: none; list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 1rem 2.5rem; }
+  @media (min-width: 48rem) { .deel .naslag { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .naslag li { margin: 0; padding-left: 0.9rem; border-left: var(--lijndikte-dun) solid var(--lijn); }
+  .naslag a { font-family: var(--kop); font-weight: 700; font-size: 1.15rem; color: var(--inkt); }
+  .naslag a:hover { color: var(--rood); }
+  .naslag p { margin: 0.15rem 0 0; color: var(--inkt-zacht); font-size: var(--tekst-m); }
+  @media (pointer: coarse) { .route-keuze a, .naslag a { display: inline-block; min-block-size: 24px; } }
 </style>
