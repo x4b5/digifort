@@ -29,9 +29,16 @@ test('een nee kleurt de kamer rood en blijft na herladen staan', async ({ page }
   await expect(page.locator('[data-kamer="voordeur"]')).toHaveAttribute('data-toestand', 'open');
 });
 
+/** De kindvariant staat onderaan in een uitklapblok, zodat hij vraag 1 niet wegduwt. */
+async function kindAan(page, aan = true) {
+  const keuze = page.locator('[data-kind-keuze]');
+  if (!(await keuze.evaluate((d) => d.open))) await keuze.locator('summary').click();
+  await page.locator('[data-kind]').setChecked(aan);
+}
+
 test('kind-variant laat vier vragen zien', async ({ page }) => {
   await page.goto('/huischeck');
-  await page.locator('[data-kind]').check({ force: true });
+  await kindAan(page);
   await expect(page.locator('[data-vraag]:visible')).toHaveCount(4);
 });
 
@@ -45,7 +52,7 @@ test('elke vraag is een fieldset met de vraag als legend en een hint', async ({ 
     await expect(page.locator(`#hint-${nr}`)).not.toBeEmpty();
   }
   // drie groepen onder een eigen kopje
-  await expect(page.locator('[data-groep] h3')).toHaveCount(3);
+  await expect(page.locator('[data-groep] h2')).toHaveCount(3);
 });
 
 test('de voortgang telt mee en wijst de eerste open vraag aan', async ({ page }) => {
@@ -65,16 +72,21 @@ test('bij een nee verschijnt de open deur met een link naar precies die stap', a
   await vulIn(page, (nr) => (nr === 2 ? 'nee' : 'ja'));
   const lijst = page.locator('[data-open-lijst] > li');
   await expect(lijst).toHaveCount(1);
-  await expect(lijst.first()).toContainText('De sleutelkluis');
-  await expect(lijst.first()).toContainText('stap 3 van Ik heb één avond');
-  await expect(lijst.first().locator('.tag')).toHaveText('Open');
+  // onder de stap één gewone zin, zonder beeldspraak: hoe lang, en waar de uitleg staat
+  await expect(lijst.first().locator('.taak-hint')).toHaveText('20 minuten. Uitleg staat op de pagina "Ik heb één avond".');
+  // het label zegt wat je antwoordde
+  await expect(lijst.first().locator('.tag')).toHaveText('Je antwoord: nee');
   await expect(lijst.first().locator('a')).toHaveAttribute('href', '/een-avond#wachtwoordmanager');
   // en die stap staat ook bovenaan als de ene handeling voor nu
   await expect(page.locator('[data-eerste-kop]')).toHaveText('Installeer een wachtwoordmanager');
   await expect(page.locator('[data-eerste-link]')).toHaveAttribute('href', '/een-avond#wachtwoordmanager');
+  await expect(page.locator('[data-eerste-tijd]')).toHaveText('Dit kost ongeveer 20 minuten.');
   await expect(page.getByRole('heading', { name: 'Begin bij de basis' })).toBeVisible();
-  // wat dicht is, staat er ook: zo zie je wat elk "ja" betekent
-  await expect(page.locator('[data-dicht-lijst] > li')).toHaveCount(9);
+  // wat dicht is, staat er ook, in de woorden van de vraag: zo zie je wat elk "ja" betekent
+  const dicht = page.locator('[data-dicht-lijst] > li');
+  await expect(dicht).toHaveCount(9);
+  await expect(dicht.first()).toHaveText('Je e-mail heeft een eigen wachtwoord.');
+  await expect(page.locator('[data-dicht-lijst]')).not.toContainText('brievenbus');
 });
 
 test('de eerste stap volgt de bouwvolgorde, niet het nummer van de vraag', async ({ page }) => {
@@ -85,7 +97,7 @@ test('de eerste stap volgt de bouwvolgorde, niet het nummer van de vraag', async
   await expect(page.locator('[data-eerste-link]')).toHaveAttribute('href', '/een-avond#mail-tweede-slot');
   const taken = page.locator('[data-open-lijst] > li');
   await expect(taken).toHaveCount(2);
-  await expect(taken.nth(0).locator('.tag')).toHaveText('Weet je niet');
+  await expect(taken.nth(0).locator('.tag')).toHaveText('Je antwoord: weet ik niet');
   await expect(taken.nth(1).locator('a')).toHaveAttribute('href', '/een-weekend#router');
 });
 
@@ -96,12 +108,45 @@ test('alleen weekenddeuren open: dan staat de basis', async ({ page }) => {
   await expect(page.locator('[data-eerste-link]')).toHaveAttribute('href', '/een-weekend#backup');
 });
 
-test('wie niet weet wie hij moet bellen, gaat naar de noodkaart', async ({ page }) => {
+test('wie niet weet wie hij moet bellen, gaat naar de noodkaart en kan dat afvinken', async ({ page }) => {
   await page.goto('/huischeck');
   await vulIn(page, (nr) => (nr === 10 ? 'nee' : 'ja'));
   await expect(page.locator('[data-eerste-link]')).toHaveAttribute('href', '/als-er-is-ingebroken#noodkaart-kop');
-  // geen afvinklijst voor deze deur, dus ook geen vinkje
-  await expect(page.locator('[data-open-lijst] input')).toHaveCount(0);
+  await expect(page.locator('[data-open-lijst] .taak-hint')).toHaveText('Uitleg staat op de pagina "Als er toch is ingebroken".');
+  // ook deze laatste stap heeft een vinkje, zodat je weet wanneer hij klaar is
+  const vinkje = page.getByRole('checkbox', { name: 'Ik heb dit gedaan' });
+  await expect(vinkje).toHaveCount(1);
+  await vinkje.check();
+  await expect(page.locator('[data-open-lijst] .tag')).toHaveText('Gedaan');
+  await expect(page.locator('[data-alles-dicht]')).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole('checkbox', { name: 'Ik heb dit gedaan' })).toBeChecked();
+});
+
+test('de uitslag spreekt zichzelf niet tegen over hoe lang het duurt', async ({ page }) => {
+  await page.goto('/huischeck');
+  // e-mail (avond) en reservekopie (weekend) open
+  await vulIn(page, (nr) => (nr === 1 || nr === 5 ? 'nee' : 'ja'));
+  await expect(page.getByRole('heading', { name: 'Begin bij de basis' })).toBeVisible();
+  await expect(page.locator('[data-band="basis"]')).not.toContainText('één avond');
+  await expect(page.locator('[data-bouw-tijd]')).toHaveText('Alles samen kost ongeveer 65 minuten. Dat hoeft niet in één keer.');
+});
+
+test('de eerste vraag komt direct na de korte uitleg, zonder keuzes ervoor', async ({ page }) => {
+  await page.goto('/huischeck');
+  // geen inhoudsopgave boven de check: die staat eronder
+  await expect(page.locator('[data-inhoud]')).toHaveCount(0);
+  const eersteKeuze = page.locator('#doe-de-huischeck input').first();
+  await expect(eersteKeuze).toHaveAttribute('name', 'v1');
+  // het cijfer en de kindvariant zijn er nog, maar pas na vraag 10
+  const naVraag10 = (sel) => page.evaluate((s) => {
+    const el = document.querySelector(s);
+    const tien = document.querySelector('#vraag-10');
+    return Boolean(tien.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING);
+  }, sel);
+  expect(await naVraag10('[data-eigen-cijfer]')).toBe(true);
+  expect(await naVraag10('[data-kind-keuze]')).toBe(true);
+  await expect(page.locator('#vraag-1 .antwoord.ja')).toBeInViewport();
 });
 
 test('afvinken in de takenlijst telt mee in Aan de slag en op het fort', async ({ page }) => {
@@ -148,9 +193,9 @@ test('wie zichzelf te laag inschat krijgt dat ook te horen', async ({ page }) =>
 test('het eigen cijfer hoort niet bij de kind-variant', async ({ page }) => {
   await page.goto('/huischeck');
   await page.locator('input[name=eigen-cijfer][value="7"]').check({ force: true });
-  await page.locator('[data-kind]').check({ force: true });
+  await kindAan(page);
   await expect(page.locator('[data-eigen-cijfer]')).toBeHidden();
-  await page.locator('[data-kind]').uncheck({ force: true });
+  await kindAan(page, false);
   await expect(page.locator('input[name=eigen-cijfer][value="7"]')).toBeChecked();
 });
 
@@ -160,4 +205,11 @@ test('na de laatste vraag hoort een schermlezer de uitslag en de eerste stap', a
   await expect(page.locator('[data-melding]')).toHaveText(
     'Klaar. 9 van de 10 deuren zitten dicht. Begin bij de basis. Je eerste stap: Geef je e-mail een nieuw en lang wachtwoord, dat je nergens anders gebruikt. Je uitslag staat onder de vragen.',
   );
+});
+
+test('de cijfers onder de check staan er als tekst, ook zonder beweging', async ({ page }) => {
+  await page.goto('/huischeck');
+  const cijfers = page.locator('#hoe-weten-we-dat ~ ul').first();
+  await expect(cijfers).toContainText('62 procent: ruim zes op de tien');
+  await expect(cijfers).not.toContainText('0%');
 });

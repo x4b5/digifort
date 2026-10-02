@@ -1,9 +1,12 @@
 /**
  * De tien vragen van de huischeck. `kamer` verwijst naar de plattegrond.
  *
- * - `vraag` is de vraag zelf: kort, één ding.
- * - `hint` legt uit wat we bedoelen. Eén korte zin zonder punt en zonder link,
- *   zoals een hint bij GOV.UK: een schermlezer leest hem bij elke keuze voor.
+ * - `vraag` is de vraag zelf: kort, één ding. Nooit twee dingen in één vraag.
+ * - `hint` legt uit wat we bedoelen, en legt elk moeilijk woord uit de vraag uit.
+ *   Kort en zonder link, zoals een hint bij GOV.UK: een schermlezer leest hem
+ *   bij elke keuze voor.
+ * - `dicht` zegt in gewone woorden wat een "ja" betekent. Dat staat in de uitslag
+ *   onder "Dit heb je al goed", zodat je elk punt terugkoppelt aan je antwoord.
  * - `groep` zet vragen die bij elkaar horen onder één kopje.
  * - `stap` is de handeling die deze deur dichtdoet. Met `lijst` en `id` is het een
  *   stap uit een afvinklijst (lijsten.js), met een eigen pagina (`STAPPAGINA`).
@@ -16,61 +19,72 @@ export const VRAGEN = [
     nr: 1, groep: 'mail', kamer: 'voordeur', kind: true,
     vraag: 'Heeft je e-mail een eigen wachtwoord, dat je nergens anders gebruikt?',
     hint: 'Met je e-mail kun je bijna overal een nieuw wachtwoord aanvragen',
+    dicht: 'Je e-mail heeft een eigen wachtwoord.',
     stap: { lijst: 'niveau-1', id: 'mail-wachtwoord' },
   },
   {
     nr: 2, groep: 'mail', kamer: 'sleutelkluis',
     vraag: 'Gebruik je een wachtwoordmanager?',
     hint: 'Dat is een app die al je wachtwoorden bewaart, zoals een kluis',
+    dicht: 'Je gebruikt een wachtwoordmanager.',
     stap: { lijst: 'niveau-1', id: 'wachtwoordmanager' },
   },
   {
     nr: 3, groep: 'mail', kamer: 'tweede-slot', kind: true,
-    vraag: 'Zit er een tweede slot op je e-mail en je bank?',
-    hint: 'Naast je wachtwoord ook een code uit een app, of een passkey',
+    vraag: 'Zit er een tweede slot op je e-mail?',
+    hint: 'Je e-mail vraagt dan na je wachtwoord nog om een code, bijvoorbeeld per sms of uit een app. Of je logt in met je vinger of je gezicht',
+    dicht: 'Je e-mail heeft een tweede slot.',
     stap: { lijst: 'niveau-1', id: 'mail-tweede-slot' },
   },
   {
     nr: 4, groep: 'apparaten', kamer: 'onderhoud',
     vraag: 'Werken je telefoon en computer zichzelf bij?',
     hint: 'Updates gaan dan vanzelf, zonder dat jij erop hoeft te tikken',
+    dicht: 'Je telefoon en computer werken zichzelf bij.',
     stap: { lijst: 'niveau-1', id: 'updates' },
   },
   {
     nr: 5, groep: 'apparaten', kamer: 'brandkast',
     vraag: 'Heb je een kopie van je bestanden die los staat van je computer?',
     hint: 'Bijvoorbeeld op een losse schijf, of op internet',
+    dicht: 'Je hebt een kopie van je bestanden die los staat van je computer.',
     stap: { lijst: 'niveau-2', id: 'backup' },
   },
   {
     nr: 6, groep: 'apparaten', kamer: 'tweede-voordeur', kind: true,
     vraag: 'Heeft je telefoon een pincode van zes cijfers of meer?',
     hint: 'De code die je intikt om je telefoon te openen',
+    dicht: 'Je telefoon heeft een pincode van zes cijfers of meer.',
     stap: { lijst: 'niveau-1', id: 'pincode' },
   },
   {
     nr: 7, groep: 'thuis', kamer: 'tuinhek',
     vraag: 'Heb je het wachtwoord van je wifi-kastje ooit veranderd?',
     hint: 'Dat kastje heet een router, en een wachtwoord uit de fabriek is soms makkelijk te raden',
+    dicht: 'Je wifi-kastje heeft een eigen wachtwoord.',
     stap: { lijst: 'niveau-2', id: 'router' },
   },
   {
     nr: 8, groep: 'thuis', kamer: 'sleutels',
-    vraag: 'Kun je nog in je accounts als je telefoon vandaag kwijtraakt?',
-    hint: 'Bijvoorbeeld met herstelcodes die thuis op papier liggen',
+    vraag: 'Kun je nog in je e-mail als je telefoon vandaag kwijtraakt?',
+    hint: 'Bijvoorbeeld omdat je reservecodes op papier hebt. Die heten herstelcodes. Je krijgt ze als je een tweede slot aanzet. Weet je het niet zeker? Kies dan Weet ik niet',
+    dicht: 'Je kunt in je e-mail, ook zonder je telefoon.',
     stap: { lijst: 'niveau-2', id: 'noodcodes' },
   },
   {
     nr: 9, groep: 'thuis', kamer: 'brievenbus', kind: true,
     vraag: 'Heb je thuis een geheim woord afgesproken voor noodgevallen?',
     hint: 'Belt iemand in paniek om geld, dan vraag je eerst naar dat woord',
+    dicht: 'Je hebt thuis een geheim woord afgesproken.',
     stap: { lijst: 'niveau-1', id: 'geheim-woord' },
   },
   {
     nr: 10, groep: 'thuis', kamer: 'eigendomsakte',
     vraag: 'Weet je wie je belt als je bent opgelicht?',
     hint: 'Bijvoorbeeld het noodnummer van je bank',
-    stap: { href: '/als-er-is-ingebroken#noodkaart-kop', tekst: 'Kijk wie je belt als je bent opgelicht', pagina: 'Als er toch is ingebroken' },
+    dicht: 'Je weet wie je belt als je bent opgelicht.',
+    // geen stap uit een afvinklijst; het vinkje bewaren we in een eigen laatje (`vinkje`)
+    stap: { href: '/als-er-is-ingebroken#noodkaart-kop', tekst: 'Kijk wie je belt als je bent opgelicht', pagina: 'Als er toch is ingebroken', vinkje: { lijst: 'huischeck', id: 'noodkaart' } },
   },
 ];
 
@@ -129,8 +143,8 @@ export function spiegel(gat) {
  * ook als de rest dicht is.
  */
 export const BANDEN = [
-  { id: 'basis', kop: 'Begin bij de basis', tekst: 'Een paar belangrijke deuren staan nog open. Die doe je in één avond dicht.' },
-  { id: 'verder', kop: 'De basis staat', tekst: 'Je belangrijkste deuren zitten dicht. Wat nog openstaat, doe je in een weekend.' },
+  { id: 'basis', kop: 'Begin bij de basis', tekst: 'Een paar belangrijke deuren staan nog open. Begin met de stap hieronder. De rest doe je daarna, één voor één.' },
+  { id: 'verder', kop: 'De basis staat', tekst: 'Je belangrijkste deuren zitten dicht. Doe de rest één voor één dicht, als het jou uitkomt.' },
   { id: 'dicht', kop: 'Je huis zit goed op slot', tekst: 'Alle deuren uit de check zitten dicht. Mooi werk.' },
 ];
 
