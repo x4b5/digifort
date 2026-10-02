@@ -1,0 +1,71 @@
+---
+/**
+ * Eén stap in een <Stappenplan>. De kop zegt wat je doet; de tekst eronder hoe.
+ * `gelukt` zegt wat je ziet als het gelukt is, zodat je weet dat je door kunt.
+ * `id` is de sleutel van het vinkje in de opslag; laat hem gelijk als je de tekst
+ * herschrijft, anders verliest een lezer zijn vinkje.
+ * De schermlezer hoort "Stap 3:" voor de kop; het rondje met het cijfer zelf zwijgt.
+ */
+interface Props { nr: number; id: string; titel: string; gelukt?: string }
+const { nr, id, titel, gelukt } = Astro.props;
+---
+<li class="stap-item">
+  <span class="cijfer" aria-hidden="true">{nr}</span>
+  <h3 class="stapkop"><span class="schermlezer">Stap {nr}: </span>{titel}</h3>
+  <div class="hoe"><slot /></div>
+  {gelukt && (
+    <p class="gelukt"><span class="vink" aria-hidden="true">✓</span> <span><strong>Gelukt als:</strong> {gelukt}</span></p>
+  )}
+  <label class="gedaan">
+    <input type="checkbox" data-stap={id} />
+    <span class="vakje" aria-hidden="true"></span>
+    <span><span class="schermlezer">Stap {nr}, {titel}: </span>Gedaan</span>
+  </label>
+</li>
+
+<style>
+  .stap-item { position: relative; margin: 0; padding: 0 0 1.75rem 3.4rem; }
+  /* de lijn die de stappen verbindt, van rondje naar rondje; na de laatste stap niet meer */
+  .stap-item::before {
+    content: ""; position: absolute; left: 1.2rem; top: 2.6rem; bottom: 0.2rem;
+    border-left: var(--lijndikte-dun) solid var(--lijn);
+  }
+  .stap-item:last-child::before { display: none; }
+  .cijfer {
+    position: absolute; left: 0; top: 0; display: grid; place-items: center;
+    width: 2.4rem; height: 2.4rem; box-sizing: border-box; border-radius: 50%;
+    border: var(--lijndikte-dun) solid var(--inkt); background: var(--papier);
+    font-family: var(--kop); font-weight: 700; font-size: 1.15rem; line-height: 1;
+  }
+  .stapkop { margin: 0.25rem 0 0.5rem; font-size: 1.3rem; line-height: 1.3; }
+  .hoe :global(p) { margin: 0 0 0.6rem; }
+  .hoe :global(ul) { margin: 0 0 0.6rem; padding-left: 1.25rem; }
+  .hoe :global(li) { margin: 0.3rem 0; }
+  .gelukt {
+    display: flex; gap: 0.5rem; align-items: baseline; margin: 0.6rem 0 0.4rem;
+    padding: 0.55rem 0.8rem; border-left: 4px solid var(--groen); background: var(--groen-licht);
+    border-radius: var(--radius);
+  }
+  .vink { color: var(--groen); font-weight: 700; }
+  .gedaan {
+    display: inline-flex; align-items: center; gap: 0.6rem; min-height: 2.75rem;
+    cursor: pointer; font-weight: 700;
+  }
+  .gedaan input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .vakje {
+    flex: none; width: 1.6rem; height: 1.6rem; box-sizing: border-box;
+    border: var(--lijndikte-dun) solid var(--inkt); border-radius: var(--radius); background: var(--papier);
+    display: grid; place-items: center;
+  }
+  .gedaan input:checked + .vakje { background: var(--groen); border-color: var(--groen); }
+  .gedaan input:checked + .vakje::after { content: "✓"; color: var(--op-kleur); font-weight: 700; }
+  .gedaan input:focus-visible + .vakje { outline: 3px solid var(--focus); outline-offset: 3px; }
+  /* een afgevinkte stap: het rondje wordt groen, de tekst blijft gewoon leesbaar */
+  .stap-item.af > .cijfer { background: var(--groen); border-color: var(--groen); color: var(--op-kleur); }
+  @media (max-width: 30rem) {
+    .stap-item { padding-left: 2.9rem; }
+    .stap-item::before { left: 1rem; }
+    .cijfer { width: 2rem; height: 2rem; font-size: 1rem; }
+    .stap-item::before { top: 2.2rem; }
+  }
+</style>

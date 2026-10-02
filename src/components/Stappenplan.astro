@@ -1,0 +1,49 @@
+---
+/**
+ * Een genummerd stappenplan voor als het net misging, naar het step-by-step-patroon
+ * van GOV.UK: cijfers in een rondje, een lijn die de stappen verbindt, en per stap
+ * een kop die zegt wat je doet. Elke stap is een <Stap>, met zijn nummer als prop.
+ *
+ * Wie in paniek is, raakt de draad kwijt. Daarom kun je elke stap afvinken, en
+ * blijft dat in je eigen browser staan (lib/opslag.js, onder de sleutel `id`).
+ * Zonder JavaScript of opslag blijft het een gewone genummerde lijst.
+ */
+interface Props { id: string; stappen: number }
+const { id, stappen } = Astro.props;
+---
+<section class="plan" data-stappenplan={id} data-totaal={stappen}>
+  <p class="stand" aria-live="polite" data-stand>0 van {stappen} stappen gedaan</p>
+  <ol class="stappen" role="list"><slot /></ol>
+</section>
+
+<script>
+  import { lees, zetVinkje } from '../lib/opslag.js';
+
+  document.querySelectorAll<HTMLElement>('[data-stappenplan]').forEach((plan) => {
+    const id = plan.dataset.stappenplan!;
+    const vakjes = Array.from(plan.querySelectorAll<HTMLInputElement>('input[data-stap]'));
+    const stand = plan.querySelector('[data-stand]');
+
+    function toon() {
+      const af = vakjes.filter((v) => v.checked).length;
+      if (stand) stand.textContent = af === vakjes.length ? `Alle ${af} stappen gedaan` : `${af} van ${vakjes.length} stappen gedaan`;
+      vakjes.forEach((v) => v.closest('li')?.classList.toggle('af', v.checked));
+    }
+
+    const bewaard = lees().lijsten[id] ?? {};
+    vakjes.forEach((v) => { v.checked = Boolean(bewaard[v.dataset.stap!]); });
+    toon();
+    vakjes.forEach((v) => v.addEventListener('change', () => { zetVinkje(id, v.dataset.stap!, v.checked); toon(); }));
+    window.addEventListener('jdh:gewijzigd', (e: Event) => {
+      const items = (e as CustomEvent).detail.lijsten?.[id] ?? {};
+      vakjes.forEach((v) => { v.checked = Boolean(items[v.dataset.stap!]); });
+      toon();
+    });
+  });
+</script>
+
+<style>
+  .plan { margin: 1.25rem 0 2rem; }
+  .stand { margin: 0 0 0.75rem; color: var(--inkt-zacht); font-size: var(--tekst-m); }
+  .stappen { list-style: none; margin: 0; padding: 0; }
+</style>

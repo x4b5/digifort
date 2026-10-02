@@ -15,6 +15,7 @@
  *   Knab       knab.nl/veiligheid                                   020 303 16 59, 24/7 Fraude Alarmlijn
  *   bunq       bunq.com/nl-nl/contact/report                        geen belnummer: support in de app of het formulier
  */
+import Waarschuwing from './Waarschuwing.astro';
 const BANKEN = [
   { naam: 'ING', tel: '020 22 888 00', telHref: 'tel:0202288800' },
   { naam: 'Rabobank', tel: '088 722 66 00', telHref: 'tel:0887226600' },
@@ -50,14 +51,14 @@ const NUMMERS = [
               ))}
             </ul>
             <p class="noot">Andere bank? Het nummer staat op je pas, of bij de <a href="https://www.fraudehelpdesk.nl/bank/">noodnummers van alle banken</a>. Bij bunq meld je het in de app.</p>
-            <p class="noot"><strong>Let op:</strong> je bank vraagt nooit om geld over te maken of een app te installeren. Hang op en bel zelf.</p>
+            <Waarschuwing>Je bank vraagt nooit om geld over te maken of een app te installeren. Hang op en bel zelf.</Waarschuwing>
           </>
         )}
         {n.tel && <a class="bel" href={n.telHref}>Bel {n.tel}</a>}
       </li>
     ))}
   </ul>
-  <p class="daarna">Daarna: de zes stappen hieronder, in deze volgorde. Telefoon of laptop kwijt? <a href="#telefoon-of-laptop-kwijt-het-stappenplan">Ga naar het stappenplan</a>.</p>
+  <p class="daarna"><strong>Daarna:</strong> <a href="#het-eerste-uur">kies wat er is gebeurd en volg de stappen</a>.</p>
 </section>
 
 <style>
