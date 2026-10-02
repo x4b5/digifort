@@ -84,7 +84,7 @@ test('bij een nee verschijnt de open deur met een link naar precies die stap', a
   await expect(lijst.first().locator('.taak-hint')).toHaveText('20 minuten. Uitleg staat op de pagina "Ik heb één avond".');
   // het label zegt wat je antwoordde
   await expect(lijst.first().locator('.tag')).toHaveText('Je antwoord: nee');
-  await expect(lijst.first().locator('a')).toHaveAttribute('href', '/een-avond#wachtwoordmanager');
+  await expect(lijst.first().locator('.taak-kop a')).toHaveAttribute('href', '/een-avond#wachtwoordmanager');
   // en die stap staat ook bovenaan als de ene handeling voor nu
   await expect(page.locator('[data-eerste-kop]')).toHaveText('Installeer een wachtwoordmanager');
   await expect(page.locator('[data-eerste-link]')).toHaveAttribute('href', '/een-avond#wachtwoordmanager');
@@ -289,9 +289,70 @@ test('na de laatste vraag hoort een schermlezer de uitslag en de eerste stap', a
 
 test('de cijfers onder de check staan er als tekst, ook zonder beweging', async ({ page }) => {
   await page.goto('/huischeck');
-  const cijfers = page.locator('#hoe-weten-we-dat ~ ul').first();
-  await expect(cijfers).toContainText('62 procent: ruim zes op de tien');
-  await expect(cijfers).not.toContainText('0%');
+  // elk cijfer staat onder een kopje met het nummer van de vraag; één getal per alinea, met de bron erbij
+  const kop = page.getByRole('heading', { name: 'Eigen wachtwoorden (vraag 1)' });
+  await expect(kop).toBeVisible();
+  const cijfer = page.locator('h4:has-text("Eigen wachtwoorden (vraag 1)") + p');
+  await expect(cijfer).toContainText('Ruim 6 op de 10');
+  await expect(cijfer).toContainText('62 procent');
+  await expect(cijfer.locator('a')).toHaveText('CBS, 2024');
+  await expect(page.locator('h4:has-text("Een tweede slot (vraag 3)") + p')).toContainText('73 procent');
+  expect((await page.locator('#hoe-weten-we-dat ~ p').allTextContents()).join(' ')).not.toContain('0%');
+});
+
+test('wie twijfelt, ziet bij de vraag waar hij het kan nakijken', async ({ page }) => {
+  await page.goto('/huischeck');
+  for (const nr of [2, 3, 4, 8]) {
+    const blok = page.locator(`#vraag-${nr} details.nakijken`);
+    await expect(blok).toHaveCount(1);
+    // ingeklapt: de vraag blijft kort
+    await expect(blok).not.toHaveAttribute('open', '');
+    await blok.locator('summary').click();
+    await expect(blok.locator('li').first()).toBeVisible();
+    // en altijd: welk antwoord kies je dan
+    await expect(blok).toContainText('Dan kies je Ja');
+  }
+  // vraag 4: voor iPhone én Android, en je verandert nog niets
+  const updates = page.locator('#vraag-4 details.nakijken');
+  await expect(updates).toContainText('iPhone');
+  await expect(updates).toContainText('Android');
+  await expect(updates).toContainText('Je verandert nog niets');
+  // vraag 3: wie zijn e-mail nooit hoeft te openen, hoort dat dat normaal is
+  await expect(page.locator('#vraag-3 details.nakijken')).toContainText('altijd open');
+});
+
+test('vraag en uitslag gebruiken hetzelfde woord: herstelcodes', async ({ page }) => {
+  await page.goto('/huischeck');
+  await expect(page.locator('#hint-8')).toContainText('herstelcodes');
+  await expect(page.locator('#hint-8')).not.toContainText('reservecodes');
+  await vulIn(page, (nr) => (nr === 8 ? 'weet-niet' : 'ja'));
+  await expect(page.locator('[data-eerste-kop]')).toHaveText('Schrijf je herstelcodes op papier');
+  // de uitslag zegt waar je ze vindt
+  await expect(page.locator('[data-eerste-noot]')).toContainText('instellingen van je e-mail');
+  await expect(page.locator('[data-open-lijst] .taak-noot')).toContainText('instellingen van je e-mail');
+});
+
+test('wie zijn telefoon al wachtwoorden laat bewaren, hoort in de uitslag dat hij er al een heeft', async ({ page }) => {
+  await page.goto('/huischeck');
+  await vulIn(page, (nr) => (nr === 2 ? 'weet-niet' : 'ja'));
+  const noot = page.locator('[data-eerste-noot]');
+  await expect(noot).toBeVisible();
+  await expect(noot).toContainText('Dan heb je er al een');
+  await expect(noot).toContainText('Bitwarden of Proton Pass');
+  await expect(noot.locator('a')).toHaveAttribute('href', '#vraag-2');
+  // een stap zonder noot laat geen lege regel achter
+  await page.locator('input[name=v2][value=ja]').check({ force: true });
+  await page.locator('input[name=v1][value=nee]').check({ force: true });
+  await expect(page.locator('[data-eerste-noot]')).toBeHidden();
+});
+
+test('"Waarom nu?" maakt niet bang en heeft echte links naar de naslag', async ({ page }) => {
+  await page.goto('/huischeck');
+  const deel = page.locator('#waarom-nu ~ *');
+  await expect(deel.filter({ hasText: 'Je hoeft niet bang te zijn' })).toHaveCount(1);
+  for (const href of ['/de-storm-om-het-huis', '/inbrekers-van-morgen', '/woordenboek']) {
+    await expect(page.locator(`#waarom-nu ~ ul a[href="${href}"]`)).toHaveCount(1);
+  }
 });
 
 test('ook op een smalle telefoon past elke vraag zonder zijwaarts scrollen', async ({ page }) => {
