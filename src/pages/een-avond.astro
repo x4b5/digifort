@@ -3,6 +3,7 @@ import Pagina from '../layouts/Pagina.astro';
 import Avond from '../components/Avond.astro';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import Buren from '../components/Buren.astro';
+import Plek from '../components/Plek.astro';
 import { artikelGegevens } from '../lib/gegevens.js';
 import { SITE } from '../lib/site.js';
 
@@ -12,12 +13,12 @@ const BESCHRIJVING = 'Zes stappen, één per scherm, ongeveer een uur. Daarna zi
   gegevens={artikelGegevens({ slug: 'een-avond', titel: 'Ik heb één avond', beschrijving: BESCHRIJVING, datum: SITE.laatstNagelopen })}>
   <div class="paginakop">
     <div>
-      <p class="eyebrow">Stap voor stap</p>
+      <Plek slug="een-avond" />
       <h1>Ik heb één avond</h1>
     </div>
     <HoofdstukIcoon slug="een-avond" maat={72} />
   </div>
-  <p class="intro">Zes stappen, één per scherm. Pak je telefoon en je computer erbij. Wat je afvinkt, blijft in je eigen browser staan en telt mee in <a href="/aan-de-slag">hoofdstuk 4</a>.</p>
+  <p class="intro">Zes stappen, één per scherm. Pak je telefoon en je computer erbij. Wat je afvinkt, blijft in je eigen browser staan en telt mee in <a href="/aan-de-slag">Aan de slag</a>.</p>
   <Avond />
   <Buren slug="een-avond" />
 </Pagina>

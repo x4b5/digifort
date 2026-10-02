@@ -4,6 +4,7 @@ import Avond from '../components/Avond.astro';
 import { VERDER } from '../data/verder.js';
 import HoofdstukIcoon from '../components/HoofdstukIcoon.astro';
 import Buren from '../components/Buren.astro';
+import Plek from '../components/Plek.astro';
 import { artikelGegevens } from '../lib/gegevens.js';
 import { SITE } from '../lib/site.js';
 
@@ -13,12 +14,12 @@ const BESCHRIJVING = 'Zes klussen, één per scherm, voor wie de basis heeft sta
   gegevens={artikelGegevens({ slug: 'ik-wil-verder', titel: 'Ik wil verder', beschrijving: BESCHRIJVING, datum: SITE.laatstNagelopen })}>
   <div class="paginakop">
     <div>
-      <p class="eyebrow">Stap voor stap</p>
+      <Plek slug="ik-wil-verder" />
       <h1>Ik wil verder</h1>
     </div>
     <HoofdstukIcoon slug="ik-wil-verder" maat={72} />
   </div>
-  <p class="intro">Zes klussen, één per scherm, voor wie niveau 1 en 2 al heeft staan. Doe ze in je eigen tempo, één per keer is ook goed. Wat je afvinkt, telt mee in <a href="/aan-de-slag#niveau-3">hoofdstuk 4</a>.</p>
+  <p class="intro">Zes klussen, één per scherm, voor wie niveau 1 en 2 al heeft staan. Doe ze in je eigen tempo, één per keer is ook goed. Wat je afvinkt, telt mee in <a href="/aan-de-slag#niveau-3">Aan de slag</a>.</p>
   <Avond lijst="niveau-3" uitleg={VERDER} moment="Klaar met niveau 3" alles="Alle zes de klussen van niveau 3 zijn gedaan. Je fort heeft de zwaarste sloten die er zijn." volgende={{ href: '/het-fort-afbouwen', tekst: 'Nog verder: het fort afbouwen →' }} />
   <Buren slug="ik-wil-verder" />
 </Pagina>

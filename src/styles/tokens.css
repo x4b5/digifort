@@ -31,7 +31,8 @@
   --schaduw: 0 10px 30px rgba(0, 0, 0, 0.12);
 
   /* tekstmaten: klein voor bijschriften, kopje voor het rode streepje boven een kop */
-  --tekst-s: 0.8rem;
+  /* klein is nooit kleiner dan 14px: bijschriften en bronnen lees je ook op een telefoon */
+  --tekst-s: 0.875rem;
   --tekst-m: 0.95rem;
   --tekst-l: 1.1rem;
 
@@ -80,3 +81,9 @@
 }
 
 :root[data-theme="light"] { color-scheme: light; }
+
+/* Wie in zijn systeem meer contrast vraagt, krijgt het: de zachte inkt en de dunne
+   lijnen worden even donker (of licht) als de gewone inkt. */
+@media (prefers-contrast: more) {
+  :root { --inkt-zacht: var(--inkt); --lijn: var(--lijn-sterk); }
+}

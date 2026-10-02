@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('één avond: gedaan zet het vinkje in hoofdstuk 4 en bouwt het fort', async ({ page }) => {
+test('één avond: gedaan zet het vinkje in Aan de slag en bouwt het fort', async ({ page }) => {
   await page.goto('/een-avond');
   await expect(page.locator('[data-stand]')).toContainText('Stap 1 van 6');
   await expect(page.locator('[data-stap="0"]')).toBeVisible();
@@ -42,7 +42,7 @@ test('de resterende tijd telt alleen wat nog open staat', async ({ page }) => {
   await expect(page.locator('[data-avond] [data-stand]')).toHaveText(/nog ongeveer 47 minuten/);
 });
 
-test('een weekend: niveau 2 stap voor stap, met het vinkje in hoofdstuk 4', async ({ page }) => {
+test('een weekend: niveau 2 stap voor stap, met het vinkje in Aan de slag', async ({ page }) => {
   await page.goto('/een-weekend');
   // tien stappen, samen 240 minuten: vanaf anderhalf uur in uren
   await expect(page.locator('[data-avond] [data-stand]')).toHaveText(/Stap 1 van 10 · nog ongeveer 4 uur/);

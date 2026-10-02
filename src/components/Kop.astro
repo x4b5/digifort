@@ -2,10 +2,10 @@
 import Logo from './Logo.astro';
 import HoofdstukIcoon from './HoofdstukIcoon.astro';
 import Lezen from './Lezen.astro';
-import { metVerdiepingen, SITE } from '../lib/site.js';
+import { perDeel, SITE } from '../lib/site.js';
 import { FORTDELEN } from '../data/fort.js';
 import { TOTAAL_SLOTEN } from '../data/lijsten.js';
-const GROEPEN = metVerdiepingen();
+const DELEN = perDeel();
 const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, '');
 ---
 <header class="kop">
@@ -17,27 +17,38 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
     <details class="menu">
       <summary class="knop licht klein geen-driehoek">Menu</summary>
       <nav class="paneel" aria-label="Hoofdstukken">
-        <ol class="menu-hoofd">
-          {GROEPEN.map((h) => (
-            <li>
-              <a href={`/${h.slug}`} aria-current={huidig === `/${h.slug}` ? 'page' : undefined}>
-                <HoofdstukIcoon slug={h.slug} maat={22} /><span class="nr">{h.nr}</span> {h.titel}
-              </a>
-              {h.verdiepingen.length > 0 && (
-                <details class="takken" open={h.verdiepingen.some((v) => huidig === `/${v.slug}`)}>
-                  <summary>{h.verdiepingen.length === 1 ? '1 verdieping' : `${h.verdiepingen.length} verdiepingen`}</summary>
-                  <ol>
-                    {h.verdiepingen.map((v) => (
-                      <li class="extra">
-                        <a href={`/${v.slug}`} aria-current={huidig === `/${v.slug}` ? 'page' : undefined}>{v.titel}</a>
-                      </li>
-                    ))}
-                  </ol>
-                </details>
-              )}
-            </li>
-          ))}
-        </ol>
+        {DELEN.map((deel) => {
+          const Lijst = deel.id === 'doen' ? 'ol' : 'ul';
+          return (
+            <div class:list={['menu-deel', `menu-${deel.id}`]}>
+              <p class="menu-deelkop" id={`menu-${deel.id}`}>
+                <span class="deelnaam">{deel.nr}. {deel.titel}</span>
+                <span class="deeluitleg">{deel.kop}</span>
+              </p>
+              <Lijst class="menu-hoofd" aria-labelledby={`menu-${deel.id}`}>
+                {deel.groepen.map((h) => (
+                  <li>
+                    <a href={`/${h.slug}`} aria-current={huidig === `/${h.slug}` ? 'page' : undefined}>
+                      <HoofdstukIcoon slug={h.slug} maat={22} />{h.nr !== null && <span class="nr">{h.nr}</span>} {h.titel}
+                    </a>
+                    {h.verdiepingen.length > 0 && (
+                      <details class="takken" open={h.verdiepingen.some((v) => huidig === `/${v.slug}`)}>
+                        <summary>{h.verdiepingen.length === 1 ? '1 stap-voor-stappagina' : `${h.verdiepingen.length} stap-voor-stappagina's`}</summary>
+                        <ul>
+                          {h.verdiepingen.map((v) => (
+                            <li class="extra">
+                              <a href={`/${v.slug}`} aria-current={huidig === `/${v.slug}` ? 'page' : undefined}>{v.titel}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
+                  </li>
+                ))}
+              </Lijst>
+            </div>
+          );
+        })}
       </nav>
     </details>
   </div>
@@ -184,7 +195,13 @@ const huidig = Astro.url.pathname.replace(/(index)?\.html$/, '').replace(/\/$/, 
     .menu { position: static; }
     .menu nav { left: clamp(1rem, 4vw, 2rem); right: clamp(1rem, 4vw, 2rem); min-width: 0; }
   }
-  ol { list-style: none; margin: 0; padding: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  /* twee delen in het menu: eerst wat je doet (genummerd), dan wat je opzoekt */
+  .menu-deelkop { margin: 0; padding: 0.6rem 1rem 0.3rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.6rem; }
+  .menu-opzoeken { margin-top: 0.4rem; border-top: var(--lijndikte-dun) solid var(--lijn); }
+  .deelnaam { font-family: var(--kop); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rood); }
+  .menu-opzoeken .deelnaam { color: var(--inkt); }
+  .deeluitleg { font-size: 0.9rem; color: var(--inkt-zacht); }
   li { margin: 0; }
   li a { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 1rem; color: var(--inkt); text-decoration: none; font-size: 1rem; }
   li a:hover, li a[aria-current="page"] { background: var(--papier-2); }

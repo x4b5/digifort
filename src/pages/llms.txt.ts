@@ -3,13 +3,11 @@
  * Gemaakt uit site.js, dus hij loopt nooit achter op het menu.
  */
 import type { APIRoute } from 'astro';
-import { SITE, HOOFDSTUKKEN, VOETPAGINAS } from '../lib/site.js';
+import { SITE, HOOFDSTUKKEN, VOETPAGINAS, DELEN } from '../lib/site.js';
 
 const regel = (h: { slug: string; titel: string; kort: string }) => `- [${h.titel}](${SITE.url}/${h.slug}): ${h.kort}`;
 
 export const GET: APIRoute = () => {
-  const hoofdstukken = HOOFDSTUKKEN.filter((h) => !h.extra);
-  const verdiepingen = HOOFDSTUKKEN.filter((h) => h.extra);
   const tekst = [
     `# ${SITE.naam}`,
     '',
@@ -17,14 +15,14 @@ export const GET: APIRoute = () => {
     '',
     `De volledige tekst van alle hoofdstukken, met de bronnen per hoofdstuk, staat in [llms-full.txt](${SITE.url}/llms-full.txt). Geschreven in het Nederlands, op B1-niveau.`,
     '',
-    '## Hoofdstukken, in leesvolgorde',
-    '',
-    ...hoofdstukken.map(regel),
-    '',
-    '## Verdiepingen',
-    '',
-    ...verdiepingen.map(regel),
-    '',
+    ...DELEN.flatMap((d) => [
+      `## Deel ${d.nr}: ${d.titel}`,
+      '',
+      d.kort,
+      '',
+      ...HOOFDSTUKKEN.filter((h) => h.deel === d.id).map(regel),
+      '',
+    ]),
     '## Optional',
     '',
     ...VOETPAGINAS.map(regel),

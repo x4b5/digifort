@@ -1,4 +1,4 @@
-/** De veertien plekken van het huis (hoofdstuk 1). `anker` is de kop-id op /plattegrond. */
+/** De veertien plekken van het huis (de plattegrond). `anker` is de kop-id op /plattegrond. */
 export const KAMERS = [
   { id: 'voordeur', anker: 'de-voordeur-je-e-mail', naam: 'De voordeur', wat: 'je e-mail', zin: 'Je e-mail is de belangrijkste deur van je huis.' },
   { id: 'tweede-voordeur', anker: 'de-tweede-voordeur-het-account-van-je-telefoon-of-computer', naam: 'De tweede voordeur', wat: 'het account van je telefoon of computer', zin: 'Je Apple-, Google- of Microsoft-account is net zo belangrijk als je e-mail.' },

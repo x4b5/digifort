@@ -55,7 +55,7 @@ const CIJFERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     ))}
     <div class="open-deuren" data-open-deuren hidden>
       <h3>Jouw bouwvolgorde</h3>
-      <p>Elke "nee" of "weet ik niet" is een deur die openstaat. Dit zijn de jouwe, in de volgorde waarin je ze het beste dichtdoet. Vink af wat je doet: het telt meteen mee in <a href="/aan-de-slag">hoofdstuk 4</a> en op je <a href="/aan-de-slag#je-fort-terwijl-je-bouwt">fort</a>.</p>
+      <p>Elke "nee" of "weet ik niet" is een deur die openstaat. Dit zijn de jouwe, in de volgorde waarin je ze het beste dichtdoet. Vink af wat je doet: het telt meteen mee in <a href="/aan-de-slag">Aan de slag</a> en op je <a href="/aan-de-slag#je-fort-terwijl-je-bouwt">fort</a>.</p>
       <p class="bouw-tijd" data-bouw-tijd></p>
       <ol data-open-lijst></ol>
       <p><a href="/plattegrond">Bekijk ze op de plattegrond →</a></p>
@@ -182,7 +182,7 @@ const CIJFERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         : `${ja} keer ja. Nog ${teGaan} ${teGaan === 1 ? 'vraag' : 'vragen'} te gaan.`);
     }
 
-    // afvinken in de bouwvolgorde is hetzelfde vinkje als in hoofdstuk 4
+    // afvinken in de bouwvolgorde is hetzelfde vinkje als in Aan de slag
     sectie.querySelector('[data-open-lijst]')!.addEventListener('change', (e) => {
       const vak = e.target as HTMLInputElement;
       if (!vak.dataset.bouw) return;

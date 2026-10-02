@@ -38,7 +38,7 @@ test('bij een nee verschijnt de open deur met een link naar de stap', async ({ p
   await expect(lijst.first().locator('a')).toHaveAttribute('href', '/aan-de-slag#niveau-1');
 });
 
-test('afvinken in de bouwvolgorde telt mee in hoofdstuk 4 en op het fort', async ({ page }) => {
+test('afvinken in de bouwvolgorde telt mee in Aan de slag en op het fort', async ({ page }) => {
   await page.goto('/huischeck');
   for (let nr = 1; nr <= 10; nr += 1) {
     await page.locator(`input[name=v${nr}][value=${nr === 4 ? 'nee' : 'ja'}]`).check({ force: true });

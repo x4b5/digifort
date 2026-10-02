@@ -80,7 +80,13 @@ li::marker { color: var(--rood); font-weight: 700; }
 strong { font-weight: 700; }
 
 a { color: var(--rood); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-a:hover { color: var(--rood-donker); }
+/* onder de muis wordt de streep dikker, zoals bij GOV.UK: je ziet het ook zonder kleur */
+a:hover { color: var(--rood-donker); text-decoration-thickness: 3px; }
+
+/* lopende tekst: geen los woord op de laatste regel, en nooit breder dan een prettige
+   regel (ongeveer 70 tekens), ook niet op een pagina die verder de volle breedte pakt */
+p, li, dd, figcaption { text-wrap: pretty; }
+main p { max-width: var(--maat); }
 
 hr { border: 0; border-top: var(--lijndikte) solid var(--lijn-sterk); margin: 2.5rem 0; }
 

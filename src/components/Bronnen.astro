@@ -5,7 +5,7 @@
  * Alles komt uit src/data/bronnen.js; hier staat geen tekst die daar ook staat.
  */
 import { BRONNEN } from '../data/bronnen.js';
-import { HOOFDSTUKKEN } from '../lib/site.js';
+import { HOOFDSTUKKEN, plek } from '../lib/site.js';
 
 const titel = (slug: string) => HOOFDSTUKKEN.find((h) => h.slug === slug);
 
@@ -26,7 +26,7 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
       <span>Hoofdstuk</span>
       <select data-hoofdstuk>
         <option value="">Alle hoofdstukken</option>
-        {groepen.map((g) => <option value={g.slug}>{g.nr === null ? 'Verdieping' : `${g.nr}.`} {g.titel}</option>)}
+        {groepen.map((g) => <option value={g.slug}>{g.nr === null ? '' : `${g.nr}. `}{g.titel}</option>)}
       </select>
     </label>
     <label class="open">
@@ -39,7 +39,7 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
   {groepen.map((g) => (
     <section class="groep" data-groep={g.slug}>
       <h3 id={g.slug}>
-        <span class="nr">{g.nr === null ? 'Verdieping' : `Hoofdstuk ${g.nr}`}</span>
+        <span class="nr">{plek(g.slug)?.deel?.titel} · {plek(g.slug)?.tekst}</span>
         <a href={`/${g.slug}`}>{g.titel}</a>
       </h3>
       <ul>

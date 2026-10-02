@@ -117,7 +117,7 @@ test('de verdiepingen liggen in het menu weggeklapt onder hun hoofdstuk', async 
 });
 
 test('op een verdieping staat zijn klapje in het menu al open', async ({ page }) => {
-  await page.goto('/krijg-je-je-geld-terug');
+  await page.goto('/een-weekend');
   await page.locator('.kop details.menu > summary').click();
   await expect(page.locator('.kop details.menu a[aria-current="page"]')).toBeVisible();
 });

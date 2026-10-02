@@ -53,9 +53,9 @@ export function spiegel(gat) {
 }
 
 export const BANDEN = [
-  { tot: 4, kop: 'Begin bij niveau 1', tekst: 'Begin bij niveau 1 in hoofdstuk 4. Dat kost één avond.', link: '/aan-de-slag#niveau-1' },
+  { tot: 4, kop: 'Begin bij niveau 1', tekst: 'Begin bij niveau 1 in Aan de slag. Dat kost één avond.', link: '/aan-de-slag#niveau-1' },
   { tot: 7, kop: 'De basis staat', tekst: 'De basis staat. Ga door naar niveau 2.', link: '/aan-de-slag#niveau-2' },
-  { tot: 10, kop: 'Je huis zit goed op slot', tekst: 'Je huis zit goed op slot. Lees hoofdstuk 3 en help daarna iemand anders.', link: '/inbrekers-van-morgen' },
+  { tot: 10, kop: 'Je huis zit goed op slot', tekst: 'Je huis zit goed op slot. Lees De inbrekers van morgen en help daarna iemand anders.', link: '/inbrekers-van-morgen' },
 ];
 
 export function band(ja) {
