@@ -4,7 +4,9 @@
  *
  * Gebouwd naar GOV.UK: elke vraag is een fieldset met een legend en een korte hint,
  * de vragen staan in drie groepen onder een kopje, en de uitslag is een takenlijst
- * met bovenaan één stap om nu te doen.
+ * met bovenaan één stap om nu te doen. Direct na vraag 10 komt de uitslag;
+ * de vrije vraag naar je eigen cijfer staat daaronder, ingeklapt, zodat hij de
+ * uitslag niet wegduwt.
  */
 import { VRAGEN, GROEPEN, BANDEN, SPIEGELS, LANDELIJK_CIJFER } from '../data/huischeck.js';
 const CIJFERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -40,25 +42,13 @@ const ANTWOORDEN = [
     </div>
   ))}
 
-  <p class="privacy">Je antwoorden blijven op je eigen telefoon of computer. Niemand anders ziet ze.</p>
-
-  <fieldset class="eigen-cijfer" data-eigen-cijfer aria-describedby="cijfer-hint">
-    <legend class="vraag">Wil je nog een gok doen? Welk cijfer geef je jezelf?</legend>
-    <p class="hint" id="cijfer-hint">Voor hoe je online met risico's omgaat, van 1 tot en met 10. Dit mag je overslaan. Kies je een cijfer, dan zie je het naast je uitslag</p>
-    <div class="cijfers">
-      {CIJFERS.map((c) => (
-        <label class="cijfer"><input type="radio" name="eigen-cijfer" value={c} /><span>{c}</span></label>
-      ))}
-    </div>
-  </fieldset>
-
   <div class="uitslag" data-uitslag>
     <p class="schermlezer" data-melding aria-live="polite" aria-atomic="true"></p>
     <h2 id="je-uitslag">Je uitslag</h2>
     <p class="rest" data-rest>Beantwoord alle vragen. Dan zie je hier welke deuren openstaan.</p>
 
     <div class="klaar" data-klaar hidden>
-      <p class="score"><strong data-score>0</strong> <span data-score-tekst>van de 10 deuren zitten dicht</span></p>
+      <p class="score"><span class="score-getal"><strong data-score>0</strong> <span data-score-van>van de 10</span></span> <span class="score-woorden" data-score-tekst>deuren zitten dicht</span></p>
       <p class="meter" aria-hidden="true"><span data-meter-vul></span></p>
 
       {BANDEN.map((b) => (
@@ -84,6 +74,37 @@ const ANTWOORDEN = [
         <p>Houd je eigen huis op slot met de <a href="/onderhoud">onderhoudsbeurt</a>.</p>
       </div>
 
+      <div class="open-deuren" data-open-deuren hidden>
+        <h3>Jouw open deuren</h3>
+        <p>Doe ze dicht in deze volgorde. Tik op een stap voor de uitleg. Klaar? Zet dan een vinkje bij <strong>Ik heb dit gedaan</strong>. Er staat dan <strong>Gedaan</strong> bij de stap.</p>
+        <p class="bouw-tijd" data-bouw-tijd></p>
+        <ol class="taken" data-open-lijst></ol>
+        <p class="schermlezer" data-vink-melding aria-live="polite"></p>
+      </div>
+
+      <div class="dichte-deuren" data-dichte-deuren hidden>
+        <h3>Dit heb je al goed</h3>
+        <p>Bij deze vragen zei je ja. Die deuren zitten dicht.</p>
+        <ul data-dicht-lijst></ul>
+        <p><a href="/plattegrond">Bekijk al je deuren op de plattegrond →</a></p>
+      </div>
+    </div>
+  </div>
+
+  <p class="privacy">Je antwoorden blijven op je eigen telefoon of computer. Niemand anders ziet ze.</p>
+
+  <details class="gok" data-gok hidden>
+    <summary><span>Vergelijk je uitslag met je eigen gevoel</span></summary>
+    <div class="gok-inhoud">
+      <fieldset class="eigen-cijfer" data-eigen-cijfer aria-describedby="cijfer-hint">
+        <legend class="vraag">Welk cijfer had je jezelf gegeven, vóór deze check?</legend>
+        <p class="hint" id="cijfer-hint">Een cijfer van 1 tot en met 10 voor hoe je online met risico's omgaat; je mag dit overslaan.</p>
+        <div class="cijfers">
+          {CIJFERS.map((c) => (
+            <label class="cijfer"><input type="radio" name="eigen-cijfer" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </fieldset>
       <div class="spiegel" data-spiegel hidden>
         <p class="spiegel-cijfers">
           <span><strong data-spiegel-eigen>—</strong> gaf je jezelf</span>
@@ -97,22 +118,8 @@ const ANTWOORDEN = [
           </div>
         ))}
       </div>
-
-      <div class="open-deuren" data-open-deuren hidden>
-        <h3>Jouw open deuren</h3>
-        <p>Doe ze dicht in deze volgorde. Tik op een stap om te beginnen. Klaar? Vink hem af. Dat telt ook mee in <a href="/aan-de-slag">Aan de slag</a>.</p>
-        <p class="bouw-tijd" data-bouw-tijd></p>
-        <ol class="taken" data-open-lijst></ol>
-      </div>
-
-      <div class="dichte-deuren" data-dichte-deuren hidden>
-        <h3>Dit heb je al goed</h3>
-        <p>Bij deze vragen zei je ja. Die deuren zitten dicht.</p>
-        <ul data-dicht-lijst></ul>
-        <p><a href="/plattegrond">Bekijk al je deuren op de plattegrond →</a></p>
-      </div>
     </div>
-  </div>
+  </details>
 
   <details class="kind-keuze" data-kind-keuze>
     <summary><span>Doe je de check samen met een kind?</span></summary>
@@ -164,7 +171,7 @@ const ANTWOORDEN = [
   if (sectie) {
     const $ = <T extends HTMLElement = HTMLElement>(sel: string) => sectie.querySelector<T>(sel)!;
     const kindSchakel = $<HTMLInputElement>('[data-kind]');
-    const cijferBlok = $('[data-eigen-cijfer]');
+    const gokBlok = $<HTMLDetailsElement>('[data-gok]');
     const cijferKnoppen = Array.from(sectie.querySelectorAll<HTMLInputElement>('input[name=eigen-cijfer]'));
     const vragen = Array.from(sectie.querySelectorAll<HTMLElement>('[data-vraag]'));
     const groepen = Array.from(sectie.querySelectorAll<HTMLElement>('[data-groep]'));
@@ -184,8 +191,6 @@ const ANTWOORDEN = [
       const actief = vragen.filter((v) => !kind || v.dataset.kindVraag === '1');
       vragen.forEach((v) => { v.hidden = !actief.includes(v); });
       groepen.forEach((g) => { g.hidden = !actief.some((v) => g.contains(v)); });
-      // het eigen cijfer gaat over jouw huis, niet over dat van het kind
-      cijferBlok.hidden = kind;
 
       const totaal = actief.length;
       const antwoord = (v: HTMLElement) => sectie!.querySelector<HTMLInputElement>(`input[name=v${v.dataset.vraag}]:checked`)?.value;
@@ -209,6 +214,9 @@ const ANTWOORDEN = [
         );
       }
       $('[data-klaar]').hidden = !klaar;
+      // de vergelijking met je eigen cijfer komt pas na de uitslag, en hoort niet bij
+      // de kindvariant: het cijfer gaat over jouw huis, niet over dat van het kind
+      gokBlok.hidden = !klaar || kind;
 
       // de open deuren, in de volgorde waarin je ze dichtdoet
       const volgorde = (v: HTMLElement) => BOUWVOLGORDE.indexOf(vraagBij(v).kamer);
@@ -216,7 +224,8 @@ const ANTWOORDEN = [
       const dicht = actief.filter((v) => antwoord(v) === 'ja').sort((a, b) => volgorde(a) - volgorde(b));
 
       $('[data-score]').textContent = String(ja);
-      $('[data-score-tekst]').textContent = `van de ${totaal} deuren ${ja === 1 ? 'zit' : 'zitten'} dicht`;
+      $('[data-score-van]').textContent = `van de ${totaal}`;
+      $('[data-score-tekst]').textContent = `${totaal === 1 ? 'deur' : 'deuren'} ${ja === 1 ? 'zit' : 'zitten'} dicht`;
       const vul = $('[data-meter-vul]');
       vul.style.width = `${(ja / totaal) * 100}%`;
       vul.dataset.toestand = ja / totaal >= 0.8 ? 'dicht' : 'open';
@@ -232,6 +241,8 @@ const ANTWOORDEN = [
       const eigenCijfer = lees().cijfer;
       const sp = klaar && !kind && eigenCijfer !== null ? spiegel(eigenCijfer - schaal) : null;
       $('[data-spiegel]').hidden = !sp;
+      // wie al een cijfer koos, ziet de vergelijking meteen, ook na herladen
+      if (sp) gokBlok.open = true;
       if (sp) {
         $('[data-spiegel-eigen]').textContent = String(eigenCijfer);
         $('[data-spiegel-deuren]').textContent = String(schaal);
@@ -299,7 +310,10 @@ const ANTWOORDEN = [
       const vak = e.target as HTMLInputElement;
       if (!vak.dataset.bouw) return;
       const [l, id] = vak.dataset.bouw.split(':');
+      const naam = vak.closest('.taak')?.querySelector('.taak-kop')?.textContent ?? '';
       zetVinkje(l, id, vak.checked);
+      // hardop bevestigen wat er veranderd is; zichtbaar staat er dan "Gedaan"
+      $('[data-vink-melding]').textContent = vak.checked ? `Gedaan: ${naam}.` : `Weer open: ${naam}.`;
     });
 
     vulIn();
@@ -322,16 +336,17 @@ const ANTWOORDEN = [
 
 <style>
   .huischeck { margin: 1.5rem 0 2rem; }
-  .intro { margin: 0 0 1rem; }
-  .privacy { margin: 1.5rem 0 0; color: var(--inkt-zacht); }
-  .voortgang { font-family: var(--kop); font-weight: 700; font-size: var(--tekst-m); margin: 0 0 0.75rem; }
+  /* alle uitleg op de pagina even groot en even donker als gewone tekst: wie slecht ziet, moet hem kunnen lezen */
+  .huischeck .intro { margin: 0 0 1rem; font-size: inherit; color: var(--inkt); }
+  .privacy { margin: 1.5rem 0 0; }
+  .voortgang { font-family: var(--kop); font-weight: 700; font-size: 1.2rem; margin: 0 0 0.75rem; }
   fieldset { border: 0; padding: 0; margin: 0; min-inline-size: 0; }
   legend { padding: 0; }
   .vraag { font-weight: 700; font-size: 1.15rem; line-height: 1.35; margin: 0 0 0.25rem; }
-  .hint { margin: 0 0 0.7rem; color: var(--inkt-zacht); font-size: var(--tekst-m); }
+  .hint { margin: 0 0 0.7rem; color: var(--inkt); font-size: inherit; max-width: 38em; }
   .nr { font-family: var(--kop); color: var(--rood); margin-right: 0.2rem; }
 
-  .eigen-cijfer { margin: 2rem 0 0; padding: 1rem 1.2rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier-2); }
+  .eigen-cijfer { margin: 0; }
   .eigen-cijfer legend { float: left; width: 100%; }
   .eigen-cijfer legend + * { clear: both; }
   .cijfers { display: flex; gap: 0.4rem; flex-wrap: wrap; }
@@ -341,15 +356,17 @@ const ANTWOORDEN = [
   .cijfer:has(input:checked) { background: var(--inkt); border-color: var(--inkt); color: var(--papier); }
   .cijfer:not(:has(input:checked)):hover { background: var(--oranje-licht); }
 
-  /* de kindvariant: een GOV.UK-details onderaan, zodat hij vraag 1 niet wegduwt */
-  .kind-keuze { margin: 1.5rem 0 0; }
-  .kind-keuze summary { display: inline-flex; align-items: center; min-block-size: 44px; cursor: pointer; color: var(--rood); font-weight: 700; }
-  .kind-keuze summary span { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
-  .kind-keuze summary:hover span { text-decoration-thickness: 3px; }
-  .kind-keuze summary::before { content: "▸"; margin-right: 0.45rem; text-decoration: none; }
-  .kind-keuze[open] summary::before { content: "▾"; }
-  .kind-keuze summary::-webkit-details-marker { display: none; }
-  .kind-inhoud { margin: 0.4rem 0 0; padding: 0.2rem 0 0.2rem 1rem; border-left: 5px solid var(--lijn-sterk); }
+  /* de vergelijking met je eigen cijfer en de kindvariant: GOV.UK-details onder de uitslag,
+     zodat ze vraag 1 en de uitslag niet wegduwen */
+  .gok[hidden] { display: none; }
+  .gok, .kind-keuze { margin: 1.5rem 0 0; }
+  :is(.gok, .kind-keuze) summary { display: inline-flex; align-items: center; min-block-size: 44px; cursor: pointer; color: var(--rood); font-weight: 700; }
+  :is(.gok, .kind-keuze) summary span { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  :is(.gok, .kind-keuze) summary:hover span { text-decoration-thickness: 3px; }
+  :is(.gok, .kind-keuze) summary::before { content: "▸"; margin-right: 0.45rem; text-decoration: none; }
+  :is(.gok, .kind-keuze)[open] summary::before { content: "▾"; }
+  :is(.gok, .kind-keuze) summary::-webkit-details-marker { display: none; }
+  .gok-inhoud, .kind-inhoud { margin: 0.4rem 0 0; padding: 0.2rem 0 0.2rem 1rem; border-left: 5px solid var(--lijn-sterk); }
   .kind-inhoud p { margin: 0 0 0.5rem; }
   .schakel { display: inline-flex; align-items: center; gap: 0.6rem; min-block-size: 44px; font-weight: 700; cursor: pointer; margin: 0 0 0.3rem; }
   .schakel input { width: 1.5rem; height: 1.5rem; flex: none; margin: 0; accent-color: var(--inkt); }
@@ -374,7 +391,15 @@ const ANTWOORDEN = [
   .huischeck .antwoord.nee:has(input:checked) { background: var(--rood-licht); border-color: var(--rood); }
   .huischeck .antwoord.weet:has(input:checked) { background: var(--oranje-licht); border-color: var(--lijn-sterk); }
   .antwoord:not(:has(input:checked)):hover { background: var(--papier-2); }
-  @media (max-width: 22rem) {
+  /* op een telefoon passen de drie keuzes naast elkaar: "Weet ik niet" valt niet op een eigen regel */
+  @media (max-width: 30rem) {
+    .antwoorden { gap: 0.4rem; flex-wrap: nowrap; }
+    /* op een heel smal scherm breekt "Weet ik niet" binnen zijn eigen knop af, niet eronder */
+    .antwoord { gap: 0.4rem; padding: 0.35rem 0.6rem 0.35rem 0.5rem; flex: 0 1 auto; min-width: 0; line-height: 1.2; }
+    .huischeck .antwoord:has(input:checked) { padding-left: calc(0.5rem - 1px); padding-right: calc(0.6rem - 1px); }
+    .antwoord input { width: 1.3rem; height: 1.3rem; }
+  }
+  @media (max-width: 20rem) {
     .antwoorden { flex-direction: column; align-items: stretch; }
   }
 
@@ -382,7 +407,9 @@ const ANTWOORDEN = [
   .uitslag h2 { margin-top: 1.25rem; padding-top: 0; border-top: 0; }
   .uitslag h3 { margin: 1.5rem 0 0.4rem; }
   .rest { margin: 0; }
-  .score { font-family: var(--kop); font-size: 1.4rem; margin: 0 0 0.5rem; }
+  /* "6 van de 10" en "deuren zitten dicht" breken alleen tussen die twee stukken af */
+  .score { font-family: var(--kop); font-size: 1.4rem; line-height: 1.3; margin: 0 0 0.5rem; }
+  .score-getal, .score-woorden { white-space: nowrap; }
   .score strong { font-size: 2.4rem; color: var(--rood); margin-right: 0.15rem; }
   .meter { height: 1rem; border: 2px solid var(--lijn-sterk); border-radius: 999px; overflow: hidden; margin: 0 0 0.6rem; background: var(--papier); }
   .meter span { display: block; height: 100%; width: 0; background: var(--rood); transition: width 0.3s ease; }
@@ -404,7 +431,7 @@ const ANTWOORDEN = [
   .spiegel { margin: 1.25rem 0 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier); }
   .spiegel-cijfers { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; margin: 0 0 0.3rem; align-items: baseline; }
   .spiegel-cijfers strong { font-family: var(--kop); font-size: 1.6rem; color: var(--rood); margin-right: 0.2rem; }
-  .landelijk { color: var(--inkt-zacht); font-size: var(--tekst-m); margin: 0 0 0.4rem; }
+  .landelijk { margin: 0 0 0.4rem; }
   .spiegel-duiding h3 { margin: 0.5rem 0 0.3rem; font-size: 1.2rem; }
   .spiegel-duiding p { margin: 0; }
 
@@ -417,10 +444,16 @@ const ANTWOORDEN = [
   .taken :global(.taak-kop) { margin: 0; font-weight: 700; font-size: 1.05rem; }
   .taken :global(.taak-kop a) { display: inline-block; min-block-size: 24px; }
   .taken :global(.taak-hint) { grid-column: 1 / -1; margin: 0; }
-  .taken :global(.tag) { justify-self: end; padding: 0.15rem 0.6rem; border-radius: var(--radius); font-size: var(--tekst-s); font-weight: 700; white-space: nowrap; color: var(--inkt); }
+  /* het label even groot als gewone tekst; "Gedaan" krijgt een vinkje en groen, zodat je ziet dat het gelukt is */
+  .taken :global(.tag) { justify-self: end; padding: 0.15rem 0.6rem; border-radius: var(--radius); font-size: inherit; font-weight: 700; white-space: nowrap; color: var(--inkt); }
   .taken :global(.tag.open) { background: var(--rood-licht); }
   .taken :global(.tag.weet) { background: var(--oranje-licht); }
-  .taken :global(.tag.gedaan) { background: transparent; padding-right: 0; }
+  .taken :global(.tag.gedaan) { background: var(--groen-licht); }
+  .taken :global(.tag.gedaan::before) { content: "✓ "; }
+  @media (max-width: 30rem) {
+    .taken :global(.taak) { grid-template-columns: 1fr; }
+    .taken :global(.tag) { justify-self: start; }
+  }
   .taken :global(.taak[data-toestand="gedaan"] .taak-kop a) { color: var(--inkt-zacht); }
   .taken :global(.bouwstap) { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 0.6rem; min-block-size: 44px; cursor: pointer; justify-self: start; }
   .taken :global(.bouwstap input) { width: 1.4rem; height: 1.4rem; margin: 0; flex: none; accent-color: var(--groen); }
@@ -428,4 +461,10 @@ const ANTWOORDEN = [
   .dichte-deuren ul { margin: 0.3rem 0 0.75rem; padding-left: 1.3rem; }
   .dichte-deuren li { margin: 0 0 0.2rem; }
   .dichte-deuren p { margin: 0; }
+
+  /* Op een telefoon valt de ronde naar-boven-knop over de tekst. Hier wordt hij daar
+     een gewone link onderaan de pagina, zoals bij GOV.UK. (Wens: zo op de hele site.) */
+  @media (max-width: 40rem) {
+    :global(body:has([data-huischeck]) .naar-boven) { position: static; display: flex; margin: 1rem auto 1.5rem; box-shadow: none; }
+  }
 </style>

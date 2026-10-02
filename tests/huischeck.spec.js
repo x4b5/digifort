@@ -29,6 +29,13 @@ test('een nee kleurt de kamer rood en blijft na herladen staan', async ({ page }
   await expect(page.locator('[data-kamer="voordeur"]')).toHaveAttribute('data-toestand', 'open');
 });
 
+/** Het eigen cijfer staat ingeklapt onder de uitslag: klap open en kies. */
+async function gok(page, cijfer) {
+  const blok = page.locator('[data-gok]');
+  if (!(await blok.evaluate((d) => d.open))) await blok.locator('summary').click();
+  await page.locator(`input[name=eigen-cijfer][value="${cijfer}"]`).check({ force: true });
+}
+
 /** De kindvariant staat onderaan in een uitklapblok, zodat hij vraag 1 niet wegduwt. */
 async function kindAan(page, aan = true) {
   const keuze = page.locator('[data-kind-keuze]');
@@ -118,6 +125,8 @@ test('wie niet weet wie hij moet bellen, gaat naar de noodkaart en kan dat afvin
   await expect(vinkje).toHaveCount(1);
   await vinkje.check();
   await expect(page.locator('[data-open-lijst] .tag')).toHaveText('Gedaan');
+  // ook wie niet kijkt, hoort dat het gelukt is
+  await expect(page.locator('[data-vink-melding]')).toHaveText('Gedaan: Kijk wie je belt als je bent opgelicht.');
   await expect(page.locator('[data-alles-dicht]')).toBeVisible();
   await page.reload();
   await expect(page.getByRole('checkbox', { name: 'Ik heb dit gedaan' })).toBeChecked();
@@ -139,14 +148,79 @@ test('de eerste vraag komt direct na de korte uitleg, zonder keuzes ervoor', asy
   const eersteKeuze = page.locator('#doe-de-huischeck input').first();
   await expect(eersteKeuze).toHaveAttribute('name', 'v1');
   // het cijfer en de kindvariant zijn er nog, maar pas na vraag 10
-  const naVraag10 = (sel) => page.evaluate((s) => {
-    const el = document.querySelector(s);
-    const tien = document.querySelector('#vraag-10');
-    return Boolean(tien.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING);
-  }, sel);
-  expect(await naVraag10('[data-eigen-cijfer]')).toBe(true);
-  expect(await naVraag10('[data-kind-keuze]')).toBe(true);
+  const na = (eerst, dan) => page.evaluate(([a, b]) => {
+    const el = document.querySelector(b);
+    return Boolean(document.querySelector(a).compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING);
+  }, [eerst, dan]);
+  expect(await na('#vraag-10', '[data-eigen-cijfer]')).toBe(true);
+  expect(await na('#vraag-10', '[data-kind-keuze]')).toBe(true);
   await expect(page.locator('#vraag-1 .antwoord.ja')).toBeInViewport();
+});
+
+test('na vraag 10 komt meteen de uitslag, zonder nieuwe keuze ertussen', async ({ page }) => {
+  await page.goto('/huischeck');
+  // tussen vraag 10 en de uitslag staat geen enkel invulveld
+  const tussen = await page.evaluate(() => {
+    const tien = document.querySelector('#vraag-10');
+    const uitslag = document.querySelector('[data-uitslag]');
+    return Array.from(document.querySelectorAll('#doe-de-huischeck input')).filter((i) =>
+      (tien.compareDocumentPosition(i) & Node.DOCUMENT_POSITION_FOLLOWING) && !tien.contains(i)
+      && (uitslag.compareDocumentPosition(i) & Node.DOCUMENT_POSITION_PRECEDING)).length;
+  });
+  expect(tussen).toBe(0);
+  // het eigen cijfer staat onder de uitslag, en pas als je klaar bent
+  await expect(page.locator('[data-gok]')).toBeHidden();
+  await vulIn(page, (nr) => (nr === 1 ? 'nee' : 'ja'));
+  await expect(page.locator('[data-gok]')).toBeVisible();
+  await expect(page.locator('[data-gok]')).not.toHaveAttribute('open', '');
+  const uitslagBoven = await page.evaluate(() => Boolean(
+    document.querySelector('[data-uitslag]').compareDocumentPosition(document.querySelector('[data-gok]')) & Node.DOCUMENT_POSITION_FOLLOWING));
+  expect(uitslagBoven).toBe(true);
+});
+
+test('de uitleg onder elke vraag is één zin, even groot en donker als gewone tekst', async ({ page }) => {
+  await page.goto('/huischeck');
+  // een gewone alinea uit de tekst onder de check
+  const tekst = await page.locator('#wat-de-check-meet ~ p').first().evaluate((el) => {
+    const s = getComputedStyle(el);
+    return { grootte: s.fontSize, kleur: s.color };
+  });
+  for (let nr = 1; nr <= 10; nr += 1) {
+    const hint = page.locator(`#hint-${nr}`);
+    const stijl = await hint.evaluate((el) => ({ grootte: getComputedStyle(el).fontSize, kleur: getComputedStyle(el).color }));
+    expect(stijl).toEqual(tekst);
+    // één zin: geen punt, vraagteken of uitroepteken midden in de tekst
+    expect((await hint.textContent()).trim().slice(0, -1)).not.toMatch(/[.?!]\s/);
+  }
+});
+
+test('de uitleg sluit twijfel uit bij de wachtwoordmanager en het tweede slot', async ({ page }) => {
+  await page.goto('/huischeck');
+  // wie zijn telefoon wachtwoorden laat bewaren, heeft er al een
+  await expect(page.locator('#hint-2')).toContainText('telefoon');
+  // je telefoon openen met je gezicht is geen tweede slot op je e-mail
+  await expect(page.locator('#hint-3')).toContainText('telt niet');
+  // vraag 8 stuurt je niet terug naar vraag 3
+  await expect(page.locator('#hint-8')).not.toContainText('tweede slot');
+});
+
+test('de score breekt niet midden in "deuren zitten dicht" af', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page.goto('/huischeck');
+  await vulIn(page, (nr) => (nr <= 6 ? 'ja' : 'nee'));
+  await expect(page.locator('[data-uitslag] .score')).toHaveText('6 van de 10 deuren zitten dicht');
+  for (const deel of ['.score-getal', '.score-woorden']) {
+    const regels = await page.locator(deel).evaluate((el) => el.getClientRects().length);
+    expect(regels).toBe(1);
+  }
+});
+
+test('op een telefoon staan de drie keuzes op één regel en bedekt de naar-boven-knop geen tekst', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/huischeck');
+  const boven = await page.locator('#vraag-1 .antwoord').evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)));
+  expect(new Set(boven).size).toBe(1);
+  await expect(page.locator('.naar-boven')).toHaveCSS('position', 'static');
 });
 
 test('afvinken in de takenlijst telt mee in Aan de slag en op het fort', async ({ page }) => {
@@ -165,14 +239,16 @@ test('afvinken in de takenlijst telt mee in Aan de slag en op het fort', async (
 
 test('je eigen cijfer komt naast je uitslag te staan en blijft na herladen', async ({ page }) => {
   await page.goto('/huischeck');
-  await page.locator('input[name=eigen-cijfer][value="8"]').check({ force: true });
   await vulIn(page, (nr) => (nr <= 3 ? 'ja' : 'nee'));
+  await gok(page, 8);
   await expect(page.locator('[data-spiegel-eigen]')).toHaveText('8');
   await expect(page.locator('[data-spiegel-deuren]')).toHaveText('3');
   await expect(page.getByRole('heading', { name: 'Je schatte jezelf hoger in dan je deuren' })).toBeVisible();
 
   await page.reload();
+  // na herladen staat de vergelijking meteen open
   await expect(page.locator('input[name=eigen-cijfer][value="8"]')).toBeChecked();
+  await expect(page.locator('[data-spiegel-eigen]')).toBeVisible();
   await expect(page.locator('[data-spiegel-eigen]')).toHaveText('8');
 });
 
@@ -185,16 +261,18 @@ test('zonder eigen cijfer blijft de spiegel weg', async ({ page }) => {
 
 test('wie zichzelf te laag inschat krijgt dat ook te horen', async ({ page }) => {
   await page.goto('/huischeck');
-  await page.locator('input[name=eigen-cijfer][value="4"]').check({ force: true });
   await vulIn(page, (nr) => (nr <= 8 ? 'ja' : 'nee'));
+  await gok(page, 4);
   await expect(page.getByRole('heading', { name: 'Je was strenger voor jezelf dan nodig' })).toBeVisible();
 });
 
 test('het eigen cijfer hoort niet bij de kind-variant', async ({ page }) => {
   await page.goto('/huischeck');
-  await page.locator('input[name=eigen-cijfer][value="7"]').check({ force: true });
+  await vulIn(page, () => 'ja');
+  await gok(page, 7);
   await kindAan(page);
   await expect(page.locator('[data-eigen-cijfer]')).toBeHidden();
+  await expect(page.locator('[data-gok]')).toBeHidden();
   await kindAan(page, false);
   await expect(page.locator('input[name=eigen-cijfer][value="7"]')).toBeChecked();
 });
@@ -212,4 +290,15 @@ test('de cijfers onder de check staan er als tekst, ook zonder beweging', async 
   const cijfers = page.locator('#hoe-weten-we-dat ~ ul').first();
   await expect(cijfers).toContainText('62 procent: ruim zes op de tien');
   await expect(cijfers).not.toContainText('0%');
+});
+
+test('ook op een smalle telefoon past elke vraag zonder zijwaarts scrollen', async ({ page }) => {
+  for (const breedte of [320, 340, 360, 390]) {
+    await page.setViewportSize({ width: breedte, height: 800 });
+    await page.goto('/huischeck');
+    await page.locator('input[name=v1][value=weet-niet]').check({ force: true });
+    const rij = await page.locator('#vraag-1 .antwoorden').evaluate((el) => el.getBoundingClientRect().right);
+    expect(rij).toBeLessThanOrEqual(breedte);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(breedte);
+  }
 });
