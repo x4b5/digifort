@@ -15,6 +15,47 @@ const groepen = HOOFDSTUKKEN
   .filter((g) => g.items.length > 0);
 
 const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppelen' };
+
+type Stukje = { tekst: string, href?: string };
+
+/**
+ * Een bewering in bronnen.js rijgt soms vier feiten aan elkaar met puntkomma's.
+ * Als losse punten scan je ze sneller, en lees je ze makkelijker: elk punt is één feit.
+ * Een puntkomma binnen aanhalingstekens (een citaat) blijft staan.
+ */
+function delen(tekst: string): string[] {
+  const uit: string[] = [];
+  let begin = 0;
+  let open = false;
+  for (let i = 0; i < tekst.length; i += 1) {
+    if (tekst[i] === '"') open = !open;
+    if (!open && tekst[i] === ';' && /\s/.test(tekst[i + 1] ?? '')) {
+      uit.push(tekst.slice(begin, i));
+      begin = i + 1;
+    }
+  }
+  uit.push(tekst.slice(begin));
+  return uit.map((d) => hoofdletter(d.trim())).filter(Boolean);
+}
+
+/** Elk punt begint met een hoofdletter; iCloud en eSIM blijven zoals ze zijn. */
+function hoofdletter(d: string) {
+  return /^\p{Ll}\p{Lu}/u.test(d) ? d : d.charAt(0).toUpperCase() + d.slice(1);
+}
+
+/** Een toelichting op dezelfde manier in regels, met de links heel. */
+function regels(stukjes: Stukje[]): Stukje[][] {
+  const uit: Stukje[][] = [[]];
+  for (const s of stukjes) {
+    if (s.href) { uit.at(-1)!.push(s); continue; }
+    const d = s.tekst.split(/;\s+/);
+    d.forEach((tekst, i) => {
+      if (i > 0) uit.push([]);
+      if (tekst) uit.at(-1)!.push({ tekst: i > 0 ? hoofdletter(tekst) : tekst });
+    });
+  }
+  return uit.filter((r) => r.length > 0);
+}
 ---
 <div class="bronnen" data-bronnen>
   <div class="filters">
@@ -38,14 +79,17 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
 
   {groepen.map((g) => (
     <section class="groep" data-groep={g.slug}>
-      <h3 id={g.slug}>
-        <span class="nr">{plek(g.slug)?.deel?.titel} · {plek(g.slug)?.tekst}</span>
-        <a href={`/${g.slug}`}>{g.titel}</a>
-      </h3>
+      {/* de kop is de naam van het hoofdstuk: wie met een schermlezer van kop naar kop springt, hoort waar hij is */}
+      <h3 id={g.slug}>{g.titel}</h3>
+      <p class="nr">{plek(g.slug)?.deel?.titel} · {plek(g.slug)?.tekst} · <a href={`/${g.slug}`}>Naar het hoofdstuk</a></p>
       <ul>
         {g.items.map((b) => (
-          <li data-status={b.status}>
-            <p class="bewering">{b.bewering}</p>
+          <li data-item data-status={b.status}>
+            {delen(b.bewering).length > 1 ? (
+              <ul class="bewering">{delen(b.bewering).map((d) => <li>{d}</li>)}</ul>
+            ) : (
+              <p class="bewering">{b.bewering}</p>
+            )}
             {b.hoofdstuk.length > 1 && (
               <p class="ook">Ook bij {b.hoofdstuk.slice(1).map((s, i) => (
                 <>{i > 0 && ', '}<a href={`/${s}`}>{titel(s)?.titel}</a></>
@@ -56,12 +100,10 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
                 <>{i > 0 && '; '}{s.href ? <a href={s.href} rel="noopener">{s.tekst}</a> : s.tekst}</>
               ))}
             </p>
-            <p class="status">
-              <span class={`vlag ${b.status}`}>{STATUSNAAM[b.status]}</span>
-              {b.toelichting && <span class="toelichting">{b.toelichting.map((s) => (
-                s.href ? <a href={s.href} rel="noopener">{s.tekst}</a> : s.tekst
-              ))}</span>}
-            </p>
+            <p class="status"><span class={`vlag ${b.status}`}>{STATUSNAAM[b.status]}</span></p>
+            {b.toelichting && regels(b.toelichting).map((r) => (
+              <p class="toelichting">{r.map((s) => (s.href ? <a href={s.href} rel="noopener">{s.tekst}</a> : s.tekst))}</p>
+            ))}
           </li>
         ))}
       </ul>
@@ -76,7 +118,7 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
     const alleenOpen = blok.querySelector<HTMLInputElement>('[data-open]')!;
     const stand = blok.querySelector<HTMLElement>('[data-stand]')!;
     const groepen = Array.from(blok.querySelectorAll<HTMLElement>('[data-groep]'));
-    const items = Array.from(blok.querySelectorAll<HTMLLIElement>('.groep li'));
+    const items = Array.from(blok.querySelectorAll<HTMLLIElement>('[data-item]'));
     const totaal = items.length;
 
     function filter() {
@@ -86,7 +128,7 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
       let n = 0;
       groepen.forEach((g) => {
         let zichtbaar = 0;
-        g.querySelectorAll<HTMLLIElement>('li').forEach((li) => {
+        g.querySelectorAll<HTMLLIElement>('[data-item]').forEach((li) => {
           const past =
             (!q || li.textContent!.toLowerCase().includes(q)) &&
             (!slug || g.dataset.groep === slug) &&
@@ -98,9 +140,9 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
         n += zichtbaar;
       });
       const alles = !q && !slug && !open;
-      stand.textContent = alles ? `${totaal} beweringen met een bron`
+      stand.textContent = alles ? `${totaal} feiten met een bron`
         : n === 0 ? 'Niets gevonden. Probeer een ander woord of een ander hoofdstuk.'
-        : `${n} van ${totaal} beweringen`;
+        : `${n} van ${totaal} feiten`;
     }
 
     veld.addEventListener('input', filter);
@@ -125,19 +167,22 @@ const STATUSNAAM = { gecontroleerd: 'Gecontroleerd', 'nog-koppelen': 'Nog koppel
   .stand { margin: 0 0 1.5rem; color: var(--inkt-zacht); }
 
   .groep { margin: 2.25rem 0; }
-  .groep h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem; margin: 0 0 0.75rem; }
-  .groep h3 .nr { font-family: var(--mono); font-size: var(--tekst-s); letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); }
-  .groep ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; }
-  .groep li { margin: 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier); }
-  .groep li p { margin: 0 0 0.35rem; }
-  .groep li p:last-child { margin-bottom: 0; }
+  .groep h3 { margin: 0 0 0.25rem; }
+  .groep .nr { margin: 0 0 0.75rem; font-size: var(--tekst-m); color: var(--inkt-zacht); }
+  .groep > ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; }
+  [data-item] { margin: 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier); }
+  [data-item] > p, [data-item] > ul { margin: 0 0 0.35rem; }
+  [data-item] > :last-child { margin-bottom: 0; }
   .bewering { font-weight: 700; }
+  /* een bewering met meer feiten: elk feit een eigen punt */
+  ul.bewering { padding-left: 1.2rem; display: grid; gap: 0.25rem; }
+  ul.bewering li { margin: 0; }
+  .toelichting { font-size: var(--tekst-m); color: var(--inkt-zacht); }
   .ook, .bron { font-size: var(--tekst-m); }
   .ook { color: var(--inkt-zacht); }
-  .status { font-size: var(--tekst-m); display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: baseline; }
+  .status { font-size: var(--tekst-m); }
   .vlag { font-family: var(--mono); font-size: var(--tekst-s); letter-spacing: 0.06em; text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: var(--radius); white-space: nowrap; }
   /* kleur zit in het vlak en het streepje, niet in de letter: groen op groen haalt 4,5:1 niet */
   .vlag.gecontroleerd { background: var(--groen-licht); color: var(--inkt); border-left: 4px solid var(--groen); }
   .vlag.nog-koppelen { background: var(--papier-2); color: var(--inkt); border-left: 4px solid var(--inkt-flauw); }
-  .toelichting { color: var(--inkt-zacht); }
 </style>

@@ -11,7 +11,7 @@ export const TREDES = [
   { nr: 5, titel: 'Een code uit een app', soort: 'weten' },
   { nr: 6, titel: 'Een passkey', soort: 'hebben' },
   { nr: 7, titel: 'Een sleutel in je hand', soort: 'hebben' },
-  { nr: 8, titel: 'Twee sleutels en een papiertje', soort: 'hebben' },
+  { nr: 8, titel: 'Twee sleutels en herstelcodes op papier', soort: 'hebben' },
 ];
 
 export function trede(nr) {

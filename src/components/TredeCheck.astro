@@ -35,7 +35,7 @@ const VRAGEN = [
     <p class="eyebrow">Jouw trede</p>
     <p class="trede"><span class="bol" data-bol>0</span> <strong data-titel></strong></p>
     <p data-advies></p>
-    <p><a class="knop klein" data-stap href="/aan-de-slag#niveau-1">Naar niveau 1 →</a> <a class="knop licht klein" data-link href="#trede-1">Lees over deze trede</a> <a class="knop licht klein" data-volgende href="#trede-2">De volgende trede</a></p>
+    <p><a class="knop klein" data-stap href="/een-avond">Naar Ik heb één avond →</a> <a class="knop licht klein" data-link href="#trede-1">Lees over deze trede</a> <a class="knop licht klein" data-volgende href="#trede-2">De volgende trede</a></p>
   </div>
 </section>
 
@@ -61,13 +61,13 @@ const VRAGEN = [
     }
 
     function advies({ t, ww }: { t: number; ww: string }) {
-      if (t <= 2) return { tekst: 'Begin bij een wachtwoordmanager en een tweede slot op je e-mail. Dat is niveau 1, in één avond.', naar: '/aan-de-slag#niveau-1', naarTekst: 'Naar niveau 1' };
-      if (t === 3) return { tekst: 'De kluis staat. Zet nu een tweede slot op je e-mail: een code uit een app, of beter een passkey.', naar: '/aan-de-slag#niveau-2', naarTekst: 'Naar niveau 2' };
-      if (t === 4) return { tekst: 'Wissel de sms-code om voor een app of een passkey. Dat kost vijf minuten per account.', naar: '/aan-de-slag#niveau-2', naarTekst: 'Naar niveau 2' };
+      if (t <= 2) return { tekst: 'Begin bij een wachtwoordmanager en een tweede slot op je e-mail. Dat is niveau 1, in één avond.', naar: '/een-avond', naarTekst: 'Naar Ik heb één avond' };
+      if (t === 3) return { tekst: 'De kluis staat. Zet nu een tweede slot op je e-mail: een code uit een app, of beter een passkey.', naar: '/een-avond', naarTekst: 'Zo zet je het tweede slot aan' };
+      if (t === 4) return { tekst: 'Wissel de sms-code om voor een app of een passkey. Dat kost vijf minuten per account.', naar: '/een-weekend', naarTekst: 'Naar Ik heb een weekend' };
       if (t === 5) return ww === 'kluis'
         ? { tekst: 'Sterk. Een passkey maakt het nog phishing-bestendig: zet hem aan waar je e-mail het aanbiedt.', naar: '#trede-6', naarTekst: 'Lees over de passkey' }
-        : { tekst: 'Zet je wachtwoorden in een kluis en zet daarna een passkey aan.', naar: '/aan-de-slag#niveau-1', naarTekst: 'Naar niveau 1' };
-      if (t === 6 || t === 7) return { tekst: 'Bijna bovenaan. Alleen: raak je je toestel kwijt, dan sta je buiten. Schrijf je herstelcodes op papier en leg ze in je noodpakket.', naar: '/als-er-is-ingebroken#noodpakket', naarTekst: 'Maak je noodpakket' };
+        : { tekst: 'Zet je wachtwoorden in een kluis en zet daarna een passkey aan.', naar: '/een-avond', naarTekst: 'Naar Ik heb één avond' };
+      if (t === 6 || t === 7) return { tekst: 'Bijna bovenaan. Alleen: raak je je toestel kwijt, dan sta je buiten. Schrijf je herstelcodes op papier en leg ze in je noodpakket.', naar: '/een-weekend', naarTekst: 'Herstelcodes op papier' };
       return { tekst: 'Bovenaan de ladder. Help nu iemand anders met de zijne.', naar: '/voor-de-mensen-om-je-heen', naarTekst: 'Iemand anders helpen' };
     }
 
