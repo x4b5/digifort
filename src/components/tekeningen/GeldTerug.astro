@@ -1,51 +1,48 @@
 ---
-/** Eén vraag splitst het hele hoofdstuk: drukte jij op akkoord, of iemand anders? */
-import Tekening from '../Tekening.astro';
+/**
+ * Eén vraag splitst het hele hoofdstuk: drukte jij op akkoord, of iemand anders?
+ * Het schema is gewone tekst in vakken, geen plaatje: zo is elke letter minstens zo groot
+ * als de lopende tekst, groeit hij mee met de leesknop, en leest een schermlezer het
+ * in de volgorde van de vraag en de twee antwoorden. Op een smal scherm staan de twee
+ * takken onder elkaar.
+ */
 ---
-<Tekening onderschrift="Eén vraag bepaalt in welke wereld je terechtkomt. Links staat de wet aan jouw kant; rechts is er alleen coulance, en dat is geen recht.">
-  <svg viewBox="0 0 640 348" role="img" aria-label="Een beslisboom. Bovenaan de vraag: wie drukte op akkoord? De linkertak, iemand anders, leidt naar een niet-toegestane betaling en naar de groene uitkomst dat de bank in beginsel terugbetaalt, tenzij er sprake is van grove nalatigheid. De rechtertak, jij zelf, leidt naar een toegestane betaling en naar de rode uitkomst dat er geen wettelijk recht op teruggave is; bij bankhelpdeskfraude vergoeden banken soms uit coulance.">
-    <!-- de vraag -->
-    <rect class="tek" x="200" y="12" width="240" height="44" rx="6" />
-    <text class="tek-tekst alleen-breed" x="320" y="40" text-anchor="middle">Wie drukte op akkoord?</text>
-    <text class="tek-tekst alleen-smal" x="320" y="41" text-anchor="middle">Wie gaf akkoord?</text>
+<figure class="beslis" aria-labelledby="beslis-vraag">
+  <p class="vraag" id="beslis-vraag">Wie drukte op akkoord?</p>
+  <div class="takken">
+    <div class="tak tak-groen">
+      <p class="wie"><span class="pijl" aria-hidden="true">↓</span> Iemand anders</p>
+      <p class="soort">Dit heet een niet-toegestane betaling.</p>
+      <p class="uitkomst"><span class="teken" aria-hidden="true">✓</span> De bank betaalt in beginsel terug.</p>
+      <p class="voet">Behalve bij grove nalatigheid. Dat is een hoge lat.</p>
+    </div>
+    <div class="tak tak-rood">
+      <p class="wie"><span class="pijl" aria-hidden="true">↓</span> Jij zelf</p>
+      <p class="soort">Dit heet een toegestane betaling.</p>
+      <p class="uitkomst"><span class="teken" aria-hidden="true">✗</span> Je hebt geen wettelijk recht op je geld.</p>
+      <p class="voet">Bij bankhelpdeskfraude betaalt de bank soms toch. Dat heet coulance. Het is geen recht.</p>
+    </div>
+  </div>
+</figure>
 
-    <!-- de twee takken -->
-    <path class="tek" d="M280 56 C 220 80, 160 82, 160 108" />
-    <path class="tek" d="M160 108 m-6 -8 l6 8 l6 -8" />
-    <text class="tek-label tek-halo" x="176" y="86" text-anchor="end">iemand anders</text>
-
-    <path class="tek" d="M360 56 C 420 80, 480 82, 480 108" />
-    <path class="tek" d="M480 108 m-6 -8 l6 8 l6 -8" />
-    <text class="tek-label tek-halo" x="464" y="86" text-anchor="start">jij zelf</text>
-
-    <!-- links: niet-toegestane betaling -->
-    <rect class="tek-dun alleen-breed" x="34" y="112" width="252" height="34" rx="4" />
-    <rect class="tek-dun alleen-smal" x="14" y="112" width="292" height="34" rx="4" />
-    <text class="tek-label" x="160" y="134" text-anchor="middle">niet-toegestane betaling</text>
-    <path class="tek-groen" d="M160 146 v26" />
-    <path class="tek-groen" d="M160 172 m-6 -8 l6 8 l6 -8" />
-
-    <rect class="tek-groen" x="34" y="178" width="252" height="62" rx="6" />
-    <path class="tek-groen" d="M56 208 l9 9 l17 -19" />
-    <text class="tek-tekst" x="172" y="204" text-anchor="middle">De bank betaalt</text>
-    <text class="tek-tekst" x="172" y="224" text-anchor="middle">in beginsel terug</text>
-    <text class="tek-label" x="160" y="262" text-anchor="middle">tenzij grove nalatigheid,<tspan x="160" dy="1.3em">en dat is een hoge lat</tspan></text>
-
-    <!-- rechts: toegestane betaling -->
-    <rect class="tek-dun alleen-breed" x="354" y="112" width="252" height="34" rx="4" />
-    <rect class="tek-dun alleen-smal" x="334" y="112" width="292" height="34" rx="4" />
-    <text class="tek-label" x="480" y="134" text-anchor="middle">toegestane betaling</text>
-    <path class="tek-rood" d="M480 146 v26" />
-    <path class="tek-rood" d="M480 172 m-6 -8 l6 8 l6 -8" />
-
-    <rect class="tek-rood" x="354" y="178" width="252" height="62" rx="6" />
-    <path class="tek-rood" d="M376 199 l18 18 m0 -18 l-18 18" />
-    <text class="tek-tekst" x="492" y="204" text-anchor="middle">Geen wettelijk recht</text>
-    <text class="tek-tekst" x="492" y="224" text-anchor="middle">op teruggave</text>
-    <text class="tek-label" x="480" y="262" text-anchor="middle">bij bankhelpdeskfraude soms<tspan x="480" dy="1.3em">coulance — geen recht</tspan></text>
-
-    <!-- wat je los hiervan nog kunt terugdraaien -->
-    <path class="tek-dun tek-stippel" d="M34 300 H606" />
-    <text class="tek-label" x="320" y="314" text-anchor="middle">Los hiervan terug te draaien: een incasso (8 weken)<tspan x="320" dy="1.35em">en een creditcardbetaling. Een overboeking of iDEAL niet.</tspan></text>
-  </svg>
-</Tekening>
+<style>
+  /* alle tekst op de maat van de lopende tekst: niets kleiner dan de broodtekst */
+  .beslis { margin: 1.75rem 0 2rem; font-size: 1em; }
+  .beslis p { margin: 0; }
+  .beslis .vraag {
+    font-family: var(--kop); font-weight: 700; font-size: 1.15em; text-align: center;
+    padding: 0.7rem 1rem; margin: 0 auto 0.75rem; max-width: 24rem;
+    border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius);
+  }
+  .takken { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 34rem) { .takken { grid-template-columns: 1fr; } }
+  .tak { display: grid; gap: 0.6rem; align-content: start; padding: 0.9rem 1rem; border-radius: var(--radius); border: var(--lijndikte) solid; }
+  .tak-groen { border-color: var(--groen); background: var(--groen-licht); }
+  .tak-rood { border-color: var(--rood); background: var(--rood-licht); }
+  .wie { font-family: var(--kop); font-weight: 700; }
+  .pijl { display: inline-block; width: 1.2em; }
+  .uitkomst { font-weight: 700; display: flex; gap: 0.4rem; }
+  .teken { flex: none; width: 1.2em; font-weight: 700; }
+  .tak-groen .teken { color: var(--groen); }
+  .tak-rood .teken { color: var(--rood); }
+</style>

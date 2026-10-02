@@ -10,13 +10,18 @@ import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
 import Tijdlijn from '../../components/Tijdlijn.astro';
 import ZelfDoen from '../../components/ZelfDoen.astro';
+import Vooraan from '../../components/Vooraan.astro';
 
-<Kort>deze pagina gaat over welk land bij je gegevens kan. Een Amerikaans bedrijf moet je gegevens afgeven als de Amerikaanse overheid daar met een geldig bevel om vraagt. Ook als ze in Europa staan. Kies daarom liever een Europees bedrijf, of een dienst die zelf niet in je kluis kan. Het best is allebei.</Kort>
+<Vooraan>
+
+<Kort>een Amerikaans bedrijf moet je gegevens afgeven als de Amerikaanse overheid daar met een geldig bevel om vraagt. Ook als ze in Europa staan. Kies daarom liever een Europees bedrijf, of een dienst die zelf niet in je kluis kan.</Kort>
 
 <ZelfDoen stappen={[
   { lijst: 'niveau-1', id: 'wachtwoordmanager' },
-  { href: '/aan-de-slag#de-gereedschapskist-concrete-aanraders', tekst: 'Kijk welke apps Europees zijn', waar: 'Aan de slag, de gereedschapskist' },
+  { href: '/aan-de-slag#de-gereedschapskist-concrete-aanraders', tekst: 'Kijk welke apps Europees zijn', waar: '‘Aan de slag’, bij de gereedschapskist' },
 ]} />
+
+</Vooraan>
 
 Je wachtwoorden, je mail en je foto's staan bijna altijd bij een bedrijf. Dat bedrijf bewaart een reservesleutel van jouw huis. Dan is de vraag niet alleen óf dat bedrijf te vertrouwen is. De vraag is ook: welk land kan dat bedrijf dwingen om de sleutel af te geven?
 

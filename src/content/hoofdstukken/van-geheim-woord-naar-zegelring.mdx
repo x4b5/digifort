@@ -28,25 +28,49 @@ import L12 from '../../components/tekeningen/ladder/L12.astro';
 import L13 from '../../components/tekeningen/ladder/L13.astro';
 import Foto from '../../components/Foto.astro';
 import ZelfDoen from '../../components/ZelfDoen.astro';
+import Vooraan from '../../components/Vooraan.astro';
 
-<Kort>het veiligst log je in met een passkey of een sleutel in je hand. Het zwakst is één wachtwoord voor alles. Doe in elk geval dit: neem een wachtwoordkluis, zet een tweede slot op je e-mail, en kies een passkey waar dat kan.</Kort>
+<Vooraan>
+
+<Kort>het veiligst log je in met een passkey: je vinger, je gezicht of de pincode van je telefoon. Het zwakst is één wachtwoord voor alles.</Kort>
 
 <ZelfDoen stappen={[
   { lijst: 'niveau-1', id: 'wachtwoordmanager' },
   { lijst: 'niveau-1', id: 'mail-tweede-slot' },
-  { lijst: 'niveau-2', id: 'accounts-tweede-slot' },
-  { lijst: 'niveau-2', id: 'noodcodes' },
 ]} />
 
-Inloggen gaat altijd met iets wat je weet, of met iets wat je hebt. Een woord kun je navertellen. Een ring moet je in je hand houden.
+</Vooraan>
 
-De ring is een geheime sleutel in je telefoon of in een klein sleuteltje. Het zegel is het bewijs dat die sleutel maakt als je inlogt. De site kan dat bewijs nakijken, maar niet namaken.
+## Wat is een passkey?
 
-Een tweede slot betekent: na je wachtwoord moet je nog iets laten zien. Bijvoorbeeld een code uit een app op je telefoon. Het officiële woord daarvoor is tweestapsverificatie.
+Een passkey is inloggen zonder wachtwoord. Je bevestigt met je telefoon of computer: met je vinger, je gezicht of je pincode.
+
+- **Hij werkt alleen op de echte site.** Op een nepsite werkt hij niet. Er valt dus niets te stelen. ([bron](https://fidoalliance.org/passkeys/))
+- **Er is niets om te onthouden of over te typen.** Ook niet als iemand je belt en erom vraagt.
+- **Hij is óók een tweede slot.** Je hebt je toestel nodig, én je vinger, gezicht of pincode.
+
+## Hoe stel ik een passkey in?
+
+Niet elke site kan het al. Begin met je e-mail. Zo gaat het, op een iPhone en op Android hetzelfde:
+
+1. Log in op de site of in de app.
+2. Ga naar de instellingen voor beveiliging. Zoek daar naar "passkey".
+3. Kies voor een passkey.
+4. Je telefoon of computer vraagt om je vinger, je gezicht of je pincode. Bevestig dat.
+
+Gelukt? Dan vraagt de site de volgende keer om je vinger, gezicht of pincode, en niet meer om je wachtwoord.
+
+Vraagt een site zelf of je een passkey wilt maken? Zeg dan ja. Kan het nergens met een passkey? Zet dan een tweede slot aan met een code-app.
+
+<ZelfDoen stappen={[{ lijst: 'niveau-2', id: 'accounts-tweede-slot' }]} />
+
+## Welke manieren van inloggen zijn er?
+
+Acht, van zwak naar sterk. Tot en met trede 5 gebruik je iets wat je weet, zoals een wachtwoord of een code. Vanaf trede 6 gebruik je iets wat je in je hand hebt. Dat is de grote stap.
 
 <L01 />
 
-De hele ladder in één beeld. Tot en met trede 5 gebruik je iets wat je kunt navertellen. Vanaf trede 6 gebruik je iets wat je vast moet houden. Dat is de grote stap. De andere treden maken het alleen beter binnen dezelfde soort.
+Een tweede slot betekent: na je wachtwoord moet je nog iets laten zien. Bijvoorbeeld een code uit een app op je telefoon. Het officiële woord daarvoor is tweestapsverificatie.
 
 <TredeCheck />
 

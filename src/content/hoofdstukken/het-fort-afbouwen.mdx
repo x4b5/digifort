@@ -10,18 +10,26 @@ import Kort from '../../components/Kort.astro';
 import Meer from '../../components/Meer.astro';
 import ZelfDoen from '../../components/ZelfDoen.astro';
 import Waarschuwing from '../../components/Waarschuwing.astro';
+import Vooraan from '../../components/Vooraan.astro';
 
-<Kort>deze pagina gaat over extra beveiliging, bovenop [niveau 3](/ik-wil-verder). Afbouwen betekent hier: je fort afmaken. Er zijn nog zes dingen die je kunt doen. Ze kosten meer moeite, en niet alles is voor iedereen nodig.</Kort>
+<Vooraan>
 
-<ZelfDoen titel="Eerst de basis" stappen={[
-  { href: '/een-avond', tekst: 'Niveau 1: de basis', waar: 'Ik heb één avond' },
-  { href: '/een-weekend', tekst: 'Niveau 2: goed op slot', waar: 'Ik heb een weekend' },
-  { href: '/ik-wil-verder', tekst: 'Niveau 3: voor wie verder wil', waar: 'Ik wil verder' },
-]} />
+<Kort>"afbouwen" betekent hier: je fort áfmaken, niet slopen. Deze pagina is voor wie [niveau 3](/ik-wil-verder) al af heeft. Er zijn nog zes dingen die je kunt doen, en niet alles is voor iedereen nodig.</Kort>
+
+**Zoek je iets anders?**
+
+- Oude accounts opruimen of een oude telefoon wegdoen? Dat staat in [Onderhoud en opruimen](/onderhoud).
+- Regelen wie je accounts krijgt als je overlijdt? Dat staat [verderop op deze pagina](#wie-krijgt-mijn-accounts-als-ik-er-niet-meer-ben).
+
+</Vooraan>
 
 Heb je niveau 3 nog niet? Begin dan daar. De basis houdt veel meer tegen dan alles op deze pagina.
 
-Zoek je hoe je oude accounts opruimt of een oude telefoon wegdoet? Dat staat in [Onderhoud en opruimen](/onderhoud).
+<ZelfDoen titel="Eerst de basis" stappen={[
+  { href: '/een-avond', tekst: 'Niveau 1: de basis', waar: '‘Ik heb één avond’' },
+  { href: '/een-weekend', tekst: 'Niveau 2: goed op slot', waar: '‘Ik heb een weekend’' },
+  { href: '/ik-wil-verder', tekst: 'Niveau 3: voor wie verder wil', waar: '‘Ik wil verder’' },
+]} />
 
 ## Wat bescherm ik, en tegen wie?
 
@@ -95,7 +103,7 @@ In niveau 2 maakte je al twee reservekopieën. Daarmee zit je dicht bij deze reg
 
 <ZelfDoen stappen={[
   { lijst: 'niveau-2', id: 'backup' },
-  { href: '/onderhoud', tekst: 'Test of je reservekopie nog werkt', waar: 'Onderhoud en opruimen, de onderhoudsbeurt' },
+  { href: '/onderhoud', tekst: 'Test of je reservekopie nog werkt', waar: '‘Onderhoud en opruimen’, bij de onderhoudsbeurt' },
 ]} />
 
 ## Moet ik elke dag als beheerder werken?
@@ -144,11 +152,23 @@ Leg daarom alles op papier vast in je [noodpakket](/als-er-is-ingebroken#het-noo
 - waar je **reservesleutel** ligt, als je een beveiligingssleutel gebruikt;
 - het wachtwoord van je **beheerdersaccount**.
 
-Regel ook wie erbij mag als jij er niet meer bent. Bij Apple heet dat een erfeniscontact. Bij Google heet het Inactiviteitsvoorkeuren. Hoe dat werkt, staat bij [je digitale nalatenschap](/als-er-is-ingebroken#wie-krijgt-de-sleutels-je-digitale-nalatenschap).
+<ZelfDoen stappen={[
+  { href: '/als-er-is-ingebroken#het-noodpakket', tekst: 'Maak je noodpakket op papier', waar: '‘Als er toch is ingebroken’' },
+  { href: '/onderhoud', tekst: 'Loop alles twee keer per jaar na', waar: '‘Onderhoud en opruimen’' },
+]} />
+
+## Wie krijgt mijn accounts als ik er niet meer ben?
+
+Dat regel je nu zelf, bij elke grote dienst apart. Doe je niets, dan komen je naasten vaak niet of pas na maanden in je accounts.
+
+- **Apple:** stel een **erfeniscontact** in.
+- **Google:** stel **Inactiviteitsvoorkeuren** in.
+- **Microsoft** heeft zo'n regeling niet. Daar helpt alleen je noodpakket.
+
+Vertel één persoon waar je noodpakket ligt.
 
 <ZelfDoen stappen={[
-  { href: '/als-er-is-ingebroken#het-noodpakket', tekst: 'Maak je noodpakket op papier', waar: 'Als er toch is ingebroken' },
-  { href: '/onderhoud', tekst: 'Loop alles twee keer per jaar na', waar: 'Onderhoud en opruimen' },
+  { href: '/als-er-is-ingebroken#wie-krijgt-de-sleutels-je-digitale-nalatenschap', tekst: 'Regel wie je accounts krijgt', waar: '‘Als er toch is ingebroken’, bij je digitale nalatenschap' },
 ]} />
 
 ## Is mijn fort dan helemaal veilig?

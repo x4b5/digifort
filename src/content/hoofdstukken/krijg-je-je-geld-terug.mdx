@@ -13,10 +13,15 @@ import GeldTerug from '../../components/tekeningen/GeldTerug.astro';
 import Grafiek from '../../components/Grafiek.astro';
 import ZelfDoen from '../../components/ZelfDoen.astro';
 import Waarschuwing from '../../components/Waarschuwing.astro';
+import Vooraan from '../../components/Vooraan.astro';
+
+<Vooraan>
 
 <Waarschuwing>Is het net gebeurd? Bel eerst je bank via het noodnummer op je pas. Doe daarna aangifte. Hoe sneller je belt, hoe groter de kans dat een betaling wordt tegengehouden. <a href="/als-er-is-ingebroken#het-eerste-uur">Wat je in het eerste uur doet</a></Waarschuwing>
 
 <Kort>Haalde iemand anders het geld weg? Dan betaalt de bank in principe terug. Maakte je het zelf over? Dan heb je geen recht op je geld.</Kort>
+
+</Vooraan>
 
 ## Wat is het verschil tussen inbraak en zelf betalen?
 
@@ -26,6 +31,8 @@ Een geforceerd slot is iets anders dan een deur die jij zelf opendeed. Voor de b
 - **Een toegestane betaling**: jij logde zelf in, typte zelf het bedrag in en drukte zelf op akkoord. Ook als iemand je met een leugen overhaalde.
 
 <GeldTerug />
+
+Los hiervan kun je soms zelf iets terugdraaien: een incasso tot acht weken later, en een betaling met een creditcard. Een overboeking of iDEAL-betaling niet. Hoe dat gaat, lees je bij [Welke betalingen kan ik zelf terugdraaien?](#welke-betalingen-kan-ik-zelf-terugdraaien)
 
 Hoe de oplichting zelf gaat, staat in [De inbrekers van nu](/inbrekers-van-nu). Hier lees je wat erna komt.
 
@@ -122,5 +129,5 @@ Deze pagina is uitleg, geen juridisch advies. Gaat het om een groot bedrag? Laat
 
 <ZelfDoen stappen={[
   { lijst: 'niveau-1', id: 'geheim-woord' },
-  { href: '/voor-de-mensen-om-je-heen', tekst: 'Maak dezelfde afspraak met je ouders of kinderen', waar: 'Voor de mensen om je heen' },
+  { href: '/voor-de-mensen-om-je-heen', tekst: 'Maak dezelfde afspraak met je ouders of kinderen', waar: '‘Voor de mensen om je heen’' },
 ]} />
