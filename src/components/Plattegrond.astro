@@ -2,13 +2,20 @@
 /**
  * Het huis in doorsnede. Elke plek is een link naar de plattegrond en kleurt mee
  * met de huischeck en de afvinklijsten: rood = open, groen = dicht, zwart = onbekend.
+ *
+ * Met `kop` krijgt de tekening een eigen h2 (anker #het-huis-als-tekening) en staat
+ * de uitleg uit de slot eronder. Die kop komt uit een component, dus de inhoudsopgave
+ * van het hoofdstuk telt hem niet mee: op de plattegrond is de lijst met plekken de
+ * inhoud, en de tekening een extra.
  */
 import { KAMERS } from '../data/kamers.js';
-interface Props { legenda?: boolean }
-const { legenda = true } = Astro.props;
+interface Props { legenda?: boolean; kop?: string }
+const { legenda = true, kop } = Astro.props;
 const k = Object.fromEntries(KAMERS.map((x) => [x.id, x]));
 const href = (id: string) => `/plattegrond#${k[id].anker}`;
 ---
+{kop && <h2 id="het-huis-als-tekening">{kop}</h2>}
+{kop && <slot />}
 <figure class="tekening plattegrond" data-plattegrond>
   <svg viewBox="0 0 720 400" role="group" aria-labelledby="plattegrond-titel plattegrond-uitleg">
     <title id="plattegrond-titel">De plattegrond van je digitale huis</title>

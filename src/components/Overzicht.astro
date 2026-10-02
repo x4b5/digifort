@@ -1,0 +1,39 @@
+---
+/**
+ * Het antwoord vooraan, als overzicht om te scannen: links wat je ziet of wilt weten,
+ * rechts het korte antwoord en waar je verder leest. Naar het voorbeeld van de
+ * summary list van GOV.UK: een <dl> met een lijn tussen de rijen.
+ *
+ * `rijen`: [{ vraag, antwoord, href?, link? }]. `link` is de linktekst; laat hem weg
+ * en er staat "Lees meer" met de vraag erbij voor een schermlezer.
+ */
+interface Rij { vraag: string; antwoord: string; href?: string; link?: string }
+interface Props { rijen: Rij[]; kop?: string; id?: string }
+const { rijen, kop, id } = Astro.props;
+---
+<section class="overzicht" id={id} aria-label={kop ?? 'Overzicht'} data-overzicht>
+  {kop && <p class="overzicht-kop">{kop}</p>}
+  <dl>
+    {rijen.map((r) => (
+      <div class="rij">
+        <dt>{r.vraag}</dt>
+        <dd>
+          {r.antwoord}
+          {r.href && <> <a href={r.href}>{r.link ?? 'Lees meer'}</a></>}
+        </dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .overzicht { margin: 1.5rem 0 2rem; }
+  .overzicht-kop { margin: 0 0 0.5rem; font-family: var(--kop); font-weight: 700; font-size: 1.15rem; }
+  dl { margin: 0; border-top: 1px solid var(--lijn-sterk); }
+  .rij { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 0.25rem 1.25rem; padding: 0.7rem 0; border-bottom: 1px solid var(--lijn); }
+  dt { font-weight: 700; }
+  dd { margin: 0; }
+  @media (max-width: 40rem) {
+    .rij { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

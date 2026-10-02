@@ -1,28 +1,42 @@
 ---
 /**
- * Eén kamer van de plattegrond als uitklapper: dicht zie je het icoon, de naam, één zin en
- * een lampje (rood open, groen dicht); open staat de hele uitleg. Zo leest de plattegrond
- * als een landkaart in plaats van als veertien gelijke secties onder elkaar.
+ * Eén plek van de plattegrond als uitklapper. Dicht zie je al het antwoord: het onderwerp
+ * (het woord waar je naar zoekt), het beeld erboven, en wat je doet. Open staat waarom,
+ * en waar je het stap voor stap doet. Zo zoek je de plattegrond op in plaats van hem te lezen.
  *
  * Het anker (`kamer.anker`) blijft de id, zodat links als /plattegrond#de-voordeur-je-e-mail
  * vanuit het fort en het woordenboek blijven werken: het script klapt die kamer dan open.
+ *
+ * Kleurt de huischeck of een vinkje de plek, dan staat er ook in woorden hoe het ervoor
+ * staat ("Staat open", "Op slot"): kleur alleen is voor wie slecht kleuren ziet geen antwoord.
  */
 import { kamer } from '../data/kamers.js';
 import KamerIcoon from './KamerIcoon.astro';
-interface Props { id: string }
+import NaarDoen from './NaarDoen.astro';
+interface Ook { href: string; tekst: string; waar: string }
+interface Props { id: string; ook?: Ook[] }
 const k = kamer(Astro.props.id);
 if (!k) throw new Error(`Onbekende kamer: ${Astro.props.id}`);
+const { ook = [] } = Astro.props;
 ---
 <details class="kamer" id={k.anker} data-kamer-uitleg={k.id}>
   <summary>
     <KamerIcoon id={k.id} />
     <span class="kop-tekst">
-      <h2>{k.naam}: {k.wat}</h2>
-      <span class="zin">{k.zin}</span>
+      <span class="beeld">{k.naam}</span>
+      <h2>{k.onderwerp}</h2>
+      <span class="zin">{k.doe}</span>
     </span>
-    <span class="lampje" aria-hidden="true"></span>
+    <span class="stand">
+      <span class="lampje" aria-hidden="true"></span>
+      <span class="toestand" data-toestand-tekst></span>
+    </span>
   </summary>
-  <div class="uitleg"><slot /></div>
+  <div class="uitleg">
+    <p class="waarom"><strong>Waarom?</strong> {k.zin}</p>
+    <slot />
+    <NaarDoen stappen={k.stappen} ook={ook} />
+  </div>
 </details>
 
 <script>
@@ -30,6 +44,7 @@ if (!k) throw new Error(`Onbekende kamer: ${Astro.props.id}`);
   import { toestandPerKamer } from '../lib/toestand.js';
 
   const kamers = Array.from(document.querySelectorAll<HTMLDetailsElement>('details[data-kamer-uitleg]'));
+  const WOORD: Record<string, string> = { open: 'Staat open', dicht: 'Op slot' };
 
   /** Een link naar een kamer (van het fort, het woordenboek of de kaart) klapt hem open. */
   function openVanuitAdres() {
@@ -41,7 +56,11 @@ if (!k) throw new Error(`Onbekende kamer: ${Astro.props.id}`);
 
   function kleur(data = lees()) {
     const toestand = toestandPerKamer(data);
-    kamers.forEach((d) => { d.dataset.toestand = toestand[d.dataset.kamerUitleg!]; });
+    kamers.forEach((d) => {
+      const t = toestand[d.dataset.kamerUitleg!];
+      d.dataset.toestand = t;
+      d.querySelector<HTMLElement>('[data-toestand-tekst]')!.textContent = WOORD[t] ?? '';
+    });
   }
 
   if (kamers.length) {
@@ -59,22 +78,32 @@ if (!k) throw new Error(`Onbekende kamer: ${Astro.props.id}`);
 <style>
   .kamer { border-top: var(--lijndikte) solid var(--lijn-sterk); scroll-margin-top: 5rem; }
   .kamer:last-of-type { border-bottom: var(--lijndikte) solid var(--lijn-sterk); }
-  summary { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 0.25rem; cursor: pointer; list-style: none; }
+  summary { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 0.25rem; cursor: pointer; list-style: none; }
   summary::-webkit-details-marker { display: none; }
   summary:hover { background: var(--papier-2); }
+  summary:hover h2 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
   summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-  summary :global(.kamer-icoon) { flex: none; }
+  summary :global(.kamer-icoon) { flex: none; float: none; margin: 0.2rem 0 0; }
   summary :global(.kamer-icoon svg) { width: 48px; height: 48px; display: block; }
   .kop-tekst { flex: 1; min-width: 0; }
+  .beeld { display: block; font-family: var(--kop); font-size: var(--tekst-m); color: var(--inkt-zacht); }
   /* de kop in een uitklapper: geen lijn erboven, die zit al op de kamer zelf */
-  h2 { margin: 0; padding: 0; border: 0; font-size: 1.3rem; line-height: 1.25; }
-  .zin { display: block; margin-top: 0.2rem; font-size: 0.97rem; color: var(--inkt-zacht); }
+  h2 { margin: 0; padding: 0; border: 0; font-size: 1.35rem; line-height: 1.25; }
+  .zin { display: block; margin-top: 0.3rem; font-size: 1rem; line-height: 1.45; }
+  .stand { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; margin-top: 0.3rem; }
   .lampje { margin-top: 0; }
+  .toestand { font-family: var(--kop); font-size: var(--tekst-m); font-weight: 700; white-space: nowrap; }
+  .toestand:empty { display: none; }
   /* een leeg rondje lijkt een aanvinkhokje: pas tonen als de huischeck er een kleur aan geeft */
-  .kamer:not([data-toestand="open"]):not([data-toestand="dicht"]) .lampje { visibility: hidden; }
-  summary::after { content: "▸"; flex: none; font-size: 1.1rem; color: var(--inkt-zacht); transition: transform 0.15s ease; }
+  .kamer:not([data-toestand="open"]):not([data-toestand="dicht"]) .lampje { display: none; }
+  summary::after { content: "▸"; flex: none; margin-top: 0.3rem; font-size: 1.1rem; color: var(--inkt-zacht); transition: transform 0.15s ease; }
   .kamer[open] summary::after { transform: rotate(90deg); }
   .uitleg { padding: 0.25rem 0 1.25rem 4rem; }
-  @media (max-width: 40rem) { .uitleg { padding-left: 0; } summary { gap: 0.75rem; } summary :global(.kamer-icoon svg) { width: 40px; height: 40px; } }
+  .waarom { margin-top: 0.25rem; }
+  @media (max-width: 40rem) {
+    .uitleg { padding-left: 0; }
+    summary { gap: 0.75rem; }
+    summary :global(.kamer-icoon svg) { width: 40px; height: 40px; }
+  }
   @media (prefers-reduced-motion: reduce) { summary::after { transition: none; } }
 </style>

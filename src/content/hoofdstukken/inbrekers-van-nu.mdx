@@ -2,7 +2,7 @@
 nr: null
 titel: "De inbrekers van nu"
 kort: "Babbeltrucs, datalekken, gijzeling en gestolen nummers."
-omschrijving: "Phishing, helpdeskfraude, datalekken, ransomware en sim-swapping: hoe oplichters nu binnenkomen, en waarom mensen zelf geld overmaken."
+omschrijving: "Is dit bericht echt? Belt mijn bank echt? Wat is sim-swapping? Zoek op hoe oplichters nu binnenkomen, hoe je het herkent en wat je doet."
 datum: "2026-09-30"
 ---
 import Citaat from '../../components/Citaat.astro';
@@ -18,39 +18,71 @@ import Foto from '../../components/Foto.astro';
 import Grafiek from '../../components/Grafiek.astro';
 import Nepbericht from '../../components/Nepbericht.astro';
 import Doe from '../../components/Doe.astro';
-import Scene from '../../components/Scene.astro';
+import RustigeScene from '../../components/RustigeScene.astro';
+import Overzicht from '../../components/Overzicht.astro';
+import NaarDoen from '../../components/NaarDoen.astro';
 
-<Scene wie="ria" bron="Veiliginternetten, bankhelpdeskfraude" href="https://veiliginternetten.nl/bankhelpdeskfraude-kost-slachtoffer-steeds-meer-geld/">
+<Doe>
+
+**Stop, en neem zelf contact op.**
+
+Klik niet op de link. Hang op. Zoek zelf het nummer, de site of de app op. Of bel de persoon op het nummer dat je al had.
+
+Neem daarna de tijd. Slaap er een nacht over. Praat erover met iemand. Een echte bank vindt dat prima. Een echte koper ook. En je echte kind ook.
+
+</Doe>
+
+<Overzicht kop="Wat gebeurt er bij jou? Zoek het hier op." rijen={[
+  { vraag: 'Een bericht met een link om in te loggen, te betalen of iets te verlengen', antwoord: 'Klik niet. Open zelf de app of typ zelf het adres.', href: '#is-dit-bericht-echt', link: 'Is dit bericht echt?' },
+  { vraag: 'Iemand belt namens je bank en wil dat je geld overzet', antwoord: 'Hang op. Een bank vraagt dit nooit. Bel zelf je bank, met het nummer op je pas.', href: '#vraagt-iemand-je-om-geld-over-te-maken', link: 'Vraagt iemand je om geld?' },
+  { vraag: '"Hoi mam, dit is mijn nieuwe nummer"', antwoord: 'Bel het oude nummer. Vraag naar het geheime woord.', href: '#hoi-mam-nieuw-nummer', link: 'Hoi mam, nieuw nummer' },
+  { vraag: 'Een koper vraagt je om 1 cent over te maken, of stuurt een link', antwoord: 'Ga er niet op in. Wie jou geld wil geven, hoeft jou geen link te sturen.', href: '#marktplaats-en-tikkie', link: 'Marktplaats en Tikkie' },
+  { vraag: 'Iemand wil meekijken op je scherm', antwoord: 'Hang op. Installeer niets.', href: '#meekijken-op-afstand', link: 'Meekijken op afstand' },
+  { vraag: 'Een webwinkel of app waar je een account hebt, is gehackt', antwoord: 'Gebruikte je dat wachtwoord ook ergens anders? Verander het daar.', href: '#mijn-wachtwoord-is-gelekt-wat-nu', link: 'Mijn wachtwoord is gelekt' },
+  { vraag: 'Je bestanden zijn onleesbaar en iemand vraagt losgeld', antwoord: 'Dat is ransomware. Met een losse reservekopie zet je alles terug.', href: '#wat-is-ransomware', link: 'Wat is ransomware?' },
+  { vraag: 'Je telefoon heeft ineens geen bereik', antwoord: 'Misschien is je nummer gestolen. Bel meteen je telefoonbedrijf.', href: '#wat-is-sim-swapping', link: 'Wat is sim-swapping?' },
+  { vraag: 'Al geklikt, ingelogd of betaald?', antwoord: 'Gaat het om geld? Bel direct je bank. Verander daarna het wachtwoord van je e-mail.', href: '#ik-heb-al-geklikt-ingelogd-of-betaald-wat-nu', link: 'Al geklikt: wat nu?' },
+  { vraag: 'Geld kwijt aan een oplichter?', antwoord: 'Het hangt af van wie op akkoord drukte. Bel eerst je bank.', href: '#krijg-ik-mijn-geld-terug', link: 'Krijg ik mijn geld terug?' },
+]} />
+
+## Ik heb al geklikt, ingelogd of betaald. Wat nu?
+
+<Kort>gaat het om geld? Bel direct je bank. Verander daarna het wachtwoord van je e-mail. Schamen hoeft niet: hoe sneller je belt, hoe meer je redt.</Kort>
+
+<Doe>
+
+**Doe dit nu, in deze volgorde:**
+
+1. **Gaat het om geld? Bel direct je bank.** Het noodnummer staat op je pas en in de app. Hoe sneller, hoe groter de kans dat een betaling wordt tegengehouden.
+2. **Verander het wachtwoord van je e-mail.** Doe dat op een apparaat dat je vertrouwt. Daarna het wachtwoord van het account waar je inlogde.
+3. **Log overal uit.** Bijna elke dienst heeft een knop om uit te loggen op alle apparaten.
+4. **Bewaar bewijs.** Maak schermafbeeldingen van het bericht, het nummer en het rekeningnummer. Gooi pas daarna iets weg.
+
+</Doe>
+
+<NaarDoen kop="De hele lijst, met waar je het meldt" ook={[
+  { href: '/als-er-is-ingebroken#het-eerste-uur', tekst: 'Het eerste uur: alle stappen om af te vinken', waar: 'Als er toch is ingebroken' },
+  { href: '/als-er-is-ingebroken#waar-meld-je-het', tekst: 'Waar meld je het?', waar: 'Als er toch is ingebroken' },
+]} />
+
+<RustigeScene wie="ria" bron="Veiliginternetten, bankhelpdeskfraude" href="https://veiliginternetten.nl/bankhelpdeskfraude-kost-slachtoffer-steeds-meer-geld/">
 
 Dinsdagmiddag gaat Ria's telefoon. Een vriendelijke man zegt dat hij van haar bank is. Er wordt vanmiddag geld van haar rekening gehaald, vertelt hij. Hij kan het tegenhouden. Dan moet ze haar spaargeld nu overzetten naar een veilige rekening. Hij blijft aan de lijn terwijl ze haar bankapp opent.
 
 Ria twijfelt. Hoe het afloopt, lees je in [Voor de mensen om je heen](/voor-de-mensen-om-je-heen).
 
-</Scene>
+</RustigeScene>
 
-De meeste inbrekers op internet breken geen slot open. Ze bellen aan en laten jou opendoen. In 2025 werd 10 procent van de Nederlanders online opgelicht, tegen 6 procent die gehackt werd. Dit zijn de manieren die je het vaakst tegenkomt.
+## Is dit bericht echt?
 
-<Doe>
+<Kort>waarschijnlijk niet als het wil dat je snel klikt, inlogt of betaalt. Zo'n nepbericht heet phishing.</Kort>
 
-**De ene regel: stop, en neem zelf contact op.**
+**Zo herken je het:**
 
-Vraagt een bericht of een beller om haast, om geheimhouding of om iets wat je normaal nooit doet? Klik dan niet en hang op. Zoek zelf het nummer, de site of de app op. Of bel de persoon op het nummer dat je al had.
-
-Maak daarna tijd. Slaap er een nacht over. Praat erover met iemand. Een echte bank vindt dat prima. Een echte koper ook. En je echte kind ook. Volgens de Fraudehelpdesk is het herkennen van die druk belangrijker dan het kennen van elke truc.
-
-</Doe>
-
-<Patroon />
-
-Hieronder staan de trucs één voor één. Bij elke truc lees je eerst hoe je hem herkent en wat je doet. Wil je meer weten? Klik dan op de rode regel eronder.
-
-## De babbeltruc aan de deur: phishing
-
-<Kort>een nepbericht wil dat je snel klikt, inlogt of betaalt.</Kort>
-
-<Babbeltruc />
-
-**Zo herken je het.** Er is haast: "vandaag nog". Of angst: "je rekening wordt geblokkeerd". Of een cadeautje: "je krijgt geld terug". Let niet op spelfouten. Oplichters schrijven tegenwoordig zonder fouten.
+- **Haast.** "Vandaag nog."
+- **Angst.** "Je rekening wordt geblokkeerd."
+- **Een cadeautje.** "Je krijgt geld terug."
+- **Let niet op spelfouten.** Oplichters schrijven tegenwoordig zonder fouten.
 
 <Doe>
 
@@ -66,9 +98,15 @@ Hieronder staan de trucs één voor één. Bij elke truc lees je eerst hoe je he
 
 <Nepbericht id="digid" />
 
+<NaarDoen kop="Zo zorg je dat een nepbericht minder kwaad kan" stappen={['mail-tweede-slot']} ook={[
+  { href: '/als-er-is-ingebroken#het-eerste-uur', tekst: 'Toch geklikt of ingelogd? Doe dit in het eerste uur', waar: 'Als er toch is ingebroken' },
+]} />
+
 <Meer titel="Wat is phishing precies?">
 
-**Wat het is.** Je krijgt een bericht. Het lijkt van je bank te komen. Of van een pakketdienst, de Belastingdienst of je eigen kind. Maar het is nep. De afzender wil dat je op een link klikt. Of dat je inlogt op een nagemaakte site. Of dat je geld overmaakt. Dit heet phishing. Spreek uit: fisjing. Dat woord en alle andere vaktermen staan in het [woordenboek](/woordenboek).
+<Babbeltruc />
+
+Je krijgt een bericht. Het lijkt van je bank te komen. Of van een pakketdienst, de Belastingdienst of je eigen kind. Maar het is nep. De afzender wil dat je op een link klikt. Of dat je inlogt op een nagemaakte site. Of dat je geld overmaakt. Dit heet phishing. Spreek uit: fisjing. Dat woord en alle andere vaktermen staan in het [woordenboek](/woordenboek).
 
 <Foto id="telefoon-in-hand" onderschrift="Bijna elke inbraak begint hier. De voordeur van nu past in één hand." />
 
@@ -96,9 +134,9 @@ Er is geen slot opengebroken. Er is geen wachtwoord geraden. Twee jongens van ne
 
 </Meer>
 
-## De oplichter die je zelf laat betalen
+## Vraagt iemand je om geld over te maken?
 
-<Kort>de meeste schade ontstaat doordat mensen zelf geld overmaken aan een oplichter.</Kort>
+<Kort>doe het niet als er haast is of als je het tegen niemand mag zeggen. Bel eerst zelf terug. De meeste schade ontstaat doordat mensen zelf geld overmaken aan een oplichter.</Kort>
 
 Hier breekt niemand in. Jij doet zelf de deur open en geeft het geld. Geen slot houdt dat tegen, want jij hebt de sleutel.
 
@@ -106,68 +144,207 @@ Hier breekt niemand in. Jij doet zelf de deur open en geeft het geld. Geen slot 
 
 <Doe>
 
-**Wat je doet.** Hang op of stop met typen. Bel zelf je bank, met het nummer op je pas. Of bel de persoon op het nummer dat je al had. Een bank vraagt nooit om geld over te maken naar een veilige rekening.
+**Wat je doet.** Hang op of stop met typen. Bel zelf je bank, met het nummer op je pas. Of bel de persoon op het nummer dat je al had.
 
 </Doe>
 
+**Belt "je bank"?** Een bank vraagt nooit om geld over te maken naar een veilige rekening. Ook niet om je pincode. En een bank haalt nooit je pas op. In je bankapp zie je of je echt met de bank belt.
+
 **Opgelicht worden is niet dom.** Oplichters doen dit de hele dag. Ze hebben vaste teksten, belkantoren en nu ook AI. Bij bankhelpdeskfraude worden mensen volgens het klachteninstituut Kifid zo gemanipuleerd dat ze echt denken met een medewerker van hun bank te praten. Schaamte beschermt de oplichter. Melden beschermt de volgende.
+
+<NaarDoen kop="Al geld overgemaakt?" ook={[
+  { href: '#ik-heb-al-geklikt-ingelogd-of-betaald-wat-nu', tekst: 'Bel direct je bank, en doe de rest van het eerste uur', waar: 'Op deze pagina' },
+  { href: '#krijg-ik-mijn-geld-terug', tekst: 'Krijg ik mijn geld terug?', waar: 'Op deze pagina' },
+]} />
+
+## Krijg ik mijn geld terug?
+
+<Kort>dat hangt af van wie op akkoord drukte. Haalde iemand anders het geld van je rekening, zonder dat jij het goedkeurde? Dan moet de bank het in beginsel terugbetalen. Heb je het zelf overgemaakt, ook al werd je bedrogen? Dan heb je geen recht op je geld terug.</Kort>
+
+- **Iemand anders deed het.** De bank moet in beginsel terugbetalen. Alleen als jij heel erg onvoorzichtig was, hoeft dat niet.
+- **Je deed het zelf.** Soms betaalt de bank toch iets terug, uit coulance. Maar dat is geen recht. Bij oplichters die zich voordeden als de bank, gaven de banken in 2025 minder dan de helft terug. ([bron](https://www.nvb.nl/nieuws-en-verhalen/banken-roepen-socialmediaplatforms-op-meer-te-doen-aan-online-fraudebestrijding/))
+- **Heeft iemand op je scherm meegekeken?** Dan valt het buiten de terugbetaalregeling van de banken.
+
+<Doe>
+
+**Wat je doet.** Bel direct je bank, ook als je denkt dat het geld weg is. Hoe sneller, hoe groter de kans dat een betaling wordt tegengehouden. Doe daarna aangifte bij de politie. Belde de oplichter namens je bank? Dan is aangifte een voorwaarde om geld terug te krijgen.
+
+</Doe>
+
+<NaarDoen kop="Lees hoe het precies zit" ook={[
+  { href: '/krijg-je-je-geld-terug', tekst: 'Krijg je je geld terug? De regels uitgelegd', waar: 'Opzoeken' },
+]} />
 
 <Citaat foto="portret-schneier" wie="Bruce Schneier" wat="beveiligingsexpert, in 2000" origineel="Only amateurs attack machines; professionals target people." bron="Crypto-Gram, 15 oktober 2000" href="https://www.schneier.com/crypto-gram/archives/2000/1015.html">Alleen amateurs vallen machines aan. Professionals richten zich op mensen.</Citaat>
 
-<Nepbericht id="tikkie" />
+## Welke andere trucs zijn er?
 
-<Meer titel="Negen trucs: zo herken je ze en dit doe je">
+<Kort>er zijn veel trucs, maar het patroon is steeds hetzelfde: haast, geheimhouding, of iets wat je normaal nooit doet.</Kort>
 
-**De nepbank.** "Uw bank" belt. Er is iets mis. U moet uw geld overmaken naar een veilige rekening.
+Volgens de Fraudehelpdesk is het herkennen van die druk belangrijker dan het kennen van elke truc. Hieronder staan de trucs die je het vaakst tegenkomt.
 
-- *Zo herken je het:* Een bank vraagt dit nooit. Ook niet om je pincode. En ze halen nooit je pas op.
-- *Wat je doet:* Hang op. Bel zelf je bank, met het nummer op je pas. In je bankapp zie je of je echt met de bank belt.
+<Patroon />
 
-**Meekijken op afstand.** "De bank" of "de helpdesk" wil je helpen met een probleem. Je moet een programma installeren, zoals AnyDesk of TeamViewer. Daarna kijkt de oplichter mee op je scherm, of neemt hij het over.
+### Meekijken op afstand
+
+"De bank" of "de helpdesk" wil je helpen met een probleem. Je moet een programma installeren, zoals AnyDesk of TeamViewer. Daarna kijkt de oplichter mee op je scherm, of neemt hij het over.
 
 - *Zo herken je het:* Een bank vraagt nooit om iets te installeren of om mee te kijken op je computer of telefoon.
 - *Wat je doet:* Hang op. Al geïnstalleerd? Bel je bank met het nummer op je pas, haal het programma weg en verander je wachtwoorden. Let op: is er meegekeken, dan valt het buiten de terugbetaalregeling van de banken.
 
-**Nepbeleggingen en nepcrypto.** Een advertentie met een bekende Nederlander. Veel winst, zonder risico. Een "adviseur" die steeds meer geld vraagt.
+### Nepbeleggingen en nepcrypto
+
+Een advertentie met een bekende Nederlander. Veel winst, zonder risico. Een "adviseur" die steeds meer geld vraagt.
 
 - *Zo herken je het:* Winst zonder risico bestaat niet.
 - *Wat je doet:* Zoek het bedrijf op in het register van de AFM. Staat het er niet in? Niet doen.
 
-**Nepwinkels.** Een hele lage prijs. Je moet vooruit betalen. Het pakje komt nooit.
+### Nepwinkels
+
+Een hele lage prijs. Je moet vooruit betalen. Het pakje komt nooit.
 
 - *Zo herken je het:* Je kunt alleen vooruit betalen. Het webadres klopt net niet.
 - *Wat je doet:* Controleer de winkel op [politie.nl](https://www.politie.nl) bij "check de verkoper". Betaal op een manier die je kunt terugdraaien.
 
-**Marktplaats en Tikkie.** De koper stuurt jou een link "om te betalen". Of vraagt je via een Tikkie 1 cent over te maken, "als controle". De link brengt je naar een nagemaakte bankpagina.
+### Marktplaats en Tikkie
+
+De koper stuurt jou een link "om te betalen". Of hij vraagt je via een Tikkie 1 cent over te maken, "als controle". De link brengt je naar een nagemaakte bankpagina.
 
 - *Zo herken je het:* Wie jou geld wil geven, hoeft jou geen link te sturen. Een echte Tikkie komt altijd van tikkie.me.
 - *Wat je doet:* Log nooit in bij je bank via een link van iemand anders. Ga niet in op een verzoek om 1 cent.
 
-**"Hoi mam, nieuw nummer".** Je kind of vriend heeft een nieuw nummer en heeft nu geld nodig. Soms met een nagemaakte stem.
+<Nepbericht id="tikkie" />
+
+### "Hoi mam, nieuw nummer"
+
+Je kind of vriend heeft een nieuw nummer en heeft nu geld nodig. Soms met een nagemaakte stem.
 
 - *Zo herken je het:* Nieuw nummer, haast en geld tegelijk.
 - *Wat je doet:* Bel het oude nummer. Vraag om het geheime woord.
 
-**Nepliefde.** Maandenlang lief contact. Nooit een ontmoeting. Dan een noodgeval of een beleggingstip.
+<NaarDoen kop="Spreek het geheime woord af" stappen={['geheim-woord']} />
+
+### Nepliefde
+
+Maandenlang lief contact. Nooit een ontmoeting. Dan een noodgeval of een beleggingstip.
 
 - *Zo herken je het:* Iemand die je nooit hebt gezien, vraagt om geld.
 - *Wat je doet:* Stuur nooit geld aan iemand die je niet in het echt kent.
 
-**QR-codes.** Een sticker over de QR-code op een parkeerautomaat of laadpaal. Je komt op een nepsite om te betalen.
+### QR-codes
+
+Een sticker over de QR-code op een parkeerautomaat of laadpaal. Je komt op een nepsite om te betalen.
 
 - *Zo herken je het:* Het webadres hoort niet bij de organisatie.
 - *Wat je doet:* Kijk naar het webadres voordat je betaalt. Of gebruik de echte app.
 
-**De tweede ronde.** Je bent opgelicht. Daarna belt iemand die je geld kan terughalen. Je moet wel eerst betalen.
+### De tweede ronde: iemand belooft je geld terug te halen
+
+Je bent opgelicht. Daarna belt iemand die je geld kan terughalen. Je moet wel eerst betalen.
 
 - *Zo herken je het:* Wie één keer is opgelicht, staat op een lijst.
 - *Wat je doet:* Ga er niet op in. Alleen je eigen bank en de politie helpen je.
 
+## Mijn wachtwoord is gelekt. Wat nu?
+
+<Kort>een bedrijf waar jij een account hebt, is gehackt. Gebruik je dat wachtwoord ook ergens anders? Verander het daar ook. Dit heet een datalek.</Kort>
+
+**Waarom het gevaarlijk is.** Oplichters proberen jouw gestolen wachtwoord op honderden andere sites. Dat doet een computer voor ze. Gebruik je overal hetzelfde wachtwoord? Dan zijn ze binnen.
+
+<Doe>
+
+**Wat je doet.** Gebruik overal een ander wachtwoord. Je wachtwoordmanager regelt dat. Kijk op [haveibeenpwned.com](https://haveibeenpwned.com) of jouw e-mailadres in een bekend lek zit.
+
+</Doe>
+
+<NaarDoen stappen={['wachtwoordmanager', 'accounts-wachtwoord']} ook={[
+  { href: '/onderhoud', tekst: 'Kijk twee keer per jaar of je adres in een nieuw lek zit', waar: 'Onderhoud en opruimen' },
+]} />
+
+<Meer titel="Wat is een datalek precies?">
+
+<Sleutelmaker />
+
+Je hebt een account bij een webwinkel of een app. Dat bedrijf wordt gehackt. Nu liggen jouw e-mailadres en je wachtwoord op straat. Dat heet een datalek. Er is niet ingebroken bij jou, maar bij de sleutelmaker. En die had een kopie van jouw sleutel.
+
+<Foto id="brievenbussen" onderschrift="Jouw gegevens liggen in honderden kastjes, bij bedrijven waar je ooit een account maakte. Eén kastje dat openstaat is genoeg." />
+
 </Meer>
 
-<Meer titel="Hoe vaak het gebeurt">
+## Wat is ransomware?
 
-Het gebeurt veel vaker dan je denkt:
+<Kort>een programma maakt je bestanden onleesbaar en vraagt losgeld. Heb je een reservekopie die los staat van je computer? Dan zet je alles terug zonder te betalen.</Kort>
+
+**Zo komt het binnen:**
+
+- via een bijlage bij een e-mail;
+- via een programma dat je ergens gratis downloadt;
+- via een scheur die niet is gerepareerd, omdat je updates uit staan.
+
+<Doe>
+
+**Wat je doet.** Zet updates aan. Open geen bijlagen die je niet verwacht. En het belangrijkste: maak een reservekopie die los staat van je computer.
+
+</Doe>
+
+<NaarDoen stappen={['backup', 'updates']} />
+
+<Meer titel="Waar komt het woord vandaan?">
+
+"Ransom" is Engels voor losgeld. Het programma maakt al je foto's en documenten onleesbaar. Wil je ze terug? Dan moet je betalen.
+
+</Meer>
+
+## Wat is sim-swapping?
+
+<Kort>een oplichter zet jouw telefoonnummer op zijn eigen simkaart. Dan krijgt hij jouw sms-berichten, ook de codes van je tweede slot.</Kort>
+
+**Zo herken je het.** Je telefoon heeft ineens geen bereik meer, terwijl er niets aan de hand lijkt.
+
+<Doe>
+
+**Wat je doet.** Bel dan meteen je telefoonbedrijf. Laat de codes voor je tweede slot door een app maken en niet per sms sturen. Zet een pincode op je simkaart: volgens het NCSC maakt dat simswapping moeilijker.
+
+</Doe>
+
+<NaarDoen stappen={['sim-pincode', 'mail-tweede-slot']} />
+
+<Meer titel="Hoe gaat sim-swapping?">
+
+Een oplichter belt jouw telefoonbedrijf. Hij doet alsof hij jou is. Hij vraagt om je nummer over te zetten naar een nieuwe simkaart. Lukt dat? Dan komen al jouw sms-berichten bij hem binnen. Ook de codes van je tweede slot.
+
+</Meer>
+
+## Wie kijkt er mee op internet?
+
+<Kort>bedrijven houden bij wat je doet op internet en verdienen daaraan. Dat heet tracking. Je kunt het een stuk minder maken.</Kort>
+
+**Zo herken je het.** Zie je bovenin je scherm een groen of oranje lampje? Dan gebruikt een app op dat moment je camera of je microfoon.
+
+<Doe>
+
+**Wat je doet.** Zet een blokker in je browser, zoals uBlock Origin. Gooi extensies weg die je niet gebruikt. Kijk af en toe welke apps bij je locatie, je contacten, je camera en je microfoon mogen. Zet uit wat een app niet nodig heeft.
+
+</Doe>
+
+<NaarDoen stappen={['app-rechten', 'ublock']} />
+
+<Meer titel="Waar zie je welke apps mogen meekijken?">
+
+- **iPhone:** open Instellingen en kies Privacy en beveiliging.
+- **Android:** open Instellingen en typ "machtigingen" in de zoekbalk. Daar kun je ook aanzetten dat apps die je niet gebruikt hun rechten kwijtraken.
+
+</Meer>
+
+<Meer titel="Wat is tracking precies?">
+
+Advertentiebedrijven volgen wat je bekijkt, koopt en zoekt. Zo maken ze een beeld van wie jij bent. Dat is geen inbraak. Maar die gegevens kunnen ook uitlekken. En een oplichter die veel over je weet, maakt een bericht dat precies bij jou past.
+
+</Meer>
+
+## Hoe vaak gebeurt dit?
+
+<Kort>vaak, en steeds vaker. In 2025 werd 10 procent van de Nederlanders online opgelicht, tegen 6 procent die gehackt werd.</Kort>
 
 - Bij de Fraudehelpdesk kwamen in 2025 ruim 100.000 meldingen binnen. Een jaar eerder waren dat er 63.000. De gemelde schade was bijna 69 miljoen euro. En veel mensen melden het nooit. ([bron](https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Terugblik-2025.pdf))
 - De meeste schade komt door nepbeleggingen. De toezichthouder AFM schat de echte schade op honderden miljoenen euro's per jaar. Het kan oplopen tot 750 miljoen. De meeste slachtoffers zeggen niets, omdat ze zich schamen. ([bron](https://www.afm.nl/nl-nl/persbericht/2025/dec/pb-beleggingsfraude))
@@ -180,85 +357,5 @@ Het gebeurt veel vaker dan je denkt:
 ]}>
   Meldingen bij de Fraudehelpdesk. In één jaar kwamen er ruim de helft bij — en dit is alleen wat gemeld wórdt. <a href="https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Terugblik-2025.pdf">Fraudehelpdesk, terugblik 2025</a>
 </Grafiek>
-
-</Meer>
-
-## De gekopieerde sleutel: datalekken
-
-<Kort>een bedrijf waar jij een account hebt, lekt je wachtwoord.</Kort>
-
-<Sleutelmaker />
-
-**Waarom het gevaarlijk is.** Oplichters proberen jouw gestolen wachtwoord op honderden andere sites. Dat doet een computer voor ze. Gebruik je overal hetzelfde wachtwoord? Dan zijn ze binnen.
-
-<Doe>
-
-**Wat je doet.** Gebruik overal een ander wachtwoord. Je wachtwoordmanager regelt dat. Kijk op [haveibeenpwned.com](https://haveibeenpwned.com) of jouw e-mailadres in een bekend lek zit.
-
-</Doe>
-
-<Meer titel="Wat is een datalek precies?">
-
-**Wat het is.** Je hebt een account bij een webwinkel of een app. Dat bedrijf wordt gehackt. Nu liggen jouw e-mailadres en je wachtwoord op straat. Dat heet een datalek. Er is niet ingebroken bij jou, maar bij de sleutelmaker. En die had een kopie van jouw sleutel.
-
-<Foto id="brievenbussen" onderschrift="Jouw gegevens liggen in honderden kastjes, bij bedrijven waar je ooit een account maakte. Eén kastje dat openstaat is genoeg." />
-
-</Meer>
-
-## Gijzeling van je spullen: ransomware
-
-<Kort>een programma maakt je bestanden onleesbaar en vraagt losgeld.</Kort>
-
-**Zo komt het binnen.** Via een bijlage bij een e-mail. Via een programma dat je ergens gratis downloadt. Of via een scheur die niet is gerepareerd, omdat je updates uit staan.
-
-<Doe>
-
-**Wat je doet.** Zet updates aan. Open geen bijlagen die je niet verwacht. En het belangrijkste: maak een reservekopie die los staat van je computer. Heb je die? Dan zet je je bestanden terug zonder losgeld te betalen.
-
-</Doe>
-
-<Meer titel="Wat is ransomware precies?">
-
-**Wat het is.** Ransomware is een kwaadaardig programma. Het maakt al je foto's en documenten onleesbaar. Wil je ze terug? Dan moet je betalen. "Ransom" is Engels voor losgeld.
-
-</Meer>
-
-## Je telefoonnummer gestolen: sim-swapping
-
-<Kort>een oplichter zet jouw telefoonnummer op zijn eigen simkaart.</Kort>
-
-**Zo herken je het.** Je telefoon heeft ineens geen bereik meer, terwijl er niets aan de hand lijkt.
-
-<Doe>
-
-**Wat je doet.** Bel dan meteen je telefoonbedrijf. Laat de codes voor je tweede slot door een app maken en niet per sms sturen. Zet een pincode op je simkaart: volgens het NCSC maakt dat simswapping moeilijker.
-
-</Doe>
-
-<Meer titel="Hoe gaat sim-swapping?">
-
-**Wat het is.** Een oplichter belt jouw telefoonbedrijf. Hij doet alsof hij jou is. Hij vraagt om je nummer over te zetten naar een nieuwe simkaart. Lukt dat? Dan komen al jouw sms-berichten bij hem binnen. Ook de codes van je tweede slot.
-
-</Meer>
-
-## Meekijkers door het raam: tracking
-
-<Kort>bedrijven houden bij wat je doet op internet en verdienen daaraan.</Kort>
-
-**Zo herken je het.** Zie je bovenin je scherm een groen of oranje lampje? Dan gebruikt een app op dat moment je camera of je microfoon.
-
-<Doe>
-
-**Wat je doet.** Zet een blokker in je browser, zoals uBlock Origin. Gooi extensies weg die je niet gebruikt. Kijk af en toe welke apps bij je locatie, je contacten, je camera en je microfoon mogen, en zet uit wat een app niet nodig heeft.
-
-</Doe>
-
-<Meer titel="Waar vind je dat op je telefoon?">
-
-Op een iPhone vind je dat bij Instellingen, Privacy en beveiliging. Op Android bij Instellingen, Beveiliging en privacy, Privacy en dan Rechtenbeheer; zet daar ook aan dat apps die je niet gebruikt hun rechten kwijtraken.
-
-**Wat tracking is.** Advertentiebedrijven volgen wat je bekijkt, koopt en zoekt. Dat heet tracking. Zo maken ze een beeld van wie jij bent. Dat is geen inbraak. Maar die gegevens kunnen ook uitlekken. En een oplichter die veel over je weet, maakt een bericht dat precies bij jou past.
-
-</Meer>
 
 <Noot titel="Ook landen doen dit">Dezelfde babbeltruc en dezelfde geraden wachtwoorden worden ook gebruikt door hackers van staten, bijvoorbeeld tegen ambtenaren en militairen. Wat dat voor jou betekent, en de cijfers erbij, staat in [De storm om het huis](/de-storm-om-het-huis).</Noot>
