@@ -1,0 +1,34 @@
+---
+/**
+ * Eén keuze in een rijtje als "Mijn adres eindigt op @gmail.com": dicht tot je
+ * erop tikt. Naar het details-component van GOV.UK. Zo leest wie in paniek is
+ * alleen het stukje dat over zijn eigen telefoon of e-mail gaat, en hoeft hij
+ * niet naar een andere stap te springen. De tekst staat gewoon in de pagina,
+ * dus zoeken, printen en schermlezers vinden hem ook dicht.
+ */
+interface Props { titel: string }
+const { titel } = Astro.props;
+---
+<details class="optie">
+  <summary><span class="pijl" aria-hidden="true">›</span><span>{titel}</span></summary>
+  <div class="inhoud"><slot /></div>
+</details>
+
+<style>
+  .optie { margin: 0 0 0.5rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier); }
+  .optie[open] { border-color: var(--inkt); }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary {
+    display: flex; align-items: center; gap: 0.6rem; min-height: 3rem; padding: 0.4rem 0.9rem;
+    cursor: pointer; font-weight: 700; line-height: 1.3;
+  }
+  summary:hover span:last-child { text-decoration: underline; }
+  summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .pijl { flex: none; display: inline-block; font-size: 1.5em; line-height: 1; transition: transform 0.15s; }
+  .optie[open] .pijl { transform: rotate(90deg); }
+  .inhoud { padding: 0.1rem 0.9rem 0.6rem 2.2rem; }
+  .inhoud :global(ol) { margin: 0 0 0.6rem; padding-left: 1.25rem; }
+  .inhoud :global(li) { margin: 0.3rem 0; }
+  @media (prefers-reduced-motion: reduce) { .pijl { transition: none; } }
+</style>

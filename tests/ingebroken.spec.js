@@ -93,3 +93,46 @@ test('wie AnyDesk of TeamViewer kreeg, leest per apparaat hoe hij het weghaalt',
   const stap = page.locator('[data-stappenplan="stappen-geld"] .stap-item').nth(2);
   for (const t of ['Windows', 'Mac', 'iPhone', 'Android', 'Verwijder']) await expect(stap).toContainText(t);
 });
+
+test('geen stap stuurt je naar een stap in een ander stappenplan', async ({ page }) => {
+  await page.goto(PAD);
+  await expect(page.locator('main')).not.toContainText(/zoals in stap \d+ bij/);
+  await expect(page.locator('main a[href="#stap-mail-wachtwoord"], main a[href="#stap-uitloggen"], main a[href="#stap-bewijs"]')).toHaveCount(0);
+});
+
+test('ABN AMRO heeft twee knoppen, elk met de tijd waarop je dat nummer belt', async ({ page }) => {
+  await page.goto(PAD);
+  const abn = page.locator('.noodkaart a.bank', { hasText: 'ABN AMRO' });
+  await expect(abn).toHaveCount(2);
+  await expect(abn.nth(0)).toContainText('werkdagen');
+  await expect(abn.nth(1)).toContainText('weekend');
+});
+
+test('het tweede slot zegt per telefoon welke app werkt, en wat je doet met de vierkante code', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('#stap-tweede-slot');
+  await expect(stap.locator('details.optie')).not.toHaveCount(0);
+  // je kiest je eigen e-mail; dicht tot je erop tikt, open als je tikt
+  const apple = stap.locator('details.optie', { hasText: '@icloud.com' });
+  await apple.locator('summary').click();
+  await expect(apple.getByText('Inloggen en beveiliging')).toBeVisible();
+  const app = stap.locator('details.optie', { hasText: 'app met codes' }).last();
+  await app.locator('summary').click();
+  await expect(app).toContainText('iPhone: Ente Auth of 2FAS');
+  await expect(app).toContainText('vierkante code');
+  // geen vaktaal: 2FA, authenticator; de app 2FAS mag wel
+  await expect(stap).not.toContainText(/\b2FA\b|authenticator/i);
+});
+
+test('bewijs bewaren kan ook op een laptop', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('#stap-bewijs');
+  for (const t of ['iPhone', 'Android', 'Windows', 'Mac']) await expect(stap.locator('summary', { hasText: t })).toHaveCount(1);
+});
+
+test('wie zijn geld kwijt is, leest bij de aangifte of hij het terugkrijgt', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('[data-stappenplan="stappen-geld"] .stap-item').nth(3);
+  await expect(stap).toContainText('Krijg je je geld terug?');
+  await expect(stap).toContainText('terugbetalen');
+});

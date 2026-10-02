@@ -1,0 +1,40 @@
+---
+/**
+ * Waar je ziet of een inbreker een regel heeft gemaakt die je mail doorstuurt.
+ * Dat kan meestal alleen op de website van je e-mail, niet in de app.
+ */
+import Optie from './Optie.astro';
+---
+<p>Kijk daarna of er een regel is die je mail doorstuurt. Doe dit op een computer of laptop, op de website van je e-mail. In de app op je telefoon zie je deze regels meestal niet.</p>
+<p>Je verandert hier niets. Je kijkt alleen. Tik op je e-mail:</p>
+<Optie titel="@gmail.com">
+  <ol>
+    <li>Ga naar gmail.com en log in.</li>
+    <li>Klik rechtsboven op het tandwiel. Klik op Alle instellingen bekijken.</li>
+    <li>Klik bovenaan op Doorsturen en POP/IMAP. Kijk wat er bij Doorsturen staat.</li>
+    <li>Klik daarna bovenaan op Filters en geblokkeerde adressen. Kijk welke filters er staan.</li>
+  </ol>
+</Optie>
+<Optie titel="@outlook.com, @hotmail.com of @live.nl">
+  <ol>
+    <li>Ga naar outlook.com en log in.</li>
+    <li>Klik rechtsboven op het tandwiel.</li>
+    <li>Kies E-mail, en dan Doorsturen. Kijk of het aan staat.</li>
+    <li>Kies daarna Regels. Kijk welke regels er staan.</li>
+  </ol>
+</Optie>
+<Optie titel="@icloud.com of @me.com">
+  <ol>
+    <li>Ga naar icloud.com/mail en log in.</li>
+    <li>Open de instellingen van Mail. Kijk bij Regels, en bij doorsturen.</li>
+  </ol>
+</Optie>
+<Optie titel="Een adres van je provider of iets anders">
+  <p>Log in op de webmail van je provider. Zoek in de instellingen naar "doorsturen", "regels" of "filters". Vind je het niet? Bel je provider. Die kan meekijken.</p>
+</Optie>
+<p>Zo'n regel ziet er bijvoorbeeld zo uit:</p>
+<ul>
+  <li>Stuur alle mail door naar een adres dat je niet kent.</li>
+  <li>Verplaats mail van je bank naar de prullenbak.</li>
+</ul>
+<p>Heb je een regel niet zelf gemaakt? Haal hem weg. Er staat een prullenbak of Verwijderen naast.</p>
