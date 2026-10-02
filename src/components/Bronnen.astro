@@ -79,10 +79,9 @@ function regels(stukjes: Stukje[]): Stukje[][] {
 
   {groepen.map((g) => (
     <section class="groep" data-groep={g.slug}>
-      <h3 id={g.slug}>
-        <span class="nr">{plek(g.slug)?.deel?.titel} · {plek(g.slug)?.tekst}</span>
-        <a href={`/${g.slug}`}>{g.titel}</a>
-      </h3>
+      {/* de kop is de naam van het hoofdstuk: wie met een schermlezer van kop naar kop springt, hoort waar hij is */}
+      <h3 id={g.slug}>{g.titel}</h3>
+      <p class="nr">{plek(g.slug)?.deel?.titel} · {plek(g.slug)?.tekst} · <a href={`/${g.slug}`}>Naar het hoofdstuk</a></p>
       <ul>
         {g.items.map((b) => (
           <li data-item data-status={b.status}>
@@ -168,8 +167,8 @@ function regels(stukjes: Stukje[]): Stukje[][] {
   .stand { margin: 0 0 1.5rem; color: var(--inkt-zacht); }
 
   .groep { margin: 2.25rem 0; }
-  .groep h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem; margin: 0 0 0.75rem; }
-  .groep h3 .nr { font-family: var(--mono); font-size: var(--tekst-s); letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); }
+  .groep h3 { margin: 0 0 0.25rem; }
+  .groep .nr { margin: 0 0 0.75rem; font-size: var(--tekst-m); color: var(--inkt-zacht); }
   .groep > ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; }
   [data-item] { margin: 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier); }
   [data-item] > p, [data-item] > ul { margin: 0 0 0.35rem; }
