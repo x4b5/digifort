@@ -30,6 +30,12 @@ const ANTWOORDEN = [
             <fieldset aria-describedby={`hint-${v.nr}`}>
               <legend class="vraag"><span class="nr">{v.nr}.</span> {v.vraag}</legend>
               <p class="hint" id={`hint-${v.nr}`}>{v.hint}</p>
+              {v.nakijken && (
+                <details class="nakijken" data-nakijken={v.nr}>
+                  <summary><span>Waar zie ik dat?</span></summary>
+                  <ul>{v.nakijken.map((r) => <li>{r}</li>)}</ul>
+                </details>
+              )}
               <div class="antwoorden">
                 {ANTWOORDEN.map((a) => (
                   <label class={`antwoord ${a.klasse}`}><input type="radio" name={`v${v.nr}`} value={a.waarde} /><span>{a.tekst}</span></label>
@@ -63,6 +69,7 @@ const ANTWOORDEN = [
         <h3 data-eerste-kop>Je eerste stap</h3>
         <p class="eerste-tijd" data-eerste-tijd></p>
         <p data-eerste-uitleg></p>
+        <p class="noot" data-eerste-noot hidden></p>
         <p class="eerste-knop"><a class="knop" data-eerste-link href="/een-avond">Begin met deze stap <span aria-hidden="true">→</span></a></p>
       </div>
 
@@ -138,10 +145,13 @@ const ANTWOORDEN = [
   import { LIJSTEN } from '../data/lijsten.js';
 
   type Vraag = (typeof VRAGEN)[number];
-  type Stap = { tekst: string, href: string, waar: string, nummer?: number, tijd?: number, vinkje?: { lijst: string, id: string } };
+  type Noot = { tekst: string, link?: { href: string, tekst: string } };
+  type Stap = { noot?: Noot, tekst: string, href: string, waar: string, nummer?: number, tijd?: number, vinkje?: { lijst: string, id: string } };
 
   /** De handeling die de deur van deze vraag dichtdoet, met de pagina waar je hem doet. */
   function stapVan(v: Vraag): Stap {
+    const x = v as { noot?: string, nootLink?: { href: string, tekst: string } };
+    const noot = x.noot ? { tekst: x.noot, link: x.nootLink } : undefined;
     const s = v.stap as { lijst?: string, id?: string, href?: string, tekst?: string, pagina?: string, vinkje?: { lijst: string, id: string } };
     if (s.lijst && s.id) {
       const items = LIJSTEN[s.lijst].items;
@@ -155,13 +165,22 @@ const ANTWOORDEN = [
         nummer: i + 1,
         tijd: items[i].tijd,
         vinkje: { lijst: s.lijst, id: s.id },
+        noot,
       };
     }
-    return { tekst: s.tekst!, href: s.href!, waar: s.pagina!, vinkje: s.vinkje };
+    return { tekst: s.tekst!, href: s.href!, waar: s.pagina!, vinkje: s.vinkje, noot };
   }
 
   /** Eén korte zin onder een stap: hoe lang hij duurt en op welke pagina de uitleg staat. */
   const waarZin = (s: Stap) => `${s.tijd ? `${s.tijd} minuten. ` : ''}Uitleg staat op de pagina "${s.waar}".`;
+
+  /** De noot bij een stap: een gewone zin, met eventueel een link terug naar de vraag. */
+  function vulNoot(p: HTMLElement, noot?: Noot) {
+    p.hidden = !noot;
+    if (!noot) return;
+    p.replaceChildren(document.createTextNode(noot.tekst));
+    if (noot.link) p.append(' ', Object.assign(document.createElement('a'), { href: noot.link.href, textContent: noot.link.tekst }));
+  }
 
   const vraagBij = (el: HTMLElement) => VRAGEN.find((x) => x.nr === Number(el.dataset.vraag))!;
   const maak = <K extends keyof HTMLElementTagNameMap>(tag: K, klasse = '', tekst = '') =>
@@ -267,6 +286,7 @@ const ANTWOORDEN = [
         const tag = maak('span', `tag ${status[0]}`, status[1]);
         // één gewone zin: hoe lang, en waar de uitleg staat
         li.append(kop, tag, maak('p', 'taak-hint', waarZin(s)));
+        if (s.noot) { const p = maak('p', 'taak-noot'); vulNoot(p, s.noot); li.append(p); }
         if (s.vinkje) {
           const label = maak('label', 'bouwstap');
           const vak = Object.assign(maak('input'), { type: 'checkbox', checked: gedaan });
@@ -293,6 +313,7 @@ const ANTWOORDEN = [
         $('[data-eerste-tijd]').textContent = eerste.tijd ? `Dit kost ongeveer ${eerste.tijd} minuten.` : '';
         $('[data-eerste-uitleg]').textContent = `Pak je telefoon erbij. De uitleg staat op de pagina "${eerste.waar}".`;
         $<HTMLAnchorElement>('[data-eerste-link]').href = eerste.href;
+        vulNoot($('[data-eerste-noot]'), eerste.noot);
       }
 
       // Eén zin voor de schermlezer. Het hele uitslagblok voorlezen bij elke
@@ -344,6 +365,17 @@ const ANTWOORDEN = [
   legend { padding: 0; }
   .vraag { font-weight: 700; font-size: 1.15rem; line-height: 1.35; margin: 0 0 0.25rem; }
   .hint { margin: 0 0 0.7rem; color: var(--inkt); font-size: inherit; max-width: 38em; }
+  /* "Waar zie ik dat?": GOV.UK-details onder de hint, ingeklapt zodat de vraag kort blijft */
+  .nakijken { margin: 0 0 0.8rem; }
+  .nakijken summary { display: inline-flex; align-items: center; min-block-size: 44px; cursor: pointer; color: var(--rood); font-weight: 700; }
+  .nakijken summary span { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .nakijken summary:hover span { text-decoration-thickness: 3px; }
+  .nakijken summary::before { content: "▸"; margin-right: 0.45rem; }
+  .nakijken[open] summary::before { content: "▾"; }
+  .nakijken summary::-webkit-details-marker { display: none; }
+  .nakijken ul { margin: 0.2rem 0 0; padding: 0.2rem 0 0.2rem 1rem; border-left: 5px solid var(--lijn-sterk); list-style: none; max-width: 38em; }
+  .nakijken li { margin: 0 0 0.45rem; }
+  .nakijken li:last-child { margin-bottom: 0; }
   .nr { font-family: var(--kop); color: var(--rood); margin-right: 0.2rem; }
 
   .eigen-cijfer { margin: 0; }
@@ -443,7 +475,8 @@ const ANTWOORDEN = [
   .taken :global(.taak) { display: grid; grid-template-columns: 1fr auto; gap: 0.2rem 1rem; align-items: start; padding: 0.8rem 0; border-bottom: var(--lijndikte-dun) solid var(--lijn); }
   .taken :global(.taak-kop) { margin: 0; font-weight: 700; font-size: 1.05rem; }
   .taken :global(.taak-kop a) { display: inline-block; min-block-size: 24px; }
-  .taken :global(.taak-hint) { grid-column: 1 / -1; margin: 0; }
+  .taken :global(.taak-hint), .taken :global(.taak-noot) { grid-column: 1 / -1; margin: 0; }
+  .taken :global(.taak-noot) { margin-top: 0.3rem; max-width: 38em; }
   /* het label even groot als gewone tekst; "Gedaan" krijgt een vinkje en groen, zodat je ziet dat het gelukt is */
   .taken :global(.tag) { justify-self: end; padding: 0.15rem 0.6rem; border-radius: var(--radius); font-size: inherit; font-weight: 700; white-space: nowrap; color: var(--inkt); }
   .taken :global(.tag.open) { background: var(--rood-licht); }

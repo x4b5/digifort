@@ -8,6 +8,12 @@
  *   een andere vraag bij: dan gaat de lezer twijfelen aan zijn eerdere antwoord.
  * - `dicht` zegt in gewone woorden wat een "ja" betekent. Dat staat in de uitslag
  *   onder "Dit heb je al goed", zodat je elk punt terugkoppelt aan je antwoord.
+ * - `nakijken` (mag ontbreken) zegt waar je het antwoord ziet. Het staat ingeklapt
+ *   onder de hint, als GOV.UK-details: wie twijfelt, klapt het open. Alleen menupaden
+ *   die ook in de stappen staan (avond.js, weekend.js); weet je het pad niet zeker,
+ *   laat de lezer dan zoeken in Instellingen. Altijd erbij: welk antwoord je dan kiest.
+ * - `noot` (mag ontbreken) staat in de uitslag onder de stap: wat je moet weten
+ *   voordat je begint. `nootLink` wijst terug naar de vraag als je het al blijkt te hebben.
  * - `groep` zet vragen die bij elkaar horen onder één kopje.
  * - `stap` is de handeling die deze deur dichtdoet. Met `lijst` en `id` is het een
  *   stap uit een afvinklijst (lijsten.js), met een eigen pagina (`STAPPAGINA`).
@@ -27,13 +33,26 @@ export const VRAGEN = [
     nr: 2, groep: 'mail', kamer: 'sleutelkluis',
     vraag: 'Gebruik je een wachtwoordmanager, een app die je wachtwoorden bewaart?',
     hint: 'Bewaart je telefoon je wachtwoorden als je op ‘bewaren’ tikt, dan telt dat ook.',
+    nakijken: [
+      'Open Instellingen op je telefoon en zoek op ‘wachtwoorden’.',
+      'Zie je daar een lijst met je wachtwoorden? Dan kies je Ja.',
+      'Gebruik je een app als Bitwarden of Proton Pass? Ook dan kies je Ja.',
+    ],
+    noot: 'Bewaart je telefoon je wachtwoorden al? Dan heb je er al een. Zet je antwoord dan op Ja. Anders neem je Bitwarden of Proton Pass. Die zijn allebei gratis.',
+    nootLink: { href: '#vraag-2', tekst: 'Terug naar vraag 2' },
     dicht: 'Je gebruikt een wachtwoordmanager.',
     stap: { lijst: 'niveau-1', id: 'wachtwoordmanager' },
   },
   {
     nr: 3, groep: 'mail', kamer: 'tweede-slot', kind: true,
     vraag: 'Zit er een tweede slot op je e-mail?',
-    hint: 'Je e-mail vraagt dan na je wachtwoord nog om een code; je telefoon openen met je gezicht of vinger telt niet.',
+    hint: 'Na je wachtwoord vraagt je e-mail dan nog om een code per sms of uit een app; je gezicht of vinger telt niet.',
+    nakijken: [
+      'Staat je e-mail op je telefoon altijd open? Dat is normaal. Het tweede slot merk je pas als je op een nieuw apparaat inlogt.',
+      'Open de instellingen van je e-mail en ga naar ‘beveiliging’. Zoek naar ‘tweestapsverificatie’, ‘2FA’ of ‘passkey’.',
+      'Staat het aan? Dan kies je Ja. Staat het uit, of vind je het niet? Dan kies je Nee.',
+      'Je telefoon openen met je gezicht of vinger telt niet. Dat slot zit op je telefoon, niet op je e-mail.',
+    ],
     dicht: 'Je e-mail heeft een tweede slot.',
     stap: { lijst: 'niveau-1', id: 'mail-tweede-slot' },
   },
@@ -41,6 +60,13 @@ export const VRAGEN = [
     nr: 4, groep: 'apparaten', kamer: 'onderhoud',
     vraag: 'Werken je telefoon en computer zichzelf bij?',
     hint: 'Updates gaan dan vanzelf, zonder dat jij erop hoeft te tikken.',
+    nakijken: [
+      'Je kijkt alleen. Je verandert nog niets.',
+      'iPhone: open Instellingen, dan Algemeen, dan Software-update. Kijk of Automatische updates aanstaat.',
+      'Android: open Instellingen en zoek op ‘update’.',
+      'Mac: open Systeeminstellingen, dan Algemeen, dan Software-update. Windows: open Instellingen, dan Windows Update.',
+      'Staat het op je telefoon én je computer aan? Dan kies je Ja.',
+    ],
     dicht: 'Je telefoon en computer werken zichzelf bij.',
     stap: { lijst: 'niveau-1', id: 'updates' },
   },
@@ -68,7 +94,13 @@ export const VRAGEN = [
   {
     nr: 8, groep: 'thuis', kamer: 'sleutels',
     vraag: 'Kun je nog in je e-mail als je telefoon vandaag kwijtraakt?',
-    hint: 'Bijvoorbeeld met reservecodes op papier, of op een computer waar je e-mail al openstaat.',
+    hint: 'Bijvoorbeeld met herstelcodes op papier, of op een computer waar je e-mail al openstaat.',
+    nakijken: [
+      'Herstelcodes zijn een rijtje codes voor noodgevallen. Elke code werkt één keer.',
+      'Je krijgt ze als je een tweede slot op je e-mail zet. Sommige diensten noemen ze back-upcodes of noodcodes. Het is hetzelfde.',
+      'Liggen die codes thuis op papier? Dan kies je Ja. Weet je het niet? Kies dan Weet ik niet.',
+    ],
+    noot: 'Herstelcodes zijn noodcodes voor je e-mail. Je vindt ze in de instellingen van je e-mail, bij beveiliging.',
     dicht: 'Je kunt in je e-mail, ook zonder je telefoon.',
     stap: { lijst: 'niveau-2', id: 'noodcodes' },
   },
