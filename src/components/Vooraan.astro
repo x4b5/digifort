@@ -1,0 +1,25 @@
+---
+/**
+ * Het antwoord vooraan, op een naslagpagina.
+ * Wie iets opzoekt, wil eerst het antwoord zien en pas daarna de lijst met onderdelen.
+ * Dit blok zet zichzelf daarom direct onder de titel, vóór de inhoudsopgave, en klapt
+ * die inhoudsopgave dicht (ook op een breed scherm). Het verplaatst het echte element,
+ * dus de voorleesvolgorde en de tabvolgorde lopen gelijk met wat je ziet.
+ * Zonder JavaScript blijft alles staan waar het stond: dan direct ná de inhoudsopgave.
+ */
+---
+<div class="vooraan" data-vooraan><slot /></div>
+<script is:inline>
+  (function () {
+    var blok = document.currentScript && document.currentScript.previousElementSibling;
+    var kop = document.querySelector('main .paginakop');
+    if (blok && kop && kop.parentNode) kop.parentNode.insertBefore(blok, kop.nextSibling);
+    var inhoud = document.querySelector('[data-inhoud]');
+    if (inhoud) inhoud.removeAttribute('open');
+  })();
+</script>
+
+<style>
+  .vooraan { margin: 1.25rem 0 0; }
+  .vooraan > :global(:first-child) { margin-top: 0; }
+</style>

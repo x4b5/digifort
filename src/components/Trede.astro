@@ -1,5 +1,8 @@
 ---
-/** Eén trede van de ladder. Titel en soort komen uit data/tredes.js: één bron. */
+/**
+ * Eén trede van de ladder. Titel en soort komen uit data/tredes.js: één bron.
+ * De treden zijn h3: ze horen onder de vraagkop "Welke manieren van inloggen zijn er?".
+ */
 import { trede } from '../data/tredes.js';
 interface Props { nr: number }
 const { nr } = Astro.props;
@@ -7,12 +10,12 @@ const { titel, soort } = trede(nr)!;
 ---
 <section class:list={["trede", `trede-${soort}`]} id={`trede-${nr}`}>
   <p class="trede-nr"><span class:list={['bol', soort]}>{String(nr).padStart(2, '0')}</span> <span class="soort">{soort === 'hebben' ? 'iets wat je hebt' : 'iets wat je weet'}</span></p>
-  <h2>{titel}</h2>
+  <h3>{titel}</h3>
   <slot />
 </section>
 <style>
   .trede { margin-top: 3rem; }
-  .trede h2 { margin-top: 0.4rem; }
+  .trede h3 { margin-top: 0.4rem; font-size: clamp(1.5rem, 3.8vw, 2rem); }
   .trede-nr { display: flex; align-items: center; gap: 0.75rem; margin: 0; font-family: var(--kop); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); }
   .bol.hebben { background: var(--groen); }
 </style>

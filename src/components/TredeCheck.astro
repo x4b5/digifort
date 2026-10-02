@@ -21,7 +21,7 @@ const VRAGEN = [
 ];
 ---
 <section class="tredecheck" data-tredecheck aria-labelledby="tredecheck-kop">
-  <h2 id="tredecheck-kop">Op welke trede sta jij?</h2>
+  <h3 id="tredecheck-kop">Op welke trede sta jij?</h3>
   <p class="uitleg">Drie vragen over je e-mail, want dat is je voordeur. Je antwoorden blijven op deze pagina.</p>
   {VRAGEN.map((v) => (
     <fieldset>
@@ -102,7 +102,7 @@ const VRAGEN = [
 
 <style>
   .tredecheck { margin: 2rem 0 2.5rem; padding: 1.25rem 1.4rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); }
-  .tredecheck h2 { margin: 0 0 0.25rem; font-size: clamp(1.4rem, 3.4vw, 1.8rem); }
+  .tredecheck h3 { margin: 0 0 0.25rem; font-size: clamp(1.4rem, 3.4vw, 1.8rem); }
   .uitleg { color: var(--inkt-zacht); font-size: 0.97rem; margin-bottom: 1rem; }
   fieldset { border: 0; padding: 0; margin: 0 0 1.1rem; }
   legend { font-weight: 700; margin-bottom: 0.4rem; padding: 0; }

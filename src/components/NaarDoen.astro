@@ -7,7 +7,7 @@
  * de pagina en het stapnummer komen dan uit lijsten.js en site.js, dus ze lopen
  * vanzelf mee als de volgorde van de stappen verandert.
  * Een plek die geen stap in een lijst is (een hoofdstuk), geef je op met `href`,
- * `tekst` en `waar`.
+ * `tekst` en `waar`; `waar` is de paginanaam, met ‘’ eromheen, en eventueel een plek erop.
  */
 import { LIJSTEN } from '../data/lijsten.js';
 import { hoofdstuk } from '../lib/site.js';
@@ -20,19 +20,19 @@ const { stappen, titel = 'Zelf doen' } = Astro.props;
 const PAGINA: Record<string, string> = { 'niveau-1': 'een-avond', 'niveau-2': 'een-weekend', 'niveau-3': 'ik-wil-verder' };
 
 const regels = stappen.map((s) => {
-  if ('href' in s) return s;
+  if ('href' in s) return { ...s, waar: `Dit staat op de pagina ${s.waar}.` };
   const items = LIJSTEN[s.lijst as keyof typeof LIJSTEN]?.items ?? [];
   const i = items.findIndex((it: { id: string }) => it.id === s.id);
   const slug = PAGINA[s.lijst];
   if (i < 0 || !slug) throw new Error(`NaarDoen: geen stap ${s.lijst}/${s.id}`);
-  return { href: `/${slug}`, tekst: items[i].stap, waar: `${hoofdstuk(slug)?.titel}, stap ${i + 1}` };
+  return { href: `/${slug}`, tekst: items[i].stap, waar: `Dit is stap ${i + 1} op de pagina ‘${hoofdstuk(slug)?.titel}’.` };
 });
 ---
 <div class="naardoen">
   <p class="kopje">{titel}</p>
   <ul>
     {regels.map((r) => (
-      <li><a href={r.href}>{r.tekst.replace(/[.]$/, '')}</a> <span class="waar">({r.waar})</span></li>
+      <li><a href={r.href}>{r.tekst.replace(/[.]$/, '')}</a><span class="waar">{r.waar}</span></li>
     ))}
   </ul>
 </div>
@@ -40,9 +40,13 @@ const regels = stappen.map((s) => {
 <style>
   /* groen, want dit is wat je regelt (zie de kleurregel); de lijn links zoals bij "Wat je doet" */
   .naardoen { margin: 1.25rem 0 1.5rem; padding: 0.8rem 1.1rem; border-left: 6px solid var(--groen); border-radius: var(--radius); background: var(--groen-licht); }
-  .kopje { font-family: var(--kop); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.35rem; }
-  ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.35rem; }
+  .kopje { font-family: var(--kop); font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 0.35rem; }
+  /* elke regel: de handeling als link, met daaronder in gewone woorden waar die staat;
+     geen haakjes en geen rij rode links, dat leest onrustig */
+  ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.7rem; }
   li { margin: 0; }
-  a { font-weight: 700; }
-  .waar { color: var(--inkt-zacht); font-size: var(--tekst-m); }
+  li::marker { color: var(--groen); }
+  a { display: block; font-weight: 700; color: var(--inkt); text-decoration-color: var(--groen); }
+  a:hover { color: var(--inkt); }
+  .waar { display: block; color: var(--inkt-zacht); }
 </style>

@@ -49,8 +49,20 @@ const DOEN = /^\/(huischeck|aan-de-slag|een-avond|een-weekend|ik-wil-verder|als-
 for (const pad of NASLAG) {
   test(`${pad} begint met het antwoord en heeft vragen als koppen`, async ({ page }) => {
     await page.goto(pad);
-    // het eerste blok na de inhoudsopgave is het antwoord
-    await expect(page.locator('main .kort').first()).toBeVisible();
+    // het antwoord staat direct onder de titel, vóór de inhoudsopgave, en die is dichtgeklapt
+    const kort = page.locator('main .kort').first();
+    await expect(kort).toBeInViewport();
+    const inhoud = page.locator('[data-inhoud]');
+    if (await inhoud.count()) {
+      expect(await inhoud.evaluate((d) => d.open), 'inhoudsopgave dicht').toBe(false);
+      const eerder = await kort.evaluate((k) => {
+        const nav = document.querySelector('[data-inhoud]');
+        return !!(k.compareDocumentPosition(nav) & Node.DOCUMENT_POSITION_FOLLOWING);
+      });
+      expect(eerder, 'In het kort staat vóór de inhoudsopgave').toBe(true);
+      // de inhoudsopgave is kort genoeg om te scannen
+      expect(await inhoud.locator('li').count()).toBeLessThanOrEqual(10);
+    }
     const koppen = await page.locator('main h2:not(.trede h2):not(#quiz-kop):not(#tredecheck-kop)').allTextContents();
     expect(koppen.length).toBeGreaterThanOrEqual(3);
     for (const kop of koppen) expect(kop.trim(), kop).toMatch(/\?$/);
@@ -60,6 +72,8 @@ for (const pad of NASLAG) {
     await page.goto(pad);
     const links = await page.locator('.naardoen a').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
     expect(links.length).toBeGreaterThan(0);
+    // elke stap zegt in gewone woorden waar hij staat, zonder iets tussen haakjes
+    for (const waar of await page.locator('.naardoen .waar').allTextContents()) expect(waar, waar).toMatch(/^Dit (is stap \d+ op|staat op) de pagina ‘[^’]+’.*\.$/);
     for (const href of links) {
       expect(href, href).toMatch(DOEN);
       const [pagina, anker] = href.split('#');
@@ -122,4 +136,44 @@ test('in de bronnen is elke kop de naam van een hoofdstuk', async ({ page }) => 
   expect(new Set(koppen).size).toBe(koppen.length);
   expect(koppen).toContain('De storm om het huis');
   for (const k of koppen) expect(k, k).not.toMatch(/·|NASLAG|HOOFDSTUK/i);
+});
+
+test('geld terug: het beslisschema is gewone tekst, minstens zo groot als de lopende tekst', async ({ page }) => {
+  await page.goto('/krijg-je-je-geld-terug');
+  const schema = page.locator('main figure.beslis');
+  await expect(schema).toContainText('Wie drukte op akkoord?');
+  await expect(schema.locator('svg text')).toHaveCount(0);
+  const maten = await schema.locator('p').evaluateAll((ps) => ps.map((p) => parseFloat(getComputedStyle(p).fontSize)));
+  const brood = await page.locator('main > p').first().evaluate((p) => parseFloat(getComputedStyle(p).fontSize));
+  for (const m of maten) expect(m).toBeGreaterThanOrEqual(Math.min(brood, 18));
+  // wat je los hiervan terugdraait, staat als gewone zin ónder het schema
+  await expect(schema).not.toContainText('incasso');
+  await expect(page.locator('main figure.beslis + p')).toContainText('incasso');
+});
+
+test('de ladder: wat een passkey is en hoe je hem instelt, staat onder een eigen kop', async ({ page }) => {
+  await page.goto('/van-geheim-woord-naar-zegelring');
+  await expect(page.locator('main h2', { hasText: 'Wat is een passkey?' })).toHaveCount(1);
+  const kop = page.locator('main h2', { hasText: 'Hoe stel ik een passkey in?' });
+  await expect(kop).toHaveCount(1);
+  // stappen op de pagina zelf, niet alleen een verwijzing
+  await expect(page.locator('main h2:has-text("Hoe stel ik een passkey in?") + p + ol > li')).toHaveCount(4);
+  // In het kort is één antwoord, geen rij adviezen
+  const kort = (await page.locator('main .kort').first().innerText()).replace(/^In het kort:\s*/, '');
+  expect(kort.split(/(?<=[.?])\s+/).length).toBeLessThanOrEqual(2);
+});
+
+test('het fort afbouwen: wie zoekt naar opruimen of overlijden, vindt het bovenaan en in een kop', async ({ page }) => {
+  await page.goto('/het-fort-afbouwen');
+  const vooraan = page.locator('main [data-vooraan]');
+  await expect(vooraan).toContainText('niet slopen');
+  await expect(vooraan.locator('a[href="/onderhoud"]')).toBeVisible();
+  await expect(vooraan.locator('a[href="#wie-krijgt-mijn-accounts-als-ik-er-niet-meer-ben"]')).toBeVisible();
+  const kop = page.locator('main h2#wie-krijgt-mijn-accounts-als-ik-er-niet-meer-ben');
+  await expect(kop).toHaveCount(1);
+  // en niet meer verstopt onder de kop over jezelf buitensluiten
+  const buitensluit = await page.locator('main h2', { hasText: 'buitensluit' }).evaluate((h) => {
+    let t = ''; for (let e = h.nextElementSibling; e && e.tagName !== 'H2'; e = e.nextElementSibling) t += e.textContent; return t;
+  });
+  expect(buitensluit).not.toContain('erfeniscontact');
 });

@@ -18,8 +18,12 @@ export function trede(nr) {
   return TREDES.find((t) => t.nr === Number(nr));
 }
 
-/** De treden als kopjes voor de inhoudsopgave van de ladderpagina. */
+/**
+ * Extra kopjes voor de inhoudsopgave van de ladderpagina: geen.
+ * De treden zijn h3 onder de vraag "Welke manieren van inloggen zijn er?", en die vraag
+ * staat al in de inhoudsopgave. Acht treden erbij maakte er veertien regels van, die je
+ * moest doorlopen voordat je het antwoord zag. [slug].astro roept dit nog aan.
+ */
 export function tredeKoppen() {
-  // geen nummer in de tekst: de lijst in de inhoudsopgave nummert zelf al
-  return TREDES.map((t) => ({ slug: `trede-${t.nr}`, text: t.titel }));
+  return [];
 }
