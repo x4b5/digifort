@@ -1,0 +1,36 @@
+---
+/**
+ * Waar je per dienst ziet welk telefoonnummer en welk extra e-mailadres bij je
+ * account staan. De testpersoon kreeg eerst alleen "zoek daar naar herstel" en
+ * wist niet hoe je op een pagina zoekt, of waar het nummer stond.
+ */
+import Optie from './Optie.astro';
+import ZoekOpPagina from './ZoekOpPagina.astro';
+---
+<p>Tik op je e-mail:</p>
+<Optie titel="@gmail.com (Google)">
+  <ol>
+    <li>Ga naar myaccount.google.com en log in.</li>
+    <li>Typ "herstel" in de zoekbalk bovenaan. Je ziet een telefoonnummer en een e-mailadres voor herstel.</li>
+    <li>Kies eerst het telefoonnummer. Klopt het niet? Haal het weg, en vul je eigen nummer in.</li>
+    <li>Doe daarna hetzelfde met het e-mailadres.</li>
+  </ol>
+</Optie>
+<Optie titel="@outlook.com, @hotmail.com of @live.nl (Microsoft)">
+  <ol>
+    <li>Ga naar account.microsoft.com en log in.</li>
+    <li>Kies Beveiliging.</li>
+    <li>Zoek op die pagina het woord "aanmeld".<ZoekOpPagina woord="aanmeld" />Klik op de link over hoe je je aanmeldt. Je ziet een lijst met telefoonnummers en e-mailadressen.</li>
+    <li>Staat er een nummer of adres dat je niet kent? Klik erop, en verwijder het.</li>
+  </ol>
+</Optie>
+<Optie titel="@icloud.com of @me.com (Apple)">
+  <ol>
+    <li>Open Instellingen op je iPhone. Tik bovenaan op je naam.</li>
+    <li>Kies Inloggen en beveiliging. Je ziet je e-mailadressen en telefoonnummers. Verderop staan de nummers die codes krijgen.</li>
+    <li>Staat er iets dat je niet kent? Tik op Wijzig bij die lijst. Haal het weg.</li>
+  </ol>
+</Optie>
+<Optie titel="Een adres van je provider of iets anders">
+  <p>Log in op de site van je provider. Zoek in de instellingen naar je gegevens, of naar "telefoonnummer". Vind je het niet? Bel je provider.</p>
+</Optie>

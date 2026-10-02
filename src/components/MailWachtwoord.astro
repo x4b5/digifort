@@ -5,6 +5,7 @@
  * zoeken naar "stap 2 bij Iemand zit in je account".
  */
 import Optie from './Optie.astro';
+import ZoekOpPagina from './ZoekOpPagina.astro';
 ---
 <p>Je doet dit bij het bedrijf dat je e-mail levert. Niet in de app waarin je je mail leest, zoals Mail op je iPhone: die laat je mail alleen zien.</p>
 <p>Kijk naar je e-mailadres. Tik op wat er na de @ staat:</p>
@@ -18,7 +19,8 @@ import Optie from './Optie.astro';
 <Optie titel="@outlook.com, @hotmail.com of @live.nl (Microsoft)">
   <ol>
     <li>Ga naar account.microsoft.com en log in.</li>
-    <li>Kies Beveiliging. Zoek daar naar "wachtwoord wijzigen".</li>
+    <li>Kies Beveiliging.</li>
+    <li>Zoek op die pagina het woord "wachtwoord".<ZoekOpPagina woord="wachtwoord" />Klik op de link die over het wijzigen van je wachtwoord gaat.</li>
     <li>Vul je nieuwe wachtwoord in.</li>
   </ol>
 </Optie>

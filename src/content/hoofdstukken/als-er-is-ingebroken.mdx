@@ -22,6 +22,8 @@ import AnderAccount from '../../components/AnderAccount.astro';
 import Uitloggen from '../../components/Uitloggen.astro';
 import Doorsturen from '../../components/Doorsturen.astro';
 import TweedeSlot from '../../components/TweedeSlot.astro';
+import Herstelgegevens from '../../components/Herstelgegevens.astro';
+import ZelfdeWachtwoord from '../../components/ZelfdeWachtwoord.astro';
 
 <Noodkaart />
 
@@ -157,15 +159,19 @@ Doe dit bij je e-mail, en bij het account dat gehackt is.
 
 Bij je account staan een telefoonnummer, en vaak een tweede e-mailadres. Daarmee vraag je een nieuw wachtwoord aan als je het kwijt bent. Een inbreker zet daar soms zijn eigen nummer neer. Dan kan hij later weer binnenkomen.
 
-Je vindt ze op dezelfde plek als je wachtwoord. Zoek daar naar "herstel" of "telefoonnummer". Zie je een nummer of adres dat je niet kent? Haal het weg. Zet je eigen nummer erbij.
+Kijk wat er bij jouw account staat. Haal weg wat je niet kent.
+
+<Herstelgegevens />
 
 <Doorsturen />
 
 </Stap>
 
-<Stap nr={6} id="zelfde-wachtwoord" titel="Verander je wachtwoord overal waar het hetzelfde was" gelukt="geen ander account heeft nog het oude wachtwoord.">
+<Stap nr={6} id="zelfde-wachtwoord" titel="Verander je wachtwoord overal waar het hetzelfde was" gelukt="op je papier staat een streep door elk account met geld. De rest doe je deze week.">
 
-Gebruikte je hetzelfde wachtwoord ook ergens anders? Geef die accounts ook een nieuw wachtwoord. Log in, en zoek in de instellingen naar "wachtwoord". Elk account krijgt een eigen wachtwoord.
+Gebruikte je hetzelfde wachtwoord ook ergens anders? Dan kan de inbreker daar ook in. Geef die accounts ook een nieuw wachtwoord.
+
+<ZelfdeWachtwoord />
 
 </Stap>
 
@@ -211,9 +217,9 @@ Doe deze stappen op een ander apparaat. Leen er een als het moet.
 
 <Stap nr={1} id="vergrendel" titel="Vergrendel het op afstand" gelukt="je ziet je apparaat in de lijst, en de site zegt dat het op slot gaat. Staat het apparaat uit? Dan gaat het slot erop zodra het weer verbinding heeft.">
 
-- **iPhone, iPad of Mac:** ga naar icloud.com/find. Log in met je Apple-account. Kies je apparaat, en zet het in de verloren-modus.
-- **Android:** ga naar google.com/android/find. Log in met je Google-account. Kies je toestel, en kies voor beveiligen.
-- **Windows-laptop:** ga naar account.microsoft.com/devices. Log in met je Microsoft-account. Kies je laptop, en vergrendel hem.
+- **iPhone, iPad of Mac:** ga naar icloud.com/find. Log in met je Apple-account. Kies je apparaat in de lijst. Kies dan de knop met "verloren" erin, zoals Markeer als verloren.
+- **Android:** ga naar google.com/android/find. Log in met je Google-account. Kies je toestel. Kies dan de knop met "beveiligen" erin.
+- **Windows-laptop:** ga naar account.microsoft.com/devices. Log in met je Microsoft-account. Kies je laptop. Kies dan de knop met "vergrendelen" erin.
 
 Zet er een telefoonnummer bij dat op het scherm komt. Dan kan een eerlijke vinder je bellen.
 
@@ -289,11 +295,17 @@ Het nummer staat [bovenaan deze pagina](#noodkaart-kop).
 
 </Stap>
 
-<Stap nr={6} id="wis" titel="Wis het apparaat op afstand" gelukt="de site zegt dat het apparaat gewist wordt.">
+<Stap nr={6} id="wis" titel="Wis het apparaat op afstand" gelukt="je hebt het wissen bevestigd. De site zegt dat het apparaat gewist wordt. Staat het uit? Dan gebeurt het zodra het weer verbinding heeft.">
 
 Doe dit als je het apparaat niet binnen een dag terug hebt. Of meteen, als je weet dat het gestolen is. Met een back-up verlies je niets.
 
-Je doet het op dezelfde site als in stap 1.
+Wissen gaat pas als je het bevestigt. Je kunt dus rustig kijken waar de knop zit.
+
+- **iPhone, iPad of Mac:** ga naar icloud.com/find en log in. Kies je apparaat in de lijst. Kies de knop met "wis" erin, zoals Wis dit apparaat. Bevestig.
+- **Android:** ga naar google.com/android/find en log in. Kies je toestel. Kies de knop met "wissen" of "fabrieksinstellingen" erin. Bevestig.
+- **Windows-laptop:** ga naar account.microsoft.com/devices en log in. Kies je laptop. Zie je geen knop met "wissen" erin? Dan kan het bij jouw laptop niet op afstand. Het slot uit stap 1 blijft erop.
+
+Vraagt de site nog een keer om je wachtwoord? Typ het in. Dat is om te zien of jij het echt bent.
 
 Haal het apparaat daarna niet uit je Apple-, Google- of Microsoft-account. Zolang het eraan vastzit, kan de dief het niet zomaar wissen en doorverkopen.
 

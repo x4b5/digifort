@@ -136,3 +136,45 @@ test('wie zijn geld kwijt is, leest bij de aangifte of hij het terugkrijgt', asy
   await expect(stap).toContainText('Krijg je je geld terug?');
   await expect(stap).toContainText('terugbetalen');
 });
+
+test('bij de doorstuurregels staat nergens dat je niets mag veranderen', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('[data-stappenplan="stappen-account"] .stap-item').nth(4);
+  await expect(stap).not.toContainText('Je verandert hier niets');
+  await expect(stap).toContainText('Je haalt alleen weg wat je niet zelf hebt gemaakt');
+  // ook bij iCloud staat waar de instellingen van Mail zitten
+  const icloud = stap.locator('details.optie', { hasText: 'icloud.com' }).last();
+  await icloud.locator('summary').click();
+  await expect(icloud).toContainText('drie puntjes of een tandwiel');
+});
+
+test('bij het nummer voor herstel staat per dienst waar het staat', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('[data-stappenplan="stappen-account"] .stap-item').nth(4);
+  for (const t of ['@gmail.com (Google)', 'Microsoft', '@icloud.com of @me.com (Apple)']) {
+    await expect(stap.locator('summary', { hasText: t }).first()).toHaveCount(1);
+  }
+});
+
+test('wie op een webpagina moet zoeken, leest hoe dat moet', async ({ page }) => {
+  await page.goto(PAD);
+  // overal waar we zeggen "zoek op die pagina", staat ook hoe
+  const keren = await page.locator('main').evaluate((m) => (m.textContent.match(/Zoek op die pagina/g) || []).length);
+  expect(keren).toBeGreaterThan(0);
+  await expect(page.locator('main .zoek-op-pagina')).toHaveCount(keren);
+  await expect(page.locator('main .zoek-op-pagina').first()).toContainText('Ctrl en F');
+});
+
+test('wissen op afstand zegt per toestel op welke knop je drukt', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('[data-stappenplan="stappen-verlies"] .stap-item').nth(5);
+  for (const t of ['icloud.com/find', 'google.com/android/find', 'account.microsoft.com/devices', 'Bevestig']) await expect(stap).toContainText(t);
+  await expect(stap).not.toContainText('dezelfde site als in stap 1');
+});
+
+test('wie hetzelfde wachtwoord vaker gebruikte, leest hoe hij uitzoekt waar', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('[data-stappenplan="stappen-account"] .stap-item').nth(5);
+  for (const t of ['papier', 'Wachtwoorden', 'passwords.google.com', 'welkom', 'geld']) await expect(stap).toContainText(t);
+  await expect(stap.locator('.gelukt')).toContainText('streep');
+});
