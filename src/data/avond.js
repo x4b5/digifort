@@ -37,7 +37,7 @@ const MAIL = [
     tweedeSlot: [
       'Ga in je browser naar myaccount.google.com en log in.',
       'Typ "verificatie in twee stappen" in de zoekbalk bovenaan de pagina. Kies het en zet het aan.',
-      'Kies daarna bij de keuzes voor de Authenticator-app. Je ziet nu de vierkante code.',
+      'Kies daarna bij de keuzes voor de Authenticator-app. Je ziet nu de vierkante code. Ga verder bij deel 3.',
     ],
   },
   {
@@ -50,7 +50,8 @@ const MAIL = [
     tweedeSlot: [
       'Ga in je browser naar account.microsoft.com en log in.',
       'Kies Beveiliging. Zoek daar naar "tweestapsverificatie" en zet het aan.',
-      'Kies een app voor codes. Je ziet nu de vierkante code.',
+      'Microsoft vraagt je nu om zijn eigen app te installeren: Microsoft Authenticator. Dat hoeft niet. Zoek op dat scherm een kleine link om een andere app te gebruiken. Klik daarop.',
+      'Je ziet nu de vierkante code. Ga verder bij deel 3, met Ente Auth.',
     ],
   },
   {
@@ -89,7 +90,7 @@ const MAIL = [
     tweedeSlot: [
       'Open Instellingen op je iPhone en tik bovenaan op je naam.',
       'Tik op Inloggen en beveiliging. Op een oudere iPhone heet dat Wachtwoord en beveiliging.',
-      'Staat twee-factor-authenticatie op Aan? Dan zit het tweede slot er al op. Je hebt hier geen code-app voor nodig. Je bent klaar met deze stap.',
+      'Staat twee-factor-authenticatie op Aan? Dan zit het tweede slot er al op. Je hebt hier geen code-app voor nodig. Deel 1 tot en met 3 hoef je nu niet te doen. Druk op Gedaan. Ente Auth heb je pas in niveau 2 nodig.',
     ],
   },
   {
@@ -102,7 +103,7 @@ const MAIL = [
     tweedeSlot: [
       'Log in op de website van je maildienst.',
       'Zoek in de instellingen naar "beveiliging", "tweestapsverificatie" of "2FA".',
-      'Kies voor een authenticator-app. Je ziet nu de vierkante code.',
+      'Kies voor een authenticator-app. Je ziet nu de vierkante code. Ga verder bij deel 3.',
     ],
   },
 ];
@@ -122,7 +123,7 @@ export const AVOND = {
     ],
     uitklap: perMaildienst('wachtwoord'),
     letOp: 'Na het veranderen vraagt de Mail-app op je telefoon of computer misschien om je nieuwe wachtwoord. Tot je het intypt, komt er geen nieuwe mail binnen. Dat is normaal: je hebt niets kapotgemaakt. Typ het nieuwe wachtwoord in.',
-    gelukt: 'Log uit en log weer in met het nieuwe wachtwoord. Kom je binnen? Dan is het gelukt.',
+    gelukt: 'Log op de website van je maildienst uit. Log daarna weer in met het nieuwe wachtwoord. Kom je binnen? Dan is het gelukt. Heb je iCloud-mail? Log dan niet uit op je iPhone. Ga op een computer naar icloud.com en log daar in met je nieuwe wachtwoord. Je iPhone laat dan een code zien. Typ die over.',
     lukNiet: [
       'Kun je "wachtwoord wijzigen" niet vinden? Kijk bij "account" of "beveiliging". Of zoek op de hulppagina van je e-maildienst.',
       'Weet je je oude wachtwoord niet meer? Kies op de inlogpagina "wachtwoord vergeten".',
@@ -134,36 +135,53 @@ export const AVOND = {
     klaar: 'De voordeur heeft een eigen sleutel. Wordt een webwinkel gehackt, dan past die sleutel niet op je mail.',
   },
   'mail-tweede-slot': {
-    wat: 'Een tweede slot betekent: na je wachtwoord vraagt je e-mail nog een code. Die code maakt een app op je telefoon. Het heet ook tweestapsverificatie of 2FA.',
+    wat: 'Een tweede slot betekent: na je wachtwoord vraagt je e-mail nog een code. Die code maakt een app op je telefoon. Het heet ook tweestapsverificatie of 2FA. Dit is de lastigste stap van de avond. Neem er rustig de tijd voor. Stoppen na een deel mag.',
     hoe: [
-      'Doe dit het liefst met je computer en je telefoon samen. Dan staat de code op het grote scherm en scan je hem met je telefoon. Heb je alleen een telefoon? Klik dan hieronder op "Ik heb alleen een telefoon".',
-      'Installeer eerst de code-app op je telefoon. Neem Ente Auth. Die werkt op iPhone en Android.',
+      'Heb je mail van iCloud (@icloud.com of @me.com)? Klik dan eerst hieronder op jouw maildienst. Daar zit het tweede slot vaak al op.',
+      'Doe dit het liefst met je computer en je telefoon samen. Dan staat de vierkante code op het grote scherm en scan je hem met je telefoon. Heb je alleen een telefoon? Klik dan hieronder op "Ik heb alleen een telefoon".',
+      'Je doet drie dingen na elkaar. Deel 1: de code-app op je telefoon zetten. Deel 2: een account maken in die app. Deel 3: de app aan je e-mail koppelen.',
     ],
     toestellen: [
-      { naam: 'Op een iPhone', stappen: ['Open de App Store en tik op Zoek.', 'Typ "Ente Auth" en installeer de app.'] },
-      { naam: 'Op een Android-telefoon', stappen: ['Open de Play Store.', 'Typ "Ente Auth" in de zoekbalk en tik op Installeren.'] },
+      { naam: 'Deel 1 op een iPhone: zet Ente Auth erop', stappen: ['Open de App Store en tik op Zoek.', 'Typ "Ente Auth" en installeer de app.'] },
+      { naam: 'Deel 1 op een Android-telefoon: zet Ente Auth erop', stappen: ['Open de Play Store.', 'Typ "Ente Auth" in de zoekbalk en tik op Installeren.'] },
+      { naam: 'Deel 2: maak een account in Ente Auth', stappen: [
+        'Open Ente Auth en kies om een account te maken. Dit account is je reservekopie: krijg je een nieuwe telefoon, dan krijg je zo je codes terug.',
+        'Typ je e-mailadres. Bedenk een wachtwoord voor Ente, net als in stap 1: vier of vijf gewone woorden. Schrijf het op je papier, met "Ente" erbij.',
+        'Ente stuurt je een mail met een code. Typ die code in de app. Zie je de mail niet? Kijk bij je ongewenste mail.',
+        'Laat de app een lange rij woorden zien? Dat is de herstelsleutel van Ente. Schrijf hem over op je papier, met "herstelsleutel Ente" erbij.',
+      ] },
+      { naam: 'Deel 3: koppel Ente Auth aan je e-mail', stappen: [
+        'Ga op je computer naar de website van je maildienst. Zet daar het tweede slot aan. Klik hieronder op jouw dienst: daar staat waar het zit. Je ziet dan een vierkante code op het scherm.',
+        'Tik in Ente Auth op het plusteken (+). Kies de keuze met het woord scannen of QR-code. Vraagt de app om de camera? Kies toestaan.',
+        'Richt de camera van je telefoon op de vierkante code op je computer.',
+        'Ente Auth laat nu een code van zes cijfers zien. Typ die over op je computer, bij je e-mail.',
+      ] },
     ],
     na: [
-      'Open Ente Auth. De app vraagt om een account te maken. Dit account is je reservekopie: krijg je een nieuwe telefoon, dan krijg je zo je codes terug.',
-      'Typ je e-mailadres. Bedenk een nieuw wachtwoord, net als in stap 1: vier of vijf gewone woorden. Schrijf het op je papier. In stap 3 zet je het ook in je kluis.',
-      'Krijg je een mail van Ente met een code? Typ die code in de app. Zie je de mail niet? Kijk bij je ongewenste mail.',
-      'Laat de app je een herstelsleutel zien? Dat is een lange rij woorden. Daarmee kom je weer in je account als je het wachtwoord vergeet. Schrijf hem over op je papier.',
-      'Ga nu op je computer naar de website van je maildienst. Zet daar het tweede slot aan. Klik hieronder op jouw dienst: daar staat waar het zit. Je ziet dan een vierkante code op het scherm.',
-      'Tik in Ente Auth op het plusteken (+). Kies de keuze met het woord scannen of QR-code. Vraagt de app of hij de camera mag gebruiken? Kies toestaan. Richt de camera van je telefoon op de vierkante code op je computer.',
-      'Ente Auth laat nu een code van zes cijfers zien. Typ die over op je computer, bij je e-mail.',
-      'Krijg je herstelcodes te zien? Schrijf ze op je papier. Daarmee kom je binnen als je telefoon kwijt is.',
+      'Laat je e-mail herstelcodes zien? Dat is een rijtje codes voor als je telefoon kwijt is. Schrijf ze op je papier, met "herstelcodes e-mail" erbij.',
     ],
     uitklap: [
+      {
+        vraag: 'Wachtwoord, herstelsleutel, herstelcodes: wat is wat?',
+        antwoord: [
+          'Het wachtwoord van Ente: daarmee open je je account bij Ente Auth. Dat maak je in deel 2.',
+          'De herstelsleutel van Ente: een lange rij woorden. Ben je het wachtwoord van Ente kwijt? Dan kom je hiermee toch in je account. Die krijg je in deel 2.',
+          'De herstelcodes van je e-mail: een rijtje codes van je maildienst. Is je telefoon kwijt? Dan kom je hiermee toch in je mail. Die krijg je na deel 3, als je maildienst ze geeft.',
+          'De vierkante code (QR-code): die staat even op het scherm van je computer. Je scant hem één keer. Je hoeft hem niet te bewaren.',
+          'Schrijf bij alles wat je opschrijft waar het bij hoort. Dan raak je ze niet door elkaar.',
+        ],
+      },
       ...perMaildienst('tweedeSlot'),
       {
         vraag: 'Ik heb alleen een telefoon',
         antwoord: [
+          'Dit is lastiger dan met een computer, want je wisselt steeds tussen twee apps. Lukt het niet? Druk op Sla over. Doe het later met een computer, of met iemand die je vertrouwt naast je.',
           'Open de website van je maildienst in de browser van je telefoon. Dus niet in de Mail-app.',
           'Zet het tweede slot aan, zoals hierboven per dienst staat. Je ziet een vierkante code. Die kun je niet scannen met dezelfde telefoon.',
-          'Tik op de link onder de vierkante code, zoals "Kun je de code niet scannen?". Je ziet nu een lange rij letters en cijfers. Dat is de sleutel.',
+          'Tik op de link onder de vierkante code, zoals "Kun je de code niet scannen?". Je ziet nu een lange rij letters en cijfers. Sommige sites noemen die rij "sleutel" of "geheime sleutel". Het is de vierkante code, maar dan in letters.',
           'Staat er een knop om te kopiëren? Tik erop. Zo niet: houd je vinger op de sleutel tot er een menu verschijnt. Kies Kopieer of Kopiëren.',
           'Open Ente Auth. Tik op het plusteken (+) en kies om de gegevens zelf in te voeren.',
-          'Typ bij de naam je maildienst, bijvoorbeeld "Gmail". Houd je vinger in het vak voor de sleutel. Kies Plak of Plakken. Sla op.',
+          'Typ bij de naam je maildienst, bijvoorbeeld "Gmail". Houd je vinger in het vak voor de geheime code of sleutel. Kies Plak of Plakken. Sla op.',
           'Ente Auth laat nu een code van zes cijfers zien. Ga terug naar je browser en typ die code daar in.',
         ],
       },
@@ -180,8 +198,9 @@ export const AVOND = {
         antwoord: ['Liever niet. Een telefoonnummer kan gestolen worden. Kan het echt alleen met sms? Dan is sms beter dan geen tweede slot.'],
       },
     ],
-    gelukt: 'Log uit en weer in. Vraagt je e-mail na je wachtwoord om een code uit Ente Auth? Dan is het gelukt.',
+    gelukt: 'Kijk in Ente Auth. Staat daar de naam van je maildienst, met zes cijfers die steeds veranderen? En zegt de website van je mail dat tweestapsverificatie aan staat? Dan is het gelukt. Je hoeft niet uit te loggen. Een computer die je mail al kent, vraagt vaak geen code. Heb je iCloud-mail? Dan is het gelukt als twee-factor-authenticatie op Aan staat.',
     lukNiet: [
+      'Vraagt Microsoft om Microsoft Authenticator te installeren? Dat hoeft niet. Zoek op dat scherm de kleine link om een andere app te gebruiken.',
       'Werkt de code niet? Elke code werkt maar kort. Wacht op de volgende code in de app en typ die over.',
       'Kun je het tweede slot niet vinden? Zoek op de hulppagina van je e-maildienst naar "tweestapsverificatie".',
       'Heb je KPN- of Ziggo-mail, of een andere dienst zonder tweede slot? Dan kun je deze stap nu niet afmaken. Dat is niet jouw fout. Druk op Sla over. Je nieuwe wachtwoord uit stap 1 beschermt je mail al. Ente Auth heb je straks nog nodig, in niveau 2.',
@@ -210,7 +229,7 @@ export const AVOND = {
       ] },
       { naam: 'Op je computer', stappen: [
         'Open de browser waarmee je altijd internet opent. Meestal is dat Chrome, Edge, Safari of Firefox.',
-        'Typ bovenin, in de adresbalk: bitwarden.com/download. Druk op Enter.',
+        'Typ bovenin, in de adresbalk: bitwarden.com/download. Druk op Enter. De pagina is in het Engels. Dat geeft niet: je zoekt alleen het plaatje of de naam van jouw browser.',
         'Kies bij de extensies jouw browser. Een extensie is een klein hulpprogramma in je browser. Je komt nu in de winkel voor extensies.',
         'Klik op de knop om hem toe te voegen, zoals "Toevoegen aan Chrome". Bevestig.',
         'Klik rechtsboven in je browser op het puzzelstukje en dan op Bitwarden. Log in met hetzelfde e-mailadres en hoofdwachtwoord.',
@@ -222,6 +241,16 @@ export const AVOND = {
       'Log je voortaan ergens in? Dan vraagt Bitwarden of hij het wachtwoord moet bewaren. Kies ja.',
     ],
     uitklap: [
+      {
+        vraag: 'Welke schermen zie ik als ik het account maak?',
+        antwoord: [
+          'Je maakt het account één keer, op het toestel waar je begint. Op je andere toestellen log je daarna alleen in.',
+          'Vraagt Bitwarden waar je account moet staan, in de VS of in de EU? Kies de EU. Kies daarna op elk toestel dezelfde regio als je inlogt.',
+          'Krijg je een mail om je adres te bevestigen? Open je mail en klik op de knop of link in die mail. Ga dan terug naar Bitwarden.',
+          'Vraagt Bitwarden om een hint voor je hoofdwachtwoord? Die mag je leeg laten. Zet er nooit je hoofdwachtwoord in.',
+          'Log je in op een nieuw toestel? Dan kan Bitwarden een code naar je e-mail sturen. Open je mail en typ de code over. Dat is normaal: zo weet Bitwarden dat jij het bent.',
+        ],
+      },
       {
         vraag: 'Mag ik ook een andere kluis nemen?',
         antwoord: [

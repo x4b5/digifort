@@ -44,8 +44,11 @@ export const WEEKEND = {
       {
         vraag: 'Bitwarden heeft het nieuwe wachtwoord niet bewaard',
         antwoord: [
-          'Open Bitwarden en kies Generator. Zoek de geschiedenis van de generator. Daar staan je laatste gemaakte wachtwoorden. Kopieer het nieuwste.',
-          'Zoek in je kluis het account op. Kies om het te bewerken. Plak het nieuwe wachtwoord in het vak voor het wachtwoord. Sla op.',
+          'Geen paniek: het wachtwoord is niet weg. Open Bitwarden en kies Generator. Zoek de geschiedenis van de generator. Daar staan je laatste gemaakte wachtwoorden. Kopieer het nieuwste.',
+          'Stond het account al in je kluis? Zoek het op. Kies om het te bewerken. Plak het nieuwe wachtwoord in het vak voor het wachtwoord. Sla op.',
+          'Stond het account nog niet in je kluis? Maak het dan nieuw. Klik op het puzzelstukje en dan op Bitwarden. Op je telefoon open je de app. Klik of tik op het plusteken (+) of op Nieuw. Kies Login.',
+          'Vul in: de naam van de site, je gebruikersnaam of e-mailadres, en plak het nieuwe wachtwoord. Klik op Opslaan.',
+          'Kijk of het account nu in je kluis staat. Dan ben je klaar.',
         ],
       },
     ],
@@ -62,9 +65,10 @@ export const WEEKEND = {
   'accounts-tweede-slot': {
     hoe: [
       'Pak je lijstje van de vorige stap erbij. Begin met DigiD. Hoe dat gaat, staat hieronder bij "DigiD: de DigiD-app installeren en activeren".',
+      'Je hoeft niet alles in één keer. Elke site heeft andere schermen, dus het kan langer duren. Doe DigiD en één ander account. De rest mag een andere dag.',
       'Daarna neem je de andere accounts, één voor één. Log in op de site. Zoek de plek voor de beveiliging. Hoe je die vindt, staat hieronder bij "Waar vind ik de beveiliging van een site?".',
       'Zoek daar naar "tweestapsverificatie", "inloggen in twee stappen" of "passkey".',
-      'Kan het met een passkey? Kies die. Je bevestigt dan met je vinger, je gezicht of je pincode.',
+      'Kan het met een passkey? Kies die. Je bevestigt dan met je vinger, je gezicht of je pincode. Vraagt je telefoon of computer waar je de passkey wilt bewaren? Kijk hieronder bij "Waar bewaar ik een passkey?".',
       'Anders: kies "authenticator-app". Scan de vierkante code met Ente Auth, net als bij je e-mail in [niveau 1](/een-avond#stap-mail-tweede-slot). Daar staat ook hoe het met alleen een telefoon gaat.',
       'Voor je bank gebruik je de app van je bank. Die heb je meestal al.',
       'Krijg je herstelcodes te zien? Schrijf ze op een papier en stop dat in je envelop. In stap 4 kijk je ze na.',
@@ -88,6 +92,12 @@ export const WEEKEND = {
         'Volg wat het scherm zegt. Meestal open je de app en scan je een vierkante code op het scherm. Daarna typ je je pincode van vijf cijfers in de app.',
         'Ben je binnen op Mijn DigiD? Dan werkt je app. Log weer uit.',
         'Heb je geen computer? Ga dan op je telefoon naar mijn.digid.nl. Kies inloggen met de DigiD-app. Je telefoon opent de app vanzelf.',
+      ] },
+      { vraag: 'Waar bewaar ik een passkey?', antwoord: [
+        'Krijg je de vraag waar de passkey moet, en staat Bitwarden ertussen? Kies Bitwarden. Bitwarden staat ook op je computer. Dan heb je de passkey op al je toestellen.',
+        'Zie je Bitwarden niet, alleen je telefoon? Dat is ook goed. De passkey staat dan op je telefoon.',
+        'Log je later in op je laptop, en staat de passkey op je telefoon? Dan laat de laptop een vierkante code zien. Scan die met de camera van je telefoon. Bevestig met je vinger of je gezicht.',
+        'Twijfel je? Kies dan niet de passkey, maar de code-app. Dat is ook een goed tweede slot.',
       ] },
       { vraag: 'Waar vind ik de beveiliging van een site?', antwoord: [
         'Elke site ziet er anders uit. Maar de weg is bijna altijd zo:',

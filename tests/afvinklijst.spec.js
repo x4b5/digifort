@@ -9,7 +9,7 @@ test('afvinken telt, blijft na herladen en verschijnt in de kop', async ({ page 
   await lijst.locator('input[data-item="mail-wachtwoord"]').check({ force: true });
   await lijst.locator('input[data-item="pincode"]').check({ force: true });
   await expect(lijst.locator('[data-stand-tekst]')).toHaveText('2 van 6 gedaan');
-  await expect(lijst.locator('[data-tijd-rest]')).toHaveText(' · nog 45 min');
+  await expect(lijst.locator('[data-tijd-rest]')).toHaveText(' · nog 55 min');
 
   await page.reload();
   await expect(lijst.locator('[data-stand-tekst]')).toHaveText('2 van 6 gedaan');
