@@ -1,0 +1,15 @@
+---
+/**
+ * "Zo zie je dat het gelukt is": wat er op het scherm staat als een stap klaar is.
+ * Groen, want dit is wat je regelt (zie de kleurregel).
+ * Zet de tekst op één regel in MDX, dan komt er geen alinea in een alinea.
+ */
+---
+<div class="gelukt" data-gelukt>
+  <p><strong>Gelukt als:</strong> <slot /></p>
+</div>
+
+<style>
+  .gelukt { margin: 0.9rem 0; padding: 0.6rem 1rem; border-left: 6px solid var(--groen); border-radius: var(--radius); background: var(--groen-licht); }
+  .gelukt p { margin: 0; }
+</style>

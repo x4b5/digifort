@@ -1,0 +1,22 @@
+---
+/**
+ * Een waarschuwing naar het GOV.UK-component warning text: een uitroepteken in een
+ * rondje en vette tekst. Alleen voor iets wat echt mis kan gaan als je het overslaat.
+ * Een schermlezer hoort eerst "Let op".
+ */
+---
+<div class="waarschuwing" data-waarschuwing>
+  <span class="teken" aria-hidden="true">!</span>
+  <p><strong><span class="voorlezen">Let op: </span><slot /></strong></p>
+</div>
+
+<style>
+  .waarschuwing { display: flex; align-items: flex-start; gap: 0.9rem; margin: 1.25rem 0; }
+  .teken {
+    flex: none; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%;
+    background: var(--inkt); color: var(--papier); font-family: var(--kop); font-weight: 700; font-size: 1.4rem; line-height: 1;
+  }
+  .waarschuwing p { margin: 0.25rem 0 0; font-size: var(--tekst-l); }
+  .voorlezen { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  @media (forced-colors: active) { .teken { border: 2px solid CanvasText; } }
+</style>

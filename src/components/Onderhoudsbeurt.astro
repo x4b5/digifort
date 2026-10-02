@@ -1,13 +1,28 @@
 ---
 /**
- * De onderhoudsbeurt uit Onderhoud en opruimen, één stap tegelijk.
+ * Een rij stappen die je afvinkt, één stap tegelijk: de klussen in Onderhoud en opruimen
+ * en het bezoek in Voor de mensen om je heen. De stappen zijn <OnderhoudStap>-en.
  * Zonder JavaScript staan alle stappen onder elkaar. Met JavaScript zie je er één,
- * met knoppen naar de vorige en de volgende. Vinkjes gaan in hetzelfde laatje als
- * de afvinklijst 'onderhoudsbeurt' (src/data/lijsten.js), met dezelfde sleutels.
+ * met knoppen naar de vorige en de volgende.
+ *
+ * `lijst` is de sleutel van het laatje in de browser. Voor 'onderhoudsbeurt' is dat
+ * dezelfde als de afvinklijst in src/data/lijsten.js, met dezelfde sleutels per stap.
+ * Andere lijsten staan alleen in het laatje; ze tellen niet mee voor de sloten in de kop.
  */
-const LIJST = 'onderhoudsbeurt';
+interface Props {
+  lijst?: string;
+  /** naam voor een schermlezer, bijvoorbeeld "Elke maand, stap voor stap" */
+  naam?: string;
+  /** de zin onder "Klaar." als alles is afgevinkt */
+  klaar?: string;
+}
+const {
+  lijst = 'onderhoudsbeurt',
+  naam = 'De onderhoudsbeurt, stap voor stap',
+  klaar = 'Je huis is nagelopen. De volgende beurt is als de klok weer wordt verzet.',
+} = Astro.props;
 ---
-<section class="beurt" data-beurt={LIJST} id={LIJST} aria-label="De onderhoudsbeurt, stap voor stap">
+<section class="beurt" data-beurt={lijst} id={lijst} aria-label={naam}>
   <p class="stand" data-beurt-stand aria-live="polite"></p>
   <ol class="stappen"><slot /></ol>
   <div class="nav" data-beurt-nav hidden>
@@ -15,7 +30,7 @@ const LIJST = 'onderhoudsbeurt';
     <button type="button" class="knop klein" data-beurt-verder>Volgende stap</button>
   </div>
   <div class="klaar" data-beurt-klaar hidden>
-    <p><strong>Klaar.</strong> Je huis is nagelopen. De volgende beurt is als de klok weer wordt verzet.</p>
+    <p><strong>Klaar.</strong> {klaar}</p>
     <button type="button" class="knop licht klein" data-beurt-alles>Laat alle stappen zien</button>
   </div>
 </section>

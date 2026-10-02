@@ -1,8 +1,9 @@
 ---
 /**
- * Eén stap van de onderhoudsbeurt (alleen in Onderhoud en opruimen).
- * `id` is dezelfde sleutel als in LIJSTEN.onderhoudsbeurt, zodat het vinkje
- * in hetzelfde laatje landt als bij de gewone afvinklijst.
+ * Eén stap in een <Onderhoudsbeurt>: een titel die met een werkwoord begint,
+ * hoe je het doet, en een vinkje "Gedaan".
+ * In de onderhoudsbeurt is `id` dezelfde sleutel als in LIJSTEN.onderhoudsbeurt,
+ * zodat het vinkje in hetzelfde laatje landt als bij de gewone afvinklijst.
  */
 interface Props { id: string; nr: number; titel: string; minuten: number }
 const { id, nr, titel, minuten } = Astro.props;
