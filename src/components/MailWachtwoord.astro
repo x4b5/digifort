@@ -8,6 +8,10 @@
  * (de testpersoon met een KPN-adres en een iPhone klapte @icloud.com niet open,
  * en las dus nooit hoe het Apple-wachtwoord verandert), het gaat via de website
  * in plaats van de iPhone, en de mail-app hoeft niets.
+ *
+ * KPN in Mail op de iPhone: het wachtwoord staat twee keer, bij ontvangen en bij
+ * versturen (SMTP, achter de servernaam en Primaire server). Een testpersoon
+ * vond dat tweede vak niet. Gmail op Android vraagt soms om opnieuw in te loggen.
  */
 import Optie from './Optie.astro';
 import ZoekOpPagina from './ZoekOpPagina.astro';
@@ -16,7 +20,7 @@ interface Props { kwijt?: boolean }
 const { kwijt = false } = Astro.props;
 ---
 <p>{kwijt
-  ? 'Tik op je toestel. Zit je mail bij KPN of Ziggo? Tik daarna ook op die keuze.'
+  ? 'Tik op je toestel. Mail bij KPN of Ziggo? Tik ook op die keuze.'
   : 'Dit doe je op de site van je maildienst, niet in je mail-app. Tik op wat er in je adres na de @ staat:'}</p>
 <Optie titel={kwijt ? 'Android, of @gmail.com (Google)' : '@gmail.com (Google)'}>
   <ol>
@@ -24,12 +28,15 @@ const { kwijt = false } = Astro.props;
     <li>Typ "wachtwoord" in de zoekbalk bovenaan. Kies Wachtwoord.</li>
     <li>Vul twee keer je nieuwe wachtwoord in.</li>
   </ol>
+  {!kwijt && (
+    <p><strong>Gmail-app op Android:</strong> vraagt hij om opnieuw in te loggen, zoals met "Actie vereist"? Tik erop, en typ je nieuwe wachtwoord.</p>
+  )}
 </Optie>
 <Optie titel={kwijt ? 'Windows-laptop, of @outlook.com of @hotmail.com (Microsoft)' : '@outlook.com, @hotmail.com of @live.nl (Microsoft)'}>
   <ol>
     <li>Ga naar account.microsoft.com en log in.</li>
     <li>Kies Beveiliging.</li>
-    <li>Zoek op die pagina het woord "wachtwoord".<ZoekOpPagina woord="wachtwoord" />Klik op de link die over het wijzigen van je wachtwoord gaat.</li>
+    <li>Zoek op die pagina het woord "wachtwoord".<ZoekOpPagina woord="wachtwoord" kort={kwijt} />Klik op de link die over het wijzigen van je wachtwoord gaat.</li>
     <li>Vul je nieuwe wachtwoord in.</li>
   </ol>
 </Optie>
@@ -51,7 +58,15 @@ const { kwijt = false } = Astro.props;
 <Optie titel="@kpnmail.nl, @ziggo.nl of een ander adres van je internetbedrijf">
   <KpnZiggo wat="wachtwoord" kwijt={kwijt} />
   {!kwijt && (
-    <p><strong>Haalt Mail op je iPhone daarna geen mail meer op?</strong> Open Instellingen. Veeg een stukje omlaag voor de zoekbalk. Typ "Accounts" en kies Mail-accounts of Accounts. Tik op je adres, en op Account. Vul bij Wachtwoord het nieuwe in. Doe dat ook bij SMTP, lager in dat scherm: dat is voor versturen. Tik op Gereed.</p>
+    <>
+      <p><strong>Haalt Mail op je iPhone daarna geen mail meer op?</strong></p>
+      <ol>
+        <li>Open Instellingen. Veeg een stukje omlaag voor de zoekbalk. Typ "Accounts" en kies Mail-accounts of Accounts.</li>
+        <li>Tik op je adres, en op Account. Vul bij Wachtwoord het nieuwe in. Dat is voor ontvangen.</li>
+        <li>Nu versturen. Lager staat SMTP, met de naam van een server. Tik op die naam, en bij Primaire server op de server. Vul ook daar bij Wachtwoord het nieuwe in.</li>
+        <li>Tik op Gereed, ook als je terug bent bij Account.</li>
+      </ol>
+    </>
   )}
 </Optie>
 {!kwijt && (<p>Een goed wachtwoord is vier of vijf losse woorden, zoals "lantaarn koffie zebra dakpan". Gebruik het nergens anders. Schrijf het op papier.</p>)}

@@ -82,6 +82,18 @@ test('het nieuwe e-mailwachtwoord zegt per soort adres waar je het verandert', a
   await kpn.locator('summary').click();
   await expect(kpn).toContainText('SMTP');
   await expect(kpn).toContainText('Veeg een stukje omlaag');
+  // het tweede wachtwoordvak zit achter de servernaam en Primaire server
+  await expect(kpn).toContainText('Primaire server');
+  // gelukt kijkt ook of versturen werkt, niet alleen ontvangen
+  await expect(stap.locator('.gelukt')).toContainText('mail aan jezelf');
+});
+
+test('wie Gmail op Android heeft, leest wat hij doet als de app opnieuw wil inloggen', async ({ page }) => {
+  await page.goto(PAD);
+  const gmail = page.locator('#stap-mail-wachtwoord details.optie', { hasText: '@gmail.com' });
+  await gmail.locator('summary').click();
+  await expect(gmail).toContainText('Android');
+  await expect(gmail).toContainText('Actie vereist');
 });
 
 test('wat je vooraf regelt is een stappenplan met waar je tikt, per toestel', async ({ page }) => {
@@ -97,11 +109,14 @@ test('wat je vooraf regelt is een stappenplan met waar je tikt, per toestel', as
   // zoek mijn: op Android de versie van Google, op Windows alleen met een Microsoft-account
   await expect(plan).toContainText('Find Hub');
   await expect(plan).toContainText('Microsoft-account');
-  // geen vaktaal die nergens wordt uitgelegd
-  await expect(plan).not.toContainText(/FileVault|BitLocker/);
-  // wat elders op de site al stap voor stap staat, is een link naar die ene plek
+  // pincode, laptop, reservekopie: hier te doen, per toestel een keuze, niet alleen een link
+  for (const [n, keuzes] of [[1, ['iPhone', 'Android']], [3, ['Mac', 'Windows']], [5, ['iPhone', 'Android', 'Mac of Windows']]]) {
+    const stap = plan.locator('.stap-item').nth(n);
+    for (const k of keuzes) await expect(stap.locator('summary', { hasText: k }).first(), `stap ${n + 1}: ${k}`).toHaveCount(1);
+    await expect(stap).toContainText(/Open Instellingen|Systeeminstellingen|Klik op Start/);
+  }
   for (const href of ['/een-avond#stap-pincode', '/een-weekend#stap-versleuteling', '/een-weekend#stap-backup']) {
-    await expect(plan.locator(`a[href="${href}"]`), href).toHaveCount(1);
+    await expect(plan.locator(`a[href="${href}"]`), href).toHaveCount(0);
   }
 });
 
@@ -125,15 +140,20 @@ test('ABN AMRO heeft twee knoppen, elk met de tijd waarop je dat nummer belt', a
   await expect(abn.nth(1)).toContainText('weekend');
 });
 
-test('het tweede slot staat op één plek: de stap wijst naar Eén avond, zonder vaktaal', async ({ page }) => {
+test('het tweede slot zegt per maildienst waar het zit, ook of KPN en Ziggo het hebben', async ({ page }) => {
   await page.goto(PAD);
   const stap = page.locator('#stap-tweede-slot');
   // het is iets voor later: het staat bij wat je vooraf regelt, niet in het plan voor nu
   await expect(page.locator('[data-stappenplan="stappen-vooraf"] #stap-tweede-slot')).toHaveCount(1);
+  for (const t of ['@gmail.com', '@icloud.com', '@kpnmail.nl']) await expect(stap.locator('summary', { hasText: t })).toHaveCount(1);
+  const kpn = stap.locator('details.optie', { hasText: '@kpnmail.nl' });
+  await kpn.locator('summary').click();
+  await expect(kpn).toContainText('Niet jouw fout');
+  // het instellen van de code-app staat op één plek
   await expect(stap.locator('a[href="/een-avond#stap-mail-tweede-slot"]')).toHaveCount(1);
   // de reden om geen sms te kiezen staat er wel, kort
   await expect(stap).toContainText('geen code per sms');
-  await expect(stap).not.toContainText(/\b2FA\b|authenticator/i);
+  await expect(stap).not.toContainText(/\b2FA\b/);
 });
 
 test('bewijs bewaren kan ook op een laptop', async ({ page }) => {
@@ -212,7 +232,7 @@ test('de pagina blijft onder het woordenplafond van 4000', async ({ request }) =
 test('elke link naar een stap op een andere doe-pagina komt ergens uit', async ({ page }) => {
   await page.goto(PAD);
   const hrefs = await page.locator('main a[href^="/een-"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
-  expect(hrefs.length).toBeGreaterThanOrEqual(5);
+  expect(hrefs.length).toBeGreaterThanOrEqual(2);
   for (const href of new Set(hrefs)) {
     const [pad, id] = href.split('#');
     await page.goto(pad);
@@ -254,6 +274,9 @@ test('wie alleen een telefoon heeft, leest hoe hij de doorstuurregels toch ziet'
   await tel.locator('summary').click();
   // per browser waar de knop zit, ook Samsung Internet en Safari
   for (const t of ['Desktopsite', 'Samsung Internet', 'Desktopversie', 'Safari', 'aA', 'in de browser te blijven']) await expect(tel).toContainText(t);
+  // eerst de computerweergave, dan pas het adres; en wat je doet als de app zonder vraag opengaat
+  await expect(tel).toContainText('Typ daarna pas het adres');
+  await expect(tel).toContainText('zonder vraag');
 });
 
 test('mail van KPN of Ziggo: waar je inlogt, met welk wachtwoord, en hoe je de klantenservice vindt', async ({ page }) => {
@@ -295,7 +318,12 @@ test('telefoon kwijt: je kiest eerst je toestel, en de inlogcode leidt niet in e
 test('vaktaal staat er niet zonder uitleg', async ({ page }) => {
   await page.goto(PAD);
   const main = page.locator('main');
-  await expect(main).not.toContainText(/provider|wallet|FileVault|BitLocker/i);
+  await expect(main).not.toContainText(/provider|wallet/i);
+  // FileVault en BitLocker zijn de knoppen die je zoekt; ze staan alleen in de laptopstap,
+  // waarvan de kop zegt wat ze doen
+  const metNaam = main.locator('.stap-item', { hasText: /FileVault|BitLocker/ });
+  await expect(metNaam).toHaveCount(1);
+  await expect(metNaam.locator('h3')).toContainText('onleesbaar');
   await expect(main).toContainText('een app die je wachtwoorden bewaart');
   await expect(main).toContainText('het vaste nummer van je telefoon');
 });

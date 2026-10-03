@@ -16,9 +16,11 @@ const ZIN = {
   doorsturen: 'Wordt mijn mail doorgestuurd? Staat er een regel die ik niet zelf maakte? Haal die weg.',
 };
 ---
-{wat !== 'wachtwoord' && <p>Vroeg je dit al aan de telefoon bij stap 2? Dan ben je klaar.</p>}
+{wat !== 'wachtwoord' && <p>Al gevraagd bij stap 2? Dan ben je klaar.</p>}
 <ol>
-  <li>Bel de klantenservice van KPN of Ziggo. Het nummer staat op je rekening, en op kpn.com of ziggo.nl bij Contact.</li>
+  {wat === 'wachtwoord'
+    ? <li>Bel de klantenservice van KPN of Ziggo. Het nummer staat op je rekening, en op kpn.com of ziggo.nl bij Contact.</li>
+    : <li>Bel de klantenservice van KPN of Ziggo: zie je rekening, of kpn.com of ziggo.nl.</li>}
   <li>Zeg: "{ZIN[wat]}"</li>
   {wat === 'wachtwoord' && !kwijt && <li>Vraag meteen ook: "{ZIN.herstel}" En: "{ZIN.doorsturen}" Dan zijn stap 5 en 6 ook klaar.</li>}
   {wat === 'herstel' && <li>Ken je een nummer of adres niet? Laat het weghalen.</li>}

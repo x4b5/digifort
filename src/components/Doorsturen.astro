@@ -7,6 +7,8 @@
  * Testpersonen met alleen een telefoon vonden de knop voor de computerweergave
  * niet (Safari, Samsung Internet), en kregen bij gmail.com de vraag om de app te
  * openen. Daarom: liefst een computer, en anders per browser waar de knop zit.
+ * Op een Samsung opende gmail.com in Chrome meteen de Gmail-app, zonder vraag:
+ * eerst de computerweergave aan, dan het adres; anders Samsung Internet.
  * KPN en Ziggo: bellen, zie KpnZiggo.astro.
  */
 import Optie from './Optie.astro';
@@ -15,13 +17,14 @@ import KpnZiggo from './KpnZiggo.astro';
 <p>Je haalt alleen weg wat je niet zelf hebt gemaakt. Twijfel je? Laat het staan.</p>
 <p>Dit zie je alleen op de website, niet in de app. Gebruik liefst een computer of tablet.</p>
 <Optie titel="Ik heb alleen een telefoon">
-  <p>Zet je browser op de weergave voor een computer. Tik op je browser:</p>
+  <p>Zet je browser eerst op de weergave voor een computer. Typ daarna pas het adres. Tik op je browser:</p>
   <ul>
     <li><strong>Chrome:</strong> drie puntjes rechtsboven. Zet een vinkje bij Desktopsite.</li>
     <li><strong>Samsung Internet:</strong> drie streepjes rechtsonder. Kies Desktopversie.</li>
     <li><strong>Safari (iPhone):</strong> tik links in de adresbalk op aA of op het kleine icoontje. Kies Vraag desktopwebsite aan.</li>
   </ul>
-  <p>Alles wordt klein. Zoom in met twee vingers. Vraagt de site of je de app wilt openen? Kies om in de browser te blijven.</p>
+  <p>Alles wordt klein: zoom in met twee vingers. Vraagt de site of je de app wilt openen? Kies om in de browser te blijven.</p>
+  <p>Gaat de app vanzelf open, zonder vraag? Typ het adres opnieuw in je browser. Gaat hij weer open? Gebruik Samsung Internet, of een computer.</p>
 </Optie>
 <p>Tik op je e-mail:</p>
 <Optie titel="@gmail.com">

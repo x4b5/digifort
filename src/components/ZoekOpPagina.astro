@@ -4,11 +4,16 @@
  * zoekbalk (zoals Microsoft). De testpersoon wist niet hoe "zoek op die pagina"
  * moest, en bij Safari en Samsung Internet niet waar het menu zat. Naar de
  * inset text van GOV.UK: een lijn links, rustig, geen kader.
+ * kort: voor de tweede en derde keer in hetzelfde stappenplan. Wie bij stap 2
+ * las waar het menu zit, hoeft dat bij stap 4 en 5 niet nog eens te lezen.
  */
-interface Props { woord: string }
+interface Props { woord: string; kort?: boolean }
+const { kort = false } = Astro.props;
 ---
 <div class="zoek-op-pagina">
-  <p><strong>Zo zoek je:</strong> Ctrl en F (Mac: Cmd en F). Telefoon: kies Zoek op pagina in het menu. Chrome: drie puntjes rechtsboven. Samsung Internet: drie streepjes rechtsonder. Safari: het deelknopje (vierkantje met pijl).</p>
+  {kort
+    ? <p><strong>Zo zoek je:</strong> Ctrl en F, of Zoek op pagina in het menu van je browser.</p>
+    : <p><strong>Zo zoek je:</strong> Ctrl en F (Mac: Cmd en F). Telefoon: Zoek op pagina, in het menu. Chrome: drie puntjes rechtsboven. Samsung Internet: drie streepjes rechtsonder. Safari: het deelknopje (vierkantje met pijl).</p>}
 </div>
 
 <style>
