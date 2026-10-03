@@ -15,7 +15,7 @@ import Merk from './Merk.astro';
 
 type Toestel = { naam: string, stappen: string[] };
 type Uitklap = { vraag: string, antwoord: string[], dienst?: string };
-type Uitleg = { wat?: string, hoe: string[], toestellen?: Toestel[], na?: string[], letOp?: string, uitklap?: Uitklap[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string };
+type Uitleg = { wat?: string, hoe: string[], dienstEerst?: boolean, toestellen?: Toestel[], na?: string[], letOp?: string, uitklap?: Uitklap[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string };
 interface Props {
   lijst?: string;
   uitleg?: Record<string, Uitleg>;
@@ -82,6 +82,32 @@ const kiesId = `toestel-${lijst}`;
         {/* één zin is geen lijstje: dan gewoon een alinea */}
         {hoe.length === 1 && <p>{stukjes(hoe[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>}
         {hoe.length > 1 && <ol class="hoe">{hoe.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
+        {/* bij `dienstEerst` kies je je maildienst vóór de delen: misschien hoef je ze niet te doen */}
+        {u.dienstEerst && u.uitklap?.some((k) => k.dienst) && (
+          <div class="diensten" data-diensten>
+            {/* zonder JavaScript blijft de keuze weg en zie je alle blokken */}
+            <fieldset class="toestelkeuze dienstkeuze" data-dienstkeuze hidden>
+              <legend>Welke maildienst heb je?</legend>
+              <p class="toestel-hint">Kijk naar het eind van je e-mailadres, na de @.</p>
+              <div class="keuzes onder">
+                {DIENSTEN.map((d) => (
+                  <label><input type="radio" name={`dienst-${it.id}`} value={d.id} /> <span><strong>{d.naam}</strong>{d.adres && <span class="adres"> {d.adres}</span>}</span></label>
+                ))}
+                <label><input type="radio" name={`dienst-${it.id}`} value="" checked /> Laat alles zien</label>
+              </div>
+            </fieldset>
+            {u.uitklap.filter((k) => k.dienst).map((k) => (
+              <details class="uitklap" data-dienst={k.dienst}>
+                <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
+                <div class="uitklap-tekst">
+                  {k.antwoord.length === 1
+                    ? <p>{stukjes(k.antwoord[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>
+                    : <ol class="hoe">{k.antwoord.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
+                </div>
+              </details>
+            ))}
+          </div>
+        )}
         {u.toestellen?.map((t) => (
           <div class="toestel" data-soort={soort(t.naam)}>
             <h4>{t.naam}</h4>
@@ -96,7 +122,7 @@ const kiesId = `toestel-${lijst}`;
               : <ol class="hoe">{na.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
           </div>
         )}
-        {u.uitklap?.some((k) => k.dienst) && (
+        {!u.dienstEerst && u.uitklap?.some((k) => k.dienst) && (
           <div class="diensten" data-diensten>
             {/* zonder JavaScript blijft de keuze weg en zie je alle blokken */}
             <fieldset class="toestelkeuze dienstkeuze" data-dienstkeuze hidden>

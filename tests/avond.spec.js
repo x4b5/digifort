@@ -197,8 +197,9 @@ test('het tweede slot staat in drie delen, met een lijstje dat de woorden uit el
   await expect(ms).toContainText('andere app');
   // de controle werkt zonder uitloggen, ook als de computer je mail al kent
   await expect(stap.locator('.gelukt')).toContainText('Je hoeft niet uit te loggen');
-  // en wie iCloud-mail heeft, logt niet uit op de iPhone
-  await expect(page.locator('#stap-mail-wachtwoord .gelukt')).toContainText('niet uit op je iPhone');
+  // bij het nieuwe wachtwoord log je nergens uit (dan raak je de mail op je telefoon niet kwijt): je test in een privévenster
+  await expect(page.locator('#stap-mail-wachtwoord .gelukt')).toContainText('Log nergens uit');
+  await expect(page.locator('#stap-mail-wachtwoord .gelukt')).toContainText('privévenster');
 });
 
 test('Bitwarden: de schermen bij het maken van een account, en een nieuw item op de computer', async ({ page }) => {
@@ -249,9 +250,51 @@ test('kies je maildienst, dan zie je alleen dat blok, al open, ook bij de volgen
   const nood = page.locator('#stap-noodcodes');
   await expect(nood.locator('details[data-dienst="microsoft"]')).toBeVisible();
   await expect(nood.locator('details[data-dienst="gmail"]')).toBeHidden();
-  await nood.getByRole('radio', { name: /KPN/ }).check();
+  await nood.getByRole('radio', { name: /iCloud/ }).check();
   await expect(nood.locator('details[data-dienst="andere"]')).toBeVisible();
   await expect(nood.locator('details[data-dienst="microsoft"]')).toBeHidden();
+  // KPN geeft geen herstelcodes: dat staat er, zodat je niet voor niks zoekt
+  await nood.getByRole('radio', { name: /KPN/ }).check();
+  await expect(nood.locator('details[data-dienst="kpn"]')).toContainText('geen herstelcodes');
+  await expect(nood.locator('details[data-dienst="andere"]')).toBeHidden();
   await nood.getByRole('radio', { name: 'Laat alles zien' }).check();
   await expect(nood.locator('details[data-dienst="gmail"]')).toBeVisible();
+});
+
+test('bij het tweede slot kies je eerst je maildienst: bij KPN weet je vóór deel 1 of je de delen moet doen', async ({ page }) => {
+  await page.goto('/een-avond#stap-mail-tweede-slot');
+  const stap = page.locator('#stap-mail-tweede-slot');
+  const keuze = stap.locator('[data-dienstkeuze]');
+  const deel1 = stap.getByRole('heading', { name: /Deel 1 op een iPhone/ });
+  const eerst = await keuze.evaluate((el, d) => Boolean(el.compareDocumentPosition(d) & Node.DOCUMENT_POSITION_FOLLOWING), await deel1.elementHandle());
+  expect(eerst).toBe(true);
+  await keuze.getByRole('radio', { name: /KPN/ }).check();
+  const kpn = stap.locator('details[data-dienst="kpn"]');
+  await expect(kpn).toContainText('voordat je een app installeert');
+  await expect(kpn).toContainText('MijnKPN');
+  await expect(kpn).toContainText('Sla over');
+  // en bij stap 1: wie geen MijnKPN-inlog heeft, weet wat hij dan doet
+  await page.goto('/een-avond#stap-mail-wachtwoord');
+  await expect(page.locator('#stap-mail-wachtwoord details[data-dienst="kpn"]')).toContainText('heb je die inlog niet');
+  // de Mail-app op de iPhone: waar het wachtwoord zit, zonder te gokken naar een menupad
+  await page.locator('#stap-mail-wachtwoord .lukt-niet summary').click();
+  await expect(page.locator('#stap-mail-wachtwoord .lukt-niet')).toContainText('typ "accounts" in de zoekbalk');
+});
+
+test('weekend en verder: scannen uitgelegd, foto\'s op Android, en een sleutel met alleen een telefoon of op Bitwarden', async ({ page }) => {
+  await page.goto('/een-weekend#stap-accounts-tweede-slot');
+  const scan = page.locator('#stap-accounts-tweede-slot details.uitklap').filter({ hasText: 'Een code scannen met Ente Auth' });
+  await scan.locator('summary').click();
+  await expect(scan).toContainText('plusteken');
+  await expect(scan.getByRole('link')).toHaveAttribute('href', '/een-avond#stap-mail-tweede-slot');
+  await page.goto('/een-weekend#stap-backup');
+  await expect(page.locator('#stap-backup .toestel[data-soort="android"]')).toContainText('Google Foto');
+  await page.goto('/ik-wil-verder#stap-hardwaresleutel');
+  const stap = page.locator('#stap-hardwaresleutel');
+  const telefoon = stap.locator('details.uitklap').filter({ hasText: 'Ik heb alleen een telefoon' });
+  await telefoon.locator('summary').click();
+  await expect(telefoon).toContainText('achterkant');
+  const bw = stap.locator('details.uitklap').filter({ hasText: 'Een sleutel op Bitwarden' });
+  await bw.locator('summary').click();
+  await expect(bw).toContainText('herstelcode');
 });

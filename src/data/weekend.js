@@ -14,7 +14,8 @@ export const WEEKEND = {
     toestellen: [
       { naam: 'Op je computer', stappen: [
         'Ga naar de site en log in. Staat het account al in je kluis? Klik rechtsboven in je browser op het puzzelstukje, dan op Bitwarden, en kies het account.',
-        'Weet je het oude wachtwoord niet meer? Kies op de site "wachtwoord vergeten". Klik op de link in de mail die je krijgt. Je ziet dan het vak voor een nieuw wachtwoord.',
+        'Weet je het oude wachtwoord niet meer? Kies op de site "wachtwoord vergeten". Je krijgt een mail met een link.',
+        'Lees je je mail alleen op je telefoon? Open je mail dan op de computer, op de website van je maildienst. Log daar in, net als in [niveau 1](/een-avond#stap-mail-wachtwoord). Klik daar op de link. Je ziet het vak voor een nieuw wachtwoord.',
         'Anders: zoek op de site in de instellingen naar "wachtwoord wijzigen".',
         'Klik op het puzzelstukje en dan op Bitwarden. Kies Generator. Klik op de knop om het wachtwoord te kopiëren.',
         'Klik op de site in het vak voor het nieuwe wachtwoord. Plak met Ctrl en V (Windows) of Cmd en V (Mac). Moet het twee keer? Plak nog een keer.',
@@ -63,8 +64,8 @@ export const WEEKEND = {
       'Doe daarna nog één ander account. De rest mag een andere dag: elke site heeft andere schermen.',
       'Log in op de site en zoek de beveiliging. Lukt dat niet? Open hieronder "Waar vind ik de beveiliging van een site?".',
       'Zoek daar naar "tweestapsverificatie", "inloggen in twee stappen" of "passkey".',
-      'Kan het met een passkey? Kies die. Je bevestigt met je vinger, je gezicht of je pincode. Vraagt je toestel waar de passkey moet? Open hieronder "Waar bewaar ik een passkey?".',
-      'Geen passkey? Kies "authenticator-app" en scan de vierkante code met Ente Auth, net als bij je e-mail in [niveau 1](/een-avond#stap-mail-tweede-slot).',
+      'Kan het met een passkey? Kies die. Een passkey is inloggen met je vinger, je gezicht of je pincode, zonder wachtwoord. Vraagt je toestel waar hij moet? Open hieronder "Waar bewaar ik een passkey?".',
+      'Geen passkey? Kies "authenticator-app": dat is een code-app, zoals Ente Auth. Open hieronder "Een code scannen met Ente Auth".',
       'Voor je bank gebruik je de app van je bank. Die heb je meestal al.',
       'Krijg je herstelcodes te zien? Schrijf ze op en stop ze in je envelop.',
     ],
@@ -83,8 +84,14 @@ export const WEEKEND = {
         'Krijg je een code per sms? Typ die code in de app.',
         'Zegt de app dat hij geactiveerd is? Dan is het gelukt.',
       ] },
+      { vraag: 'Een code scannen met Ente Auth', antwoord: [
+        'Heb je Ente Auth nog niet? Zet het erop zoals in [niveau 1, deel 1 en 2](/een-avond#stap-mail-tweede-slot).',
+        'De site laat een vierkante code zien. Tik in Ente Auth op het plusteken (+). Kies scannen of QR-code. Vraagt de app om de camera? Kies toestaan.',
+        'Richt de camera op de vierkante code. Ente Auth laat zes cijfers zien. Typ die over op de site.',
+        'Staat de code op je telefoon zelf? Tik op de link eronder, zoals "Kun je de code niet scannen?". Kopieer de sleutel. Kies in Ente Auth om de gegevens zelf in te voeren en plak hem.',
+      ] },
       { vraag: 'Waar bewaar ik een passkey?', antwoord: [
-        'Staat Bitwarden in de keuze? Kies Bitwarden. Bitwarden staat ook op je computer. Dan heb je de passkey op al je toestellen.',
+        'Je toestel laat een lijstje zien met plekken. Staat Bitwarden erin? Kies Bitwarden. Dan heb je de passkey op al je toestellen.',
         'Zie je alleen je telefoon? Dat is ook goed. De passkey staat dan op je telefoon.',
         'Log je later in op je laptop, en staat de passkey op je telefoon? Dan laat de laptop een vierkante code zien. Scan die met je telefoon. Bevestig met je vinger of je gezicht.',
         'Twijfel je? Kies dan de code-app. Dat is ook een goed tweede slot.',
@@ -129,7 +136,7 @@ export const WEEKEND = {
   'noodcodes': {
     hoe: [
       'Pak je envelop. Daarin ligt al het hoofdwachtwoord van Bitwarden.',
-      'Leg er de herstelcodes van je e-mail bij. Die kreeg je in niveau 1. Heb je ze niet meer? Maak nieuwe. Kies hieronder jouw maildienst.',
+      'Kreeg je in niveau 1 herstelcodes van je e-mail? Leg ze erbij. Kwijt? Maak nieuwe. Kies hieronder je maildienst. Gaf je maildienst geen codes? Dan sla je dit over.',
       'Leg er ook het wachtwoord en de herstelsleutel van Ente Auth bij, en de codes uit stap 2.',
       'Schrijf alles met de hand. Zet bij elk rijtje bij welk account het hoort.',
       'Leg de envelop thuis op een vaste, veilige plek. Niet in je telefoon, en niet als foto.',
@@ -138,7 +145,9 @@ export const WEEKEND = {
     uitklap: [
       { dienst: 'gmail', vraag: 'Nieuwe codes maken bij Gmail', antwoord: ['Ga naar myaccount.google.com en log in.', 'Typ "back-upcodes" in de zoekbalk bovenaan de pagina. Kies het en vraag nieuwe codes aan.'] },
       { dienst: 'microsoft', vraag: 'Nieuwe codes maken bij Outlook of Hotmail', antwoord: ['Ga naar account.microsoft.com en log in.', 'Kies Beveiliging. Zoek naar "herstelcode" en maak een nieuwe.'] },
-      { dienst: 'andere', vraag: 'Nieuwe codes maken bij een andere maildienst', antwoord: ['Log in op de website van je maildienst. Zoek bij de beveiliging naar "herstelcodes" of "back-upcodes".'] },
+      { dienst: 'kpn', vraag: 'Herstelcodes bij KPN', antwoord: ['Zonder tweede slot op je mail zijn er geen herstelcodes. Zoek niet verder. Je wachtwoord staat in je kluis, en dat is genoeg.'] },
+      { dienst: 'ziggo', vraag: 'Herstelcodes bij Ziggo', antwoord: ['Zonder tweede slot op je mail zijn er geen herstelcodes. Zoek niet verder. Je wachtwoord staat in je kluis, en dat is genoeg.'] },
+      { dienst: 'andere', vraag: 'Nieuwe codes maken bij een andere maildienst', antwoord: ['Log in op de website van je maildienst. Zoek bij de beveiliging naar "herstelcodes" of "back-upcodes". Niets gevonden? Dan geeft je dienst ze niet. Ga verder.'] },
       { vraag: 'Herstelcodes van Bitwarden', antwoord: [
         'Heb je bij Bitwarden een tweede slot aangezet? Dan heeft Bitwarden een herstelcode. Die staat alleen op de website.',
         'Ga op je computer naar vault.bitwarden.com en log in.',
@@ -146,7 +155,7 @@ export const WEEKEND = {
         'Geen tweede slot op Bitwarden? Dan is je hoofdwachtwoord in de envelop genoeg.',
       ] },
     ],
-    gelukt: 'In je envelop zitten je hoofdwachtwoord en de codes voor je e-mail. Bij elk rijtje staat bij welk account het hoort.',
+    gelukt: 'In je envelop zitten je hoofdwachtwoord, en de codes van je e-mail als je die hebt. Bij elk rijtje staat bij welk account het hoort.',
     lukNiet: [
       'Weet je niet meer waar je oude codes zijn? Vaak kun je op dezelfde plek nieuwe codes maken. De oude werken dan niet meer.',
       'Wat er nog meer in je noodpakket hoort, staat in [Als er toch is ingebroken](/als-er-is-ingebroken).',
@@ -159,8 +168,12 @@ export const WEEKEND = {
     hoe: ['Een losse schijf is een externe harde schijf: een kastje dat je met een kabel aan je computer koppelt. Je koopt hem in een elektronicawinkel. Neem er een met meer ruimte dan je computer heeft. Geen computer? Dan heb je geen schijf nodig.'],
     toestellen: [
       { naam: 'Op een iPhone', stappen: ['Open Instellingen en tik bovenaan op je naam.', 'Tik op iCloud en dan op iCloud-reservekopie.', 'Zet het schuifje aan. Tik op Maak nu reservekopie.'] },
-      { naam: 'Op een Android-telefoon', stappen: ['Open Instellingen en typ "back-up" in de zoekbalk.', 'Zet de back-up aan. Kun je nu een back-up maken? Doe dat.'] },
-      { naam: 'Op een Mac', stappen: ['Sluit de losse schijf aan.', 'Open Systeeminstellingen. Klik op Algemeen en dan op Time Machine.', 'Voeg je schijf toe als reservekopieschijf.', 'Vraagt je Mac of hij de schijf mag wissen? Bij een nieuwe, lege schijf is dat normaal: kies wissen. Staan er bestanden op die je wilt houden? Stop dan en neem een lege schijf.', 'Wacht tot de eerste kopie klaar is. De eerste keer duurt dat lang.'] },
+      { naam: 'Op een Android-telefoon', stappen: [
+        'Open Instellingen en typ "back-up" in de zoekbalk.',
+        'Zie je meer keuzes, zoals van Samsung en van Google? Kies die van Google. Zet hem aan en maak nu een back-up.',
+        'Je foto\'s gaan daar niet altijd mee. Open de app Google Foto\'s. Tik rechtsboven op je profielfoto. Zet de back-up aan.',
+      ] },
+      { naam: 'Op een Mac', stappen: ['Sluit de losse schijf aan.', 'Open Systeeminstellingen. Klik op Algemeen en dan op Time Machine.', 'Voeg je schijf toe als reservekopieschijf.', 'Vraagt je Mac of hij de schijf mag wissen? Bij een nieuwe, lege schijf is dat normaal. Staan er bestanden op die je wilt houden? Stop dan.', 'Wacht tot de eerste kopie klaar is. De eerste keer duurt dat lang.'] },
       { naam: 'Op een Windows-computer', stappen: ['Sluit de losse schijf aan.', 'Typ "Bestandsgeschiedenis" in de zoekbalk van Start en open het.', 'Kies je schijf en zet Bestandsgeschiedenis aan. Wacht tot de eerste kopie klaar is.'] },
     ],
     na: [
@@ -178,10 +191,10 @@ export const WEEKEND = {
         'Op Windows: sluit de schijf aan. Typ "Bestandsgeschiedenis" in de zoekbalk van Start. Kies het terugzetten van bestanden. Kies een bestand en klik op de groene knop onderaan.',
       ] },
     ],
-    gelukt: 'Zet één bestand terug van je losse schijf en open het. Hoe dat gaat, staat hierboven. Lukt het? Dan werkt je reservekopie echt. Op je telefoon staat bij de back-up een datum van vandaag.',
+    gelukt: 'Zet één bestand terug van je losse schijf en open het. Hoe dat gaat, staat hierboven. Lukt het? Dan werkt je reservekopie echt. Op je telefoon staat bij de back-up een datum van vandaag. In Google Foto\'s staat bij je profielfoto dat de back-up aan staat.',
     lukNiet: [
       'Heb je nog geen losse schijf? Doe dan nu alleen je telefoon.',
-      'Zegt je iPhone dat er te weinig ruimte in iCloud is? Open Instellingen, tik op je naam en dan op iCloud. Daar kun je meer ruimte kiezen. Je ziet eerst de prijs per maand. Je kunt het later weer opzeggen.',
+      'Te weinig ruimte in iCloud? Open Instellingen, tik op je naam en dan op iCloud. Daar kies je meer ruimte. Je ziet eerst de prijs per maand.',
       'Wil je niet betalen? Zet je foto\'s dan op je computer. Zo gaan ze mee op de losse schijf.',
       'Ziet je computer de schijf niet? Probeer een andere aansluiting of een andere kabel.',
     ],
@@ -189,7 +202,7 @@ export const WEEKEND = {
     klaar: 'Je brandkast staat buiten de deur. Gaat er iets kapot of op slot, dan heb je alles nog.',
   },
   'router': {
-    wat: 'De router is het kastje van je provider waar je internet uit komt. Hij heeft een eigen wachtwoord voor de instellingen, en eigen software. Die software heet ook firmware.',
+    wat: 'De router is het kastje van je provider waar je internet uit komt. Hij heeft een eigen wachtwoord voor de instellingen, en eigen software.',
     hoe: [
       'Vind je dit eng? Bel je provider. Het nummer staat op je rekening en op de site van je provider.',
       'Zeg: "Wilt u het beheerderswachtwoord van mijn router veranderen? En wilt u zorgen dat de software van mijn router wordt bijgewerkt?"',
@@ -199,15 +212,15 @@ export const WEEKEND = {
     uitklap: [
       { vraag: 'Ik doe het zelf', antwoord: [
         'Pak een computer die op je eigen wifi zit.',
-        'Kijk op de sticker van je router. Daar staan vaak een adres om in te loggen en het wachtwoord. Het adres is een rij cijfers met punten, zoals 192.168.1.1. Sommige providers hebben er ook een app voor.',
+        'Kijk op de sticker van je router. Daar staan vaak een adres, zoals 192.168.1.1, en het wachtwoord.',
         'Typ dat adres in je browser, bovenin, waar je normaal een website typt. Druk op Enter.',
         'Log in met het wachtwoord van de sticker.',
         'Zoek het beheerderswachtwoord. Verander het in een wachtwoord uit je wachtwoordmanager.',
-        'Zoek "firmware" of "software bijwerken". Zet automatisch bijwerken aan. Kan dat niet? Werk hem nu met de hand bij.',
+        'Zoek "software bijwerken" of "firmware" (zo heet de software van de router). Zet automatisch bijwerken aan.',
       ] },
     ],
     letOp: 'Het beheerderswachtwoord is niet het wachtwoord van je wifi. Laat het wifi-wachtwoord zoals het is. Anders moet je al je apparaten opnieuw verbinden.',
-    gelukt: 'Zegt je provider dat het geregeld is, en ligt het nieuwe wachtwoord in je envelop? Dan is het gelukt. Deed je het zelf? Log uit en weer in met het nieuwe wachtwoord. Staat automatisch bijwerken aan? Dan is het gelukt.',
+    gelukt: 'Zegt je provider dat het geregeld is, of deed je het zelf en staat automatisch bijwerken aan? En ligt het nieuwe wachtwoord in je envelop? Dan is het gelukt.',
     lukNiet: [
       'Kom je er niet uit? Bel je provider. Zij kunnen het meestal op afstand voor je doen.',
       'Heb je per ongeluk het wifi-wachtwoord veranderd? Verbind je apparaten dan opnieuw, met het nieuwe wachtwoord. Geen ramp.',
@@ -216,7 +229,7 @@ export const WEEKEND = {
     klaar: 'Het tuinhek zit op slot, en het slot wordt voortaan vanzelf vernieuwd.',
   },
   'versleuteling': {
-    wat: 'Dit heet versleuteling. Alles op je laptop wordt dan onleesbaar zonder jouw wachtwoord.',
+    wat: 'Dit heet versleuteling: alles op je laptop is dan onleesbaar zonder jouw wachtwoord.',
     hoe: [],
     toestellen: [
       { naam: 'Op een Mac', stappen: [
@@ -255,7 +268,7 @@ export const WEEKEND = {
     gelukt: 'Bij Camera, Microfoon en Locatie staan alleen nog apps die het echt nodig hebben, zoals je kaart-app bij Locatie.',
     lukNiet: [
       'Werkt een app niet meer goed? Zet het recht dan weer aan. De app vraagt er vaak zelf om.',
-      'Zie je bovenin een groen of oranje lampje? Dan gebruikt een app je camera of microfoon. Doe je daar zelf niets mee? Kijk dan welke app het is.',
+      'Zie je bovenin een groen of oranje lampje terwijl je niets doet? Dan gebruikt een app je camera of microfoon. Kijk welke.',
     ],
     gereedschap: [],
     klaar: 'Alleen wie je zelf binnenlaat, kijkt nog door je ramen.',
@@ -266,14 +279,14 @@ export const WEEKEND = {
     toestellen: [
       { naam: 'In Chrome of Edge', stappen: [
         'Klik rechtsboven op het puzzelstukje. Kies Extensies beheren.',
-        'Ken je een extensie niet, of gebruik je hem niet? Klik op Verwijderen. Laat Bitwarden staan.',
+        'Ken of gebruik je een extensie niet? Klik op Verwijderen. Laat Bitwarden staan.',
         'Typ bovenin, in de adresbalk: chromewebstore.google.com (in Chrome) of microsoftedge.microsoft.com/addons (in Edge). Druk op Enter. Dit is de winkel voor extensies.',
         'Zoek "uBlock Origin Lite". Dat is de versie die in Chrome en Edge werkt.',
         'Kies die van de maker Raymond Hill. Klik op de knop om hem toe te voegen.',
       ] },
       { naam: 'In Firefox', stappen: [
         'Open het menu rechtsboven, met de drie streepjes. Kies Add-ons en thema\'s.',
-        'Ken je een extensie niet, of gebruik je hem niet? Verwijder hem. Laat Bitwarden staan.',
+        'Ken of gebruik je een extensie niet? Verwijder hem. Laat Bitwarden staan.',
         'Typ bovenin, in de adresbalk: addons.mozilla.org. Druk op Enter.',
         'Zoek "uBlock Origin". Kies die van de maker Raymond Hill en voeg hem toe. In Firefox werkt de volledige versie nog.',
       ] },
@@ -282,17 +295,14 @@ export const WEEKEND = {
     uitklap: [
       { vraag: 'Ik gebruik Safari op een Mac', antwoord: ['Sla deze stap dan over. Wil je toch uBlock Origin? Installeer dan Firefox, zoals hieronder staat.'] },
       { vraag: 'Moet ik overstappen op Firefox?', antwoord: [
-        'Nee. uBlock Origin Lite in je eigen browser is beter dan niets.',
-        'Wil je toch de volledige uBlock Origin? Ga naar firefox.com en installeer Firefox.',
-        'Firefox biedt aan om je bladwijzers uit je oude browser over te nemen. Kies dat.',
-        'Zet Bitwarden ook in Firefox, zoals in [niveau 1](/een-avond#stap-wachtwoordmanager). Je kluis blijft dezelfde.',
+        'Nee. Wil je toch de volledige uBlock Origin? Installeer Firefox via firefox.com. Neem je bladwijzers over als Firefox dat aanbiedt.',
+        'Zet Bitwarden ook in Firefox, zoals in [niveau 1](/een-avond#stap-wachtwoordmanager).',
       ] },
     ],
     gelukt: 'Klik rechtsboven op het puzzelstukje. Staat uBlock in het lijstje? Dan is het gelukt. Bij je extensies staan alleen nog extensies die je kent.',
     lukNiet: [
       'Werkt een site niet goed meer? Klik op het puzzelstukje en dan op uBlock. Zet uBlock voor die ene site uit.',
       'Weet je niet welk pictogram welk is? Houd je muis stil op een pictogram. Er verschijnt een naam, zoals Bitwarden of uBlock.',
-      'Weet je niet welke browser je hebt? Kijk naar het pictogram waarmee je internet opent. Een rond kleurtjes-pictogram is Chrome. Een blauwgroene golf is Edge. Een vos om een bol is Firefox. Een kompas is Safari.',
     ],
     gereedschap: ['ublock', 'firefox'],
     klaar: 'Er hangen gordijnen voor je ramen. Veel meekijkers en nepadvertenties blijven nu buiten.',
@@ -300,7 +310,7 @@ export const WEEKEND = {
   'sim-pincode': {
     hoe: [
       'Zoek eerst de pincode en de pukcode van je simkaart. Ze staan op het plastic kaartje waar je simkaart ooit uit kwam.',
-      'Kaartje kwijt? Kijk in de app of op de website van je provider, bij je simkaart. Of bel je provider. Zonder de pincode begin je niet aan deze stap.',
+      'Kaartje kwijt? Kijk in de app van je provider, of bel je provider. Zonder de pincode begin je niet aan deze stap.',
     ],
     toestellen: [
       { naam: 'Op een iPhone', stappen: [
