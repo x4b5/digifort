@@ -9,30 +9,75 @@ test('de plattegrond: veertien kamers, dicht tot je er een aantikt', async ({ pa
   await expect(page.locator('details.kamer[open]')).toHaveCount(0);
   const voordeur = page.locator('#de-voordeur-je-e-mail');
   await expect(voordeur.locator('.uitleg')).toBeHidden();
-  await voordeur.locator('summary').click();
+  await voordeur.locator(':scope > summary').click();
   await expect(voordeur).toHaveAttribute('open', '');
   await expect(voordeur.locator('.uitleg')).toBeVisible();
 });
 
-test('een dichte kamer toont al het antwoord: onderwerp vooraan, en wat je doet', async ({ page }) => {
+test('elke plek heeft een echte, korte kop met het onderwerp, en dicht toont hij al wat je doet', async ({ page }) => {
   await page.goto('/plattegrond');
   const tuinhek = page.locator('#tuinhek-en-meterkast-router-en-wifi');
   await expect(tuinhek).not.toHaveAttribute('open', '');
-  // het woord waar je naar zoekt is de kop, en staat vooraan; het beeld staat er klein achter
-  await expect(tuinhek.getByRole('heading', { level: 2 })).toHaveText('Wifi en router');
-  await expect(tuinhek.locator('summary .beeld')).toHaveText('Tuinhek en meterkast');
+  // het woord waar je naar zoekt is een kop van zichzelf, niet verstopt in een uitklapknop:
+  // een schermlezer die van kop naar kop springt, vindt hem
+  await expect(page.locator('[data-kamer-blok="tuinhek"]').getByRole('heading', { level: 2 })).toHaveText('Wifi en router');
+  await expect(page.locator('details.kamer summary h2')).toHaveCount(0);
   for (const k of KAMERS) {
-    const eerst = await page.locator(`#${k.anker} summary`).evaluate((s) => {
-      const kop = s.querySelector('h2'), beeld = s.querySelector('.beeld');
-      return Boolean(kop.compareDocumentPosition(beeld) & Node.DOCUMENT_POSITION_FOLLOWING);
-    });
-    expect(eerst, `${k.id}: kop vóór het beeld`).toBe(true);
+    const kop = page.locator(`[data-kamer-blok="${k.id}"] > h2`);
+    await expect(kop, k.id).toHaveText(k.onderwerp);
+    // kort genoeg om te scannen: een onderwerp, geen zin
+    expect(k.onderwerp.split(/\s+/).length, k.id).toBeLessThanOrEqual(6);
+    // de kop staat vóór de uitklapper, en de uitklapknop herhaalt geen beeld uit het huis
+    expect(await kop.evaluate((h) => h.nextElementSibling?.id), `${k.id}: kop direct vóór de uitklapper`).toBe(k.anker);
+    await expect(page.locator(`#${k.anker} > summary`)).not.toContainText('In het huis');
   }
   await expect(tuinhek.locator('summary .zin')).toBeVisible();
   await expect(tuinhek.locator('summary .zin')).toHaveText('Staat er nog een wachtwoord uit de fabriek op je router? Verander het.');
   for (const k of KAMERS) {
     await expect(page.locator(`#${k.anker} summary .zin`)).toHaveText(k.doe);
   }
+});
+
+test('bovenaan staat een lijst met alle onderwerpen, met Google, Apple en Microsoft apart', async ({ page }, info) => {
+  await page.goto('/plattegrond');
+  const lijst = page.locator('[data-onderwerpen]');
+  if (!(await lijst.evaluate((d) => d.open))) await lijst.locator('summary').click();
+  // vóór de eerste plek
+  const voor = await lijst.evaluate((el) => Boolean(el.compareDocumentPosition(document.querySelector('details.kamer')) & Node.DOCUMENT_POSITION_FOLLOWING));
+  expect(voor).toBe(true);
+  for (const k of KAMERS.filter((k) => k.id !== 'tweede-voordeur')) {
+    await expect(lijst.locator(`a[href="#${k.anker}"]`), k.id).toHaveText(k.onderwerp);
+  }
+  // wie "Google-account (Android)" zoekt, springt naar de plek en ziet meteen de stappen
+  await lijst.locator('a', { hasText: 'Google-account (Android, Samsung)' }).click();
+  await expect(page.locator('#de-tweede-voordeur-het-account-van-je-telefoon-of-computer')).toHaveAttribute('open', '');
+  const google = page.locator('#google-account');
+  await expect(google).toHaveAttribute('open', '');
+  await expect(google.locator('ol')).toContainText('myaccount.google.com');
+  await expect(google.locator('ol')).toContainText('verificatie in twee stappen');
+});
+
+test('onder e-mail kies je je maildienst en zie je alleen dat pad, met waar het tweede slot zit', async ({ page }) => {
+  await page.goto('/plattegrond');
+  const voordeur = page.locator('#de-voordeur-je-e-mail');
+  await voordeur.locator(':scope > summary').click();
+  const diensten = voordeur.locator('details.keuze');
+  await expect(diensten).toHaveCount(5);
+  for (const naam of ['Gmail', 'Outlook', 'iCloud', 'KPN', 'Ziggo']) {
+    await expect(diensten.filter({ hasText: naam }), naam).toHaveCount(1);
+  }
+  // alles dicht tot je kiest: je leest alleen je eigen dienst
+  await expect(voordeur.locator('details.keuze[open]')).toHaveCount(0);
+  const kpn = page.locator('#kpn');
+  await kpn.locator('summary').click();
+  await expect(kpn.locator('ol')).toBeVisible();
+  await expect(kpn.locator('ol')).toContainText('MijnKPN');
+  await expect(kpn.locator('ol')).toContainText('tweestapsverificatie');
+  // en het zegt eerlijk wat je doet als het bij KPN niet kan
+  await expect(kpn.locator('ol')).toContainText('Vind je niets?');
+  await expect(page.locator('#gmail ol')).toBeHidden();
+  // hoe je ziet dat het gelukt is
+  await expect(voordeur.locator('[data-keuzes]')).toContainText('Gelukt?');
 });
 
 test('elke kamer met stappen wijst naar de juiste stap in het doe-deel', async ({ page }) => {
@@ -68,6 +113,9 @@ test('een link naar een kamer klapt hem open', async ({ page }) => {
 
 test('één knop klapt alle plekken open en weer dicht', async ({ page }) => {
   await page.goto('/plattegrond');
+  // de knop staat onder de lijst met onderwerpen; op een telefoon is die eerst dicht
+  const lijst = page.locator('[data-onderwerpen]');
+  if (!(await lijst.evaluate((d) => d.open))) await lijst.locator('summary').click();
   const knop = page.locator('[data-alle-knop]');
   await expect(knop).toHaveText('Alle plekken openklappen');
   await expect(knop).toHaveAttribute('aria-expanded', 'false');
@@ -79,7 +127,7 @@ test('één knop klapt alle plekken open en weer dicht', async ({ page }) => {
   await expect(page.locator('details.kamer[open]')).toHaveCount(0);
 
   // klap je zelf alles open, dan zegt de knop dat ook
-  for (const s of await page.locator('details.kamer summary').all()) await s.click();
+  for (const s of await page.locator('details.kamer > summary').all()) await s.click();
   await expect(knop).toHaveText('Alle plekken dichtklappen');
 });
 
@@ -131,9 +179,9 @@ test('wie denkt dat er is ingebroken, vindt een kop met de eerste stappen', asyn
   await expect(page.getByRole('heading', { name: 'Wat doe je als het toch misgaat?', includeHidden: true })).toHaveCount(0);
 });
 
-test('wie zijn Google-account of wifi zoekt, vindt het woord in de kop van een dichte plek', async ({ page }) => {
+test('wie zijn Google-account of wifi zoekt, vindt het woord in de kop van een plek', async ({ page }) => {
   await page.goto('/plattegrond');
-  const koppen = page.locator('details.kamer:not([open]) summary h2');
+  const koppen = page.locator('[data-kamer-blok] > h2');
   for (const woord of ['Google', 'Gmail', 'Wifi', 'Passkey', 'Chrome']) {
     await expect(koppen.filter({ hasText: woord }), woord).toHaveCount(1);
   }

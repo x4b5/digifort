@@ -9,15 +9,77 @@
  * - `doe`: het antwoord, in één of twee zinnen. Dat zie je al als de plek dicht is.
  * - `zin`: waarom het ertoe doet, in één zin.
  * - `stappen`: waar je het stap voor stap doet (ids uit niveau 1, 2 en 3 in lijsten.js).
+ * - `keuzes`: (optioneel) waar het per maildienst of toestel anders gaat, de knoppen zelf.
+ *   De lezer kiest zijn dienst en ziet alleen dat pad. Elke keuze heeft een eigen id, zodat
+ *   de lijst bovenaan de plattegrond er rechtstreeks naartoe wijst ("Google-account").
+ *   De menupaden komen uit avond.js (Ik heb één avond); waar we de knop niet zeker weten,
+ *   wijzen we de zoekbalk van de site aan.
  */
+
+/** Waar je bij je maildienst het wachtwoord en het tweede slot vindt. */
+const MAILDIENSTEN = [
+  { id: 'gmail', kop: 'Gmail (@gmail.com)', stappen: [
+    'Ga in je browser naar myaccount.google.com en log in.',
+    'Nieuw wachtwoord: typ "wachtwoord" in de zoekbalk bovenaan. Kies Wachtwoord.',
+    'Tweede slot: typ "verificatie in twee stappen" in de zoekbalk. Zet het aan en kies de Authenticator-app.',
+  ] },
+  { id: 'outlook', kop: 'Outlook of Hotmail (@outlook.com, @hotmail.com, @live.nl)', stappen: [
+    'Ga in je browser naar account.microsoft.com en log in. Kies Beveiliging.',
+    'Nieuw wachtwoord: zoek daar naar het wijzigen van je wachtwoord.',
+    'Tweede slot: zoek naar "tweestapsverificatie" en zet het aan. Wil Microsoft dat je zijn eigen app neemt? Dat hoeft niet. Kies de kleine link om een andere app te gebruiken.',
+  ] },
+  { id: 'icloud', kop: 'iCloud (@icloud.com, @me.com)', stappen: [
+    'Open Instellingen op je iPhone. Tik bovenaan op je naam.',
+    'Tik op Inloggen en beveiliging. Op een oudere iPhone heet dat Wachtwoord en beveiliging.',
+    'Nieuw wachtwoord: tik op Wijzig wachtwoord.',
+    'Tweede slot: staat twee-factor-authenticatie op Aan? Dan zit het er al op.',
+  ] },
+  { id: 'kpn', kop: 'KPN (@kpnmail.nl, @planet.nl, @hetnet.nl)', stappen: [
+    'Open de browser op je telefoon of computer. Ga naar de site van KPN en log in op MijnKPN.',
+    'Nieuw wachtwoord: zoek naar je e-mail en dan naar "wachtwoord wijzigen".',
+    'Tweede slot: typ "tweestapsverificatie" in de zoekbalk van de site. Vind je niets? Dan kan het bij jouw mail nu niet. Dat is niet jouw fout. Je nieuwe wachtwoord beschermt je mail al.',
+  ] },
+  { id: 'ziggo', kop: 'Ziggo (@ziggo.nl, @home.nl, @upcmail.nl, @casema.nl)', stappen: [
+    'Open de browser op je telefoon of computer. Ga naar de site van Ziggo en log in op Mijn Ziggo.',
+    'Nieuw wachtwoord: zoek naar je e-mail en dan naar "wachtwoord wijzigen".',
+    'Tweede slot: typ "tweestapsverificatie" in de zoekbalk van de site. Vind je niets? Dan kan het bij jouw mail nu niet. Dat is niet jouw fout. Je nieuwe wachtwoord beschermt je mail al.',
+  ] },
+];
+
+/** Het account van je toestel: per soort toestel waar het tweede slot zit. */
+const TOESTELACCOUNTS = [
+  { id: 'google-account', kop: 'Google-account (Android, Samsung)', stappen: [
+    'Ga in je browser naar myaccount.google.com en log in. Heb je Gmail? Dan is het hetzelfde account.',
+    'Typ "verificatie in twee stappen" in de zoekbalk bovenaan. Zet het aan.',
+  ] },
+  { id: 'apple-account', kop: 'Apple-account (iPhone, Mac)', stappen: [
+    'Open Instellingen op je iPhone. Tik bovenaan op je naam.',
+    'Tik op Inloggen en beveiliging. Op een oudere iPhone heet dat Wachtwoord en beveiliging.',
+    'Staat twee-factor-authenticatie op Aan? Dan zit het tweede slot erop.',
+  ] },
+  { id: 'microsoft-account', kop: 'Microsoft-account (Windows)', stappen: [
+    'Ga in je browser naar account.microsoft.com en log in. Kies Beveiliging.',
+    'Zoek naar "tweestapsverificatie" en zet het aan.',
+  ] },
+];
+
 export const KAMERS = [
   { id: 'voordeur', anker: 'de-voordeur-je-e-mail', naam: 'De voordeur', wat: 'je e-mail', onderwerp: 'E-mail: Gmail, Outlook, iCloud, KPN, Ziggo',
     doe: 'Geef je e-mail een lang wachtwoord dat je nergens anders gebruikt. Zet er een tweede slot op.',
     zin: 'Je e-mail is de belangrijkste deur van je huis.',
+    keuzeVraag: 'Welke maildienst heb je? Je ziet het aan het eind van je adres, na de @. Doe dit op de website, niet in de Mail-app.',
+    keuzes: MAILDIENSTEN,
+    keuzeNa: [
+      'Gelukt? Dan zegt de site dat tweestapsverificatie aan staat.',
+      'Vraagt de Mail-app op je telefoon daarna om je wachtwoord? Typ het nieuwe in. Dat is normaal.',
+    ],
     stappen: ['mail-wachtwoord', 'mail-tweede-slot'] },
   { id: 'tweede-voordeur', anker: 'de-tweede-voordeur-het-account-van-je-telefoon-of-computer', naam: 'De tweede voordeur', wat: 'het account van je telefoon of computer', onderwerp: 'Google-, Apple- of Microsoft-account',
     doe: 'Het account van je telefoon of computer. Android en Samsung: Google. iPhone en Mac: Apple. Windows: Microsoft. Geef het een eigen wachtwoord en een tweede slot.',
     zin: 'Je Apple-, Google- of Microsoft-account is net zo belangrijk als je e-mail.',
+    keuzeVraag: 'Welk toestel heb je?',
+    keuzeNa: ['Gelukt? Dan zegt het scherm dat het tweede slot aan staat. De code laat je maken door een app, zoals bij je e-mail.'],
+    keuzes: TOESTELACCOUNTS,
     stappen: ['pincode', 'accounts-tweede-slot', 'versleuteling'] },
   { id: 'sleutels', anker: 'de-sleutels-wachtwoorden', naam: 'De sleutels', wat: 'wachtwoorden', onderwerp: 'Wachtwoorden',
     doe: 'Gebruik voor elk account een ander wachtwoord. Maak het lang: vier gewone woorden achter elkaar.',

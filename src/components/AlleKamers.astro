@@ -1,16 +1,42 @@
 ---
 /**
- * Eén knop die alle plekken van de plattegrond tegelijk open- of dichtklapt, zoals
- * "Show all sections" bij de accordion van GOV.UK. Handig om te printen, om met Ctrl+F
- * te zoeken in een browser die dichte uitklappers overslaat, of om alles achter elkaar
- * te lezen. Zonder JavaScript blijft de knop weg: dan werkt hij ook niet.
+ * Bovenaan de plattegrond: een lijst met alle onderwerpen, kort, zoals de inhoudsopgave
+ * op de andere hoofdstukken. Wie "Google-account" of "wifi" zoekt, ziet het woord hier
+ * en springt er met één tik heen. Waar het per toestel anders gaat, staat elk toestel
+ * apart in de lijst (Google, Apple, Microsoft): die link klapt de plek en dat toestel open.
+ *
+ * Onder de lijst één knop die alle plekken tegelijk open- of dichtklapt, zoals "Show all
+ * sections" bij de accordion van GOV.UK. Handig om te printen, om met Ctrl+F te zoeken in
+ * een browser die dichte uitklappers overslaat, of om alles achter elkaar te lezen. Zonder
+ * JavaScript blijft de knop weg: dan werkt hij ook niet.
  */
+import { KAMERS } from '../data/kamers.js';
+const ACCOUNT = 'tweede-voordeur';
+const rijen = KAMERS.flatMap((k) =>
+  k.id === ACCOUNT && k.keuzes
+    ? k.keuzes.map((c) => ({ href: `#${c.id}`, tekst: c.kop }))
+    : [{ href: `#${k.anker}`, tekst: k.onderwerp }],
+);
 ---
-<p class="alle-kamers" data-alle-kamers hidden>
-  <button type="button" class="knop licht klein" aria-expanded="false" data-alle-knop>Alle plekken openklappen</button>
-</p>
+<nav aria-label="Onderwerpen op deze pagina">
+  <details class="onderwerpen" open data-onderwerpen>
+    <summary class="onderwerpen-kop">Zoek je onderwerp</summary>
+    <ol>
+      {rijen.map((r) => <li><a href={r.href}>{r.tekst}</a></li>)}
+      <li><a href="#is-er-al-ingebroken-in-een-account">Is er al ingebroken?</a></li>
+    </ol>
+    <p class="alle-kamers" data-alle-kamers hidden>
+      <button type="button" class="knop licht klein" aria-expanded="false" data-alle-knop>Alle plekken openklappen</button>
+    </p>
+  </details>
+</nav>
 
 <script>
+  // op een smal scherm vult de lijst anders het hele eerste scherm, en staat je e-mail
+  // pas onder de vouw; zonder JavaScript blijft hij gewoon open (net als de inhoudsopgave)
+  if (window.matchMedia('(max-width: 40rem)').matches) {
+    document.querySelector<HTMLDetailsElement>('[data-onderwerpen]')?.removeAttribute('open');
+  }
   document.querySelectorAll<HTMLElement>('[data-alle-kamers]').forEach((houder) => {
     const knop = houder.querySelector<HTMLButtonElement>('[data-alle-knop]')!;
     const kamers = Array.from(document.querySelectorAll<HTMLDetailsElement>('details[data-kamer-uitleg]'));
@@ -33,6 +59,17 @@
 </script>
 
 <style>
-  .alle-kamers { margin: 0.75rem 0 0.5rem; display: flex; justify-content: flex-end; }
+  .onderwerpen { margin: 1rem 0 0; padding: 0.4rem 1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); }
+  .onderwerpen-kop { margin: 0; font-family: var(--kop); font-weight: 700; cursor: pointer; list-style: none; display: block; padding: 0.6rem 0; }
+  .onderwerpen-kop::-webkit-details-marker { display: none; }
+  .onderwerpen-kop::before { content: "▸"; display: inline-block; margin-right: 0.4rem; transition: transform 0.15s ease; }
+  .onderwerpen[open] .onderwerpen-kop::before { transform: rotate(90deg); }
+  @media (prefers-reduced-motion: reduce) { .onderwerpen-kop::before { transition: none; } }
+  .onderwerpen ol { margin: 0 0 0.6rem; padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
+  .onderwerpen li { margin: 0.2rem 0; break-inside: avoid; }
+  /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
+  @media (pointer: coarse) { .onderwerpen li { margin: 0; } .onderwerpen a { display: flex; align-items: center; min-block-size: 44px; } }
+  @media (max-width: 40rem) { .onderwerpen ol { columns: 1; } }
+  .alle-kamers { margin: 0 0 0.8rem; display: flex; justify-content: flex-end; }
   .alle-kamers[hidden] { display: none; }
 </style>

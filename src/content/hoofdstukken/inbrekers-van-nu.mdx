@@ -31,13 +31,14 @@ Klik niet op de link. Hang op. Zoek zelf het nummer of de app op. Een echte bank
 </Doe>
 
 <Overzicht kop="Wat gebeurt er bij jou?" rijen={[
+  { vraag: 'Al geklikt, ingelogd of betaald?', antwoord: 'Gaat het om geld? Bel direct je bank.', href: '#ik-heb-al-geklikt-ingelogd-of-betaald-wat-nu', link: 'Ik heb al geklikt, ingelogd of betaald. Wat nu?' },
   { vraag: 'Een sms, mail of app met een link om in te loggen of te betalen', antwoord: 'Klik niet. Open zelf de app of typ zelf het adres.', href: '#is-dit-bericht-echt', link: 'Is dit bericht echt?' },
-  { vraag: '"De bank" belt en wil dat je geld overzet', antwoord: 'Hang op. Bel zelf je bank, met het nummer op je pas.', href: '#vraagt-iemand-je-om-geld-over-te-maken', link: 'Vraagt iemand je om geld?' },
-  { vraag: 'Iemand vraagt een code die je per sms kreeg', antwoord: 'Stuur hem niet door.', href: '#iemand-vraagt-me-een-code-door-te-sturen-wat-is-dit', link: 'Iemand vraagt om een code' },
-  { vraag: '"Hoi mam, dit is mijn nieuwe nummer"', antwoord: 'Bel het oude nummer.', href: '#hoi-mam-nieuw-nummer', link: 'Hoi mam, nieuw nummer' },
-  { vraag: 'Een koper wil dat je 1 cent overmaakt', antwoord: 'Ga er niet op in.', href: '#marktplaats-en-tikkie', link: 'Marktplaats en Tikkie' },
+  { vraag: 'Iemand vraagt een code die je per sms kreeg', antwoord: 'Stuur hem niet door.', href: '#iemand-vraagt-me-een-code-door-te-sturen-wat-is-dit', link: 'Iemand vraagt me een code door te sturen. Wat is dit?' },
+  { vraag: '"De bank" belt en wil dat je geld overzet', antwoord: 'Hang op. Bel zelf je bank, met het nummer op je pas.', href: '#vraagt-iemand-je-om-geld-over-te-maken', link: 'Vraagt iemand je om geld over te maken?' },
+  { vraag: '"Hoi mam, dit is mijn nieuwe nummer"', antwoord: 'Bel het oude nummer.', href: '#appt-je-kind-vanaf-een-nieuw-nummer-en-vraagt-het-om-geld', link: 'Appt je kind vanaf een nieuw nummer en vraagt het om geld?' },
+  { vraag: 'Een koper wil dat je 1 cent overmaakt', antwoord: 'Ga er niet op in.', href: '#wil-een-koper-op-marktplaats-dat-je-1-cent-overmaakt', link: 'Wil een koper op Marktplaats dat je 1 cent overmaakt?' },
+  { vraag: 'Een bedrijf meldt dat je wachtwoord is gelekt', antwoord: 'Verander het overal waar je het gebruikt.', href: '#mijn-wachtwoord-is-gelekt-wat-nu', link: 'Mijn wachtwoord is gelekt. Wat nu?' },
   { vraag: 'Je telefoon heeft ineens geen bereik', antwoord: 'Bel meteen je telefoonbedrijf.', href: '#wat-is-sim-swapping', link: 'Wat is sim-swapping?' },
-  { vraag: 'Al geklikt, ingelogd of betaald?', antwoord: 'Gaat het om geld? Bel direct je bank.', href: '#ik-heb-al-geklikt-ingelogd-of-betaald-wat-nu', link: 'Al geklikt: wat nu?' },
 ]} />
 
 ## Ik heb al geklikt, ingelogd of betaald. Wat nu?
@@ -175,6 +176,28 @@ Hier breekt niemand in. Jij doet zelf de deur open en geeft het geld. Geen slot 
   { href: '#krijg-ik-mijn-geld-terug', tekst: 'Krijg ik mijn geld terug?', waar: 'Op deze pagina' },
 ]} />
 
+## Appt je kind vanaf een nieuw nummer en vraagt het om geld?
+
+<Kort>dit is een bekende truc. Bel eerst het oude nummer van je kind. Maak niets over voordat je je kind zelf hebt gesproken.</Kort>
+
+**Zo herken je het.** Nieuw nummer, haast en geld tegelijk. Soms met een nagemaakte stem.
+
+<Doe>
+
+**Wat je doet.** Bel het oude nummer. Vraag om het geheime woord.
+
+</Doe>
+
+<NaarDoen kop="Spreek het geheime woord af" stappen={['geheim-woord']} />
+
+## Wil een koper op Marktplaats dat je 1 cent overmaakt?
+
+<Kort>ga er niet op in. Wie jou geld wil geven, hoeft je geen link te sturen. Log nooit in bij je bank via een link van iemand anders.</Kort>
+
+**Zo herken je het.** De koper stuurt jou een link "om te betalen". Of hij vraagt via een Tikkie 1 cent, "als controle". De link brengt je naar een nagemaakte bankpagina. Een echte Tikkie komt altijd van tikkie.me.
+
+<Nepbericht id="tikkie" />
+
 ## Krijg ik mijn geld terug?
 
 <Kort>dat hangt af van wie op akkoord drukte. Haalde iemand anders het geld van je rekening, zonder dat jij het goedkeurde? Dan moet de bank het in beginsel terugbetalen. Heb je het zelf overgemaakt, ook al werd je bedrogen? Dan heb je geen recht op je geld terug.</Kort>
@@ -241,24 +264,6 @@ Een hele lage prijs. Je moet vooruit betalen. Het pakje komt nooit.
 
 - *Zo herken je het:* Je kunt alleen vooruit betalen. Het webadres klopt net niet.
 - *Wat je doet:* Controleer de winkel op [politie.nl](https://www.politie.nl) bij "check de verkoper". Betaal op een manier die je kunt terugdraaien.
-
-### Marktplaats en Tikkie
-
-De koper stuurt jou een link "om te betalen". Of hij vraagt je via een Tikkie 1 cent over te maken, "als controle". De link brengt je naar een nagemaakte bankpagina.
-
-- *Zo herken je het:* Wie jou geld wil geven, hoeft jou geen link te sturen. Een echte Tikkie komt altijd van tikkie.me.
-- *Wat je doet:* Log nooit in bij je bank via een link van iemand anders. Ga niet in op een verzoek om 1 cent.
-
-<Nepbericht id="tikkie" />
-
-### "Hoi mam, nieuw nummer"
-
-Je kind of vriend heeft een nieuw nummer en heeft nu geld nodig. Soms met een nagemaakte stem.
-
-- *Zo herken je het:* Nieuw nummer, haast en geld tegelijk.
-- *Wat je doet:* Bel het oude nummer. Vraag om het geheime woord.
-
-<NaarDoen kop="Spreek het geheime woord af" stappen={['geheim-woord']} />
 
 ### Nepliefde
 
