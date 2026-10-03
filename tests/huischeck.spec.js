@@ -83,23 +83,22 @@ test('de voortgang telt mee en wijst de eerste open vraag aan', async ({ page })
   await expect(page.locator('[data-voortgang]')).toHaveText('10 van 10 beantwoord. Je uitslag staat hieronder.');
 });
 
-test('de teller blijft in beeld als je scrolt, en de intro zegt waar de uitslag komt', async ({ page }) => {
+test('de teller ligt nooit over een vraag of knop, en de intro zegt waar de uitslag komt', async ({ page }) => {
   await page.goto('/huischeck');
   await expect(page.locator('.intro')).toContainText('Onder vraag 10');
   const teller = page.locator('[data-voortgang]');
-  // bovenaan de pagina én midden in de vragen staat hij onderin beeld
-  await expect(teller).toBeInViewport();
-  await page.locator('#vraag-6').scrollIntoViewIfNeeded();
+  // geen vaste balk: die viel over de kop van vraag 3 en over de knoppen van vraag 2
+  await expect(teller).toHaveCSS('position', 'static');
+  for (const nr of [2, 3, 6]) {
+    await page.locator(`#vraag-${nr}`).scrollIntoViewIfNeeded();
+    for (const deel of ['legend', '.antwoorden']) {
+      const [vak, balk] = await Promise.all([page.locator(`#vraag-${nr} ${deel}`).boundingBox(), teller.boundingBox()]);
+      expect(vak.y + vak.height <= balk.y || vak.y >= balk.y + balk.height).toBe(true);
+    }
+  }
   await page.locator('[data-vraag="6"] .ja').click();
-  await expect(teller).toBeInViewport();
   await expect(teller).toHaveText('1 van 10 beantwoord');
-  // hij bedekt de gekozen knop niet
-  const [knop, balk] = await Promise.all([
-    page.locator('[data-vraag="6"] .ja').boundingBox(),
-    teller.boundingBox(),
-  ]);
-  expect(knop.y + knop.height <= balk.y || knop.y >= balk.y + balk.height).toBe(true);
-  // en hij komt direct boven je uitslag uit
+  // hij staat direct boven je uitslag
   const vlak = await page.evaluate(() => document.querySelector('[data-voortgang]').nextElementSibling.matches('[data-uitslag]'));
   expect(vlak).toBe(true);
 });
@@ -356,7 +355,7 @@ test('de cijfers onder de check staan er als tekst, ook zonder beweging', async 
 
 test('wie twijfelt, ziet bij de vraag waar hij het kan nakijken', async ({ page }) => {
   await page.goto('/huischeck');
-  for (const nr of [2, 3, 4, 6, 8]) {
+  for (const nr of [2, 3, 4, 5, 6, 8]) {
     const blok = page.locator(`#vraag-${nr} details.nakijken`);
     await expect(blok).toHaveCount(1);
     // ingeklapt: de vraag blijft kort
@@ -371,8 +370,9 @@ test('wie twijfelt, ziet bij de vraag waar hij het kan nakijken', async ({ page 
   await expect(updates).toContainText('iPhone');
   await expect(updates).toContainText('Android');
   await expect(updates).toContainText('Je verandert nog niets');
-  // vraag 3: wie zijn e-mail nooit hoeft te openen, hoort dat dat normaal is
+  // vraag 3: wie zijn e-mail nooit hoeft te openen, hoort dat dat normaal is, en dat hij niet in de Mail-app kijkt
   await expect(page.locator('#vraag-3 details.nakijken')).toContainText('altijd open');
+  await expect(page.locator('#vraag-3 details.nakijken')).toContainText('niet in die app');
   // wie zijn wachtwoord niet weet of het niet vindt, kiest Weet ik niet in plaats van te gokken
   await expect(page.locator('#vraag-3 details.nakijken')).toContainText('weet je dat niet? Kies dan Weet ik niet');
   // vraag 2: je telefoon vraagt eerst je code; dat is normaal
@@ -427,9 +427,9 @@ test('vraag en uitslag gebruiken hetzelfde woord: herstelcodes', async ({ page }
   await expect(page.locator('#hint-8')).not.toContainText('reservecodes');
   await vulIn(page, (nr) => (nr === 8 ? 'weet-niet' : 'ja'));
   await expect(page.locator('[data-eerste-kop]')).toHaveText('Schrijf je herstelcodes op papier');
-  // de uitslag zegt waar je ze vindt
-  await expect(page.locator('[data-eerste-noot]')).toContainText('instellingen van je e-mail');
-  await expect(page.locator('[data-open-lijst] .taak-noot')).toContainText('instellingen van je e-mail');
+  // de uitslag zegt waar je ze vindt: op de website, niet in de Mail-app
+  await expect(page.locator('[data-eerste-noot]')).toContainText('website van je maildienst, niet in de Mail-app');
+  await expect(page.locator('[data-open-lijst] .taak-noot')).toContainText('website van je maildienst');
 });
 
 test('wie zijn telefoon al wachtwoorden laat bewaren, hoort in de uitslag dat hij er al een heeft', async ({ page }) => {
@@ -467,4 +467,58 @@ test('ook op een smalle telefoon past elke vraag zonder zijwaarts scrollen', asy
     expect(rij).toBeLessThanOrEqual(breedte);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(breedte);
   }
+});
+
+test('vraag 2: op een Samsung weet je in welke treffer je kijkt', async ({ page }) => {
+  await page.goto('/huischeck');
+  const blok = page.locator('#vraag-2 details.nakijken');
+  await blok.locator('> summary').click();
+  const samsung = blok.locator('details[data-dienst="Android of Samsung"]');
+  await expect(samsung.locator('ol')).toBeHidden();
+  await samsung.locator('summary').click();
+  await expect(samsung.locator('ol')).toContainText('Samsung Pass en Google Wachtwoordmanager');
+  await expect(samsung.locator('ol')).toContainText('Kijk dan in allebei');
+  await expect(blok.locator('details[data-dienst="iPhone"] ol')).toBeHidden();
+});
+
+test('vraag 5: ook de back-up van je telefoon telt, en je kunt hem nakijken', async ({ page }) => {
+  await page.goto('/huischeck');
+  await expect(page.locator('#vraag-5 legend')).not.toContainText('computer');
+  await expect(page.locator('#hint-5')).toContainText('telefoon');
+  const blok = page.locator('#vraag-5 details.nakijken');
+  await blok.locator('> summary').click();
+  for (const toestel of ['iPhone', 'Android of Samsung', 'Computer']) {
+    await expect(blok.locator(`details[data-dienst="${toestel}"] > summary`)).toBeVisible();
+  }
+  await blok.locator('details[data-dienst="Android of Samsung"] > summary').click();
+  await expect(blok.locator('details[data-dienst="Android of Samsung"] ol')).toContainText('back-up');
+});
+
+test('wie geen MijnKPN-inlog of herstelcodes heeft, weet toch wat hij kiest', async ({ page }) => {
+  await page.goto('/huischeck');
+  const drie = page.locator('#vraag-3 details.nakijken');
+  await drie.locator('> summary').click();
+  const kpn = drie.locator('details[data-dienst="KPN of Ziggo"]');
+  await kpn.locator('summary').click();
+  // geen zoekbalk met hulpartikelen, maar een regel om te kiezen
+  await expect(kpn.locator('ol')).not.toContainText('zoekbalk');
+  await expect(kpn.locator('ol')).toContainText('andere inlog');
+  await expect(kpn.locator('ol')).toContainText('Dan kies je Nee');
+  // vraag 8: zonder herstelcodes kijk je op je computer of tablet
+  const acht = page.locator('#vraag-8 details.nakijken');
+  await acht.locator('> summary').click();
+  await expect(acht).toContainText('Nooit gekregen?');
+  await expect(acht).toContainText('computer of tablet');
+  await expect(acht).toContainText('Dan kies je Nee');
+});
+
+test('vraag 4, Windows: wat elke melding betekent', async ({ page }) => {
+  await page.goto('/huischeck');
+  const blok = page.locator('#vraag-4 details.nakijken');
+  await blok.locator('> summary').click();
+  const win = blok.locator('details[data-dienst="Windows"]');
+  await win.locator('summary').click();
+  await expect(win.locator('ol')).toContainText('Windows-logo');
+  await expect(win.locator('ol')).toContainText('opnieuw moet opstarten');
+  await expect(win.locator('ol')).toContainText('Updates hervatten');
 });

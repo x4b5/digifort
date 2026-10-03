@@ -51,8 +51,8 @@ const ANTWOORDEN = [
     </div>
   ))}
 
-  <!-- de teller staat ná de vragen en plakt onderin beeld zolang je scrolt: zo zie je hem steeds,
-       en hij komt vanzelf boven je uitslag terecht -->
+  <!-- de teller staat gewoon ná de vragen, direct boven je uitslag. Hij plakt niet vast in beeld:
+       een vaste balk viel over vraagkoppen en knoppen. Onderweg hoort een schermlezer de stand. -->
   <p class="voortgang" data-voortgang>0 van 10 beantwoord</p>
 
   <div class="uitslag" data-uitslag>
@@ -93,7 +93,7 @@ const ANTWOORDEN = [
         <!-- ingeklapt: de stap hierboven is wat je nu doet; de rest hoeft niet vandaag -->
         <details class="alle-deuren" data-alle-deuren>
           <summary><span data-alle-deuren-tekst>Toon alle stappen</span></summary>
-          <p>Doe ze één voor één, van boven naar beneden. Klaar? Vink dan <strong>Ik heb dit gedaan</strong> aan.</p>
+          <p>Klaar met een stap? Vink dan <strong>Ik heb dit gedaan</strong> aan.</p>
           <ol class="taken" data-open-lijst></ol>
         </details>
         <p class="schermlezer" data-vink-melding aria-live="polite"></p>
@@ -368,9 +368,8 @@ const ANTWOORDEN = [
   /* alle uitleg op de pagina even groot en even donker als gewone tekst: wie slecht ziet, moet hem kunnen lezen */
   .huischeck .intro { margin: 0 0 1rem; font-size: inherit; color: var(--inkt); }
   .privacy { margin: 1.5rem 0 0; }
-  /* de teller plakt onderin beeld (onder de kop, die bovenin plakt); de pagina laat onderin ruimte, zodat hij nooit een gekozen knop bedekt */
-  .voortgang { position: sticky; bottom: 0; z-index: 4; font-family: var(--kop); font-weight: 700; font-size: 1.2rem; margin: 1rem 0 0; padding: 0.6rem 0; background: var(--papier); border-top: var(--lijndikte) solid var(--lijn-sterk); }
-  :global(html:has([data-huischeck])) { scroll-padding-bottom: 5rem; }
+  /* de teller staat in de tekst, niet vast in beeld: zo ligt hij nooit over een vraag of knop */
+  .voortgang { position: static; font-family: var(--kop); font-weight: 700; font-size: 1.2rem; margin: 1rem 0 0; padding: 0.6rem 0 0; border-top: var(--lijndikte) solid var(--lijn-sterk); }
   fieldset { border: 0; padding: 0; margin: 0; min-inline-size: 0; }
   legend { padding: 0; }
   .vraag { font-weight: 700; font-size: 1.15rem; line-height: 1.35; margin: 0 0 0.25rem; }
