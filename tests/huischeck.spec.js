@@ -297,6 +297,8 @@ test('de cijfers onder de check staan er als tekst, ook zonder beweging', async 
   await expect(cijfer).toContainText('62 procent');
   await expect(cijfer.locator('a')).toHaveText('CBS, 2024');
   await expect(page.locator('h4:has-text("Een tweede slot (vraag 3)") + p')).toContainText('73 procent');
+  // geen "73 procent" naast een los "driekwart": twee getallen voor bijna hetzelfde verwarren
+  await expect(page.locator('h4:has-text("Een tweede slot (vraag 3)") + p')).not.toContainText('driekwart');
   expect((await page.locator('#hoe-weten-we-dat ~ p').allTextContents()).join(' ')).not.toContain('0%');
 });
 
@@ -307,7 +309,7 @@ test('wie twijfelt, ziet bij de vraag waar hij het kan nakijken', async ({ page 
     await expect(blok).toHaveCount(1);
     // ingeklapt: de vraag blijft kort
     await expect(blok).not.toHaveAttribute('open', '');
-    await blok.locator('summary').click();
+    await blok.locator('> summary').click();
     await expect(blok.locator('li').first()).toBeVisible();
     // en altijd: welk antwoord kies je dan
     await expect(blok).toContainText('Dan kies je Ja');
@@ -319,6 +321,24 @@ test('wie twijfelt, ziet bij de vraag waar hij het kan nakijken', async ({ page 
   await expect(updates).toContainText('Je verandert nog niets');
   // vraag 3: wie zijn e-mail nooit hoeft te openen, hoort dat dat normaal is
   await expect(page.locator('#vraag-3 details.nakijken')).toContainText('altijd open');
+});
+
+test('vraag 3: je kiest je maildienst en ziet alleen dat pad', async ({ page }) => {
+  await page.goto('/huischeck');
+  const blok = page.locator('#vraag-3 details.nakijken');
+  await blok.locator('> summary').click();
+  for (const dienst of ['Gmail', 'Outlook of Hotmail', 'iCloud', 'KPN of Ziggo', 'Een andere dienst']) {
+    await expect(blok.locator(`details[data-dienst="${dienst}"] > summary`)).toBeVisible();
+  }
+  // dicht tot je je dienst kiest: de andere paden blijven uit beeld
+  const gmail = blok.locator('details[data-dienst="Gmail"]');
+  await expect(gmail.locator('ol')).toBeHidden();
+  await gmail.locator('summary').click();
+  await expect(gmail.locator('ol')).toContainText('myaccount.google.com');
+  await expect(gmail).toContainText('Dan kies je Ja');
+  await expect(blok.locator('details[data-dienst="iCloud"] ol')).toBeHidden();
+  // wie het niet vindt, weet ook wat hij kiest
+  await expect(blok).toContainText('Dan kies je Nee');
 });
 
 test('vraag en uitslag gebruiken hetzelfde woord: herstelcodes', async ({ page }) => {
@@ -350,6 +370,9 @@ test('"Waarom nu?" maakt niet bang en heeft echte links naar de naslag', async (
   await page.goto('/huischeck');
   const deel = page.locator('#waarom-nu ~ *');
   await expect(deel.filter({ hasText: 'Je hoeft niet bang te zijn' })).toHaveCount(1);
+  // geen aanvallen, oorlog of kwantum: wie dat wil lezen, klikt door
+  const tekst = (await deel.allTextContents()).join(' ').toLowerCase();
+  for (const eng of ['aanval', 'oorlog', 'kwantum', 'stem namaken']) expect(tekst).not.toContain(eng);
   for (const href of ['/de-storm-om-het-huis', '/inbrekers-van-morgen', '/woordenboek']) {
     await expect(page.locator(`#waarom-nu ~ ul a[href="${href}"]`)).toHaveCount(1);
   }

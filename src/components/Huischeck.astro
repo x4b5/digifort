@@ -33,7 +33,12 @@ const ANTWOORDEN = [
               {v.nakijken && (
                 <details class="nakijken" data-nakijken={v.nr}>
                   <summary><span>Waar zie ik dat?</span></summary>
-                  <ul>{v.nakijken.map((r) => <li>{r}</li>)}</ul>
+                  <ul>{v.nakijken.map((r) => typeof r === 'string' ? <li>{r}</li> : (
+                    <li class="dienst"><details data-dienst={r.dienst}>
+                      <summary><span>{r.dienst}</span></summary>
+                      <ol>{r.regels.map((x) => <li>{x}</li>)}</ol>
+                    </details></li>
+                  ))}</ul>
                 </details>
               )}
               <div class="antwoorden">
@@ -371,11 +376,16 @@ const ANTWOORDEN = [
   .nakijken summary span { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
   .nakijken summary:hover span { text-decoration-thickness: 3px; }
   .nakijken summary::before { content: "▸"; margin-right: 0.45rem; }
-  .nakijken[open] summary::before { content: "▾"; }
+  .nakijken[open] > summary::before, .nakijken .dienst details[open] > summary::before { content: "▾"; }
   .nakijken summary::-webkit-details-marker { display: none; }
   .nakijken ul { margin: 0.2rem 0 0; padding: 0.2rem 0 0.2rem 1rem; border-left: 5px solid var(--lijn-sterk); list-style: none; max-width: 38em; }
   .nakijken li { margin: 0 0 0.45rem; }
   .nakijken li:last-child { margin-bottom: 0; }
+  /* per maildienst een eigen uitklapper: je ziet alleen het pad van jouw dienst */
+  .nakijken li.dienst { margin: 0 0 0.2rem; }
+  .nakijken .dienst summary { font-weight: 700; }
+  .nakijken .dienst ol { margin: 0.2rem 0 0.6rem; padding-left: 1.4rem; list-style: decimal; }
+  .nakijken .dienst ol li { margin: 0 0 0.3rem; }
   .nr { font-family: var(--kop); color: var(--rood); margin-right: 0.2rem; }
 
   .eigen-cijfer { margin: 0; }

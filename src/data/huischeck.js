@@ -19,8 +19,15 @@
  *   stap uit een afvinklijst (lijsten.js), met een eigen pagina (`STAPPAGINA`).
  *   Zonder lijst is het een link naar een plek op de site.
  *
+ * Een regel in `nakijken` mag ook `{ dienst, regels }` zijn: dan klapt elke maildienst
+ *   apart open en zie je alleen jouw pad.
+ *
  * Het nummer `nr` is ook de sleutel in het laatje (opslag.js): verander het nooit.
+ *
+ * @typedef {string | { dienst: string, regels: string[] }} Nakijkregel
+ * @typedef {{ nr: number, groep: string, kamer: string, kind?: boolean, vraag: string, hint: string, nakijken?: Nakijkregel[], noot?: string, nootLink?: { href: string, tekst: string }, dicht: string, stap: { lijst?: string, id?: string, href?: string, tekst?: string, pagina?: string, vinkje?: { lijst: string, id: string } } }} Vraag
  */
+/** @type {Vraag[]} */
 export const VRAGEN = [
   {
     nr: 1, groep: 'mail', kamer: 'voordeur', kind: true,
@@ -49,9 +56,13 @@ export const VRAGEN = [
     hint: 'Na je wachtwoord vraagt je e-mail dan nog om een code per sms of uit een app; je gezicht of vinger telt niet.',
     nakijken: [
       'Staat je e-mail op je telefoon altijd open? Dat is normaal. Het tweede slot merk je pas als je op een nieuw apparaat inlogt.',
-      'Open de instellingen van je e-mail en ga naar ‘beveiliging’. Zoek naar ‘tweestapsverificatie’, ‘2FA’ of ‘passkey’.',
-      'Staat het aan? Dan kies je Ja. Staat het uit, of vind je het niet? Dan kies je Nee.',
-      'Je telefoon openen met je gezicht of vinger telt niet. Dat slot zit op je telefoon, niet op je e-mail.',
+      'Tik op je maildienst. Die zie je aan het eind van je e-mailadres, na de @.',
+      { dienst: 'Gmail', regels: ['Ga in je browser naar myaccount.google.com.', 'Typ in de zoekbalk ‘verificatie in twee stappen’.', 'Staat het aan? Dan kies je Ja.'] },
+      { dienst: 'Outlook of Hotmail', regels: ['Ga in je browser naar account.microsoft.com en kies Beveiliging.', 'Zoek naar ‘tweestapsverificatie’.', 'Staat het aan? Dan kies je Ja.'] },
+      { dienst: 'iCloud', regels: ['Open Instellingen op je iPhone en tik bovenaan op je naam.', 'Tik op Inloggen en beveiliging. Op een oudere iPhone heet dat Wachtwoord en beveiliging.', 'Staat twee-factor-authenticatie aan? Dan kies je Ja.'] },
+      { dienst: 'KPN of Ziggo', regels: ['Log in op MijnKPN of Mijn Ziggo.', 'Typ ‘tweestapsverificatie’ in de zoekbalk van de site.', 'Staat het aan? Dan kies je Ja.'] },
+      { dienst: 'Een andere dienst', regels: ['Log in op de website van je maildienst.', 'Zoek in de instellingen naar ‘beveiliging’, ‘tweestapsverificatie’ of ‘2FA’.', 'Staat het aan? Dan kies je Ja.'] },
+      'Staat het uit, of vind je het niet? Dan kies je Nee.',
     ],
     dicht: 'Je e-mail heeft een tweede slot.',
     stap: { lijst: 'niveau-1', id: 'mail-tweede-slot' },
