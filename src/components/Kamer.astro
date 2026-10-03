@@ -1,11 +1,18 @@
 ---
 /**
- * Eén plek van de plattegrond als uitklapper. Dicht zie je al het antwoord: het onderwerp
- * (het woord waar je naar zoekt), het beeld erboven, en wat je doet. Open staat waarom,
- * en waar je het stap voor stap doet. Zo zoek je de plattegrond op in plaats van hem te lezen.
+ * Eén plek van de plattegrond. Eerst een echte kop met alleen het onderwerp ("Wifi en
+ * router"), zodat wie de koppen langsloopt of een schermlezer per kop laat springen, het
+ * woord vindt waar hij naar zoekt. Een kop in een uitklapknop telt voor een schermlezer
+ * niet als kop; daarom staat hij erboven, niet erin.
  *
- * Het anker (`kamer.anker`) blijft de id, zodat links als /plattegrond#de-voordeur-je-e-mail
- * vanuit het fort en het woordenboek blijven werken: het script klapt die kamer dan open.
+ * Daaronder een uitklapper. Dicht zie je al het antwoord: wat je doet. Open staan eerst,
+ * per maildienst of toestel, de knoppen zelf (`keuzes`), dan waarom, en waar je het stap
+ * voor stap doet.
+ *
+ * Het anker (`kamer.anker`) blijft de id van de uitklapper, zodat links als
+ * /plattegrond#de-voordeur-je-e-mail vanuit het fort en het woordenboek blijven werken: het
+ * script klapt die kamer dan open. Een link naar een keuze (#google-account) klapt de kamer
+ * en die keuze open.
  *
  * Kleurt de huischeck of een vinkje de plek, dan staat er ook in woorden hoe het ervoor
  * staat ("Staat open", "Op slot"): kleur alleen is voor wie slecht kleuren ziet geen antwoord.
@@ -19,25 +26,39 @@ const k = kamer(Astro.props.id);
 if (!k) throw new Error(`Onbekende kamer: ${Astro.props.id}`);
 const { ook = [] } = Astro.props;
 ---
-<details class="kamer" id={k.anker} data-kamer-uitleg={k.id}>
-  <summary>
-    <KamerIcoon id={k.id} />
-    <span class="kop-tekst">
-      <span class="beeld">{k.naam}</span>
-      <h2>{k.onderwerp}</h2>
-      <span class="zin">{k.doe}</span>
-    </span>
-    <span class="stand">
-      <span class="lampje" aria-hidden="true"></span>
-      <span class="toestand" data-toestand-tekst></span>
-    </span>
-  </summary>
-  <div class="uitleg">
-    <p class="waarom"><strong>Waarom?</strong> {k.zin}</p>
-    <slot />
-    <NaarDoen stappen={k.stappen} ook={ook} />
-  </div>
-</details>
+<section class="kamer-blok" data-kamer-blok={k.id} aria-labelledby={`kop-${k.id}`}>
+  <h2 class="kamer-kop" id={`kop-${k.id}`}><KamerIcoon id={k.id} /><span class="onderwerp">{k.onderwerp}</span></h2>
+  <details class="kamer" id={k.anker} data-kamer-uitleg={k.id}>
+    <summary>
+      <span class="kop-tekst">
+        <span class="zin">{k.doe}</span>
+        <span class="hoe">Zo doe je het</span>
+      </span>
+      <span class="stand">
+        <span class="lampje" aria-hidden="true"></span>
+        <span class="toestand" data-toestand-tekst></span>
+      </span>
+    </summary>
+    <div class="uitleg">
+      {k.keuzes && (
+        <div class="keuzes" data-keuzes>
+          <h3 class="keuze-vraag">{k.keuzeVraag}</h3>
+          {(k.keuzeVoor ?? []).map((zin) => <p class="keuze-voor">{zin}</p>)}
+          {k.keuzes.map((c) => (
+            <details class="keuze" id={c.id} data-keuze={c.id}>
+              <summary>{c.kop}</summary>
+              <ol>{c.stappen.map((st) => <li>{st}</li>)}</ol>
+            </details>
+          ))}
+          {(k.keuzeNa ?? []).map((zin) => <p>{zin}</p>)}
+        </div>
+      )}
+      <p class="waarom"><strong>Waarom?</strong> {k.zin}</p>
+      <slot />
+      <NaarDoen stappen={k.stappen} ook={ook} />
+    </div>
+  </details>
+</section>
 
 <script>
   import { lees } from '../lib/opslag.js';
@@ -46,11 +67,17 @@ const { ook = [] } = Astro.props;
   const kamers = Array.from(document.querySelectorAll<HTMLDetailsElement>('details[data-kamer-uitleg]'));
   const WOORD: Record<string, string> = { open: 'Staat open', dicht: 'Op slot' };
 
-  /** Een link naar een kamer (van het fort, het woordenboek of de kaart) klapt hem open. */
+  /**
+   * Een link naar een kamer (van het fort, het woordenboek of de kaart) klapt hem open.
+   * Een link naar een keuze erin (#google-account) klapt ook die keuze open.
+   */
   function openVanuitAdres() {
-    const doel = kamers.find((d) => `#${d.id}` === decodeURIComponent(location.hash));
-    if (!doel) return;
-    doel.open = true;
+    const id = decodeURIComponent(location.hash.slice(1));
+    const doel = id ? document.getElementById(id) : null;
+    const kamer = doel?.closest<HTMLDetailsElement>('details[data-kamer-uitleg]');
+    if (!doel || !kamer) return;
+    kamer.open = true;
+    if (doel instanceof HTMLDetailsElement) doel.open = true;
     doel.scrollIntoView({ block: 'start' });
   }
 
@@ -76,34 +103,45 @@ const { ook = [] } = Astro.props;
 </script>
 
 <style>
-  .kamer { border-top: var(--lijndikte) solid var(--lijn-sterk); scroll-margin-top: 5rem; }
-  .kamer:last-of-type { border-bottom: var(--lijndikte) solid var(--lijn-sterk); }
-  summary { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 0.25rem; cursor: pointer; list-style: none; }
-  summary::-webkit-details-marker { display: none; }
-  summary:hover { background: var(--papier-2); }
-  summary:hover h2 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
-  summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-  summary :global(.kamer-icoon) { flex: none; float: none; margin: 0.2rem 0 0; }
-  summary :global(.kamer-icoon svg) { width: 48px; height: 48px; display: block; }
+  .kamer-blok { scroll-margin-top: 5rem; }
+  /* de kop: kort, met het icoon ervoor; de lijn erboven scheidt de plekken */
+  .kamer-kop { display: flex; align-items: center; gap: 0.75rem; margin: 1.75rem 0 0; padding-top: 0.9rem; font-size: 1.5rem; line-height: 1.25; }
+  .kamer-kop :global(.kamer-icoon) { flex: none; float: none; margin: 0; }
+  .kamer-kop :global(.kamer-icoon svg) { width: 44px; height: 44px; display: block; }
+  /* de kop staat er al boven: bij een link naar de kamer moet die kop in beeld blijven */
+  .kamer { scroll-margin-top: 9rem; border-bottom: var(--lijndikte-dun) solid var(--lijn); }
+  .kamer > summary { display: flex; align-items: flex-start; gap: 1rem; padding: 0.6rem 0.25rem 0.9rem; cursor: pointer; list-style: none; }
+  .kamer > summary::-webkit-details-marker { display: none; }
+  .kamer > summary:hover { background: var(--papier-2); }
+  .kamer > summary:hover .hoe { text-decoration-thickness: 3px; }
+  .kamer > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
   .kop-tekst { flex: 1; min-width: 0; }
-  .beeld { display: block; font-family: var(--kop); font-size: var(--tekst-m); color: var(--inkt-zacht); }
-  /* de kop in een uitklapper: geen lijn erboven, die zit al op de kamer zelf */
-  h2 { margin: 0; padding: 0; border: 0; font-size: 1.35rem; line-height: 1.25; }
-  .zin { display: block; margin-top: 0.3rem; font-size: 1rem; line-height: 1.45; }
-  .stand { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; margin-top: 0.3rem; }
+  .zin { display: block; font-size: 1.05rem; line-height: 1.45; }
+  /* zoals het details-blok van GOV.UK: een onderstreepte regel zegt dat hier meer achter zit */
+  .hoe { display: inline-block; margin-top: 0.35rem; color: var(--rood); font-weight: 700; text-decoration: underline; text-underline-offset: 0.15em; }
+  .hoe::before { content: "▸"; display: inline-block; margin-right: 0.35rem; transition: transform 0.15s ease; }
+  .kamer[open] > summary .hoe::before { transform: rotate(90deg); }
+  .stand { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; margin-top: 0.2rem; }
   .lampje { margin-top: 0; }
   .toestand { font-family: var(--kop); font-size: var(--tekst-m); font-weight: 700; white-space: nowrap; }
   .toestand:empty { display: none; }
   /* een leeg rondje lijkt een aanvinkhokje: pas tonen als de huischeck er een kleur aan geeft */
   .kamer:not([data-toestand="open"]):not([data-toestand="dicht"]) .lampje { display: none; }
-  summary::after { content: "▸"; flex: none; margin-top: 0.3rem; font-size: 1.1rem; color: var(--inkt-zacht); transition: transform 0.15s ease; }
-  .kamer[open] summary::after { transform: rotate(90deg); }
-  .uitleg { padding: 0.25rem 0 1.25rem 4rem; }
+  .uitleg { padding: 0.25rem 0 1.25rem 0.25rem; }
   .waarom { margin-top: 0.25rem; }
+  /* per maildienst of toestel: kies je eigen pad, de rest blijft dicht */
+  .keuzes { margin: 0.5rem 0 1.25rem; }
+  .keuze-vraag { margin: 0 0 0.5rem; padding: 0; border: 0; font-size: 1.15rem; }
+  .keuze-voor { margin: 0 0 0.5rem; }
+  .keuze { border-left: 4px solid var(--lijn-sterk); margin: 0.4rem 0; padding: 0 0 0 0.9rem; }
+  .keuze > summary { cursor: pointer; padding: 0.45rem 0; font-weight: 700; color: var(--rood); text-decoration: underline; text-underline-offset: 0.15em; min-block-size: 44px; display: flex; align-items: center; }
+  .keuze > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .keuze[open] > summary { text-decoration-thickness: 3px; }
+  .keuze ol { margin: 0.25rem 0 0.75rem; }
+  .keuze li { margin: 0.3rem 0; }
   @media (max-width: 40rem) {
-    .uitleg { padding-left: 0; }
-    summary { gap: 0.75rem; }
-    summary :global(.kamer-icoon svg) { width: 40px; height: 40px; }
+    .kamer-kop { font-size: 1.3rem; }
+    .kamer-kop :global(.kamer-icoon svg) { width: 36px; height: 36px; }
   }
-  @media (prefers-reduced-motion: reduce) { summary::after { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .hoe::before { transition: none; } }
 </style>

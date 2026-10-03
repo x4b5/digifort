@@ -5,7 +5,8 @@
  * summary list van GOV.UK: een <dl> met een lijn tussen de rijen.
  *
  * `rijen`: [{ vraag, antwoord, href?, link? }]. `link` is de linktekst; laat hem weg
- * en er staat "Lees meer" met de vraag erbij voor een schermlezer.
+ * en er staat "Lees meer". De link staat op een eigen regel, met een pijl ervoor, zodat
+ * niemand hem leest als de volgende zin van het advies.
  */
 interface Rij { vraag: string; antwoord: string; href?: string; link?: string }
 interface Props { rijen: Rij[]; kop?: string; id?: string }
@@ -18,8 +19,8 @@ const { rijen, kop, id } = Astro.props;
       <div class="rij">
         <dt>{r.vraag}</dt>
         <dd>
-          {r.antwoord}
-          {r.href && <> <a href={r.href}>{r.link ?? 'Lees meer'}</a></>}
+          <span class="antwoord">{r.antwoord}</span>
+          {r.href && <span class="naar"><span class="pijl" aria-hidden="true">→</span> <a href={r.href}>{r.link ?? 'Lees meer'}</a></span>}
         </dd>
       </div>
     ))}
@@ -33,6 +34,9 @@ const { rijen, kop, id } = Astro.props;
   .rij { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 0.25rem 1.25rem; padding: 0.7rem 0; border-bottom: 1px solid var(--lijn); }
   dt { font-weight: 700; }
   dd { margin: 0; }
+  /* de link staat op een eigen regel: anders leest hij als de volgende zin van het advies */
+  .naar { display: block; margin-top: 0.3rem; font-weight: 700; }
+  .pijl { color: var(--inkt-zacht); }
   @media (max-width: 40rem) {
     .rij { grid-template-columns: minmax(0, 1fr); }
   }
