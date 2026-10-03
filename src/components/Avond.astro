@@ -9,12 +9,12 @@
  * Een stap heeft een eigen adres (#stap-<id>), zodat Aan de slag er direct naar kan linken.
  */
 import { LIJSTEN } from '../data/lijsten.js';
-import { AVOND } from '../data/avond.js';
+import { AVOND, DIENSTEN } from '../data/avond.js';
 import HuisEnFort from './HuisEnFort.astro';
 import Merk from './Merk.astro';
 
 type Toestel = { naam: string, stappen: string[] };
-type Uitklap = { vraag: string, antwoord: string[] };
+type Uitklap = { vraag: string, antwoord: string[], dienst?: string };
 type Uitleg = { wat?: string, hoe: string[], toestellen?: Toestel[], na?: string[], letOp?: string, uitklap?: Uitklap[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string };
 interface Props {
   lijst?: string;
@@ -96,7 +96,32 @@ const kiesId = `toestel-${lijst}`;
               : <ol class="hoe">{na.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
           </div>
         )}
-        {u.uitklap?.map((k) => (
+        {u.uitklap?.some((k) => k.dienst) && (
+          <div class="diensten" data-diensten>
+            {/* zonder JavaScript blijft de keuze weg en zie je alle blokken */}
+            <fieldset class="toestelkeuze dienstkeuze" data-dienstkeuze hidden>
+              <legend>Welke maildienst heb je?</legend>
+              <p class="toestel-hint">Kijk naar het eind van je e-mailadres, na de @.</p>
+              <div class="keuzes onder">
+                {DIENSTEN.map((d) => (
+                  <label><input type="radio" name={`dienst-${it.id}`} value={d.id} /> <span><strong>{d.naam}</strong>{d.adres && <span class="adres"> {d.adres}</span>}</span></label>
+                ))}
+                <label><input type="radio" name={`dienst-${it.id}`} value="" checked /> Laat alles zien</label>
+              </div>
+            </fieldset>
+            {u.uitklap.filter((k) => k.dienst).map((k) => (
+              <details class="uitklap" data-dienst={k.dienst}>
+                <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
+                <div class="uitklap-tekst">
+                  {k.antwoord.length === 1
+                    ? <p>{stukjes(k.antwoord[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>
+                    : <ol class="hoe">{k.antwoord.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
+                </div>
+              </details>
+            ))}
+          </div>
+        )}
+        {u.uitklap?.filter((k) => !k.dienst).map((k) => (
           <details class="uitklap">
             <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
             <div class="uitklap-tekst">
@@ -155,6 +180,10 @@ const kiesId = `toestel-${lijst}`;
   const TOESTEL = 'jdh:toestel';
   const leesToestel = () => { try { return window.localStorage.getItem(TOESTEL) ?? ''; } catch { return ''; } };
   const bewaarToestel = (w: string) => { try { window.localStorage.setItem(TOESTEL, w); } catch { /* geen opslag */ } };
+  // net zo: welke maildienst je hebt
+  const DIENST = 'jdh:maildienst';
+  const leesDienst = () => { try { return window.localStorage.getItem(DIENST) ?? ''; } catch { return ''; } };
+  const bewaarDienst = (w: string) => { try { window.localStorage.setItem(DIENST, w); } catch { /* geen opslag */ } };
 
   document.querySelectorAll<HTMLElement>('[data-avond]').forEach((s) => {
     const LIJST = s.dataset.lijst!;
@@ -180,6 +209,26 @@ const kiesId = `toestel-${lijst}`;
       if (!radios.some((r) => r.checked)) radios[radios.length - 1].checked = true;
       toonToestel(radios.find((r) => r.checked)!.value);
       radios.forEach((r) => r.addEventListener('change', () => { bewaarToestel(r.value); toonToestel(r.value); }));
+    }
+
+    // welke maildienst je hebt: dan zie je per stap alleen dat blok, al opengeklapt.
+    // Heeft een stap geen blok voor jouw dienst, dan zie je het blok voor een andere maildienst.
+    const dienstRadios = Array.from(s.querySelectorAll<HTMLInputElement>('[data-dienstkeuze] input[type=radio]'));
+    function toonDienst(w: string) {
+      dienstRadios.forEach((r) => { r.checked = r.value === w; });
+      s.querySelectorAll<HTMLElement>('[data-diensten]').forEach((groep) => {
+        const blokken = Array.from(groep.querySelectorAll<HTMLDetailsElement>('details[data-dienst]'));
+        const passend = blokken.find((b) => b.dataset.dienst === w) ?? blokken.find((b) => b.dataset.dienst === 'andere');
+        blokken.forEach((b) => {
+          b.hidden = Boolean(w) && b !== passend;
+          if (w && b === passend) b.open = true;
+        });
+      });
+    }
+    if (dienstRadios.length) {
+      s.querySelectorAll<HTMLElement>('[data-dienstkeuze]').forEach((f) => { f.hidden = false; });
+      toonDienst(leesDienst());
+      dienstRadios.forEach((r) => r.addEventListener('change', () => { bewaarDienst(r.value); toonDienst(r.value); }));
     }
 
     function toon(i: number, focus = true) {
@@ -252,6 +301,11 @@ const kiesId = `toestel-${lijst}`;
   .keuzes input { width: 1.3rem; height: 1.3rem; margin: 0; accent-color: var(--rood); }
   .keuzes label:has(input:checked) { border-width: var(--lijndikte); font-weight: 700; }
   .keuzes input:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  /* de maildiensten onder elkaar, zoals de radioknoppen van GOV.UK: het adres staat erachter */
+  .dienstkeuze { margin: 1rem 0 0.75rem; }
+  .dienstkeuze[hidden], .uitklap[hidden] { display: none; }
+  .keuzes.onder { flex-direction: column; align-items: flex-start; }
+  .keuzes .adres { color: var(--inkt-zacht); font-weight: 400; overflow-wrap: anywhere; }
 
   .stap { padding: 1.5rem 1.6rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); }
   @media (max-width: 40rem) { .stap { padding: 1.1rem 1rem; } }

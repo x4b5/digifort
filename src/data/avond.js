@@ -9,7 +9,8 @@
  * - `na`: (optioneel) wat iedereen daarna doet
  * - `letOp`: (optioneel) één waarschuwing, zoals GOV.UK warning text: wat je zou laten schrikken
  * - `uitklap`: (optioneel) hulp die niet iedereen nodig heeft, zoals de knoppen per maildienst;
- *   elk blok klapt open, zoals het details-blok van GOV.UK
+ *   elk blok klapt open, zoals het details-blok van GOV.UK. Een blok met `dienst` hoort bij één
+ *   maildienst: kies je boven de blokken je maildienst, dan zie je alleen dat blok, al opengeklapt
  * - `gelukt`: hoe je ziet dat het gelukt is: iets wat je zelf kunt nakijken
  * - `lukNiet`: wat je doet als het niet lukt
  * - `klaar`: de zin die je ziet als je de stap hebt afgevinkt
@@ -17,7 +18,7 @@
  * waar we het pad niet zeker weten, wijzen we de zoekbalk van Instellingen of van de site aan.
  *
  * @typedef {{ naam: string, stappen: string[] }} Toestel
- * @typedef {{ vraag: string, antwoord: string[] }} Uitklap
+ * @typedef {{ vraag: string, antwoord: string[], dienst?: string }} Uitklap
  * @typedef {{ wat?: string, hoe: string[], toestellen?: Toestel[], na?: string[], letOp?: string, uitklap?: Uitklap[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string }} Uitleg
  */
 
@@ -28,6 +29,7 @@
  */
 const MAIL = [
   {
+    dienst: 'gmail',
     vraag: 'Mijn adres eindigt op @gmail.com (Google)',
     wachtwoord: [
       'Ga in je browser naar myaccount.google.com en log in.',
@@ -41,6 +43,7 @@ const MAIL = [
     ],
   },
   {
+    dienst: 'microsoft',
     vraag: 'Mijn adres eindigt op @outlook.com, @hotmail.com of @live.nl (Microsoft)',
     wachtwoord: [
       'Ga in je browser naar account.microsoft.com en log in.',
@@ -55,6 +58,7 @@ const MAIL = [
     ],
   },
   {
+    dienst: 'kpn',
     vraag: 'Mijn adres eindigt op @kpnmail.nl, @planet.nl of @hetnet.nl (KPN)',
     wachtwoord: [
       'Ga in je browser naar de website van KPN en log in op MijnKPN.',
@@ -68,6 +72,7 @@ const MAIL = [
     ],
   },
   {
+    dienst: 'ziggo',
     vraag: 'Mijn adres eindigt op @ziggo.nl, @home.nl, @upcmail.nl of @casema.nl (Ziggo)',
     wachtwoord: [
       'Ga in je browser naar de website van Ziggo en log in op Mijn Ziggo.',
@@ -81,6 +86,7 @@ const MAIL = [
     ],
   },
   {
+    dienst: 'icloud',
     vraag: 'Mijn adres eindigt op @icloud.com of @me.com (Apple)',
     wachtwoord: [
       'Open Instellingen op je iPhone en tik bovenaan op je naam.',
@@ -94,6 +100,7 @@ const MAIL = [
     ],
   },
   {
+    dienst: 'andere',
     vraag: 'Ik heb een andere maildienst',
     wachtwoord: [
       'Log in op de website van je maildienst.',
@@ -107,8 +114,18 @@ const MAIL = [
     ],
   },
 ];
+/** De keuze "welke maildienst heb je?" boven de blokken per maildienst: naam en hoe het adres eindigt. */
+export const DIENSTEN = [
+  { id: 'gmail', naam: 'Gmail', adres: '@gmail.com' },
+  { id: 'microsoft', naam: 'Outlook of Hotmail', adres: '@outlook.com, @hotmail.com, @live.nl' },
+  { id: 'kpn', naam: 'KPN', adres: '@kpnmail.nl, @planet.nl, @hetnet.nl' },
+  { id: 'ziggo', naam: 'Ziggo', adres: '@ziggo.nl, @home.nl, @upcmail.nl, @casema.nl' },
+  { id: 'icloud', naam: 'iCloud', adres: '@icloud.com, @me.com' },
+  { id: 'andere', naam: 'Een andere maildienst', adres: '' },
+];
+
 /** @param {'wachtwoord' | 'tweedeSlot'} wat */
-const perMaildienst = (wat) => MAIL.map((m) => ({ vraag: m.vraag, antwoord: m[wat] }));
+const perMaildienst = (wat) => MAIL.map((m) => ({ dienst: m.dienst, vraag: m.vraag, antwoord: m[wat] }));
 
 /** @type {Record<string, Uitleg>} */
 export const AVOND = {
@@ -118,7 +135,7 @@ export const AVOND = {
       'Bedenk een nieuw wachtwoord van vier of vijf gewone woorden, zoals "lantaarn koffie zebra dakpan". Lengte telt, rare tekens niet.',
       'Schrijf het op papier. In stap 3 zet je het in je wachtwoordmanager.',
       'Kijk naar het eind van je e-mailadres, na de @. Daaraan zie je welke maildienst je hebt.',
-      'Klik hieronder op jouw maildienst. Daar staat waar je het wachtwoord verandert. Typ het nieuwe wachtwoord in en bevestig het.',
+      'Kies hieronder jouw maildienst. Daar staat waar je het wachtwoord verandert. Typ het nieuwe wachtwoord in en bevestig het.',
       'Gebruik dit wachtwoord nergens anders.',
     ],
     uitklap: perMaildienst('wachtwoord'),
@@ -137,7 +154,7 @@ export const AVOND = {
   'mail-tweede-slot': {
     wat: 'Een tweede slot betekent: na je wachtwoord vraagt je e-mail nog een code. Die code maakt een app op je telefoon. Het heet ook tweestapsverificatie of 2FA. Dit is de lastigste stap van de avond. Neem er rustig de tijd voor. Stoppen na een deel mag.',
     hoe: [
-      'Heb je mail van iCloud (@icloud.com of @me.com)? Klik dan eerst hieronder op jouw maildienst. Daar zit het tweede slot vaak al op.',
+      'Heb je mail van iCloud (@icloud.com of @me.com)? Kies dan eerst hieronder jouw maildienst. Daar zit het tweede slot vaak al op.',
       'Doe dit het liefst met je computer en je telefoon samen. Dan staat de vierkante code op het grote scherm en scan je hem met je telefoon. Heb je alleen een telefoon? Klik dan hieronder op "Ik heb alleen een telefoon".',
       'Je doet drie dingen na elkaar. Deel 1: de code-app op je telefoon zetten. Deel 2: een account maken in die app. Deel 3: de app aan je e-mail koppelen.',
     ],
@@ -151,7 +168,7 @@ export const AVOND = {
         'Laat de app een lange rij woorden zien? Dat is de herstelsleutel van Ente. Schrijf hem over op je papier, met "herstelsleutel Ente" erbij.',
       ] },
       { naam: 'Deel 3: koppel Ente Auth aan je e-mail', stappen: [
-        'Ga op je computer naar de website van je maildienst. Zet daar het tweede slot aan. Klik hieronder op jouw dienst: daar staat waar het zit. Je ziet dan een vierkante code op het scherm.',
+        'Ga op je computer naar de website van je maildienst. Zet daar het tweede slot aan. Kies hieronder jouw maildienst: daar staat waar het zit. Je ziet dan een vierkante code op het scherm.',
         'Tik in Ente Auth op het plusteken (+). Kies de keuze met het woord scannen of QR-code. Vraagt de app om de camera? Kies toestaan.',
         'Richt de camera van je telefoon op de vierkante code op je computer.',
         'Ente Auth laat nu een code van zes cijfers zien. Typ die over op je computer, bij je e-mail.',
@@ -200,7 +217,6 @@ export const AVOND = {
     ],
     gelukt: 'Kijk in Ente Auth. Staat daar de naam van je maildienst, met zes cijfers die steeds veranderen? En zegt de website van je mail dat tweestapsverificatie aan staat? Dan is het gelukt. Je hoeft niet uit te loggen. Een computer die je mail al kent, vraagt vaak geen code. Heb je iCloud-mail? Dan is het gelukt als twee-factor-authenticatie op Aan staat.',
     lukNiet: [
-      'Vraagt Microsoft om Microsoft Authenticator te installeren? Dat hoeft niet. Zoek op dat scherm de kleine link om een andere app te gebruiken.',
       'Werkt de code niet? Elke code werkt maar kort. Wacht op de volgende code in de app en typ die over.',
       'Kun je het tweede slot niet vinden? Zoek op de hulppagina van je e-maildienst naar "tweestapsverificatie".',
       'Heb je KPN- of Ziggo-mail, of een andere dienst zonder tweede slot? Dan kun je deze stap nu niet afmaken. Dat is niet jouw fout. Druk op Sla over. Je nieuwe wachtwoord uit stap 1 beschermt je mail al. Ente Auth heb je straks nog nodig, in niveau 2.',

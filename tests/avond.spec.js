@@ -152,18 +152,21 @@ test('het weekend legt het noodpakket uit voordat een stap ernaar verwijst', asy
   await expect(page.locator('#stap-router .hoe').first()).toContainText('Bel je provider');
 });
 
-test('het tweede slot op DigiD legt uit hoe je de DigiD-app installeert en activeert', async ({ page }) => {
+test('het tweede slot op DigiD legt in twee delen uit hoe je de DigiD-app installeert en activeert', async ({ page }) => {
   await page.goto('/een-weekend#stap-accounts-tweede-slot');
   const stap = page.locator('#stap-accounts-tweede-slot');
   await expect(stap.locator('.hoe').first()).toContainText('DigiD');
-  const digid = stap.locator('details.uitklap').filter({ hasText: 'DigiD-app installeren en activeren' });
-  await expect(digid.locator('li').first()).toBeHidden();
-  await digid.locator('summary').click();
-  // waar je de echte app haalt, beide manieren om te activeren, en de pincode van de app
-  await expect(digid).toContainText('digid.nl/digid-app');
-  await expect(digid).toContainText('paspoort of identiteitskaart');
-  await expect(digid).toContainText('brief');
-  await expect(digid).toContainText('vijf cijfers');
+  // de lange klus in twee korte delen: eerst installeren, dan laten zien dat jij het bent
+  const deel1 = stap.locator('details.uitklap').filter({ hasText: 'DigiD-app, deel 1' });
+  const deel2 = stap.locator('details.uitklap').filter({ hasText: 'DigiD-app, deel 2' });
+  await expect(deel1.locator('li').first()).toBeHidden();
+  await deel1.locator('summary').click();
+  await deel2.locator('summary').click();
+  // waar je de echte app haalt, de pincode van de app, en beide manieren om te activeren
+  await expect(deel1).toContainText('digid.nl/digid-app');
+  await expect(deel1).toContainText('vijf cijfers');
+  await expect(deel2).toContainText('paspoort of identiteitskaart');
+  await expect(deel2).toContainText('brief');
   // en waar je de beveiliging van een andere site vindt
   await expect(stap.locator('details.uitklap').filter({ hasText: 'beveiliging van een site' })).toHaveCount(1);
 });
@@ -217,4 +220,38 @@ test('ik wil verder legt NFC uit en laat iemand anders naar je alias mailen', as
   await expect(page.locator('#stap-hardwaresleutel .hoe').first()).toContainText('NFC betekent');
   await page.goto('/ik-wil-verder#stap-alias');
   await expect(page.locator('#stap-alias .gelukt')).toContainText('iemand anders');
+});
+
+test('kies je maildienst, dan zie je alleen dat blok, al open, ook bij de volgende stap en in het weekend', async ({ page }) => {
+  await page.goto('/een-avond#stap-mail-wachtwoord');
+  const stap1 = page.locator('#stap-mail-wachtwoord');
+  // zonder keuze zie je alle maildiensten, dicht
+  await expect(stap1.locator('details[data-dienst]')).toHaveCount(6);
+  await expect(stap1.locator('details[data-dienst="gmail"]')).toBeVisible();
+  await stap1.getByRole('radio', { name: /Outlook of Hotmail/ }).check();
+  await expect(stap1.locator('details[data-dienst="gmail"]')).toBeHidden();
+  await expect(stap1.locator('details[data-dienst="microsoft"]')).toBeVisible();
+  await expect(stap1.locator('details[data-dienst="microsoft"]')).toHaveAttribute('open', '');
+  await expect(stap1.locator('details[data-dienst="microsoft"] li').first()).toContainText('account.microsoft.com');
+
+  // de keuze geldt ook bij het tweede slot, en blijft na herladen
+  await page.goto('/een-avond#stap-mail-tweede-slot');
+  await page.reload();
+  const stap2 = page.locator('#stap-mail-tweede-slot');
+  await expect(stap2.getByRole('radio', { name: /Outlook of Hotmail/ })).toBeChecked();
+  await expect(stap2.locator('details[data-dienst="microsoft"]')).toContainText('andere app');
+  await expect(stap2.locator('details[data-dienst="icloud"]')).toBeHidden();
+  // hulp die voor iedereen geldt, blijft staan
+  await expect(stap2.locator('details.uitklap').filter({ hasText: 'alleen een telefoon' })).toBeVisible();
+
+  // in het weekend: jouw dienst; heeft de stap geen blok voor jouw dienst, dan dat voor een andere dienst
+  await page.goto('/een-weekend#stap-noodcodes');
+  const nood = page.locator('#stap-noodcodes');
+  await expect(nood.locator('details[data-dienst="microsoft"]')).toBeVisible();
+  await expect(nood.locator('details[data-dienst="gmail"]')).toBeHidden();
+  await nood.getByRole('radio', { name: /KPN/ }).check();
+  await expect(nood.locator('details[data-dienst="andere"]')).toBeVisible();
+  await expect(nood.locator('details[data-dienst="microsoft"]')).toBeHidden();
+  await nood.getByRole('radio', { name: 'Laat alles zien' }).check();
+  await expect(nood.locator('details[data-dienst="gmail"]')).toBeVisible();
 });
