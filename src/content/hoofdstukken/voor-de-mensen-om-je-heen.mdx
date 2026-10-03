@@ -20,6 +20,7 @@ import OnderhoudStap from '../../components/OnderhoudStap.astro';
 import Zeg from '../../components/Zeg.astro';
 import Gelukt from '../../components/Gelukt.astro';
 import Waarschuwing from '../../components/Waarschuwing.astro';
+import Optie from '../../components/Optie.astro';
 
 <Doe>
 
@@ -31,12 +32,13 @@ import Waarschuwing from '../../components/Waarschuwing.astro';
 
 Je huis is zo veilig als de mensen die een sleutel hebben. Komt een inbreker bij jou niet binnen? Dan probeert hij het via je moeder, je kind of je collega. Hier staat hoe je in één bezoek hun telefoon op slot zet.
 
+**Lees je dit voor jezelf?** Doe de stappen dan zelf. Waar "de ander" staat, ben jij het. Bij stap 1 zet je het nummer van iemand die je vertrouwt bij je favorieten.
+
 ## Voor je gaat
 
-- **Plan een uur.** Zet koffie. Probeer niet alles in één keer.
-- **Vraag of de telefoon is opgeladen.**
+- **Plan een uur.** Zet koffie.
 - **Vraag of ze het wachtwoord van hun e-mail weten**, of waar het staat opgeschreven.
-- **Spreek af: zij tikken, jij wijst.** Doe het niet voor de ander. Anders weten ze niet wat er veranderd is.
+- **Spreek af: zij tikken, jij wijst.** Anders weten ze niet wat er veranderd is.
 
 ## Het bezoek: zeven stappen
 
@@ -90,7 +92,7 @@ Laat de ander zelf een code kiezen van zes cijfers of meer. Niet de geboortedatu
 
 - **iPhone:** open Instellingen. Tik op Algemeen, dan op Software-update en dan op Automatische updates. Zet daar alle schuifjes aan.
 - **Android:** open Instellingen. Tik op Systeem en dan op Systeemupdate. Staat dat er niet? Typ "update" in het zoekveld bovenin Instellingen.
-- **Apps op de iPhone:** open Instellingen, niet de App Store. Tik op App Store. Zet het schuifje aan waar "updates" bij staat.
+- **Apps op de iPhone:** open Instellingen, niet de App Store. Veeg naar beneden tot Apps en tik erop. Tik dan op App Store. Staat App Store zelf al in de lijst? Tik daar meteen op. Zet het schuifje aan waar "updates" bij staat.
 - **Apps op Android:** open de Play Store. Tik rechtsboven op het rondje met de foto of letter. Tik op Instellingen, dan op Netwerkvoorkeuren en dan op Apps automatisch updaten. Kies dat het via wifi mag.
 
 Kijk nu of er al een update klaarstaat:
@@ -121,27 +123,56 @@ Kijk nu of er al een update klaarstaat:
 
 <Zeg>"Wie je e-mail heeft, kan overal je wachtwoord veranderen. Daar zetten we een tweede slot op."</Zeg>
 
-**Wat is een tweede slot?** Na het wachtwoord vraagt de e-mail nog om iets. Bijvoorbeeld een code die op de telefoon verschijnt. Een inbreker met alleen het wachtwoord komt er dan niet in. Op het scherm heet dit vaak tweestapsverificatie, verificatie in 2 stappen of 2FA.
+**Wat is een tweede slot?** Na het wachtwoord vraagt de e-mail nog om iets, zoals een code op de telefoon. Een inbreker met alleen het wachtwoord komt er dan niet in. Op het scherm heet het vaak tweestapsverificatie of verificatie in 2 stappen.
 
 **Let op:** dit zit niet in de Mail-app. Je zet het aan bij het account van de e-mail.
 
-1. Kijk naar het e-mailadres van de ander. Welk stuk staat er na het @-teken?
-2. Volg de regel die daarbij past:
-   - **@gmail.com:** open de app waarmee je op internet gaat. Op een iPhone is dat Safari, het blauwe kompas. Op Android is dat meestal Chrome, het rondje in vier kleuren. Typ bovenin myaccount.google.com en log in. Typ in het zoekveld bovenaan "verificatie in 2 stappen" en tik erop. Tik op de knop om het aan te zetten.
-   - **@hotmail.com, @outlook.com of @live.nl:** open de app waarmee je op internet gaat, net als hierboven. Typ bovenin account.microsoft.com en log in. Tik op Beveiliging. Je komt op een scherm met een paar blokken. Microsoft zet de extra opties vaak op nog een scherm. Zoek de regel met "geavanceerde" of "meer beveiligingsopties" en tik erop. Zoek daar "verificatie in twee stappen" en tik op de knop om het aan te zetten.
-   - **@icloud.com of @me.com:** open Instellingen op de iPhone. Tik bovenaan op de naam, en dan op het onderdeel met "beveiliging" erin. Staat Twee-factor-authenticatie op Aan? Dan is deze stap al klaar. Staat het op Uit, of staat er een knop om het aan te zetten? Tik erop en volg de vragen. Je bevestigt het telefoonnummer van de ander met een code die per sms komt.
-   - **Een adres van het internetbedrijf, zoals @kpnmail.nl of @ziggo.nl:** typ bovenin het adres van het bedrijf, zoals kpn.com of ziggo.nl. Log in bij de persoonlijke omgeving, vaak Mijn KPN of Mijn Ziggo. Zoek bij de instellingen naar tweestapsverificatie. Vind je het niet? Sla deze stap over. Bel later de klantenservice en vraag of het kan. Het nummer staat op de rekening.
-3. Daarna stelt het scherm een paar vragen. Vaak zijn dat: het wachtwoord nog een keer, het telefoonnummer, en een code die per sms komt. Typ die code over. Lees elk scherm samen hardop voor voordat je verder tikt.
-4. Vraagt het scherm welk tweede slot je wilt? Kies een **passkey** als dat kan. Een passkey is een sleutel die in de telefoon zelf zit. De ander logt dan voortaan in met vinger, gezicht of de pincode van de telefoon. Kan dat niet? Kies dan een code op de telefoon. Dat kan op twee manieren:
-   - **Een sms:** de code komt als berichtje binnen. Daarvoor hoef je niets te installeren.
-   - **Een app die codes maakt**, zoals Microsoft Authenticator of Google Authenticator. Vraagt het scherm om zo'n app? Installeer hem dan eerst uit de App Store of de Play Store. Ga daarna terug en volg het scherm. Wil je dat niet? Kijk of het scherm ook sms aanbiedt, vaak via een regel als "andere manier".
-5. Krijg je **herstelcodes** te zien? Dat zijn reservesleutels. Daarmee kom je toch binnen als de telefoon kwijt is. Schrijf ze op papier en leg ze bij de WhatsApp-pincode.
+Kijk wat er na het @-teken staat. Tik op die keuze. De rest sla je over. Lees elk scherm samen hardop voor voordat je verder tikt.
 
-Duurt het te lang, of is de ander moe? Stop gerust. Doe deze stap bij het volgende bezoek.
+<Optie titel="@gmail.com">
 
-Je hoeft niet uit te loggen om te kijken of het werkt. Dat zie je ook op het scherm zelf.
+1. Open de app waarmee je op internet gaat. Op een iPhone is dat Safari, het blauwe kompas. Op Android meestal Chrome, het rondje in vier kleuren.
+2. Typ bovenin myaccount.google.com en log in.
+3. Typ in het zoekveld bovenaan "verificatie in 2 stappen" en tik erop. Tik op de knop om het aan te zetten en volg het scherm.
+4. Typ daarna in het zoekveld "back-upcodes". Zo heten de herstelcodes bij Google. Je ziet ze pas als je op de knop tikt om ze te maken.
 
-<Gelukt>bij het tweede slot staat nu Aan, of het scherm zegt dat het is ingeschakeld. Kreeg je herstelcodes? Die liggen nu op papier.</Gelukt>
+</Optie>
+<Optie titel="@hotmail.com, @outlook.com of @live.nl">
+
+1. Open de app waarmee je op internet gaat. Typ bovenin account.microsoft.com en log in.
+2. Tik op Beveiliging. Microsoft zet de extra opties vaak op nog een scherm. Tik op de regel met "geavanceerde" of "meer beveiligingsopties".
+3. Zoek "verificatie in twee stappen" en tik op de knop om het aan te zetten.
+
+</Optie>
+<Optie titel="@icloud.com of @me.com">
+
+1. Open Instellingen op de iPhone. Tik bovenaan op de naam, en dan op het onderdeel met "beveiliging" erin.
+2. Staat Twee-factor-authenticatie op Aan? Dan is deze stap al klaar.
+3. Staat het uit? Tik erop en volg de vragen. Je bevestigt het telefoonnummer met een code die per sms komt.
+
+</Optie>
+<Optie titel="Een adres van KPN, Ziggo of een ander internetbedrijf">
+
+Zoals @kpnmail.nl, @planet.nl, @hetnet.nl of @ziggo.nl. Bij zo'n adres kan een tweede slot vaak niet. Dat is niet jouw fout.
+
+1. Zoek op de site van het internetbedrijf naar "tweestapsverificatie". Gevonden? Zet het aan en volg het scherm.
+2. Niet gevonden binnen vijf minuten? Vraag dan: "Gebruik je dit wachtwoord ook ergens anders?" Nee? Dan is deze stap klaar.
+3. Ja? Dan krijgt de mail een nieuw wachtwoord. Zoek op de site naar "wachtwoord wijzigen". Lukt dat niet? Bel de klantenservice. Het nummer staat op de rekening.
+
+</Optie>
+<Optie titel="Het scherm vraagt welk tweede slot je wilt">
+
+- **Een passkey:** kies dit als het kan. Dat is een sleutel in de telefoon zelf. Inloggen gaat dan met vinger, gezicht of de pincode van de telefoon.
+- **Een sms:** de code komt als berichtje binnen. Je hoeft niets te installeren.
+- **Een app die codes maakt**, zoals Microsoft Authenticator of Google Authenticator. Installeer hem eerst uit de App Store of de Play Store en ga dan terug. Liever niet? Tik op een regel als "andere manier" en kies sms.
+
+</Optie>
+
+Krijg je **herstelcodes** te zien? Dat zijn reservesleutels voor als de telefoon kwijt is. Schrijf ze op papier en leg ze bij de WhatsApp-pincode.
+
+Duurt het te lang, of is de ander moe? Stop gerust. Doe deze stap bij het volgende bezoek. Je hoeft niet uit te loggen om te kijken of het werkt. Dat zie je op het scherm zelf.
+
+<Gelukt>bij het tweede slot staat Aan. Of, bij een adres van het internetbedrijf zonder tweede slot: het wachtwoord van de mail wordt nergens anders gebruikt.</Gelukt>
 
 </OnderhoudStap>
 <OnderhoudStap id="harde-regel" nr={7} titel="Spreek de belangrijkste regel af" minuten={5}>

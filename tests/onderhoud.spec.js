@@ -141,7 +141,7 @@ test('onderhoud: een bestand terugzetten maakt onderscheid tussen een kopie van 
   const stap = page.locator('[data-beurt-stap="backup-loopt"]');
   await expect(stap).toContainText('Een kopie van je hele telefoon');
   await expect(stap).toContainText('Die open je niet per foto');
-  await expect(stap).toContainText('Alleen een kopie van je hele telefoon?');
+  await expect(stap).toContainText('Alleen een kopie van je hele telefoon');
   await expect(stap).toContainText('Finder');
   // de iPhone-check van twee keer per jaar is vandaag af te maken
   await expect(page.locator('[data-beurt-stap="geen-updates"] [data-gelukt]')).toContainText('staat op papier');
@@ -174,4 +174,59 @@ test('onderhoud en het bezoek blijven onder hun woordenplafond', async ({ reques
     const html = await (await request.get(pad)).text();
     expect(meet(blokken(html)).woorden, pad).toBeLessThanOrEqual(plafond);
   }
+});
+
+test('onderhoud: per klus kies je je eigen toestel, de rest blijft dicht', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const updates = page.locator('[data-beurt-stap="maand-updates"]');
+  // wie Edge gebruikt, vindt Edge
+  await expect(updates.locator('details', { hasText: 'Windows-computer' })).toContainText('Edge');
+  for (const id of ['maand-updates', 'maand-kopie', 'backup-loopt', 'noodcodes-kloppen']) {
+    const keuzes = page.locator(`[data-beurt-stap="${id}"] details`);
+    expect(await keuzes.count(), id).toBeGreaterThan(1);
+    for (const keuze of await keuzes.all()) await expect(keuze).not.toHaveAttribute('open', '');
+  }
+  // een Samsung kiest de goede back-up, en vol iCloud zegt wat het kost en wat het alternatief is
+  const kopie = page.locator('[data-beurt-stap="maand-kopie"]');
+  await expect(kopie).toContainText('Samsung Cloud en Google');
+  await expect(kopie).toContainText('met de prijs per maand erbij');
+  await expect(kopie).toContainText('Niet betalen.');
+  // icloud.com vraagt om een code op de iPhone; dat staat er vooraf, en waar het bestand staat ook
+  const terug = page.locator('[data-beurt-stap="backup-loopt"]');
+  await expect(terug).toContainText('code van je iPhone');
+  await expect(terug).toContainText('Downloads');
+});
+
+test('onderhoud: herstelcodes zijn af te ronden voor elk soort adres, zonder naar een ander hoofdstuk te springen', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const stap = page.locator('[data-beurt-stap="noodcodes-kloppen"]');
+  await expect(stap).toContainText('back-upcodes');
+  await expect(stap).toContainText('knop om codes te maken');
+  await expect(stap.locator('details', { hasText: 'KPN' })).toContainText('Je hoeft hier niets te doen');
+  await expect(stap.locator('a[href^="/voor-de-mensen-om-je-heen"]')).toHaveCount(0);
+});
+
+test('onderhoud: de Engelse uitslag van Have I Been Pwned wordt vertaald, en een Samsung-account gaat er ook af', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const lek = page.locator('[data-beurt-stap="datalek"]');
+  await expect(lek).toContainText('Good news');
+  await expect(lek).toContainText('Oh no');
+  await expect(lek).toContainText('wachtwoord vergeten');
+  await expect(lek).not.toContainText('wachtwoordmanager');
+  await expect(page.locator('[data-beurt-stap="weg-uitloggen"]')).toContainText('Samsung-account');
+  // de quiz spreekt de maandklus niet tegen
+  await expect(page.locator('[data-quiz]')).not.toContainText('houdt bijna niemand vol');
+});
+
+test('het bezoek: wie het voor zichzelf leest, en wie een KPN-adres heeft, komt er ook uit', async ({ page }) => {
+  await page.goto('/voor-de-mensen-om-je-heen');
+  await expect(page.getByText('Lees je dit voor jezelf?')).toBeVisible();
+  const stap = page.locator('[data-beurt-stap="mail-slot"]');
+  const kpn = stap.locator('details', { hasText: 'KPN' });
+  for (const adres of ['@planet.nl', '@hetnet.nl']) await expect(kpn).toContainText(adres);
+  await expect(kpn).toContainText('Dan is deze stap klaar');
+  await expect(stap.locator('[data-gelukt]')).toContainText('nergens anders gebruikt');
+  await expect(stap.locator('details', { hasText: '@gmail.com' })).toContainText('back-upcodes');
+  // App Store-instellingen staan op nieuwe iPhones onder Apps
+  await expect(page.locator('[data-beurt-stap="updates-aan"]')).toContainText('tot Apps');
 });

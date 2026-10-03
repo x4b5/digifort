@@ -108,8 +108,8 @@ export const QUIZZEN = {
       { tekst: 'Nee, formatteer hem met het vinkje bij snel formatteren uit, of maak hem kapot', goed: true, uitleg: 'Dat zijn de twee zekere manieren. Hetzelfde geldt voor een losse harde schijf.' },
       { tekst: 'Nee, maar snel formatteren is genoeg', uitleg: 'Snel formatteren laat de bestanden vaak nog staan. Zet het vinkje bij snel formatteren uit, of maak de stick kapot.' },
     ] },
-    { vraag: 'Hoe vaak kijk je je huis na?', opties: [
-      { tekst: 'Elke maand', uitleg: 'Dat houdt bijna niemand vol, en het hoeft ook niet.' },
+    { vraag: 'Hoe vaak loop je je hele huis na?', opties: [
+      { tekst: 'Elke maand', uitleg: 'Dat hoeft niet. Elke maand doe je alleen de korte klus: updates en je reservekopie. Het hele huis loop je twee keer per jaar na.' },
       { tekst: 'Twee keer per jaar, als de klok wordt verzet', goed: true, uitleg: 'Vier dingen: loopt je reservekopie, kloppen je herstelcodes, welke apparaten krijgen geen updates meer, en sta je in een nieuw datalek.' },
       { tekst: 'Alleen als er iets misgaat', uitleg: 'Dan ben je te laat. Het punt van onderhoud is dat je het vóór de schade doet.' },
     ] },
