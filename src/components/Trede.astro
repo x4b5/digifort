@@ -65,7 +65,8 @@ const { titel, soort } = trede(nr)!;
   .trede[open] > summary::after { content: '−'; }
   .trede > summary:hover { background: var(--papier-2); }
   .trede h3 { margin: 0; font-size: clamp(1.2rem, 3.2vw, 1.5rem); }
-  .kop { display: flex; flex-direction: column; gap: 0.15rem; }
+  /* min-width 0: anders duwt een lang woord als "wachtwoordmanager" bij de grootste tekst de regel breder dan het scherm */
+  .kop { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
   .soort { font-size: 0.95rem; color: var(--inkt-zacht); }
   .binnen { padding: 0 0 1.5rem; }
   .bol { flex: none; }

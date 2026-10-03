@@ -34,35 +34,40 @@ const rijen = KAMERS.flatMap((k) =>
     : [{ href: `#${k.anker}`, tekst: k.onderwerp }],
 );
 ---
-<section class="begin" data-begin aria-labelledby="begin-kop">
-  <h2 id="begin-kop">Waar begin je?</h2>
-  <p>Begin bij je <a href="#de-voordeur-je-e-mail">e-mail</a>. Dat is de belangrijkste deur.</p>
-  <p>Wil je alles doen? Doe het in deze volgorde:</p>
-  <ol data-volgorde>
-    <li><a href="/huischeck">De huischeck</a>: tien vragen, twee minuten.</li>
-    {rondes.map((r) => <li><a href={r.href}>{r.titel}</a>: {r.aantal} stappen, {r.duur}.</li>)}
-  </ol>
-  <p>De tijd per stap staat ook bij elk onderwerp hieronder. Je hoeft deze pagina niet helemaal te lezen.</p>
-</section>
-
-<nav aria-label="Onderwerpen op deze pagina">
-  <details class="onderwerpen" open data-onderwerpen>
-    <summary class="onderwerpen-kop">Zoek je onderwerp</summary>
-    <ol>
-      {rijen.map((r) => <li><a href={r.href}>{r.tekst}</a></li>)}
-      <li><a href="#is-er-al-ingebroken-in-een-account">Is er al ingebroken?</a></li>
-    </ol>
-    <p class="alle-kamers" data-alle-kamers hidden>
-      <button type="button" class="knop licht klein" aria-expanded="false" data-alle-knop>Alle plekken openklappen</button>
-    </p>
-  </details>
-</nav>
+<div class="begin-kader">
+  <section class="begin" data-begin aria-labelledby="begin-kop">
+    <h2 id="begin-kop">Waar begin je?</h2>
+    <p>Begin bij je <a href="#de-voordeur-je-e-mail">e-mail</a>. <strong>Al ingebroken?</strong> Lees <a href="#is-er-al-ingebroken-in-een-account">wat je nu doet</a>.</p>
+    <details class="volgorde" open data-volgorde-uitklap>
+      <summary class="onderwerpen-kop">Alles doen? Zo is de volgorde</summary>
+      <ol data-volgorde>
+        <li><a href="/huischeck">De huischeck</a>: tien vragen, twee minuten.</li>
+        {rondes.map((r) => <li><a href={r.href}>{r.titel}</a>: {r.aantal} stappen, {r.duur}.</li>)}
+      </ol>
+      <p>De tijd per stap staat ook bij elk onderwerp hieronder. Je hoeft deze pagina niet helemaal te lezen.</p>
+    </details>
+  </section>
+  <nav aria-label="Onderwerpen op deze pagina">
+    <details class="onderwerpen" open data-onderwerpen>
+      <summary class="onderwerpen-kop">Zoek je onderwerp</summary>
+      <ol>
+        {rijen.map((r) => <li><a href={r.href}>{r.tekst}</a></li>)}
+        <li><a href="#is-er-al-ingebroken-in-een-account">Is er al ingebroken?</a></li>
+      </ol>
+      <p class="alle-kamers" data-alle-kamers hidden>
+        <button type="button" class="knop licht klein" aria-expanded="false" data-alle-knop>Alle plekken openklappen</button>
+      </p>
+    </details>
+  </nav>
+</div>
 
 <script>
   // op een smal scherm vult de lijst anders het hele eerste scherm, en staat je e-mail
   // pas onder de vouw; zonder JavaScript blijft hij gewoon open (net als de inhoudsopgave)
   if (window.matchMedia('(max-width: 40rem)').matches) {
     document.querySelector<HTMLDetailsElement>('[data-onderwerpen]')?.removeAttribute('open');
+    // ook de volgorde: "begin bij je e-mail" blijft staan, en je e-mail zelf past dan in het eerste scherm
+    document.querySelector<HTMLDetailsElement>('[data-volgorde-uitklap]')?.removeAttribute('open');
   }
   document.querySelectorAll<HTMLElement>('[data-alle-kamers]').forEach((houder) => {
     const knop = houder.querySelector<HTMLButtonElement>('[data-alle-knop]')!;
@@ -86,16 +91,24 @@ const rijen = KAMERS.flatMap((k) =>
 </script>
 
 <style>
-  .begin { margin: 1rem 0 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-left: 6px solid var(--groen); border-radius: var(--radius); }
+  .begin-kader { margin: 1rem 0 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-left: 6px solid var(--groen); border-radius: var(--radius); }
   .begin h2 { margin: 0 0 0.4rem; padding: 0; border: 0; font-size: 1.3rem; }
   .begin p, .begin ol { margin: 0.4rem 0; }
   .begin li { margin: 0.3rem 0; }
   .begin a { font-weight: 700; }
-  .onderwerpen { margin: 1rem 0 0; padding: 0.4rem 1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); }
-  .onderwerpen-kop { margin: 0; font-family: var(--kop); font-weight: 700; cursor: pointer; list-style: none; display: block; padding: 0.6rem 0; }
+  /* op een telefoon compacter: zo past je e-mail, met wat je doet, nog in het eerste scherm */
+  @media (max-width: 40rem) {
+    .begin-kader { margin-top: 0.5rem; padding: 0.6rem 0.9rem 0.1rem; }
+    .begin h2 { font-size: 1.15rem; margin-bottom: 0.2rem; }
+    .begin > p { margin: 0.2rem 0 0.4rem; }
+  }
+  .volgorde { border-top: 1px solid var(--lijn); }
+  /* de onderwerpen staan in hetzelfde kader als waar je begint: op een telefoon past je e-mail dan nog in het eerste scherm */
+  .onderwerpen { margin: 0; border-top: 1px solid var(--lijn); }
+  .onderwerpen-kop { margin: 0; font-family: var(--kop); font-weight: 700; cursor: pointer; list-style: none; display: block; padding: 0.6rem 0; min-block-size: 44px; }
   .onderwerpen-kop::-webkit-details-marker { display: none; }
   .onderwerpen-kop::before { content: "▸"; display: inline-block; margin-right: 0.4rem; transition: transform 0.15s ease; }
-  .onderwerpen[open] .onderwerpen-kop::before { transform: rotate(90deg); }
+  .onderwerpen[open] .onderwerpen-kop::before, .volgorde[open] .onderwerpen-kop::before { transform: rotate(90deg); }
   @media (prefers-reduced-motion: reduce) { .onderwerpen-kop::before { transition: none; } }
   .onderwerpen ol { margin: 0 0 0.6rem; padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
   .onderwerpen li { margin: 0.2rem 0; break-inside: avoid; }

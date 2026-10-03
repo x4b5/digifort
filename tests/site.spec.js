@@ -23,7 +23,7 @@ for (const pad of PAGINAS) {
 }
 
 // naslag lees je niet van a tot z, en de stap-voor-stappagina's tellen in stappen in plaats van minuten
-const ZONDER_LEESTIJD = ['woordenboek', 'bronnen', 'een-avond', 'een-weekend', 'ik-wil-verder'];
+const ZONDER_LEESTIJD = ['woordenboek', 'bronnen', 'plattegrond', 'een-avond', 'een-weekend', 'ik-wil-verder'];
 for (const { slug } of HOOFDSTUKKEN.filter((h) => !ZONDER_LEESTIJD.includes(h.slug))) {
   test(`/${slug} zegt bovenaan hoe lang het lezen duurt`, async ({ page }) => {
     await page.goto(`/${slug}`);

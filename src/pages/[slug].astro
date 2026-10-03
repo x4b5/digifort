@@ -19,7 +19,7 @@ const { Content, headings } = await render(h);
 // ruwe leestijd: ongeveer 200 woorden per minuut, afgerond op hele minuten.
 // Alleen de lopende tekst telt: import-regels, componenten met hun gegevens en
 // de adressen achter links leest niemand. Naslagpagina's lees je niet van a tot z.
-const NASLAG = ['woordenboek', 'bronnen'];
+const NASLAG = ['woordenboek', 'bronnen', 'plattegrond'];
 const leestekst = (h.body ?? '')
   .replace(/^(import|export) .*$/gm, '')
   .replace(/<[^>]*>/g, ' ')
