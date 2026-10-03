@@ -1,36 +1,34 @@
 ---
 /**
  * Hoe je uitzoekt waar je hetzelfde wachtwoord gebruikte, en waar je begint.
- * De testpersoon wist niet meer waar hij welk wachtwoord had, en kon dus ook
- * niet zien of de stap gelukt was. Daarom: een lijstje op papier, twee plekken
- * om accounts te vinden, een volgorde, en een streep per account.
+ * Een lijstje op papier, een paar plekken om accounts te vinden, een volgorde,
+ * en een streep per account. Testpersonen vonden de stap te lang en wisten niet
+ * wat ze bij de bank moesten doen als ze daar met een app of scanner inloggen,
+ * of waar hun wachtwoorden stonden als die niet in de iPhone zaten.
  */
 import Optie from './Optie.astro';
 ---
-<p>Weet je niet meer waar? Zo zoek je het uit:</p>
+<p>Vandaag doe je alleen de accounts met geld. De rest mag deze week.</p>
 <ol>
   <li>
-    <p><strong>Pak een vel papier</strong> voor de accounts die je vindt.</p>
-  </li>
-  <li>
-    <p><strong>Laat je telefoon zoeken welke wachtwoorden je vaker gebruikt.</strong> Tik op je telefoon:</p>
-    <Optie titel="iPhone">
-      <p>Open de app Wachtwoorden, en kies Beveiliging. Geen app Wachtwoorden? Open Instellingen, kies Wachtwoorden, en dan Beveiligingsaanbevelingen.</p>
-      <p>Je ziet sites waar je hetzelfde wachtwoord gebruikt. Zelf een wachtwoord zien? Tik op de site, en kijk met Face ID, Touch ID of je toegangscode.</p>
+    <p><strong>Pak een vel papier.</strong> Schrijf op waar je dat wachtwoord nog meer gebruikte. Hulp nodig? Tik op waar je wachtwoorden staan:</p>
+    <Optie titel="In mijn iPhone">
+      <p>Open de app Wachtwoorden, en kies Beveiliging. Geen app Wachtwoorden? Open Instellingen, kies Wachtwoorden, en dan Beveiligingsaanbevelingen. Je ziet sites met hetzelfde wachtwoord. Openen gaat met Face ID, Touch ID of je toegangscode.</p>
     </Optie>
-    <Optie titel="Android of Chrome">
-      <p>Ga naar passwords.google.com en log in met je Google-account. Kies Wachtwoordcheck. Je ziet welke wachtwoorden je vaker gebruikt.</p>
-      <p>Wil je een wachtwoord zelf zien? Tik op de site, en dan op het oogje.</p>
+    <Optie titel="In Chrome, of in mijn Android-telefoon">
+      <p>Ga naar passwords.google.com en log in met je Google-account. Kies Wachtwoordcheck. Je ziet welke wachtwoorden je vaker gebruikt. Een wachtwoord zelf zien? Tik op de site, en dan op het oogje.</p>
     </Optie>
-    <p>Schrijf die sites op je papier.</p>
+    <Optie titel="In Samsung Pass">
+      <p>Open Instellingen. Typ "Samsung Pass" in de zoekbalk, en open het. Je ziet de sites waar je een wachtwoord bewaarde. Kijk ook op passwords.google.com.</p>
+    </Optie>
+    <Optie titel="Nergens, of ik weet het niet">
+      <p>Zoek in je mail naar "welkom". Zo vind je sites waar je een account maakte.</p>
+    </Optie>
   </li>
   <li>
-    <p><strong>Zoek in je mail</strong> naar "welkom". Zo vind je sites waar je een account maakte. Schrijf die erbij.</p>
+    <p><strong>Begin met de accounts met geld:</strong> webwinkels, PayPal, en je bank als je daar met een wachtwoord inlogt. Log je bij je bank in met de app en een pincode, of met een scanner? Dan heb je daar geen wachtwoord, en sla je je bank over.</p>
   </li>
   <li>
-    <p><strong>Begin met de accounts met geld:</strong> je bank, webwinkels en PayPal. Daarna Facebook, Instagram en WhatsApp.</p>
-  </li>
-  <li>
-    <p><strong>Doe ze één voor één.</strong> Log in, en zoek in de instellingen naar "wachtwoord". Geef een nieuw wachtwoord. Zet een streep door dat account. Niet gevonden? Log uit en kies Wachtwoord vergeten.</p>
+    <p><strong>Doe ze één voor één.</strong> Kies op de site Wachtwoord vergeten, en volg de mail die je krijgt. Zet een streep door dat account.</p>
   </li>
 </ol>

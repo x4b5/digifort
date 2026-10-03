@@ -77,14 +77,19 @@ test('het nieuwe e-mailwachtwoord zegt per soort adres waar je het verandert', a
   const stap = page.locator('#stap-mail-wachtwoord');
   for (const t of ['@gmail.com', '@outlook.com', '@icloud.com', '@ziggo.nl']) await expect(stap).toContainText(t);
   await expect(stap).toContainText('Mail op je iPhone');
+  // wie Mail op de iPhone met KPN gebruikt, kan daarna ook weer versturen
+  const kpn = stap.locator('details.optie', { hasText: '@kpnmail.nl' });
+  await kpn.locator('summary').click();
+  await expect(kpn).toContainText('SMTP');
+  await expect(kpn).toContainText('Veeg een stukje omlaag');
 });
 
 test('wat je vooraf regelt is een stappenplan met waar je tikt, per toestel', async ({ page }) => {
   await page.goto(PAD);
   const plan = page.locator('[data-stappenplan="stappen-vooraf"]');
-  await expect(plan.locator('.stap-item')).toHaveCount(6);
+  await expect(plan.locator('.stap-item')).toHaveCount(7);
   // elke stap zegt wat je ziet als het gelukt is
-  await expect(plan.locator('.gelukt')).toHaveCount(6);
+  await expect(plan.locator('.gelukt')).toHaveCount(7);
   await expect(plan).toContainText('Instellingen');
   // wie een iPhone met ronde knop heeft, of een oudere, vindt de stap ook
   await expect(plan).toContainText('Touch ID en toegangscode');
@@ -123,6 +128,8 @@ test('ABN AMRO heeft twee knoppen, elk met de tijd waarop je dat nummer belt', a
 test('het tweede slot staat op één plek: de stap wijst naar Eén avond, zonder vaktaal', async ({ page }) => {
   await page.goto(PAD);
   const stap = page.locator('#stap-tweede-slot');
+  // het is iets voor later: het staat bij wat je vooraf regelt, niet in het plan voor nu
+  await expect(page.locator('[data-stappenplan="stappen-vooraf"] #stap-tweede-slot')).toHaveCount(1);
   await expect(stap.locator('a[href="/een-avond#stap-mail-tweede-slot"]')).toHaveCount(1);
   // de reden om geen sms te kiezen staat er wel, kort
   await expect(stap).toContainText('geen code per sms');
@@ -184,6 +191,16 @@ test('wie hetzelfde wachtwoord vaker gebruikte, leest hoe hij uitzoekt waar', as
   // de snelle weg: de telefoon zoekt zelf welke wachtwoorden je vaker gebruikt
   for (const t of ['Wachtwoordcheck', 'Beveiligingsaanbevelingen', 'oogje', 'Touch ID']) await expect(stap).toContainText(t);
   await expect(stap.locator('.gelukt')).toContainText('streep');
+  // wie bij de bank inlogt met een app of scanner, weet dat hij daar niets hoeft
+  await expect(stap).toContainText('scanner');
+  await expect(stap.locator('summary', { hasText: 'Samsung Pass' })).toHaveCount(1);
+  await expect(stap.locator('summary', { hasText: 'Nergens' })).toHaveCount(1);
+});
+
+test('wie zoekt op een telefoon, leest waar het menu zit in elke browser', async ({ page }) => {
+  await page.goto(PAD);
+  const z = page.locator('main .zoek-op-pagina').first();
+  for (const t of ['Chrome', 'Samsung Internet', 'Safari', 'deelknopje']) await expect(z).toContainText(t);
 });
 
 test('de pagina blijft onder het woordenplafond van 4000', async ({ request }) => {
@@ -221,7 +238,7 @@ test('bij Google uitloggen staat het adres van de lijst met apparaten', async ({
 test('herstelgegevens en doorsturen zijn twee aparte stappen, elk met één rij keuzes', async ({ page }) => {
   await page.goto(PAD);
   const plan = page.locator('[data-stappenplan="stappen-account"]');
-  await expect(plan.locator('.stap-item')).toHaveCount(10);
+  await expect(plan.locator('.stap-item')).toHaveCount(9);
   await expect(page.locator('[data-stappenplan="stappen-account"] h3', { hasText: 'doorgestuurd' })).toHaveCount(1);
   for (const n of [4, 5]) {
     const stap = plan.locator('.stap-item').nth(n);
@@ -232,8 +249,11 @@ test('herstelgegevens en doorsturen zijn twee aparte stappen, elk met één rij 
 test('wie alleen een telefoon heeft, leest hoe hij de doorstuurregels toch ziet', async ({ page }) => {
   await page.goto(PAD);
   const stap = page.locator('[data-stappenplan="stappen-account"] .stap-item').nth(5);
-  await expect(stap).toContainText('Alleen een telefoon?');
-  await expect(stap).toContainText('Desktopsite');
+  const tel = stap.locator('details.optie', { hasText: 'Ik heb alleen een telefoon' });
+  await expect(tel).toHaveCount(1);
+  await tel.locator('summary').click();
+  // per browser waar de knop zit, ook Samsung Internet en Safari
+  for (const t of ['Desktopsite', 'Samsung Internet', 'Desktopversie', 'Safari', 'aA', 'in de browser te blijven']) await expect(tel).toContainText(t);
 });
 
 test('mail van KPN of Ziggo: waar je inlogt, met welk wachtwoord, en hoe je de klantenservice vindt', async ({ page }) => {
@@ -244,14 +264,16 @@ test('mail van KPN of Ziggo: waar je inlogt, met welk wachtwoord, en hoe je de k
     await kpn.locator('summary').click();
     for (const t of ['kpn.com', 'ziggo.nl', 'klantenservice', 'rekening']) await expect(kpn, sel).toContainText(t);
   }
+  // geen menu's die we niet kennen: je belt, en je weet wat je zegt
   const wachtwoord = page.locator('#stap-mail-wachtwoord details.optie', { hasText: '@kpnmail.nl' });
-  await expect(wachtwoord).toContainText('Mijn KPN');
-  await expect(wachtwoord).toContainText('kan anders zijn dan dat van je mail');
+  await expect(wachtwoord).toContainText('Zeg: "Iemand zit in mijn mail.');
+  await expect(wachtwoord).toContainText('Wordt mijn mail doorgestuurd?');
+  await expect(page.locator('main')).not.toContainText(/woord "webmail"|woord "e-mail"/);
 });
 
 test('wie Mail op de iPhone gebruikt, leest waar het nieuwe wachtwoord komt', async ({ page }) => {
   await page.goto(PAD);
-  await expect(page.locator('#stap-mail-wachtwoord')).toContainText('vak Wachtwoord');
+  await expect(page.locator('#stap-mail-wachtwoord')).toContainText('bij Wachtwoord het nieuwe');
 });
 
 test('telefoon kwijt: je kiest eerst je toestel, en de inlogcode leidt niet in een rondje', async ({ page }) => {

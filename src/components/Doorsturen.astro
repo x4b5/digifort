@@ -2,35 +2,48 @@
 /**
  * Waar je ziet of een inbreker een regel heeft gemaakt die je mail doorstuurt,
  * en hoe je hem weghaalt. Dat kan meestal alleen op de website van je e-mail,
- * niet in de app. Eerst kijken, dan alleen weghalen wat je niet zelf maakte:
- * de testpersoon las eerder "je verandert niets" en daarna "haal hem weg", en
- * durfde daarna niets meer aan te raken.
+ * niet in de app. Eerst kijken, dan alleen weghalen wat je niet zelf maakte.
+ *
+ * Testpersonen met alleen een telefoon vonden de knop voor de computerweergave
+ * niet (Safari, Samsung Internet), en kregen bij gmail.com de vraag om de app te
+ * openen. Daarom: liefst een computer, en anders per browser waar de knop zit.
+ * KPN en Ziggo: bellen, zie KpnZiggo.astro.
  */
 import Optie from './Optie.astro';
 import KpnZiggo from './KpnZiggo.astro';
 ---
-<p>Dit zie je alleen op de website, niet in de app. <strong>Alleen een telefoon?</strong> Open de website in je browser. Kies in het menu van je browser Desktopsite (Chrome: drie puntjes rechtsboven) of Desktopwebsite (Safari).</p>
-<p>Je haalt alleen weg wat je niet zelf hebt gemaakt. Twijfel je? Laat het staan. Tik op je e-mail:</p>
+<p>Je haalt alleen weg wat je niet zelf hebt gemaakt. Twijfel je? Laat het staan.</p>
+<p>Dit zie je alleen op de website, niet in de app. Gebruik liefst een computer of tablet.</p>
+<Optie titel="Ik heb alleen een telefoon">
+  <p>Zet je browser op de weergave voor een computer. Tik op je browser:</p>
+  <ul>
+    <li><strong>Chrome:</strong> drie puntjes rechtsboven. Zet een vinkje bij Desktopsite.</li>
+    <li><strong>Samsung Internet:</strong> drie streepjes rechtsonder. Kies Desktopversie.</li>
+    <li><strong>Safari (iPhone):</strong> tik links in de adresbalk op aA of op het kleine icoontje. Kies Vraag desktopwebsite aan.</li>
+  </ul>
+  <p>Alles wordt klein. Zoom in met twee vingers. Vraagt de site of je de app wilt openen? Kies om in de browser te blijven.</p>
+</Optie>
+<p>Tik op je e-mail:</p>
 <Optie titel="@gmail.com">
   <ol>
     <li>Ga naar gmail.com en log in.</li>
-    <li>Klik rechtsboven op het tandwiel. Klik op Alle instellingen bekijken.</li>
-    <li>Klik bovenaan op Doorsturen en POP/IMAP. Een adres dat je niet kent? Kies Doorsturen uitschakelen. Klik onderaan op Wijzigingen opslaan.</li>
-    <li>Klik bovenaan op Filters en geblokkeerde adressen. Een filter dat je niet zelf maakte? Zet er een vinkje voor. Klik op Verwijderen.</li>
+    <li>Rechtsboven staat een tandwiel. Tik erop, en dan op Alle instellingen bekijken.</li>
+    <li>Bovenaan staat een rij tabbladen. Kies Doorsturen en POP/IMAP. Staat er een adres dat je niet kent? Kies Doorsturen uitschakelen. Tik onderaan op Wijzigingen opslaan.</li>
+    <li>Kies het tabblad Filters en geblokkeerde adressen. Een filter dat je niet zelf maakte? Zet er een vinkje voor. Tik op Verwijderen.</li>
   </ol>
 </Optie>
 <Optie titel="@outlook.com, @hotmail.com of @live.nl">
   <ol>
     <li>Ga naar outlook.com en log in.</li>
-    <li>Klik rechtsboven op het tandwiel.</li>
-    <li>Kies E-mail, en dan Doorsturen. Staat het aan zonder dat jij dat deed? Zet het uit. Klik op Opslaan.</li>
-    <li>Kies Regels. Een regel die je niet zelf maakte? Klik op de prullenbak ernaast.</li>
+    <li>Tik rechtsboven op het tandwiel.</li>
+    <li>Kies E-mail, en dan Doorsturen. Staat het aan zonder dat jij dat deed? Zet het uit. Tik op Opslaan.</li>
+    <li>Kies Regels. Een regel die je niet zelf maakte? Tik op de prullenbak ernaast.</li>
   </ol>
 </Optie>
 <Optie titel="@icloud.com of @me.com">
   <ol>
     <li>Ga naar icloud.com/mail en log in.</li>
-    <li>Boven je mappen, zoals Inkomend, staat een rond knopje met drie puntjes of een tandwiel. Klik erop, en kies Instellingen.</li>
+    <li>Boven je mappen, zoals Inkomend, staat een rond knopje met drie puntjes of een tandwiel. Tik erop, en kies Instellingen.</li>
     <li>Kies Regels. Een regel die je niet zelf maakte? Verwijder hem.</li>
     <li>Kijk ook links in het venster of je mail wordt doorgestuurd. Naar een adres dat je niet kent? Zet het uit.</li>
   </ol>

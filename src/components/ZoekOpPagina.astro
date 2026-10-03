@@ -2,14 +2,13 @@
 /**
  * Hoe je een woord vindt op een webpagina, voor de diensten zonder eigen
  * zoekbalk (zoals Microsoft). De testpersoon wist niet hoe "zoek op die pagina"
- * moest. Naar de inset text van GOV.UK: een lijn links, rustig, geen kader.
- * Ctrl+F en Cmd+F werken in elke browser, welke versie de site ook heeft.
+ * moest, en bij Safari en Samsung Internet niet waar het menu zat. Naar de
+ * inset text van GOV.UK: een lijn links, rustig, geen kader.
  */
 interface Props { woord: string }
-const { woord } = Astro.props;
 ---
 <div class="zoek-op-pagina">
-  <p><strong>Zo zoek je:</strong> Ctrl en F (Mac: Cmd en F). Telefoon: menu van je browser, Zoek op pagina.</p>
+  <p><strong>Zo zoek je:</strong> Ctrl en F (Mac: Cmd en F). Telefoon: kies Zoek op pagina in het menu. Chrome: drie puntjes rechtsboven. Samsung Internet: drie streepjes rechtsonder. Safari: het deelknopje (vierkantje met pijl).</p>
 </div>
 
 <style>
@@ -18,6 +17,4 @@ const { woord } = Astro.props;
     border-left: 5px solid var(--lijn);
   }
   .zoek-op-pagina p { margin: 0.3rem 0; }
-  .zoek-op-pagina ul { margin: 0.3rem 0; padding-left: 1.25rem; }
-  .zoek-op-pagina li { margin: 0.2rem 0; }
 </style>

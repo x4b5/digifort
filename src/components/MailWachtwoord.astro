@@ -49,9 +49,9 @@ const { kwijt = false } = Astro.props;
   )}
 </Optie>
 <Optie titel="@kpnmail.nl, @ziggo.nl of een ander adres van je internetbedrijf">
-  <KpnZiggo wat="wachtwoord" />
+  <KpnZiggo wat="wachtwoord" kwijt={kwijt} />
+  {!kwijt && (
+    <p><strong>Haalt Mail op je iPhone daarna geen mail meer op?</strong> Open Instellingen. Veeg een stukje omlaag voor de zoekbalk. Typ "Accounts" en kies Mail-accounts of Accounts. Tik op je adres, en op Account. Vul bij Wachtwoord het nieuwe in. Doe dat ook bij SMTP, lager in dat scherm: dat is voor versturen. Tik op Gereed.</p>
+  )}
 </Optie>
 {!kwijt && (<p>Een goed wachtwoord is vier of vijf losse woorden, zoals "lantaarn koffie zebra dakpan". Gebruik het nergens anders. Schrijf het op papier.</p>)}
-{!kwijt && (
-  <p><strong>Haalt Mail op je iPhone daarna geen mail meer op?</strong> Open Instellingen, typ "Mail" in de zoekbalk, en kies Mail. Kies het onderdeel met Accounts erin. Tik op je adres, tot je het vak Wachtwoord ziet. Vul het nieuwe in. Op Android vraagt de mail-app er meestal zelf om.</p>
-)}
