@@ -26,24 +26,18 @@ import NaarDoen from '../../components/NaarDoen.astro';
 
 **Stop, en neem zelf contact op.**
 
-Klik niet op de link. Hang op. Zoek zelf het nummer, de site of de app op. Of bel de persoon op het nummer dat je al had.
-
-Neem daarna de tijd. Slaap er een nacht over. Praat erover met iemand. Een echte bank vindt dat prima. Een echte koper ook. En je echte kind ook.
+Klik niet op de link. Hang op. Zoek zelf het nummer of de app op. Een echte bank vindt het prima als je er een nacht over slaapt.
 
 </Doe>
 
-<Overzicht kop="Wat gebeurt er bij jou? Zoek het hier op." rijen={[
-  { vraag: 'Een bericht met een link om in te loggen, te betalen of iets te verlengen', antwoord: 'Klik niet. Open zelf de app of typ zelf het adres.', href: '#is-dit-bericht-echt', link: 'Is dit bericht echt?' },
-  { vraag: 'Iemand belt namens je bank en wil dat je geld overzet', antwoord: 'Hang op. Een bank vraagt dit nooit. Bel zelf je bank, met het nummer op je pas.', href: '#vraagt-iemand-je-om-geld-over-te-maken', link: 'Vraagt iemand je om geld?' },
-  { vraag: 'Iemand vraagt je een code door te sturen die je per sms of WhatsApp kreeg', antwoord: 'Stuur hem niet door. Met die code neemt een oplichter je WhatsApp over.', href: '#iemand-vraagt-me-een-code-door-te-sturen-wat-is-dit', link: 'Iemand vraagt om een code' },
-  { vraag: '"Hoi mam, dit is mijn nieuwe nummer"', antwoord: 'Bel het oude nummer. Vraag naar het geheime woord.', href: '#hoi-mam-nieuw-nummer', link: 'Hoi mam, nieuw nummer' },
-  { vraag: 'Een koper vraagt je om 1 cent over te maken, of stuurt een link', antwoord: 'Ga er niet op in. Wie jou geld wil geven, hoeft jou geen link te sturen.', href: '#marktplaats-en-tikkie', link: 'Marktplaats en Tikkie' },
-  { vraag: 'Iemand wil meekijken op je scherm', antwoord: 'Hang op. Installeer niets.', href: '#meekijken-op-afstand', link: 'Meekijken op afstand' },
-  { vraag: 'Een webwinkel of app waar je een account hebt, is gehackt', antwoord: 'Gebruikte je dat wachtwoord ook ergens anders? Verander het daar.', href: '#mijn-wachtwoord-is-gelekt-wat-nu', link: 'Mijn wachtwoord is gelekt' },
-  { vraag: 'Je bestanden zijn onleesbaar en iemand vraagt losgeld', antwoord: 'Dat is ransomware. Met een losse reservekopie zet je alles terug.', href: '#wat-is-ransomware', link: 'Wat is ransomware?' },
-  { vraag: 'Je telefoon heeft ineens geen bereik', antwoord: 'Misschien is je nummer gestolen. Bel meteen je telefoonbedrijf.', href: '#wat-is-sim-swapping', link: 'Wat is sim-swapping?' },
-  { vraag: 'Al geklikt, ingelogd of betaald?', antwoord: 'Gaat het om geld? Bel direct je bank. Verander daarna het wachtwoord van je e-mail.', href: '#ik-heb-al-geklikt-ingelogd-of-betaald-wat-nu', link: 'Al geklikt: wat nu?' },
-  { vraag: 'Geld kwijt aan een oplichter?', antwoord: 'Het hangt af van wie op akkoord drukte. Bel eerst je bank.', href: '#krijg-ik-mijn-geld-terug', link: 'Krijg ik mijn geld terug?' },
+<Overzicht kop="Wat gebeurt er bij jou?" rijen={[
+  { vraag: 'Een sms, mail of app met een link om in te loggen of te betalen', antwoord: 'Klik niet. Open zelf de app of typ zelf het adres.', href: '#is-dit-bericht-echt', link: 'Is dit bericht echt?' },
+  { vraag: '"De bank" belt en wil dat je geld overzet', antwoord: 'Hang op. Bel zelf je bank, met het nummer op je pas.', href: '#vraagt-iemand-je-om-geld-over-te-maken', link: 'Vraagt iemand je om geld?' },
+  { vraag: 'Iemand vraagt een code die je per sms kreeg', antwoord: 'Stuur hem niet door.', href: '#iemand-vraagt-me-een-code-door-te-sturen-wat-is-dit', link: 'Iemand vraagt om een code' },
+  { vraag: '"Hoi mam, dit is mijn nieuwe nummer"', antwoord: 'Bel het oude nummer.', href: '#hoi-mam-nieuw-nummer', link: 'Hoi mam, nieuw nummer' },
+  { vraag: 'Een koper wil dat je 1 cent overmaakt', antwoord: 'Ga er niet op in.', href: '#marktplaats-en-tikkie', link: 'Marktplaats en Tikkie' },
+  { vraag: 'Je telefoon heeft ineens geen bereik', antwoord: 'Bel meteen je telefoonbedrijf.', href: '#wat-is-sim-swapping', link: 'Wat is sim-swapping?' },
+  { vraag: 'Al geklikt, ingelogd of betaald?', antwoord: 'Gaat het om geld? Bel direct je bank.', href: '#ik-heb-al-geklikt-ingelogd-of-betaald-wat-nu', link: 'Al geklikt: wat nu?' },
 ]} />
 
 ## Ik heb al geklikt, ingelogd of betaald. Wat nu?
@@ -198,6 +192,24 @@ Hier breekt niemand in. Jij doet zelf de deur open en geeft het geld. Geen slot 
 <NaarDoen kop="Lees hoe het precies zit" ook={[
   { href: '/krijg-je-je-geld-terug', tekst: 'Krijg je je geld terug? De regels uitgelegd', waar: 'Opzoeken' },
 ]} />
+
+<Meer titel="Hoe vaak gebeurt dit?">
+
+Vaak, en steeds vaker. In 2025 werd 10 procent van de Nederlanders online opgelicht, tegen 6 procent die gehackt werd.
+
+- Bij de Fraudehelpdesk kwamen in 2025 ruim 100.000 meldingen binnen. Een jaar eerder waren dat er 63.000. De gemelde schade was bijna 69 miljoen euro. En veel mensen melden het nooit. ([bron](https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Terugblik-2025.pdf))
+- De meeste schade komt door nepbeleggingen. De toezichthouder AFM schat de echte schade op honderden miljoenen euro's per jaar. Het kan oplopen tot 750 miljoen. De meeste slachtoffers zeggen niets, omdat ze zich schamen. ([bron](https://www.afm.nl/nl-nl/persbericht/2025/dec/pb-beleggingsfraude))
+- Oplichters die zich voordeden als de bank, stalen in 2025 bijna 26 miljoen euro. Dat gebeurde bij zo'n 5.900 mensen. De banken gaven minder dan de helft terug. ([bron](https://www.nvb.nl/nieuws-en-verhalen/banken-roepen-socialmediaplatforms-op-meer-te-doen-aan-online-fraudebestrijding/))
+- Volgens de banken beginnen zeven van de tien oplichtingen op sociale media. Vaak met een nepadvertentie.
+
+<Grafiek items={[
+  { label: '2024', waarde: 63000, toon: '63.000' },
+  { label: '2025', waarde: 100000, toon: '100.000', kleur: 'rood' },
+]}>
+  Meldingen bij de Fraudehelpdesk. In één jaar kwamen er ruim de helft bij — en dit is alleen wat gemeld wórdt. <a href="https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Terugblik-2025.pdf">Fraudehelpdesk, terugblik 2025</a>
+</Grafiek>
+
+</Meer>
 
 <Citaat foto="portret-schneier" wie="Bruce Schneier" wat="beveiligingsexpert, in 2000" origineel="Only amateurs attack machines; professionals target people." bron="Crypto-Gram, 15 oktober 2000" href="https://www.schneier.com/crypto-gram/archives/2000/1015.html">Alleen amateurs vallen machines aan. Professionals richten zich op mensen.</Citaat>
 
@@ -366,20 +378,5 @@ Advertentiebedrijven volgen wat je bekijkt, koopt en zoekt. Zo maken ze een beel
 
 </Meer>
 
-## Hoe vaak gebeurt dit?
-
-<Kort>vaak, en steeds vaker. In 2025 werd 10 procent van de Nederlanders online opgelicht, tegen 6 procent die gehackt werd.</Kort>
-
-- Bij de Fraudehelpdesk kwamen in 2025 ruim 100.000 meldingen binnen. Een jaar eerder waren dat er 63.000. De gemelde schade was bijna 69 miljoen euro. En veel mensen melden het nooit. ([bron](https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Terugblik-2025.pdf))
-- De meeste schade komt door nepbeleggingen. De toezichthouder AFM schat de echte schade op honderden miljoenen euro's per jaar. Het kan oplopen tot 750 miljoen. De meeste slachtoffers zeggen niets, omdat ze zich schamen. ([bron](https://www.afm.nl/nl-nl/persbericht/2025/dec/pb-beleggingsfraude))
-- Oplichters die zich voordeden als de bank, stalen in 2025 bijna 26 miljoen euro. Dat gebeurde bij zo'n 5.900 mensen. De banken gaven minder dan de helft terug. ([bron](https://www.nvb.nl/nieuws-en-verhalen/banken-roepen-socialmediaplatforms-op-meer-te-doen-aan-online-fraudebestrijding/))
-- Volgens de banken beginnen zeven van de tien oplichtingen op sociale media. Vaak met een nepadvertentie.
-
-<Grafiek items={[
-  { label: '2024', waarde: 63000, toon: '63.000' },
-  { label: '2025', waarde: 100000, toon: '100.000', kleur: 'rood' },
-]}>
-  Meldingen bij de Fraudehelpdesk. In één jaar kwamen er ruim de helft bij — en dit is alleen wat gemeld wórdt. <a href="https://www.fraudehelpdesk.nl/wp-content/uploads/2026/02/Terugblik-2025.pdf">Fraudehelpdesk, terugblik 2025</a>
-</Grafiek>
 
 <Noot titel="Ook landen doen dit">Dezelfde babbeltruc en dezelfde geraden wachtwoorden worden ook gebruikt door hackers van staten, bijvoorbeeld tegen ambtenaren en militairen. Wat dat voor jou betekent, en de cijfers erbij, staat in [De storm om het huis](/de-storm-om-het-huis).</Noot>

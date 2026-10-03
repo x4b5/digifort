@@ -117,3 +117,22 @@ test('wie vraagt of een kwantumcomputer zijn berichten of bank openbreekt, vindt
   await expect(page.getByRole('heading', { level: 3, name: 'Zijn mijn berichten nu al in gevaar?' })).toBeVisible();
   await expect(page.getByRole('heading', { name: /nu stelen, later openbreken/ })).toHaveCount(0);
 });
+
+test('in het overzicht staat de link op een eigen regel, niet als volgende zin van het advies', async ({ page }) => {
+  await page.goto('/inbrekers-van-nu');
+  const rij = page.locator('[data-overzicht] dd').first();
+  const [advies, link] = await Promise.all([rij.locator('.antwoord').boundingBox(), rij.locator('a').boundingBox()]);
+  expect(link.y).toBeGreaterThan(advies.y + advies.height - 2);
+  // vóór de eerste kop staan het kader en één korte lijst, geen lange
+  expect(await page.locator('[data-overzicht] dt').count()).toBeLessThanOrEqual(8);
+});
+
+test('wie vraagt wat een passkey is, vindt het op de inbrekers van morgen met een stap om hem aan te zetten', async ({ page }) => {
+  await page.goto('/inbrekers-van-morgen');
+  await page.locator('[data-inhoud] a', { hasText: 'passkey' }).click();
+  const kop = page.getByRole('heading', { level: 2, name: 'Wat is een passkey, en moet ik die aanzetten?' });
+  await expect(kop).toBeInViewport();
+  const antwoord = await kop.evaluate((h) => h.nextElementSibling?.textContent ?? '');
+  expect(antwoord).toMatch(/In het kort: ja, zet hem aan/);
+  await expect(page.locator('[data-naar-doen] [data-doe-stap="accounts-tweede-slot"]')).toHaveCount(1);
+});

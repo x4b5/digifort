@@ -1,7 +1,8 @@
 ---
 /**
- * Eén plek van de plattegrond als uitklapper. Dicht zie je al het antwoord: het onderwerp
- * (het woord waar je naar zoekt), het beeld erboven, en wat je doet. Open staat waarom,
+ * Eén plek van de plattegrond als uitklapper. Dicht zie je al het antwoord: eerst het
+ * onderwerp (het woord waar je naar zoekt, vet), dan wat je doet, en pas daarna klein het
+ * beeld uit het huis. Wie "Google" of "wifi" zoekt, leest geen beeldspraak eerst. Open staat waarom,
  * en waar je het stap voor stap doet. Zo zoek je de plattegrond op in plaats van hem te lezen.
  *
  * Het anker (`kamer.anker`) blijft de id, zodat links als /plattegrond#de-voordeur-je-e-mail
@@ -23,9 +24,9 @@ const { ook = [] } = Astro.props;
   <summary>
     <KamerIcoon id={k.id} />
     <span class="kop-tekst">
-      <span class="beeld">{k.naam}</span>
       <h2>{k.onderwerp}</h2>
       <span class="zin">{k.doe}</span>
+      <span class="in-huis">In het huis: <span class="beeld">{k.naam}</span></span>
     </span>
     <span class="stand">
       <span class="lampje" aria-hidden="true"></span>
@@ -86,7 +87,7 @@ const { ook = [] } = Astro.props;
   summary :global(.kamer-icoon) { flex: none; float: none; margin: 0.2rem 0 0; }
   summary :global(.kamer-icoon svg) { width: 48px; height: 48px; display: block; }
   .kop-tekst { flex: 1; min-width: 0; }
-  .beeld { display: block; font-family: var(--kop); font-size: var(--tekst-m); color: var(--inkt-zacht); }
+  .in-huis { display: block; margin-top: 0.3rem; font-size: var(--tekst-m); color: var(--inkt-zacht); }
   /* de kop in een uitklapper: geen lijn erboven, die zit al op de kamer zelf */
   h2 { margin: 0; padding: 0; border: 0; font-size: 1.35rem; line-height: 1.25; }
   .zin { display: block; margin-top: 0.3rem; font-size: 1rem; line-height: 1.45; }

@@ -4,18 +4,19 @@
  * - `naam` en `wat`: het beeld en wat het is ("De voordeur", "je e-mail"). Het fort,
  *   het woordenboek en de huischeck gebruiken die.
  * - `onderwerp`: de kop op de plattegrond. Het woord waar een lezer naar zoekt staat
- *   vooraan ("Router en wifi"), het beeld ("het tuinhek") staat erboven.
+ *   vooraan ("Wifi en router"), met de namen die hij kent (Gmail, Google, Chrome).
+ *   Het beeld ("het tuinhek") staat er klein onder.
  * - `doe`: het antwoord, in één of twee zinnen. Dat zie je al als de plek dicht is.
  * - `zin`: waarom het ertoe doet, in één zin.
  * - `stappen`: waar je het stap voor stap doet (ids uit niveau 1, 2 en 3 in lijsten.js).
  */
 export const KAMERS = [
-  { id: 'voordeur', anker: 'de-voordeur-je-e-mail', naam: 'De voordeur', wat: 'je e-mail', onderwerp: 'Je e-mail',
+  { id: 'voordeur', anker: 'de-voordeur-je-e-mail', naam: 'De voordeur', wat: 'je e-mail', onderwerp: 'E-mail: Gmail, Outlook, iCloud, KPN, Ziggo',
     doe: 'Geef je e-mail een lang wachtwoord dat je nergens anders gebruikt. Zet er een tweede slot op.',
     zin: 'Je e-mail is de belangrijkste deur van je huis.',
     stappen: ['mail-wachtwoord', 'mail-tweede-slot'] },
-  { id: 'tweede-voordeur', anker: 'de-tweede-voordeur-het-account-van-je-telefoon-of-computer', naam: 'De tweede voordeur', wat: 'het account van je telefoon of computer', onderwerp: 'Het account van je telefoon of computer',
-    doe: 'Geef je Apple-, Google- of Microsoft-account een eigen wachtwoord en een tweede slot.',
+  { id: 'tweede-voordeur', anker: 'de-tweede-voordeur-het-account-van-je-telefoon-of-computer', naam: 'De tweede voordeur', wat: 'het account van je telefoon of computer', onderwerp: 'Google-, Apple- of Microsoft-account',
+    doe: 'Het account van je telefoon of computer. Android en Samsung: Google. iPhone en Mac: Apple. Windows: Microsoft. Geef het een eigen wachtwoord en een tweede slot.',
     zin: 'Je Apple-, Google- of Microsoft-account is net zo belangrijk als je e-mail.',
     stappen: ['pincode', 'accounts-tweede-slot', 'versleuteling'] },
   { id: 'sleutels', anker: 'de-sleutels-wachtwoorden', naam: 'De sleutels', wat: 'wachtwoorden', onderwerp: 'Wachtwoorden',
@@ -26,7 +27,7 @@ export const KAMERS = [
     doe: 'Neem een wachtwoordmanager. Dan onthoud je nog maar één wachtwoord: de code van de kluis.',
     zin: 'Een kluis onthoudt al je sleutels, zodat jij dat niet hoeft.',
     stappen: ['wachtwoordmanager'] },
-  { id: 'passkey', anker: 'de-sleutel-die-niemand-kan-namaken-de-passkey', naam: 'De sleutel die niemand kan namaken', wat: 'de passkey', onderwerp: 'Passkey',
+  { id: 'passkey', anker: 'de-sleutel-die-niemand-kan-namaken-de-passkey', naam: 'De sleutel die niemand kan namaken', wat: 'de passkey', onderwerp: 'Passkey: inloggen zonder wachtwoord',
     doe: 'Biedt een site of app je een passkey aan? Zeg dan ja.',
     zin: 'Een passkey is een tweede slot in één handeling: je toestel plus je vinger, gezicht of pincode.',
     stappen: ['accounts-tweede-slot', 'hardwaresleutel'] },
@@ -34,7 +35,7 @@ export const KAMERS = [
     doe: 'Zet tweestapsverificatie aan op je e-mail. Laat de code door een app maken, niet per sms.',
     zin: 'Twee sloten op je deur zijn beter dan één.',
     stappen: ['mail-tweede-slot', 'accounts-tweede-slot', 'noodcodes'] },
-  { id: 'ramen', anker: 'de-ramen-je-browser', naam: 'De ramen', wat: 'je browser', onderwerp: 'Je browser',
+  { id: 'ramen', anker: 'de-ramen-je-browser', naam: 'De ramen', wat: 'je browser', onderwerp: 'Browser: Chrome, Safari, Firefox',
     doe: 'Kijk welke extensies in je browser zitten. Gooi weg wat je niet kent of niet gebruikt.',
     zin: 'Door een raam kijk je naar buiten, maar anderen kijken ook naar binnen.',
     stappen: ['ublock', 'app-rechten', 'profielen'] },
@@ -42,11 +43,11 @@ export const KAMERS = [
     doe: 'Stuur nooit een code door die je krijgt. Ook niet als een bekende erom vraagt.',
     zin: 'Iedereen kan iets in je brievenbus stoppen, ook een oplichter.',
     stappen: ['whatsapp-pincode', 'sim-pincode', 'geheim-woord'] },
-  { id: 'tuinhek', anker: 'tuinhek-en-meterkast-router-en-wifi', naam: 'Tuinhek en meterkast', wat: 'router en wifi', onderwerp: 'Router en wifi',
+  { id: 'tuinhek', anker: 'tuinhek-en-meterkast-router-en-wifi', naam: 'Tuinhek en meterkast', wat: 'router en wifi', onderwerp: 'Wifi en router',
     doe: 'Staat er nog een wachtwoord uit de fabriek op je router? Verander het.',
     zin: 'Alles wat je huis in en uit gaat, loopt door één kastje.',
     stappen: ['router'] },
-  { id: 'kattenluik', anker: 'de-kattenluikjes-slimme-apparaten', naam: 'De kattenluikjes', wat: 'slimme apparaten', onderwerp: 'Slimme apparaten',
+  { id: 'kattenluik', anker: 'de-kattenluikjes-slimme-apparaten', naam: 'De kattenluikjes', wat: 'slimme apparaten', onderwerp: 'Slimme apparaten: camera, tv, deurbel',
     doe: 'Zet slimme apparaten, zoals een camera of tv, op een eigen gastnetwerk.',
     zin: 'Elk apparaat met internet is een klein gat in je muur.',
     stappen: ['gastnetwerk'] },

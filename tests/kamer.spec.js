@@ -18,9 +18,16 @@ test('een dichte kamer toont al het antwoord: onderwerp vooraan, en wat je doet'
   await page.goto('/plattegrond');
   const tuinhek = page.locator('#tuinhek-en-meterkast-router-en-wifi');
   await expect(tuinhek).not.toHaveAttribute('open', '');
-  // het woord waar je naar zoekt is de kop; het beeld staat erboven
-  await expect(tuinhek.getByRole('heading', { level: 2 })).toHaveText('Router en wifi');
+  // het woord waar je naar zoekt is de kop, en staat vooraan; het beeld staat er klein achter
+  await expect(tuinhek.getByRole('heading', { level: 2 })).toHaveText('Wifi en router');
   await expect(tuinhek.locator('summary .beeld')).toHaveText('Tuinhek en meterkast');
+  for (const k of KAMERS) {
+    const eerst = await page.locator(`#${k.anker} summary`).evaluate((s) => {
+      const kop = s.querySelector('h2'), beeld = s.querySelector('.beeld');
+      return Boolean(kop.compareDocumentPosition(beeld) & Node.DOCUMENT_POSITION_FOLLOWING);
+    });
+    expect(eerst, `${k.id}: kop vóór het beeld`).toBe(true);
+  }
   await expect(tuinhek.locator('summary .zin')).toBeVisible();
   await expect(tuinhek.locator('summary .zin')).toHaveText('Staat er nog een wachtwoord uit de fabriek op je router? Verander het.');
   for (const k of KAMERS) {
@@ -122,4 +129,13 @@ test('wie denkt dat er is ingebroken, vindt een kop met de eerste stappen', asyn
   // (hij staat in een dichte kamer, dus zoek hem ook als hij verborgen is)
   await expect(page.getByRole('heading', { name: 'Misbruikt iemand je BSN of paspoort?', includeHidden: true })).toHaveCount(1);
   await expect(page.getByRole('heading', { name: 'Wat doe je als het toch misgaat?', includeHidden: true })).toHaveCount(0);
+});
+
+test('wie zijn Google-account of wifi zoekt, vindt het woord in de kop van een dichte plek', async ({ page }) => {
+  await page.goto('/plattegrond');
+  const koppen = page.locator('details.kamer:not([open]) summary h2');
+  for (const woord of ['Google', 'Gmail', 'Wifi', 'Passkey', 'Chrome']) {
+    await expect(koppen.filter({ hasText: woord }), woord).toHaveCount(1);
+  }
+  await expect(page.locator('#de-tweede-voordeur-het-account-van-je-telefoon-of-computer summary .zin')).toContainText('Samsung');
 });
