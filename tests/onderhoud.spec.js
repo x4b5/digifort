@@ -141,7 +141,7 @@ test('onderhoud: een bestand terugzetten maakt onderscheid tussen een kopie van 
   const stap = page.locator('[data-beurt-stap="backup-loopt"]');
   await expect(stap).toContainText('Een kopie van je hele telefoon');
   await expect(stap).toContainText('Die open je niet per foto');
-  await expect(stap).toContainText('Alleen een kopie van je hele telefoon?');
+  await expect(stap).toContainText('Alleen een kopie van je hele telefoon');
   await expect(stap).toContainText('Finder');
   // de iPhone-check van twee keer per jaar is vandaag af te maken
   await expect(page.locator('[data-beurt-stap="geen-updates"] [data-gelukt]')).toContainText('staat op papier');
@@ -158,4 +158,142 @@ test('het bezoek: het tweede slot zegt wat een code op de telefoon is, en je hoe
   await expect(stap).toContainText('Een app die codes maakt');
   await expect(stap).toContainText('niet uit te loggen');
   await expect(page.locator('[data-beurt-stap="updates-aan"]')).toContainText('Apps en apparaat beheren');
+});
+
+test('onderhoud: Windows 10 zegt per wat je op het scherm ziet wat je doet', async ({ page }) => {
+  await page.goto('/onderhoud');
+  // de uitleg staat in de stap zelf, waar je winver doet, niet ergens verderop
+  const meer = page.locator('[data-beurt-stap="geen-updates"] details', { hasText: 'Windows 10' });
+  for (const tekst of ['Windows 11 te downloaden', 'Nu inschrijven', 'Allebei niet']) await expect(meer).toContainText(tekst);
+  await expect(meer).not.toContainText('Ga naar 2');
+  await expect(meer).toContainText('nieuw account maken');
+  // geen vakwoorden zonder uitleg meer
+  await expect(meer).not.toContainText('ChromeOS');
+});
+
+test('onderhoud en het bezoek blijven onder hun woordenplafond', async ({ request }) => {
+  const { blokken, meet } = await import('../scripts/leesniveau.mjs');
+  for (const [pad, plafond] of [['/onderhoud', 4000], ['/voor-de-mensen-om-je-heen', 3030]]) {
+    const html = await (await request.get(pad)).text();
+    expect(meet(blokken(html)).woorden, pad).toBeLessThanOrEqual(plafond);
+  }
+});
+
+test('onderhoud: per klus kies je je eigen toestel, de rest blijft dicht', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const updates = page.locator('[data-beurt-stap="maand-updates"]');
+  // wie Edge gebruikt, vindt Edge
+  await expect(updates.locator('details', { hasText: 'Windows-computer' })).toContainText('Edge');
+  for (const id of ['maand-updates', 'maand-kopie', 'backup-loopt', 'noodcodes-kloppen']) {
+    const keuzes = page.locator(`[data-beurt-stap="${id}"] details`);
+    expect(await keuzes.count(), id).toBeGreaterThan(1);
+    for (const keuze of await keuzes.all()) await expect(keuze).not.toHaveAttribute('open', '');
+  }
+  // een Samsung kiest de goede back-up, en vol iCloud zegt wat het kost en wat het alternatief is
+  const kopie = page.locator('[data-beurt-stap="maand-kopie"]');
+  await expect(kopie).toContainText('Samsung Cloud en Google');
+  await expect(kopie).toContainText('met de prijs per maand erbij');
+  await expect(kopie).toContainText('Niet betalen.');
+  // icloud.com vraagt om een code op de iPhone; dat staat er vooraf, en waar het bestand staat ook
+  const terug = page.locator('[data-beurt-stap="backup-loopt"]');
+  await expect(terug).toContainText('code van je iPhone');
+  await expect(terug).toContainText('Downloads');
+});
+
+test('onderhoud: herstelcodes zijn af te ronden voor elk soort adres, zonder naar een ander hoofdstuk te springen', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const stap = page.locator('[data-beurt-stap="noodcodes-kloppen"]');
+  await expect(stap).toContainText('back-upcodes');
+  await expect(stap).toContainText('knop om codes te maken');
+  await expect(stap.locator('details', { hasText: 'KPN' })).toContainText('Je hoeft hier niets te doen');
+  await expect(stap.locator('a[href^="/voor-de-mensen-om-je-heen"]')).toHaveCount(0);
+});
+
+test('onderhoud: de Engelse uitslag van Have I Been Pwned wordt vertaald, en een Samsung-account gaat er ook af', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const lek = page.locator('[data-beurt-stap="datalek"]');
+  await expect(lek).toContainText('Good news');
+  await expect(lek).toContainText('Oh no');
+  await expect(lek).toContainText('wachtwoord vergeten');
+  await expect(lek).not.toContainText('wachtwoordmanager');
+  await expect(page.locator('[data-beurt-stap="weg-uitloggen"]')).toContainText('Samsung-account');
+  // de quiz spreekt de maandklus niet tegen
+  await expect(page.locator('[data-quiz]')).not.toContainText('houdt bijna niemand vol');
+});
+
+test('het bezoek: wie het voor zichzelf leest, en wie een KPN-adres heeft, komt er ook uit', async ({ page }) => {
+  await page.goto('/voor-de-mensen-om-je-heen');
+  await expect(page.getByText('Lees je dit voor jezelf?')).toBeVisible();
+  const stap = page.locator('[data-beurt-stap="mail-slot"]');
+  const kpn = stap.locator('details', { hasText: 'KPN' });
+  for (const adres of ['@planet.nl', '@hetnet.nl']) await expect(kpn).toContainText(adres);
+  await expect(kpn).toContainText('Dan is deze stap klaar');
+  await expect(stap.locator('[data-gelukt]')).toContainText('nergens anders gebruikt');
+  await expect(stap.locator('details', { hasText: '@gmail.com' })).toContainText('back-upcodes');
+  // App Store-instellingen staan op nieuwe iPhones onder Apps
+  await expect(page.locator('[data-beurt-stap="updates-aan"]')).toContainText('tot Apps');
+});
+
+test('mail van het internetbedrijf: waar je het wachtwoord verandert, en dat de Mail-app het nieuwe nodig heeft', async ({ page }) => {
+  for (const [pad, stap] of [['/voor-de-mensen-om-je-heen', 'mail-slot'], ['/onderhoud', 'datalek']]) {
+    await page.goto(pad);
+    const mail = page.locator(`[data-beurt-stap="${stap}"] [data-providermail]`);
+    await expect(mail, pad).toHaveCount(1);
+    for (const tekst of ['mijn.kpn.com', 'ziggo.nl/mijn-ziggo', 'Mail-app', 'Wachtwoord']) await expect(mail, pad).toContainText(tekst);
+  }
+});
+
+test('onderhoud: een volle iCloud kan ook gratis via Windows, en de browser herken je aan zijn plaatje', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const kopie = page.locator('[data-beurt-stap="maand-kopie"]');
+  await expect(kopie).toContainText('Apple Devices');
+  await expect(kopie).not.toContainText('Vraag iemand om hulp');
+  const updates = page.locator('[data-beurt-stap="maand-updates"]');
+  await expect(updates).not.toContainText('edge://');
+  for (const tekst of ['drie puntjes onder elkaar', 'drie streepjes']) await expect(updates).toContainText(tekst);
+  // één foto terugzetten kan ook met alleen een telefoon
+  await expect(page.locator('[data-beurt-stap="backup-loopt"] details', { hasText: 'op je telefoon' })).toHaveCount(1);
+});
+
+test('het bezoek: ook wie het voor zichzelf doet, heeft een pad, en Samsung zegt welk schuifje', async ({ page }) => {
+  await page.goto('/voor-de-mensen-om-je-heen');
+  await expect(page.locator('[data-beurt-stap="harde-regel"] details', { hasText: 'Voor jezelf' })).toHaveCount(1);
+  await expect(page.locator('[data-beurt-stap="updates-aan"]')).toContainText('Automatisch downloaden via wifi');
+  await expect(page.locator('[data-beurt-stap="schermslot"]')).toContainText('vier cijfers');
+});
+
+test('onderhoud en het bezoek: geen onuitgelegde beeldspraak of Engelse citaten', async ({ page }) => {
+  for (const pad of ['/onderhoud', '/voor-de-mensen-om-je-heen']) {
+    await page.goto(pad);
+    await expect(page.locator('main'), pad).not.toContainText('timmerman');
+    await expect(page.locator('main'), pad).not.toContainText('niveau 1');
+  }
+});
+
+test('mail van het internetbedrijf: bellen mag, en de iPhone krijgt het wachtwoord ook voor versturen', async ({ page }) => {
+  await page.goto('/voor-de-mensen-om-je-heen');
+  const mail = page.locator('[data-beurt-stap="mail-slot"] [data-providermail]');
+  for (const tekst of ['bel je internetbedrijf', 'gebruikersnaam', 'SMTP', 'Uitgaande mailserver', 'naar je eigen adres']) await expect(mail).toContainText(tekst);
+});
+
+test('het bezoek: wie het voor zichzelf doet, ziet bij stap 1, 2 en 7 wat anders is', async ({ page }) => {
+  await page.goto('/voor-de-mensen-om-je-heen');
+  for (const id of ['bel-mij', 'familiewoord', 'harde-regel']) await expect(page.locator(`[data-beurt-stap="${id}"]`), id).toContainText('Voor jezelf');
+  await expect(page.locator('[data-beurt-stap="bel-mij"]')).not.toContainText('Typ je naam');
+  await expect(page.locator('[data-beurt-stap="familiewoord"] [data-gelukt]')).toContainText('je familie kent het woord');
+});
+
+test('onderhoud: Samsung Agenda, versleutelen bij Apple Devices en een datalek zonder bank', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const herinnering = page.locator('details', { hasText: 'Zo zet je een herinnering' });
+  await expect(herinnering).toContainText('Samsung');
+  await expect(herinnering).toContainText('twee afspraken');
+  const kopie = page.locator('[data-beurt-stap="maand-kopie"]');
+  await expect(kopie).toContainText('versleutelen');
+  await expect(kopie).not.toContainText('tasje');
+  const lek = page.locator('[data-beurt-stap="datalek"]');
+  await expect(lek).not.toContainText('je bank');
+  await expect(lek).toContainText('Doe dan eerst je e-mail');
+  // een gedownloade foto staat bij zijn eigen datum, niet bij de nieuwste
+  await expect(page.locator('[data-beurt-stap="backup-loopt"]')).not.toContainText('bij de nieuwste');
 });

@@ -19,8 +19,16 @@
  *   stap uit een afvinklijst (lijsten.js), met een eigen pagina (`STAPPAGINA`).
  *   Zonder lijst is het een link naar een plek op de site.
  *
+ * Een regel in `nakijken` mag ook `{ dienst, regels }` zijn: een keuze (maildienst of
+ *   toestel) die apart openklapt, zodat je alleen jouw pad ziet. `ook` staat klein in de
+ *   keuze zelf: welke adressen er nog meer bij horen, zodat je weet welke je kiest.
+ *
  * Het nummer `nr` is ook de sleutel in het laatje (opslag.js): verander het nooit.
+ *
+ * @typedef {string | { dienst: string, ook?: string, regels: string[] }} Nakijkregel
+ * @typedef {{ nr: number, groep: string, kamer: string, kind?: boolean, vraag: string, hint: string, nakijken?: Nakijkregel[], noot?: string, nootLink?: { href: string, tekst: string }, dicht: string, stap: { lijst?: string, id?: string, href?: string, tekst?: string, pagina?: string, vinkje?: { lijst: string, id: string } } }} Vraag
  */
+/** @type {Vraag[]} */
 export const VRAGEN = [
   {
     nr: 1, groep: 'mail', kamer: 'voordeur', kind: true,
@@ -34,11 +42,12 @@ export const VRAGEN = [
     vraag: 'Gebruik je een wachtwoordmanager, een app die je wachtwoorden bewaart?',
     hint: 'Bewaart je telefoon je wachtwoorden als je op ‘bewaren’ tikt, dan telt dat ook.',
     nakijken: [
-      'Open Instellingen op je telefoon en zoek op ‘wachtwoorden’.',
-      'Zie je daar een lijst met je wachtwoorden? Dan kies je Ja.',
-      'Gebruik je een app als Bitwarden of Proton Pass? Ook dan kies je Ja.',
+      'Vraagt je telefoon om je code of gezicht? Dat is normaal. Tik op je toestel.',
+      { dienst: 'iPhone', regels: ['Open de app Wachtwoorden, of in Instellingen het kopje Wachtwoorden.'] },
+      { dienst: 'Android of Samsung', regels: ['Open Instellingen en zoek op ‘wachtwoorden’.', 'Zie je meer treffers, zoals Samsung Pass en Google Wachtwoordmanager? Kijk dan in allebei.'] },
+      'Staan er namen van sites en apps in? Dan kies je Ja. Is alles leeg? Dan kies je Nee.',
     ],
-    noot: 'Bewaart je telefoon je wachtwoorden al? Dan heb je er al een. Zet je antwoord dan op Ja. Anders neem je Bitwarden of Proton Pass. Die zijn allebei gratis.',
+    noot: 'Bewaart je telefoon je wachtwoorden al? Dan heb je er al een. Zet je antwoord dan op Ja. Anders neem je Bitwarden of Proton Pass, allebei gratis.',
     nootLink: { href: '#vraag-2', tekst: 'Terug naar vraag 2' },
     dicht: 'Je gebruikt een wachtwoordmanager.',
     stap: { lijst: 'niveau-1', id: 'wachtwoordmanager' },
@@ -46,12 +55,17 @@ export const VRAGEN = [
   {
     nr: 3, groep: 'mail', kamer: 'tweede-slot', kind: true,
     vraag: 'Zit er een tweede slot op je e-mail?',
-    hint: 'Na je wachtwoord vraagt je e-mail dan nog om een code per sms of uit een app; je gezicht of vinger telt niet.',
+    hint: 'Na je wachtwoord vraagt je e-mail dan nog een code, of een tik op Ja in een melding; je gezicht of vinger telt niet.',
     nakijken: [
-      'Staat je e-mail op je telefoon altijd open? Dat is normaal. Het tweede slot merk je pas als je op een nieuw apparaat inlogt.',
-      'Open de instellingen van je e-mail en ga naar ‘beveiliging’. Zoek naar ‘tweestapsverificatie’, ‘2FA’ of ‘passkey’.',
-      'Staat het aan? Dan kies je Ja. Staat het uit, of vind je het niet? Dan kies je Nee.',
-      'Je telefoon openen met je gezicht of vinger telt niet. Dat slot zit op je telefoon, niet op je e-mail.',
+      'Gaat je mail vanzelf open? Dat is normaal. Het tweede slot zit in je account.',
+      'Daar heb je je wachtwoord nodig; weet je dat niet? Kies dan Weet ik niet.',
+      'Tik op je maildienst. Die staat na de @ in je adres.',
+      { dienst: 'Gmail', regels: ['Open de Gmail-app, tik rechtsboven op je foto en kies je Google-account beheren. Of ga naar myaccount.google.com.', 'Kies Beveiliging. Staat Verificatie in 2 stappen aan? Dan kies je Ja.'] },
+      { dienst: 'Outlook of Hotmail', regels: ['Ga in je browser naar account.microsoft.com en kies Beveiliging.', 'Staat tweestapsverificatie aan? Dan kies je Ja.'] },
+      { dienst: 'iCloud', regels: ['Open Instellingen op je iPhone en tik bovenaan op je naam.', 'Tik op Inloggen en beveiliging. Op een oudere iPhone heet dat Wachtwoord en beveiliging.', 'Staat twee-factor-authenticatie aan? Dan kies je Ja.'] },
+      { dienst: 'KPN of Ziggo', ook: 'ook @planet.nl, @hetnet.nl, @home.nl en @casema.nl', regels: ['Dat zie je in MijnKPN (kpn.com) of Mijn Ziggo (ziggo.nl). Dat is vaak een andere inlog dan je mail.', 'Heb je nooit zelf een code voor je mail ingesteld? Dan kies je Nee. Dat is niet jouw fout.'] },
+      { dienst: 'Een andere dienst', regels: ['Log in op de website van je maildienst. Zoek bij de beveiliging naar ‘tweestapsverificatie’ of ‘2FA’.', 'Staat het aan? Dan kies je Ja.'] },
+      'Staat het uit? Dan kies je Nee.',
     ],
     dicht: 'Je e-mail heeft een tweede slot.',
     stap: { lijst: 'niveau-1', id: 'mail-tweede-slot' },
@@ -61,26 +75,40 @@ export const VRAGEN = [
     vraag: 'Werken je telefoon en computer zichzelf bij?',
     hint: 'Updates gaan dan vanzelf, zonder dat jij erop hoeft te tikken.',
     nakijken: [
-      'Je kijkt alleen. Je verandert nog niets.',
-      'iPhone: open Instellingen, dan Algemeen, dan Software-update. Kijk of Automatische updates aanstaat.',
-      'Android: open Instellingen en zoek op ‘update’.',
-      'Mac: open Systeeminstellingen, dan Algemeen, dan Software-update. Windows: open Instellingen, dan Windows Update.',
-      'Staat het op je telefoon én je computer aan? Dan kies je Ja.',
+      'Je verandert nog niets. Tik op je toestel.',
+      { dienst: 'iPhone', regels: ['Open Instellingen, dan Algemeen, dan Software-update.', 'Staat Automatische updates aan? Dan is het goed.'] },
+      { dienst: 'Android', regels: ['Open Instellingen en zoek op ‘software-update’. Kies die van je telefoon, niet die van Google Play.', 'Staat automatisch downloaden aan? Bij Samsung heet dat Automatisch downloaden via wifi. Dan is het goed.'] },
+      { dienst: 'Mac', regels: ['Kies in het Apple-menu linksboven Systeeminstellingen, dan Algemeen, dan Software-update.', 'Staan de automatische updates aan? Dan is het goed.'] },
+      { dienst: 'Windows', regels: ['Klik op Start, het Windows-logo onderin beeld. Typ ‘Windows Update’ en open het.', 'Staat er dat je up-to-date bent, dat je opnieuw moet opstarten of dat er updates klaarstaan? Dan is het goed.', 'Zie je de knop Updates hervatten? Dan staan ze op pauze: niet goed.'] },
+      'Goed op elk toestel dat je hebt? Dan kies je Ja.',
     ],
     dicht: 'Je telefoon en computer werken zichzelf bij.',
     stap: { lijst: 'niveau-1', id: 'updates' },
   },
   {
     nr: 5, groep: 'apparaten', kamer: 'brandkast',
-    vraag: 'Heb je een kopie van je bestanden die los staat van je computer?',
-    hint: 'Bijvoorbeeld op een losse schijf, of op internet.',
-    dicht: 'Je hebt een kopie van je bestanden die los staat van je computer.',
+    vraag: 'Heb je een kopie van je foto’s en bestanden op een andere plek?',
+    hint: 'Bijvoorbeeld op een losse schijf, of op internet via de back-up van je telefoon.',
+    nakijken: [
+      'Tik op je toestel.',
+      { dienst: 'iPhone', regels: ['Open Instellingen, tik op je naam, dan iCloud, dan iCloud-reservekopie.', 'Staat het aan? Dan is het goed.'] },
+      { dienst: 'Android of Samsung', regels: ['Open Instellingen en zoek op ‘back-up’. Meer treffers? Eén die aan staat is genoeg.', 'Foto’s: open Google Foto’s en tik rechtsboven op je foto of letter. Staat de back-up aan?', 'Allebei aan? Dan is het goed.'] },
+      { dienst: 'Windows', regels: ['Typ ‘Bestandsgeschiedenis’ bij Start en open het.', 'Staat het aan? Dan is het goed.'] },
+      { dienst: 'Mac', regels: ['Open Systeeminstellingen, dan Algemeen, dan Time Machine.', 'Staat er een reservekopieschijf? Dan is het goed.'] },
+      'Goed op elk toestel dat je hebt? Dan kies je Ja.',
+    ],
+    dicht: 'Je hebt een kopie van je foto’s en bestanden op een andere plek.',
     stap: { lijst: 'niveau-2', id: 'backup' },
   },
   {
     nr: 6, groep: 'apparaten', kamer: 'tweede-voordeur', kind: true,
     vraag: 'Heeft je telefoon een pincode van zes cijfers of meer?',
-    hint: 'Dat is de code die je intikt om je telefoon te openen.',
+    hint: 'Dat is de code die je intikt om je telefoon te openen; een patroon tekenen telt niet.',
+    nakijken: [
+      'Gebruik je je gezicht of vinger? Kijk naar de code die je na het aanzetten intikt.',
+      'Zijn dat zes cijfers of meer? Dan kies je Ja.',
+      'Teken je een lijn, of zijn het vier cijfers? Dan kies je Nee.',
+    ],
     dicht: 'Je telefoon heeft een pincode van zes cijfers of meer.',
     stap: { lijst: 'niveau-1', id: 'pincode' },
   },
@@ -96,11 +124,11 @@ export const VRAGEN = [
     vraag: 'Kun je nog in je e-mail als je telefoon vandaag kwijtraakt?',
     hint: 'Bijvoorbeeld met herstelcodes op papier, of op een computer waar je e-mail al openstaat.',
     nakijken: [
-      'Herstelcodes zijn een rijtje codes voor noodgevallen. Elke code werkt één keer.',
-      'Je krijgt ze als je een tweede slot op je e-mail zet. Sommige diensten noemen ze back-upcodes of noodcodes. Het is hetzelfde.',
-      'Liggen die codes thuis op papier? Dan kies je Ja. Weet je het niet? Kies dan Weet ik niet.',
+      'Herstelcodes (of back-upcodes) zijn noodcodes voor je e-mail. Liggen ze thuis op papier? Dan kies je Ja.',
+      'Nooit gekregen? Open je mail op je computer of tablet. Zie je je berichten zonder in te loggen? Dan kies je ook Ja.',
+      'Geen van beide? Dan kies je Nee.',
     ],
-    noot: 'Herstelcodes zijn noodcodes voor je e-mail. Je vindt ze in de instellingen van je e-mail, bij beveiliging.',
+    noot: 'Herstelcodes zijn noodcodes voor je e-mail. Je maakt ze op de website van je maildienst, niet in de Mail-app.',
     dicht: 'Je kunt in je e-mail, ook zonder je telefoon.',
     stap: { lijst: 'niveau-2', id: 'noodcodes' },
   },
@@ -149,19 +177,19 @@ export const SPIEGELS = [
   {
     vanaf: 2,
     kop: 'Je schatte jezelf hoger in dan je deuren',
-    tekst: 'Dat is geen schande. Het is het normaalste van Nederland. Bijna iedereen heeft ergens een tweede slot, en bijna niemand overal.',
+    tekst: 'Heel gewoon. Bijna iedereen heeft ergens een tweede slot, en bijna niemand overal.',
     link: '/waarom-dit-saai-voelt',
     linkTekst: 'Lees waarom dat zo is',
   },
   {
     vanaf: -1,
     kop: 'Je kende jezelf goed',
-    tekst: 'Je cijfer en je deuren liggen dicht bij elkaar. Dat is zeldzamer dan je denkt. De meeste mensen schatten zichzelf te hoog in.',
+    tekst: 'Je cijfer en je deuren liggen dicht bij elkaar. De meeste mensen schatten zichzelf te hoog in.',
   },
   {
     vanaf: -10,
     kop: 'Je was strenger voor jezelf dan nodig',
-    tekst: 'Je doet meer dan je dacht. Ook dat is iets waard. Wie denkt dat hij niets goed doet, begint er vaak niet meer aan.',
+    tekst: 'Je doet meer dan je dacht. Dat is iets waard.',
   },
 ];
 
@@ -176,9 +204,9 @@ export function spiegel(gat) {
  * ook als de rest dicht is.
  */
 export const BANDEN = [
-  { id: 'basis', kop: 'Begin bij de basis', tekst: 'Een paar belangrijke deuren staan nog open. Begin met de stap hieronder. De rest doe je daarna, één voor één.' },
-  { id: 'verder', kop: 'De basis staat', tekst: 'Je belangrijkste deuren zitten dicht. Doe de rest één voor één dicht, als het jou uitkomt.' },
-  { id: 'dicht', kop: 'Je huis zit goed op slot', tekst: 'Alle deuren uit de check zitten dicht. Mooi werk.' },
+  { id: 'basis', kop: 'Begin bij de basis', tekst: 'Een paar belangrijke deuren staan nog open. Begin met de stap hieronder.' },
+  { id: 'verder', kop: 'De basis staat', tekst: 'Je belangrijkste deuren zitten dicht. Doe de rest als het jou uitkomt.' },
+  { id: 'dicht', kop: 'Je huis zit goed op slot', tekst: 'Alle deuren zitten dicht. Mooi werk.' },
 ];
 
 /**

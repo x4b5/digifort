@@ -3,8 +3,8 @@
  * Eén vraag splitst het hele hoofdstuk: drukte jij op akkoord, of iemand anders?
  * Het schema is gewone tekst in vakken, geen plaatje: zo is elke letter minstens zo groot
  * als de lopende tekst, groeit hij mee met de leesknop, en leest een schermlezer het
- * in de volgorde van de vraag en de twee antwoorden. Op een smal scherm staan de twee
- * takken onder elkaar.
+ * in de volgorde van de vraag en de twee antwoorden. De twee takken staan altijd onder
+ * elkaar, op volle breedte: naast elkaar braken de kernzinnen af na twee of drie woorden.
  */
 ---
 <figure class="beslis" aria-labelledby="beslis-vraag">
@@ -12,15 +12,13 @@
   <div class="takken">
     <div class="tak tak-groen">
       <p class="wie"><span class="pijl" aria-hidden="true">↓</span> Iemand anders</p>
-      <p class="soort">Dit heet een niet-toegestane betaling.</p>
-      <p class="uitkomst"><span class="teken" aria-hidden="true">✓</span> De bank betaalt in beginsel terug.</p>
-      <p class="voet">Behalve bij grove nalatigheid. Dat is een hoge lat.</p>
+      <p class="uitkomst"><span class="teken" aria-hidden="true">✓</span> De bank moet meestal terugbetalen.</p>
+      <p class="voet">Behalve als je heel erg onvoorzichtig was.</p>
     </div>
     <div class="tak tak-rood">
       <p class="wie"><span class="pijl" aria-hidden="true">↓</span> Jij zelf</p>
-      <p class="soort">Dit heet een toegestane betaling.</p>
-      <p class="uitkomst"><span class="teken" aria-hidden="true">✗</span> Je hebt geen wettelijk recht op je geld.</p>
-      <p class="voet">Bij bankhelpdeskfraude betaalt de bank soms toch. Dat heet coulance. Het is geen recht.</p>
+      <p class="uitkomst"><span class="teken" aria-hidden="true">✗</span> De bank hoeft niet terug te betalen.</p>
+      <p class="voet">Belde iemand namens je bank? Dan betaalt de bank soms toch een deel.</p>
     </div>
   </div>
 </figure>
@@ -34,8 +32,7 @@
     padding: 0.7rem 1rem; margin: 0 auto 0.75rem; max-width: 24rem;
     border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius);
   }
-  .takken { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  @media (max-width: 34rem) { .takken { grid-template-columns: 1fr; } }
+  .takken { display: grid; grid-template-columns: 1fr; gap: 1rem; }
   .tak { display: grid; gap: 0.6rem; align-content: start; padding: 0.9rem 1rem; border-radius: var(--radius); border: var(--lijndikte) solid; }
   .tak-groen { border-color: var(--groen); background: var(--groen-licht); }
   .tak-rood { border-color: var(--rood); background: var(--rood-licht); }

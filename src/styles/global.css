@@ -236,6 +236,8 @@ figure.foto .herkomst a { color: inherit; }
 .legenda a:hover, .legenda li.licht-op a { background: var(--papier-2); }
 /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
 @media (pointer: coarse) { .legenda a { min-block-size: 44px; align-items: center; } }
+/* de sprongen onder de huischeck staan in een nav, dus ook daar een duimgroot vlak */
+@media (pointer: coarse) { .na-de-check a { display: inline-flex; min-block-size: 44px; align-items: center; } }
 /* Een losse link (een bron onder een verhaal, een app in de gereedschapskist) is op een
    aanraakscherm minstens 24px hoog (WCAG 2.5.8). Padding op een inline link vergroot het
    raakvlak zonder de regels te verschuiven; :where() houdt de specificiteit op nul,
