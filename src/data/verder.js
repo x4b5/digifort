@@ -37,14 +37,14 @@ export const VERDER = {
         'Lukt het niet op je telefoon? Stop dan. Doe het later op een computer, ook als die van iemand anders is. Log daar na afloop uit.',
       ] },
       { vraag: 'Een sleutel op Bitwarden', antwoord: [
-        'Ga in je browser naar vault.bitwarden.com en log in. Dat kan op de computer en op je telefoon.',
+        'Ga in je browser naar vault.bitwarden.eu en log in. Koos je in niveau 1 de VS? Ga dan naar vault.bitwarden.com.',
         'Kies Instellingen, dan Beveiliging, dan Tweestapsaanmelding. Kies passkey of beveiligingssleutel. Staat er dat dit alleen met een betaald account kan? Sla Bitwarden dan over.',
         'Je browser vraagt om de sleutel. Steek hem in je computer, of houd hem plat tegen de achterkant van je telefoon. Raak het knopje aan. Geef hem een naam. Doe hetzelfde met de tweede sleutel.',
         'Kies Bekijk herstelcode. Schrijf hem op voor je envelop, zoals in [niveau 2](/een-weekend#stap-noodcodes).',
         'Log je daarna in op de Bitwarden-app van je telefoon? Dan vraagt de app om je sleutel. Houd hem tegen de achterkant tot hij reageert. Bij een iPhone is dat bovenaan, bij de camera.',
       ] },
     ],
-    gelukt: 'Log uit en weer in. Vraagt de site om je sleutel, en lukt het met allebei? Dan staan ze er goed op.',
+    gelukt: 'de site na uit- en inloggen om je sleutel vraagt, en het lukt met allebei.',
     lukNiet: [
       'Kan een dienst niet met een sleutel? Houd daar je code-app of passkey.',
       'Eén sleutel kwijt? Log in met de reserve en haal de kwijte sleutel weg uit je account. Koop daarna een nieuwe reserve.',
@@ -71,7 +71,7 @@ export const VERDER = {
       ] },
       { vraag: 'Zijn er andere diensten?', antwoord: ['Ja. DuckDuckGo Email Protection is ook gratis. Het werkt op dezelfde manier.'] },
     ],
-    gelukt: 'Vraag iemand anders om een mail naar je alias te sturen. Komt die aan in je gewone mailbox? Dan werkt het. Zelf sturen vanaf je eigen adres werkt niet altijd.',
+    gelukt: 'een mail van iemand anders naar je alias aankomt in je gewone mailbox. Zelf sturen vanaf je eigen adres werkt niet altijd.',
     lukNiet: [
       'Komt de mail niet aan? Kijk in je map met ongewenste mail.',
       'Wil je een alias niet meer? Zet hem uit bij je aliasdienst. Mail naar dat adres komt dan niet meer aan.',
@@ -95,7 +95,7 @@ export const VERDER = {
         'Lukt het niet? Laat dat apparaat op je gewone netwerk.',
       ] },
     ],
-    gelukt: 'Kijk op je tv of camera bij de wifi-instellingen. Staat daar de naam van je gastnetwerk? Dan is het gelukt.',
+    gelukt: 'bij de wifi-instellingen van je tv of camera de naam van je gastnetwerk staat.',
     lukNiet: [
       'Zie je geen gastnetwerk in je router? Dan kan jouw router het misschien niet. Vraag het je provider.',
       'Werkt iets niet meer, zoals een filmpje van je telefoon naar je tv sturen? Zet dat apparaat dan terug op je gewone netwerk.',
@@ -112,7 +112,7 @@ export const VERDER = {
       'Tik op de knop om te verbinden. Vraagt je telefoon om een VPN-configuratie toe te voegen? Dat is normaal. Kies Sta toe (iPhone) of OK (Android).',
       'Zet de VPN aan op de wifi van een ander: in de trein, een hotel of een café. Thuis hoeft het niet.',
     ],
-    gelukt: 'In de app staat dat je verbonden bent.',
+    gelukt: 'in de app staat dat je verbonden bent.',
     lukNiet: [
       'Werkt een site niet met de VPN aan? Kies in de app een ander land, zoals Nederland. Of zet de VPN even uit.',
       'Gebruik geen andere gratis VPN. Veel daarvan verdienen aan wat jij doet.',
@@ -131,7 +131,7 @@ export const VERDER = {
       'Een rode melding met "pwned" betekent: je adres zit in een lek. Schrik niet, dat komt heel vaak voor. Eronder staat per lek de naam van de site.',
       'Geef elke site uit die lijst een nieuw wachtwoord uit je kluis, zoals in [niveau 2](/een-weekend#stap-accounts-wachtwoord). Gebruikte je dat wachtwoord ook ergens anders? Verander het daar ook.',
     ],
-    gelukt: 'Je lijst met accounts is korter. Bij Google en Facebook staan alleen nog diensten die je kent.',
+    gelukt: 'je lijst met accounts korter is. Bij Google en Facebook staan alleen nog diensten die je kent.',
     lukNiet: [
       'Weet je niet meer waar je een account hebt? Zoek in je mail naar "welkom" of "bevestig je account".',
       'Kun je een account niet verwijderen? Geef het dan een nieuw wachtwoord uit je kluis. En haal er weg wat je kunt weghalen.',
@@ -158,7 +158,7 @@ export const VERDER = {
       'Noem het ene profiel Werk en het andere Thuis.',
       'Log in elk profiel alleen in op wat erbij hoort. Zet Bitwarden in allebei.',
     ],
-    gelukt: 'Je hebt twee browservensters, elk met een eigen profiel. In het ene ben je ingelogd voor je werk, in het andere niet.',
+    gelukt: 'je twee browservensters hebt, elk met een eigen profiel. In het ene ben je ingelogd voor je werk, in het andere niet.',
     lukNiet: ['Weet je niet meer welk profiel welk is? Geef ze elk een eigen kleur of thema.'],
     gereedschap: ['firefox'],
     klaar: 'Werk en thuis hebben elk hun eigen kamer. Ze kijken niet meer bij elkaar naar binnen.',

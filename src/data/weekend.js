@@ -9,7 +9,7 @@ export const WEEKEND = {
   'accounts-wachtwoord': {
     hoe: [
       'Maak een lijstje op papier van je accounts met een wachtwoord. Begin met DigiD. Dan je webwinkels, je sociale media, je energie en je verzekering.',
-      'Doe vandaag de eerste vijf. De rest mag later, een paar per keer. Elk account dat klaar is, telt.',
+      'Doe vandaag er drie: DigiD en de twee die je het meest gebruikt. De rest mag later, een paar per keer.',
       'Neem één account tegelijk. Per account doe je drie dingen: inloggen, een nieuw wachtwoord maken, en het opslaan.',
     ],
     toestellen: [
@@ -44,14 +44,14 @@ export const WEEKEND = {
       {
         vraag: 'Bitwarden heeft het nieuwe wachtwoord niet bewaard',
         antwoord: [
-          'Het wachtwoord is niet weg. Open in Bitwarden de Generator en zoek de geschiedenis. Kopieer het nieuwste wachtwoord.',
+          'Het wachtwoord is niet weg. Open in Bitwarden de Generator. Zoek daar het woord Geschiedenis of een klokje. Kopieer het bovenste wachtwoord.',
           'Stond het account al in je kluis? Open het en kies om het te bewerken. Plak het nieuwe wachtwoord en sla op.',
           'Stond het account nog niet in je kluis? Klik of tik in Bitwarden op het plusteken (+) of op Nieuw. Kies Login.',
           'Vul de naam van de site in, je gebruikersnaam of e-mailadres, en plak het wachtwoord. Klik op Opslaan.',
         ],
       },
     ],
-    gelukt: 'Log uit en weer in. Laat Bitwarden het wachtwoord invullen. Kom je binnen? Dan is dat account klaar.',
+    gelukt: 'je uitlogt, Bitwarden het wachtwoord laat invullen en weer binnenkomt. Dan is dat account klaar.',
     lukNiet: [
       'Moe? Stop gerust en ga morgen verder.',
       'Kun je "wachtwoord wijzigen" niet vinden? Kijk bij "account", "profiel" of "beveiliging".',
@@ -74,7 +74,8 @@ export const WEEKEND = {
         'Met de DigiD-app log je in bij de overheid zonder sms-code. Het kost ongeveer een kwartier. Heb je nog geen DigiD? Vraag die eerst aan op digid.nl.',
         'Ga op je telefoon naar digid.nl/digid-app. Tik op de knop naar de App Store of de Play Store. Zo krijg je zeker de echte app.',
         'Installeer de app DigiD en open hem. Kies om hem te activeren. Dat betekent: DigiD laten weten dat de app van jou is.',
-        'Vraagt de app je gebruikersnaam en wachtwoord van DigiD? Ze staan in je kluis.',
+        'Vraagt de app je gebruikersnaam en wachtwoord van DigiD? Open Bitwarden en tik op DigiD. Tik naast het wachtwoord op het knopje om te kopiëren.',
+        'Open de DigiD-app weer vanaf je beginscherm. Houd je vinger in het vak voor het wachtwoord en kies Plak. Typ je gebruikersnaam zelf over.',
         'Kies een pincode van vijf cijfers, alleen voor deze app. Niet de code van je telefoon of je bankpas. Schrijf hem op voor je envelop.',
       ] },
       { vraag: 'DigiD-app, deel 2: laten zien dat jij het bent', antwoord: [
@@ -100,7 +101,7 @@ export const WEEKEND = {
         'Niet gevonden? Dan heeft de site misschien geen tweede slot. Ga door naar het volgende account.',
       ] },
     ],
-    gelukt: 'DigiD test je op mijn.digid.nl: kies inloggen met de DigiD-app en volg het scherm. Kom je binnen? Dan werkt je app. Bij een ander account: staat bij de beveiliging dat tweestapsverificatie aan staat? Dan zit het tweede slot erop.',
+    gelukt: 'je op mijn.digid.nl binnenkomt met de DigiD-app: kies inloggen met de app en volg het scherm. Bij een ander account: bij de beveiliging staat dat tweestapsverificatie aan staat.',
     lukNiet: [
       'Heeft een site geen tweede slot? Dan is een eigen, sterk wachtwoord uit je kluis genoeg.',
       'Werkt de code niet? Elke code werkt maar kort. Wacht op de volgende code in de app en typ die over.',
@@ -121,7 +122,7 @@ export const WEEKEND = {
       'Vul ook je e-mailadres in. Dan kun je de pincode terugzetten als je hem vergeet.',
       'Schrijf de pincode op en stop hem in je envelop.',
     ],
-    gelukt: 'Ga terug naar Verificatie in twee stappen. Zie je nu keuzes om de pincode te wijzigen of uit te zetten? Dan staat hij aan.',
+    gelukt: 'je bij Verificatie in twee stappen keuzes ziet om de pincode te wijzigen of uit te zetten.',
     lukNiet: [
       'Zie je Verificatie in twee stappen niet? Werk WhatsApp eerst bij in de App Store of de Play Store.',
       'Pincode vergeten? Tik in WhatsApp op "Pincode vergeten". Je krijgt dan een mail op het adres dat je hebt ingevuld.',
@@ -146,12 +147,12 @@ export const WEEKEND = {
       { dienst: 'andere', vraag: 'Nieuwe codes maken bij een andere maildienst', antwoord: ['Log in op de website van je maildienst. Zoek bij de beveiliging naar "herstelcodes" of "back-upcodes". Niets gevonden? Dan geeft je dienst ze niet. Ga verder.'] },
       { vraag: 'Herstelcodes van Bitwarden', antwoord: [
         'Heb je bij Bitwarden een tweede slot aangezet? Dan heeft Bitwarden een herstelcode. Die staat alleen op de website.',
-        'Ga op je computer naar vault.bitwarden.com en log in.',
+        'Ga op je computer naar vault.bitwarden.eu en log in. Koos je in niveau 1 de VS? Ga dan naar vault.bitwarden.com.',
         'Kies Instellingen, dan Beveiliging, dan Tweestapsaanmelding. Daar kun je je herstelcode bekijken. Schrijf hem over.',
         'Geen tweede slot op Bitwarden? Dan is je hoofdwachtwoord in de envelop genoeg.',
       ] },
     ],
-    gelukt: 'In je envelop zitten je hoofdwachtwoord, en de codes van je e-mail als je die hebt. Bij elk rijtje staat bij welk account het hoort.',
+    gelukt: 'in je envelop je hoofdwachtwoord zit, en de codes van je e-mail als je die hebt. Bij elk rijtje staat bij welk account het hoort.',
     lukNiet: [
       'Weet je niet meer waar je oude codes zijn? Vaak kun je op dezelfde plek nieuwe codes maken. De oude werken dan niet meer.',
       'Wat er nog meer in je noodpakket hoort, staat in [Als er toch is ingebroken](/als-er-is-ingebroken).',
@@ -191,7 +192,7 @@ export const WEEKEND = {
         'Liever niet betalen? Zet je foto\'s dan op je computer. Sluit je iPhone met de kabel aan op je computer.',
         'Ontgrendel je iPhone. Vraagt hij of je deze computer vertrouwt? Tik op Vertrouw.',
         'Op Windows: open op de computer de app Foto\'s en kies Importeren. Op een Mac: open de app Foto\'s en kies je iPhone in de lijst links.',
-        'Daarna gaan je foto\'s mee op de losse schijf.',
+        'Daarna gaan je foto\'s mee op de losse schijf. Dan mag je deze stap afvinken. Je iPhone maakt dan zelf geen kopie. Wil je dat wel? Dan heb je meer ruimte in iCloud nodig.',
       ] },
       { vraag: 'Hoe werp ik de schijf uit?', antwoord: [
         'Op een Mac: klik in de Finder met de rechtermuisknop op de schijf. Kies Werp uit. Wacht tot de schijf uit de lijst verdwijnt.',
@@ -202,7 +203,7 @@ export const WEEKEND = {
         'Op Windows: sluit de schijf aan. Typ "Bestandsgeschiedenis" in de zoekbalk van Start. Kies het terugzetten van bestanden. Kies een bestand en klik op de groene knop onderaan.',
       ] },
     ],
-    gelukt: 'Op je iPhone staat onder Maak nu reservekopie een tijd van vandaag. Op Android staat dat bij de back-up van Google, en in Google Foto\'s bij je profielfoto. Computer: zet één bestand terug van je losse schijf en open het. Lukt het? Dan werkt je reservekopie echt.',
+    gelukt: 'op je iPhone onder Maak nu reservekopie een tijd van vandaag staat. Op Android staat dat bij de back-up van Google, en in Google Foto\'s bij je profielfoto. Op je computer zet je één bestand terug van je losse schijf, en het opent.',
     lukNiet: [
       'Ziet je computer de schijf niet? Probeer een andere aansluiting of een andere kabel.',
       'Ziet je computer je iPhone niet? Ontgrendel je iPhone en probeer een andere kabel.',
@@ -229,7 +230,7 @@ export const WEEKEND = {
       ] },
     ],
     letOp: 'Het beheerderswachtwoord is niet het wachtwoord van je wifi. Laat het wifi-wachtwoord zoals het is. Anders moet je al je apparaten opnieuw verbinden.',
-    gelukt: 'Zegt je provider dat het geregeld is, of deed je het zelf en staat automatisch bijwerken aan? En ligt het nieuwe wachtwoord in je envelop? Dan is het gelukt.',
+    gelukt: 'je provider zegt dat het geregeld is, of automatisch bijwerken aan staat als je het zelf deed. En het nieuwe wachtwoord ligt in je envelop.',
     lukNiet: [
       'Kom je er niet uit? Bel je provider. Zij kunnen het meestal op afstand voor je doen.',
       'Heb je per ongeluk het wifi-wachtwoord veranderd? Verbind je apparaten dan opnieuw, met het nieuwe wachtwoord. Geen ramp.',
@@ -256,7 +257,7 @@ export const WEEKEND = {
     ],
     na: ['Laat de laptop aan de stroom staan. Het versleutelen gaat vanzelf op de achtergrond.'],
     letOp: 'Je logt daarna in zoals altijd, met hetzelfde wachtwoord of dezelfde pincode.',
-    gelukt: 'Kijk nog eens op dezelfde plek. Staat FileVault, Apparaatversleuteling of BitLocker aan? Dan is het gelukt.',
+    gelukt: 'FileVault, Apparaatversleuteling of BitLocker aan staat als je nog eens op dezelfde plek kijkt.',
     lukNiet: [
       'Zie je op Windows geen Apparaatversleuteling en geen BitLocker? Dan kan jouw computer het misschien niet. Sla deze stap over en let extra goed op je laptop.',
       'Duurt het lang? Dat is normaal. Je kunt gewoon doorwerken.',
@@ -274,7 +275,7 @@ export const WEEKEND = {
       'Je ziet per onderdeel welke apps erbij mogen. Heeft een app het niet nodig? Zet het uit. Een zaklamp-app hoeft niet bij je contacten.',
       'Twijfel je? Zet het uit. Vraagt de app er later om, dan kun je het alsnog toestaan.',
     ],
-    gelukt: 'Bij Camera, Microfoon en Locatie staan alleen nog apps die het echt nodig hebben, zoals je kaart-app bij Locatie.',
+    gelukt: 'bij Camera, Microfoon en Locatie alleen nog apps staan die het echt nodig hebben, zoals je kaart-app bij Locatie.',
     lukNiet: [
       'Werkt een app niet meer goed? Zet het recht dan weer aan. De app vraagt er vaak zelf om.',
       'Zie je bovenin een groen of oranje lampje terwijl je niets doet? Dan gebruikt een app je camera of microfoon. Kijk welke.',
@@ -308,7 +309,7 @@ export const WEEKEND = {
         'Zet Bitwarden ook in Firefox, zoals in [niveau 1](/een-avond#stap-wachtwoordmanager).',
       ] },
     ],
-    gelukt: 'Klik rechtsboven op het puzzelstukje. Staat uBlock in het lijstje? Dan is het gelukt. Bij je extensies staan alleen nog extensies die je kent.',
+    gelukt: 'uBlock in het lijstje staat als je rechtsboven op het puzzelstukje klikt. En je ziet daar alleen nog extensies die je kent.',
     lukNiet: [
       'Werkt een site niet goed meer? Klik op het puzzelstukje en dan op uBlock. Zet uBlock voor die ene site uit.',
       'Weet je niet welk pictogram welk is? Houd je muis stil op een pictogram. Er verschijnt een naam, zoals Bitwarden of uBlock.',
@@ -319,7 +320,7 @@ export const WEEKEND = {
   'sim-pincode': {
     hoe: [
       'Zoek eerst de pincode en de pukcode van je simkaart. Ze staan op het plastic kaartje waar je simkaart ooit uit kwam.',
-      'Kaartje kwijt? Kijk in de app van je provider, of bel je provider. Zonder de pincode begin je niet aan deze stap.',
+      'Kaartje kwijt? Open de app of de website van je provider en zoek op "PUK". Staat het er niet? Vraag het in de winkel van je provider, of bel. Zonder de pincode begin je niet aan deze stap.',
     ],
     toestellen: [
       { naam: 'Op een iPhone', stappen: [
@@ -336,7 +337,7 @@ export const WEEKEND = {
     ],
     na: ['Schrijf de nieuwe pincode en de pukcode op. Stop het papier in je envelop.'],
     letOp: 'Na drie keer een foute pincode gaat je simkaart op slot. Is hij twee keer fout? Stop dan en zoek de goede code op. Met de pukcode maak je de kaart weer open.',
-    gelukt: 'Zet je telefoon uit en weer aan. Vraagt hij eerst om de pincode van je simkaart? Dan is het gelukt.',
+    gelukt: 'je telefoon eerst om de pincode van je simkaart vraagt als je hem uit en weer aan zet.',
     lukNiet: [
       'Zit je simkaart toch op slot? Typ de pukcode. Daarna kies je een nieuwe pincode. Geen pukcode? Bel je provider vanaf een ander toestel.',
       'Heb je een e-sim? Dan is er geen kaartje. Vraag de pincode bij je provider.',

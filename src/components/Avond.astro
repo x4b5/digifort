@@ -15,7 +15,7 @@ import Merk from './Merk.astro';
 
 type Uitklap = { vraag: string, antwoord: string[], dienst?: string };
 type Toestel = { naam: string, stappen: string[], diensten?: Uitklap[], uitklap?: Uitklap[] };
-type Uitleg = { wat?: string, hoe: string[], dienstEerst?: boolean, toestellen?: Toestel[], na?: string[], letOp?: string, uitklap?: Uitklap[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string };
+type Uitleg = { wat?: string, hoe: string[], dienstEerst?: boolean, zonderDelen?: string[], toestellen?: Toestel[], na?: string[], letOp?: string, uitklap?: Uitklap[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string };
 interface Props {
   lijst?: string;
   uitleg?: Record<string, Uitleg>;
@@ -51,52 +51,57 @@ const kiesId = `toestel-${lijst}`;
 ---
 <section class="avond" data-avond data-lijst={lijst} data-alles={alles} data-totaal={stappen.length}>
   <p class="stand" data-stand aria-live="polite">Stap 1 van {stappen.length}{totaalTijd > 0 && ` · ongeveer ${duur(totaalTijd)} in totaal`}</p>
-  <ol class="bolletjes" aria-hidden="true">
-    {stappen.map((_, i) => <li data-bol={i}>{i + 1}</li>)}
-  </ol>
 
   {heeftTelefoonkeuze && (
-    <fieldset class="toestelkeuze" data-toestelkeuze>
-      <legend>Welke telefoon heb je?</legend>
-      <p class="toestel-hint">Dan zie je alleen de stappen voor jouw telefoon.</p>
-      <div class="keuzes">
-        <label><input type="radio" name={kiesId} value="iphone" /> iPhone</label>
-        <label><input type="radio" name={kiesId} value="android" /> Android</label>
-        <label><input type="radio" name={kiesId} value="" checked /> Laat allebei zien</label>
-      </div>
-    </fieldset>
+    <div class="keuze-blok">
+      {/* heb je al eerder gekozen, dan zie je alleen deze regel: de stap staat dan hoger in beeld */}
+      <p class="gekozen" data-gekozen hidden>Je telefoon: <strong data-gekozen-naam></strong> <button type="button" class="link" data-wijzig>Wijzig</button></p>
+      <fieldset class="toestelkeuze" data-toestelkeuze>
+        <legend>Welke telefoon heb je?</legend>
+        <div class="keuzes">
+          <label><input type="radio" name={kiesId} value="iphone" data-naam="iPhone" /> iPhone</label>
+          <label><input type="radio" name={kiesId} value="android" data-naam="Android" /> Android</label>
+          <label><input type="radio" name={kiesId} value="" data-naam="allebei" checked /> Laat allebei zien</label>
+        </div>
+      </fieldset>
+    </div>
   )}
 
   {stappen.map((it, i) => {
     const u = uitleg[it.id];
     const hoe = u.toestellen?.length ? u.hoe : [...u.hoe, ...(u.na ?? [])];
     const na = u.toestellen?.length ? (u.na ?? []) : [];
+    const perDienst = u.uitklap?.filter((k) => k.dienst) ?? [];
     return (
-      <article class="stap" id={`stap-${it.id}`} data-stap={i} data-item={it.id} data-tijd={it.tijd ?? 0} aria-labelledby={`kop-${it.id}`} hidden>
-        <p class="eyebrow">Stap {i + 1} van {stappen.length}{it.tijd && ` · ongeveer ${it.tijd} minuten`}</p>
+      <article class="stap" id={`stap-${it.id}`} data-stap={i} data-item={it.id} data-tijd={it.tijd ?? 0} data-zonder-delen={u.zonderDelen?.join(' ')} aria-labelledby={`kop-${it.id}`} hidden>
         <h2 id={`kop-${it.id}`} tabindex="-1">{it.stap}</h2>
-        <p class="waarom"><strong>Waarom?</strong> {it.waarom.replace(/[.]$/, '')}.</p>
         {u.wat && <p class="wat">{stukjes(u.wat).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>}
 
-        <h3 class="kopje">Zo doe je het</h3>
         {/* één zin is geen lijstje: dan gewoon een alinea */}
-        {hoe.length === 1 && <p>{stukjes(hoe[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>}
+        {hoe.length === 1 && <p class="een-zin">{stukjes(hoe[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>}
         {hoe.length > 1 && <ol class="hoe">{hoe.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
-        {/* bij `dienstEerst` kies je je maildienst vóór de delen: misschien hoef je ze niet te doen */}
-        {u.dienstEerst && u.uitklap?.some((k) => k.dienst) && (
-          <div class="diensten" data-diensten data-zonder-terugval>
+
+        {/* de keuze van je maildienst: één keer per stap. Bij `dienstEerst` staat hij vóór de delen,
+            want misschien hoef je ze niet te doen; anders bij de blokken per maildienst */}
+        {(perDienst.length > 0 || u.toestellen?.some((t) => t.diensten)) && (
+          <div class="keuze-blok" data-dienstblok>
+            <p class="gekozen" data-gekozen hidden>Je maildienst: <strong data-gekozen-naam></strong> <button type="button" class="link" data-wijzig>Wijzig</button></p>
             {/* zonder JavaScript blijft de keuze weg en zie je alle blokken */}
             <fieldset class="toestelkeuze dienstkeuze" data-dienstkeuze hidden>
               <legend>Welke maildienst heb je?</legend>
               <p class="toestel-hint">Kijk naar het eind van je e-mailadres, na de @.</p>
               <div class="keuzes onder">
                 {DIENSTEN.map((d) => (
-                  <label><input type="radio" name={`dienst-${it.id}`} value={d.id} /> <span><strong>{d.naam}</strong>{d.adres && <span class="adres"> {d.adres}</span>}</span></label>
+                  <label><input type="radio" name={`dienst-${it.id}`} value={d.id} data-naam={d.naam} /> <span><strong>{d.naam}</strong>{d.adres && <span class="adres"> {d.adres}</span>}</span></label>
                 ))}
-                <label><input type="radio" name={`dienst-${it.id}`} value="" checked /> Laat alles zien</label>
+                <label><input type="radio" name={`dienst-${it.id}`} value="" data-naam="alles" checked /> Laat alles zien</label>
               </div>
             </fieldset>
-            {u.uitklap.filter((k) => k.dienst).map((k) => (
+          </div>
+        )}
+        {perDienst.length > 0 && (
+          <div class="diensten" data-diensten data-zonder-terugval={u.dienstEerst ? '' : undefined}>
+            {perDienst.map((k) => (
               <details class="uitklap" data-dienst={k.dienst}>
                 <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
                 <div class="uitklap-tekst">
@@ -109,23 +114,11 @@ const kiesId = `toestel-${lijst}`;
           </div>
         )}
         {u.toestellen?.map((t) => (
-          <div class="toestel" data-soort={soort(t.naam)}>
-            <h4>{t.naam}</h4>
+          <div class="toestel" data-soort={soort(t.naam)} data-deel={u.zonderDelen ? '' : undefined}>
+            <h3 class="deel-kop">{t.naam}</h3>
             {/* een deel kan per maildienst verschillen: dan staan die blokken hier, in het deel zelf */}
             {t.diensten && (
               <div class="diensten" data-diensten>
-                {!u.uitklap?.some((k) => k.dienst) && (
-                  <fieldset class="toestelkeuze dienstkeuze" data-dienstkeuze hidden>
-                    <legend>Welke maildienst heb je?</legend>
-                    <p class="toestel-hint">Kijk naar het eind van je e-mailadres, na de @.</p>
-                    <div class="keuzes onder">
-                      {DIENSTEN.map((d) => (
-                        <label><input type="radio" name={`dienst-${it.id}`} value={d.id} /> <span><strong>{d.naam}</strong>{d.adres && <span class="adres"> {d.adres}</span>}</span></label>
-                      ))}
-                      <label><input type="radio" name={`dienst-${it.id}`} value="" checked /> Laat alles zien</label>
-                    </div>
-                  </fieldset>
-                )}
                 {t.diensten.map((k) => (
                   <details class="uitklap" data-dienst={k.dienst}>
                     <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
@@ -136,7 +129,7 @@ const kiesId = `toestel-${lijst}`;
                 ))}
               </div>
             )}
-            {t.stappen.length > 0 && <ol class="hoe">{t.stappen.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
+            {/* keuzes binnen een deel (zoals: de code staat op je computer, of op je telefoon) komen vóór wat daarna voor iedereen geldt */}
             {t.uitklap?.map((k) => (
               <details class="uitklap">
                 <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
@@ -145,39 +138,15 @@ const kiesId = `toestel-${lijst}`;
                 </div>
               </details>
             ))}
+            {t.stappen.length > 0 && <ol class="hoe">{t.stappen.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
           </div>
         ))}
         {na.length > 0 && (
           <div class="toestel">
-            <h4>Daarna</h4>
+            <h3 class="deel-kop">Daarna</h3>
             {na.length === 1
               ? <p>{stukjes(na[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>
               : <ol class="hoe">{na.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
-          </div>
-        )}
-        {!u.dienstEerst && u.uitklap?.some((k) => k.dienst) && (
-          <div class="diensten" data-diensten>
-            {/* zonder JavaScript blijft de keuze weg en zie je alle blokken */}
-            <fieldset class="toestelkeuze dienstkeuze" data-dienstkeuze hidden>
-              <legend>Welke maildienst heb je?</legend>
-              <p class="toestel-hint">Kijk naar het eind van je e-mailadres, na de @.</p>
-              <div class="keuzes onder">
-                {DIENSTEN.map((d) => (
-                  <label><input type="radio" name={`dienst-${it.id}`} value={d.id} /> <span><strong>{d.naam}</strong>{d.adres && <span class="adres"> {d.adres}</span>}</span></label>
-                ))}
-                <label><input type="radio" name={`dienst-${it.id}`} value="" checked /> Laat alles zien</label>
-              </div>
-            </fieldset>
-            {u.uitklap.filter((k) => k.dienst).map((k) => (
-              <details class="uitklap" data-dienst={k.dienst}>
-                <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
-                <div class="uitklap-tekst">
-                  {k.antwoord.length === 1
-                    ? <p>{stukjes(k.antwoord[0]).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</p>
-                    : <ol class="hoe">{k.antwoord.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
-                </div>
-              </details>
-            ))}
           </div>
         )}
         {u.uitklap?.filter((k) => !k.dienst).map((k) => (
@@ -190,6 +159,8 @@ const kiesId = `toestel-${lijst}`;
             </div>
           </details>
         ))}
+        {/* het waarom staat ná de handelingen: zo staat op een telefoon de eerste handeling bovenaan */}
+        <p class="waarom"><strong>Waarom?</strong> {it.waarom.replace(/[.]$/, '')}.</p>
         {u.letOp && (
           <div class="let-op">
             <span class="let-op-teken" aria-hidden="true">!</span>
@@ -200,18 +171,18 @@ const kiesId = `toestel-${lijst}`;
           <p class="gereedschap"><span class="eyebrow zacht klein gereedschap-kop">Gereedschap</span> {u.gereedschap.map((g) => <Merk id={g} maat={22} link />)}</p>
         )}
 
+        {/* het bewijs, met de afvinkknop erin: wat je op je scherm ziet, en dan vink je af */}
         <div class="gelukt">
-          <h3 class="kopje">Zo zie je dat het gelukt is</h3>
+          <h3 class="kopje">Gelukt als:</h3>
           <p>{u.gelukt}</p>
+          <p class="klaar-zin" data-klaar-zin hidden><strong>Afgevinkt.</strong> {u.klaar} <button type="button" class="link" data-toch-niet>Toch niet gedaan</button></p>
+          <p class="knoppen"><button type="button" class="knop" data-gedaan>Gelukt, volgende stap →</button></p>
         </div>
         <details class="lukt-niet">
           <summary><span class="pijl" aria-hidden="true">›</span> Lukt het niet?</summary>
           <ul>{u.lukNiet.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ul>
         </details>
-
-        <p class="klaar-zin" data-klaar-zin hidden><strong>Gedaan.</strong> {u.klaar} <button type="button" class="link" data-toch-niet>Toch niet gedaan</button></p>
         <p class="knoppen">
-          <button type="button" class="knop" data-gedaan>Gedaan, volgende stap →</button>
           <button type="button" class="knop licht" data-over>Sla over</button>
           {i > 0 && <button type="button" class="knop licht klein" data-terug>← Vorige stap</button>}
         </p>
@@ -223,7 +194,7 @@ const kiesId = `toestel-${lijst}`;
     <p class="eyebrow">{moment}</p>
     <h2 id={`einde-${lijst}`} tabindex="-1" data-einde-kop>Je fort staat</h2>
     <p data-einde-tekst></p>
-    <p class="fort-uitleg">De eerste tekening hieronder is een huis met open deuren, zoals de meeste huizen. Het briefje met "welkom01" is een voorbeeld van een zwak wachtwoord. De tweede tekening is het fort. Elke stap die je afvinkt, kleurt een deel van het fort groen. Je hoeft hier verder niets te doen.</p>
+    <p class="fort-uitleg">De eerste tekening is een huis met open deuren. De tweede is jouw fort: elke stap die je afvinkt, kleurt een deel groen. Je hoeft hier niets te doen.</p>
     <HuisEnFort legenda={false} uitleg="Elk groen deel heb je zelf gebouwd." />
     <p class="knoppen">
       <a class="knop" href={volgende.href}>{volgende.tekst}</a>
@@ -268,50 +239,78 @@ const kiesId = `toestel-${lijst}`;
       if (Boolean(gedaan()[id]) !== aan) geenOpslag = true;
     };
 
-    function toonToestel(w: string) {
-      s.querySelectorAll<HTMLElement>('.toestel[data-soort]').forEach((b) => {
-        b.hidden = Boolean(w && b.dataset.soort && b.dataset.soort !== w);
+    // wat je kiest, bepaalt welke blokken je ziet: je telefoon, en je maildienst.
+    // Bij KPN, Ziggo en iCloud vallen de delen van het tweede slot weg (`data-zonder-delen`):
+    // daar kijk je eerst na of het kan, en verder niets.
+    let toestel = '';
+    let dienst = '';
+    function toonBlokken() {
+      s.querySelectorAll<HTMLElement>('.toestel').forEach((b) => {
+        const stap = b.closest<HTMLElement>('[data-stap]');
+        const zonder = (stap?.dataset.zonderDelen ?? '').split(' ');
+        const andereTelefoon = Boolean(toestel && b.dataset.soort && b.dataset.soort !== toestel);
+        const geenDelen = b.hasAttribute('data-deel') && Boolean(dienst) && zonder.includes(dienst);
+        b.hidden = andereTelefoon || geenDelen;
       });
-    }
-    const keuze = s.querySelector<HTMLElement>('[data-toestelkeuze]');
-    if (keuze) {
-      const radios = Array.from(keuze.querySelectorAll<HTMLInputElement>('input[type=radio]'));
-      const bewaard = leesToestel();
-      radios.forEach((r) => { r.checked = r.value === bewaard; });
-      if (!radios.some((r) => r.checked)) radios[radios.length - 1].checked = true;
-      toonToestel(radios.find((r) => r.checked)!.value);
-      radios.forEach((r) => r.addEventListener('change', () => { bewaarToestel(r.value); toonToestel(r.value); }));
-    }
-
-    // welke maildienst je hebt: dan zie je per stap alleen dat blok, al opengeklapt.
-    // Heeft een stap geen blok voor jouw dienst, dan zie je het blok voor een andere maildienst.
-    const dienstRadios = Array.from(s.querySelectorAll<HTMLInputElement>('[data-dienstkeuze] input[type=radio]'));
-    function toonDienst(w: string) {
-      dienstRadios.forEach((r) => { r.checked = r.value === w; });
       s.querySelectorAll<HTMLElement>('[data-diensten]').forEach((groep) => {
         const blokken = Array.from(groep.querySelectorAll<HTMLDetailsElement>('details[data-dienst]'));
         // een groep met alleen KPN, Ziggo en iCloud valt niet terug: bij Gmail zie je daar dan niets
         const terugval = groep.hasAttribute('data-zonder-terugval') ? undefined : blokken.find((b) => b.dataset.dienst === 'andere');
-        const passend = blokken.find((b) => b.dataset.dienst === w) ?? terugval;
+        const passend = blokken.find((b) => b.dataset.dienst === dienst) ?? terugval;
         blokken.forEach((b) => {
-          b.hidden = Boolean(w) && b !== passend;
-          if (w && b === passend) b.open = true;
+          b.hidden = Boolean(dienst) && b !== passend;
+          if (dienst && b === passend) b.open = true;
+          // het enige blok, al open: de kop erboven zegt niets nieuws, dus de stappen schuiven op
+          b.toggleAttribute('data-alleen', Boolean(dienst) && b === passend);
         });
       });
     }
-    if (dienstRadios.length) {
-      s.querySelectorAll<HTMLElement>('[data-dienstkeuze]').forEach((f) => { f.hidden = false; });
-      toonDienst(leesDienst());
-      dienstRadios.forEach((r) => r.addEventListener('change', () => { bewaarDienst(r.value); toonDienst(r.value); }));
+
+    // Een keuze die je eerder maakte, klapt in tot één regel met "Wijzig".
+    // Zo staat op een telefoon de eerste handeling hoger in beeld.
+    function klapIn(blok: HTMLElement, dicht: boolean) {
+      const veld = blok.querySelector<HTMLElement>('fieldset')!;
+      const regel = blok.querySelector<HTMLElement>('[data-gekozen]')!;
+      const gekozen = veld.querySelector<HTMLInputElement>('input:checked');
+      regel.querySelector<HTMLElement>('[data-gekozen-naam]')!.textContent = gekozen?.dataset.naam ?? '';
+      veld.hidden = dicht;
+      regel.hidden = !dicht;
     }
+    function koppel(blokken: HTMLElement[], begin: string, kies: (w: string) => void) {
+      const radios = blokken.flatMap((b) => Array.from(b.querySelectorAll<HTMLInputElement>('input[type=radio]')));
+      const zet = (w: string) => radios.forEach((r) => { r.checked = r.value === w; });
+      zet(begin);
+      if (!radios.some((r) => r.checked)) zet('');
+      blokken.forEach((b) => klapIn(b, Boolean(begin)));
+      radios.forEach((r) => r.addEventListener('change', () => {
+        zet(r.value);
+        kies(r.value);
+        // in de andere stappen klapt de keuze meteen in; hier blijft hij open staan
+        const hier = r.closest<HTMLElement>('.keuze-blok');
+        blokken.forEach((b) => { if (b !== hier) klapIn(b, Boolean(r.value)); });
+        toonBlokken();
+      }));
+      blokken.forEach((b) => b.querySelector('[data-wijzig]')?.addEventListener('click', () => {
+        klapIn(b, false);
+        b.querySelector<HTMLInputElement>('input:checked')?.focus();
+      }));
+    }
+    const toestelBlok = s.querySelector<HTMLElement>('[data-toestelkeuze]')?.closest<HTMLElement>('.keuze-blok');
+    if (toestelBlok) {
+      toestel = leesToestel();
+      koppel([toestelBlok], toestel, (w) => { toestel = w; bewaarToestel(w); });
+    }
+    const dienstBlokken = Array.from(s.querySelectorAll<HTMLElement>('[data-dienstblok]'));
+    if (dienstBlokken.length) {
+      dienst = leesDienst();
+      koppel(dienstBlokken, dienst, (w) => { dienst = w; bewaarDienst(w); });
+    }
+    toonBlokken();
 
     function toon(i: number, focus = true) {
       huidig = Math.max(0, Math.min(i, totaal));
       stappen.forEach((el, n) => { el.hidden = n !== huidig; });
       einde.hidden = huidig !== totaal;
-      s.querySelectorAll<HTMLElement>('[data-bol]').forEach((b, n) => {
-        b.dataset.toestand = isGedaan(n) ? 'gedaan' : n === huidig ? 'nu' : '';
-      });
       const klaar = stappen.filter((_, n) => isGedaan(n)).length;
       if (huidig < totaal) {
         // alleen wat nog open staat, net als in de afvinklijst in Aan de slag;
@@ -361,14 +360,14 @@ const kiesId = `toestel-${lijst}`;
 <style>
   .avond { margin: 1.5rem 0 2rem; }
   /* in de avond is dit de enige regel boven de stap: iets groter dan elders */
-  .stand { font-size: var(--tekst-l); margin: 0 0 0.75rem; }
-  .bolletjes { list-style: none; padding: 0; margin: 0 0 1.5rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .bolletjes li { margin: 0; width: 2.2rem; height: 2.2rem; border-radius: 50%; border: var(--lijndikte) solid var(--lijn-sterk); display: grid; place-items: center; font-family: var(--kop); font-weight: 700; color: var(--inkt-zacht); background: var(--papier); }
-  .bolletjes li[data-toestand="nu"] { border-color: var(--rood); color: var(--rood); }
-  .bolletjes li[data-toestand="gedaan"] { background: var(--groen); border-color: var(--groen); color: var(--op-kleur); }
+  .stand { font-size: var(--tekst-l); margin: 0 0 0.5rem; }
 
   /* de telefoonkeuze: rustig, boven de stappen */
-  .toestelkeuze { border: 0; padding: 0; margin: 0 0 1.5rem; }
+  .toestelkeuze { border: 0; padding: 0; margin: 0 0 1.25rem; }
+  .toestelkeuze[hidden], .gekozen[hidden] { display: none; }
+  /* een eerdere keuze: één rustige regel */
+  .gekozen { margin: 0 0 0.75rem; color: var(--inkt-zacht); }
+  .gekozen strong { color: var(--inkt); }
   .toestelkeuze legend { font-family: var(--kop); font-weight: 700; padding: 0; margin-bottom: 0.2rem; }
   .toestel-hint { color: var(--inkt-zacht); margin: 0 0 0.5rem; }
   .keuzes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -385,27 +384,30 @@ const kiesId = `toestel-${lijst}`;
   .stap { padding: 1.5rem 1.6rem; border: var(--lijndikte) solid var(--lijn-sterk); border-radius: var(--radius); }
   @media (max-width: 40rem) { .stap { padding: 1.1rem 1rem; } }
   .stap[hidden], .toestel[hidden] { display: none; }
-  .stap h2 { margin: 0 0 0.5rem; font-size: clamp(1.5rem, 4vw, 2rem); }
+  .stap h2 { margin: 0 0 0.75rem; font-size: clamp(1.5rem, 4vw, 2rem); }
   .stap h2:focus { outline: none; }
   .stap .kopje { font-size: 1.2rem; margin: 1.5rem 0 0.5rem; }
-  .stap h4 { font-size: 1.05rem; margin: 1rem 0 0.3rem; }
-  .waarom { margin-bottom: 0.75rem; }
-  .wat { color: var(--inkt-zacht); }
+  .stap .deel-kop { font-size: 1.1rem; margin: 1.1rem 0 0.3rem; }
+  .waarom { margin: 1rem 0 0.75rem; }
   .hoe { padding-left: 1.6rem; margin-bottom: 1rem; }
   .hoe li { margin-bottom: 0.5rem; padding-left: 0.2rem; }
   .gereedschap { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin: 0 0 1.25rem; }
   .gereedschap-kop { margin: 0; }
 
   /* het bewijs: groen, want dit is wat je zelf nakijkt */
-  .gelukt { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.2rem 1rem 0.8rem; margin: 1.5rem 0 1rem; border-radius: var(--radius); }
-  .gelukt .kopje { margin-top: 0.6rem; }
-  .gelukt p { margin: 0; }
+  /* "Gelukt als:" staat onder elke stap op dezelfde plek, met de afvinkknop erin */
+  .gelukt { border: var(--lijndikte) solid var(--groen); border-left-width: 8px; background: var(--groen-licht); padding: 0.3rem 1rem 1rem; margin: 1.5rem 0 1rem; border-radius: var(--radius); }
+  .gelukt .kopje { margin: 0.6rem 0 0.3rem; font-size: 1.3rem; }
+  .gelukt > p { margin: 0 0 0.9rem; font-size: var(--tekst-l); }
+  .gelukt > .knoppen { margin: 0; }
 
   /* "Lukt het niet?" en de uitklappers als het details-blok van GOV.UK: een link met een pijltje, de hulp eronder */
   .lukt-niet { margin: 0 0 1.5rem; }
   .uitklap { margin: 0 0 0.5rem; }
   /* een lange vraag loopt over twee regels: het pijltje blijft bij de eerste regel staan */
   .uitklap summary { align-items: flex-start; }
+  .uitklap[data-alleen] > summary { display: none; }
+  .uitklap[data-alleen] > .uitklap-tekst { border-left: 0; padding-left: 0; margin-top: 0; }
   .uitklap-tekst { border-left: var(--lijndikte) solid var(--lijn); padding: 0.25rem 0 0.25rem 1rem; margin: 0.25rem 0 1rem; }
   .uitklap-tekst p { margin: 0.3rem 0; }
   .uitklap-tekst .hoe { margin-bottom: 0.3rem; }
@@ -423,7 +425,7 @@ const kiesId = `toestel-${lijst}`;
   .let-op p { margin: 0; padding-top: 0.35rem; }
   .let-op-teken { flex: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--inkt); color: var(--papier); display: grid; place-items: center; font-family: var(--kop); font-weight: 700; font-size: 1.4rem; line-height: 1; }
 
-  .klaar-zin { border-left: 6px solid var(--groen); background: var(--groen-licht); padding: 0.7rem 1rem; }
+  .gelukt > .klaar-zin { font-size: inherit; padding-top: 0.6rem; border-top: var(--lijndikte-dun) solid var(--groen); }
   .klaar-zin[hidden] { display: none; }
   .link { background: none; border: 0; padding: 0; font: inherit; color: var(--rood); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; cursor: pointer; }
   /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */

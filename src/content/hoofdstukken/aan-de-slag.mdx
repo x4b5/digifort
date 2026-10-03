@@ -5,7 +5,6 @@ kort: "Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis."
 omschrijving: "Maak je digitale huis stap voor stap veiliger: de basis in één avond, goed op slot in een weekend. Updates, back-ups en tweestaps. Alles gratis."
 datum: "2026-09-30"
 ---
-import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
@@ -17,11 +16,11 @@ import Gereedschapskist from '../../components/Gereedschapskist.astro';
 import Nagelopen from '../../components/Nagelopen.astro';
 import Scene from '../../components/Scene.astro';
 
-<p class="intro">Hier maak je je digitale huis veiliger. Dat gaat in drie niveaus, en je doet steeds één ding tegelijk. Begin bij niveau 1. Dat kost één avond.</p>
+<p class="intro">Hier maak je je digitale huis veiliger, één ding tegelijk. Je hoeft alleen dit eerste stuk te lezen. Daarna klik je op de knop.</p>
 
 ## Begin hier
 
-Heb je nog niets gedaan? Begin dan met niveau 1. Dat zijn zes stappen van samen ongeveer een uur.
+Begin met niveau 1. Dat zijn zes stappen van samen ongeveer een uur.
 
 **Wat je nodig hebt:**
 
@@ -31,7 +30,9 @@ Heb je nog niets gedaan? Begin dan met niveau 1. Dat zijn zes stappen van samen 
 
 <p><a class="knop" href="/een-avond">Begin met niveau 1 →</a></p>
 
-Je ziet dan één stap per scherm, met precies wat je moet doen. Stoppen mag altijd. Wat je afvinkt, onthoudt je eigen browser.
+Je ziet dan één stap per scherm, met precies wat je moet doen. Stoppen mag altijd.
+
+De rest van deze pagina is om later op te zoeken. Namen die je niet kent, mag je overslaan.
 
 <Scene wie="sanne">
 
@@ -133,12 +134,6 @@ Twee dingen moet je eerlijk weten. Dit werkt tegen inbrekers die het bij iederee
 
 <Kort>goed gereedschap is vaak gratis. En het beste slot zit meestal al in je apparaat.</Kort>
 
-<Vraagje vraag="Wat klopt er over virusscanners op een Windows-computer?" opties={[
-  { tekst: 'Je hebt een betaalde scanner nodig', uitleg: 'Twintig jaar geleden wel. Nu zit er een goede in Windows en voegt een gekochte scanner daar weinig aan toe.' },
-  { tekst: 'De scanner die al in Windows zit, is voor bijna iedereen genoeg', goed: true, uitleg: 'Windows Beveiliging doet het werk. Pas wel op met gratis scanners van anderen: sommige verdienen geld aan wat jij op internet doet.' },
-  { tekst: 'Een goede scanner houdt ook babbeltrucs tegen', uitleg: 'Geen enkele scanner doet dat. Je updates, je tweede slot en je eigen oplettendheid doen meer.' },
-]} />
-
 <Meer titel="Bekijk de aanraders">
 
 Dit is een lijst om in op te zoeken. Alles is gratis of goedkoop en heeft bewezen dat het werkt. Het bedrijf verdient geen geld aan jouw gegevens. Deze site verdient er ook niets aan.
@@ -174,7 +169,7 @@ Zoek alleen op wat je nodig hebt. Hoe je iets instelt, staat bij de stap zelf.
 - **Cryptomator** is gratis op je computer. Op je telefoon kost opslaan eenmalig zo'n 30 euro.
 - **Een echte sleutel:** koop er twee. Zie [niveau 3](/ik-wil-verder#stap-hardwaresleutel).
 
-**Over virusscanners.** In Windows en op de Mac zit al een goede scanner. Een gekochte scanner is voor de meeste mensen niet nodig. De scanner van Windows houdt wel geen nepwebsites tegen. Daar helpt je wachtwoordmanager: die vult je wachtwoord niet in op een nepsite.
+**Over virusscanners.** In Windows en op de Mac zit al een goede scanner. Een gekochte scanner is voor de meeste mensen niet nodig. Pas op met gratis scanners van anderen: sommige verdienen aan wat jij op internet doet. De scanner van Windows houdt wel geen nepwebsites tegen. Daar helpt je wachtwoordmanager: die vult je wachtwoord niet in op een nepsite.
 
 **Over Proton.** Proton is een Zwitsers bedrijf. Het maakt e-mail, een wachtwoordmanager, een VPN en opslag. Je betaalt met geld, niet met je gegevens. Eén nadeel: heb je alles bij Proton, dan opent één account al je deuren. Zet daar dus je sterkste slot op.
 
@@ -189,8 +184,10 @@ Zoek alleen op wat je nodig hebt. Hoe je iets instelt, staat bij de stap zelf.
 
 </Meer>
 
-### Alles op één rij
+<Meer titel="Alles op één rij, met logo">
 
-Alles wat op deze site wordt genoemd, op één rij. Allemaal gratis of goedkoop, en niemand verdient eraan als je erop klikt. De logo's staan er zodat je ze herkent in de app-winkel.
+Alles wat op deze site wordt genoemd. De logo's staan er zodat je ze herkent in de app-winkel. Niemand verdient eraan als je erop klikt.
 
 <Gereedschapskist />
+
+</Meer>

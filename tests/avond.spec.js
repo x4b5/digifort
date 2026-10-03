@@ -6,7 +6,7 @@ test('één avond: gedaan zet het vinkje in Aan de slag en bouwt het fort', asyn
   await expect(page.locator('[data-stap="0"]')).toBeVisible();
   await page.locator('[data-stap="0"] [data-gedaan]').click();
   await expect(page.locator('[data-stap="1"]')).toBeVisible();
-  await expect(page.locator('[data-bol="0"]')).toHaveAttribute('data-toestand', 'gedaan');
+  await expect(page.locator('[data-stand]')).toContainText('Stap 2 van 6');
   await page.locator('[data-stap="1"] [data-over]').click();
   await expect(page.locator('[data-stand]')).toContainText('Stap 3 van 6');
 
@@ -77,8 +77,10 @@ test('elke stap zegt hoe je ziet dat het gelukt is, en wat je doet als het niet 
     for (let i = 0; i < aantal; i++) {
       const stap = stappen.nth(i);
       await expect(stap.locator('.waarom')).toContainText('Waarom?');
-      await expect(stap.locator('.gelukt h3')).toHaveText('Zo zie je dat het gelukt is');
-      expect((await stap.locator('.gelukt p').textContent())?.trim().length).toBeGreaterThan(10);
+      // "Gelukt als:" met wat je op je scherm ziet, en de afvinkknop in hetzelfde blok
+      await expect(stap.locator('.gelukt h3')).toHaveText('Gelukt als:');
+      expect((await stap.locator('.gelukt > p').first().textContent())?.trim().length).toBeGreaterThan(10);
+      await expect(stap.locator('.gelukt [data-gedaan]')).toHaveCount(1);
       expect(await stap.locator('details.lukt-niet li').count()).toBeGreaterThan(0);
     }
   }
@@ -106,14 +108,18 @@ test('kies je telefoon, dan zie je alleen de stappen voor die telefoon, ook na h
   await page.goto('/een-avond#stap-updates');
   const stap = page.locator('#stap-updates');
   await expect(stap.locator('.toestel[data-soort="android"]').first()).toBeVisible();
-  await page.getByRole('radio', { name: 'iPhone' }).check();
+  await page.getByRole('radio', { name: 'iPhone', exact: true }).check();
   await expect(stap.locator('.toestel[data-soort="android"]').first()).toBeHidden();
   await expect(stap.locator('.toestel[data-soort="iphone"]').first()).toBeVisible();
   // wat voor iedereen geldt, zoals de computer, blijft staan
   await expect(stap.getByRole('heading', { name: 'Op een Mac' })).toBeVisible();
   await page.reload();
-  await expect(page.getByRole('radio', { name: 'iPhone' })).toBeChecked();
+  // een eerdere keuze is ingeklapt tot één regel; "Wijzig" klapt hem weer open
+  await expect(page.locator('[data-gekozen]').first()).toContainText('Je telefoon: iPhone');
+  await expect(page.locator('[data-toestelkeuze]')).toBeHidden();
+  await expect(page.locator('[data-toestelkeuze] input[value="iphone"]')).toBeChecked();
   await expect(page.locator('#stap-updates .toestel[data-soort="android"]').first()).toBeHidden();
+  await page.locator('[data-gekozen]').first().getByRole('button', { name: 'Wijzig' }).click();
   await page.getByRole('radio', { name: 'Laat allebei zien' }).check();
   await expect(page.locator('#stap-updates .toestel[data-soort="android"]').first()).toBeVisible();
 });
@@ -121,8 +127,8 @@ test('kies je telefoon, dan zie je alleen de stappen voor die telefoon, ook na h
 test('stap 1 en 2 van de avond zeggen per maildienst waar de knop zit, ook met alleen een telefoon', async ({ page }) => {
   await page.goto('/een-avond#stap-mail-wachtwoord');
   const stap1 = page.locator('#stap-mail-wachtwoord');
-  // de Mail-app heeft de knop niet: dat staat er vooraan
-  await expect(stap1.locator('.wat')).toContainText('website van je maildienst');
+  // de Mail-app heeft de knop niet: dat staat bij de waarschuwing
+  await expect(stap1.locator('.let-op')).toContainText('niet in de Mail-app');
   // en wie schrikt omdat de Mail-app om het nieuwe wachtwoord vraagt, krijgt een waarschuwing vooraf
   await expect(stap1.locator('.let-op')).toContainText('Mail-app');
   const gmail = stap1.locator('details.uitklap').filter({ hasText: '@gmail.com' });
@@ -244,7 +250,10 @@ test('kies je maildienst, dan zie je alleen dat blok, al open, ook bij de volgen
   await page.goto('/een-avond#stap-mail-tweede-slot');
   await page.reload();
   const stap2 = page.locator('#stap-mail-tweede-slot');
-  await expect(stap2.getByRole('radio', { name: /Outlook of Hotmail/ })).toBeChecked();
+  await expect(stap2.locator('[data-dienstkeuze] input[value="microsoft"]')).toBeChecked();
+  // bij de volgende stap is de keuze al ingeklapt: de eerste handeling staat hoger
+  await expect(stap2.locator('[data-dienstkeuze]')).toBeHidden();
+  await expect(stap2.locator('[data-gekozen]')).toContainText('Je maildienst: Outlook of Hotmail');
   await expect(stap2.locator('details[data-dienst="microsoft"]')).toContainText('andere app');
   await expect(stap2.locator('details[data-dienst="icloud"]')).toBeHidden();
   // hulp die voor iedereen geldt, blijft staan
@@ -255,6 +264,7 @@ test('kies je maildienst, dan zie je alleen dat blok, al open, ook bij de volgen
   const nood = page.locator('#stap-noodcodes');
   await expect(nood.locator('details[data-dienst="microsoft"]')).toBeVisible();
   await expect(nood.locator('details[data-dienst="gmail"]')).toBeHidden();
+  await nood.getByRole('button', { name: 'Wijzig' }).click();
   await nood.getByRole('radio', { name: /iCloud/ }).check();
   await expect(nood.locator('details[data-dienst="andere"]')).toBeVisible();
   await expect(nood.locator('details[data-dienst="microsoft"]')).toBeHidden();
@@ -275,15 +285,23 @@ test('bij het tweede slot kies je eerst je maildienst: bij KPN weet je vóór de
   expect(eerst).toBe(true);
   await keuze.getByRole('radio', { name: /KPN/ }).check();
   const kpn = stap.locator('details[data-dienst="kpn"]');
-  await expect(kpn).toContainText('voordat je een app installeert');
-  await expect(kpn).toContainText('MijnKPN');
   await expect(kpn).toContainText('Sla over');
-  // en bij stap 1: wie geen MijnKPN-inlog heeft, weet wat hij dan doet
+  // KPN kan het misschien niet: dan staan er geen delen onder die iets anders zeggen
+  await expect(deel1).toBeHidden();
+  await expect(stap.getByRole('heading', { name: /Deel 2/ })).toBeHidden();
+  await expect(stap.locator('details[data-dienst="andere"]')).toBeHidden();
+  // wie het wel vindt, kiest "Een andere maildienst" en ziet de delen weer
+  await expect(kpn).toContainText('Een andere maildienst');
+  await keuze.getByRole('radio', { name: /Een andere maildienst/ }).check();
+  await expect(stap.getByRole('heading', { name: /Deel 2/ })).toBeVisible();
+  // en bij stap 1: wie niet weet of hij een MijnKPN-inlog heeft, slaat over en belt later
   await page.goto('/een-avond#stap-mail-wachtwoord');
-  await expect(page.locator('#stap-mail-wachtwoord details[data-dienst="kpn"]')).toContainText('heb je die inlog niet');
+  await expect(page.locator('#stap-mail-wachtwoord details[data-dienst="kpn"]')).toContainText('Weet je niet of je een inlog hebt voor MijnKPN');
   // de Mail-app op de iPhone: waar het wachtwoord zit, zonder te gokken naar een menupad
   await page.locator('#stap-mail-wachtwoord .lukt-niet summary').click();
   await expect(page.locator('#stap-mail-wachtwoord .lukt-niet')).toContainText('typ "accounts" in de zoekbalk');
+  // en het tweede vak voor het versturen
+  await expect(page.locator('#stap-mail-wachtwoord .lukt-niet')).toContainText('SMTP');
 });
 
 test('weekend en verder: scannen uitgelegd, foto\'s op Android, en een sleutel met alleen een telefoon of op Bitwarden', async ({ page }) => {
@@ -335,15 +353,19 @@ test('tweede slot: het deel per maildienst staat in deel 3, met het pad voor all
   await expect(deel3.locator('details[data-dienst="gmail"]')).toHaveAttribute('open', '');
   await expect(deel3.locator('details[data-dienst="gmail"]')).toContainText('myaccount.google.com');
   await expect(stap.locator('details[data-dienst="kpn"]')).toBeHidden();
+  // met een computer of met alleen een telefoon: twee gelijke keuzes, naast elkaar in deel 3
   await expect(deel3.locator('details.uitklap').filter({ hasText: 'alleen een telefoon' })).toBeVisible();
-  // KPN: het nakijken staat boven deel 1, en zegt wat MijnKPN is
+  await expect(deel3.locator('details.uitklap').filter({ hasText: 'op mijn computer' })).toBeVisible();
+  // de herstelsleutel: met nummers, zodat je kunt nakijken of je alles hebt
+  await expect(stap).toContainText('Zet een nummer voor elk woord');
+  // KPN: alleen het nakijken, de delen vallen weg
   await stap.getByRole('radio', { name: /KPN/ }).check();
-  await expect(stap.locator('details[data-dienst="kpn"]')).toContainText('abonnement en je rekening');
-  await expect(deel3.locator('details[data-dienst="gmail"]')).toBeHidden();
+  await expect(stap.locator('details[data-dienst="kpn"]')).toContainText('Sla over');
+  await expect(deel3).toBeHidden();
   // bij stap 1: wat je tegen KPN zegt, en dat de rest ook zonder deze stap lukt
   await page.goto('/een-avond#stap-mail-wachtwoord');
   const kpn = page.locator('#stap-mail-wachtwoord details[data-dienst="kpn"]');
-  await expect(kpn).toContainText('Bel KPN');
+  await expect(kpn).toContainText('KPN bellen');
   await expect(kpn).toContainText('Stap 3 tot en met 6 lukken ook zonder deze stap');
 });
 
@@ -360,4 +382,37 @@ test('weekend en verder: Samsung-machtigingen, een volle iCloud en inloggen met 
   const bw = page.locator('#stap-hardwaresleutel details.uitklap').filter({ hasText: 'Een sleutel op Bitwarden' });
   await bw.locator('summary').click();
   await expect(bw).toContainText('Bitwarden-app van je telefoon');
+});
+
+test('Bitwarden op Bitwarden: de pagina stuurt naar de EU, waar je account staat', async ({ page }) => {
+  await page.goto('/ik-wil-verder#stap-hardwaresleutel');
+  const bw = page.locator('#stap-hardwaresleutel details.uitklap').filter({ hasText: 'Een sleutel op Bitwarden' });
+  await bw.locator('summary').click();
+  await expect(bw.locator('li').first()).toContainText('vault.bitwarden.eu');
+  await page.goto('/een-weekend#stap-noodcodes');
+  await expect(page.locator('#stap-noodcodes')).toContainText('vault.bitwarden.eu');
+});
+
+test('de eerste handeling staat bij de avond in het eerste scherm, ook op een telefoon', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 664 });
+  // wie al koos, ziet de keuzes als één regel
+  await page.addInitScript(() => { localStorage.setItem('jdh:toestel', 'iphone'); localStorage.setItem('jdh:maildienst', 'gmail'); });
+  await page.goto('/een-avond#stap-mail-tweede-slot');
+  const stap = page.locator('#stap-mail-tweede-slot');
+  await expect(stap.locator('.toestel[data-soort="iphone"] li').first()).toContainText('App Store');
+  await page.goto('/een-avond');
+  await page.evaluate(() => window.scrollTo(0, 0));
+  // de eerste handeling op het toestel: naar de website van je maildienst
+  await expect(page.locator('#stap-mail-wachtwoord details[data-dienst="gmail"] li').first()).toBeInViewport();
+});
+
+test('wie stap 1 oversloeg, weet wat hij in de kluis zet, en op de computer welke knop het is', async ({ page }) => {
+  await page.goto('/een-avond#stap-wachtwoordmanager');
+  const stap = page.locator('#stap-wachtwoordmanager');
+  await expect(stap).toContainText('Mijn e-mail');
+  await expect(stap).toContainText('Laat het wachtwoord dan leeg');
+  await expect(stap.locator('.gelukt')).toContainText('Mijn e-mail');
+  // de knop per browser bij naam, en hoe je je browser herkent
+  await expect(stap).toContainText('Toevoegen aan Chrome');
+  await expect(stap).toContainText('oranje vos');
 });
