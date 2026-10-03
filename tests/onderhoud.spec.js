@@ -159,3 +159,19 @@ test('het bezoek: het tweede slot zegt wat een code op de telefoon is, en je hoe
   await expect(stap).toContainText('niet uit te loggen');
   await expect(page.locator('[data-beurt-stap="updates-aan"]')).toContainText('Apps en apparaat beheren');
 });
+
+test('onderhoud: Windows 10 zegt per wat je op het scherm ziet wat je doet', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const meer = page.locator('details', { hasText: 'Wat je doet met een apparaat zonder updates' });
+  for (const tekst of ['Windows 11 te downloaden', 'Nu inschrijven', 'Allebei niet?']) await expect(meer).toContainText(tekst);
+  // geen vakwoorden zonder uitleg meer
+  await expect(meer).not.toContainText('ChromeOS');
+});
+
+test('onderhoud en het bezoek blijven onder hun woordenplafond', async ({ request }) => {
+  const { blokken, meet } = await import('../scripts/leesniveau.mjs');
+  for (const [pad, plafond] of [['/onderhoud', 4000], ['/voor-de-mensen-om-je-heen', 3030]]) {
+    const html = await (await request.get(pad)).text();
+    expect(meet(blokken(html)).woorden, pad).toBeLessThanOrEqual(plafond);
+  }
+});
