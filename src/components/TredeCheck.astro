@@ -6,13 +6,15 @@ const VRAGEN = [
     ['eigen', 'Met een eigen wachtwoord dat ik uit mijn hoofd ken'],
     ['kluis', 'Met een wachtwoord uit mijn wachtwoordmanager (een app die al je wachtwoorden onthoudt)'],
     ['passkey', 'Zonder wachtwoord: met mijn vinger, gezicht of een sleuteltje'],
+    ['weetniet', 'Weet ik niet: mijn mail staat gewoon open in een app'],
   ] },
-  { id: 'stap', vraag: 'Komt er daarna nog een tweede stap?', opties: [
+  { id: 'stap', vraag: 'Vraagt je mail daarna nog iets, zoals een code?', hint: 'Denk aan de laatste keer dat je inlogde op een nieuwe telefoon of computer.', opties: [
     ['geen', 'Nee'],
     ['sms', 'Ja, een code per sms (cijfers die je na je wachtwoord intikt)'],
     ['app', 'Ja, een code uit een app (een app op je telefoon die steeds een nieuwe code toont)'],
     ['passkey', 'Ja, een passkey op mijn telefoon of computer (je bevestigt met je vinger, gezicht of pincode)'],
     ['sleutel', 'Ja, een los sleuteltje zoals een YubiKey (een klein stickje dat je in je computer steekt of tegen je telefoon houdt)'],
+    ['weetniet', 'Weet ik niet'],
   ] },
   { id: 'nood', vraag: 'Raak je je telefoon vandaag kwijt: kom je dan nog binnen?', opties: [
     ['nee', 'Nee, of ik weet het niet'],
@@ -26,6 +28,7 @@ const VRAGEN = [
   {VRAGEN.map((v) => (
     <fieldset>
       <legend>{v.vraag}</legend>
+      {v.hint && <p class="hint">{v.hint}</p>}
       {v.opties.map(([waarde, tekst]) => (
         <label><input type="radio" name={`tc-${v.id}`} value={waarde} /><span>{tekst}</span></label>
       ))}
@@ -35,7 +38,7 @@ const VRAGEN = [
     <p class="eyebrow">Jouw trede</p>
     <p class="trede"><span class="bol" data-bol>0</span> <strong data-titel></strong></p>
     <p data-advies></p>
-    <p><a class="knop klein" data-stap href="/een-avond">Naar Ik heb één avond →</a> <a class="knop licht klein" data-link href="#trede-1">Lees over deze trede</a> <a class="knop licht klein" data-volgende href="#trede-2">De volgende trede</a></p>
+    <p class="knoppen"><a class="knop klein" data-stap href="/een-avond">Naar Ik heb één avond →</a> <a class="knop licht klein" data-link href="#trede-1">Lees over deze trede</a> <a class="knop licht klein" data-volgende href="#trede-2">De volgende trede</a></p>
   </div>
 </section>
 
@@ -51,6 +54,8 @@ const VRAGEN = [
     function trede() {
       const ww = kies('ww'), stap = kies('stap'), nood = kies('nood');
       if (!ww || !stap || !nood) return null;
+      // wie het niet weet, krijgt geen trede toegewezen die misschien niet klopt
+      if (ww === 'weetniet' || stap === 'weetniet') return { t: 0, ww, stap, nood };
       let t = START[ww as keyof typeof START];
       if (stap === 'sms') t = Math.max(t, 4);
       if (stap === 'app') t = Math.max(t, 5);
@@ -61,6 +66,7 @@ const VRAGEN = [
     }
 
     function advies({ t, ww }: { t: number; ww: string }) {
+      if (t === 0) return { tekst: 'Dat weten veel mensen niet, en dat is niet erg. In Ik heb één avond geef je je mail een nieuw wachtwoord en een tweede slot. Daarna weet je het zeker.', naar: '/een-avond', naarTekst: 'Naar Ik heb één avond' };
       if (t <= 2) return { tekst: 'Begin bij een wachtwoordmanager en een tweede slot op je e-mail. Dat is niveau 1, in één avond.', naar: '/een-avond', naarTekst: 'Naar Ik heb één avond' };
       if (t === 3) return { tekst: 'De kluis staat. Zet nu een tweede slot op je e-mail: een code uit een app, of beter een passkey.', naar: '/een-avond', naarTekst: 'Zo zet je het tweede slot aan' };
       if (t === 4) return { tekst: 'Wissel de sms-code om voor een app of een passkey. Dat kost vijf minuten per account.', naar: '/een-weekend', naarTekst: 'Naar Ik heb een weekend' };
@@ -84,13 +90,16 @@ const VRAGEN = [
       const uit = s.querySelector<HTMLElement>('[data-uitslag]')!;
       uit.hidden = !r;
       if (!r) return;
-      s.querySelector('[data-bol]')!.textContent = String(r.t).padStart(2, '0');
-      s.querySelector('[data-titel]')!.textContent = tredeInfo(r.t)!.titel;
+      const onbekend = r.t === 0;
+      s.querySelector('[data-bol]')!.textContent = onbekend ? '?' : String(r.t).padStart(2, '0');
+      s.querySelector('[data-titel]')!.textContent = onbekend ? 'Nog niet zeker' : tredeInfo(r.t)!.titel;
       const a = advies(r);
-      s.querySelector('[data-advies]')!.textContent = a.tekst + noodzin(r.nood, r.t);
-      s.querySelector('[data-link]')!.setAttribute('href', `#trede-${r.t}`);
+      s.querySelector('[data-advies]')!.textContent = a.tekst + (onbekend ? '' : noodzin(r.nood, r.t));
+      const link = s.querySelector<HTMLElement>('[data-link]')!;
+      link.hidden = onbekend;
+      link.setAttribute('href', `#trede-${r.t}`);
       const volgende = s.querySelector<HTMLElement>('[data-volgende]')!;
-      volgende.hidden = r.t >= 8;
+      volgende.hidden = onbekend || r.t >= 8;
       volgende.setAttribute('href', `#trede-${Math.min(r.t + 1, 8)}`);
       const stap = s.querySelector<HTMLElement>('[data-stap]')!;
       stap.setAttribute('href', a.naar);
@@ -106,6 +115,8 @@ const VRAGEN = [
   .uitleg { color: var(--inkt-zacht); font-size: 0.97rem; margin-bottom: 1rem; }
   fieldset { border: 0; padding: 0; margin: 0 0 1.1rem; }
   legend { font-weight: 700; margin-bottom: 0.4rem; padding: 0; }
+  .hint { margin: 0 0 0.4rem; color: var(--inkt-zacht); font-size: 0.97rem; }
+  .knoppen a[hidden] { display: none; }
   label { display: flex; align-items: center; gap: 0.6rem; padding: 0.35rem 0.4rem; border-radius: var(--radius); cursor: pointer; font-size: 1rem; }
   /* aanraakscherm: minstens 44px om met een duim te raken (WCAG 2.5.5) */
   @media (pointer: coarse) { label { min-block-size: 44px; } }
@@ -114,5 +125,5 @@ const VRAGEN = [
   .uitslag { margin-top: 1rem; padding-top: 1rem; border-top: var(--lijndikte-dun) solid var(--lijn); }
   .uitslag[hidden] { display: none; }
   .trede { display: flex; align-items: center; gap: 0.75rem; font-family: var(--kop); font-size: 1.3rem; margin: 0 0 0.5rem; }
-  .uitslag p:last-child { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; }
+  .uitslag .knoppen { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; }
 </style>

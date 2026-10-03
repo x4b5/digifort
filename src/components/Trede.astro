@@ -2,20 +2,72 @@
 /**
  * Eén trede van de ladder. Titel en soort komen uit data/tredes.js: één bron.
  * De treden zijn h3: ze horen onder de vraagkop "Welke manieren van inloggen zijn er?".
+ * Elke trede is dichtgeklapt: je zoekt je eigen trede op en klapt alleen die open,
+ * in plaats van langs acht lange blokken te scrollen. Een link naar #trede-3 klapt hem open.
  */
 import { trede } from '../data/tredes.js';
 interface Props { nr: number }
 const { nr } = Astro.props;
 const { titel, soort } = trede(nr)!;
 ---
-<section class:list={["trede", `trede-${soort}`]} id={`trede-${nr}`}>
-  <p class="trede-nr"><span class:list={['bol', soort]}>{String(nr).padStart(2, '0')}</span> <span class="soort">{soort === 'hebben' ? 'iets wat je hebt' : 'iets wat je weet'}</span></p>
-  <h3>{titel}</h3>
-  <slot />
-</section>
+<details class:list={["trede", `trede-${soort}`]} id={`trede-${nr}`} data-trede>
+  <summary>
+    <span class:list={['bol', soort]} aria-hidden="true">{String(nr).padStart(2, '0')}</span>
+    <span class="kop">
+      <h3><span class="schermlezer">Trede {nr}: </span>{titel}</h3>
+      <span class="soort">{soort === 'hebben' ? 'Iets wat je hebt' : 'Iets wat je weet'}</span>
+    </span>
+  </summary>
+  <div class="binnen">
+    <slot />
+  </div>
+</details>
+
+<script>
+  /** Een link naar een trede (uit het overzicht, de trede-check of een andere pagina) klapt hem open. */
+  function openDoel() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const doel = id ? document.getElementById(id) : null;
+    if (!doel) return;
+    for (let d = doel.closest('details'); d; d = d.parentElement?.closest('details') ?? null) d.open = true;
+    doel.scrollIntoView();
+  }
+  addEventListener('hashchange', openDoel);
+  openDoel();
+
+  // De ResizeObserver in Pagina.astro ziet een tekening in een dichte trede niet; zet de
+  // --krimp (hoeveel kleiner de tekening getekend wordt) hier zelf, en opnieuw bij openen
+  // en bij een andere schermbreedte, zodat de tekst in de tekening leesbaar blijft.
+  function krimp() {
+    document.querySelectorAll<SVGSVGElement>('[data-trede] svg[viewBox]').forEach((svg) => {
+      const breedte = svg.getBoundingClientRect().width;
+      if (breedte) svg.style.setProperty('--krimp', String(svg.viewBox.baseVal.width / breedte));
+    });
+  }
+  krimp();
+  addEventListener('resize', krimp);
+  document.querySelectorAll('[data-trede], [data-trede] details').forEach((d) => d.addEventListener('toggle', krimp));
+  // een link naar de trede waar je al bent, geeft geen hashchange: dan zelf openklappen
+  document.addEventListener('click', (e) => {
+    const a = (e.target as Element | null)?.closest?.('a[href^="#trede-"]');
+    if (a && a.getAttribute('href') === location.hash) openDoel();
+  });
+</script>
+
 <style>
-  .trede { margin-top: 3rem; }
-  .trede h3 { margin-top: 0.4rem; font-size: clamp(1.5rem, 3.8vw, 2rem); }
-  .trede-nr { display: flex; align-items: center; gap: 0.75rem; margin: 0; font-family: var(--kop); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--inkt-zacht); }
+  /* als de accordeon van GOV.UK: een lijn tussen de treden, geen kader eromheen.
+     Een kader met binnenruimte maakt de tekeningen op een smal scherm te smal voor hun tekst. */
+  .trede { border-top: var(--lijndikte-dun) solid var(--lijn-sterk); }
+  .trede:has(+ :not(.trede)) { border-bottom: var(--lijndikte-dun) solid var(--lijn-sterk); }
+  .trede > summary { display: flex; align-items: center; gap: 0.9rem; padding: 0.9rem 0.25rem; cursor: pointer; list-style: none; min-block-size: 44px; }
+  .trede > summary::-webkit-details-marker { display: none; }
+  .trede > summary::after { content: '+'; margin-left: auto; font-family: var(--kop); font-size: 1.6rem; line-height: 1; color: var(--inkt-zacht); }
+  .trede[open] > summary::after { content: '−'; }
+  .trede > summary:hover { background: var(--papier-2); }
+  .trede h3 { margin: 0; font-size: clamp(1.2rem, 3.2vw, 1.5rem); }
+  .kop { display: flex; flex-direction: column; gap: 0.15rem; }
+  .soort { font-size: 0.95rem; color: var(--inkt-zacht); }
+  .binnen { padding: 0 0 1.5rem; }
+  .bol { flex: none; }
   .bol.hebben { background: var(--groen); }
 </style>

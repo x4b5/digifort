@@ -13,14 +13,12 @@ import Trede from '../../components/Trede.astro';
 import Jargon from '../../components/Jargon.astro';
 import Weegschaal from '../../components/Weegschaal.astro';
 import TredeCheck from '../../components/TredeCheck.astro';
-import L01 from '../../components/tekeningen/ladder/L01.astro';
 import L02 from '../../components/tekeningen/ladder/L02.astro';
 import L03 from '../../components/tekeningen/ladder/L03.astro';
 import L04 from '../../components/tekeningen/ladder/L04.astro';
 import L05 from '../../components/tekeningen/ladder/L05.astro';
 import L06 from '../../components/tekeningen/ladder/L06.astro';
 import L07 from '../../components/tekeningen/ladder/L07.astro';
-import L08 from '../../components/tekeningen/ladder/L08.astro';
 import L09 from '../../components/tekeningen/ladder/L09.astro';
 import L10 from '../../components/tekeningen/ladder/L10.astro';
 import L11 from '../../components/tekeningen/ladder/L11.astro';
@@ -51,7 +49,7 @@ Een passkey is inloggen zonder wachtwoord. Je bevestigt met je telefoon of compu
 
 ## Hoe stel ik een passkey in?
 
-Begin met je e-mail. Heb je KPN- of Ziggo-mail? Dan kan het daar vaak nog niet. Geef je mail dan een sterk, uniek wachtwoord en sla deze stappen over. Bij Gmail en Outlook gaat het zo, op iPhone en Android hetzelfde:
+Begin met je e-mail. **Heb je KPN- of Ziggo-mail?** Dan kan een passkey daar vaak nog niet. Geef je mail dan een nieuw, sterk wachtwoord. Log daarvoor in op MijnKPN of Mijn Ziggo en zoek "wachtwoord wijzigen". De Mail-app op je telefoon vraagt daarna misschien om het nieuwe wachtwoord. Typ het dan in. Dat is normaal. **Bij Gmail en Outlook** gaat het zo, op iPhone en Android hetzelfde:
 
 1. Open je account in de browser, niet in een mail-app. Bij Gmail is dat myaccount.google.com. Bij Outlook of Hotmail is dat account.microsoft.com.
 2. Log in en typ "passkey" in de zoekbalk. Of zoek bij de beveiliging naar het woord passkey.
@@ -62,7 +60,10 @@ Gelukt? Dan vraagt de site de volgende keer om je vinger, gezicht of pincode, en
 
 Vraagt een site zelf of je een passkey wilt maken? Zeg dan ja.
 
-<ZelfDoen stappen={[{ lijst: 'niveau-2', id: 'accounts-tweede-slot' }]} />
+<ZelfDoen stappen={[
+  { lijst: 'niveau-1', id: 'mail-wachtwoord' },
+  { lijst: 'niveau-2', id: 'accounts-tweede-slot' },
+]} />
 
 ## Wat als ik mijn telefoon of sleutel kwijtraak?
 
@@ -95,9 +96,7 @@ Acht, van zwak naar sterk. Zoek hoe jij nu inlogt, en lees alleen die trede:
 
 Bankieren gaat anders: daar log je in met de app van je bank. Deze ladder gaat over je mail en je andere accounts.
 
-<L01 />
-
-Een tweede slot betekent: na je wachtwoord moet je nog iets laten zien. Bijvoorbeeld een code uit een app op je telefoon. Twijfel je waar je staat? Beantwoord dan de drie vragen hieronder.
+Weet je niet hoe jij inlogt? Beantwoord dan de drie vragen hieronder. "Weet ik niet" mag ook. Daarna klik je alleen jouw trede open.
 
 <TredeCheck />
 
@@ -260,11 +259,9 @@ Bij het instellen scan je een QR-code. Daarmee krijgen de app en de site één g
 
 <Trede nr={6}>
 
-<L08 />
-
 <Kort>je logt in met je vinger, je gezicht of de pincode van je telefoon. Een wachtwoord typ je niet meer. Dit heet een passkey, en hij werkt alleen op de echte site.</Kort>
 
-<Weegschaal houdt="Nagemaakte inlogpagina's. Op pr0ton.me werkt je passkey niet, dus er valt niets te stelen." breekt="Je Apple- of Google-account. Dat bewaart je passkeys en zet ze op al je toestellen. Wie dat account overneemt, krijgt ze allemaal in één keer." />
+<Weegschaal houdt="Nagemaakte inlogpagina's. Op een nepsite werkt je passkey niet, dus er valt niets te stelen." breekt="Je Apple- of Google-account. Dat bewaart je passkeys en zet ze op al je toestellen. Wie dat account overneemt, krijgt ze allemaal in één keer." />
 
 <ZelfDoen stappen={[{ lijst: 'niveau-2', id: 'accounts-tweede-slot' }]} />
 

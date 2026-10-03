@@ -76,11 +76,17 @@ function regels(stukjes: Stukje[]): Stukje[][] {
     </label>
   </div>
   <p class="stand" data-stand aria-live="polite"></p>
+  <p class="alles"><button type="button" class="knop licht klein" data-alles aria-expanded="false">Alles openklappen</button></p>
 
+  {/* elk hoofdstuk is dichtgeklapt: 112 feiten onder elkaar is op een telefoon eindeloos scrollen.
+      Zoeken of een hoofdstuk kiezen klapt open wat past. */}
   {groepen.map((g) => (
-    <section class="groep" data-groep={g.slug}>
-      {/* de kop noemt het hoofdstuk, met "Bronnen bij" ervoor: wie scant, ziet dat hier de bronnen staan en niet het antwoord */}
-      <h3 id={g.slug}>Bronnen bij {g.titel}</h3>
+    <details class="groep" data-groep={g.slug}>
+      <summary>
+        {/* de kop noemt het hoofdstuk, met "Bronnen bij" ervoor: wie scant, ziet dat hier de bronnen staan en niet het antwoord */}
+        <h3 id={g.slug}>Bronnen bij {g.titel}</h3>
+        <span class="aantal">{g.items.length} {g.items.length === 1 ? 'feit' : 'feiten'}</span>
+      </summary>
       <p class="nr"><a href={`/${g.slug}`}>Naar het hoofdstuk zelf</a></p>
       <ul>
         {g.items.map((b) => (
@@ -107,7 +113,7 @@ function regels(stukjes: Stukje[]): Stukje[][] {
           </li>
         ))}
       </ul>
-    </section>
+    </details>
   ))}
 </div>
 
@@ -117,7 +123,9 @@ function regels(stukjes: Stukje[]): Stukje[][] {
     const keuze = blok.querySelector<HTMLSelectElement>('[data-hoofdstuk]')!;
     const alleenOpen = blok.querySelector<HTMLInputElement>('[data-open]')!;
     const stand = blok.querySelector<HTMLElement>('[data-stand]')!;
-    const groepen = Array.from(blok.querySelectorAll<HTMLElement>('[data-groep]'));
+    const groepen = Array.from(blok.querySelectorAll<HTMLDetailsElement>('[data-groep]'));
+    const alles = blok.querySelector<HTMLButtonElement>('[data-alles]')!;
+    let gefilterd = false;
     const items = Array.from(blok.querySelectorAll<HTMLLIElement>('[data-item]'));
     const totaal = items.length;
 
@@ -139,16 +147,41 @@ function regels(stukjes: Stukje[]): Stukje[][] {
         g.hidden = zichtbaar === 0;
         n += zichtbaar;
       });
-      const alles = !q && !slug && !open;
-      stand.textContent = alles ? `${totaal} feiten met een bron`
+      const niets = !q && !slug && !open;
+      // wie zoekt, ziet meteen wat past; wie het zoekvak leegmaakt, krijgt de dichte lijst terug
+      if (!niets) groepen.forEach((g) => { g.open = !g.hidden; });
+      else if (gefilterd) groepen.forEach((g) => { g.open = false; });
+      gefilterd = !niets;
+      stand.textContent = niets ? `${totaal} feiten met een bron`
         : n === 0 ? 'Niets gevonden. Probeer een ander woord of een ander hoofdstuk.'
         : `${n} van ${totaal} feiten`;
     }
+
+    function knop() {
+      const allesOpen = groepen.every((g) => g.hidden || g.open);
+      alles.textContent = allesOpen ? 'Alles dichtklappen' : 'Alles openklappen';
+      alles.setAttribute('aria-expanded', String(allesOpen));
+    }
+    alles.addEventListener('click', () => {
+      const openen = alles.getAttribute('aria-expanded') !== 'true';
+      groepen.forEach((g) => { g.open = openen; });
+      knop();
+    });
+    groepen.forEach((g) => g.addEventListener('toggle', knop));
+
+    // een link naar /bronnen#krijg-je-je-geld-terug klapt dat hoofdstuk open
+    function openDoel() {
+      const doel = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+      const groep = doel?.closest<HTMLDetailsElement>('[data-groep]');
+      if (groep && blok.contains(groep)) { groep.open = true; doel!.scrollIntoView(); }
+    }
+    addEventListener('hashchange', openDoel);
 
     veld.addEventListener('input', filter);
     keuze.addEventListener('change', filter);
     alleenOpen.addEventListener('change', filter);
     filter();
+    openDoel();
   });
 </script>
 
@@ -166,8 +199,18 @@ function regels(stukjes: Stukje[]): Stukje[][] {
   @media (pointer: coarse) { .open { min-block-size: 44px; padding-bottom: 0; } .open input { width: 1.4rem; height: 1.4rem; } }
   .stand { margin: 0 0 1.5rem; color: var(--inkt-zacht); }
 
-  .groep { margin: 2.25rem 0; }
-  .groep h3 { margin: 0 0 0.25rem; }
+  .alles { margin: 0 0 0.75rem; }
+  .groep { margin: 0 0 0.75rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); }
+  .groep[hidden] { display: none; }
+  .groep > summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; padding: 0.8rem 1rem; cursor: pointer; list-style: none; min-block-size: 44px; }
+  .groep > summary::-webkit-details-marker { display: none; }
+  .groep > summary::before { content: '+'; font-family: var(--kop); font-size: 1.4rem; line-height: 1; width: 1rem; }
+  .groep[open] > summary::before { content: '−'; }
+  .groep > summary:hover { background: var(--papier-2); }
+  .groep h3 { margin: 0; font-size: 1.2rem; }
+  .aantal { color: var(--inkt-zacht); font-size: var(--tekst-m); }
+  .groep > :not(summary) { margin-left: 1rem; margin-right: 1rem; }
+  .groep > ul:last-child { margin-bottom: 1rem; }
   .groep .nr { margin: 0 0 0.75rem; font-size: var(--tekst-m); color: var(--inkt-zacht); }
   .groep > ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem; }
   [data-item] { margin: 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); background: var(--papier); }

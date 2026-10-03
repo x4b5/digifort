@@ -285,3 +285,95 @@ test('wie bewaart je sleutel: je ziet hoe de kluis in je telefoon heet, en Gmail
   await expect(kluis).toContainText('passwords.google.com');
   await expect(page.locator('main h2', { hasText: 'Gmail' })).toHaveCount(1);
 });
+
+test('de ladder: wie niet weet hoe hij inlogt, krijgt geen verzonnen trede maar een begin', async ({ page }) => {
+  await page.goto('/van-geheim-woord-naar-zegelring');
+  const check = page.locator('[data-tredecheck]');
+  await check.locator('input[name="tc-ww"][value="weetniet"]').check();
+  await check.locator('input[name="tc-stap"][value="weetniet"]').check();
+  await check.locator('input[name="tc-nood"][value="nee"]').check();
+  await expect(check.locator('[data-titel]')).toHaveText('Nog niet zeker');
+  await expect(check.locator('[data-stap]')).toHaveAttribute('href', '/een-avond');
+  await expect(check.locator('[data-link]')).toBeHidden();
+  // wie het wel weet, krijgt weer gewoon zijn trede
+  await check.locator('input[name="tc-ww"][value="kluis"]').check();
+  await check.locator('input[name="tc-stap"][value="app"]').check();
+  await expect(check.locator('[data-titel]')).toHaveText('Een code uit een app');
+  await expect(check.locator('[data-link]')).toBeVisible();
+});
+
+test('de ladder: de acht treden zijn dicht, en een link naar een trede klapt hem open', async ({ page }) => {
+  await page.goto('/van-geheim-woord-naar-zegelring');
+  const treden = page.locator('main details[data-trede]');
+  await expect(treden).toHaveCount(8);
+  for (const open of await treden.evaluateAll((ds) => ds.map((d) => d.open))) expect(open).toBe(false);
+  // de titels blijven te zien, zonder hoofdletterkopjes of codes
+  await expect(page.locator('#trede-4 summary h3')).toContainText('Een code per sms');
+  await page.locator('main h2#welke-manieren-van-inloggen-zijn-er + p + ol a[href="#trede-4"]').click();
+  await expect(page.locator('#trede-4')).toHaveAttribute('open', '');
+  await expect(page.locator('#trede-4 .weeg')).toBeVisible();
+  await expect(page.locator('#trede-4 .weeg')).toContainText('Hier gaat het mis');
+  // van een andere pagina, met het anker in het adres
+  await page.goto('/van-geheim-woord-naar-zegelring#trede-7');
+  await expect(page.locator('#trede-7')).toHaveAttribute('open', '');
+  await expect(page.locator('main')).not.toContainText('hier kantelt het');
+  await expect(page.locator('main')).not.toContainText('a7f2c9');
+});
+
+test('de ladder: wie KPN-mail heeft, leest hoe hij het wachtwoord verandert en wat de Mail-app dan doet', async ({ page }) => {
+  await page.goto('/van-geheim-woord-naar-zegelring');
+  const kpn = page.locator('main h2:has-text("Hoe stel ik een passkey in?") + p');
+  await expect(kpn).toContainText('wachtwoord wijzigen');
+  await expect(kpn).toContainText('Mail-app');
+});
+
+test('geld terug: hoe lang je hebt, staat onder een eigen kop, en elk banknummer heeft zijn bron ernaast', async ({ page }) => {
+  await page.goto('/krijg-je-je-geld-terug');
+  const kop = page.locator('main h2', { hasText: 'Hoe lang heb ik' });
+  await expect(kop).toHaveCount(1);
+  const sectie = await kop.evaluate((h) => {
+    let t = ''; for (let e = h.nextElementSibling; e && e.tagName !== 'H2'; e = e.nextElementSibling) t += e.textContent; return t;
+  });
+  expect(sectie).toContain('vandaag');
+  expect(sectie).toContain('acht weken');
+  expect(sectie).toContain('drie maanden');
+  const rabo = page.locator('main h2#welk-nummer-bel-ik-als-het-net-gebeurd-is + p + ul li', { hasText: 'Rabobank' });
+  await expect(rabo.locator('a')).toHaveAttribute('href', /rabobank\.nl/);
+});
+
+test('in de bronnen zijn de hoofdstukken dicht, en zoeken of een link klapt open wat past', async ({ page }) => {
+  await page.goto('/bronnen');
+  const groepen = page.locator('[data-bronnen] details[data-groep]');
+  expect(await groepen.count()).toBeGreaterThan(5);
+  for (const open of await groepen.evaluateAll((ds) => ds.map((d) => d.open))) expect(open).toBe(false);
+  await page.locator('[data-zoek]').fill('Rabobank');
+  const raak = page.locator('[data-item]:visible', { hasText: '088 722 66 00' });
+  await expect(raak).toHaveCount(1);
+  await page.locator('[data-zoek]').fill('');
+  await expect(raak).toHaveCount(0);
+  await page.locator('[data-alles]').click();
+  for (const open of await groepen.evaluateAll((ds) => ds.map((d) => d.open))) expect(open).toBe(true);
+  await page.goto('/bronnen#krijg-je-je-geld-terug');
+  await expect(page.locator('details[data-groep="krijg-je-je-geld-terug"]')).toHaveAttribute('open', '');
+});
+
+test('wie bewaart je sleutel: wie een boekje heeft en wie twee kluizen heeft, krijgt een antwoord', async ({ page }) => {
+  await page.goto('/wie-bewaart-je-sleutel');
+  const kop = page.locator('main h2#mag-ik-mijn-wachtwoorden-in-een-boekje-schrijven');
+  await expect(kop).toHaveCount(1);
+  await expect(page.locator('main h2#mag-ik-mijn-wachtwoorden-in-een-boekje-schrijven + p')).toHaveText(/^Ja\./);
+  await expect(page.locator('main .kort a[href="#mag-ik-mijn-wachtwoorden-in-een-boekje-schrijven"]').first()).toBeVisible();
+  const kluis = page.locator('main h2#is-de-kluis-in-mijn-telefoon-goed-genoeg ~ ul').first();
+  await expect(kluis).toContainText('Samsung Pass');
+  await expect(kluis).toContainText('Kies er één');
+});
+
+test('het fort afbouwen: wie een iPhone heeft, ziet waar hij een herstelcontact instelt', async ({ page }) => {
+  await page.goto('/het-fort-afbouwen');
+  const sectie = await page.locator('main h2#wat-als-ik-mezelf-buitensluit').evaluate((h) => {
+    let t = ''; for (let e = h.nextElementSibling; e && e.tagName !== 'H2'; e = e.nextElementSibling) t += e.textContent; return t;
+  });
+  expect(sectie).toContain('Accountherstel');
+  expect(sectie).toContain('herstelcontact');
+  expect(sectie).not.toContain('zelfs Apple je niet meer helpen');
+});
