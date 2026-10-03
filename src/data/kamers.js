@@ -9,6 +9,7 @@
  * - `doe`: het antwoord, in één of twee zinnen. Dat zie je al als de plek dicht is.
  * - `zin`: waarom het ertoe doet, in één zin.
  * - `stappen`: waar je het stap voor stap doet (ids uit niveau 1, 2 en 3 in lijsten.js).
+ * - `keuzeVoor`: (optioneel) korte zinnen tussen de vraag en de keuzes.
  * - `keuzes`: (optioneel) waar het per maildienst of toestel anders gaat, de knoppen zelf.
  *   De lezer kiest zijn dienst en ziet alleen dat pad. Elke keuze heeft een eigen id, zodat
  *   de lijst bovenaan de plattegrond er rechtstreeks naartoe wijst ("Google-account").
@@ -35,14 +36,14 @@ const MAILDIENSTEN = [
     'Tweede slot: staat twee-factor-authenticatie op Aan? Dan zit het er al op.',
   ] },
   { id: 'kpn', kop: 'KPN (@kpnmail.nl, @planet.nl, @hetnet.nl)', stappen: [
-    'Open de browser op je telefoon of computer. Ga naar de site van KPN en log in op MijnKPN.',
-    'Nieuw wachtwoord: zoek naar je e-mail en dan naar "wachtwoord wijzigen".',
-    'Tweede slot: typ "tweestapsverificatie" in de zoekbalk van de site. Vind je niets? Dan kan het bij jouw mail nu niet. Dat is niet jouw fout. Je nieuwe wachtwoord beschermt je mail al.',
+    'Ga in je browser naar kpn.com en log in op MijnKPN.',
+    'Nieuw wachtwoord: typ "wachtwoord KPN Mail wijzigen" in de zoekbalk van de site. Volg wat er staat. Gelukt? Dan zegt de site dat je wachtwoord is gewijzigd.',
+    'Tweede slot: typ "tweestapsverificatie" in de zoekbalk van de site. Vind je niets? Dan biedt KPN het voor jouw mail niet aan. Dan ben je klaar: je nieuwe wachtwoord beschermt je mail.',
   ] },
   { id: 'ziggo', kop: 'Ziggo (@ziggo.nl, @home.nl, @upcmail.nl, @casema.nl)', stappen: [
-    'Open de browser op je telefoon of computer. Ga naar de site van Ziggo en log in op Mijn Ziggo.',
-    'Nieuw wachtwoord: zoek naar je e-mail en dan naar "wachtwoord wijzigen".',
-    'Tweede slot: typ "tweestapsverificatie" in de zoekbalk van de site. Vind je niets? Dan kan het bij jouw mail nu niet. Dat is niet jouw fout. Je nieuwe wachtwoord beschermt je mail al.',
+    'Ga in je browser naar ziggo.nl en log in op Mijn Ziggo.',
+    'Nieuw wachtwoord: typ "wachtwoord Ziggo Mail wijzigen" in de zoekbalk van de site. Volg wat er staat. Gelukt? Dan zegt de site dat je wachtwoord is gewijzigd.',
+    'Tweede slot: typ "tweestapsverificatie" in de zoekbalk van de site. Vind je niets? Dan biedt Ziggo het voor jouw mail niet aan. Dan ben je klaar: je nieuwe wachtwoord beschermt je mail.',
   ] },
 ];
 
@@ -67,7 +68,11 @@ export const KAMERS = [
   { id: 'voordeur', anker: 'de-voordeur-je-e-mail', naam: 'De voordeur', wat: 'je e-mail', onderwerp: 'E-mail: Gmail, Outlook, iCloud, KPN, Ziggo',
     doe: 'Geef je e-mail een lang wachtwoord dat je nergens anders gebruikt. Zet er een tweede slot op.',
     zin: 'Je e-mail is de belangrijkste deur van je huis.',
-    keuzeVraag: 'Welke maildienst heb je? Je ziet het aan het eind van je adres, na de @. Doe dit op de website, niet in de Mail-app.',
+    keuzeVraag: 'Welke maildienst heb je?',
+    keuzeVoor: [
+      'Je ziet het aan het eind van je adres, na de @.',
+      'Gmail, Outlook, KPN of Ziggo? Doe het op de website, niet in de Mail-app. Op een iPhone open je daarvoor Safari, op Android Chrome. Typ het adres in de balk bovenin.',
+    ],
     keuzes: MAILDIENSTEN,
     keuzeNa: [
       'Gelukt? Dan zegt de site dat tweestapsverificatie aan staat.',

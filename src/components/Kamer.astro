@@ -43,6 +43,7 @@ const { ook = [] } = Astro.props;
       {k.keuzes && (
         <div class="keuzes" data-keuzes>
           <h3 class="keuze-vraag">{k.keuzeVraag}</h3>
+          {(k.keuzeVoor ?? []).map((zin) => <p class="keuze-voor">{zin}</p>)}
           {k.keuzes.map((c) => (
             <details class="keuze" id={c.id} data-keuze={c.id}>
               <summary>{c.kop}</summary>
@@ -131,6 +132,7 @@ const { ook = [] } = Astro.props;
   /* per maildienst of toestel: kies je eigen pad, de rest blijft dicht */
   .keuzes { margin: 0.5rem 0 1.25rem; }
   .keuze-vraag { margin: 0 0 0.5rem; padding: 0; border: 0; font-size: 1.15rem; }
+  .keuze-voor { margin: 0 0 0.5rem; }
   .keuze { border-left: 4px solid var(--lijn-sterk); margin: 0.4rem 0; padding: 0 0 0 0.9rem; }
   .keuze > summary { cursor: pointer; padding: 0.45rem 0; font-weight: 700; color: var(--rood); text-decoration: underline; text-underline-offset: 0.15em; min-block-size: 44px; display: flex; align-items: center; }
   .keuze > summary:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }

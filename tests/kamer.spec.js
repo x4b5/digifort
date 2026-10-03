@@ -57,6 +57,25 @@ test('bovenaan staat een lijst met alle onderwerpen, met Google, Apple en Micros
   await expect(google.locator('ol')).toContainText('verificatie in twee stappen');
 });
 
+test('bovenaan staat waar je begint, en de volgorde met hoe lang elke ronde duurt', async ({ page }) => {
+  await page.goto('/plattegrond');
+  const begin = page.locator('[data-begin]');
+  await expect(begin.getByRole('heading', { level: 2 })).toHaveText('Waar begin je?');
+  // vóór de lijst met onderwerpen, en in het eerste scherm
+  const voor = await begin.evaluate((el) => Boolean(el.compareDocumentPosition(document.querySelector('[data-onderwerpen]')) & Node.DOCUMENT_POSITION_FOLLOWING));
+  expect(voor).toBe(true);
+  await expect(begin.getByRole('heading')).toBeInViewport();
+  // één plek om te beginnen: je e-mail
+  await expect(begin.locator('a[href="#de-voordeur-je-e-mail"]')).toBeVisible();
+  // de volgorde, met per ronde het aantal stappen en hoe lang het duurt
+  const rijen = begin.locator('[data-volgorde] li');
+  await expect(rijen).toHaveCount(4);
+  await expect(rijen.nth(0).locator('a')).toHaveAttribute('href', '/huischeck');
+  await expect(rijen.nth(1)).toContainText('Ik heb één avond: 6 stappen, ongeveer een uur');
+  await expect(rijen.nth(2)).toContainText('Ik heb een weekend: 10 stappen, ongeveer vier uur');
+  await expect(rijen.nth(3).locator('a')).toHaveAttribute('href', '/ik-wil-verder');
+});
+
 test('onder e-mail kies je je maildienst en zie je alleen dat pad, met waar het tweede slot zit', async ({ page }) => {
   await page.goto('/plattegrond');
   const voordeur = page.locator('#de-voordeur-je-e-mail');
@@ -75,6 +94,11 @@ test('onder e-mail kies je je maildienst en zie je alleen dat pad, met waar het 
   await expect(kpn.locator('ol')).toContainText('tweestapsverificatie');
   // en het zegt eerlijk wat je doet als het bij KPN niet kan
   await expect(kpn.locator('ol')).toContainText('Vind je niets?');
+  // met een webadres, en een duidelijk eind: ook zonder tweede slot weet je dat je klaar bent
+  await expect(kpn.locator('ol')).toContainText('kpn.com');
+  await expect(kpn.locator('ol')).toContainText('Dan ben je klaar');
+  // wie op een iPhone leest, hoort hoe hij buiten de Mail-app op de website komt
+  await expect(voordeur.locator('[data-keuzes]')).toContainText('Safari');
   await expect(page.locator('#gmail ol')).toBeHidden();
   // hoe je ziet dat het gelukt is
   await expect(voordeur.locator('[data-keuzes]')).toContainText('Gelukt?');

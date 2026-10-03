@@ -11,6 +11,22 @@
  * JavaScript blijft de knop weg: dan werkt hij ook niet.
  */
 import { KAMERS } from '../data/kamers.js';
+import { LIJSTEN } from '../data/lijsten.js';
+import { STAPPAGINAS } from '../data/doestappen.js';
+
+/*
+ * "Waar begin je?" staat vóór de lijst: wie niet weet waar hij moet beginnen, krijgt één
+ * plek (e-mail) en daarna de volgorde met hoe lang elke ronde duurt. Aantal en tijd komen
+ * uit lijsten.js, zodat ze gelijk lopen met de stap-voor-stap-pagina's zelf.
+ */
+const GETAL = ['nul', 'een', 'twee', 'drie', 'vier', 'vijf', 'zes', 'zeven', 'acht', 'negen', 'tien', 'elf', 'twaalf'];
+const rondes = Object.entries(STAPPAGINAS).map(([lijst, p]) => {
+  const items = LIJSTEN[lijst].items;
+  const min = items.reduce((t, it) => t + (it.tijd ?? 0), 0);
+  const uur = Math.round(min / 60);
+  const duur = min ? `ongeveer ${uur === 1 ? 'een uur' : `${GETAL[uur]} uur`}` : 'wanneer het jou uitkomt';
+  return { ...p, aantal: items.length, duur };
+});
 const ACCOUNT = 'tweede-voordeur';
 const rijen = KAMERS.flatMap((k) =>
   k.id === ACCOUNT && k.keuzes
@@ -18,6 +34,17 @@ const rijen = KAMERS.flatMap((k) =>
     : [{ href: `#${k.anker}`, tekst: k.onderwerp }],
 );
 ---
+<section class="begin" data-begin aria-labelledby="begin-kop">
+  <h2 id="begin-kop">Waar begin je?</h2>
+  <p>Begin bij je <a href="#de-voordeur-je-e-mail">e-mail</a>. Dat is de belangrijkste deur.</p>
+  <p>Wil je alles doen? Doe het in deze volgorde:</p>
+  <ol data-volgorde>
+    <li><a href="/huischeck">De huischeck</a>: tien vragen, twee minuten.</li>
+    {rondes.map((r) => <li><a href={r.href}>{r.titel}</a>: {r.aantal} stappen, {r.duur}.</li>)}
+  </ol>
+  <p>De tijd per stap staat ook bij elk onderwerp hieronder. Je hoeft deze pagina niet helemaal te lezen.</p>
+</section>
+
 <nav aria-label="Onderwerpen op deze pagina">
   <details class="onderwerpen" open data-onderwerpen>
     <summary class="onderwerpen-kop">Zoek je onderwerp</summary>
@@ -59,6 +86,11 @@ const rijen = KAMERS.flatMap((k) =>
 </script>
 
 <style>
+  .begin { margin: 1rem 0 0; padding: 0.9rem 1.1rem; border: var(--lijndikte-dun) solid var(--lijn); border-left: 6px solid var(--groen); border-radius: var(--radius); }
+  .begin h2 { margin: 0 0 0.4rem; padding: 0; border: 0; font-size: 1.3rem; }
+  .begin p, .begin ol { margin: 0.4rem 0; }
+  .begin li { margin: 0.3rem 0; }
+  .begin a { font-weight: 700; }
   .onderwerpen { margin: 1rem 0 0; padding: 0.4rem 1rem; border: var(--lijndikte-dun) solid var(--lijn); border-radius: var(--radius); }
   .onderwerpen-kop { margin: 0; font-family: var(--kop); font-weight: 700; cursor: pointer; list-style: none; display: block; padding: 0.6rem 0; }
   .onderwerpen-kop::-webkit-details-marker { display: none; }
