@@ -5,7 +5,6 @@ kort: "Niveau 1 in één avond, niveau 2 in een weekend. Alles gratis."
 omschrijving: "Maak je digitale huis stap voor stap veiliger: de basis in één avond, goed op slot in een weekend. Updates, back-ups en tweestaps. Alles gratis."
 datum: "2026-09-30"
 ---
-import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
@@ -17,11 +16,11 @@ import Gereedschapskist from '../../components/Gereedschapskist.astro';
 import Nagelopen from '../../components/Nagelopen.astro';
 import Scene from '../../components/Scene.astro';
 
-<p class="intro">Hier maak je je digitale huis veiliger. Dat gaat in drie niveaus, en je doet steeds één ding tegelijk. Begin bij niveau 1. Dat kost één avond.</p>
+<p class="intro">Hier maak je je digitale huis veiliger, één ding tegelijk. Je hoeft alleen dit eerste stuk te lezen. Daarna klik je op de knop.</p>
 
 ## Begin hier
 
-Heb je nog niets gedaan? Begin dan met niveau 1. Dat zijn zes stappen van samen ongeveer een uur.
+Begin met niveau 1. Dat zijn zes stappen van samen ongeveer een uur.
 
 **Wat je nodig hebt:**
 
@@ -31,7 +30,9 @@ Heb je nog niets gedaan? Begin dan met niveau 1. Dat zijn zes stappen van samen 
 
 <p><a class="knop" href="/een-avond">Begin met niveau 1 →</a></p>
 
-Je ziet dan één stap per scherm, met precies wat je moet doen. Stoppen mag altijd. Wat je afvinkt, onthoudt je eigen browser.
+Je ziet dan één stap per scherm, met precies wat je moet doen. Stoppen mag altijd.
+
+De rest van deze pagina is om later op te zoeken. Namen die je niet kent, mag je overslaan.
 
 <Scene wie="sanne">
 
@@ -133,15 +134,9 @@ Twee dingen moet je eerlijk weten. Dit werkt tegen inbrekers die het bij iederee
 
 <Kort>goed gereedschap is vaak gratis. En het beste slot zit meestal al in je apparaat.</Kort>
 
-<Vraagje vraag="Wat klopt er over virusscanners op een Windows-computer?" opties={[
-  { tekst: 'Je hebt een betaalde scanner nodig', uitleg: 'Twintig jaar geleden wel. Nu zit er een goede in Windows en voegt een gekochte scanner daar weinig aan toe.' },
-  { tekst: 'De scanner die al in Windows zit, is voor bijna iedereen genoeg', goed: true, uitleg: 'Windows Beveiliging doet het werk. Pas wel op met gratis scanners van anderen: sommige verdienen geld aan wat jij op internet doet.' },
-  { tekst: 'Een goede scanner houdt ook babbeltrucs tegen', uitleg: 'Geen enkele scanner doet dat. Je updates, je tweede slot en je eigen oplettendheid doen meer.' },
-]} />
-
 <Meer titel="Bekijk de aanraders">
 
-Dit is een lijst om in op te zoeken. De keuzes zijn gemaakt op vier punten. Het is gratis of goedkoop. Het heeft bewezen dat het werkt. Iedereen mag controleren hoe het in elkaar zit. En het bedrijf verdient geen geld aan jouw gegevens. Deze site verdient er ook niets aan.
+Dit is een lijst om in op te zoeken. Alles is gratis of goedkoop en heeft bewezen dat het werkt. Het bedrijf verdient geen geld aan jouw gegevens. Deze site verdient er ook niets aan.
 
 | Waarvoor | Neem | Ook goed |
 | --- | --- | --- |
@@ -155,31 +150,28 @@ Dit is een lijst om in op te zoeken. De keuzes zijn gemaakt op vier punten. Het 
 | Advertenties tegenhouden | uBlock Origin | De blokkade in Brave |
 | Berichten sturen | Signal | WhatsApp |
 | Onderweg op andermans wifi | Proton VPN, gratis | Mullvad, betaald |
-| Foute sites tegenhouden | Quad9 | NextDNS |
 | Een reservekopie | Een losse schijf | Proton Drive, of iCloud |
 | Bestanden op internet afschermen | Cryptomator | |
 | Een echte sleutel | YubiKey, kost geld | Een sleutel van een ander merk |
 
 ### Goed om te weten
 
-Je hoeft dit niet allemaal te lezen. Zoek alleen op wat je nodig hebt. De eerste twee gebruik je al in niveau 1.
+Zoek alleen op wat je nodig hebt. Hoe je iets instelt, staat bij de stap zelf.
 
-- **Wachtwoordmanager:** Bitwarden is gratis, en iedereen mag nakijken hoe het werkt. Kies er één en gebruik hem echt.
-- **Code-app:** zet de reservekopie in de app aan. Anders ben je bij een nieuwe telefoon al je codes kwijt.
-- **Proton Mail:** Zwitsers, met een gratis versie. Alleen mail tussen twee mensen met Proton is helemaal afgeschermd. Een mail naar iemand met Gmail niet.
-- **Een apart adres per webwinkel** heet een alias. Mail naar dat adres komt gewoon bij jou binnen. SimpleLogin is van Proton en gratis voor een handvol aliassen. Daarna betaal je. DuckDuckGo Email Protection is gratis. Betaal je Apple al voor extra iCloud-opslag (iCloud+)? Dan kan ook Verberg mijn e-mail van Apple. Gebruik aliassen voor webwinkels en nieuwsbrieven, niet voor je bank. Hoe je begint, staat in [Ik wil verder](/ik-wil-verder#stap-alias).
-- **Mac en telefoon:** installeer alleen apps uit de officiële winkel en houd je updates aan.
-- **uBlock Origin** is een gratis extensie: een klein hulpprogramma in je browser. De volledige versie werkt alleen nog in Firefox. In Chrome werkt alleen de lichtere uBlock Origin Lite. Installeer alleen de echte: er bestaan namaakversies.
-- **WhatsApp** is ook afgeschermd, maar deelt meer gegevens met het moederbedrijf Meta. Een berichten-app helpt alleen als je contacten hem ook gebruiken.
-- **VPN:** Mullvad kost een paar euro per maand. Vermijd andere gratis VPN's: die verdienen vaak aan wat jij op internet doet.
-- **Quad9** houdt bekende foute sites tegen. Het instellen is een klus voor wie handig is met de router. Vind je dat lastig? Sla het gerust over: je updates en je tweede slot doen meer. NextDNS doet hetzelfde. Het is gratis tot 300.000 keer opzoeken per maand. Elke site die je opent, telt minstens één keer. Daarna filtert het niet meer.
-- **Reservekopie:** op een Mac gebruik je Time Machine, op Windows Bestandsgeschiedenis. Koppel de schijf los als de kopie klaar is. Gebruik je iCloud? Zet dan Geavanceerde gegevensbescherming aan. Dat is een extra slot op iCloud: dan kan zelfs Apple je kopie niet lezen. Je vindt het in Instellingen, als je zoekt op "gegevensbescherming".
-- **Cryptomator** is gratis op je computer en werkt met elke opslag op internet. De app voor je telefoon kan gratis alleen lezen. Wil je er ook mee opslaan, dan betaal je eenmalig zo'n 30 euro.
-- **Een echte sleutel:** koop er twee. Dit is de enige aanrader die geld kost.
+- **Code-app:** zet de reservekopie in de app aan. Anders ben je bij een nieuwe telefoon je codes kwijt. Zie [niveau 1](/een-avond#stap-mail-tweede-slot).
+- **Proton Mail** is Zwitsers en heeft een gratis versie. Alleen mail tussen twee mensen met Proton is helemaal afgeschermd.
+- **Een apart adres per webwinkel** heet een alias. Zie [niveau 3](/ik-wil-verder#stap-alias).
+- **Mac en telefoon:** haal apps alleen uit de officiële winkel en laat de updates aan.
+- **uBlock Origin** werkt helemaal in Firefox. In Chrome en Edge werkt de lichtere uBlock Origin Lite. Zie [niveau 2](/een-weekend#stap-ublock).
+- **WhatsApp** is ook afgeschermd, maar deelt meer gegevens met Meta, het bedrijf erachter.
+- **VPN:** neem geen andere gratis VPN. Die verdienen vaak aan wat jij op internet doet. Zie [niveau 3](/ik-wil-verder#stap-vpn).
+- **Reservekopie:** zie [niveau 2](/een-weekend#stap-backup). Gebruik je iCloud? Zoek dan in Instellingen op "gegevensbescherming". Met Geavanceerde gegevensbescherming kan zelfs Apple niet bij je kopie. Apple kan je dan ook niet helpen als je de toegang kwijt bent. Daarom stel je eerst een reserve in: een herstelsleutel, of iemand die je vertrouwt als herstelcontact.
+- **Cryptomator** is gratis op je computer. Op je telefoon kost opslaan eenmalig zo'n 30 euro.
+- **Een echte sleutel:** koop er twee. Zie [niveau 3](/ik-wil-verder#stap-hardwaresleutel).
 
-**Over virusscanners.** Twintig jaar geleden moest je een virusscanner kopen. Nu zit er een goede in Windows en in de Mac. Die vangt de meeste gewone kwaadaardige programma's af, en een gekochte scanner is voor de meeste mensen niet nodig. Eén zwak punt: de scanner van Windows houdt geen nepwebsites tegen. Daar helpen je eigen oplettendheid en een wachtwoordmanager, die je wachtwoord niet invult op een nepsite. Sommige gratis scanners verdienen geld aan wat jij op internet doet. En geen enkele scanner houdt een babbeltruc tegen. Je updates, je tweede slot en je eigen oplettendheid doen meer.
+**Over virusscanners.** In Windows en op de Mac zit al een goede scanner. Een gekochte scanner is voor de meeste mensen niet nodig. Pas op met gratis scanners van anderen: sommige verdienen aan wat jij op internet doet. De scanner van Windows houdt wel geen nepwebsites tegen. Daar helpt je wachtwoordmanager: die vult je wachtwoord niet in op een nepsite.
 
-**Over Proton.** Proton is een Zwitsers bedrijf. Het maakt e-mail, een wachtwoordmanager, een VPN en opslag. Je betaalt met geld en niet met je gegevens. Dat is handig en betrouwbaar. Er zit één nadeel aan. Heb je alles bij één bedrijf? Dan opent één account al je deuren. Zet daar dus je sterkste slot op. Bewaar de herstelcodes in je noodpakket.
+**Over Proton.** Proton is een Zwitsers bedrijf. Het maakt e-mail, een wachtwoordmanager, een VPN en opslag. Je betaalt met geld, niet met je gegevens. Eén nadeel: heb je alles bij Proton, dan opent één account al je deuren. Zet daar dus je sterkste slot op.
 
 **Handige controles, allemaal gratis:**
 
@@ -192,8 +184,10 @@ Je hoeft dit niet allemaal te lezen. Zoek alleen op wat je nodig hebt. De eerste
 
 </Meer>
 
-### Alles op één rij
+<Meer titel="Alles op één rij, met logo">
 
-Alles wat op deze site wordt genoemd, op één rij. Allemaal gratis of goedkoop, en niemand verdient eraan als je erop klikt. De logo's staan er zodat je ze herkent in de app-winkel.
+Alles wat op deze site wordt genoemd. De logo's staan er zodat je ze herkent in de app-winkel. Niemand verdient eraan als je erop klikt.
 
 <Gereedschapskist />
+
+</Meer>
