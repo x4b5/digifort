@@ -61,7 +61,7 @@ export const HOOFDSTUKKEN = [
   { deel: 'opzoeken', nr: null, slug: 'inbrekers-van-nu', titel: 'De inbrekers van nu', kort: 'Babbeltrucs, datalekken, gijzeling en gestolen nummers.' },
   { deel: 'opzoeken', nr: null, slug: 'inbrekers-van-morgen', titel: 'De inbrekers van morgen', kort: 'AI dat jouw stem kent en computers die oude sloten openen.' },
   { deel: 'opzoeken', nr: null, slug: 'van-geheim-woord-naar-zegelring', titel: 'Van geheim woord naar zegelring', kort: 'De ladder: acht manieren om in te loggen, van zwak naar sterk.' },
-  { deel: 'opzoeken', nr: null, slug: 'het-fort-afbouwen', titel: 'Nog sterker beveiligen', kort: 'Meer doen dan niveau 3: reservekopieën, herstelcodes, je nalatenschap, en daarna de zwaarste sloten.' },
+  { deel: 'opzoeken', nr: null, slug: 'het-fort-afbouwen', titel: 'Nog sterker beveiligen', kort: 'Voor wie de basis heeft: reservekopieën, herstelcodes, je nalatenschap, en daarna de zwaarste sloten.' },
   { deel: 'opzoeken', nr: null, slug: 'krijg-je-je-geld-terug', titel: 'Krijg je je geld terug?', kort: 'Eén vraag bepaalt bijna alles: heb jij zelf op akkoord gedrukt, of iemand anders?' },
   { deel: 'opzoeken', nr: null, slug: 'de-storm-om-het-huis', titel: 'De storm om het huis', kort: 'Staten, hackers en oorlog op afstand: wat de wereld met jouw voordeur te maken heeft.' },
   { deel: 'opzoeken', nr: null, slug: 'wie-bewaart-je-sleutel', titel: 'Bij wie liggen je sleutels veilig?', kort: 'Waar je wachtwoorden en passkeys staan, of de kluis in je telefoon goed genoeg is, en waarom deze site Europees kiest.' },

@@ -5,7 +5,7 @@
  * Alles komt uit src/data/bronnen.js; hier staat geen tekst die daar ook staat.
  */
 import { BRONNEN } from '../data/bronnen.js';
-import { HOOFDSTUKKEN, plek } from '../lib/site.js';
+import { HOOFDSTUKKEN } from '../lib/site.js';
 
 const titel = (slug: string) => HOOFDSTUKKEN.find((h) => h.slug === slug);
 
@@ -79,9 +79,9 @@ function regels(stukjes: Stukje[]): Stukje[][] {
 
   {groepen.map((g) => (
     <section class="groep" data-groep={g.slug}>
-      {/* de kop is de naam van het hoofdstuk: wie met een schermlezer van kop naar kop springt, hoort waar hij is */}
-      <h3 id={g.slug}>{g.titel}</h3>
-      <p class="nr">{plek(g.slug)?.deel?.titel} · {plek(g.slug)?.tekst} · <a href={`/${g.slug}`}>Naar het hoofdstuk</a></p>
+      {/* de kop noemt het hoofdstuk, met "Bronnen bij" ervoor: wie scant, ziet dat hier de bronnen staan en niet het antwoord */}
+      <h3 id={g.slug}>Bronnen bij {g.titel}</h3>
+      <p class="nr"><a href={`/${g.slug}`}>Naar het hoofdstuk zelf</a></p>
       <ul>
         {g.items.map((b) => (
           <li data-item data-status={b.status}>
