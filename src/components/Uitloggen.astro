@@ -3,11 +3,10 @@
 import Optie from './Optie.astro';
 import ZoekOpPagina from './ZoekOpPagina.astro';
 ---
-<p>Bij je account staat een lijst met apparaten die erin zitten, zoals iPhone of Windows. Vaak staan er ook een plaats en een datum bij. Haal eruit wat niet van jou is. Tik op je dienst:</p>
+<p>Tik op je dienst:</p>
 <Optie titel="Google (@gmail.com)">
   <ol>
-    <li>Ga naar myaccount.google.com en log in.</li>
-    <li>Typ "apparaten" in de zoekbalk bovenaan. Kies wat over je apparaten gaat. Je ziet nu een lijst met apparaten.</li>
+    <li>Ga naar myaccount.google.com/device-activity en log in. Je ziet nu een lijst met je apparaten.</li>
     <li>Kies een apparaat dat je niet kent, en dan Uitloggen.</li>
   </ol>
 </Optie>
@@ -22,7 +21,7 @@ import ZoekOpPagina from './ZoekOpPagina.astro';
   <ol>
     <li>Ga naar account.microsoft.com en log in.</li>
     <li>Kies Beveiliging.</li>
-    <li>Zoek op die pagina het woord "afmelden".<ZoekOpPagina woord="afmelden" />Klik op de link om overal af te melden. Bevestig dat.</li>
+    <li>Zoek op die pagina het woord "afmelden".<ZoekOpPagina woord="afmelden" kort />Klik op de link om overal af te melden. Bevestig dat.</li>
   </ol>
 </Optie>
 <Optie titel="Facebook of Instagram">
@@ -34,12 +33,13 @@ import ZoekOpPagina from './ZoekOpPagina.astro';
 </Optie>
 <Optie titel="WhatsApp">
   <ol>
-    <li>Open WhatsApp. Op een iPhone tik je onderaan op Instellingen. Op Android tik je rechtsboven op de drie puntjes.</li>
+    <li>Open WhatsApp. iPhone: tik onderaan op Instellingen. Android: tik rechtsboven op de drie puntjes.</li>
     <li>Kies Gekoppelde apparaten.</li>
     <li>Tik op een apparaat dat je niet kent, en kies Uitloggen.</li>
   </ol>
 </Optie>
-<Optie titel="Je provider of een andere dienst">
-  <p>Log in op de website. Zoek in de instellingen naar "apparaten", "uitloggen" of "afmelden". Vind je het niet? Bel de klantenservice.</p>
+<Optie titel="Mail van KPN of Ziggo, of een andere dienst">
+  <p>Log in op de website. Zoek in de instellingen naar "apparaten" of "uitloggen".</p>
+  <p>Mail van KPN of Ziggo heeft vaak geen lijst. Dan is je nieuwe wachtwoord uit stap 2 het slot.</p>
 </Optie>
-<p>Twijfel je of een apparaat van jou is? Log het toch uit. Je eigen apparaat vraagt dan gewoon opnieuw om je wachtwoord.</p>
+<p>Twijfel je? Log het toch uit. Je eigen apparaat vraagt dan om je wachtwoord.</p>

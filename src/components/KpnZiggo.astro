@@ -1,0 +1,27 @@
+---
+/**
+ * Mail van KPN of Ziggo (of een ander internetbedrijf). De webmail en Mijn KPN
+ * veranderen vaak, en we hebben geen bron voor hun menu's. Twee rondes
+ * testpersonen liepen vast op "zoek op die pagina het woord e-mail" en "zoek in
+ * de instellingen naar doorsturen". Daarom is hier bellen de weg, met de zin
+ * die je zegt. Eén gesprek regelt het wachtwoord, het nummer bij je account en
+ * het doorsturen tegelijk. Een belnummer staat (nog) niet in bronnen.js; daarom
+ * zeggen we waar het staat in plaats van een nummer te gokken.
+ */
+interface Props { wat: 'wachtwoord' | 'herstel' | 'doorsturen'; kwijt?: boolean }
+const { wat, kwijt = false } = Astro.props;
+const ZIN = {
+  wachtwoord: (kwijt ? 'Mijn telefoon is kwijt.' : 'Iemand zit in mijn mail.') + ' Ik wil een nieuw wachtwoord voor mijn mail.',
+  herstel: 'Welk telefoonnummer en welk mailadres staan bij mijn account?',
+  doorsturen: 'Wordt mijn mail doorgestuurd? Staat er een regel die ik niet zelf maakte? Haal die weg.',
+};
+---
+{wat !== 'wachtwoord' && <p>Al gevraagd bij stap 2? Dan ben je klaar.</p>}
+<ol>
+  {wat === 'wachtwoord'
+    ? <li>Bel de klantenservice van KPN of Ziggo. Het nummer staat op je rekening, en op kpn.com of ziggo.nl bij Contact.</li>
+    : <li>Bel de klantenservice van KPN of Ziggo: zie je rekening, of kpn.com of ziggo.nl.</li>}
+  <li>Zeg: "{ZIN[wat]}"</li>
+  {wat === 'wachtwoord' && !kwijt && <li>Vraag meteen ook: "{ZIN.herstel}" En: "{ZIN.doorsturen}" Dan zijn stap 5 en 6 ook klaar.</li>}
+  {wat === 'herstel' && <li>Ken je een nummer of adres niet? Laat het weghalen.</li>}
+</ol>

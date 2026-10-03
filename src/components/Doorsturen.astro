@@ -2,45 +2,55 @@
 /**
  * Waar je ziet of een inbreker een regel heeft gemaakt die je mail doorstuurt,
  * en hoe je hem weghaalt. Dat kan meestal alleen op de website van je e-mail,
- * niet in de app. Eerst kijken, dan alleen weghalen wat je niet zelf maakte:
- * de testpersoon las eerder "je verandert niets" en daarna "haal hem weg", en
- * durfde daarna niets meer aan te raken.
+ * niet in de app. Eerst kijken, dan alleen weghalen wat je niet zelf maakte.
+ *
+ * Testpersonen met alleen een telefoon vonden de knop voor de computerweergave
+ * niet (Safari, Samsung Internet), en kregen bij gmail.com de vraag om de app te
+ * openen. Daarom: liefst een computer, en anders per browser waar de knop zit.
+ * Op een Samsung opende gmail.com in Chrome meteen de Gmail-app, zonder vraag:
+ * eerst de computerweergave aan, dan het adres; anders Samsung Internet.
+ * KPN en Ziggo: bellen, zie KpnZiggo.astro.
  */
 import Optie from './Optie.astro';
+import KpnZiggo from './KpnZiggo.astro';
 ---
-<p>Kijk daarna of er een regel is die je mail doorstuurt. Doe dit op een computer of laptop, op de website van je e-mail. In de app op je telefoon zie je deze regels meestal niet.</p>
-<p>Zo'n regel ziet er bijvoorbeeld zo uit:</p>
-<ul>
-  <li>Stuur alle mail door naar een adres dat je niet kent.</li>
-  <li>Verplaats mail van je bank naar de prullenbak.</li>
-</ul>
-<p>Je haalt alleen weg wat je niet zelf hebt gemaakt. Twijfel je? Laat de regel dan staan, en vraag iemand die je vertrouwt om mee te kijken. Tik op je e-mail:</p>
+<p>Je haalt alleen weg wat je niet zelf hebt gemaakt. Twijfel je? Laat het staan.</p>
+<p>Dit zie je alleen op de website, niet in de app. Gebruik liefst een computer of tablet.</p>
+<Optie titel="Ik heb alleen een telefoon">
+  <p>Zet je browser eerst op de weergave voor een computer. Typ daarna pas het adres. Tik op je browser:</p>
+  <ul>
+    <li><strong>Chrome:</strong> drie puntjes rechtsboven. Zet een vinkje bij Desktopsite.</li>
+    <li><strong>Samsung Internet:</strong> drie streepjes rechtsonder. Kies Desktopversie.</li>
+    <li><strong>Safari (iPhone):</strong> tik links in de adresbalk op aA of op het kleine icoontje. Kies Vraag desktopwebsite aan.</li>
+  </ul>
+  <p>Alles wordt klein: zoom in met twee vingers. Vraagt de site of je de app wilt openen? Kies om in de browser te blijven.</p>
+  <p>Gaat de app vanzelf open, zonder vraag? Typ het adres opnieuw in je browser. Gaat hij weer open? Gebruik Samsung Internet, of een computer.</p>
+</Optie>
+<p>Tik op je e-mail:</p>
 <Optie titel="@gmail.com">
   <ol>
     <li>Ga naar gmail.com en log in.</li>
-    <li>Klik rechtsboven op het tandwiel. Klik op Alle instellingen bekijken.</li>
-    <li>Klik bovenaan op Doorsturen en POP/IMAP. Staat daar een adres dat je niet kent? Kies Doorsturen uitschakelen. Klik onderaan op Wijzigingen opslaan.</li>
-    <li>Klik daarna bovenaan op Filters en geblokkeerde adressen. Staat er een filter dat je niet zelf hebt gemaakt? Zet er een vinkje voor. Klik op Verwijderen.</li>
+    <li>Rechtsboven staat een tandwiel. Tik erop, en dan op Alle instellingen bekijken.</li>
+    <li>Bovenaan staat een rij tabbladen. Kies Doorsturen en POP/IMAP. Staat er een adres dat je niet kent? Kies Doorsturen uitschakelen. Tik onderaan op Wijzigingen opslaan.</li>
+    <li>Kies het tabblad Filters en geblokkeerde adressen. Een filter dat je niet zelf maakte? Zet er een vinkje voor. Tik op Verwijderen.</li>
   </ol>
 </Optie>
 <Optie titel="@outlook.com, @hotmail.com of @live.nl">
   <ol>
     <li>Ga naar outlook.com en log in.</li>
-    <li>Klik rechtsboven op het tandwiel.</li>
-    <li>Kies E-mail, en dan Doorsturen. Staat het aan, en heb je dat niet zelf gedaan? Zet het uit. Klik op Opslaan.</li>
-    <li>Kies daarna Regels. Staat er een regel die je niet zelf hebt gemaakt? Klik op de prullenbak ernaast.</li>
+    <li>Tik rechtsboven op het tandwiel.</li>
+    <li>Kies E-mail, en dan Doorsturen. Staat het aan zonder dat jij dat deed? Zet het uit. Tik op Opslaan.</li>
+    <li>Kies Regels. Een regel die je niet zelf maakte? Tik op de prullenbak ernaast.</li>
   </ol>
 </Optie>
 <Optie titel="@icloud.com of @me.com">
   <ol>
-    <li>Ga op een computer naar icloud.com/mail en log in.</li>
-    <li>Links staat een lijst met je mappen, zoals Inkomend. Bovenaan die lijst staat een rond knopje. Er staan drie puntjes of een tandwiel in. Klik erop.</li>
-    <li>Kies Instellingen. Er opent een venster.</li>
-    <li>Kies Regels. Staat er een regel die je niet zelf hebt gemaakt? Klik erop, en verwijder hem.</li>
-    <li>Kijk ook of je mail wordt doorgestuurd naar een adres dat je niet kent. Kijk daarvoor ook bij de andere onderdelen links in het venster. Zet het doorsturen uit.</li>
+    <li>Ga naar icloud.com/mail en log in.</li>
+    <li>Boven je mappen, zoals Inkomend, staat een rond knopje met drie puntjes of een tandwiel. Tik erop, en kies Instellingen.</li>
+    <li>Kies Regels. Een regel die je niet zelf maakte? Verwijder hem.</li>
+    <li>Kijk ook links in het venster of je mail wordt doorgestuurd. Naar een adres dat je niet kent? Zet het uit.</li>
   </ol>
 </Optie>
-<Optie titel="Een adres van je provider of iets anders">
-  <p>Log in op de webmail van je provider. Zoek in de instellingen naar "doorsturen", "regels" of "filters". Vind je het niet? Bel je provider. Die kan meekijken.</p>
+<Optie titel="@kpnmail.nl, @ziggo.nl of een ander adres van je internetbedrijf">
+  <KpnZiggo wat="doorsturen" />
 </Optie>
-<p>Staat er geen regel en wordt er niets doorgestuurd? Dan hoef je niets te doen.</p>
