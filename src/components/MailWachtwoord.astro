@@ -1,21 +1,31 @@
 ---
 /**
- * Hoe je je e-mail een nieuw wachtwoord geeft, per soort adres. Staat in alle
- * drie de stappenplannen op Als er toch is ingebroken, zodat niemand hoeft te
- * zoeken naar "stap 2 bij Iemand zit in je account".
+ * Hoe je je e-mail een nieuw wachtwoord geeft, per soort adres. Staat in twee
+ * stappenplannen op Als er toch is ingebroken, zodat niemand hoeft te zoeken
+ * naar "stap 2 bij Iemand zit in je account".
+ *
+ * kwijt: voor wie zijn telefoon kwijt is. Dan kies je op je toestel én je mail
+ * (de testpersoon met een KPN-adres en een iPhone klapte @icloud.com niet open,
+ * en las dus nooit hoe het Apple-wachtwoord verandert), het gaat via de website
+ * in plaats van de iPhone, en de mail-app hoeft niets.
  */
 import Optie from './Optie.astro';
 import ZoekOpPagina from './ZoekOpPagina.astro';
+import KpnZiggo from './KpnZiggo.astro';
+interface Props { kwijt?: boolean }
+const { kwijt = false } = Astro.props;
 ---
-<p>Dit doe je op de site van je maildienst, niet in je mail-app, zoals Mail op je iPhone. Tik op wat er in je adres na de @ staat:</p>
-<Optie titel="@gmail.com (Google)">
+<p>{kwijt
+  ? 'Tik op je toestel. Zit je mail bij KPN of Ziggo? Tik daarna ook op die keuze.'
+  : 'Dit doe je op de site van je maildienst, niet in je mail-app. Tik op wat er in je adres na de @ staat:'}</p>
+<Optie titel={kwijt ? 'Android, of @gmail.com (Google)' : '@gmail.com (Google)'}>
   <ol>
     <li>Ga naar myaccount.google.com en log in.</li>
     <li>Typ "wachtwoord" in de zoekbalk bovenaan. Kies Wachtwoord.</li>
     <li>Vul twee keer je nieuwe wachtwoord in.</li>
   </ol>
 </Optie>
-<Optie titel="@outlook.com, @hotmail.com of @live.nl (Microsoft)">
+<Optie titel={kwijt ? 'Windows-laptop, of @outlook.com of @hotmail.com (Microsoft)' : '@outlook.com, @hotmail.com of @live.nl (Microsoft)'}>
   <ol>
     <li>Ga naar account.microsoft.com en log in.</li>
     <li>Kies Beveiliging.</li>
@@ -23,18 +33,25 @@ import ZoekOpPagina from './ZoekOpPagina.astro';
     <li>Vul je nieuwe wachtwoord in.</li>
   </ol>
 </Optie>
-<Optie titel="@icloud.com of @me.com (Apple)">
-  <ol>
-    <li>Open Instellingen op je iPhone. Tik bovenaan op je naam.</li>
-    <li>Kies Inloggen en beveiliging, en dan Wijzig wachtwoord.</li>
-    <li>Vul je nieuwe wachtwoord in.</li>
-  </ol>
-  <p>iPhone kwijt? Ga op een ander apparaat naar account.apple.com en log in. Kies Inloggen en beveiliging, en dan Wachtwoord.</p>
+<Optie titel={kwijt ? 'iPhone, iPad of Mac, of @icloud.com (Apple)' : '@icloud.com of @me.com (Apple)'}>
+  {kwijt ? (
+    <ol>
+      <li>Ga naar account.apple.com en log in.</li>
+      <li>Kies Inloggen en beveiliging, en dan Wachtwoord.</li>
+      <li>Vul je nieuwe wachtwoord in.</li>
+    </ol>
+  ) : (
+    <ol>
+      <li>Open Instellingen op je iPhone. Tik bovenaan op je naam.</li>
+      <li>Kies Inloggen en beveiliging, en dan Wijzig wachtwoord.</li>
+      <li>Vul je nieuwe wachtwoord in.</li>
+    </ol>
+  )}
 </Optie>
-<Optie titel="@ziggo.nl, @kpnmail.nl of een ander adres van je provider">
-  <ol>
-    <li>Log in op Mijn Ziggo, Mijn KPN of de site van je provider.</li>
-    <li>Zoek daar naar het wachtwoord van je e-mail. Lukt het niet? Bel je provider.</li>
-  </ol>
+<Optie titel="@kpnmail.nl, @ziggo.nl of een ander adres van je internetbedrijf">
+  <KpnZiggo wat="wachtwoord" />
 </Optie>
-<p>Een goed wachtwoord is vier of vijf losse woorden, zoals "lantaarn koffie zebra dakpan". Gebruik het nergens anders. Schrijf het op papier.</p>
+{!kwijt && (<p>Een goed wachtwoord is vier of vijf losse woorden, zoals "lantaarn koffie zebra dakpan". Gebruik het nergens anders. Schrijf het op papier.</p>)}
+{!kwijt && (
+  <p><strong>Haalt Mail op je iPhone daarna geen mail meer op?</strong> Open Instellingen, typ "Mail" in de zoekbalk, en kies Mail. Kies het onderdeel met Accounts erin. Tik op je adres, tot je het vak Wachtwoord ziet. Vul het nieuwe in. Op Android vraagt de mail-app er meestal zelf om.</p>
+)}

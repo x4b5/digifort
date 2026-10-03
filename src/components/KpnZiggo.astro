@@ -1,0 +1,28 @@
+---
+/**
+ * Mail van KPN of Ziggo (of een ander internetbedrijf): waar je inlogt en hoe
+ * je de klantenservice vindt. De testpersoon kreeg eerst "log in op Mijn KPN,
+ * zoek daar" en "bel je provider", zonder adres, zonder wachtwoord en zonder
+ * nummer. Een belnummer van KPN of Ziggo staat (nog) niet in bronnen.js; daarom
+ * zeggen we waar het staat in plaats van een nummer te gokken.
+ */
+import ZoekOpPagina from './ZoekOpPagina.astro';
+interface Props { wat: 'wachtwoord' | 'herstel' | 'doorsturen' }
+const { wat } = Astro.props;
+---
+{wat === 'doorsturen' ? (
+  <ol>
+    <li>Typ kpn.com of ziggo.nl bovenin je browser. Zoek op die pagina het woord "webmail".<ZoekOpPagina woord="webmail" />Klik erop.</li>
+    <li>Log in met je mailadres en je nieuwe wachtwoord.</li>
+    <li>Zoek in de instellingen naar "doorsturen" en "regels". Een adres of regel die je niet kent? Haal het weg.</li>
+  </ol>
+) : (
+  <ol>
+    <li>Typ kpn.com of ziggo.nl bovenin je browser. Kies Mijn KPN of Mijn Ziggo.</li>
+    <li>Log in. Dat wachtwoord kan anders zijn dan dat van je mail. Kwijt? Kies daar Wachtwoord vergeten.</li>
+    {wat === 'wachtwoord'
+      ? <li>Zoek op die pagina het woord "e-mail".<ZoekOpPagina woord="e-mail" />Daar geef je je mail een nieuw wachtwoord.</li>
+      : <li>Kijk bij je gegevens of het telefoonnummer en het e-mailadres van jou zijn. Zo niet? Pas ze aan.</li>}
+  </ol>
+)}
+<p>Lukt het niet? Bel de klantenservice. Het nummer staat op je rekening en op kpn.com of ziggo.nl.</p>

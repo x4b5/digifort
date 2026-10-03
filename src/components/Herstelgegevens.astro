@@ -6,13 +6,14 @@
  */
 import Optie from './Optie.astro';
 import ZoekOpPagina from './ZoekOpPagina.astro';
+import KpnZiggo from './KpnZiggo.astro';
 ---
 <p>Tik op je e-mail:</p>
 <Optie titel="@gmail.com (Google)">
   <ol>
     <li>Ga naar myaccount.google.com en log in.</li>
     <li>Typ "herstel" in de zoekbalk bovenaan. Je ziet een telefoonnummer en een e-mailadres voor herstel.</li>
-    <li>Kies ze één voor één. Klopt het niet? Haal het weg, en vul je eigen gegevens in.</li>
+    <li>Klopt er een niet? Kies het, en vul je eigen gegevens in.</li>
   </ol>
 </Optie>
 <Optie titel="@outlook.com, @hotmail.com of @live.nl (Microsoft)">
@@ -30,6 +31,6 @@ import ZoekOpPagina from './ZoekOpPagina.astro';
     <li>Ken je er een niet? Tik op Wijzig bij die lijst. Haal het weg.</li>
   </ol>
 </Optie>
-<Optie titel="Een adres van je provider of iets anders">
-  <p>Log in op de site van je provider. Zoek in de instellingen naar "telefoonnummer". Vind je het niet? Bel je provider.</p>
+<Optie titel="@kpnmail.nl, @ziggo.nl of een ander adres van je internetbedrijf">
+  <KpnZiggo wat="herstel" />
 </Optie>

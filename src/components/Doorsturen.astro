@@ -7,9 +7,10 @@
  * durfde daarna niets meer aan te raken.
  */
 import Optie from './Optie.astro';
+import KpnZiggo from './KpnZiggo.astro';
 ---
-<p>Kijk daarna of een regel je mail doorstuurt of weggooit. Dat zie je alleen op de website van je e-mail, op een computer.</p>
-<p>Je haalt alleen weg wat je niet zelf hebt gemaakt. Twijfel je? Laat het staan, en vraag iemand om mee te kijken. Tik op je e-mail:</p>
+<p>Dit zie je alleen op de website, niet in de app. <strong>Alleen een telefoon?</strong> Open de website in je browser. Kies in het menu van je browser Desktopsite (Chrome: drie puntjes rechtsboven) of Desktopwebsite (Safari).</p>
+<p>Je haalt alleen weg wat je niet zelf hebt gemaakt. Twijfel je? Laat het staan. Tik op je e-mail:</p>
 <Optie titel="@gmail.com">
   <ol>
     <li>Ga naar gmail.com en log in.</li>
@@ -28,13 +29,12 @@ import Optie from './Optie.astro';
 </Optie>
 <Optie titel="@icloud.com of @me.com">
   <ol>
-    <li>Ga op een computer naar icloud.com/mail en log in.</li>
-    <li>Links staat een lijst met je mappen, zoals Inkomend. Bovenaan die lijst staat een rond knopje. Er staan drie puntjes of een tandwiel in. Klik erop.</li>
-    <li>Kies Instellingen. Er opent een venster.</li>
-    <li>Kies Regels. Een regel die je niet zelf maakte? Klik erop, en verwijder hem.</li>
-    <li>Kijk ook bij de andere onderdelen links in het venster of je mail wordt doorgestuurd. Naar een adres dat je niet kent? Zet het uit.</li>
+    <li>Ga naar icloud.com/mail en log in.</li>
+    <li>Boven je mappen, zoals Inkomend, staat een rond knopje met drie puntjes of een tandwiel. Klik erop, en kies Instellingen.</li>
+    <li>Kies Regels. Een regel die je niet zelf maakte? Verwijder hem.</li>
+    <li>Kijk ook links in het venster of je mail wordt doorgestuurd. Naar een adres dat je niet kent? Zet het uit.</li>
   </ol>
 </Optie>
-<Optie titel="Een adres van je provider of iets anders">
-  <p>Log in op de webmail van je provider. Zoek in de instellingen naar "doorsturen" of "regels". Vind je het niet? Bel je provider.</p>
+<Optie titel="@kpnmail.nl, @ziggo.nl of een ander adres van je internetbedrijf">
+  <KpnZiggo wat="doorsturen" />
 </Optie>
