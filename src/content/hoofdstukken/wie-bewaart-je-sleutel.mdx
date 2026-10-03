@@ -1,10 +1,9 @@
 ---
 nr: null
-titel: "Waarom Europese diensten?"
-kort: "Een Amerikaans bedrijf moet je gegevens afgeven aan Amerika, ook als ze in Europa staan. Daarom kiest deze site Europees waar het kan."
+titel: "Bij wie liggen je sleutels veilig?"
+kort: "Waar je wachtwoorden en passkeys staan, of de kluis in je telefoon goed genoeg is, en waarom deze site Europees kiest."
 datum: "2026-09-24"
 ---
-import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Noot from '../../components/Noot.astro';
@@ -14,26 +13,54 @@ import Vooraan from '../../components/Vooraan.astro';
 
 <Vooraan>
 
-<Kort>een Amerikaans bedrijf moet je gegevens afgeven als de Amerikaanse overheid daar met een geldig bevel om vraagt. Ook als ze in Europa staan. Kies daarom liever een Europees bedrijf, of een dienst die zelf niet in je kluis kan.</Kort>
+<Kort>je wachtwoorden en passkeys staan in een kluis: in je telefoon of in een wachtwoordmanager. Gebruik je er al een? Dan is die goed genoeg. Kies je een nieuwe, neem dan liever een Europese.</Kort>
+
+</Vooraan>
+
+## Is de kluis in mijn telefoon goed genoeg?
+
+Ja. De kluis in je iPhone of je Android-telefoon, zoals een Samsung, is goed. Je hoeft niet over te stappen. Een kluis die je gebruikt, is beter dan een Europese die je nog moet installeren.
+
+Begin je opnieuw? Elk van deze is ook goed:
+
+- **Proton Pass.** Van Proton, een bedrijf in Zwitserland.
+- **KeePassXC.** Er zit geen bedrijf achter. Je kluis staat alleen op je eigen apparaat.
+- **Bitwarden.** Gratis, en iedereen mag nakijken hoe het programma werkt.
 
 <ZelfDoen stappen={[
   { lijst: 'niveau-1', id: 'wachtwoordmanager' },
   { href: '/aan-de-slag#de-gereedschapskist-concrete-aanraders', tekst: 'Kijk welke apps Europees zijn', waar: '‘Aan de slag’, bij de gereedschapskist' },
 ]} />
 
-</Vooraan>
+## Wat als ik mijn telefoon kwijt ben?
 
-Je wachtwoorden, je mail en je foto's staan bijna altijd bij een bedrijf. Dat bedrijf bewaart een reservesleutel van jouw huis. Dan is de vraag niet alleen óf dat bedrijf te vertrouwen is. De vraag is ook: welk land kan dat bedrijf dwingen om de sleutel af te geven?
+Dan zijn je sleutels niet weg. Je Apple- of Google-account of je wachtwoordmanager zet ze op al je toestellen. Op een nieuwe telefoon log je in, en dan zijn ze terug.
 
-## Kan Amerika bij mijn gegevens als ze in Europa staan?
+Daarvoor moet je wel zonder je oude telefoon kunnen inloggen. Hoe je dat nu al regelt, staat bij [Wat als ik mijn telefoon of sleutel kwijtraak?](/van-geheim-woord-naar-zegelring#wat-als-ik-mijn-telefoon-of-sleutel-kwijtraak)
 
-Ja, als een Amerikaans bedrijf ze heeft en kan lezen. Voor een Amerikaans bedrijf geldt de Amerikaanse wet, ook als je gegevens in Amsterdam staan.
+## Mag iemand die ik vertrouw een reservesleutel hebben?
 
-<Vraagje vraag="Een Amerikaanse app zegt: jouw gegevens staan op servers in Duitsland. Kan de Amerikaanse overheid er dan nog bij?" opties={[
-  { tekst: 'Nee, Duitse servers vallen onder Duitse wet', uitleg: 'Dat klinkt logisch, maar de Amerikaanse wet kijkt naar het bedrijf, niet naar het gebouw. Heeft een Amerikaans bedrijf de gegevens in handen, dan moet het ze op bevel afgeven.' },
-  { tekst: 'Ja, als het bedrijf de gegevens kan lezen', goed: true, uitleg: 'Precies. Kan het bedrijf er zelf niet in, omdat alleen jij de sleutel hebt, dan heeft het ook niets leesbaars om af te geven.' },
-  { tekst: 'Alleen als jij Amerikaan bent', uitleg: 'Nee. De wet gaat over wat het bedrijf in handen heeft, niet over waar jij vandaan komt.' },
-]} />
+Ja, maar op papier, niet via je telefoon. Leg je herstelcodes en het wachtwoord van je kluis in je [noodpakket](/als-er-is-ingebroken#het-noodpakket). Vertel één persoon die je vertrouwt waar het ligt, bijvoorbeeld je dochter of zoon.
+
+## Wie krijgt mijn sleutels als ik er niet meer ben?
+
+Dat regel je zelf, bij je Apple- of Google-account en in je noodpakket. Hoe dat gaat, staat bij [je digitale nalatenschap](/als-er-is-ingebroken#wie-krijgt-de-sleutels-je-digitale-nalatenschap).
+
+## Wat als de kluisdienst zelf gehackt wordt?
+
+Dan vindt de inbreker bij een goede wachtwoordmanager alleen dichte kluizen. De sleutel van jouw kluis zit alleen op jouw apparaat. Het bedrijf kan je kluis dus niet lezen. Een inbreker bij het bedrijf ook niet.
+
+Daarom telt het ene wachtwoord van je kluis zo zwaar. Dat is het slot op alles. Maak er een lange wachtzin van, zoals op [trede 3 van de ladder](/van-geheim-woord-naar-zegelring#trede-3).
+
+## Is mijn mail bij KPN of Ziggo goed genoeg?
+
+Het slot telt het zwaarst. Geef je mail een sterk wachtwoord dat je nergens anders gebruikt. Kan je maildienst ook een tweede slot? Zet het aan. Bij KPN- en Ziggo-mail vind je dat vaak niet. Dat is niet jouw fout.
+
+Neem je ooit een nieuw adres? Kies dan een Europese dienst met een tweede slot. Een e-mailadres verhuis je maar één keer.
+
+## Waarom kiest deze site Europees?
+
+Een Amerikaans bedrijf moet je gegevens afgeven als de Amerikaanse overheid daar met een geldig bevel om vraagt. Ook als ze in Europa staan. Bij een Europees bedrijf beslist een Europese rechter.
 
 <Meer>
 
@@ -44,6 +71,18 @@ Het gaat dus om het bedrijf, niet om de plek van de server. Een Amerikaanse dien
 Dat betekent niet dat iemand in Amerika jouw vakantiefoto's leest. Zo'n bevel gaat over een onderzoek, niet over iedereen. Het betekent wel dat niet jij en niet een Europese rechter beslist wie er bij kan.
 
 </Meer>
+
+Ook de Tweede Kamer wil dat de overheid minder afhankelijk wordt van Amerikaanse techbedrijven. Ze nam daarover op 18 maart 2025 een reeks moties aan. ([bron](https://www.tweedekamer.nl/kamerstukken/stemmingsuitslagen/detail?id=2025P04110&did=2025P04110))
+
+Europees betekent hier: een bedrijf in de Europese Unie, Noorwegen of Zwitserland. Apps zonder bedrijf erachter, zoals KeePassXC, tellen ook mee. Daar zit niemand tussen die iets kan afgeven. Is er geen goed Europees alternatief? Dan zeggen we dat eerlijk.
+
+## Wat beschermt mijn gegevens het best?
+
+Een Europees bedrijf dat zelf niet in je kluis kan. Wie de sleutel heeft, weegt het zwaarst. Zit de sleutel alleen op jouw apparaat? Dan kan het bedrijf niets leesbaars afgeven. Dat is veiliger dan een Europese app die alles kan meelezen. Zo werkt het bij Signal, WhatsApp en een goede wachtwoordmanager. Wel kan het bedrijf vaak zien wíe je bent en wannéér je iets doet.
+
+Stop dus niet met WhatsApp als je familie daar zit. Signal of Threema erbij is een stap, geen verplichting.
+
+<Noot titel="Waar het beeld niet klopt">Europees is geen onzichtbaarheidsmantel. Ook een Europees bedrijf moet gegevens afgeven als een Europese rechter dat beveelt, en dat hoort ook zo. Het verschil is dat het dan onder regels gebeurt waar jij als Europeaan iets over te zeggen hebt. En Zwitserland, waar Proton en Threema zitten, hoort wel bij Europa maar niet bij de Europese Unie. Het heeft een eigen privacywet, die de Europese Commissie in 2024 nog eens even goed noemde als de Europese. ([bron](https://ec.europa.eu/commission/presscorner/detail/en/ip_24_161))</Noot>
 
 ## Mogen Europese gegevens naar Amerika?
 
@@ -71,66 +110,8 @@ Voor jou betekent dat: de regels voor jouw gegevens bij een Amerikaans bedrijf k
 
 </Meer>
 
-## Wat vindt de Tweede Kamer hiervan?
-
-De Tweede Kamer wil dat de overheid minder afhankelijk wordt van Amerikaanse techbedrijven. Dit is dus geen zorg van een paar privacyactivisten. Op 18 maart 2025 nam de Kamer daarover een reeks moties aan. ([bron](https://www.tweedekamer.nl/kamerstukken/stemmingsuitslagen/detail?id=2025P04110&did=2025P04110)) Bijvoorbeeld:
-
-- stoppen met onnodige verhuizingen naar Amerikaanse clouddiensten;
-- een plan klaarhebben om ervan weg te kunnen;
-- zorgen dat de digitale overheid niet stilvalt als een Amerikaanse partij de stekker eruit trekt.
-
-Wat de overheid voor haar eigen huis wil, kun jij voor het jouwe ook doen.
-
-## Wat beschermt mijn gegevens het best?
-
-Een Europees bedrijf dat zelf niet in je kluis kan. Twee dingen tellen: waar het bedrijf zit, en wie de sleutel heeft.
-
-Er zijn twee manieren om te zorgen dat niemand je sleutel afgeeft:
-
-1. **Het bedrijf valt onder Europese wet.** Dan kan alleen een Europese rechter het bedrijf dwingen, met de Europese regels voor privacy erbij.
-2. **Het bedrijf heeft de sleutel zelf niet.** Bij versleuteling van begin tot eind, zoals bij Signal, WhatsApp of een goede wachtwoordmanager, zit de sleutel alleen op jouw apparaat. Het bedrijf kan dan niet lezen wat erin zit, dus ook niets leesbaars afgeven. Wel kan het vaak zien wíe je bent en wannéér je iets doet.
-
-Het tweede weegt het zwaarst. Een Amerikaanse app waar alleen jij de sleutel van hebt, is veiliger dan een Europese app die alles kan meelezen. Maar heb je de keus, neem dan allebei.
-
-<Noot titel="Waar het beeld niet klopt">Europees is geen onzichtbaarheidsmantel. Ook een Europees bedrijf moet gegevens afgeven als een Europese rechter dat beveelt, en dat hoort ook zo. Het verschil is dat het dan onder regels gebeurt waar jij als Europeaan iets over te zeggen hebt. En Zwitserland, waar Proton en Threema zitten, hoort wel bij Europa maar niet bij de Europese Unie. Het heeft een eigen privacywet, die de Europese Commissie in 2024 nog eens even goed noemde als de Europese. ([bron](https://ec.europa.eu/commission/presscorner/detail/en/ip_24_161))</Noot>
-
-## Welke wachtwoordmanager past hierbij?
-
-Elk van deze is goed. Het belangrijkste is dat je er één gebruikt.
-
-- **Proton Pass.** Van Proton, een bedrijf in Zwitserland.
-- **KeePassXC.** Er zit geen bedrijf achter. Je kluis staat alleen op je eigen apparaat.
-- **Bitwarden.** Gratis, en iedereen mag nakijken hoe het programma werkt.
-- **De kluis die al in je iPhone of Android-telefoon zit.**
-
-Hoe je er een neemt, staat in [Ik heb één avond](/een-avond).
-
-## Wat als de kluisdienst zelf gehackt wordt?
-
-Dan vindt de inbreker bij een goede wachtwoordmanager alleen dichte kluizen. De sleutel van jouw kluis zit alleen op jouw apparaat. Het bedrijf kan je kluis dus niet lezen. Een inbreker bij het bedrijf ook niet.
-
-Daarom telt het ene wachtwoord van je kluis zo zwaar. Dat is het slot op alles. Maak er een lange wachtzin van, zoals op [trede 3 van de ladder](/van-geheim-woord-naar-zegelring#trede-3).
-
-## Wie krijgt mijn sleutels als ik er niet meer ben?
-
-Dat regel je zelf, bij je Apple- of Google-account en in je noodpakket. Hoe dat gaat, staat bij [je digitale nalatenschap](/als-er-is-ingebroken#wie-krijgt-de-sleutels-je-digitale-nalatenschap).
-
-## Hoe kiest deze site een app of dienst?
-
-Bij elk stuk gereedschap in [Aan de slag](/aan-de-slag#de-gereedschapskist-concrete-aanraders) staat voortaan waar het bedrijf zit. De eerste keus is Europees als dat kan. Europees betekent hier: een bedrijf in de Europese Unie, Noorwegen of Zwitserland.
-
-Er is één uitzondering. Sommige apps hebben geen bedrijf erachter. Ze worden gemaakt door vrijwilligers en werken alleen op je eigen apparaat, zoals de wachtwoordmanager KeePassXC. Daar zit niemand tussen die iets kan afgeven. Die tellen dus ook mee.
-
-Is er geen goed Europees alternatief, dan zeggen we dat eerlijk en noemen we toch het beste wat er is.
-
-## Wat hoef ik níet te doen?
-
-- **Niet alles in één weekend verhuizen.** Een wachtwoordmanager die je gebruikt, is beter dan een Europese die je nog moet installeren.
-- **Niet stoppen met WhatsApp als je familie daar zit.** Dat is versleuteld. Signal of Threema erbij is een stap, geen verplichting.
-- **Geen spijt van wat er al staat.** Ook je oude mail bij een Amerikaanse dienst is niet ineens openbaar. Het gaat om de volgende keuze.
-
 ## Wat moet ik nu doen?
 
-1. Kijk in de [gereedschapskist](/aan-de-slag#de-gereedschapskist-concrete-aanraders) welke van jouw apps Amerikaans zijn.
-2. Begin bij je wachtwoordmanager. Dat is de kluis met al je andere sleutels erin.
-3. Wil je een nieuw e-mailadres? Neem dan meteen een Europese dienst. Een e-mailadres verhuis je maar één keer.
+1. Gebruik je al een kluis? Houd hem. Zo niet, neem er een in [Ik heb één avond](/een-avond).
+2. Leg je herstelcodes in je noodpakket, en vertel één persoon waar het ligt.
+3. Kijk in de [gereedschapskist](/aan-de-slag#de-gereedschapskist-concrete-aanraders) welke van jouw apps Amerikaans zijn. Verhuis rustig, één ding tegelijk.

@@ -53,20 +53,38 @@ Een passkey is inloggen zonder wachtwoord. Je bevestigt met je telefoon of compu
 
 Niet elke site kan het al. Begin met je e-mail. Zo gaat het, op een iPhone en op Android hetzelfde:
 
-1. Log in op de site of in de app.
+1. Log in op de website van je maildienst, in je browser. In de Mail-app van je iPhone kan het niet.
 2. Ga naar de instellingen voor beveiliging. Zoek daar naar "passkey".
 3. Kies voor een passkey.
 4. Je telefoon of computer vraagt om je vinger, je gezicht of je pincode. Bevestig dat.
 
 Gelukt? Dan vraagt de site de volgende keer om je vinger, gezicht of pincode, en niet meer om je wachtwoord.
 
-Vraagt een site zelf of je een passkey wilt maken? Zeg dan ja. Kan het nergens met een passkey? Zet dan een tweede slot aan met een code-app.
+Vind je het woord passkey nergens? Dan kan jouw maildienst het nog niet. Dat komt voor bij KPN- en Ziggo-mail. Begin dan bij je Apple- of Google-account of je wachtwoordkluis. Zet op je mail een sterk, uniek wachtwoord.
+
+Vraagt een site zelf of je een passkey wilt maken? Zeg dan ja.
 
 <ZelfDoen stappen={[{ lijst: 'niveau-2', id: 'accounts-tweede-slot' }]} />
 
+## Wat als ik mijn telefoon of sleutel kwijtraak?
+
+Dan kom je weer binnen met wat je vooraf hebt geregeld. Regel het dus nu, niet pas als het weg is.
+
+- **Herstelcodes op papier.** Een site geeft je die één keer. Met zo'n code kom je binnen zonder je telefoon of sleutel. Bewaar ze in je noodpakket, nooit binnen de dienst die ze moeten redden.
+- **Een tweede sleutel.** Met één sleutel is één sleutel kwijt ook één account kwijt. Meld daarom altijd twee sleutels aan. Eén aan je sleutelbos, één in de la.
+- **Je passkeys op je andere toestellen.** Je Apple- of Google-account zet je passkeys op al je toestellen. Ben je er één kwijt, dan staan ze op de andere nog.
+
+Heb je niets van dit geregeld? Dan moet je via de herstelprocedure van de dienst. Dat is bijna altijd de zwakste weg naar binnen. Aanvallers proberen hem dus ook.
+
+<ZelfDoen stappen={[
+  { lijst: 'niveau-2', id: 'noodcodes' },
+  { lijst: 'niveau-3', id: 'hardwaresleutel' },
+]} />
+
+
 ## Welke manieren van inloggen zijn er?
 
-Acht, van zwak naar sterk. Tot en met trede 5 gebruik je iets wat je weet, zoals een wachtwoord of een code. Vanaf trede 6 gebruik je iets wat je in je hand hebt. Dat is de grote stap.
+Acht, van zwak naar sterk. Je hoeft ze niet allemaal te lezen. Lees de trede waar je nu staat, en de trede erboven. Tot en met trede 5 gebruik je iets wat je weet, zoals een wachtwoord of een code. Vanaf trede 6 gebruik je iets wat je in je hand hebt. Dat is de grote stap.
 
 <L01 />
 
@@ -157,8 +175,6 @@ Maar de sterkte van het geheel hangt nu aan die ene wachtzin. Vandaar de tekenin
 
 <L05 />
 
-Een cijfer voor een letter en een leesteken achteraan voelt slim, maar het is precies wat kraakprogramma's het eerst proberen: ze kennen die trucs beter dan jij. Wat een computer wél dwarszit is lengte zonder patroon. Vijf woorden die je blind uit een lijst trekt hebben dat, en je hoofd maakt er vanzelf een belachelijk plaatje bij. Dat is precies de bedoeling. Een zin uit een liedje of een spreekwoord telt niet: die staan in dezelfde lijsten.
-
 <Jargon items={[
   ['password manager', 'wachtwoordbeheerder: de kluis zelf, bijvoorbeeld Bitwarden of Proton Pass'],
   ['master password', 'de ene wachtzin die de kluis opent'],
@@ -221,8 +237,6 @@ Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over
 <Meer>
 
 Bij het instellen scan je een QR-code. Daarmee krijgen de app en de site één gedeeld geheim. Daarna rekenen ze allebei, los van elkaar, elke dertig seconden dezelfde code uit op basis van dat geheim en de klok. Er reist dus niets meer over het netwerk, en wat niet reist, kan niet onderschept worden.
-
-Wat wél werkt is jou vragen de code zelf in te typen. Een moderne nagemaakte inlogpagina geeft alles wat jij invult op hetzelfde moment door aan de echte site en logt daar in. Die aanval heet adversary-in-the-middle, en hij is bestand tegen elke code die je met de hand overneemt.
 
 <Jargon items={[
   ['TOTP', 'time-based one-time password: de code die elke 30 seconden verspringt'],
@@ -333,21 +347,6 @@ De tweede sleutel dekt het omgekeerde af: dat de voordeur zó goed wordt dat je 
 </Meer>
 
 </Trede>
-
-## Wat als ik mijn telefoon of sleutel kwijtraak?
-
-Dan kom je weer binnen met wat je vooraf hebt geregeld. Regel het dus nu, niet pas als het weg is.
-
-- **Herstelcodes op papier.** Een site geeft je die één keer. Met zo'n code kom je binnen zonder je telefoon of sleutel. Bewaar ze in je noodpakket, nooit binnen de dienst die ze moeten redden.
-- **Een tweede sleutel.** Met één sleutel is één sleutel kwijt ook één account kwijt. Meld daarom altijd twee sleutels aan. Eén aan je sleutelbos, één in de la.
-- **Je passkeys op je andere toestellen.** Je Apple- of Google-account zet je passkeys op al je toestellen. Ben je er één kwijt, dan staan ze op de andere nog.
-
-Heb je niets van dit geregeld? Dan moet je via de herstelprocedure van de dienst. Dat is bijna altijd de zwakste weg naar binnen. Aanvallers proberen hem dus ook.
-
-<ZelfDoen stappen={[
-  { lijst: 'niveau-2', id: 'noodcodes' },
-  { lijst: 'niveau-3', id: 'hardwaresleutel' },
-]} />
 
 ## Wat als de echte site zelf gehackt wordt?
 

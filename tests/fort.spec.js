@@ -107,7 +107,13 @@ test('geld terug: wie in paniek komt, ziet eerst wat hij nu moet doen', async ({
   await expect(eerst).toBeInViewport();
   const volgorde = await page.locator('main .waarschuwing, main .kort').evaluateAll((els) => els.map((e) => e.className));
   expect(volgorde[0]).toContain('waarschuwing');
-  await expect(eerst.locator('a')).toHaveAttribute('href', '/als-er-is-ingebroken#het-eerste-uur');
+  // de waarschuwing is één regel, en springt naar de nummers zelf: wie zijn pas niet bij de hand heeft, heeft toch een nummer
+  expect((await eerst.innerText()).split(/(?<=[.?])\s+/).length).toBeLessThanOrEqual(3);
+  await expect(eerst.locator('a')).toHaveAttribute('href', '#welk-nummer-bel-ik-als-het-net-gebeurd-is');
+  const nummers = page.locator('main h2#welk-nummer-bel-ik-als-het-net-gebeurd-is + p + ul');
+  await expect(nummers).toContainText('Rabobank: 088 722 66 00');
+  await expect(nummers).toContainText('ING: 020 22 888 00');
+  await expect(page.locator('main a[href="/als-er-is-ingebroken#het-eerste-uur"]').first()).toBeAttached();
   // In het kort is twee vragen met elk een antwoord, geen blok van zeven regels
   const kort = (await page.locator('main .kort').first().innerText()).replace(/^In het kort:\s*/, '');
   expect(kort.split(/(?<=[.?])\s+/).length).toBeLessThanOrEqual(4);
@@ -149,6 +155,15 @@ test('geld terug: het beslisschema is gewone tekst, minstens zo groot als de lop
   // wat je los hiervan terugdraait, staat als gewone zin ónder het schema
   await expect(schema).not.toContainText('incasso');
   await expect(page.locator('main figure.beslis + p')).toContainText('incasso');
+  // de twee takken staan onder elkaar, op volle breedte: naast elkaar braken de kernzinnen af
+  const takken = await schema.locator('.tak').evaluateAll((ts) => ts.map((t) => t.getBoundingClientRect()));
+  expect(takken).toHaveLength(2);
+  expect(takken[1].top).toBeGreaterThanOrEqual(takken[0].bottom);
+  expect(Math.round(takken[0].width)).toBe(Math.round(takken[1].width));
+  const breedte = await schema.evaluate((f) => f.getBoundingClientRect().width);
+  expect(takken[0].width).toBeGreaterThan(breedte * 0.9);
+  // en zonder vaktermen als "niet-toegestane betaling" of "coulance"
+  await expect(schema).not.toContainText(/toegestane|coulance|nalatigheid/);
 });
 
 test('de ladder: wat een passkey is en hoe je hem instelt, staat onder een eigen kop', async ({ page }) => {
@@ -169,8 +184,21 @@ test('het fort afbouwen: wie zoekt naar opruimen of overlijden, vindt het bovena
   // de titel zegt wat er staat: geen "afbouwen" dat als slopen leest
   await expect(page.locator('main h1')).toHaveText(/sterker beveiligen/i);
   await expect(page.locator('main h1')).not.toContainText('afbouwen');
+  // wie een account wil opheffen, ziet bovenaan dat dat ergens anders staat
   await expect(vooraan.locator('a[href="/onderhoud"]')).toBeVisible();
-  await expect(vooraan.locator('a[href="#wie-krijgt-mijn-accounts-als-ik-er-niet-meer-ben"]')).toBeVisible();
+  await expect(vooraan).toContainText('oud account opheft');
+  // geen rij kaders vóór de inhoud: de eerste kop is "Waar begin ik?", met een volgorde
+  await expect(page.locator('main h2').first()).toHaveText('Waar begin ik?');
+  await expect(page.locator('main [data-zelf-doen]', { hasText: 'Eerst de basis' })).toHaveCount(0);
+  const begin = page.locator('main h2#waar-begin-ik ~ ol a');
+  await expect(begin.first()).toHaveAttribute('href', /^#hoeveel-reservekopie/);
+  await expect(page.locator('main h2#waar-begin-ik ~ ol a[href="#wie-krijgt-mijn-accounts-als-ik-er-niet-meer-ben"]')).toHaveCount(1);
+  // elke stap in de volgorde springt naar een kop die bestaat
+  for (const href of await begin.evaluateAll((as) => as.map((a) => decodeURIComponent(a.getAttribute('href'))))) {
+    await expect(page.locator(`main h2[id="${href.slice(1)}"]`), href).toHaveCount(1);
+  }
+  // de vaktaal (IP-adressen, zes huiswerkvragen) zit in een uitklapper, niet in de lopende tekst
+  await expect(page.locator('main').getByText('86.54.11.1')).toBeHidden();
   const kop = page.locator('main h2#wie-krijgt-mijn-accounts-als-ik-er-niet-meer-ben');
   await expect(kop).toHaveCount(1);
   // en niet meer verstopt onder de kop over jezelf buitensluiten
@@ -180,9 +208,18 @@ test('het fort afbouwen: wie zoekt naar opruimen of overlijden, vindt het bovena
   expect(buitensluit).not.toContain('erfeniscontact');
 });
 
-test('wie bewaart je sleutel: de titel zegt dat het over Europese diensten gaat', async ({ page }) => {
+test('wie bewaart je sleutel: de titel past bij het adres, en de vragen van de lezer staan vooraan', async ({ page }) => {
   await page.goto('/wie-bewaart-je-sleutel');
-  await expect(page.locator('main h1')).toHaveText(/Europese diensten/);
+  await expect(page.locator('main h1')).toHaveText(/sleutels/);
+  // de eerste kop beantwoordt "is de kluis in mijn telefoon goed genoeg?" met ja
+  const eerste = page.locator('main h2').first();
+  await expect(eerste).toHaveText('Is de kluis in mijn telefoon goed genoeg?');
+  await expect(page.locator('main h2#is-de-kluis-in-mijn-telefoon-goed-genoeg + p')).toHaveText(/^Ja\./);
+  // kwijt, reservesleutel en eigen mail hebben een eigen kop, vóór de Amerikaanse wetten
+  const koppen = await page.locator('main h2').allTextContents();
+  const plek = (t) => koppen.findIndex((k) => k.includes(t));
+  for (const t of ['telefoon kwijt', 'reservesleutel', 'KPN']) expect(plek(t), t).toBeGreaterThan(0);
+  for (const t of ['telefoon kwijt', 'reservesleutel', 'KPN']) expect(plek(t), t).toBeLessThan(plek('Europees'));
   // wie zoekt naar nalatenschap, vindt een kop met een verwijzing
   await expect(page.locator('main h2#wie-krijgt-mijn-sleutels-als-ik-er-niet-meer-ben')).toHaveCount(1);
 });
