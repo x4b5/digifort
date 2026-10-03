@@ -17,9 +17,7 @@ const ANTWOORDEN = [
 ];
 ---
 <section class="huischeck" id="doe-de-huischeck" data-huischeck aria-label="De huischeck">
-  <p class="intro">Tien vragen, twee minuten. Daarna zie je welke deuren openstaan, en wat je als eerste doet. Twijfel je? Kies dan <strong>Weet ik niet</strong>.</p>
-
-  <p class="voortgang" data-voortgang>Je hebt nog geen vragen beantwoord.</p>
+  <p class="intro">Tien vragen, twee minuten. Onder vraag 10 zie je welke deuren openstaan, en wat je als eerste doet. Twijfel je? Kies dan <strong>Weet ik niet</strong>.</p>
 
   {GROEPEN.map((g) => (
     <div class="groep" data-groep={g.id}>
@@ -53,6 +51,10 @@ const ANTWOORDEN = [
     </div>
   ))}
 
+  <!-- de teller staat ná de vragen en plakt onderin beeld zolang je scrolt: zo zie je hem steeds,
+       en hij komt vanzelf boven je uitslag terecht -->
+  <p class="voortgang" data-voortgang>0 van 10 beantwoord</p>
+
   <div class="uitslag" data-uitslag>
     <p class="schermlezer" data-melding aria-live="polite" aria-atomic="true"></p>
     <h2 id="je-uitslag">Je uitslag</h2>
@@ -81,22 +83,25 @@ const ANTWOORDEN = [
       <div class="eerste" data-alles-dicht hidden>
         <p class="eyebrow">Doe dit nu</p>
         <h3>Help iemand anders</h3>
-        <p>Jouw deuren zitten dicht. Loop nu samen met iemand anders zijn deuren langs.</p>
+        <p>Loop nu samen met iemand anders zijn deuren langs.</p>
         <p class="eerste-knop"><a class="knop" href="/voor-de-mensen-om-je-heen">Naar Voor de mensen om je heen <span aria-hidden="true">→</span></a></p>
         <p>Houd je eigen huis op slot met de <a href="/onderhoud">onderhoudsbeurt</a>.</p>
       </div>
 
       <div class="open-deuren" data-open-deuren hidden>
         <h3>Jouw open deuren</h3>
-        <p>Doe ze dicht in deze volgorde. Tik op een stap voor de uitleg. Klaar? Zet dan een vinkje bij <strong>Ik heb dit gedaan</strong>. Er staat dan <strong>Gedaan</strong> bij de stap.</p>
-        <p class="bouw-tijd" data-bouw-tijd></p>
-        <ol class="taken" data-open-lijst></ol>
+        <!-- ingeklapt: de stap hierboven is wat je nu doet; de rest hoeft niet vandaag -->
+        <details class="alle-deuren" data-alle-deuren>
+          <summary><span data-alle-deuren-tekst>Toon alle stappen</span></summary>
+          <p>Doe ze één voor één, van boven naar beneden. Klaar? Vink dan <strong>Ik heb dit gedaan</strong> aan.</p>
+          <ol class="taken" data-open-lijst></ol>
+        </details>
         <p class="schermlezer" data-vink-melding aria-live="polite"></p>
       </div>
 
       <div class="dichte-deuren" data-dichte-deuren hidden>
         <h3>Dit heb je al goed</h3>
-        <p>Bij deze vragen zei je ja. Die deuren zitten dicht.</p>
+        <p>Hier zei je ja.</p>
         <ul data-dicht-lijst></ul>
         <p><a href="/plattegrond">Bekijk al je deuren op de plattegrond →</a></p>
       </div>
@@ -110,7 +115,7 @@ const ANTWOORDEN = [
     <div class="gok-inhoud">
       <fieldset class="eigen-cijfer" data-eigen-cijfer aria-describedby="cijfer-hint">
         <legend class="vraag">Welk cijfer had je jezelf gegeven, vóór deze check?</legend>
-        <p class="hint" id="cijfer-hint">Een cijfer van 1 tot en met 10 voor hoe je online met risico's omgaat; je mag dit overslaan.</p>
+        <p class="hint" id="cijfer-hint">Van 1 tot en met 10, voor hoe je online met risico's omgaat; je mag dit overslaan.</p>
         <div class="cijfers">
           {CIJFERS.map((c) => (
             <label class="cijfer"><input type="radio" name="eigen-cijfer" value={c} /><span>{c}</span></label>
@@ -136,7 +141,7 @@ const ANTWOORDEN = [
   <details class="kind-keuze" data-kind-keuze>
     <summary><span>Doe je de check samen met een kind?</span></summary>
     <div class="kind-inhoud">
-      <p id="kind-hint">Dan zie je alleen de vier vragen die ook voor een kind gelden: vraag 1, 3, 6 en 9.</p>
+      <p id="kind-hint">Dan zie je alleen de vier vragen voor een kind: 1, 3, 6 en 9.</p>
       <label class="schakel"><input type="checkbox" data-kind aria-describedby="kind-hint" /> <span>Ik doe de check samen met een kind</span></label>
       <p><a href="#vraag-1">Ga naar vraag 1</a></p>
     </div>
@@ -176,8 +181,8 @@ const ANTWOORDEN = [
     return { tekst: s.tekst!, href: s.href!, waar: s.pagina!, vinkje: s.vinkje, noot };
   }
 
-  /** Eén korte zin onder een stap: hoe lang hij duurt en op welke pagina de uitleg staat. */
-  const waarZin = (s: Stap) => `${s.tijd ? `${s.tijd} minuten. ` : ''}Uitleg staat op de pagina "${s.waar}".`;
+  /** Onder een stap alleen hoe lang hij duurt: de link zelf brengt je naar de uitleg. */
+  const tijdZin = (s: Stap) => (s.tijd ? `Ongeveer ${s.tijd} minuten.` : '');
 
   /** De noot bij een stap: een gewone zin, met eventueel een link terug naar de vraag. */
   function vulNoot(p: HTMLElement, noot?: Noot) {
@@ -225,9 +230,9 @@ const ANTWOORDEN = [
       const teGaan = totaal - beantwoord;
 
       // voortgang boven de vragen, en onder de vragen een link naar de eerste open vraag
-      $('[data-voortgang]').textContent = beantwoord === 0
-        ? `${totaal} vragen. Je hebt er nog geen beantwoord.`
-        : `Je hebt ${beantwoord} van de ${totaal} vragen beantwoord.`;
+      $('[data-voortgang]').textContent = klaar
+        ? `${beantwoord} van ${totaal} beantwoord. Je uitslag staat hieronder.`
+        : `${beantwoord} van ${totaal} beantwoord`;
       const rest = $('[data-rest]');
       rest.hidden = klaar;
       const eersteOpen = actief.find((v) => !antwoord(v));
@@ -276,12 +281,10 @@ const ANTWOORDEN = [
       });
 
       // de takenlijst: per open deur één stap, met een vinkje als die stap in een afvinklijst staat
-      let minuten = 0;
       $('[data-open-lijst]').replaceChildren(...open.map((v) => {
         const vraag = vraagBij(v);
         const s = stapVan(vraag);
         const gedaan = isGedaan(s);
-        if (!gedaan) minuten += s.tijd ?? 0;
         const li = maak('li', 'taak');
         li.dataset.toestand = gedaan ? 'gedaan' : 'open';
         const kop = maak('p', 'taak-kop');
@@ -289,8 +292,8 @@ const ANTWOORDEN = [
         // het label zegt wat je antwoordde, niet wat je moet doen: een tag is geen knop
         const status = gedaan ? ['gedaan', 'Gedaan'] : antwoord(v) === 'nee' ? ['open', 'Je antwoord: nee'] : ['weet', 'Je antwoord: weet ik niet'];
         const tag = maak('span', `tag ${status[0]}`, status[1]);
-        // één gewone zin: hoe lang, en waar de uitleg staat
-        li.append(kop, tag, maak('p', 'taak-hint', waarZin(s)));
+        li.append(kop, tag);
+        if (s.tijd) li.append(maak('p', 'taak-hint', tijdZin(s)));
         if (s.noot) { const p = maak('p', 'taak-noot'); vulNoot(p, s.noot); li.append(p); }
         if (s.vinkje) {
           const label = maak('label', 'bouwstap');
@@ -301,7 +304,7 @@ const ANTWOORDEN = [
         }
         return li;
       }));
-      $('[data-bouw-tijd]').textContent = minuten > 0 ? `Alles samen kost ongeveer ${minuten} minuten. Dat hoeft niet in één keer.` : '';
+      $('[data-alle-deuren-tekst]').textContent = `Toon alle ${open.length} ${open.length === 1 ? 'stap' : 'stappen'}`;
       $('[data-open-deuren]').hidden = !klaar || !open.length;
 
       $('[data-dicht-lijst]').replaceChildren(...dicht.map((v) => {
@@ -365,7 +368,9 @@ const ANTWOORDEN = [
   /* alle uitleg op de pagina even groot en even donker als gewone tekst: wie slecht ziet, moet hem kunnen lezen */
   .huischeck .intro { margin: 0 0 1rem; font-size: inherit; color: var(--inkt); }
   .privacy { margin: 1.5rem 0 0; }
-  .voortgang { font-family: var(--kop); font-weight: 700; font-size: 1.2rem; margin: 0 0 0.75rem; }
+  /* de teller plakt onderin beeld (onder de kop, die bovenin plakt); de pagina laat onderin ruimte, zodat hij nooit een gekozen knop bedekt */
+  .voortgang { position: sticky; bottom: 0; z-index: 4; font-family: var(--kop); font-weight: 700; font-size: 1.2rem; margin: 1rem 0 0; padding: 0.6rem 0; background: var(--papier); border-top: var(--lijndikte) solid var(--lijn-sterk); }
+  :global(html:has([data-huischeck])) { scroll-padding-bottom: 5rem; }
   fieldset { border: 0; padding: 0; margin: 0; min-inline-size: 0; }
   legend { padding: 0; }
   .vraag { font-weight: 700; font-size: 1.15rem; line-height: 1.35; margin: 0 0 0.25rem; }
@@ -415,7 +420,7 @@ const ANTWOORDEN = [
 
   /* kopje boven een groep vragen: een h2 voor de structuur, zo groot als een h3 */
   .groep h2 { font-size: clamp(1.3rem, 3.2vw, 1.6rem); margin: 2rem 0 0.25rem; padding-top: 0; border-top: 0; }
-  .voortgang + .groep h2 { margin-top: 0.5rem; }
+  .intro + .groep h2 { margin-top: 0.5rem; }
   .groep[hidden] { display: none; }
   .vragen { list-style: none; padding: 0; margin: 0; }
   .vragen > li { margin: 0; padding: 1.1rem 0; border-bottom: var(--lijndikte-dun) solid var(--lijn); scroll-margin-top: 6rem; }
@@ -478,9 +483,13 @@ const ANTWOORDEN = [
   .spiegel-duiding p { margin: 0; }
 
   /* de takenlijst: naam van de stap, status rechts, daaronder wat en hoe lang */
-  .open-deuren > p { margin: 0 0 0.5rem; }
-  .bouw-tijd { font-weight: 700; }
-  .bouw-tijd:empty { display: none; }
+  .alle-deuren p { margin: 0.3rem 0 0.5rem; }
+  .alle-deuren > summary { display: inline-flex; align-items: center; min-block-size: 44px; cursor: pointer; color: var(--rood); font-weight: 700; }
+  .alle-deuren > summary span { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .alle-deuren > summary:hover span { text-decoration-thickness: 3px; }
+  .alle-deuren > summary::before { content: "▸"; margin-right: 0.45rem; }
+  .alle-deuren[open] > summary::before { content: "▾"; }
+  .alle-deuren > summary::-webkit-details-marker { display: none; }
   .taken { list-style: none; padding: 0; margin: 0.75rem 0 0; border-top: var(--lijndikte-dun) solid var(--lijn); counter-reset: taak; }
   .taken :global(.taak) { display: grid; grid-template-columns: 1fr auto; gap: 0.2rem 1rem; align-items: start; padding: 0.8rem 0; border-bottom: var(--lijndikte-dun) solid var(--lijn); }
   .taken :global(.taak-kop) { margin: 0; font-weight: 700; font-size: 1.05rem; }
