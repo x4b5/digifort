@@ -9,28 +9,30 @@ export const WEEKEND = {
   'accounts-wachtwoord': {
     hoe: [
       'Maak een lijstje op papier van je accounts met een wachtwoord. Begin met DigiD. Dan je webwinkels, je sociale media, je energie en je verzekering.',
-      'Neem één account tegelijk. Heb je een computer? Doe het daar: kopiëren en plakken gaat daar het makkelijkst.',
+      'Doe vandaag de eerste vijf. De rest mag later, een paar per keer. Elk account dat klaar is, telt.',
+      'Neem één account tegelijk. Per account doe je drie dingen: inloggen, een nieuw wachtwoord maken, en het opslaan.',
     ],
     toestellen: [
       { naam: 'Op je computer', stappen: [
-        'Ga naar de site en log in. Staat het account al in je kluis? Klik rechtsboven in je browser op het puzzelstukje, dan op Bitwarden, en kies het account.',
-        'Weet je het oude wachtwoord niet meer? Kies op de site "wachtwoord vergeten". Je krijgt een mail met een link.',
-        'Lees je je mail alleen op je telefoon? Open je mail dan op de computer, op de website van je maildienst. Log daar in, net als in [niveau 1](/een-avond#stap-mail-wachtwoord). Klik daar op de link. Je ziet het vak voor een nieuw wachtwoord.',
-        'Anders: zoek op de site in de instellingen naar "wachtwoord wijzigen".',
-        'Klik op het puzzelstukje en dan op Bitwarden. Kies Generator. Klik op de knop om het wachtwoord te kopiëren.',
-        'Klik op de site in het vak voor het nieuwe wachtwoord. Plak met Ctrl en V (Windows) of Cmd en V (Mac). Moet het twee keer? Plak nog een keer.',
-        'Sla het op. Vraagt Bitwarden of hij het moet bewaren of bijwerken? Kies ja.',
+        'Inloggen: ga naar de site en log in. Zoek in de instellingen naar "wachtwoord wijzigen".',
+        'Nieuw wachtwoord: klik rechtsboven op het puzzelstukje, dan op Bitwarden, dan op Generator. Klik op de knop om te kopiëren.',
+        'Opslaan: klik op de site in het vak voor het nieuwe wachtwoord. Plak met Ctrl en V (Windows) of Cmd en V (Mac). Sla op. Vraagt Bitwarden of hij het moet bewaren? Kies ja.',
       ] },
       { naam: 'Op je telefoon', stappen: [
-        'Log in op de site of in de app. Oude wachtwoord kwijt? Kies "wachtwoord vergeten" en volg de mail.',
-        'Zoek in de instellingen naar "wachtwoord wijzigen".',
-        'Open Bitwarden en tik onderaan op Generator. Tik op de knop om het wachtwoord te kopiëren.',
-        'Ga terug. Houd je vinger in het vak voor het nieuwe wachtwoord en kies Plak of Plakken.',
-        'Sla het op. Vraagt Bitwarden of hij het moet bewaren? Kies ja.',
+        'Inloggen: log in op de site of in de app. Zoek in de instellingen naar "wachtwoord wijzigen".',
+        'Nieuw wachtwoord: open Bitwarden en tik onderaan op Generator. Tik op de knop om te kopiëren.',
+        'Opslaan: ga terug. Houd je vinger in het vak voor het nieuwe wachtwoord en kies Plak of Plakken. Sla op. Vraagt Bitwarden of hij het moet bewaren? Kies ja.',
       ] },
     ],
     na: ['Zet een streep door het account op je lijstje. Ga dan naar het volgende.'],
     uitklap: [
+      {
+        vraag: 'Ik weet het oude wachtwoord niet meer',
+        antwoord: [
+          'Kies op de inlogpagina "wachtwoord vergeten". Je krijgt een mail met een link.',
+          'Open die mail op je telefoon, in je Mail-app. Tik op de link. Doe dat account dan verder op je telefoon.',
+        ],
+      },
       {
         vraag: 'Mijn bank laat me inloggen met een app of een pasje',
         antwoord: ['Dan heb je bij de bank geen wachtwoord om te veranderen. Sla de bank over. Je bankapp en je pasje zijn al een goed slot.'],
@@ -44,14 +46,14 @@ export const WEEKEND = {
         antwoord: [
           'Het wachtwoord is niet weg. Open in Bitwarden de Generator en zoek de geschiedenis. Kopieer het nieuwste wachtwoord.',
           'Stond het account al in je kluis? Open het en kies om het te bewerken. Plak het nieuwe wachtwoord en sla op.',
-          'Stond het account nog niet in je kluis? Open Bitwarden: op de computer via het puzzelstukje. Klik of tik op het plusteken (+) of op Nieuw. Kies Login.',
+          'Stond het account nog niet in je kluis? Klik of tik in Bitwarden op het plusteken (+) of op Nieuw. Kies Login.',
           'Vul de naam van de site in, je gebruikersnaam of e-mailadres, en plak het wachtwoord. Klik op Opslaan.',
         ],
       },
     ],
     gelukt: 'Log uit en weer in. Laat Bitwarden het wachtwoord invullen. Kom je binnen? Dan is dat account klaar.',
     lukNiet: [
-      'Moe? Stop gerust en ga morgen verder. Elk account dat klaar is, telt.',
+      'Moe? Stop gerust en ga morgen verder.',
       'Kun je "wachtwoord wijzigen" niet vinden? Kijk bij "account", "profiel" of "beveiliging".',
       'Bewaart Bitwarden het wachtwoord niet? Open hierboven "Bitwarden heeft het nieuwe wachtwoord niet bewaard".',
     ],
@@ -60,12 +62,10 @@ export const WEEKEND = {
   },
   'accounts-tweede-slot': {
     hoe: [
-      'Pak je lijstje erbij. Begin met DigiD. Open hieronder de twee delen over de DigiD-app.',
-      'Doe daarna nog één ander account. De rest mag een andere dag: elke site heeft andere schermen.',
-      'Log in op de site en zoek de beveiliging. Lukt dat niet? Open hieronder "Waar vind ik de beveiliging van een site?".',
-      'Zoek daar naar "tweestapsverificatie", "inloggen in twee stappen" of "passkey".',
-      'Kan het met een passkey? Kies die. Een passkey is inloggen met je vinger, je gezicht of je pincode, zonder wachtwoord. Vraagt je toestel waar hij moet? Open hieronder "Waar bewaar ik een passkey?".',
-      'Geen passkey? Kies "authenticator-app": dat is een code-app, zoals Ente Auth. Open hieronder "Een code scannen met Ente Auth".',
+      'Begin met DigiD. Open hieronder de twee delen over de DigiD-app.',
+      'Dat is genoeg voor vandaag. Wil je meer? Doe dan nog één account van je lijstje. Dat mag ook een andere dag.',
+      'Log in op die site en zoek de beveiliging. Lukt dat niet? Open hieronder "Waar vind ik de beveiliging van een site?".',
+      'Zoek daar naar "tweestapsverificatie" of "inloggen in twee stappen". Kies "authenticator-app": dat is een code-app, zoals Ente Auth. Open hieronder "Een code scannen met Ente Auth".',
       'Voor je bank gebruik je de app van je bank. Die heb je meestal al.',
       'Krijg je herstelcodes te zien? Schrijf ze op en stop ze in je envelop.',
     ],
@@ -80,7 +80,7 @@ export const WEEKEND = {
       { vraag: 'DigiD-app, deel 2: laten zien dat jij het bent', antwoord: [
         'De app laat zien welke manieren er voor jou zijn. Kies er één.',
         'Met je paspoort of identiteitskaart: de app vraagt eerst om een foto van een stukje van het document. Daarna leg je je telefoon op het document. Haal hem pas weg als de app dat zegt.',
-        'Met een brief: DigiD stuurt een activeringscode naar je huisadres. Die komt binnen een paar dagen. Typ de code dan in de app. Ga intussen verder met andere accounts.',
+        'Met een brief: DigiD stuurt een activeringscode naar je huisadres. Die komt binnen een paar dagen. Typ de code dan in de app.',
         'Krijg je een code per sms? Typ die code in de app.',
         'Zegt de app dat hij geactiveerd is? Dan is het gelukt.',
       ] },
@@ -91,20 +91,16 @@ export const WEEKEND = {
         'Staat de code op je telefoon zelf? Tik op de link eronder, zoals "Kun je de code niet scannen?". Kopieer de sleutel. Kies in Ente Auth om de gegevens zelf in te voeren en plak hem.',
       ] },
       { vraag: 'Waar bewaar ik een passkey?', antwoord: [
-        'Je toestel laat een lijstje zien met plekken. Staat Bitwarden erin? Kies Bitwarden. Dan heb je de passkey op al je toestellen.',
-        'Zie je alleen je telefoon? Dat is ook goed. De passkey staat dan op je telefoon.',
-        'Log je later in op je laptop, en staat de passkey op je telefoon? Dan laat de laptop een vierkante code zien. Scan die met je telefoon. Bevestig met je vinger of je gezicht.',
-        'Twijfel je? Kies dan de code-app. Dat is ook een goed tweede slot.',
+        'Een passkey is inloggen met je vinger, je gezicht of je pincode. Je hoeft er nu niets mee. De code-app is ook een goed tweede slot.',
+        'Kies je toch een passkey? Vraagt je toestel waar hij moet? Kies Bitwarden, of je telefoon. Allebei is goed.',
       ] },
       { vraag: 'Waar vind ik de beveiliging van een site?', antwoord: [
         'Klik of tik rechtsboven op je naam, je foto of een poppetje. Zie je dat niet? Zoek drie streepjes of drie puntjes.',
-        'Kies "Account", "Profiel" of "Instellingen".',
-        'Kijk daar bij een kopje als "Beveiliging" of "Inloggen".',
-        'Niet gevonden? Zoek op internet naar de naam van de site met "tweestapsverificatie aanzetten". Kies een uitleg op de site zelf.',
-        'Nog niet gevonden? Dan heeft de site misschien geen tweede slot. Ga door naar het volgende account.',
+        'Kies "Account", "Profiel" of "Instellingen". Kijk daar bij een kopje als "Beveiliging" of "Inloggen".',
+        'Niet gevonden? Dan heeft de site misschien geen tweede slot. Ga door naar het volgende account.',
       ] },
     ],
-    gelukt: 'Kijk bij de beveiliging van het account. Staat tweestapsverificatie aan, of staat je passkey erbij? Dan zit het tweede slot erop. DigiD test je op mijn.digid.nl: kies inloggen met de DigiD-app en volg het scherm. Kom je binnen? Dan werkt je app.',
+    gelukt: 'DigiD test je op mijn.digid.nl: kies inloggen met de DigiD-app en volg het scherm. Kom je binnen? Dan werkt je app. Bij een ander account: staat bij de beveiliging dat tweestapsverificatie aan staat? Dan zit het tweede slot erop.',
     lukNiet: [
       'Heeft een site geen tweede slot? Dan is een eigen, sterk wachtwoord uit je kluis genoeg.',
       'Werkt de code niet? Elke code werkt maar kort. Wacht op de volgende code in de app en typ die over.',
@@ -165,9 +161,17 @@ export const WEEKEND = {
   },
   'backup': {
     wat: 'Een reservekopie is een kopie van je foto\'s en bestanden op een andere plek. Je telefoon zet zijn kopie op internet. Je computer zet zijn kopie op een losse schijf.',
-    hoe: ['Een losse schijf is een externe harde schijf: een kastje dat je met een kabel aan je computer koppelt. Je koopt hem in een elektronicawinkel. Neem er een met meer ruimte dan je computer heeft. Geen computer? Dan heb je geen schijf nodig.'],
+    hoe: [
+      'Een losse schijf is een externe harde schijf: een kastje dat je met een kabel aan je computer koppelt. Je koopt hem in een elektronicawinkel. Neem er een met meer ruimte dan je computer heeft.',
+      'Nog geen losse schijf, of geen computer? Doe vandaag alleen je telefoon.',
+    ],
     toestellen: [
-      { naam: 'Op een iPhone', stappen: ['Open Instellingen en tik bovenaan op je naam.', 'Tik op iCloud en dan op iCloud-reservekopie.', 'Zet het schuifje aan. Tik op Maak nu reservekopie.'] },
+      { naam: 'Op een iPhone', stappen: [
+        'Open Instellingen en tik bovenaan op je naam.',
+        'Tik op iCloud en dan op iCloud-reservekopie.',
+        'Zet het schuifje aan. Tik op Maak nu reservekopie. Onder die knop staat daarna wanneer de laatste reservekopie is gemaakt.',
+        'Zegt je iPhone dat iCloud vol is? Open hieronder "Mijn iCloud is vol".',
+      ] },
       { naam: 'Op een Android-telefoon', stappen: [
         'Open Instellingen en typ "back-up" in de zoekbalk.',
         'Zie je meer keuzes, zoals van Samsung en van Google? Kies die van Google. Zet hem aan en maak nu een back-up.',
@@ -182,6 +186,13 @@ export const WEEKEND = {
       'Sluit de schijf eens per maand weer aan. De kopie wordt dan vanzelf bijgewerkt.',
     ],
     uitklap: [
+      { vraag: 'Mijn iCloud is vol', antwoord: [
+        'Je kunt meer ruimte kopen. Open Instellingen, tik op je naam en dan op iCloud. Je ziet eerst de prijs per maand.',
+        'Liever niet betalen? Zet je foto\'s dan op je computer. Sluit je iPhone met de kabel aan op je computer.',
+        'Ontgrendel je iPhone. Vraagt hij of je deze computer vertrouwt? Tik op Vertrouw.',
+        'Op Windows: open op de computer de app Foto\'s en kies Importeren. Op een Mac: open de app Foto\'s en kies je iPhone in de lijst links.',
+        'Daarna gaan je foto\'s mee op de losse schijf.',
+      ] },
       { vraag: 'Hoe werp ik de schijf uit?', antwoord: [
         'Op een Mac: klik in de Finder met de rechtermuisknop op de schijf. Kies Werp uit. Wacht tot de schijf uit de lijst verdwijnt.',
         'Op Windows: open de Verkenner. Klik met de rechtermuisknop op de schijf en kies Uitwerpen. Wacht op de melding dat je hem veilig kunt loskoppelen.',
@@ -191,12 +202,10 @@ export const WEEKEND = {
         'Op Windows: sluit de schijf aan. Typ "Bestandsgeschiedenis" in de zoekbalk van Start. Kies het terugzetten van bestanden. Kies een bestand en klik op de groene knop onderaan.',
       ] },
     ],
-    gelukt: 'Zet één bestand terug van je losse schijf en open het. Hoe dat gaat, staat hierboven. Lukt het? Dan werkt je reservekopie echt. Op je telefoon staat bij de back-up een datum van vandaag. In Google Foto\'s staat bij je profielfoto dat de back-up aan staat.',
+    gelukt: 'Op je iPhone staat onder Maak nu reservekopie een tijd van vandaag. Op Android staat dat bij de back-up van Google, en in Google Foto\'s bij je profielfoto. Computer: zet één bestand terug van je losse schijf en open het. Lukt het? Dan werkt je reservekopie echt.',
     lukNiet: [
-      'Heb je nog geen losse schijf? Doe dan nu alleen je telefoon.',
-      'Te weinig ruimte in iCloud? Open Instellingen, tik op je naam en dan op iCloud. Daar kies je meer ruimte. Je ziet eerst de prijs per maand.',
-      'Wil je niet betalen? Zet je foto\'s dan op je computer. Zo gaan ze mee op de losse schijf.',
       'Ziet je computer de schijf niet? Probeer een andere aansluiting of een andere kabel.',
+      'Ziet je computer je iPhone niet? Ontgrendel je iPhone en probeer een andere kabel.',
     ],
     gereedschap: [],
     klaar: 'Je brandkast staat buiten de deur. Gaat er iets kapot of op slot, dan heb je alles nog.',
@@ -259,7 +268,7 @@ export const WEEKEND = {
     hoe: [],
     toestellen: [
       { naam: 'Op een iPhone', stappen: ['Open Instellingen en tik op Privacy en beveiliging.', 'Tik op Locatievoorzieningen. Kijk daarna ook bij Camera, Microfoon en Contacten.'] },
-      { naam: 'Op een Android-telefoon', stappen: ['Open Instellingen. Tik op Beveiliging en privacy, dan op Privacy en dan op Rechtenbeheer. Heet het bij jouw merk anders? Typ dan "rechten" in de zoekbalk.', 'Tik op Locatie. Kijk daarna ook bij Camera, Microfoon en Contacten.'] },
+      { naam: 'Op een Android-telefoon', stappen: ['Open Instellingen en typ "machtigingen" in de zoekbalk bovenaan.', 'Kies Machtigingsbeheer. Bij sommige merken heet het Rechtenbeheer.', 'Tik op Locatie. Kijk daarna ook bij Camera, Microfoon en Contacten.'] },
     ],
     na: [
       'Je ziet per onderdeel welke apps erbij mogen. Heeft een app het niet nodig? Zet het uit. Een zaklamp-app hoeft niet bij je contacten.',

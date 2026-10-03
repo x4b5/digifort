@@ -13,8 +13,8 @@ import { AVOND, DIENSTEN } from '../data/avond.js';
 import HuisEnFort from './HuisEnFort.astro';
 import Merk from './Merk.astro';
 
-type Toestel = { naam: string, stappen: string[] };
 type Uitklap = { vraag: string, antwoord: string[], dienst?: string };
+type Toestel = { naam: string, stappen: string[], diensten?: Uitklap[], uitklap?: Uitklap[] };
 type Uitleg = { wat?: string, hoe: string[], dienstEerst?: boolean, toestellen?: Toestel[], na?: string[], letOp?: string, uitklap?: Uitklap[], gelukt: string, lukNiet: string[], gereedschap?: string[], klaar: string };
 interface Props {
   lijst?: string;
@@ -84,7 +84,7 @@ const kiesId = `toestel-${lijst}`;
         {hoe.length > 1 && <ol class="hoe">{hoe.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
         {/* bij `dienstEerst` kies je je maildienst vóór de delen: misschien hoef je ze niet te doen */}
         {u.dienstEerst && u.uitklap?.some((k) => k.dienst) && (
-          <div class="diensten" data-diensten>
+          <div class="diensten" data-diensten data-zonder-terugval>
             {/* zonder JavaScript blijft de keuze weg en zie je alle blokken */}
             <fieldset class="toestelkeuze dienstkeuze" data-dienstkeuze hidden>
               <legend>Welke maildienst heb je?</legend>
@@ -111,7 +111,40 @@ const kiesId = `toestel-${lijst}`;
         {u.toestellen?.map((t) => (
           <div class="toestel" data-soort={soort(t.naam)}>
             <h4>{t.naam}</h4>
-            <ol class="hoe">{t.stappen.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>
+            {/* een deel kan per maildienst verschillen: dan staan die blokken hier, in het deel zelf */}
+            {t.diensten && (
+              <div class="diensten" data-diensten>
+                {!u.uitklap?.some((k) => k.dienst) && (
+                  <fieldset class="toestelkeuze dienstkeuze" data-dienstkeuze hidden>
+                    <legend>Welke maildienst heb je?</legend>
+                    <p class="toestel-hint">Kijk naar het eind van je e-mailadres, na de @.</p>
+                    <div class="keuzes onder">
+                      {DIENSTEN.map((d) => (
+                        <label><input type="radio" name={`dienst-${it.id}`} value={d.id} /> <span><strong>{d.naam}</strong>{d.adres && <span class="adres"> {d.adres}</span>}</span></label>
+                      ))}
+                      <label><input type="radio" name={`dienst-${it.id}`} value="" checked /> Laat alles zien</label>
+                    </div>
+                  </fieldset>
+                )}
+                {t.diensten.map((k) => (
+                  <details class="uitklap" data-dienst={k.dienst}>
+                    <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
+                    <div class="uitklap-tekst">
+                      <ol class="hoe">{k.antwoord.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>
+                    </div>
+                  </details>
+                ))}
+              </div>
+            )}
+            {t.stappen.length > 0 && <ol class="hoe">{t.stappen.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>}
+            {t.uitklap?.map((k) => (
+              <details class="uitklap">
+                <summary><span class="pijl" aria-hidden="true">›</span> {k.vraag}</summary>
+                <div class="uitklap-tekst">
+                  <ol class="hoe">{k.antwoord.map((h) => <li>{stukjes(h).map((s) => s.href ? <a href={s.href}>{s.tekst}</a> : s.tekst)}</li>)}</ol>
+                </div>
+              </details>
+            ))}
           </div>
         ))}
         {na.length > 0 && (
@@ -219,8 +252,21 @@ const kiesId = `toestel-${lijst}`;
     const totaal = stappen.length;
     let huidig = 0;
 
+    // wat je op deze pagina afvinkt, onthoudt de pagina ook zelf: zonder opslag (privévenster,
+    // geblokkeerde site-gegevens) telt het eindscherm dan toch wat je net hebt gedaan
+    const hier: Record<string, boolean> = {};
+    let geenOpslag = false;
     const gedaan = () => lees().lijsten[LIJST] ?? {};
-    const isGedaan = (i: number) => Boolean(gedaan()[stappen[i].dataset.item!]);
+    const isGedaan = (i: number) => {
+      const id = stappen[i].dataset.item!;
+      return Boolean(gedaan()[id] ?? hier[id]);
+    };
+    const vink = (i: number, aan: boolean) => {
+      const id = stappen[i].dataset.item!;
+      hier[id] = aan;
+      zetVinkje(LIJST, id, aan);
+      if (Boolean(gedaan()[id]) !== aan) geenOpslag = true;
+    };
 
     function toonToestel(w: string) {
       s.querySelectorAll<HTMLElement>('.toestel[data-soort]').forEach((b) => {
@@ -244,7 +290,9 @@ const kiesId = `toestel-${lijst}`;
       dienstRadios.forEach((r) => { r.checked = r.value === w; });
       s.querySelectorAll<HTMLElement>('[data-diensten]').forEach((groep) => {
         const blokken = Array.from(groep.querySelectorAll<HTMLDetailsElement>('details[data-dienst]'));
-        const passend = blokken.find((b) => b.dataset.dienst === w) ?? blokken.find((b) => b.dataset.dienst === 'andere');
+        // een groep met alleen KPN, Ziggo en iCloud valt niet terug: bij Gmail zie je daar dan niets
+        const terugval = groep.hasAttribute('data-zonder-terugval') ? undefined : blokken.find((b) => b.dataset.dienst === 'andere');
+        const passend = blokken.find((b) => b.dataset.dienst === w) ?? terugval;
         blokken.forEach((b) => {
           b.hidden = Boolean(w) && b !== passend;
           if (w && b === passend) b.open = true;
@@ -273,11 +321,12 @@ const kiesId = `toestel-${lijst}`;
         stand.textContent = `Stap ${huidig + 1} van ${totaal}${rest ? ` · nog ongeveer ${duur}` : ''}`;
         stappen[huidig].querySelector<HTMLElement>('[data-klaar-zin]')!.hidden = !isGedaan(huidig);
       } else {
-        stand.textContent = `${klaar} van ${totaal} stappen gedaan`;
-        einde.querySelector<HTMLElement>('[data-einde-kop]')!.textContent = klaar === totaal ? 'Je fort staat' : `${klaar} van de ${totaal} stappen staan`;
-        einde.querySelector<HTMLElement>('[data-einde-tekst]')!.textContent = klaar === totaal
+        stand.textContent = `${klaar} van de ${totaal} stappen gedaan`;
+        einde.querySelector<HTMLElement>('[data-einde-kop]')!.textContent = klaar === totaal ? 'Je fort staat' : `Je hebt ${klaar} van de ${totaal} stappen gedaan`;
+        einde.querySelector<HTMLElement>('[data-einde-tekst]')!.textContent = (klaar === totaal
           ? s.dataset.alles!
-          : 'De overgeslagen stappen staan in Aan de slag klaar om later af te maken.';
+          : 'Wat je oversloeg, staat in Aan de slag klaar voor later.')
+          + (geenOpslag ? ' Let op: deze browser onthoudt je vinkjes niet. Na het sluiten zijn ze weg.' : '');
       }
       if (focus) {
         (huidig < totaal ? stappen[huidig] : einde).querySelector<HTMLElement>('h2')?.focus();
@@ -288,9 +337,9 @@ const kiesId = `toestel-${lijst}`;
     }
 
     stappen.forEach((el, i) => {
-      el.querySelector('[data-gedaan]')?.addEventListener('click', () => { zetVinkje(LIJST, el.dataset.item!, true); toon(i + 1); });
+      el.querySelector('[data-gedaan]')?.addEventListener('click', () => { vink(i, true); toon(i + 1); });
       // wie te snel "gedaan" klikte, kan het hier terugzetten zonder naar Aan de slag te hoeven
-      el.querySelector('[data-toch-niet]')?.addEventListener('click', () => { zetVinkje(LIJST, el.dataset.item!, false); toon(i, false); });
+      el.querySelector('[data-toch-niet]')?.addEventListener('click', () => { vink(i, false); toon(i, false); });
       el.querySelector('[data-over]')?.addEventListener('click', () => toon(i + 1));
       el.querySelector('[data-terug]')?.addEventListener('click', () => toon(i - 1));
     });

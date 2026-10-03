@@ -197,9 +197,10 @@ test('het tweede slot staat in drie delen, met een lijstje dat de woorden uit el
   await expect(ms).toContainText('andere app');
   // de controle werkt zonder uitloggen, ook als de computer je mail al kent
   await expect(stap.locator('.gelukt')).toContainText('Je hoeft niet uit te loggen');
-  // bij het nieuwe wachtwoord log je nergens uit (dan raak je de mail op je telefoon niet kwijt): je test in een privévenster
-  await expect(page.locator('#stap-mail-wachtwoord .gelukt')).toContainText('Log nergens uit');
-  await expect(page.locator('#stap-mail-wachtwoord .gelukt')).toContainText('privévenster');
+  // bij het nieuwe wachtwoord log je niet uit in de Mail-app (dan raak je de mail op je telefoon niet kwijt):
+  // je test op de website zelf, waar je het net veranderde; die heb je dus al open
+  await expect(page.locator('#stap-mail-wachtwoord .gelukt')).toContainText('Log niet uit in de Mail-app');
+  await expect(page.locator('#stap-mail-wachtwoord .gelukt')).toContainText('Log op die website uit en weer in');
 });
 
 test('Bitwarden: de schermen bij het maken van een account, en een nieuw item op de computer', async ({ page }) => {
@@ -208,6 +209,10 @@ test('Bitwarden: de schermen bij het maken van een account, en een nieuw item op
   await schermen.locator('summary').click();
   await expect(schermen).toContainText('EU');
   await expect(schermen).toContainText('hint');
+  // de keuze voor de EU staat in de stappen zelf, niet alleen in een uitklapper
+  await expect(page.locator('#stap-wachtwoordmanager .hoe').first()).toContainText('bitwarden.eu');
+  // wie stap 1 oversloeg, weet wat hij dan in de kluis zet
+  await expect(page.locator('#stap-wachtwoordmanager')).toContainText('Stap 1 overgeslagen?');
   await page.goto('/een-weekend#stap-accounts-wachtwoord');
   const niet = page.locator('#stap-accounts-wachtwoord details.uitklap').filter({ hasText: 'niet bewaard' });
   await niet.locator('summary').click();
@@ -297,4 +302,62 @@ test('weekend en verder: scannen uitgelegd, foto\'s op Android, en een sleutel m
   const bw = stap.locator('details.uitklap').filter({ hasText: 'Een sleutel op Bitwarden' });
   await bw.locator('summary').click();
   await expect(bw).toContainText('herstelcode');
+});
+
+test('het eindscherm telt wat je net deed, ook als de browser niets mag onthouden', async ({ page }) => {
+  await page.addInitScript(() => {
+    Storage.prototype.setItem = () => { throw new Error('geblokkeerd'); };
+  });
+  await page.goto('/een-avond');
+  await page.locator('[data-stap="0"] [data-gedaan]').click();
+  await page.locator('[data-stap="1"] [data-gedaan]').click();
+  for (const i of [2, 3, 4, 5]) await page.locator(`[data-stap="${i}"] [data-over]`).click();
+  const einde = page.locator('[data-einde]');
+  await expect(einde.locator('h2')).toHaveText('Je hebt 2 van de 6 stappen gedaan');
+  await expect(einde).toContainText('onthoudt je vinkjes niet');
+});
+
+test('het eindscherm zegt in gewone woorden hoeveel je deed', async ({ page }) => {
+  await page.goto('/een-avond');
+  await page.locator('[data-stap="0"] [data-gedaan]').click();
+  for (const i of [1, 2, 3, 4, 5]) await page.locator(`[data-stap="${i}"] [data-over]`).click();
+  const einde = page.locator('[data-einde]');
+  await expect(einde.locator('h2')).toHaveText('Je hebt 1 van de 6 stappen gedaan');
+  await expect(einde).not.toContainText('onthoudt je vinkjes niet');
+});
+
+test('tweede slot: het deel per maildienst staat in deel 3, met het pad voor alleen een telefoon erbij', async ({ page }) => {
+  await page.goto('/een-avond#stap-mail-tweede-slot');
+  const stap = page.locator('#stap-mail-tweede-slot');
+  await stap.getByRole('radio', { name: /Gmail/ }).check();
+  const deel3 = stap.locator('.toestel').filter({ has: page.getByRole('heading', { name: /Deel 3/ }) });
+  // Gmail: het blok staat open in deel 3, niet boven deel 1
+  await expect(deel3.locator('details[data-dienst="gmail"]')).toHaveAttribute('open', '');
+  await expect(deel3.locator('details[data-dienst="gmail"]')).toContainText('myaccount.google.com');
+  await expect(stap.locator('details[data-dienst="kpn"]')).toBeHidden();
+  await expect(deel3.locator('details.uitklap').filter({ hasText: 'alleen een telefoon' })).toBeVisible();
+  // KPN: het nakijken staat boven deel 1, en zegt wat MijnKPN is
+  await stap.getByRole('radio', { name: /KPN/ }).check();
+  await expect(stap.locator('details[data-dienst="kpn"]')).toContainText('abonnement en je rekening');
+  await expect(deel3.locator('details[data-dienst="gmail"]')).toBeHidden();
+  // bij stap 1: wat je tegen KPN zegt, en dat de rest ook zonder deze stap lukt
+  await page.goto('/een-avond#stap-mail-wachtwoord');
+  const kpn = page.locator('#stap-mail-wachtwoord details[data-dienst="kpn"]');
+  await expect(kpn).toContainText('Bel KPN');
+  await expect(kpn).toContainText('Stap 3 tot en met 6 lukken ook zonder deze stap');
+});
+
+test('weekend en verder: Samsung-machtigingen, een volle iCloud en inloggen met de sleutel in de app', async ({ page }) => {
+  await page.goto('/een-weekend#stap-app-rechten');
+  await expect(page.locator('#stap-app-rechten .toestel[data-soort="android"]')).toContainText('Machtigingsbeheer');
+  await page.goto('/een-weekend#stap-backup');
+  const vol = page.locator('#stap-backup details.uitklap').filter({ hasText: 'Mijn iCloud is vol' });
+  await vol.locator('summary').click();
+  await expect(vol).toContainText('Vertrouw');
+  await expect(vol).toContainText('Importeren');
+  await expect(page.locator('#stap-backup .gelukt')).toContainText('vandaag');
+  await page.goto('/ik-wil-verder#stap-hardwaresleutel');
+  const bw = page.locator('#stap-hardwaresleutel details.uitklap').filter({ hasText: 'Een sleutel op Bitwarden' });
+  await bw.locator('summary').click();
+  await expect(bw).toContainText('Bitwarden-app van je telefoon');
 });
