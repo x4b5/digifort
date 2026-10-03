@@ -139,14 +139,14 @@ export const QUIZZEN = {
       { tekst: 'Nooit betalen, altijd vertellen, en je krijgt geen straf', goed: true, uitleg: 'Dat laatste is het belangrijkste deel. Een kind dat bang is voor straf, vertelt niet wat er is misgegaan.' },
       { tekst: 'Meteen alle sociale media verwijderen', uitleg: 'Begin met het gesprek, niet met het verbod. En bewaar het bewijs voordat je iets weggooit.' },
     ] },
-    { vraag: 'Je maakt op je werk een fout waardoor gegevens van anderen op straat liggen. Hoe snel moet dat gemeld worden?', opties: [
-      { tekst: 'Binnen 72 uur na ontdekking', goed: true, uitleg: 'Bij de Autoriteit Persoonsgegevens, als het een risico oplevert voor de mensen om wie het gaat. Dat lukt alleen als jij het meteen zegt.' },
-      { tekst: 'Binnen een week', uitleg: 'Te laat. De wet noemt 72 uur na ontdekking.' },
-      { tekst: 'Aan het eind van het kwartaal', uitleg: 'Dit is geen administratie maar een melding met een klok eraan: 72 uur.' },
+    { vraag: 'Je moeder krijgt een appje van een nieuw nummer: "Hoi mam, mijn telefoon is kapot. Kun je snel iets betalen?" Wat doet ze?', opties: [
+      { tekst: 'Betalen, het is haar kind', uitleg: 'Zo werkt de truc juist: haast en een bekend gezicht. Eerst controleren.' },
+      { tekst: 'Vragen naar jullie familiewoord, of bellen naar het oude nummer', goed: true, uitleg: 'Klopt. Kent de ander het woord niet, of neemt je kind op het oude nummer op? Dan is het nep.' },
+      { tekst: 'Terugappen naar het nieuwe nummer of het echt is', uitleg: 'Dan praat ze met de oplichter zelf. Bel het oude nummer, of vraag naar het familiewoord.' },
     ] },
     { vraag: 'Je helpt je moeder met haar digitale huis. Wat plan je?', opties: [
       { tekst: 'Eén middag waarin jullie alles in één keer doen', uitleg: 'Probeer niet alles in één keer. Dat is precies waar zulke afspraken op stuklopen.' },
-      { tekst: 'Een uur, koffie, en samen alleen niveau 1', goed: true, uitleg: 'Eén avond met vier sloten erbij is meer waard dan een perfect plan dat niemand uitvoert.' },
+      { tekst: 'Een uur, koffie, en samen de zeven stappen van het bezoek', goed: true, uitleg: 'Eén avond met vier sloten erbij is meer waard dan een perfect plan dat niemand uitvoert.' },
       { tekst: 'Je doet het zelf, dat gaat sneller', uitleg: 'Dan weet zij niet wat er veranderd is, en bij de eerste vraag staat alles stil. Samen doen is het punt.' },
     ] },
   ],

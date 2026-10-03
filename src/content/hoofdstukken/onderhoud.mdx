@@ -5,8 +5,6 @@ kort: "Oude apparaten, weggooien, en wat er over jou op internet staat."
 omschrijving: "Klussen om af te vinken: elke maand, twee keer per jaar, elk jaar, en als je een telefoon of computer wegdoet."
 datum: "2026-09-30"
 ---
-import Citaat from '../../components/Citaat.astro';
-import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
 import Kort from '../../components/Kort.astro';
 import Doe from '../../components/Doe.astro';
@@ -16,10 +14,10 @@ import OnderhoudStap from '../../components/OnderhoudStap.astro';
 import Gelukt from '../../components/Gelukt.astro';
 import Waarschuwing from '../../components/Waarschuwing.astro';
 import Momenten from '../../components/Momenten.astro';
-import Foto from '../../components/Foto.astro';
 import Scene from '../../components/Scene.astro';
 import Tijdlijn from '../../components/Tijdlijn.astro';
 import Optie from '../../components/Optie.astro';
+import ProviderMail from '../../components/ProviderMail.astro';
 
 <Doe>
 
@@ -40,7 +38,7 @@ import Optie from '../../components/Optie.astro';
 
 </Meer>
 
-Hier staan de klussen per moment. Kies het moment dat aan de beurt is. Bij elke klus tik je op jouw toestel; de rest sla je over. Wat je afvinkt, onthoudt je eigen browser.
+Kies het moment dat aan de beurt is. Bij elke klus tik je op jouw toestel. Wat je afvinkt, onthoudt je browser.
 
 <Momenten momenten={[
   { href: '#elke-maand', wat: 'Elke maand', tijd: 'ongeveer 10 minuten' },
@@ -79,13 +77,14 @@ Doe dit op elk toestel dat je gebruikt. Tik op je toestel.
 <Optie titel="Windows-computer">
 
 1. Klik linksonder op Start, het logo met de vier vakjes. Klik op Instellingen, het tandwieltje. Zie je links Windows Update? Klik erop. Zie je het niet? Dan heb je Windows 10. Klik dan op Bijwerken en beveiliging en daarna op Windows Update.
-2. Gebruik je Edge? Dat is het programma dat er al op stond, met het blauwgroene golfje. Typ bovenin edge://settings/help en druk op Enter. Edge zoekt dan zelf naar een update.
-3. Gebruik je Chrome of Firefox? Kijk hieronder bij de browser.
+2. Werk ook het programma bij waarmee je op internet gaat. Kijk naar het plaatje ervan onderaan je scherm:
+   - **Een blauwgroen golfje: Edge.** Klik rechtsboven op de drie puntjes naast elkaar. Kies Help en feedback en dan Over Microsoft Edge.
+   - **Een rondje in rood, geel en groen: Chrome.** Een **oranje vos om een bol: Firefox.** Kijk hieronder bij Chrome of Firefox.
 
 </Optie>
 <Optie titel="Chrome of Firefox op je computer">
 
-Open het menu rechtsboven. Kies Help en dan Over Google Chrome of Over Firefox. De browser zoekt zelf naar een update. Vraagt hij om opnieuw te starten? Doe dat.
+Open het menu rechtsboven. In Chrome zijn dat drie puntjes onder elkaar, in Firefox drie streepjes. Kies Help en dan Over Google Chrome of Over Firefox. De browser zoekt zelf naar een update. Vraagt hij om opnieuw te starten? Doe dat.
 
 </Optie>
 
@@ -106,14 +105,18 @@ Een reservekopie is een tweede set van je foto's en bestanden, op een andere ple
 
 **Zegt de iPhone dat je opslag vol is?** De gratis opslag van iCloud is vaak te klein. Dan heb je twee keuzes:
 
-- **Meer opslag kopen.** Tik in het iCloud-scherm op de regel over je opslag. Daar staat een knop om meer opslag te nemen, met de prijs per maand erbij. Je betaalt pas als je dat bevestigt. Daarna tik je weer op Maak nu reservekopie.
-- **Niet betalen.** Heb je een Mac? Sluit de iPhone met de kabel aan. Open Finder en klik links op je iPhone. Klik op de knop om nu een reservekopie te maken. Geen Mac? Vraag iemand om hulp, en gooi niets weg.
+- **Meer opslag kopen.** Bovenaan het iCloud-scherm staat een balk die laat zien hoe vol je opslag is. Tik erop. Je ziet de pakketten, met de prijs per maand erbij. Er gebeurt niets tot je een pakket kiest en bevestigt met je code of gezicht. Opzeggen kan later in hetzelfde scherm. Daarna tik je weer op Maak nu reservekopie.
+- **Niet betalen.** Dan maak je de kopie op je computer. Sluit de iPhone met de kabel aan. Vraagt de iPhone of je de computer vertrouwt? Tik op Vertrouw en typ je code.
+  - **Mac:** open Finder en klik links op je iPhone.
+  - **Windows:** open de Microsoft Store, het tasje in de balk onderaan. Zoek "Apple Devices" en installeer die gratis app van Apple. Open hem en klik op je iPhone.
+
+  Klik op de knop om nu een reservekopie te maken. Wacht tot hij klaar is.
 
 </Optie>
 <Optie titel="Android, zoals Samsung">
 
 1. Open Instellingen. Typ "back-up" in het zoekveld bovenin.
-2. Zie je twee soorten, zoals Samsung Cloud en Google? Kies die van Google. Die kopie werkt ook als je later een ander merk telefoon koopt.
+2. Zie je twee soorten, zoals Samsung Cloud en Google? Kies die van Google.
 3. Daar staat de datum van de laatste back-up. Staat de back-up uit? Zet hem aan.
 4. Zet de telefoon aan de lader en op wifi. Tik op de knop om nu een back-up te maken.
 
@@ -122,7 +125,7 @@ Zegt je telefoon dat je opslag vol is? Tik in hetzelfde scherm op de regel over 
 </Optie>
 <Optie titel="Computer met een losse schijf">
 
-Een losse schijf is een kastje dat je met een kabel aansluit. Je koopt het bij een winkel in elektronica. Sluit hem aan.
+Een losse schijf is een kastje dat je met een kabel aansluit. Sluit hem aan.
 
 - **Mac:** open Systeeminstellingen. Typ "Time Machine" in het zoekveld linksboven en open het. Daar staat de datum van de laatste kopie. Nog geen schijf gekozen? Klik op de knop om een schijf toe te voegen en kies je schijf.
 - **Windows:** klik op Start en typ "Bestandsgeschiedenis". Open het. Daar staat wanneer er voor het laatst is gekopieerd. Staat het uit? Klik op de knop Inschakelen.
@@ -143,7 +146,7 @@ Wacht tot de kopie klaar is. Haal de schijf daarna veilig los:
 
 ## Twee keer per jaar: als de klok wordt verzet
 
-Eind maart en eind oktober loop je met de timmerman door je huis. Je kijkt vier dingen na, één voor één.
+Eind maart en eind oktober kijk je vier dingen na, één voor één.
 
 <Onderhoudsbeurt>
 <OnderhoudStap id="backup-loopt" nr={1} titel="Zet één bestand terug uit je reservekopie" minuten={10}>
@@ -162,14 +165,20 @@ Tik op waar jouw foto's of bestanden staan. Weet je het niet? Kies dan de laatst
 Doe dit op je computer.
 
 1. Open de app waarmee je op internet gaat. Typ bovenin icloud.com en log in.
-2. Apple laat nu een melding zien op je iPhone. Tik daar op de knop om het toe te staan. Typ de code van je iPhone over op je computer. Zo hoort het: dat is je tweede slot.
+2. Apple laat nu een melding zien op je iPhone. Tik daar op de knop om het toe te staan. Typ de code van je iPhone over op je computer.
 3. Klik op Foto's. Klik één foto aan. Klik bovenaan op het wolkje met het pijltje naar beneden.
 4. Open de map Downloads. **Mac:** klik op Finder en links op Downloads. **Windows:** klik op het gele mapje en links op Downloads. Dubbelklik op je foto.
 
 </Optie>
-<Optie titel="In de cloud: Google Foto's of OneDrive">
+<Optie titel="In de cloud: Google Foto's of OneDrive, op je telefoon">
 
-Doe dit op je computer. Op een telefoon opent het adres vaak de app, en daar gaat het anders.
+1. Open de app Google Foto's of OneDrive.
+2. Tik op een foto van een paar maanden terug. Tik op de drie puntjes.
+3. Zie je Downloaden of Opslaan? Tik erop. Zie je het niet? Dan staat die foto ook al op je telefoon. Kies een oudere foto.
+4. Open de app Galerij of Foto's. De foto staat bij de nieuwste.
+
+</Optie>
+<Optie titel="In de cloud: Google Foto's of OneDrive, op je computer">
 
 1. Open de app waarmee je op internet gaat. Typ bovenin photos.google.com of onedrive.com en log in.
 2. **Google Foto's:** klik één foto aan. Klik rechtsboven op de drie puntjes en kies Downloaden. **OneDrive:** klik op het rondje voor een bestand. Klik bovenaan op Downloaden.
@@ -197,8 +206,6 @@ Doe dit op je computer. Op een telefoon opent het adres vaak de app, en daar gaa
 <Optie titel="Alleen een kopie van je hele telefoon, of ik weet het niet">
 
 Dan kun je vandaag geen los bestand terugzetten. Kijk bij [Elke maand, stap 2](#stap-maand-kopie) of de laatste kopie van deze week is. Dan ben je klaar.
-
-Wil je je foto's later ook los in de cloud? Op de iPhone is dat de regel Foto's in iCloud, bij Instellingen, je naam, iCloud. Dat past vaak alleen met betaalde opslag. Op Android is het de back-up in Google Foto's.
 
 </Optie>
 
@@ -237,7 +244,7 @@ Daar krijg je meestal geen herstelcodes. Je hoeft hier niets te doen. Leg alleen
 
 </Optie>
 
-Leg de envelop thuis op een vaste plek. Niet in je telefoon en niet in een foto.
+Bewaar de codes niet in je telefoon en niet in een foto.
 
 <Gelukt>je envelop ligt op een vaste plek. Heeft je e-mail herstelcodes? Dan staan de nieuwste erin.</Gelukt>
 
@@ -247,9 +254,9 @@ Leg de envelop thuis op een vaste plek. Niet in je telefoon en niet in een foto.
 Loop je apparaten langs.
 
 - **Android:** open Instellingen. Typ "beveiligingsupdate" in het zoekveld bovenin. Daar staat de datum van de laatste. Meer dan een jaar oud? Dan krijgt de telefoon waarschijnlijk geen updates meer.
-- **iPhone en iPad:** open Instellingen. Tik op Algemeen en dan op Info. Schrijf het getal bij iOS-versie op, met de datum van vandaag. Klaar voor vandaag. Is het getal over een half jaar nog hetzelfde, ook na Software-update? Dan krijgt hij geen updates meer.
-- **Windows:** klik op Start, typ "winver" en druk op Enter. Staat er Windows 10? Lees dan [apparaten zonder updates](#als-de-timmerman-niet-meer-komt-apparaten-zonder-updates).
-- **Router:** dat is het kastje waar je internet uit komt. Staat de naam van je internetbedrijf erop, zoals KPN of Ziggo? Dan werkt dat bedrijf hem meestal zelf bij. Een ander merk? Bel je internetbedrijf en vraag om hun router.
+- **iPhone en iPad:** open Instellingen. Tik op Algemeen en dan op Info. Schrijf het getal bij iOS-versie op, met de datum van vandaag. Is het getal over een half jaar nog hetzelfde, ook na Software-update? Dan krijgt hij geen updates meer.
+- **Windows:** klik op Start, typ "winver" en druk op Enter. Staat er Windows 10? Lees dan [apparaten zonder updates](#apparaten-zonder-updates).
+- **Router:** het kastje waar je internet uit komt. Staat KPN of Ziggo erop? Dan werkt dat bedrijf hem meestal zelf bij. Een ander merk? Vraag je internetbedrijf om hun router.
 
 Krijgt een apparaat geen updates meer? Gebruik het dan niet meer voor je bank en je e-mail.
 
@@ -268,12 +275,16 @@ Een [datalek](/woordenboek) is als een inbraak bij een winkel waar jij klant ben
 
 <Meer titel="Zo geef je een dienst een nieuw wachtwoord">
 
-1. Log in op de website of in de app. Zoek bij de instellingen naar "wachtwoord".
+1. Log in op de website of in de app. Tik op je naam of het rondje met je foto. Zoek daar naar "wachtwoord".
 2. Typ een nieuw wachtwoord dat je nergens anders gebruikt. Schrijf het in een schriftje dat thuis blijft.
 
-Vind je het niet, of weet je het oude niet meer? Log uit. Klik bij het inloggen op "wachtwoord vergeten". Je krijgt dan een e-mail of sms om een nieuw wachtwoord te maken. Dat werkt ook bij de mail van KPN of Ziggo.
+Vind je het niet, of weet je het oude niet meer? Log uit. Klik bij het inloggen op "wachtwoord vergeten". Je krijgt dan een e-mail of sms om een nieuw wachtwoord te maken.
 
 </Meer>
+
+<Optie titel="Mail van KPN, Ziggo of een ander internetbedrijf">
+<ProviderMail />
+</Optie>
 
 Lange lijst? Doe vandaag je e-mail en je bank. De rest een andere dag.
 
@@ -301,10 +312,10 @@ Eén keer per jaar kijk je naar de buitenkant van je huis: wat iedereen over jou
 Dat staat niet vanzelf zo. Bij TikTok is het account van een volwassene standaard openbaar.
 
 - **Instagram:** tik op je profielfoto en dan op de drie streepjes. Kies Instellingen en activiteit, dan Wie je content kan zien en dan Accountprivacy. Staat er in de tekst onder je naam je woonplaats of nummer? Tik op Profiel bewerken en haal het weg.
-- **Facebook:** tik op je profielfoto of op de drie streepjes. Kies Instellingen en privacy en dan Instellingen. Zoek naar "privacycontrole". Die loopt stap voor stap langs wie wat van je ziet. Open daarna je profiel en tik op Info. Zet bij je geboortedatum, telefoonnummer en woonplaats Alleen ik.
+- **Facebook:** tik op je profielfoto of op de drie streepjes. Kies Instellingen en privacy en dan Instellingen. Zoek naar "privacycontrole". Open daarna je profiel en tik op Info. Zet bij je geboortedatum, telefoonnummer en woonplaats Alleen ik.
 - **Andere apps:** zoek in de instellingen naar "privacy". Open je profiel en haal weg wat een vreemde niet hoeft te weten.
 
-Ken je een vriend of volger niet? Haal hem weg. En onthoud: ook iemand uit je eigen kring kan iets doorsturen.
+Ken je een vriend of volger niet? Haal hem weg.
 
 <Gelukt>je account staat op privé, en een vreemde ziet op je profiel geen geboortedatum, telefoonnummer of woonplaats meer.</Gelukt>
 
@@ -383,7 +394,7 @@ Daarmee wis je alles. Doe dit pas als stap 1 en 2 klaar zijn.
   2. Vraagt Windows om **Downloaden via de cloud** of **Lokaal opnieuw installeren**? Allebei is goed. Twijfel je? Kies Lokaal opnieuw installeren. Dan is er geen internet nodig.
   3. Vraagt Windows of je de gegevens ook wilt opschonen? Kies Ja, of zet het schuifje aan. Dan maakt Windows de schijf echt leeg. Dat duurt langer.
 
-Het toestel vraagt nu om je toegangscode of wachtwoord, soms ook van je Apple-, Google- of Microsoft-account. Zo weet het dat jij het bent. Het wissen duurt tot een uur. Laat het toestel aan de lader.
+Het toestel vraagt nu om je toegangscode of wachtwoord, soms ook van je Apple-, Google- of Microsoft-account. Het wissen duurt tot een uur. Laat het toestel aan de lader.
 
 <Gelukt>het toestel start op met het welkomstscherm, net als een nieuw toestel.</Gelukt>
 
@@ -391,7 +402,7 @@ Het toestel vraagt nu om je toegangscode of wachtwoord, soms ook van je Apple-, 
 <OnderhoudStap id="weg-kaartjes" nr={4} titel="Haal je simkaart en geheugenkaartje eruit" minuten={2}>
 
 1. Zoek aan de zijkant van de telefoon een klein laatje met een gaatje ernaast.
-2. Duw het speldje dat bij de telefoon zat in het gaatje. Een rechtgebogen paperclip werkt ook.
+2. Duw het speldje dat bij de telefoon zat in het gaatje.
 3. Trek het laatje eruit en haal de kaartjes eraf.
 
 Geen laatje? Dan heb je misschien een eSIM: een simkaart zonder kaartje. Vraag je provider wat je daarmee doet.
@@ -402,7 +413,7 @@ Geen laatje? Dan heb je misschien een eSIM: een simkaart zonder kaartje. Vraag j
 <OnderhoudStap id="weg-rest" nr={5} titel="Vergeet losse schijven en andere apparaten niet" minuten={15}>
 
 - **Een losse schijf of usb-stick** is niet leeg als je de bestanden in de prullenbak gooit. Zo wis je hem echt:
-  - **Windows:** open Verkenner. Klik met de rechtermuisknop op de schijf en kies Formatteren. Zet het vinkje bij snel formatteren uit. Klik op Starten. Dat kan lang duren.
+  - **Windows:** open Verkenner. Klik met de rechtermuisknop op de schijf en kies Formatteren. Zet het vinkje bij snel formatteren uit. Klik op Starten.
   - **Mac:** klik rechtsboven op het vergrootglas en typ "Schijfhulpprogramma". Kies de schijf en klik op Wis. Zie je Beveiligingsopties? Kies daar de veiligste stand.
   - Twijfel je? Maak de schijf kapot, of houd hem zelf.
 - **Printers, routers, slimme tv's, navigatiesystemen en auto's** bewaren ook accounts en adressen. Zet ze terug naar de fabrieksinstellingen. Zoek daarvoor in hun menu.
@@ -412,43 +423,31 @@ Geen laatje? Dan heb je misschien een eSIM: een simkaart zonder kaartje. Vraag j
 </OnderhoudStap>
 </Onderhoudsbeurt>
 
-<Foto id="harde-schijven" onderschrift="Een schijf is niet leeg als de bestanden in de prullenbak liggen. Wissen of kapotmaken, dat zijn de twee zekere manieren." />
-
-## Als de timmerman niet meer komt: apparaten zonder updates
+## Apparaten zonder updates
 
 <Kort>een apparaat dat geen updates meer krijgt, wordt elk jaar onveiliger.</Kort>
 
 <Scene wie="ria" bron="Microsoft, einde ondersteuning Windows 10" href="https://support.microsoft.com/nl-nl/windows/windows-10-ondersteuning-is-be%C3%ABindigd-op-14-oktober-2025-2ca8b313-1946-43d3-b55c-2b95b107f281">
 
-Ria's laptop doet het prima. Waarom zou ze een nieuwe kopen? Wat ze niet ziet: er draait Windows 10 op, en sinds 14 oktober 2025 komt daar geen timmerman meer langs. Nieuwe scheuren worden niet meer gedicht.
+Ria's laptop doet het prima. Wat ze niet ziet: er draait Windows 10 op, en sinds 14 oktober 2025 krijgt dat geen gewone updates meer. Nieuwe zwakke plekken worden niet meer gerepareerd.
 
 </Scene>
-
-<Vraagje vraag="Je telefoon krijgt al twee jaar geen beveiligingsupdates meer, maar werkt prima. Wat doe je?" opties={[
-  { tekst: 'Gewoon blijven gebruiken, hij doet het nog', uitleg: 'Er komt geen timmerman meer langs. Elk jaar wordt hij onveiliger.' },
-  { tekst: 'Hem niet meer gebruiken voor je bank en je e-mail', goed: true, uitleg: 'Hij mag blijven, maar niet voor je belangrijkste deuren. Koop je een nieuwe? Kijk hoeveel jaar de maker updates belooft.' },
-  { tekst: 'Meteen weggooien', uitleg: 'Dat hoeft niet. Voor muziek of spelletjes kan hij door. Alleen je bank en je e-mail horen er niet meer op.' },
-]} />
 
 <Meer titel="Wat je doet met een apparaat zonder updates">
 
 <Tijdlijn stappen={[
-  { wanneer: '29 juli 2015', tekst: 'Windows 10 verschijnt. Tien jaar lang komt de timmerman langs.', soort: 'groen' },
+  { wanneer: '29 juli 2015', tekst: 'Windows 10 verschijnt. Tien jaar lang komen er updates.', soort: 'groen' },
   { wanneer: '14 oktober 2025', tekst: 'De gewone updates stoppen. De computer werkt gewoon door.', soort: 'rood' },
   { wanneer: 'Tot 12 oktober 2027', tekst: 'Alleen wie zich aanmeldt, krijgt nog extra beveiligingsupdates.', soort: 'open' },
-  { wanneer: 'Daarna', tekst: 'Er komt niemand meer langs.', soort: 'rood' },
+  { wanneer: 'Daarna', tekst: 'Er komen geen updates meer.', soort: 'rood' },
 ]}>
   Het leven van één besturingssysteem. <a href="https://learn.microsoft.com/nl-nl/lifecycle/products/windows-10-home-and-pro">Microsoft, levenscyclus van Windows 10</a>
 </Tijdlijn>
 
 - **Windows 10.** Open Start, dan Instellingen, dan Bijwerken en beveiliging, dan Windows Update. Kijk wat daar staat:
   1. **Een knop om Windows 11 te downloaden?** Dan kan je computer gratis over. Klik erop en volg het scherm. Staat er dat je pc niet aan de eisen voldoet? Ga naar 2.
-  2. **De link Nu inschrijven?** Dan krijg je extra beveiligingsupdates tot 12 oktober 2027. Klik erop en volg het scherm. Je hebt een Microsoft-account nodig. Nog geen? Maak er gratis een op account.microsoft.com. Lukt het niet? Ga naar 3. Geen link? Installeer eerst de updates die klaarstaan en kijk opnieuw. Uitleg staat bij [Microsoft](https://www.microsoft.com/nl-nl/windows/extended-security-updates).
-  3. **Allebei niet?** Gebruik de computer dan niet meer voor je bank en je e-mail. Vraag iemand die er verstand van heeft om raad, of koop een andere computer.
-- **Android-telefoons.** Komt er al lang geen beveiligingsupdate meer? Gebruik hem niet meer voor je bank en je e-mail.
-- **iPhone en iPad.** Apple geeft lang updates, maar niet voor altijd.
+  2. **De link Nu inschrijven?** Dan krijg je extra beveiligingsupdates tot 12 oktober 2027. Klik erop en log in met je Microsoft-account. Heb je mail van Hotmail of Outlook? Dat is je Microsoft-account. Nog geen? In dat scherm staat een link om er gratis een te maken. Volg het scherm tot je bent ingeschreven. Geen link? Installeer eerst de updates die klaarstaan en kijk opnieuw. Lukt het niet? Ga naar 3. Meer bij [Microsoft](https://www.microsoft.com/nl-nl/windows/extended-security-updates).
+  3. **Allebei niet?** Gebruik de computer dan niet meer voor je bank en je e-mail. Of koop een andere computer.
 - **Slimme apparaten zonder updates**, zoals een oude camera, zet je op een [gastnetwerk](/ik-wil-verder#stap-gastnetwerk): een tweede wifi, los van je eigen toestellen. Of je doet ze weg.
 
 </Meer>
-
-<Citaat foto="portret-schneier" wie="Bruce Schneier" wat="beveiligingsexpert, in 2000" origineel="Security is a process, not a product." bron="Information Security Magazine, april 2000" href="https://www.schneier.com/essays/archives/2000/04/the_process_of_secur.html">Beveiliging is een proces, geen product.</Citaat>

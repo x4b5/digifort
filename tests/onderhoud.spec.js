@@ -230,3 +230,39 @@ test('het bezoek: wie het voor zichzelf leest, en wie een KPN-adres heeft, komt 
   // App Store-instellingen staan op nieuwe iPhones onder Apps
   await expect(page.locator('[data-beurt-stap="updates-aan"]')).toContainText('tot Apps');
 });
+
+test('mail van het internetbedrijf: waar je het wachtwoord verandert, en dat de Mail-app het nieuwe nodig heeft', async ({ page }) => {
+  for (const [pad, stap] of [['/voor-de-mensen-om-je-heen', 'mail-slot'], ['/onderhoud', 'datalek']]) {
+    await page.goto(pad);
+    const mail = page.locator(`[data-beurt-stap="${stap}"] [data-providermail]`);
+    await expect(mail, pad).toHaveCount(1);
+    for (const tekst of ['mijn.kpn.com', 'ziggo.nl/mijn-ziggo', 'Mail-app', 'Wachtwoord']) await expect(mail, pad).toContainText(tekst);
+  }
+});
+
+test('onderhoud: een volle iCloud kan ook gratis via Windows, en de browser herken je aan zijn plaatje', async ({ page }) => {
+  await page.goto('/onderhoud');
+  const kopie = page.locator('[data-beurt-stap="maand-kopie"]');
+  await expect(kopie).toContainText('Apple Devices');
+  await expect(kopie).not.toContainText('Vraag iemand om hulp');
+  const updates = page.locator('[data-beurt-stap="maand-updates"]');
+  await expect(updates).not.toContainText('edge://');
+  for (const tekst of ['drie puntjes onder elkaar', 'drie streepjes']) await expect(updates).toContainText(tekst);
+  // één foto terugzetten kan ook met alleen een telefoon
+  await expect(page.locator('[data-beurt-stap="backup-loopt"] details', { hasText: 'op je telefoon' })).toHaveCount(1);
+});
+
+test('het bezoek: ook wie het voor zichzelf doet, heeft een pad, en Samsung zegt welk schuifje', async ({ page }) => {
+  await page.goto('/voor-de-mensen-om-je-heen');
+  await expect(page.locator('[data-beurt-stap="harde-regel"] details', { hasText: 'Voor jezelf' })).toHaveCount(1);
+  await expect(page.locator('[data-beurt-stap="updates-aan"]')).toContainText('Automatisch downloaden via wifi');
+  await expect(page.locator('[data-beurt-stap="schermslot"]')).toContainText('vier cijfers');
+});
+
+test('onderhoud en het bezoek: geen onuitgelegde beeldspraak of Engelse citaten', async ({ page }) => {
+  for (const pad of ['/onderhoud', '/voor-de-mensen-om-je-heen']) {
+    await page.goto(pad);
+    await expect(page.locator('main'), pad).not.toContainText('timmerman');
+    await expect(page.locator('main'), pad).not.toContainText('niveau 1');
+  }
+});

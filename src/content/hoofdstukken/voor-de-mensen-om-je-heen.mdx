@@ -5,13 +5,11 @@ kort: "Ouders, kinderen en collega’s: zij hebben ook een sleutel."
 omschrijving: "Zet in één bezoek de telefoon van je vader, moeder of kind op slot. Met wat je zegt en wat je doet, stap voor stap. En wat je doet als iemand dichtbij meekijkt."
 datum: "2026-09-24"
 ---
-import Citaat from '../../components/Citaat.astro';
 import Vraagje from '../../components/Vraagje.astro';
 import Meer from '../../components/Meer.astro';
 import Doe from '../../components/Doe.astro';
 import Foto from '../../components/Foto.astro';
 import Sleutelhouders from '../../components/tekeningen/Sleutelhouders.astro';
-import Verhaal from '../../components/Verhaal.astro';
 import Nepbericht from '../../components/Nepbericht.astro';
 import Scene from '../../components/Scene.astro';
 import Poppetjes from '../../components/Poppetjes.astro';
@@ -21,6 +19,7 @@ import Zeg from '../../components/Zeg.astro';
 import Gelukt from '../../components/Gelukt.astro';
 import Waarschuwing from '../../components/Waarschuwing.astro';
 import Optie from '../../components/Optie.astro';
+import ProviderMail from '../../components/ProviderMail.astro';
 
 <Doe>
 
@@ -32,7 +31,7 @@ import Optie from '../../components/Optie.astro';
 
 Je huis is zo veilig als de mensen die een sleutel hebben. Komt een inbreker bij jou niet binnen? Dan probeert hij het via je moeder, je kind of je collega. Hier staat hoe je in één bezoek hun telefoon op slot zet.
 
-**Lees je dit voor jezelf?** Doe de stappen dan zelf. Waar "de ander" staat, ben jij het. Bij stap 1 zet je het nummer van iemand die je vertrouwt bij je favorieten.
+**Lees je dit voor jezelf?** Doe de stappen dan zelf. Waar "de ander" staat, ben jij het. Bij stap 1 zet je het nummer van iemand die je vertrouwt bij je favorieten. Bij stap 7 kies je "Voor jezelf of een ouder".
 
 ## Voor je gaat
 
@@ -78,20 +77,21 @@ Zet je nummer nu bij de favorieten:
 <Zeg>"Je telefoon is de sleutelbos van je hele huis. Die doen we op slot."</Zeg>
 
 - **iPhone:** open Instellingen. Tik op Face ID en toegangscode. Heeft de iPhone een ronde knop onder het scherm? Dan heet het Touch ID en toegangscode.
-- **Staat er nog geen code op de iPhone?** Tik dan op Zet toegangscode aan. Staat er al wel een code op? Dan heet de knop Wijzig toegangscode.
+- **Staat er nog geen code op de iPhone?** Tik dan op Zet toegangscode aan. Staat er al een code op van zes cijfers of meer? Dan is deze stap klaar. Is de code korter, zoals vier cijfers? Tik op Wijzig toegangscode en kies een nieuwe.
 - **Android:** open Instellingen. Tik op Beveiliging, dan op Schermvergrendeling en dan op Pincode. Vind je het niet? Typ "schermvergrendeling" in het zoekveld bovenin Instellingen.
 
-Laat de ander zelf een code kiezen van zes cijfers of meer. Niet de geboortedatum en niet 123456. Kijk zelf niet mee.
+Kies een code van zes cijfers of meer. Niet de geboortedatum en niet 123456. Help je iemand? Laat de ander de code dan zelf kiezen, en kijk niet mee.
 
 <Gelukt>de telefoon vraagt om de code als je hem van het slot haalt.</Gelukt>
 
 </OnderhoudStap>
 <OnderhoudStap id="updates-aan" nr={4} titel="Zet updates op automatisch" minuten={10}>
 
-<Zeg>"Een update is de timmerman die scheuren dichtmaakt. Die laten we voortaan vanzelf komen."</Zeg>
+<Zeg>"Een update repareert zwakke plekken in je telefoon. Die laten we voortaan vanzelf komen."</Zeg>
 
 - **iPhone:** open Instellingen. Tik op Algemeen, dan op Software-update en dan op Automatische updates. Zet daar alle schuifjes aan.
-- **Android:** open Instellingen. Tik op Systeem en dan op Systeemupdate. Staat dat er niet? Typ "update" in het zoekveld bovenin Instellingen.
+- **Samsung:** open Instellingen. Tik op Software-update. Zet het schuifje bij Automatisch downloaden via wifi aan.
+- **Ander merk Android:** open Instellingen. Typ "update" in het zoekveld bovenin en open de software-update. Zie je een schuifje voor automatisch downloaden? Zet het aan. Geen schuifje? Dan gaat het al vanzelf.
 - **Apps op de iPhone:** open Instellingen, niet de App Store. Veeg naar beneden tot Apps en tik erop. Tik dan op App Store. Staat App Store zelf al in de lijst? Tik daar meteen op. Zet het schuifje aan waar "updates" bij staat.
 - **Apps op Android:** open de Play Store. Tik rechtsboven op het rondje met de foto of letter. Tik op Instellingen, dan op Netwerkvoorkeuren en dan op Apps automatisch updaten. Kies dat het via wifi mag.
 
@@ -101,7 +101,7 @@ Kijk nu of er al een update klaarstaat:
 - **Apps op de iPhone:** open de App Store. Tik rechtsboven op het rondje met de foto of letters. Veeg omlaag. Staan er apps onder een kopje met updates? Tik op de knop om alles bij te werken.
 - **Apps op Android:** open de Play Store. Tik rechtsboven op het rondje met de foto of letter. Tik op Apps en apparaat beheren. Staan er updates klaar? Tik op de knop om alles te updaten.
 
-<Gelukt>de schuifjes voor automatische updates staan aan. Bij Software-update of Systeemupdate staat geen update meer klaar, en in de App Store of Play Store ook niet.</Gelukt>
+<Gelukt>op de iPhone staan de schuifjes bij Automatische updates aan, op een Samsung het schuifje bij Automatisch downloaden via wifi. Voor de apps staat het schuifje of de keuze ook aan. Bij Software-update of Systeemupdate staat geen update meer klaar, en in de App Store of Play Store ook niet.</Gelukt>
 
 </OnderhoudStap>
 <OnderhoudStap id="whatsapp" nr={5} titel="Zet een pincode op WhatsApp" minuten={5}>
@@ -155,9 +155,9 @@ Kijk wat er na het @-teken staat. Tik op die keuze. De rest sla je over. Lees el
 
 Zoals @kpnmail.nl, @planet.nl, @hetnet.nl of @ziggo.nl. Bij zo'n adres kan een tweede slot vaak niet. Dat is niet jouw fout.
 
-1. Zoek op de site van het internetbedrijf naar "tweestapsverificatie". Gevonden? Zet het aan en volg het scherm.
-2. Niet gevonden binnen vijf minuten? Vraag dan: "Gebruik je dit wachtwoord ook ergens anders?" Nee? Dan is deze stap klaar.
-3. Ja? Dan krijgt de mail een nieuw wachtwoord. Zoek op de site naar "wachtwoord wijzigen". Lukt dat niet? Bel de klantenservice. Het nummer staat op de rekening.
+Vraag: "Gebruik je dit wachtwoord ook ergens anders?" Nee? Dan is deze stap klaar. Ja? Geef de mail dan een nieuw wachtwoord:
+
+<ProviderMail />
 
 </Optie>
 <Optie titel="Het scherm vraagt welk tweede slot je wilt">
@@ -177,21 +177,25 @@ Duurt het te lang, of is de ander moe? Stop gerust. Doe deze stap bij het volgen
 </OnderhoudStap>
 <OnderhoudStap id="harde-regel" nr={7} titel="Spreek de belangrijkste regel af" minuten={5}>
 
-Welke regel het is, hangt af van wie je helpt.
-
-**Bij een ouder:**
-
 <Zeg>"De bank vraagt nooit om je geld naar een veilige rekening te zetten. De bank vraagt nooit om je pincode. En de bank haalt nooit je pas op."</Zeg>
 
-Pak samen de bankpas. Daarop staat het telefoonnummer van de bank. Zet dat nummer in de contacten, met de naam van de bank erbij.
+Tik op wie je helpt. De rest sla je over.
+
+<Optie titel="Voor jezelf of een ouder">
+
+1. Pak de bankpas. Daarop staat het telefoonnummer van de bank.
+2. Zet dat nummer in de contacten, zoals bij stap 1. Typ als naam de naam van de bank.
 
 <Zeg>"Belt iemand namens de bank? Hang op. Bel zelf terug op dit nummer."</Zeg>
 
-**Bij een kind:**
+</Optie>
+<Optie titel="Voor een kind">
 
 <Zeg>"Vraagt iemand online om een foto, of dreigt iemand ermee? Nooit betalen, altijd vertellen. Je krijgt geen straf."</Zeg>
 
-<Gelukt>de ander kan de regel in eigen woorden zeggen. Bij een ouder staat ook het nummer van de bank in de contacten.</Gelukt>
+</Optie>
+
+<Gelukt>de regel kan in eigen woorden gezegd worden. Voor jezelf of een ouder staat ook het nummer van de bank in de contacten.</Gelukt>
 
 </OnderhoudStap>
 </Onderhoudsbeurt>
@@ -214,7 +218,6 @@ Nu hebben ze ook een woord dat alleen de familie kent. Wie belt of appt met een 
 
 Anderen helpen is geen liefdadigheid. Het is ook zelfbescherming.
 
-<Citaat foto="portret-mitnick" wie="Kevin Mitnick" wat="hacker die beveiligingsadviseur werd, in 2002" origineel="Expensive locks or no, the homeowner remains vulnerable. Why? Because the human factor is truly security's weakest link." bron="The Art of Deception, hoofdstuk 1" href="https://www.wiley.com/en-us/The+Art+of+Deception%3A+Controlling+the+Human+Element+of+Security-p-9780764542800">Dure sloten of niet, de huiseigenaar blijft kwetsbaar. Waarom? Omdat de menselijke factor echt de zwakste schakel is.</Citaat>
 
 <Sleutelhouders />
 
@@ -239,26 +242,6 @@ Zo ziet zo'n bericht eruit. Laat het ook eens zien aan wie je wilt beschermen.
   { tekst: 'Niet doen, het moet een wachtwoordmanager zijn', uitleg: 'Een manager is beter, maar alleen als hij hem ook echt gebruikt. Een systeem dat iemand niet volhoudt, beschermt niemand.' },
 ]} />
 
-<Verhaal
-  titel="Acht keer dezelfde truc, met de foto van iemands kind"
-  wanneer="rechtszaak april 2021"
-  bron="Openbaar Ministerie, 7 april 2021"
-  href="https://www.om.nl/actueel/nieuws/2021/04/07/tot-twee-jaar-cel-geeist-voor-vriend-in-nood-fraude-via-whatsapp"
-  voorkomen="Eén keer terugbellen op het oude nummer. Of het familiewoord uit stap 2 van het bezoek."
-  naar="/inbrekers-van-morgen#het-geheime-woord-van-je-familie"
-  naarTekst="Spreek een geheim woord af"
->
-
-Twee jonge mannen, 21 en 24 jaar, zochten mensen op sociale media. Ze namen de foto van een zoon, een dochter of een vriend, zetten die op een WhatsApp-account en stuurden een bericht vanaf een nieuw nummer.
-
-Dan kwam het verhaal. Een loodgieter die met spoed betaald moest worden. Een hypotheek die geblokkeerd stond. Altijd haast, altijd net geloofwaardig genoeg. Het geld ging naar rekeningen van geldezels: mensen die hun bankrekening uitlenen aan criminelen.
-
-De officier van justitie eiste twee jaar cel tegen de oudste van de twee. Tegen de ander een jaar. Eén van hen had er ongeveer 24.000 euro aan verdiend.
-
-Wat het Openbaar Ministerie erbij zei is het onthouden waard: zonder die geldezels werkt deze vorm van oplichting niet. Er zit altijd een keten van mensen achter — en aan het begin ervan staat één bericht met een bekend gezicht erop.
-
-</Verhaal>
-
 Wil je weten hoe een oplichter denkt? In [het inbraakspel](/het-inbraakspel) probeer je zelf geld los te krijgen bij Ria.
 
 ## Kinderen en tieners
@@ -268,20 +251,6 @@ Wil je weten hoe een oplichter denkt? In [het inbraakspel](/het-inbraakspel) pro
 - **Game-accounts zijn geld waard** en worden gestolen. Ook daar: een eigen wachtwoord en een tweede slot.
 - **Wat online staat, blijft online.** Het wordt nu ook gebruikt om stemmen en gezichten na te maken. Denk na over wat openbaar staat.
 - **Geef het goede voorbeeld.** Kinderen doen wat je doet, niet wat je zegt.
-
-## Op het werk
-
-Op je werk heb je ook de sleutels van anderen: klanten, cliënten, kandidaten, collega's. De privacywet (AVG) verplicht je daar zorgvuldig mee om te gaan.
-
-<Meer titel="Vijf afspraken voor op je werk">
-
-- **Houd werk en privé gescheiden.** Geen persoonsgegevens van anderen op je eigen laptop, in je privémail of in je privécloud.
-- **Vergrendel je scherm** als je wegloopt, ook voor twee minuten.
-- **CEO-fraude:** een bericht van "de directeur" met een spoedbetaling. Met een gekloonde stem is dit overtuigender dan ooit. Check het altijd via een tweede kanaal, bijvoorbeeld door zelf terug te bellen.
-- **Let op wat je in AI-tools plakt.** Persoonsgegevens en vertrouwelijke stukken horen niet in een dienst waarvan je niet weet wat die ermee doet.
-- **Meld een fout direct.** Een datalek dat een risico oplevert voor de betrokkenen moet binnen 72 uur na ontdekking bij de Autoriteit Persoonsgegevens gemeld worden. Dat lukt alleen als jij het meteen zegt.
-
-</Meer>
 
 ## Als iemand dichtbij meekijkt
 
