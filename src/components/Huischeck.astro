@@ -17,7 +17,7 @@ const ANTWOORDEN = [
 ];
 ---
 <section class="huischeck" id="doe-de-huischeck" data-huischeck aria-label="De huischeck">
-  <p class="intro">Tien vragen, twee minuten. Onder vraag 10 zie je welke deuren openstaan, en wat je als eerste doet. Twijfel je? Kies dan <strong>Weet ik niet</strong>.</p>
+  <p class="intro">Tien vragen, twee minuten. Onder vraag 10 zie je wat je als eerste doet. Twijfel je? Kies <strong>Weet ik niet</strong>.</p>
 
   {GROEPEN.map((g) => (
     <div class="groep" data-groep={g.id}>
@@ -33,7 +33,7 @@ const ANTWOORDEN = [
                   <summary><span>Waar zie ik dat?</span></summary>
                   <ul>{v.nakijken.map((r) => typeof r === 'string' ? <li>{r}</li> : (
                     <li class="dienst"><details data-dienst={r.dienst}>
-                      <summary><span>{r.dienst}</span></summary>
+                      <summary><span>{r.dienst}</span>{r.ook && <small class="ook">{r.ook}</small>}</summary>
                       <ol>{r.regels.map((x) => <li>{x}</li>)}</ol>
                     </details></li>
                   ))}</ul>
@@ -101,14 +101,13 @@ const ANTWOORDEN = [
 
       <div class="dichte-deuren" data-dichte-deuren hidden>
         <h3>Dit heb je al goed</h3>
-        <p>Hier zei je ja.</p>
         <ul data-dicht-lijst></ul>
         <p><a href="/plattegrond">Bekijk al je deuren op de plattegrond →</a></p>
       </div>
     </div>
   </div>
 
-  <p class="privacy">Je antwoorden blijven op je eigen telefoon of computer. Niemand anders ziet ze.</p>
+  <p class="privacy">Je antwoorden blijven op je eigen toestel. Niemand anders ziet ze.</p>
 
   <details class="gok" data-gok hidden>
     <summary><span>Vergelijk je uitslag met je eigen gevoel</span></summary>
@@ -387,7 +386,8 @@ const ANTWOORDEN = [
   .nakijken li:last-child { margin-bottom: 0; }
   /* per maildienst een eigen uitklapper: je ziet alleen het pad van jouw dienst */
   .nakijken li.dienst { margin: 0 0 0.2rem; }
-  .nakijken .dienst summary { font-weight: 700; }
+  .nakijken .dienst summary { font-weight: 700; flex-wrap: wrap; column-gap: 0.4rem; }
+  .nakijken .dienst summary .ook { flex-basis: 100%; padding-left: 1.05rem; font-size: 1rem; font-weight: 400; color: var(--inkt); }
   .nakijken .dienst ol { margin: 0.2rem 0 0.6rem; padding-left: 1.4rem; list-style: decimal; }
   .nakijken .dienst ol li { margin: 0 0 0.3rem; }
   .nr { font-family: var(--kop); color: var(--rood); margin-right: 0.2rem; }

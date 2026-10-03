@@ -370,9 +370,11 @@ test('wie twijfelt, ziet bij de vraag waar hij het kan nakijken', async ({ page 
   await expect(updates).toContainText('iPhone');
   await expect(updates).toContainText('Android');
   await expect(updates).toContainText('Je verandert nog niets');
-  // vraag 3: wie zijn e-mail nooit hoeft te openen, hoort dat dat normaal is, en dat hij niet in de Mail-app kijkt
-  await expect(page.locator('#vraag-3 details.nakijken')).toContainText('altijd open');
-  await expect(page.locator('#vraag-3 details.nakijken')).toContainText('niet in die app');
+  // vraag 3: wie zijn e-mail nooit hoeft te openen, hoort dat dat normaal is, en dat het slot in zijn account zit
+  await expect(page.locator('#vraag-3 details.nakijken')).toContainText('vanzelf open? Dat is normaal');
+  await expect(page.locator('#vraag-3 details.nakijken')).toContainText('in je account');
+  // geen "niet in die app" vlak voor een pad dat zegt: open de Gmail-app
+  await expect(page.locator('#vraag-3 details.nakijken')).not.toContainText('niet in die app');
   // wie zijn wachtwoord niet weet of het niet vindt, kiest Weet ik niet in plaats van te gokken
   await expect(page.locator('#vraag-3 details.nakijken')).toContainText('weet je dat niet? Kies dan Weet ik niet');
   // vraag 2: je telefoon vraagt eerst je code; dat is normaal
@@ -487,11 +489,38 @@ test('vraag 5: ook de back-up van je telefoon telt, en je kunt hem nakijken', as
   await expect(page.locator('#hint-5')).toContainText('telefoon');
   const blok = page.locator('#vraag-5 details.nakijken');
   await blok.locator('> summary').click();
-  for (const toestel of ['iPhone', 'Android of Samsung', 'Computer']) {
+  for (const toestel of ['iPhone', 'Android of Samsung', 'Windows', 'Mac']) {
     await expect(blok.locator(`details[data-dienst="${toestel}"] > summary`)).toBeVisible();
   }
-  await blok.locator('details[data-dienst="Android of Samsung"] > summary').click();
-  await expect(blok.locator('details[data-dienst="Android of Samsung"] ol')).toContainText('back-up');
+  const android = blok.locator('details[data-dienst="Android of Samsung"]');
+  await android.locator('> summary').click();
+  await expect(android.locator('ol')).toContainText('back-up');
+  // meer treffers op een Samsung: welke telt; en de foto's kijk je apart na in Google Foto's
+  await expect(android.locator('ol')).toContainText('Eén die aan staat is genoeg');
+  await expect(android.locator('ol')).toContainText('Google Foto’s');
+  // ook op een computer weet je waar je kijkt, niet alleen óf het goed is
+  await expect(blok.locator('details[data-dienst="Windows"]')).toContainText('Bestandsgeschiedenis');
+  await expect(blok.locator('details[data-dienst="Mac"]')).toContainText('Time Machine');
+  await expect(blok.locator('details[data-dienst="Windows"] ol')).toBeHidden();
+});
+
+test('vraag 4 en 5: wie geen computer heeft, weet toch wat hij kiest', async ({ page }) => {
+  await page.goto('/huischeck');
+  for (const nr of [4, 5]) {
+    const blok = page.locator(`#vraag-${nr} details.nakijken`);
+    await expect(blok).toContainText('elk toestel dat je hebt');
+    await expect(blok).not.toContainText('telefoon én je computer');
+  }
+});
+
+test('vraag 3: bij KPN of Ziggo staan ook de oude adressen, zoals planet.nl', async ({ page }) => {
+  await page.goto('/huischeck');
+  const blok = page.locator('#vraag-3 details.nakijken');
+  await blok.locator('> summary').click();
+  const keuze = blok.locator('details[data-dienst="KPN of Ziggo"] > summary');
+  for (const adres of ['@planet.nl', '@hetnet.nl', '@home.nl']) await expect(keuze).toContainText(adres);
+  // de adressen staan in de keuze zelf: je ziet ze voordat je kiest
+  await expect(keuze.locator('.ook')).toBeVisible();
 });
 
 test('wie geen MijnKPN-inlog of herstelcodes heeft, weet toch wat hij kiest', async ({ page }) => {
