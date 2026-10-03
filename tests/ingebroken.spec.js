@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { blokken, meet } from '../scripts/leesniveau.mjs';
 
 const PAD = '/als-er-is-ingebroken';
 
@@ -86,6 +87,10 @@ test('wat je vooraf regelt is een stappenplan met waar je tikt, per toestel', as
   await expect(plan.locator('.gelukt')).toHaveCount(6);
   await expect(plan).toContainText('FileVault');
   await expect(plan).toContainText('Instellingen');
+  // wat elders op de site al stap voor stap staat, is een link naar die ene plek
+  for (const href of ['/een-avond#stap-pincode', '/een-weekend#stap-versleuteling', '/een-weekend#stap-backup']) {
+    await expect(plan.locator(`a[href="${href}"]`), href).toHaveCount(1);
+  }
 });
 
 test('wie AnyDesk of TeamViewer kreeg, leest per apparaat hoe hij het weghaalt', async ({ page }) => {
@@ -108,19 +113,12 @@ test('ABN AMRO heeft twee knoppen, elk met de tijd waarop je dat nummer belt', a
   await expect(abn.nth(1)).toContainText('weekend');
 });
 
-test('het tweede slot zegt per telefoon welke app werkt, en wat je doet met de vierkante code', async ({ page }) => {
+test('het tweede slot staat op één plek: de stap wijst naar Eén avond, zonder vaktaal', async ({ page }) => {
   await page.goto(PAD);
   const stap = page.locator('#stap-tweede-slot');
-  await expect(stap.locator('details.optie')).not.toHaveCount(0);
-  // je kiest je eigen e-mail; dicht tot je erop tikt, open als je tikt
-  const apple = stap.locator('details.optie', { hasText: '@icloud.com' });
-  await apple.locator('summary').click();
-  await expect(apple.getByText('Inloggen en beveiliging')).toBeVisible();
-  const app = stap.locator('details.optie', { hasText: 'app met codes' }).last();
-  await app.locator('summary').click();
-  await expect(app).toContainText('iPhone: Ente Auth of 2FAS');
-  await expect(app).toContainText('vierkante code');
-  // geen vaktaal: 2FA, authenticator; de app 2FAS mag wel
+  await expect(stap.locator('a[href="/een-avond#stap-mail-tweede-slot"]')).toHaveCount(1);
+  // de reden om geen sms te kiezen staat er wel, kort
+  await expect(stap).toContainText('geen code per sms');
   await expect(stap).not.toContainText(/\b2FA\b|authenticator/i);
 });
 
@@ -177,4 +175,36 @@ test('wie hetzelfde wachtwoord vaker gebruikte, leest hoe hij uitzoekt waar', as
   const stap = page.locator('[data-stappenplan="stappen-account"] .stap-item').nth(5);
   for (const t of ['papier', 'Wachtwoorden', 'passwords.google.com', 'welkom', 'geld']) await expect(stap).toContainText(t);
   await expect(stap.locator('.gelukt')).toContainText('streep');
+});
+
+test('de pagina blijft onder het woordenplafond van 4000', async ({ request }) => {
+  const html = await (await request.get(PAD)).text();
+  const { woorden } = meet(blokken(html));
+  expect(woorden).toBeLessThanOrEqual(4000);
+});
+
+test('elke link naar een stap op een andere doe-pagina komt ergens uit', async ({ page }) => {
+  await page.goto(PAD);
+  const hrefs = await page.locator('main a[href^="/een-"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
+  expect(hrefs.length).toBeGreaterThanOrEqual(5);
+  for (const href of new Set(hrefs)) {
+    const [pad, id] = href.split('#');
+    await page.goto(pad);
+    await expect(page.locator(`[id="${id}"]`), href).toHaveCount(1);
+  }
+});
+
+test('wie opgelicht is, krijgt het e-mailwachtwoord niet nog eens uitgelegd, maar gaat door naar het accountplan', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('[data-stappenplan="stappen-geld"] .stap-item').nth(2);
+  await expect(stap.locator('a[href="#iemand-zit-in-je-account"]')).toHaveCount(1);
+  await expect(stap).not.toContainText('@gmail.com');
+});
+
+test('bij Google uitloggen staat het adres van de lijst met apparaten', async ({ page }) => {
+  await page.goto(PAD);
+  const stap = page.locator('#stap-uitloggen');
+  const google = stap.locator('details.optie', { hasText: 'Google' }).first();
+  await google.locator('summary').click();
+  await expect(google).toContainText('myaccount.google.com/device-activity');
 });
