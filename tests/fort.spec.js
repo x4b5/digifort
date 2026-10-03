@@ -166,7 +166,9 @@ test('de ladder: wat een passkey is en hoe je hem instelt, staat onder een eigen
 test('het fort afbouwen: wie zoekt naar opruimen of overlijden, vindt het bovenaan en in een kop', async ({ page }) => {
   await page.goto('/het-fort-afbouwen');
   const vooraan = page.locator('main [data-vooraan]');
-  await expect(vooraan).toContainText('niet slopen');
+  // de titel zegt wat er staat: geen "afbouwen" dat als slopen leest
+  await expect(page.locator('main h1')).toHaveText(/sterker beveiligen/i);
+  await expect(page.locator('main h1')).not.toContainText('afbouwen');
   await expect(vooraan.locator('a[href="/onderhoud"]')).toBeVisible();
   await expect(vooraan.locator('a[href="#wie-krijgt-mijn-accounts-als-ik-er-niet-meer-ben"]')).toBeVisible();
   const kop = page.locator('main h2#wie-krijgt-mijn-accounts-als-ik-er-niet-meer-ben');
@@ -176,4 +178,11 @@ test('het fort afbouwen: wie zoekt naar opruimen of overlijden, vindt het bovena
     let t = ''; for (let e = h.nextElementSibling; e && e.tagName !== 'H2'; e = e.nextElementSibling) t += e.textContent; return t;
   });
   expect(buitensluit).not.toContain('erfeniscontact');
+});
+
+test('wie bewaart je sleutel: de titel zegt dat het over Europese diensten gaat', async ({ page }) => {
+  await page.goto('/wie-bewaart-je-sleutel');
+  await expect(page.locator('main h1')).toHaveText(/Europese diensten/);
+  // wie zoekt naar nalatenschap, vindt een kop met een verwijzing
+  await expect(page.locator('main h2#wie-krijgt-mijn-sleutels-als-ik-er-niet-meer-ben')).toHaveCount(1);
 });
