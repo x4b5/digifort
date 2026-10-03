@@ -13,14 +13,12 @@ import Trede from '../../components/Trede.astro';
 import Jargon from '../../components/Jargon.astro';
 import Weegschaal from '../../components/Weegschaal.astro';
 import TredeCheck from '../../components/TredeCheck.astro';
-import L01 from '../../components/tekeningen/ladder/L01.astro';
 import L02 from '../../components/tekeningen/ladder/L02.astro';
 import L03 from '../../components/tekeningen/ladder/L03.astro';
 import L04 from '../../components/tekeningen/ladder/L04.astro';
 import L05 from '../../components/tekeningen/ladder/L05.astro';
 import L06 from '../../components/tekeningen/ladder/L06.astro';
 import L07 from '../../components/tekeningen/ladder/L07.astro';
-import L08 from '../../components/tekeningen/ladder/L08.astro';
 import L09 from '../../components/tekeningen/ladder/L09.astro';
 import L10 from '../../components/tekeningen/ladder/L10.astro';
 import L11 from '../../components/tekeningen/ladder/L11.astro';
@@ -51,26 +49,54 @@ Een passkey is inloggen zonder wachtwoord. Je bevestigt met je telefoon of compu
 
 ## Hoe stel ik een passkey in?
 
-Niet elke site kan het al. Begin met je e-mail. Zo gaat het, op een iPhone en op Android hetzelfde:
+Begin met je e-mail. **Heb je KPN- of Ziggo-mail?** Dan kan een passkey daar vaak nog niet. Geef je mail dan een nieuw, sterk wachtwoord. Log daarvoor in op MijnKPN of Mijn Ziggo en zoek "wachtwoord wijzigen". De Mail-app op je telefoon vraagt daarna misschien om het nieuwe wachtwoord. Typ het dan in. Dat is normaal. **Bij Gmail en Outlook** gaat het zo, op iPhone en Android hetzelfde:
 
-1. Log in op de site of in de app.
-2. Ga naar de instellingen voor beveiliging. Zoek daar naar "passkey".
-3. Kies voor een passkey.
+1. Open je account in de browser, niet in een mail-app. Bij Gmail is dat myaccount.google.com. Bij Outlook of Hotmail is dat account.microsoft.com.
+2. Log in en typ "passkey" in de zoekbalk. Of zoek bij de beveiliging naar het woord passkey.
+3. Kies voor een passkey maken.
 4. Je telefoon of computer vraagt om je vinger, je gezicht of je pincode. Bevestig dat.
 
 Gelukt? Dan vraagt de site de volgende keer om je vinger, gezicht of pincode, en niet meer om je wachtwoord.
 
-Vraagt een site zelf of je een passkey wilt maken? Zeg dan ja. Kan het nergens met een passkey? Zet dan een tweede slot aan met een code-app.
+Vraagt een site zelf of je een passkey wilt maken? Zeg dan ja.
 
-<ZelfDoen stappen={[{ lijst: 'niveau-2', id: 'accounts-tweede-slot' }]} />
+<ZelfDoen stappen={[
+  { lijst: 'niveau-1', id: 'mail-wachtwoord' },
+  { lijst: 'niveau-2', id: 'accounts-tweede-slot' },
+]} />
+
+## Wat als ik mijn telefoon of sleutel kwijtraak?
+
+Dan kom je weer binnen met wat je vooraf hebt geregeld. Regel het dus nu, niet pas als het weg is.
+
+- **Herstelcodes op papier.** Een site geeft je die één keer. Met zo'n code kom je binnen zonder je telefoon of sleutel. Bewaar ze in je noodpakket, nooit binnen de dienst die ze moeten redden.
+- **Een tweede sleutel.** Met één sleutel is één sleutel kwijt ook één account kwijt. Meld daarom altijd twee sleutels aan. Eén aan je sleutelbos, één in de la.
+- **Je passkeys op je andere toestellen.** Je Apple- of Google-account zet je passkeys op al je toestellen. Ben je er één kwijt, dan staan ze op de andere nog.
+
+Heb je niets van dit geregeld? Dan moet je via de herstelprocedure van de dienst. Dat is bijna altijd de zwakste weg naar binnen. Aanvallers proberen hem dus ook.
+
+<ZelfDoen stappen={[
+  { lijst: 'niveau-2', id: 'noodcodes' },
+  { lijst: 'niveau-3', id: 'hardwaresleutel' },
+]} />
+
 
 ## Welke manieren van inloggen zijn er?
 
-Acht, van zwak naar sterk. Tot en met trede 5 gebruik je iets wat je weet, zoals een wachtwoord of een code. Vanaf trede 6 gebruik je iets wat je in je hand hebt. Dat is de grote stap.
+Acht, van zwak naar sterk. Zoek hoe jij nu inlogt, en lees alleen die trede:
 
-<L01 />
+1. [Eén wachtwoord voor alles](#trede-1): te zwak.
+2. [Een ander wachtwoord per site](#trede-2): zwak.
+3. [Een wachtwoordmanager](#trede-3): een goed begin.
+4. [Een code per sms](#trede-4): beter dan niets.
+5. [Een code uit een app](#trede-5): goed.
+6. [Een passkey](#trede-6): sterk.
+7. [Een sleutel in je hand](#trede-7): het sterkst.
+8. [Twee sleutels en herstelcodes](#trede-8): het sterkst, en je sluit jezelf niet buiten.
 
-Een tweede slot betekent: na je wachtwoord moet je nog iets laten zien. Bijvoorbeeld een code uit een app op je telefoon. Het officiële woord daarvoor is tweestapsverificatie.
+Bankieren gaat anders: daar log je in met de app van je bank. Deze ladder gaat over je mail en je andere accounts.
+
+Weet je niet hoe jij inlogt? Beantwoord dan de drie vragen hieronder. "Weet ik niet" mag ook. Daarna klik je alleen jouw trede open.
 
 <TredeCheck />
 
@@ -157,8 +183,6 @@ Maar de sterkte van het geheel hangt nu aan die ene wachtzin. Vandaar de tekenin
 
 <L05 />
 
-Een cijfer voor een letter en een leesteken achteraan voelt slim, maar het is precies wat kraakprogramma's het eerst proberen: ze kennen die trucs beter dan jij. Wat een computer wél dwarszit is lengte zonder patroon. Vijf woorden die je blind uit een lijst trekt hebben dat, en je hoofd maakt er vanzelf een belachelijk plaatje bij. Dat is precies de bedoeling. Een zin uit een liedje of een spreekwoord telt niet: die staan in dezelfde lijsten.
-
 <Jargon items={[
   ['password manager', 'wachtwoordbeheerder: de kluis zelf, bijvoorbeeld Bitwarden of Proton Pass'],
   ['master password', 'de ene wachtzin die de kluis opent'],
@@ -222,8 +246,6 @@ Bij een simswap belt of mailt een oplichter je provider met genoeg gegevens over
 
 Bij het instellen scan je een QR-code. Daarmee krijgen de app en de site één gedeeld geheim. Daarna rekenen ze allebei, los van elkaar, elke dertig seconden dezelfde code uit op basis van dat geheim en de klok. Er reist dus niets meer over het netwerk, en wat niet reist, kan niet onderschept worden.
 
-Wat wél werkt is jou vragen de code zelf in te typen. Een moderne nagemaakte inlogpagina geeft alles wat jij invult op hetzelfde moment door aan de echte site en logt daar in. Die aanval heet adversary-in-the-middle, en hij is bestand tegen elke code die je met de hand overneemt.
-
 <Jargon items={[
   ['TOTP', 'time-based one-time password: de code die elke 30 seconden verspringt'],
   ['authenticator app', 'de app die de codes maakt: Ente Auth, 2FAS, Aegis, Proton Pass'],
@@ -237,11 +259,9 @@ Wat wél werkt is jou vragen de code zelf in te typen. Een moderne nagemaakte in
 
 <Trede nr={6}>
 
-<L08 />
-
 <Kort>je logt in met je vinger, je gezicht of de pincode van je telefoon. Een wachtwoord typ je niet meer. Dit heet een passkey, en hij werkt alleen op de echte site.</Kort>
 
-<Weegschaal houdt="Nagemaakte inlogpagina's. Op pr0ton.me werkt je passkey niet, dus er valt niets te stelen." breekt="Je Apple- of Google-account. Dat bewaart je passkeys en zet ze op al je toestellen. Wie dat account overneemt, krijgt ze allemaal in één keer." />
+<Weegschaal houdt="Nagemaakte inlogpagina's. Op een nepsite werkt je passkey niet, dus er valt niets te stelen." breekt="Je Apple- of Google-account. Dat bewaart je passkeys en zet ze op al je toestellen. Wie dat account overneemt, krijgt ze allemaal in één keer." />
 
 <ZelfDoen stappen={[{ lijst: 'niveau-2', id: 'accounts-tweede-slot' }]} />
 
@@ -334,21 +354,6 @@ De tweede sleutel dekt het omgekeerde af: dat de voordeur zó goed wordt dat je 
 
 </Trede>
 
-## Wat als ik mijn telefoon of sleutel kwijtraak?
-
-Dan kom je weer binnen met wat je vooraf hebt geregeld. Regel het dus nu, niet pas als het weg is.
-
-- **Herstelcodes op papier.** Een site geeft je die één keer. Met zo'n code kom je binnen zonder je telefoon of sleutel. Bewaar ze in je noodpakket, nooit binnen de dienst die ze moeten redden.
-- **Een tweede sleutel.** Met één sleutel is één sleutel kwijt ook één account kwijt. Meld daarom altijd twee sleutels aan. Eén aan je sleutelbos, één in de la.
-- **Je passkeys op je andere toestellen.** Je Apple- of Google-account zet je passkeys op al je toestellen. Ben je er één kwijt, dan staan ze op de andere nog.
-
-Heb je niets van dit geregeld? Dan moet je via de herstelprocedure van de dienst. Dat is bijna altijd de zwakste weg naar binnen. Aanvallers proberen hem dus ook.
-
-<ZelfDoen stappen={[
-  { lijst: 'niveau-2', id: 'noodcodes' },
-  { lijst: 'niveau-3', id: 'hardwaresleutel' },
-]} />
-
 ## Wat als de echte site zelf gehackt wordt?
 
 Dan helpt geen enkele trede. De inbreker staat al binnen en hoeft de voordeur niet meer. Maar het maakt wél uit wat hij daar aantreft.
@@ -379,23 +384,9 @@ En elke trede beschermt alleen de voordeur. Wie eenmaal binnen is omdat jij hem 
 
 </Meer>
 
-## Bij welk vakgebied hoort dit?
-
-Bij informatiebeveiliging, en daarbinnen bij identiteits- en toegangsbeheer.
-
-<Meer titel="Lees welk vakgebied dit is">
-
-Alles hierboven hoort bij informatiebeveiliging, in het dagelijks spraakgebruik cybersecurity. Daarbinnen is er een eigen hoek voor precies deze vraag: identiteits- en toegangsbeheer, afgekort IAM (identity and access management). Dat vak maakt één onderscheid dat de hele ladder verklaart: authenticatie is de vraag wie je bent, autorisatie is de vraag wat je mag. Hierboven ging het alleen over het eerste.
-
-De onderste treden leunen op het menselijke deel van het vak. Dat is social engineering: mensen overhalen in plaats van techniek kraken. En usable security: de studie van beveiliging die mensen ook echt volhouden. De bovenste treden leunen op cryptografie, en dan specifiek de asymmetrische variant: twee bij elkaar horende helften waarvan er één geheim blijft.
-
-Wie verder wil lezen: de Amerikaanse standaard NIST SP 800-63B is het document waar de wachtzin-regel vandaan komt. Lengte boven complexiteit, en stop met mensen elk kwartaal een nieuw wachtwoord laten verzinnen. ISO 27001 is de norm waarin organisaties hun beveiliging vastleggen. De standaarden achter de passkey (FIDO2 en WebAuthn) komen van de FIDO Alliance en het W3C. Het W3C is het consortium dat ook de regels van het web zelf beheert.
-
-</Meer>
-
 ## Wat moet ik nu doen?
 
-1. Kijk met de [drie vragen](#tredecheck-kop) op welke trede je e-mail staat. Je e-mail is je voordeur.
+1. Kijk in de [lijst van acht](#welke-manieren-van-inloggen-zijn-er) op welke trede je e-mail staat. Je e-mail is je voordeur.
 2. Sta je op trede 1 of 2? Neem een wachtwoordkluis en zet een tweede slot op je e-mail. Dat doe je in [Ik heb één avond](/een-avond).
 3. Sta je op trede 4? Wissel de sms-code om voor een app. Dat kost vijf minuten per account. Hoe dat gaat, staat in [Ik heb een weekend](/een-weekend).
 4. Wil je naar trede 7 of 8? Koop twee sleutels. Zet ze op hetzelfde moment allebei aan. Leg de herstelcodes op papier in je [noodpakket](/als-er-is-ingebroken#het-noodpakket). Hoe dat gaat, staat in [Ik wil verder](/ik-wil-verder).
