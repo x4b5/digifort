@@ -92,12 +92,28 @@ test('wie een code moet doorsturen, vindt op de pagina over oplichting een eigen
   await expect(page.locator('a[href="/inbrekers-van-nu#iemand-vraagt-me-een-code-door-te-sturen-wat-is-dit"]').first()).toBeAttached();
 });
 
-test('wie vraagt of een kwantumcomputer zijn wachtwoord kraakt, ziet het antwoord meteen onder een eigen kop', async ({ page }) => {
+test('wie vraagt of een kwantumcomputer zijn berichten of bank openbreekt, vindt het hele antwoord onder één kop', async ({ page }) => {
   await page.goto('/inbrekers-van-morgen');
-  await page.locator('[data-overzicht] a', { hasText: 'Kan een kwantumcomputer mijn wachtwoord kraken?' }).click();
-  const kop = page.getByRole('heading', { level: 2, name: 'Kan een kwantumcomputer mijn wachtwoord kraken?' });
+  const vraag = 'Kan een kwantumcomputer mijn berichten of bankzaken openbreken?';
+  await page.locator('[data-overzicht] a', { hasText: vraag }).click();
+  const kop = page.getByRole('heading', { level: 2, name: vraag });
   await expect(kop).toBeInViewport();
+  // het antwoord staat direct onder de kop, niet verstopt in een uitklapper
   const antwoord = await kop.evaluate((h) => h.nextElementSibling?.textContent ?? '');
-  expect(antwoord).toContain('Een lang en sterk wachtwoord blijft gewoon goed');
+  expect(antwoord).toContain('nu nog niet');
+  expect(antwoord).toContain('updates');
   expect(await kop.evaluate((h) => Boolean(h.closest('details')))).toBe(false);
+  // het wachtwoord krijgt een antwoord in dezelfde sectie
+  const sectie = await kop.evaluate((h) => {
+    let t = '';
+    for (let el = h.nextElementSibling; el && el.tagName !== 'H2' && el.tagName !== 'H3'; el = el.nextElementSibling) t += el.textContent;
+    return t;
+  });
+  expect(sectie).toMatch(/Je wachtwoord: blijft gewoon goed, als het lang en sterk is/);
+  // de verwachting staat er één keer, niet verspreid over de pagina
+  const tekst = await page.locator('main').textContent();
+  expect(tekst.match(/2030 en 2040/g)).toHaveLength(1);
+  // de vraag die een leek stelt staat als kop, geen vakjargon
+  await expect(page.getByRole('heading', { level: 3, name: 'Zijn mijn berichten nu al in gevaar?' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /nu stelen, later openbreken/ })).toHaveCount(0);
 });
