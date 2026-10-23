@@ -5,6 +5,8 @@
 const BLOKKEN = [
   'aside.kort', 'aside.noot', 'aside.verhaal',
   'section.vraagje', 'figure', '.weeg', '.cijfers > li', '.tabel-scroll',
+  // de voorpagina: de stappen van de route en de vakjes van het register
+  '.route-stap', '.naslag > li', '.cijfer-beeld', '.cijfer-tekst',
 ].join(', ');
 const TUSSENPOOS = 80; // ms tussen blokken die tegelijk in beeld komen
 

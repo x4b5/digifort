@@ -3,7 +3,8 @@
 import { Image } from 'astro:assets';
 import { FOTOS } from '../data/fotos.js';
 
-const { id, onderschrift, breed = false } = Astro.props;
+// sizes en laden zijn er voor een grote foto bovenaan een pagina; de standaard past bij een foto in de tekst
+const { id, onderschrift, breed = false, sizes = '(max-width: 45rem) 100vw, 40rem', laden = 'lazy', klasse = '' } = Astro.props;
 const foto = FOTOS[id];
 if (!foto) throw new Error(`Onbekende foto: ${id}`);
 
@@ -11,8 +12,8 @@ const bestanden = import.meta.glob<{ default: ImageMetadata }>('../assets/foto/*
 const bron = bestanden[`../assets/foto/${foto.bestand}`];
 if (!bron) throw new Error(`Foto ontbreekt in src/assets/foto: ${foto.bestand}`);
 ---
-<figure class:list={['tekening', 'foto', { breed }]}>
-  <Image src={bron.default} alt={foto.alt} widths={[480, 720, 960]} sizes="(max-width: 45rem) 100vw, 40rem" loading="lazy" decoding="async" />
+<figure class:list={['tekening', 'foto', { breed }, klasse]}>
+  <Image src={bron.default} alt={foto.alt} widths={[480, 720, 960, 1440].filter((w) => w <= bron.default.width)} sizes={sizes} loading={laden} fetchpriority={laden === 'eager' ? 'high' : undefined} decoding="async" />
   <figcaption>
     {onderschrift && <span>{onderschrift} </span>}
     <span class="herkomst">

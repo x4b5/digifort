@@ -3,59 +3,72 @@ import { websiteGegevens } from '../lib/gegevens.js';
 import Pagina from '../layouts/Pagina.astro';
 import Verder from '../components/Verder.astro';
 import Poppetjes from '../components/Poppetjes.astro';
+import Foto from '../components/Foto.astro';
 import { perDeel } from '../lib/site.js';
 
 const [DOEN, OPZOEKEN] = perDeel();
 ---
 <Pagina breed gegevens={websiteGegevens()} beschrijving="Elke app is een deur naar je huis. Deze site laat zien waar je digitale huis openstaat en hoe je het stap voor stap dichtmaakt. Gratis, in gewone taal.">
+  <!-- De kop draagt het eerste scherm: groot, over de volle breedte. Daaronder wat de site
+       doet en de ene knop, naast een galerij vol voordeuren: elke app is er een. -->
   <section class="hero">
+    <h1>Van open huis naar fort.</h1>
     <div class="hero-tekst">
-      <p class="eyebrow">Veilig online, in gewone taal</p>
-      <h1>Van open huis naar fort.</h1>
-      <p class="intro">Je gaat niet naar het internet. Het internet komt bij jou binnen. Elke app, elk account en elk apparaat is een deur, en bij de meeste mensen <a class="bronlink" href="/huischeck#hoe-weten-we-dat">staan die deuren open</a>. Deze site helpt je ze dicht te doen, stap voor stap, tot je huis een fort is. Zonder bangmakerij en zonder reclame.</p>
+      <p class="intro">Veilig online, in gewone taal. Je gaat niet naar het internet: het internet komt bij jou binnen. Elke app, elk account en elk apparaat is een deur, en bij de meeste mensen <a class="bronlink" href="/huischeck#hoe-weten-we-dat">staan die deuren open</a>. Deze site helpt je ze dicht te doen, stap voor stap. Zonder bangmakerij en zonder reclame.</p>
       <div class="begin">
         <a class="knop groot" href="/huischeck#doe-de-huischeck">Begin hier: doe de huischeck →</a>
         <p class="begin-uitleg">Tien vragen, twee minuten. Je ziet meteen welke deuren bij jou openstaan.</p>
       </div>
       <Verder />
     </div>
-    <aside class="hero-cijfer" aria-label="Eén cijfer">
-      <Poppetjes rood={1} van={10} />
-      <strong class="getal">1 op 10</strong>
-      <p>Nederlanders van 15 jaar en ouder werd in 2025 online opgelicht. Gehackt worden gebeurde minder vaak: 6 op 100. De meeste inbrekers breken niets open. Ze bellen aan.</p>
-      <a class="bron" href="https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit">CBS, Veiligheidsmonitor 2025</a>
-    </aside>
+    <Foto id="galerij-voordeuren" klasse="hero-foto" laden="eager" sizes="(max-width: 60rem) 100vw, 32rem" onderschrift="Een galerij vol voordeuren. Je digitale huis heeft er net zo veel." />
   </section>
+
+  <!-- Eén vlak in de hele pagina: het cijfer, groot, met de tien poppetjes ernaast -->
+  <aside class="hero-cijfer" aria-label="Eén cijfer">
+    <div class="cijfer-beeld">
+      <strong class="getal">1 op 10</strong>
+      <Poppetjes rood={1} van={10} />
+    </div>
+    <div class="cijfer-tekst">
+      <p>Nederlanders van 15 jaar en ouder werd in 2025 online opgelicht. Gehackt worden gebeurde minder vaak: 6 op 100. De meeste inbrekers breken niets open. Ze bellen aan.</p>
+      <a class="bron" href="https://www.cbs.nl/nl-nl/longread/rapportages/2026/veiligheidsmonitor-2025/6-online-criminaliteit">Bron: CBS, Veiligheidsmonitor 2025</a>
+    </div>
+  </aside>
 
   <!-- De doe-route, zoals GOV.UK een stap-voor-stapreis toont: genummerd, op volgorde,
        met een lijn die de stappen verbindt. Geen knoppen: de enige knop blijft de huischeck. -->
-  <section class="deel" id="doen" aria-labelledby="doen-kop">
-    <p class="eyebrow">Deel {DOEN.nr} · {DOEN.kop}</p>
-    <h2 id="doen-kop">{DOEN.titel}</h2>
-    <p class="deel-uitleg">{DOEN.kort}</p>
-    <ol class="route">
-      {DOEN.groepen.map((h) => (
-        <li class="route-stap">
-          <span class="route-nr"><span class="schermlezer">Hoofdstuk </span>{h.nr}</span>
-          <h3 class="route-titel"><a href={`/${h.slug}`}>{h.titel}</a></h3>
-          <p class="route-kort">{h.kort}</p>
-          {h.verdiepingen.length > 0 && (
-            <>
-              <p class="route-kort">Of doe het stap voor stap, één scherm per keer. Kies wat bij je past:</p>
-              <ul class="route-keuze">
-                {h.verdiepingen.map((v) => <li><a href={`/${v.slug}`}>{v.titel}</a></li>)}
-              </ul>
-            </>
-          )}
-        </li>
-      ))}
-    </ol>
+  <section class="deel deel-doen" id="doen" aria-labelledby="doen-kop">
+    <div class="deel-kolom">
+      <h2 id="doen-kop">{DOEN.titel}</h2>
+      <p class="deel-uitleg">{DOEN.kort}</p>
+      <ol class="route">
+        {DOEN.groepen.map((h) => (
+          <li class="route-stap">
+            <span class="route-nr"><span class="schermlezer">Hoofdstuk </span>{h.nr}</span>
+            <h3 class="route-titel"><a href={`/${h.slug}`}>{h.titel}</a></h3>
+            <p class="route-kort">{h.kort}</p>
+            {h.verdiepingen.length > 0 && (
+              <>
+                <p class="route-kort">Of doe het stap voor stap, één scherm per keer. Kies wat bij je past:</p>
+                <ul class="route-keuze">
+                  {h.verdiepingen.map((v) => <li><a href={`/${v.slug}`}>{v.titel}</a></li>)}
+                </ul>
+              </>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+    <Foto id="telefoon-in-hand" klasse="deel-foto" sizes="(max-width: 60rem) 100vw, 26rem" onderschrift="Pak je telefoon erbij: elke stap doe je meteen." />
   </section>
 
-  <section class="deel" id="opzoeken" aria-labelledby="opzoeken-kop">
-    <p class="eyebrow zacht">Deel {OPZOEKEN.nr} · {OPZOEKEN.kop}</p>
-    <h2 id="opzoeken-kop">{OPZOEKEN.titel}</h2>
-    <p class="deel-uitleg">{OPZOEKEN.kort}</p>
+  <section class="deel deel-opzoeken" id="opzoeken" aria-labelledby="opzoeken-kop">
+    <div class="deel-kolom">
+      <h2 id="opzoeken-kop">{OPZOEKEN.titel}</h2>
+      <p class="deel-uitleg">{OPZOEKEN.kort}</p>
+    </div>
+    <Foto id="brievenbussen" klasse="deel-foto" sizes="(max-width: 60rem) 100vw, 26rem" onderschrift="Honderd vakjes, één staat open. Zoek op wat je nodig hebt." />
     <ul class="naslag">
       {OPZOEKEN.groepen.map((h) => (
         <li>
@@ -65,35 +78,81 @@ const [DOEN, OPZOEKEN] = perDeel();
       ))}
     </ul>
   </section>
+
+  <!-- De afsluiter: terug naar het begin, met de ene stap die ertoe doet -->
+  <section class="slot" aria-labelledby="slot-kop">
+    <Foto id="sleutel-in-voordeur" klasse="slot-foto" sizes="(max-width: 60rem) 100vw, 32rem" />
+    <div class="slot-tekst">
+      <h2 id="slot-kop">De sleutel zit al in de deur.</h2>
+      <p>Je hoeft niets te kopen en niets te weten. Begin met tien vragen, en je ziet welke deur als eerste dicht moet.</p>
+      <a class="slot-link" href="/huischeck#doe-de-huischeck">Doe de huischeck →</a>
+    </div>
+  </section>
 </Pagina>
 
 <style>
-  .hero { padding-bottom: 1rem; display: grid; gap: 1.5rem 2.5rem; align-items: end; }
-  @media (min-width: 60rem) { .hero { grid-template-columns: minmax(0, 1fr) 17rem; } }
-  .hero-cijfer { border-left: 6px solid var(--rood); padding: 0.25rem 0 0.25rem 1.1rem; display: flex; flex-direction: column; gap: 0.4rem; }
-  .hero-cijfer .getal { font-family: var(--kop); font-size: clamp(2.6rem, 6vw, 3.4rem); line-height: 1; color: var(--rood); letter-spacing: -0.02em; }
-  .hero-cijfer p { margin: 0; font-size: 1rem; line-height: 1.45; }
-  .hero-cijfer .bron { align-self: flex-start; padding: 0.3rem 0; font-family: var(--kop); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--inkt-zacht); text-decoration-thickness: 1px; }
+  /* Vijf maten op deze pagina: de kop (h1), de deelkop (h2), de inleiding en de titels
+     (1,35rem), de lopende tekst (19px uit global.css) en de kleine regel (1rem). */
+  .hero { display: grid; gap: 1.5rem 3rem; padding: clamp(0.5rem, 3vw, 2.5rem) 0 4rem; }
+  .hero h1 {
+    font-size: clamp(2.6rem, 10.5vw, 6.75rem); line-height: 0.95; letter-spacing: -0.035em;
+    margin: 0 0 0.5rem; max-width: 12ch;
+  }
   .hero-tekst > * { max-width: var(--maat); }
-  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); }
+  .intro { color: var(--inkt); margin-bottom: 0; }
+  @media (min-width: 60rem) {
+    .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+    .hero h1 { grid-column: 1 / -1; max-width: none; }
+  }
+  /* de foto bovenaan: groot, en hij zakt bij het laden heel even in zijn kader */
+  .hero :global(.hero-foto) { margin: 0; overflow: hidden; }
+  .hero :global(.hero-foto img) { aspect-ratio: 4 / 3; object-fit: cover; animation: inzoomen 1.4s cubic-bezier(.2, .7, .2, 1) both; }
+  @keyframes inzoomen { from { transform: scale(1.06); } to { transform: none; } }
+
   /* een trechter: de voorpagina heeft één knop, naar de huischeck. Daaronder staat de route,
      zodat je ziet wat er na de huischeck komt, maar met links en niet met nog meer knoppen. */
-  .begin { margin-top: 1.5rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-  .knop.groot { font-size: 1.2rem; padding: 0.8rem 1.4rem; }
-  .begin-uitleg { margin: 0; color: var(--inkt-zacht); }
+  .begin { margin-top: 1.75rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+  .knop.groot { font-size: 1.35rem; padding: 0.9rem 1.5rem; transition: transform 0.15s ease; }
+  .knop.groot:active { transform: translateY(2px); }
+  /* op een telefoon past de knop zo op één regel, pijl en al */
+  @media (max-width: 40rem) { .knop.groot { font-size: 1.15rem; padding: 0.85rem 1.1rem; } }
+  .begin-uitleg { margin: 0; font-size: 1rem; color: var(--inkt-zacht); }
   /* de bron bij de bewering: aanklikbaar, maar geen tweede rode knop naast "Begin hier" */
   .intro .bronlink { color: inherit; }
-  /* op een telefoon moeten de knoppen in het eerste scherm passen */
-  @media (max-width: 40rem) { .hero .intro { font-size: 1.12rem; } }
-  /* ---- de twee delen ---- */
-  /* de streep staat boven het hele deel, met het kopje eronder */
-  .deel { margin-top: 3rem; padding-top: 1.25rem; border-top: var(--lijndikte) solid var(--lijn-sterk); }
-  .deel > * { max-width: var(--maat); }
-  .deel h2 { margin-top: 0; padding-top: 0; border-top: 0; }
-  .deel-uitleg { color: var(--inkt-zacht); }
+
+  /* ---- het cijfer: het ene vlak van de pagina, in het rood van de huisstijl ---- */
+  .hero-cijfer {
+    display: grid; gap: 1.25rem 3rem; align-items: center;
+    padding: clamp(1.75rem, 5vw, 3.5rem); background: var(--rood); color: var(--op-kleur);
+    border-radius: var(--radius);
+  }
+  @media (min-width: 48rem) { .hero-cijfer { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  .cijfer-beeld { display: flex; flex-direction: column; gap: 0.75rem; }
+  .getal { font-family: var(--kop); font-size: clamp(3.5rem, 9vw, 5.5rem); line-height: 0.9; letter-spacing: -0.04em; }
+  /* op het rode vlak: de ene getroffene in papierkleur, de andere negen in inkt */
+  .hero-cijfer :global(.pop) { width: clamp(1.1rem, 2.6vw, 1.9rem); height: clamp(2.2rem, 5.2vw, 3.8rem); }
+  .hero-cijfer :global(.pop-rood) { fill: var(--op-kleur); }
+  .hero-cijfer :global(.pop-grijs) { fill: var(--inkt); opacity: 0.55; }
+  .cijfer-tekst p { margin: 0 0 0.75rem; font-size: 1.35rem; line-height: 1.4; }
+  .bron { font-size: 1rem; color: inherit; }
+  .bron:hover { color: inherit; }
+
+  /* ---- de twee delen: tekst links, de foto rechts ---- */
+  .deel { margin-top: clamp(4rem, 10vw, 8rem); display: grid; gap: 2rem 4rem; }
+  @media (min-width: 60rem) {
+    .deel { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: start; }
+    .deel-doen :global(.deel-foto) { position: sticky; top: 6rem; }
+    .naslag { grid-column: 1 / -1; }
+  }
+  .deel-kolom > * { max-width: var(--maat); }
+  .deel h2 { margin: 0 0 0.75rem; padding-top: 0; border-top: 0; font-size: clamp(2.4rem, 7vw, 4.5rem); letter-spacing: -0.03em; }
+  .deel-uitleg { font-size: 1.35rem; line-height: 1.45; }
+  .deel :global(.deel-foto) { margin: 0; }
+  .deel :global(.deel-foto img) { aspect-ratio: 4 / 3; object-fit: cover; }
+
   /* de route: een rondje met het nummer, een lijn naar het volgende rondje */
-  .route { list-style: none; padding: 0; margin: 1.5rem 0 0; counter-reset: none; }
-  .route-stap { position: relative; padding: 0 0 1.75rem 3.75rem; margin: 0; }
+  .route { list-style: none; padding: 0; margin: 2rem 0 0; counter-reset: none; }
+  .route-stap { position: relative; padding: 0 0 2rem 3.75rem; margin: 0; }
   .route-stap::before {
     content: ""; position: absolute; left: calc(1.3rem - 1px); top: 2.6rem; bottom: 0;
     border-left: var(--lijndikte-dun) solid var(--lijn-sterk);
@@ -105,21 +164,34 @@ const [DOEN, OPZOEKEN] = perDeel();
     display: inline-flex; align-items: center; justify-content: center;
     width: 2.6rem; height: 2.6rem; border-radius: 50%;
     border: var(--lijndikte) solid var(--lijn-sterk); background: var(--papier);
-    font-family: var(--kop); font-weight: 700; font-size: 1.15rem;
+    font-family: var(--kop); font-weight: 700; font-size: 1rem;
   }
   .route-stap:first-child .route-nr { background: var(--rood); border-color: var(--rood); color: var(--op-kleur); }
-  .route-titel { margin: 0.35rem 0 0.35rem; font-size: clamp(1.3rem, 3.2vw, 1.5rem); }
+  .route-titel { margin: 0.3rem 0 0.35rem; font-size: 1.35rem; }
   .route-titel a { color: var(--inkt); }
   .route-titel a:hover { color: var(--rood); }
   .route-kort { margin: 0 0 0.5rem; }
   .route-keuze { margin: 0.25rem 0 0; }
   .route-keuze li { margin-bottom: 0.25rem; }
-  /* naslag: een rustig register, twee kolommen op een breed scherm */
-  .deel .naslag { max-width: none; list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 1rem 2.5rem; }
-  @media (min-width: 48rem) { .deel .naslag { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .naslag li { margin: 0; padding-left: 0.9rem; border-left: var(--lijndikte-dun) solid var(--lijn); }
-  .naslag a { font-family: var(--kop); font-weight: 700; font-size: 1.15rem; color: var(--inkt); }
+
+  /* naslag: een register in drie kolommen op een breed scherm, zonder kaders */
+  .naslag { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 1.75rem 2.5rem; }
+  @media (min-width: 40rem) { .naslag { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 60rem) { .naslag { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .naslag li { margin: 0; }
+  .naslag a { font-family: var(--kop); font-weight: 700; font-size: 1.35rem; line-height: 1.2; color: var(--inkt); }
   .naslag a:hover { color: var(--rood); }
-  .naslag p { margin: 0.15rem 0 0; color: var(--inkt-zacht); font-size: var(--tekst-m); }
+  .naslag p { margin: 0.35rem 0 0; font-size: 1rem; }
+  /* ---- de afsluiter ---- */
+  .slot { margin-top: clamp(6rem, 10vw, 8rem); display: grid; gap: 2rem 4rem; align-items: center; }
+  @media (min-width: 60rem) { .slot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+  /* smal: eerst de zin, dan de foto, zodat het bijschrift niet als kopje boven de kop hangt */
+  @media (max-width: 59.99rem) { .slot-tekst { order: -1; } }
+  .slot :global(.slot-foto) { margin: 0; }
+  .slot :global(.slot-foto img) { aspect-ratio: 3 / 2; object-fit: cover; }
+  .slot h2 { margin: 0 0 1rem; padding-top: 0; border-top: 0; font-size: clamp(2.2rem, 5vw, 3.5rem); letter-spacing: -0.03em; }
+  .slot p { font-size: 1.35rem; line-height: 1.45; }
+  .slot-link { font-family: var(--kop); font-weight: 700; font-size: 1.35rem; }
+
   @media (pointer: coarse) { .route-keuze a, .naslag a { display: inline-block; min-block-size: 24px; } }
 </style>

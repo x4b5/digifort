@@ -97,19 +97,20 @@ code { font-family: var(--mono); font-size: 0.9em; background: var(--papier-2); 
 .wrap { max-width: var(--breed); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2rem); }
 .tekst { max-width: var(--maat); }
 
+/* een kopje boven een blok: gewoon een zin, vet en rood. Geen kapitaaltjes met spatiëring:
+   die lezen slecht en zeggen niets wat de kop zelf niet zegt */
 .eyebrow {
   font-family: var(--kop);
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--rood);
   margin: 0 0 0.5rem;
 }
 /* zelfde kopje, maar terughoudend: boven een lijstje of in een paneel */
 .eyebrow.zacht { color: var(--inkt-zacht); }
-.eyebrow.klein { font-size: var(--tekst-s); letter-spacing: 0.08em; margin-bottom: 0.35rem; }
+.eyebrow.klein { font-size: var(--tekst-s); margin-bottom: 0.35rem; }
 
-.intro { font-size: 1.35rem; line-height: 1.45; color: var(--inkt-zacht); }
+.intro { font-size: 1.35rem; line-height: 1.45; color: var(--inkt); }
 
 /* ---- bouwstenen ---- */
 
